@@ -1,11 +1,19 @@
 /*
- * TRSetImpl.java
+ * ReSpecT - Copyright (C) aliCE team at deis.unibo.it
  *
- * Copyright 2000-2001-2002  aliCE team at deis.unibo.it
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
  *
- * This software is the proprietary information of deis.unibo.it
- * Use is subject to license terms.
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
  *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.respect;
 import java.util.*;
@@ -20,18 +28,16 @@ import alice.tuplecentre.TriggeredReaction;
  */
 public class TRSet {
 
-    private ArrayList trigs;
+    private LinkedList trigs;
     // to manage transactions
-    private ArrayList tAdded;
-    private ArrayList tRemoved;
+    private LinkedList tAdded;
+    private LinkedList tRemoved;
     private boolean transaction;
 
-    private Random rand = new Random();
-
     public TRSet(){
-        trigs=new ArrayList();
-        tRemoved=new ArrayList();
-        tAdded=new ArrayList();
+        trigs=new LinkedList();
+        tRemoved=new LinkedList();
+        tAdded=new LinkedList();
         transaction=false;
     }
 
@@ -59,7 +65,7 @@ public class TRSet {
     // not-deterministic get + remove
     public TriggeredReaction get(){
         //return (TriggeredReaction)trigs.remove(trigs.size()-1);
-        return (TriggeredReaction)trigs.remove(rand.nextInt(trigs.size()));
+        return (TriggeredReaction)trigs.removeFirst();
     }
 
     public Iterator getIterator() {
@@ -79,15 +85,14 @@ public class TRSet {
     public void endTransaction(boolean commit){
         if (!commit){
             //System.out.println("[ tspace ] roll back!");
-            Object[] list=tAdded.toArray();
-            for (int i=0; i<list.length; i++){
-                //System.out.println("[tspace] removing "+(Tuple)list[i]);
-                trigs.remove(list[i]);
+            Iterator it = tAdded.listIterator();
+            while (it.hasNext()) {
+            	   trigs.remove(it.next());
             }
-            list=tRemoved.toArray();
-            for (int i=0; i<list.length; i++){
+            it=tRemoved.listIterator();
+			while (it.hasNext()) {
                 //System.out.println("[tspace] adding "+(Tuple)list[i]);
-                trigs.add(list[i]);
+                trigs.add(it.next());
             }
         }
         transaction=false;

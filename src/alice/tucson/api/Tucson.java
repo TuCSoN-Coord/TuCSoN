@@ -71,6 +71,6 @@ public class Tucson {
      * @return the version number
      */
     public static String getVersion(){
-        return "1.3.0";
+        return "1.3.1";
     }
 }

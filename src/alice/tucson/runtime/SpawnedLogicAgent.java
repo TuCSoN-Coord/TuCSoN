@@ -60,8 +60,8 @@ public class SpawnedLogicAgent extends alice.tucson.api.Agent {
     final protected void body(){
         try {
                 core=new Prolog();
-                alice.tuprologx.lib.TucsonLibrary lib=
-                        (alice.tuprologx.lib.TucsonLibrary)core.loadLibrary("alice.tuprologx.lib.TucsonLibrary");
+                alice.tucson.api.Tucson2PLibrary lib=
+                        (alice.tucson.api.Tucson2PLibrary)core.loadLibrary("alice.tucson.api.Tucson2PLibrary");
                 lib.setContext(getContext());
                 OutputListener l=new OutputListener() {
                     public void onOutput(OutputEvent ev) {

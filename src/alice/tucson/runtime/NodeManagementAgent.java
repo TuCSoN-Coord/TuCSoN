@@ -22,7 +22,7 @@ public class NodeManagementAgent extends Thread {
 
     private boolean isLogging = true;
         
-    Node node;
+    private Node node;
     
     /**
      * for local access (valid only if
@@ -68,6 +68,12 @@ public class NodeManagementAgent extends Thread {
             } else {
                 log("cannot destroy "+tcName);
             }
+        } else if (name.equals("enable_persistency")){
+			node.enablePersistence(cmd.getArg(0));
+			log("enabled persistency for "+cmd.getArg(0)+" tuple centres");
+		} else if (name.equals("disable_persistency")){
+			node.disablePersistence(cmd.getArg(0));
+			log("disabled persistency for "+cmd.getArg(0)+" tuple centres");
         }
     }
     

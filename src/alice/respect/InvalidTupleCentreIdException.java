@@ -17,12 +17,10 @@
  */
 package alice.respect;
 
-import alice.tucson.api.TucsonException;
-
 /**
  * This exception is thrown when an invalid tuple centre identifier
  * is used
  *
  * Tuple centre identifier must be ground logic term
  */
-public class InvalidTupleCentreIdException extends TucsonException {}
+public class InvalidTupleCentreIdException extends Exception {}

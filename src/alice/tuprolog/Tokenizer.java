@@ -286,7 +286,12 @@ class Tokenizer implements Serializable {
             ch = readChar();
 
             if (isDgt(ch)){
-                if (lastTokenType==FLOAT || lastTokenType==INTEGER || lastTokenType==VARIABLE || isSym(ch)){
+                //
+                //if (lastTokenType==FLOAT || lastTokenType==INTEGER || lastTokenType==VARIABLE || isSym(ch)){
+                //
+                if (lastTokenType==FLOAT || lastTokenType==INTEGER || lastTokenType==VARIABLE || isSym(ch) 
+                    || lastTokenType==RPAR || lastTokenType==RBRA || lastTokenType==RBRA2 ){
+
                     unreadChar(ch);
                     ch = '-';
                 } else {
@@ -296,7 +301,27 @@ class Tokenizer implements Serializable {
                 unreadChar(ch);
                 ch = '-';
             }
-        }
+        } 
+        //-----
+	    else if(ch == '+'){
+			ch = readChar();
+			if (isDgt(ch)){
+				if (lastTokenType==FLOAT || lastTokenType==INTEGER || lastTokenType==VARIABLE || isSym(ch)
+					|| lastTokenType==RPAR || lastTokenType==RBRA || lastTokenType==RBRA2 ){
+
+					unreadChar(ch);
+					ch = '+';
+				} else {
+					//seq = "+";
+				}
+			} else {
+				unreadChar(ch);
+				ch = '+';
+			}
+		} 
+        //------
+        
+        
         if(isNum(ch)) {
             if((ch = readChar()) != '.') {
                 unreadChar(ch);

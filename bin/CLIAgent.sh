@@ -1,1 +1,0 @@
-#!/bin/sh java -cp ./../lib/tucson.jar alice.tucson.ide.CLIAgent

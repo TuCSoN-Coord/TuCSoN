@@ -1,11 +1,19 @@
 /*
- * TupleSetImpl.java
+ * ReSpecT - Copyright (C) aliCE team at deis.unibo.it
  *
- * Copyright 2000-2001-2002  aliCE team at deis.unibo.it
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
  *
- * This software is the proprietary information of deis.unibo.it
- * Use is subject to license terms.
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
  *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.respect;
 
@@ -21,27 +29,22 @@ import alice.logictuple.LogicTuple;
  */
 public class TupleSet  {
 
-    private ArrayList tuples=new ArrayList();
+    private LinkedList tuples;
     // to manage transactions
-    private ArrayList tAdded=new ArrayList();
-    private ArrayList tRemoved=new ArrayList();
-    private boolean transaction=false;
+    private LinkedList tAdded;
+    private LinkedList tRemoved;
+    private boolean transaction;
 
-    private Random rand=new Random();
 
     public TupleSet(){
+		tuples=new LinkedList();
+		tAdded=new LinkedList();
+		tRemoved=new LinkedList();
+		transaction=false;
     }
 
     public void add(LogicTuple t){
-
-        int size=tuples.size();
-        if (size>0){
-            tuples.add(rand.nextInt(size),t);
-        } else {
-            tuples.add(t);
-        }
-
-        //tuples.add(t);
+        tuples.add(t);
         if (transaction){
             tAdded.add(t);
         }
@@ -84,15 +87,15 @@ public class TupleSet  {
     public void endTransaction(boolean commit){
         if (!commit){
             //System.out.println("[ tspace ] roll back!");
-            Object[] list=tAdded.toArray();
-            for (int i=0; i<list.length; i++){
-                //System.out.println("[tspace] removing "+(LogicTuple)list[i]);
-                tuples.remove(list[i]);
+            Iterator it = tAdded.listIterator();
+            while (it.hasNext()) {
+            	//System.out.println("[tspace] removing "+(LogicTuple)list[i]);
+                tuples.remove(it.next());
             }
-            list=tRemoved.toArray();
-            for (int i=0; i<list.length; i++){
+            it=tRemoved.listIterator();
+			while (it.hasNext()) {
                 //System.out.println("[tspace] adding "+(LogicTuple)list[i]);
-                tuples.add(list[i]);
+                tuples.add(it.next());
             }
         }
         transaction=false;

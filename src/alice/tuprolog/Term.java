@@ -126,7 +126,6 @@ public abstract class Term implements java.io.Serializable {
      * during the process, the rename-stage count is used
      *
      * @param count new starting time count for the renaming
-     * @param backup true if the valiable link must be saved
      * @return the new time count, after the renaming
      */
     abstract int renameVariables(int count);
@@ -140,6 +139,19 @@ public abstract class Term implements java.io.Serializable {
      * @return the new time count, after resolving process
      */
     abstract int resolveVariables(int count);
+
+
+	/**
+	 * Resolves variables inside the term
+	 * 
+	 * If the variables has been already resolved, no renaming is done.
+	 *
+	 * @param count new starting time count for resolving process
+	 * @return the new time count, after resolving process
+	 */
+	public void resolveVariables(){
+		resolveVariables(0);
+	}
 
 
     /**

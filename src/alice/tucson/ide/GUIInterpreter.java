@@ -109,7 +109,7 @@ public class GUIInterpreter extends javax.swing.JFrame {
         getContentPane().add(jPanel2, gridBagConstraints1);
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alice/tucson/images/logo.GIF")));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alice/tucson/images/logo.gif")));
         jLabel3.setPreferredSize(new java.awt.Dimension(115, 100));
         gridBagConstraints1 = new java.awt.GridBagConstraints();
         gridBagConstraints1.gridx = 0;

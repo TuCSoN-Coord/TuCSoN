@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.tuprolog;
-import java.util.*;
 import java.io.*;
 
 /**
@@ -30,9 +29,7 @@ import java.io.*;
  */
 public class SolveInfo implements Serializable  {
 
-    /** core flag after demonstration */
-    private int flag;
-    private int haltCode=0;
+	private boolean isSuccess;
 
     /** goal variable state after demonstration */
     private Var[] bindings;
@@ -40,36 +37,43 @@ public class SolveInfo implements Serializable  {
     /** goal subject of demonstration */
     private Term goal;
 
-    SolveInfo(int fl,Var[] vars,Term g,int haltCode_){
-        flag=fl;
-        haltCode=haltCode_;
+	
+    SolveInfo(Var[] vars,Term g){
+		isSuccess=true;
         bindings=vars;
         goal=g;
     }
 
+	SolveInfo(){
+		isSuccess=false;
+	}
     /**
      * Checks if the solve request was successful
      *
      * @return true if the solve was successful
      */
     public boolean isSuccess(){
-        return flag==Prolog.TRUE || flag==Prolog.TRUE_CP;
+        return isSuccess;
     }
 
+    
     /**
-     * Gets information about variables and bound values
-     * related to the solution
-     *
-     *  @exception NoSolutionException if the solve request has not
-     *             solution
+     * gets the value of a variable
+     * present in the substitution
      */
-    public Substitution getSubstitution() throws NoSolutionException {
-        if (flag==Prolog.TRUE_CP || flag==Prolog.TRUE)
-            return new Substitution(bindings);
-        else
+    public Term getTerm(String varName) throws NoSolutionException, UnknownVarException  {
+        if (isSuccess){        
+            for (int i=0; i<bindings.length; i++){
+                if (bindings[i]!=null && bindings[i].getName().equals(varName)){
+                    return bindings[i].getTerm();
+                }
+            }
+            throw new UnknownVarException();
+        }else {
             throw new NoSolutionException();
+        }
     }
-
+    
     /**
      *  Gets the solution of the request
      *
@@ -77,30 +81,75 @@ public class SolveInfo implements Serializable  {
      *             solution
      */
     public Term  getSolution() throws NoSolutionException {
-        if (flag==Prolog.TRUE_CP || flag==Prolog.TRUE){
+        if (isSuccess){
             return goal;
         } else {
             throw new NoSolutionException();
         }
     }
 
-    /**
-     * Checks if the solve request was stopped by means of an halt predicate
-     */
-    public boolean isHalt(){
-        return flag==Prolog.HALT;
-    }
 
-    /**
-     * Gets the halt code of the solve request stopped with an halt predicate
-     *
-     * @exception NoHaltException if the request was not stopped by means of
-     *            an halt predicate
-     */
-    public int getHaltCode() throws NoHaltException {
-        if (flag!=Prolog.HALT){
-            throw new NoHaltException();
+	/**
+	 * Gets the list of the variables in the solution.
+	 * @return the arrray of variables.
+	 * 
+	 * @throws NoSolutionException if current solve information
+	 * does not concern a successful 
+	 */
+    public Var[]  toVarArray() throws NoSolutionException {
+        if (isSuccess){
+            return bindings;
+        }else {
+            throw new NoSolutionException();
         }
-        return haltCode;
     }
+    
+    
+    /**
+     * 
+     * Gets the term value bound to a variable
+     * 
+     * @param name the variable name
+     * @return the term value bound to the variable or null if the variable is not found
+     * @throws NoSolutionException if the solve request has no solution
+     */
+	public Term getVarValue(String name) throws NoSolutionException {
+		if (isSuccess){
+			String st="";
+			for (int i=0; i<bindings.length; i++){
+				if (bindings[i]!=null && !bindings[i].getName().equals(name)){
+					return bindings[i].getTerm();
+				}
+			}
+			return null;
+		} else {
+			throw new NoSolutionException();
+		}
+   }
+   
+    
+	/**
+	 * Returns the string representation of the result of the demonstration.
+	 * 
+	 * For successful demonstration, the representation concerns 
+	 * variables with bindings.  For failed demo, the method returns false string.
+	 * 
+	 */    
+    public String toString(){
+        if (isSuccess){
+            String st="";
+            for (int i=0; i<bindings.length; i++){
+                if (bindings[i]!=null && !bindings[i].isAnonymous() &&
+                        bindings[i].isBound() &&
+                        (!bindings[i].getTerm().isVar() ||
+                          (!((Var)(bindings[i].getTerm())).getName().startsWith("_")))){
+                    st=st+bindings[i]+"  ";
+                }
+            }
+            return st;
+        }else {
+            return "false";
+        }
+    }
+    
 }

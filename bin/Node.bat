@@ -1,1 +1,0 @@
-java -cp ../lib/tucson.jar alice.tucson.runtime.Node

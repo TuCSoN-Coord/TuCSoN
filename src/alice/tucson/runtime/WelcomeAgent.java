@@ -51,7 +51,7 @@ public class WelcomeAgent extends Thread  {
     public void run() {
         try {
             TucsonProtocol mainDialog = new TucsonProtocolTCP(new ServerSocket(port));
-            log("welcome agent for TCP/IP booted.");
+            log("welcome agent for TCP/IP booted. Listening on port "+port);
 
             while (true){
                 TucsonProtocol dialog=null;

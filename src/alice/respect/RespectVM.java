@@ -23,8 +23,8 @@ import alice.respect.AgentId;
 import alice.respect.TupleCentreId;
 
 import alice.tuprolog.*;
-
 import alice.logictuple.*;
+import java.io.*;
 
 /**
  * This class defines the behaviour of a ReSpecT Tuple Centre VM
@@ -38,7 +38,8 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
 
 
     /** multiset of tuples T */
-    protected TupleSet        tSet;
+	//protected TupleSet        tSet;
+	protected PersistentTupleSet        tSet;
 
     /** multiset of pending query set  */
     protected EventSet        wSet;
@@ -62,10 +63,17 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
     // current event serverd
     Event currentEvent;
 
+	// persistency service
+	private FileWriter persistentStore;
+	private String persistentStoreName;
+	private BufferedWriter persistentStoreBuffer;
+	private boolean isPersistent;
+	
+
     public RespectVM(TupleCentreId tid){
         super(tid);
 
-        tSet=new TupleSet();
+        tSet=new PersistentTupleSet();
         wSet=new EventSet();
         zSet=new TRSet();
         outputEventSet=new EventSet();
@@ -244,6 +252,14 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
                 spy("new behaviour set.");
             }
             reactionSpec=spec;
+            //
+            // added for persistency
+            //
+            if (isPersistent){
+				disablePersistence();
+				enablePersistence(persistentStoreName);
+            }	            
+            //
             return true;
         } catch (alice.tuprolog.InvalidTheoryException ex){
             System.err.println("Invalid reaction spec. "+ex.line+" "+ex.pos);
@@ -376,7 +392,61 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
         return zSet.getIterator();
     }
 
-
+	// ---------------------------------------------------------------------------------
+	
+	public void enablePersistence(String fileName) throws Exception {
+		isPersistent = true;
+		persistentStoreName = fileName;
+		persistentStore = new FileWriter(fileName);
+		persistentStoreBuffer = new BufferedWriter(persistentStore);
+		persistentStoreBuffer.write("<tcinfo Tuple Centre "+this.getId()+" persistent information - "+new Date()+"/>\n"); 
+		persistentStoreBuffer.write("<spec>\n");
+		persistentStoreBuffer.write(this.reactionSpec);
+		persistentStoreBuffer.write("\n</spec>\n");
+		tSet.enablePersistence(persistentStoreBuffer);
+	}
+	
+	public void loadPersistentInformation(String fileName) throws Exception {
+		FileReader fr = new FileReader(fileName);
+		BufferedReader in = new BufferedReader(fr);
+		String prolog = in.readLine();
+		if (in.readLine().equals("<spec>")){
+			StringBuffer spec=new StringBuffer();
+			while (in.ready()){
+				String spLine=in.readLine();
+				if (spLine==null){
+					throw new Exception();
+				}
+				if (spLine.equals("</spec>")){
+					break;
+				} else {
+					spec.append(spLine);
+					spec.append("\n");
+				}
+			}
+			boolean ok = setReactionSpec(spec.toString());
+			if (!ok){
+				throw new Exception();
+			}
+		} else {
+			throw new Exception();
+		}
+		tSet.empty();
+		tSet.update(in);
+		in.close();
+	}
+	
+	public void disablePersistence(){
+		isPersistent = false;
+		tSet.disablePersistence();
+		if (persistentStoreBuffer!=null){
+			try {
+				persistentStoreBuffer.close();
+			} catch (Exception ex){
+				ex.printStackTrace();
+			}
+		}
+	}
 }
 
 

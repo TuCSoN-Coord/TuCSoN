@@ -144,7 +144,7 @@ public class TupleSerialiser {
                 break;
 
             case NULL_TYPE:
-                t = new alice.tuprolog.NullTerm();
+                t = alice.tuprolog.NullTerm.NULL_TERM;
                 break;
         }
         return t;

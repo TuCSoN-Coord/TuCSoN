@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="EditSpec.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="EditSpec"/>
+    </fileobject>
+    <fileobject name="Inspector.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="Inspector"/>
+    </fileobject>
+    <fileobject name="TupleViewer.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="TupleViewer"/>
+    </fileobject>
+    <fileobject name="ReactionViewer.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="ReactionViewer"/>
+    </fileobject>
+    <fileobject name="EventViewer.java">
+        <attr name="class_dependency_javax.swing.JFrame" stringvalue="EventViewer"/>
+    </fileobject>
+</attributes>

@@ -361,7 +361,7 @@ public class Inspector extends javax.swing.JFrame{
         jPanel2.setLayout(new java.awt.GridBagLayout());
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alice/tucson/images/logo.GIF")));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/alice/tucson/images/logo.gif")));
         jLabel1.setPreferredSize(new java.awt.Dimension(90, 140));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

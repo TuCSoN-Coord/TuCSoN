@@ -20,6 +20,7 @@ package alice.logictuple;
 import alice.tuprolog.Term;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Number;
+import java.util.*;
 
 /**
  * Defines an argument of a logic tuple.
@@ -37,7 +38,7 @@ import alice.tuprolog.Number;
  *
  * @version 1.0
  */
- public class TupleArgument implements java.io.Serializable {
+ public  class TupleArgument implements java.io.Serializable {
 
     /** the internal representation of the argument is a (tu)Prolog term*/
     protected Term value;
@@ -111,6 +112,11 @@ import alice.tuprolog.Number;
         return value.isCompound();
     }
 
+    /** Tests if  the argument is a logic list */
+    public boolean isList(){
+        return value.isList();
+    }
+    
     /** Tests if  the argument is an atomic argument */
     public boolean isAtomic(){
         return value.isAtomic();
@@ -182,6 +188,50 @@ import alice.tuprolog.Number;
         }
     }
 
+
+    /**
+     * Converts this argument (which is supposed to be a Prolog list) 
+     * into a list of values
+     *
+     * @return the list (actually a LinkedList)
+     * @throws s InvalidTupleOperationException if the argument is not a list
+     */
+    public List toList() throws InvalidTupleOperationException {
+        try {
+            LinkedList list = new LinkedList();
+            Iterator it = ((Struct)value).listIterator();
+            while (it.hasNext()){
+                list.add(it.next());
+            }
+            return list;
+        } catch (Exception ex){
+            throw new InvalidTupleOperationException();
+        }
+    }
+
+    /**
+     * Converts this argument (which is supposed to be a Prolog list) 
+     * into an array of values
+     *
+     * @return an array of Tuple Arguments 
+     * @throws s InvalidTupleOperationException if the argument is not a list
+     */
+    public TupleArgument[] toArray() throws InvalidTupleOperationException {
+        try {
+            ArrayList list = new ArrayList();
+            Iterator it = ((Struct)value).listIterator();
+            while (it.hasNext()){
+                list.add(it.next());
+            }
+            TupleArgument[] vect = new TupleArgument[list.size()];
+            for (int i=0; i<vect.length; i++){
+                vect[i]=new TupleArgument((Term)list.get(i));
+            }
+            return vect;
+        } catch (Exception ex){
+            throw new InvalidTupleOperationException();
+        }
+    }
 
     /**
      * Gets the name of this argument, supposed to be a structure
@@ -267,6 +317,52 @@ import alice.tuprolog.Number;
         }
     }
 
+    /**
+     * Gets an iterator on the elements of this
+     * structure supposed to be a list.
+     *
+     *  @return null if the structure is not a list
+     */
+    public java.util.Iterator listIterator(){
+        if (value.isList()){
+            return ((Struct)value).listIterator();
+        } else {
+            return null;
+        }
+    }
+
+	/**
+	 * Specifies if this tuple argument matches with a
+	 * specified tuple argument
+	 * 
+	 * @param t a tuple argument
+	 * @return <code>true</code> if there is matching, <code>false</code> otherwise
+	 */
+	public boolean match(TupleArgument t){
+		try {
+			boolean result=value.match(t.value);
+			return result;
+		} catch (Exception ex){
+			ex.printStackTrace();
+			return false;
+		}
+	}
+
+	/**
+	 * Tries to unify this tuple argument with another one
+	 * 
+	 * @param t a tuple argument
+	 * @return <code>true</code> if the propagation was successfull,
+	 * <code>false</code> otherwise
+	 */
+	public boolean propagate(TupleArgument t){
+		try {
+			return value.unify(t.value);
+		} catch (Exception ex){
+			return false;
+		}
+	}
+    
     /**
      * Static service to get a Tuple Argument from a textual representation
      *

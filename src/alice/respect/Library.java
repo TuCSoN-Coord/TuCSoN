@@ -35,9 +35,8 @@ public class Library extends alice.tuprolog.Library {
         vm=m;
     }
 
-    public boolean in_r_1(Struct g){
+    public boolean in_r_1(Term arg0){
         //spy("in_r "+g+" BEGIN");
-        Term arg0=g.getTerm(0);
         LogicTuple tuArg=new LogicTuple(arg0);
         alice.tuplecentre.Tuple tuple=vm.removeMatchingTuple(tuArg);
         if (tuple!=null){
@@ -53,9 +52,8 @@ public class Library extends alice.tuprolog.Library {
         }
     }
 
-    public boolean rd_r_1(Struct g){
+    public boolean rd_r_1(Term arg0){
         //spy("rd_r "+g+" BEGIN");
-        Term arg0=g.getTerm(0);
         LogicTuple tuArg=new LogicTuple(arg0);
         alice.tuplecentre.Tuple tuple=vm.readMatchingTuple(tuArg);
         if (tuple!=null){
@@ -71,9 +69,8 @@ public class Library extends alice.tuprolog.Library {
         }
     }
 
-    public boolean no_r_1(Struct g){
+    public boolean no_r_1(Term arg0){
         //spy("no_r "+g+" BEGIN");
-        Term arg0=g.getTerm(0);
         LogicTuple tuArg=new LogicTuple(arg0);
         alice.tuplecentre.Tuple tuple=vm.readMatchingTuple(tuArg);
         if (tuple==null){
@@ -87,10 +84,8 @@ public class Library extends alice.tuprolog.Library {
         }
     }
 
-    public boolean out_r_1(Struct g){
+    public boolean out_r_1(Term arg0){
         //spy("out_r "+g+" BEGIN");
-        Term arg0=g.getTerm(0);
-
         // get a renamed copy
         Term newArg=arg0.getRenamedCopy();
 
@@ -102,25 +97,21 @@ public class Library extends alice.tuprolog.Library {
         return true;
     }
 
-    public boolean current_agent_1(Struct g){
-        Term arg0=g.getTerm(0);
+    public boolean current_agent_1(Term arg0){
         Term term=new Struct(vm.currentEvent.getAgentId().toString());
         return unify(arg0,term);
     }
 
-    public boolean current_tc_1(Struct g){
-        Term arg0=g.getTerm(0);
+    public boolean current_tc_1(Term arg0){
         Term term=new Struct(vm.getId().toString());
         return unify(arg0,term);
     }
 
-    public boolean current_op_1(Struct g){
-        Term arg0=g.getTerm(0);
+    public boolean current_op_1(Term arg0){
         return unify(arg0,new Struct(vm.currentEvent.getOperationName()));
     }
 
-    public boolean current_tuple_1(Struct g){
-        Term arg0=g.getTerm(0);
+    public boolean current_tuple_1(Term arg0){
         Event ev=vm.currentEvent;
         Term term=null;
         if (ev instanceof InputEvent){
@@ -183,28 +174,26 @@ public class Library extends alice.tuprolog.Library {
         return unify(arg0,getRenamedCopy(term));
     }
 
-    public boolean pre_0(Struct g){
+    public boolean pre_0(){
         return (vm.currentEvent.isToTupleCentre());
     }
 
-    public boolean post_0(Struct g){
+    public boolean post_0(){
         return (vm.currentEvent.isFromTupleCentre());
     }
 
-    public boolean success_0(Struct g){
+    public boolean success_0(){
         return (vm.currentEvent.isSuccess());
     }
 
-    public boolean failure_0(Struct g){
+    public boolean failure_0(){
         return (vm.currentEvent.isFailure());
     }
 
 
-    public boolean spawn_3(Struct g){
-        Term agentId = g.getTerm(0);
-        Term agentType = g.getTerm(1);
-        if (g.getTerm(2).isList()){
-            Struct args = (Struct)g.getTerm(2);
+    public boolean spawn_3(Term agentId, Term agentType, Term argList){
+        if (argList.isList()){
+            Struct args = (Struct)argList;
             alice.tuplecentre.OutputEvent ev=
                        new OutputEvent_spawn((alice.respect.AgentId)vm.currentEvent.getAgentId(),
                                              (TupleCentreId)vm.getId(),
@@ -219,15 +208,13 @@ public class Library extends alice.tuprolog.Library {
 
     }
 
-    public boolean current_time_1(Struct g){
-        Term arg0=g.getTerm(0);
+    public boolean current_time_1(Term arg0){
         long time=vm.getCurrentTime();
         return unify(arg0,new alice.tuprolog.Long(time));
     }
 
-    public boolean out_tc_2(Struct g){
-        LogicTuple tid=new LogicTuple((Struct)g.getTerm(0));
-        Term tuple=g.getTerm(1);
+    public boolean out_tc_2(Struct id, Term tuple){
+        LogicTuple tid=new LogicTuple(id);
         // get a renamed copy
         Term newTuple=tuple.getRenamedCopy();
 

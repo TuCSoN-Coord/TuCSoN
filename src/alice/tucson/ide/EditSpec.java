@@ -269,9 +269,9 @@ public class EditSpec extends javax.swing.JFrame {
         String spec=inputSpec.getText();
         LogicTuple t=alice.respect.RespectVM.checkReactionSpec(spec);
         if (t.getName().equals("valid")){
-            outputState.setText("Specification Test2 OK.");
+            outputState.setText("Specification Test OK.");
         } else {
-            outputState.setText("Specification Test2 failed: error at/before line "+t.getArg(0).intValue()+".");
+            outputState.setText("Specification Test failed: error at/before line "+t.getArg(0).intValue()+".");
         }
     } catch (Exception ex){
     }
