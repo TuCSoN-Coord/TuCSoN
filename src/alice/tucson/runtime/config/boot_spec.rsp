@@ -1,0 +1,143 @@
+
+ 
+%
+% role_descr(+TupleCentreId,+AgentRole,Descr)
+%
+% es:  role_descr(any,any,[allowed_out([p(_),q(_)]),forbidden_in([p(_,_),q(_),k(1,_)]), time_extension(10000)])
+%
+% 
+% acc_code(+TupleCentreId,+Role,+Profile,Class)
+%
+% role_allowed(+Role,id(+AgentId))
+% role_forbidden(+Role,id(+AgentId))
+% role_allowed(+Role,key(+Key))
+%
+
+
+
+reaction(out(boot),(
+    in_r(boot),
+    no_r(boot_info(_)),
+    current_time(Time),
+    out_r(boot_info([time(Time)])),
+    %
+    %
+    out_r(context_code(default,default,skeleton_class('alice.tucson.runtime.contexts.DefaultContextSkel'))),
+    out_r(context_code(inspector,default,skeleton_class('alice.tucson.runtime.InspectorContextSkel'))),
+    %
+    out_r(context_role(inspector,default,any,[])),
+    out_r(context_role(default,default,any,[]))
+    % out_r(context_role(default,default,any,[allowed_out([p(_),q(_)]),forbidden_in([p(_,_),q(_),k(1,_)]),time_extension(20000)])),
+    %
+    %
+    %
+    %
+    % out_r(acc_code(any,any,[],skeleton_class('alice.tucson.runtime.contexts.DefaultContextSkel'))),
+    % out_r(acc_code(any,inspector,[],skeleton_class('alice.tucson.runtime.contexts.InspectorContextSkel'))),
+    %
+    % out_r(role_descr(any,any,[]))
+    %    
+    
+)).
+
+%
+% es:  context_role(default,default,default,[allowed_out([p(_),q(_)]),forbidden_in([p(_,_),q(_),k(1,_)]), time_extension(10000)])
+%
+
+reaction( inp(context(ContextName,AgentId,TC,_)),(
+    pre,
+    out_r(get_context_descr(ContextName,AgentId,TC)))).
+
+%
+% retrieve the ProfileId of the AgentId, if presents
+%
+reaction( out_r(get_context_descr(ContextName,AgentId,TC)),(
+    rd_r(agent_role(ContextName,RoleId,AgentId)),
+    out_r(provide_context(ContextName,RoleId,TC)))).
+
+reaction( out_r(get_context_descr(ContextName,AgentId,TC)),(
+    no_r(agent_role(ContextName,RoleId,AgentId)),
+    out_r(provide_context(ContextName,default,TC)))).
+
+%
+% found the exact profile for the Role for the TupleCentre TC
+%
+reaction( out_r(provide_context(ContextName,RoleId,TC)),(
+    rd_r(context_role(ContextName,RoleId,tc(TC),Desc)),
+    in_r(get_context_descr(ContextName,AgentId,TC)),
+    out_r(context(ContextName,AgentId,TC,Desc)))).
+
+%
+% no profile specified for the specific Role on the tuple centre TC,
+% --> trying for context defined for the Role for any tuple centre
+%
+reaction( out_r(provide_context(ContextName,RoleId,TC)),(
+    no_r(context_role(ContextName,RoleId,tc(TC),_)),
+    rd_r(context_role(ContextName,RoleId,any,D)),
+    in_r(get_context_descr(ContextName,AgentId,TC)),
+    out_r(context(ContextName,AgentId,TC,D)))).
+
+%
+% no context specified  for the specific Role
+% --> trying for context defined for generic role and specific tuple centre
+%
+reaction( out_r(provide_context(ContextName,RoleId,TC)),(
+    no_r(context_role(ContextName,RoleId,tc(TC),_)),
+    no_r(context_role(ContextName,RoleId,any,_)),
+    rd_r(context_role(ContextName,default,tc(TC),D)),
+    in_r(get_context_descr(ContextName,AgentId,TC)),
+    out_r(context(ContextName,AgentId,TC,D)))).
+
+%
+%  ... using context for default role for any tuple centre
+%
+reaction( out_r(provide_context(ContextName,RoleId,TC)),(
+    no_r(context_role(ContextName,RoleId,tc(TC),_)),
+    no_r(context_role(ContextName,RoleId,any,_)),
+    no_r(context_role(ContextName,default,tc(TC),_)),
+    rd_r(context_role(ContextName,default,any,D)),
+    in_r(get_context_descr(ContextName,AgentId,TC)),
+    out_r(context(ContextName,AgentId,TC,D)))).
+
+reaction( out_r(provide_context(ContextName,RoleId,TC)),(
+    in_r(provide_context(ContextName,RoleId,TC)))).
+
+
+
+%
+%
+%
+%
+%
+%
+
+/*
+
+%
+% Retrieval of information about agent coordination context for a role
+%
+reaction( rdp(acc_role(TC,Role,_)),(
+    pre,
+    out_r(get_role_descr(TC,Role)))).
+
+reaction( rdp(acc_role(tc(TC),_)),(
+    pre,
+    out_r(get_role_descr(TC,any)))).
+
+reaction( rdp(acc_role(role(Role),_)),(
+    pre,
+    out_r(get_role_descr(any,Role)))).
+
+reaction( rdp(acc_role(_)),(
+    pre,
+    out_r(get_role_descr(any,any)))).
+
+%
+reaction( out_r(get_role_descr(TC,Role)),(
+    rd_r(role_descr(TC,Role,Descr)),
+    out_r(role_acc(TC,Role,Descr)))).
+
+reaction( out_r(get_role_descr(TC,Role)),(
+    in_r(get_role_descr(TC,Role)))).
+
+*/

@@ -1,0 +1,46 @@
+%
+% Multimedia TuCSoN Demo - Copyright (C) 2001 deis.unibo.it
+%
+% This library is free software; you can redistribute it and/or
+% modify it under the terms of the GNU Lesser General Public
+% License as published by the Free Software Foundation; either
+% version 2.1 of the License, or (at your option) any later version.
+%
+% This library is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+% Lesser General Public License for more details.
+%
+% You should have received a copy of the GNU Lesser General Public
+% License along with this library; if not, write to the Free Software
+% Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+%
+
+%
+% specification used to coordinate worker agents
+% and master agent
+%
+
+reaction(in(zone(Id,X,Y,W,H,ByteSizeX,ByteSizeY)),(
+	pre,
+	in_r(free(ZoneId)),
+	rd_r(zone_extent(ZoneId,X,Y,W,H)),
+	rd_r(patch_pixel_size(Bx,By)),
+	current_agent(Id),
+        out_r(zone(Id,X,Y,W,H,Bx,By)),
+	out_r(computing(Id,ZoneId)))).
+
+reaction(out(zone_produced(Id,Image)),(
+	in_r(zone_produced(Id,_)),
+	current_agent(Id),
+	in_r(computing(Id,ZoneId)),
+	out_r(zone_image(ZoneId,Image)),
+	out_r(zone_updated(ZoneId)))).
+
+
+
+
+
+
+	
+
