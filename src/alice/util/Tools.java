@@ -52,7 +52,7 @@ public class Tools extends Object {
     }
 
     /**
-     * give a command line argument list, this method gets the option 
+     * given a command line argument list, this method gets the option 
      * of the specified prefix
      */
     public static String getOpt(String[] args,String prefix){
@@ -64,7 +64,7 @@ public class Tools extends Object {
     }
 
     /**
-     * give a command line argument list, this method tests for
+     * given a command line argument list, this method tests for
      * the presence of the option of the specified prefix
      */
     public static boolean isOpt(String[] args,String prefix){

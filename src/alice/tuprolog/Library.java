@@ -131,6 +131,7 @@ public abstract class Library  implements Serializable {
             return null;
         }
 
+        
         BuiltIn bt=t.getBuiltIn();
         // check for library functors
         if (bt.isLibraryFunctor()){
@@ -217,7 +218,7 @@ public abstract class Library  implements Serializable {
 									}
 								}
 								if (valid){
-                            		list.add(name);
+                            		   list.add(name);
 		                            //
 		                            // adding also or synonims
 		                            //

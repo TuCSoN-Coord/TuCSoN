@@ -62,10 +62,7 @@ public class Tucson2PLibrary extends Library {
             "inp(T):-inp(T,default@localhost). \n"+
             "rdp(T):-rdp(T,default@localhost). \n"+
             "set_spec(T):-set_spec(T,default@localhost). \n"+
-            "get_spec(T):-get_spec(T,default@localhost). \n"+
-            "enter_context([]):- !,enter_default_context.\n"+
-            "enter_context([agent_id(Id)|_]):- !,enter_context2(Id).\n"+
-            "enter_context([_|L]):- enter_context(L).\n";
+            "get_spec(T):-get_spec(T,default@localhost). \n";
     }
 
 
@@ -73,10 +70,11 @@ public class Tucson2PLibrary extends Library {
         try {
             TupleCentreId tid=new TupleCentreId(arg1);
             if (context==null){
-                context=Tucson.enterDefaultContext();
+                return false;
             }
-            context.out(tid, new LogicTuple(arg0));
-            return true;
+            TucsonOpId opId=context.in(tid,new LogicTuple(arg0));
+            ContextEvent ev = context.waitForCompletion(opId);
+            return ev.operationSucceeded();
         } catch(Exception x) {
             //x.printStackTrace();
             return false;
@@ -87,24 +85,12 @@ public class Tucson2PLibrary extends Library {
         try {
             TupleCentreId tid=new TupleCentreId(arg1);
             if (context==null){
-                context=Tucson.enterDefaultContext();
+                return false;
             }
-            LogicTuple tuple=context.in(tid,new LogicTuple(arg0));
+            TucsonOpId opId=context.in(tid,new LogicTuple(arg0));
+            ContextEvent ev = context.waitForCompletion(opId);
+            LogicTuple tuple = ev.getTuple();
             return unify(arg0,tuple.toTerm());
-        } catch(Exception x) {
-            //x.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean inp_2(Term arg0, Term arg1){
-        try {
-            TupleCentreId tid=new TupleCentreId(arg1);
-            if (context==null){
-                context=Tucson.enterDefaultContext();
-            }
-            LogicTuple tuple=context.inp(tid, new LogicTuple(arg0));
-            return (tuple!=null && unify(arg0,tuple.toTerm()));
         } catch(Exception x) {
             //x.printStackTrace();
             return false;
@@ -115,10 +101,27 @@ public class Tucson2PLibrary extends Library {
         try {
             TupleCentreId tid=new TupleCentreId(arg1);
             if (context==null){
-                context=Tucson.enterDefaultContext();
+                return false;
             }
-            LogicTuple tuple=context.rd(tid, new LogicTuple(arg0));
+            TucsonOpId opId=context.rd(tid,new LogicTuple(arg0));
+            ContextEvent ev = context.waitForCompletion(opId);
+            LogicTuple tuple = ev.getTuple();
             return unify(arg0,tuple.toTerm());
+        } catch(Exception x) {
+            //x.printStackTrace();
+            return false;
+        }
+    }
+    
+    public boolean inp_2(Term arg0, Term arg1){
+        try {
+            TupleCentreId tid=new TupleCentreId(arg1);
+            if (context==null){
+                return false;
+            }
+            TucsonOpId opId=context.inp(tid,new LogicTuple(arg0));
+            ContextEvent ev = context.waitForCompletion(opId);
+            return (ev.operationSucceeded() && unify(arg0,ev.getTuple().toTerm()));
         } catch(Exception x) {
             //x.printStackTrace();
             return false;
@@ -129,10 +132,11 @@ public class Tucson2PLibrary extends Library {
         try {
             TupleCentreId tid=new TupleCentreId(arg1);
             if (context==null){
-                context=Tucson.enterDefaultContext();
+                return false;
             }
-            LogicTuple tuple=context.rdp(tid, new LogicTuple(arg0));
-            return (tuple!=null && unify(arg0,tuple.toTerm()));
+            TucsonOpId opId=context.rdp(tid,new LogicTuple(arg0));
+            ContextEvent ev = context.waitForCompletion(opId);
+            return (ev.operationSucceeded() && unify(arg0,ev.getTuple().toTerm()));
         } catch(Exception x) {
             //x.printStackTrace();
             return false;
@@ -143,11 +147,11 @@ public class Tucson2PLibrary extends Library {
         try {
             TupleCentreId tid=new TupleCentreId(arg1);
             if (context==null){
-                context=Tucson.enterDefaultContext();
+                return false;
             }
-            System.out.println(tid);
-            context.setSpec(tid, alice.util.Tools.removeApices(arg0.toString()));
-            return true;
+            TucsonOpId opId=context.setSpec(tid,alice.util.Tools.removeApices(arg0.toString()));
+            ContextEvent ev = context.waitForCompletion(opId);
+            return ev.operationSucceeded();
         } catch(Exception x) {
             x.printStackTrace();
             return false;
@@ -158,10 +162,11 @@ public class Tucson2PLibrary extends Library {
         try {
             TupleCentreId tid=new TupleCentreId(arg1);
             if (context==null){
-                context=Tucson.enterDefaultContext();
+                return false;
             }
-            String spec = context.getSpec(tid);
-            return (unify(arg0,new Struct(spec)));
+            TucsonOpId opId=context.getSpec(tid);
+            ContextEvent ev = context.waitForCompletion(opId);
+            return ev.operationSucceeded() && unify(arg0,new Struct(ev.getSpec()));
         } catch(Exception x) {
             //x.printStackTrace();
             return false;
@@ -178,8 +183,7 @@ public class Tucson2PLibrary extends Library {
         }
     }
 
-    public boolean enter_default_context_0(){
-		System.out.println("enter def");
+    public boolean enter_context_1(Struct id){
         if (context!=null){
             try {
                 context.exit();
@@ -188,29 +192,11 @@ public class Tucson2PLibrary extends Library {
             }
         }
         try {
-            context=Tucson.enterDefaultContext();
-            
-            System.out.println("enter ok");
+            context=Tucson.getContext(new AgentId(id.toString()));
             return true;
         } catch (Exception ex){
-        	ex.printStackTrace();
-            return false;
-        }
-    }
-
-    public boolean enter_context2_1(Term arg0){
-        if (context!=null){
-            try {
-                context.exit();
-            } catch (Exception ex){
-                ex.printStackTrace();
-            }
-        }
-        try {
-            context=Tucson.enterContext(new DefaultContextDescription(new AgentId(arg0)));
-            return true;
-        } catch (Exception ex){
-            return false;
+        		ex.printStackTrace();
+             return false;
         }
     }
 }

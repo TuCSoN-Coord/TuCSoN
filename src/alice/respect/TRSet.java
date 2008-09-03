@@ -1,5 +1,5 @@
 /*
- * ReSpecT - Copyright (C) aliCE team at deis.unibo.it
+ * ReSpecT Framework - aliCE team at deis.unibo.it
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -20,13 +20,7 @@ import java.util.*;
 
 import alice.tuplecentre.TriggeredReaction;
 
-/**
- * An important aspect of the component implementing this interface
- * is the ability to execute transactions, that is execute sequence
- * of operations that could be commited or asked to be undone.
- *
- */
-public class TRSet {
+class TRSet {
 
     private LinkedList trigs;
     // to manage transactions

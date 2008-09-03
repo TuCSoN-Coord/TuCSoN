@@ -1,35 +1,60 @@
 /*
- * Centre.java
+ * ReSpecT Framework - aliCE team at deis.unibo.it
  *
- * Copyright 2000-2001-2002  aliCE team at deis.unibo.it
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
  *
- * This software is the proprietary information of deis.unibo.it
- * Use is subject to license terms.
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
  *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.respect;
 import alice.logictuple.*;
 import java.util.*;
-import java.io.*;
-
-import java.lang.reflect.*;
 
 /**
- * Standalone running tuple centre vm
+ * This class represents a ReSpecT tuple centre.
+ * 
  */
-public class TupleCentre  {
+public class TupleCentre implements ITupleCentre {
 
     private RespectVM  core;
     private HashMap contexts=new HashMap();
 
-    public TupleCentre(TupleCentreId id){
-        core=new RespectVM(id);
-        new Thread(core).start();
-        try{
-            Thread.currentThread().sleep(500);
-        }catch(Exception ex){
-        }
-    }
+	public TupleCentre(TupleCentreId id){
+		core=new RespectVM(id);
+		new Thread(core).start();
+		while (!core.isReady()){
+			try{
+				Thread.sleep(10);
+			}catch(Exception ex){
+			}
+		}
+	}
+	
+
+	TupleCentre(TupleCentreId id, alice.tuplecentre.OutputEventListener l){
+		core=new RespectVM(id,l);
+		new Thread(core).start();
+		while (!core.isReady()){
+			try{
+				Thread.sleep(10);
+			}catch(Exception ex){
+			}
+		}
+	}
+	
+	public TupleCentre(String name) throws InvalidTupleCentreIdException {
+		this(new TupleCentreId(name));
+	}
+
 
     public void out(LogicTuple t) throws InvalidLogicTupleException {
         LocalContext context=resolveContext();
@@ -66,6 +91,14 @@ public class TupleCentre  {
         return context.getSpec();
     }
 
+	public TupleCentreId getId(){
+		return (TupleCentreId)core.getId();
+	}
+	
+	public RespectVM getCore(){
+		return core;
+	}
+	
     private synchronized LocalContext resolveContext(){
         LocalContext context=(LocalContext)contexts.get(Thread.currentThread());
         if (context==null){

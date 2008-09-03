@@ -1,5 +1,5 @@
 /*
- * Tuple Centre media - Copyright (C) 2001-2002  aliCE team at deis.unibo.it
+ * ReSpecT Framework - aliCE team at deis.unibo.it
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -17,11 +17,8 @@
  */
 package alice.respect;
 import alice.logictuple.LogicTuple;
-/**
- *
- *
- * @version 1.0
- */
+
+
 public class OutputEvent_out_tc extends alice.tuplecentre.OutputEvent {
 
     LogicTuple targetTupleCentreId;

@@ -26,7 +26,7 @@ import java.lang.reflect.*;
  * the class.  The transition from state to state is
  * enacted by means of the <code>become</code> method.
  */
-public abstract class Automaton extends Agent implements java.io.Serializable {
+public abstract class Automaton extends TucsonAgent implements java.io.Serializable {
 
     /** method name representing state behaviour */
     protected String state="boot";
@@ -42,7 +42,7 @@ public abstract class Automaton extends Agent implements java.io.Serializable {
      *
      * @param id the automaton identifier
      */
-    public Automaton(AgentId id) throws TucsonException {
+    public Automaton(AgentId id) {
         super(id);
     }
 
@@ -83,7 +83,7 @@ public abstract class Automaton extends Agent implements java.io.Serializable {
     /**
      * Defines the automaton behaviour
      */
-    final protected void body(){
+    final protected void main(){
         try {
             argType=new Class[]{ Class.forName("[Ljava.lang.Object;") };
         } catch (Exception ex){

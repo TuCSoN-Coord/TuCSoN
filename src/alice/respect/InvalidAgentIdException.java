@@ -1,5 +1,5 @@
 /*
- * TuCSoN coordination infrastructure - Copyright (C) 2001-2002  aliCE team at deis.unibo.it
+ * ReSpecT Framework - aliCE team at deis.unibo.it
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,4 +23,4 @@ package alice.respect;
  *
  * Agent identifier must be ground logic term
  */
-public class InvalidAgentIdException extends Exception {}
+public class InvalidAgentIdException extends RSPException {}

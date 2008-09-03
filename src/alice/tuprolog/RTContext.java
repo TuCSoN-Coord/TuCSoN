@@ -64,6 +64,15 @@ class RTContext implements Serializable {
     /** number of choices not yet explored */
     public int nOpenTermsExecuted;
 
+    private static int nRenamedVarTime = 1000000;
+    
+    public RTContext(int startRenamedVarTime){
+    		nRenamedVarTime = startRenamedVarTime;
+    }
+
+    public RTContext(){
+    }
+    
     /** saves current goal to goals to be executed list */
     public void saveFGoal() {
         goalsToEval = new alice.util.LinkedList(currentGoal,goalsToEval);
@@ -145,6 +154,9 @@ class RTContext implements Serializable {
         nGoalsToEval = 0;
         // current Time is next time avaiable after clause's one
         time  = d.timestamp;
+        
+        //System.out.println("LOAD CHOICE timestamp "+time);
+        
         //System.out.println("LOADING CHOICE "+startGoal+" time "+time);
         mark  = startMark + 1;
         // loading current goal in goals to be executed list
@@ -171,7 +183,8 @@ class RTContext implements Serializable {
     public Term getRenamedTermCopy(Term t) {
         alice.util.LinkedList l = new alice.util.LinkedList();
         t = t.copy(l);
-        time = Var.rename(l,time,true);
+        //time = Var.rename(l,time+1,true);
+        nRenamedVarTime = Var.rename(l,nRenamedVarTime+1,true);
         return(t);
     }
 

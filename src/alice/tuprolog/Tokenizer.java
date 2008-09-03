@@ -349,8 +349,12 @@ class Tokenizer implements Serializable {
             return(type = FLOAT);
         } else if(ch == '\'') {
             ch = readChar();
-            while (!isTer(ch)){
-                if (ch == '\''){
+            while (ch!=-1 /*!isTer(ch)*/){
+                 if (ch == -1){
+                	 	unreadChar(-1);
+                	 	break;
+                 }
+            		if (ch == '\''){
                     ch = readChar();
                     if (ch == '\''){
                         seq += "\'";
@@ -364,9 +368,15 @@ class Tokenizer implements Serializable {
                     if (ch==-1){
                         unreadChar(-1);
                         break;
+					} else if (ch=='t'){ 
+						seq += '\t';
+					} else if (ch=='r'){ 
+						seq += '\r';
+                    } else if (ch=='n'){
+                    		seq += '\n';
                     } else if (!isTer(ch)){
-                        seq += "\\";
-                        unreadChar(ch);
+                        	seq += '\\';
+                        	unreadChar(ch);
                     } else {
                         ch = skip();
                         unreadChar(ch);
@@ -380,7 +390,7 @@ class Tokenizer implements Serializable {
             ch = readChar();
             unreadChar(ch);
             type = SQ_SEQUENCE;
-            if(ch == '('){
+            if (ch == '('){
                 type = type | FUNCTOR;
             }
             return(type);
@@ -390,7 +400,11 @@ class Tokenizer implements Serializable {
             //    seq += String.valueOf((char)ch);
             //}
             ch = readChar();
-            while (!isTer(ch)){
+            while (ch!=-1){
+            	   if (ch==-1){
+            		   unreadChar(-1);
+            		   break;
+            	   }
                 if (ch == '\"'){
                     ch = readChar();
                     if (ch == '\"'){
@@ -399,9 +413,28 @@ class Tokenizer implements Serializable {
                         unreadChar(ch);
                         break;
                     }
-                } else {
-                    seq += String.valueOf((char)ch);
-                }
+				} else if (ch == '\\'){
+						// ricci 020824 - managing the line break
+					ch = readChar();
+					if (ch==-1){
+						unreadChar(-1);
+						break;
+					} else if (ch=='t'){ 
+						seq += '\t';
+					} else if (ch=='r'){ 
+						seq += '\r';
+					} else if (ch=='n'){
+						seq += '\n';
+					} else if (!isTer(ch)){
+						seq += '\\';
+						unreadChar(ch);
+					} else {
+						ch = skip();
+						unreadChar(ch);
+					}
+				}  else {
+					seq += String.valueOf((char)ch);
+				}
                 ch = readChar();
             }
             // ricci - 020726 ---------------------------------

@@ -16,9 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.tucson.api;
-import alice.logictuple.*;
-import alice.tucson.api.contexts.DefaultContextStub;
-
+import java.net.*;
 import java.io.*;
 
 /**
@@ -27,43 +25,21 @@ import java.io.*;
  */
 public class Tucson {
 
-    private static ContextDescription defaultContext = new DefaultContextDescription();
-
     protected Tucson(){}
 
     /**
-     * Gets the default agent coordination context
-     * @return the agent coordination context
-     * @throws s ContextNotAvailableException if the default context cannot be released
+     * Gets a context, starting a session.
+     * 
+     * @param id agent id
+     * @return a context.
+     * @throws ContextNotAvailableException
      */
-    public static TucsonContext enterDefaultContext()
-            throws ContextNotAvailableException {
-        try {
-            return new DefaultContextStub(defaultContext);
-        } catch (Exception ex){
-            throw new ContextNotAvailableException();
-        }
-    }
-
-    /**
-     * Gets an agent coordination context
-     * @param context is the context description in which the agent aims to enter
-     * @return the agent coordination context
-     * @throws s ContextNotAvailableException  if the context cannot be released
-     * @throws s InvalidContextDescriptionException if the context description is not valid
-     */
-    public static TucsonContext enterContext(ContextDescription context)
-            throws ContextNotAvailableException, InvalidContextDescriptionException {
-
-        String name=context.getProperty("context-name");
-        if (name==null){
-            throw new ContextNotAvailableException();
-        }
-        if (name.equals("default")){
-            return new DefaultContextStub(context);
-        } else {
-            throw new ContextNotAvailableException();
-        }
+    public static TucsonContext getContext(AgentId id) throws ContextNotAvailableException {
+		try {
+		    return new AgentContextStub(id);
+		} catch (Exception ex){
+		    throw new ContextNotAvailableException();
+		}
     }
 
     /**
@@ -71,6 +47,37 @@ public class Tucson {
      * @return the version number
      */
     public static String getVersion(){
-        return "1.3.1";
+        return "1.5.0";
     }
+    
+    
+    public static boolean isActive(InetAddress node){
+    	try {
+    		Socket s = new Socket(node, 20504);
+    		StringBuffer buf = new StringBuffer();
+    		BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+    		try {
+    			String line = br.readLine();
+    			while (line!=null){
+    				buf.append(line);
+    				line = br.readLine();
+    			}
+    		} catch (Exception ex){    			
+    		} finally {
+    			try {
+    				br.close();
+    			} catch (Exception ex){
+    			}
+    		}
+    		
+    		if (buf.toString().indexOf("TuCSoN Infrastructure")!=-1){
+    			return true;	
+    		} else {
+    			return false;
+    		}
+    	} catch (Exception ex){
+    		return false;
+    	}
+    }
+    
 }

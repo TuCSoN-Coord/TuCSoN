@@ -1,5 +1,5 @@
 /*
- * Tuple Centre media - Copyright (C) 2001-2002  aliCE team at deis.unibo.it
+ * ReSpecT Framework - aliCE team at deis.unibo.it
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,14 +16,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.respect;
-import alice.tuplecentre.*;
 import alice.logictuple.LogicTuple;
 
 /**
  *
  * @version 1.0
  */
-final public class Event_out_r extends ReactionEvent {
+class Event_out_r extends ReactionEvent {
 
     private LogicTuple    tuple;
 

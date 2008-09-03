@@ -1,5 +1,5 @@
 /*
- * ReSpecT - Copyright (C) aliCE team at deis.unibo.it
+ * ReSpecT Framework - aliCE team at deis.unibo.it
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -27,7 +27,7 @@ import alice.logictuple.LogicTuple;
  * of operations that could be commited or asked to be undone.
  *
  */
-public class PersistentTupleSet  {
+class PersistentTupleSet  {
 
     private LinkedList tuples;
     // to manage transactions
@@ -190,6 +190,37 @@ public class PersistentTupleSet  {
         return null;
     }
 
+    public List getMatchingTuples(LogicTuple templ){
+        if (templ==null)
+            return null;
+        //System.out.println("TSET: getMatchingTuple "+templ);
+        LinkedList list = new LinkedList();
+        ListIterator l=tuples.listIterator();
+        while (l.hasNext()){
+            LogicTuple tu=(LogicTuple)l.next();
+            //System.out.println("-- "+tu);
+            if (templ.match(tu)){
+                //System.out.println(">> FOUND"+tu);
+                l.remove();
+                list.add(tu);
+                if (transaction){
+                    tRemoved.add(tu);
+                } else {
+                	if (isPersistent){
+						try {
+							actionStore.write("-"+tu.toString()+"\n");
+							actionStore.flush();
+						} catch (Exception ex){
+							ex.printStackTrace();
+						}	
+                	}
+                }
+            }
+        }
+        return list;
+    }
+    
+    
     public LogicTuple readMatchingTuple(LogicTuple templ){
         if (templ==null)
             return null;
@@ -206,6 +237,21 @@ public class PersistentTupleSet  {
         return null;
     }
 
+    public List readMatchingTuples(LogicTuple templ){
+        //System.out.println("TSET: getMatchingTuple "+templ);
+        LinkedList list = new LinkedList();
+        ListIterator l=tuples.listIterator();
+        while (l.hasNext()){
+            LogicTuple tu=(LogicTuple)l.next();
+            //System.out.println("-- "+tu);
+            if (templ.match(tu)){
+                list.add(tu);
+            }
+        }
+        return list;
+    }
+
+    
     public Iterator getIterator(){
         return tuples.listIterator();
     }

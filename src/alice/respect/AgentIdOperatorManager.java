@@ -1,5 +1,5 @@
 /*
- * tuProlog - Copyright (C) 2001-2002  aliCE team at deis.unibo.it
+ * ReSpecT Framework - aliCE team at deis.unibo.it
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -23,5 +23,5 @@ package alice.respect;
  *
  *  Currently, no operators are allowed in ReSpecT agent identifiers
  */
-public class AgentIdOperatorManager extends alice.tuprolog.OperatorManager {
+class AgentIdOperatorManager extends alice.tuprolog.OperatorManager {
 }

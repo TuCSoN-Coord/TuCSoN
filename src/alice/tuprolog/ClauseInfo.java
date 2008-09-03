@@ -83,7 +83,7 @@ class ClauseInfo implements Serializable {
     }
 
     /**
-     * gets a clause from a generic Term
+     * Gets a clause from a generic Term
      */
     private Struct toClause(Struct t) {
         if (!t.isClause()){
@@ -93,13 +93,14 @@ class ClauseInfo implements Serializable {
     }
 
     /**
-     * gets the string representation
+     * Gets the string representation
      * recognizing operators stored by
-     * provided operator manager
+     * the operator manager
      */
     public String toString(OperatorManager op) {
         int p;
-        if((p = op.opPrio(":-","xfx")) >= OperatorManager.OP_LOW){
+        
+        if ((p = op.opPrio(":-","xfx")) >= OperatorManager.OP_LOW){
             String st=indentPredicatesAsArgX(clause.getArg(1),op,p);
             String head = clause.getArg(0).toStringAsArgX(op,p);
             if (st.equals("true")){
@@ -108,7 +109,8 @@ class ClauseInfo implements Serializable {
                 return (head + " :-\n\t" + st +".\n");
             }
         }
-        if((p = op.opPrio(":-","yfx")) >= OperatorManager.OP_LOW){
+        
+        if ((p = op.opPrio(":-","yfx")) >= OperatorManager.OP_LOW){
             String st=indentPredicatesAsArgX(clause.getArg(1),op,p);
             String head = clause.getArg(0).toStringAsArgY(op,p);
             if (st.equals("true")){
@@ -116,9 +118,9 @@ class ClauseInfo implements Serializable {
             } else {
                 return (head + " :-\n\t" + st +".\n");
             }
-
         }
-        if((p = op.opPrio(":-","xfy")) >= OperatorManager.OP_LOW){
+        
+        if ((p = op.opPrio(":-","xfy")) >= OperatorManager.OP_LOW){
             String st=indentPredicatesAsArgY(clause.getArg(1),op,p);
             String head = clause.getArg(0).toStringAsArgX(op,p);
             if (st.equals("true")){
@@ -127,11 +129,11 @@ class ClauseInfo implements Serializable {
                 return (head + " :-\n\t" + st +".\n");
             }
         }
-        return(clause.toString());
+        return (clause.toString());
     }
 
     /**
-     * gets string representation with default operator representation
+     * Gets the string representation with default operator representation
      */
     public String toString(){
         // default prio: xfx
@@ -156,7 +158,8 @@ class ClauseInfo implements Serializable {
         if (t.isStruct()){
             Struct co=(Struct)t;
             if (co.getName().equals(",")){
-                return co.getArg(0).toStringAsArgX(op,p)+",\n\t"+indentPredicatesAsArgX(co.getArg(1),op,p);
+                return co.getArg(0).toStringAsArgX(op,p)+",\n\t"+
+                		  "("+indentPredicatesAsArgX(co.getArg(1),op,p)+")";
             } else {
                 return t.toStringAsArgX(op,p);
             }
@@ -170,7 +173,8 @@ class ClauseInfo implements Serializable {
         if (t.isStruct()){
             Struct co=(Struct)t;
             if (co.getName().equals(",")){
-                return co.getArg(0).toStringAsArgY(op,p)+",\n\t"+indentPredicatesAsArgY(co.getArg(1),op,p);
+                return co.getArg(0).toStringAsArgY(op,p)+",\n\t"+
+                		  "("+indentPredicatesAsArgY(co.getArg(1),op,p)+")";
             } else {
                 return t.toStringAsArgY(op,p);
             }

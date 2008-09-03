@@ -1,5 +1,5 @@
 /*
- * Tuple Centre media - Copyright (C) 2001-2002  aliCE team at deis.unibo.it
+ * ReSpecT Framework - aliCE team at deis.unibo.it
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,13 +16,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.respect;
-import alice.logictuple.LogicTuple;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
-/**
- * The spawn output event is generated when spawn
- * ReSpecT primitive is used
- */
+
 public class OutputEvent_spawn extends alice.tuplecentre.OutputEvent {
 
     private Term agentId;

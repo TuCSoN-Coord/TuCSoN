@@ -24,8 +24,6 @@ import java.io.*;
  * request made to the engine, providing information
  * about the solution
  *
- *
- *
  */
 public class SolveInfo implements Serializable  {
 
@@ -36,17 +34,21 @@ public class SolveInfo implements Serializable  {
 
     /** goal subject of demonstration */
     private Term goal;
-
+    
+    private Term query;
 	
-    SolveInfo(Var[] vars,Term g){
-		isSuccess=true;
+    SolveInfo(Term query,Var[] vars,Term g){
+	   this.query=query;
+        isSuccess=true;
         bindings=vars;
         goal=g;
     }
 
-	SolveInfo(){
+	SolveInfo(Term query){
+	    this.query = query; 
 		isSuccess=false;
 	}
+	
     /**
      * Checks if the solve request was successful
      *
@@ -58,8 +60,8 @@ public class SolveInfo implements Serializable  {
 
     
     /**
-     * gets the value of a variable
-     * present in the substitution
+     * Gets the value of a variable
+     * in the substitution
      */
     public Term getTerm(String varName) throws NoSolutionException, UnknownVarException  {
         if (isSuccess){        
@@ -72,6 +74,15 @@ public class SolveInfo implements Serializable  {
         }else {
             throw new NoSolutionException();
         }
+    }
+    
+    /**
+     * Gets the query
+     * 
+     * @return the query
+     */
+    public Term getQuery(){
+        return query;
     }
     
     /**
@@ -91,7 +102,7 @@ public class SolveInfo implements Serializable  {
 
 	/**
 	 * Gets the list of the variables in the solution.
-	 * @return the arrray of variables.
+	 * @return the array of variables.
 	 * 
 	 * @throws NoSolutionException if current solve information
 	 * does not concern a successful 
@@ -117,7 +128,7 @@ public class SolveInfo implements Serializable  {
 		if (isSuccess){
 			String st="";
 			for (int i=0; i<bindings.length; i++){
-				if (bindings[i]!=null && !bindings[i].getName().equals(name)){
+				if (bindings[i]!=null && bindings[i].getName().equals(name)){
 					return bindings[i].getTerm();
 				}
 			}
@@ -137,18 +148,24 @@ public class SolveInfo implements Serializable  {
 	 */    
     public String toString(){
         if (isSuccess){
-            String st="";
+            StringBuffer st=new StringBuffer("yes");
+            if (bindings.length>0){
+                st.append(".\n");
+            } else {
+                st.append(". ");
+            }
             for (int i=0; i<bindings.length; i++){
                 if (bindings[i]!=null && !bindings[i].isAnonymous() &&
                         bindings[i].isBound() &&
                         (!bindings[i].getTerm().isVar() ||
                           (!((Var)(bindings[i].getTerm())).getName().startsWith("_")))){
-                    st=st+bindings[i]+"  ";
+                    st.append(bindings[i]);
+                    st.append("  ");
                 }
             }
-            return st;
-        }else {
-            return "false";
+            return st.toString();
+        } else {
+            return "no";
         }
     }
     

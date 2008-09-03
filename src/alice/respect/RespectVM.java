@@ -1,5 +1,5 @@
 /*
- * Tuple Centre media - Copyright (C) 2001-2002  aliCE team at deis.unibo.it
+ * ReSpecT Framework - aliCE team at deis.unibo.it
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -19,7 +19,6 @@ package alice.respect;
 import java.util.*;
 import alice.tuplecentre.*;
 
-import alice.respect.AgentId;
 import alice.respect.TupleCentreId;
 
 import alice.tuprolog.*;
@@ -27,7 +26,7 @@ import alice.logictuple.*;
 import java.io.*;
 
 /**
- * This class defines the behaviour of a ReSpecT Tuple Centre VM
+ * This class defines VM core of a ReSpecT Tuple Centre 
  *
  * @see alice.tuplecentre.TupleCentreVM
  *
@@ -55,13 +54,12 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
     // state (changed or not) of the tuple set after a VM cycle
     protected boolean tSetChanged;
 
-
     // engine for reactions evaluation
     Prolog core;
     // engine for reactions triggering
     Prolog trigCore;
     // current event serverd
-    Event currentEvent;
+    private Event currentEvent;
 
 	// persistency service
 	private FileWriter persistentStore;
@@ -69,15 +67,28 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
 	private BufferedWriter persistentStoreBuffer;
 	private boolean isPersistent;
 	
-
+	//	-------------- timing extension
+	
+	private Timer trapsTimer;
+	//private LinkedList trapEventQueue;
+	private TrapGenSet trapGenSet;
+	private long trapGenCounter;
+	protected TRSet ztrapSet;
+	protected boolean isReactingToTraps;
+	
+	//-----------------------
+    
+    private OutputEventListener outEventListener;
+	//-----------------------
+    
+    
     public RespectVM(TupleCentreId tid){
         super(tid);
-
+		
         tSet=new PersistentTupleSet();
         wSet=new EventSet();
         zSet=new TRSet();
         outputEventSet=new EventSet();
-
         core=new Prolog();
         alice.tuprolog.OutputListener l=new alice.tuprolog.OutputListener() {
             public void onOutput(alice.tuprolog.OutputEvent ev) {
@@ -98,14 +109,31 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
         }
 
         reactionSpec="";
+        
+        //
+    	isReactingToTraps = false;    
+        trapsTimer = new Timer();
+        trapGenSet = new TrapGenSet();
+		ztrapSet=new TRSet();
+        trapGenCounter = 0;
+		outEventListener=null;
     }
 
+	public RespectVM(TupleCentreId tid,OutputEventListener l){
+		this(tid);
+		outEventListener=l;
+	}
+
     protected void   notifyUnknownOutputEvent(alice.tuplecentre.OutputEvent ev){
-        System.out.println("NOTIFYING UNKNOWN EVENT: "+ev);
+        if (outEventListener!=null){
+        	outEventListener.notify(ev);
+        }
     }
 
 
     public void fetchTriggeredReactions(Event ev){
+    
+    	boolean trapEvent = (this.currentEvent instanceof TrapEvent);
         try {
             Term reactionTerm=null;
             if (ev instanceof InputEvent){
@@ -164,25 +192,51 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
                 } else if (ev instanceof Event_no_r){
                         reactionTerm=new Struct("no_r",((Event_no_r)ev).getTuple().toTerm());
                 }
+            } else if (ev instanceof TrapEvent){
+            	reactionTerm = new Struct("trap",((TrapEvent)ev).getLogicTuple().toTerm());
+            	trapEvent = true;
             }
+            
+            
             if (reactionTerm!=null){
-                Struct tev=new Struct("reaction",reactionTerm,new alice.tuprolog.Var("R"));
-                //String tev="reaction("+reactionTerm+",R).";
+				if (trapEvent){
+					Struct tev=new Struct("reaction",reactionTerm,new alice.tuprolog.Var("R"));
+					 //String tev="reaction("+reactionTerm+",R).";
 
-                SolveInfo info = trigCore.solve(tev);
-                while (info.isSuccess()){
-                    TriggeredReaction tr=new TriggeredReaction(ev,new LogicReaction((Struct)info.getSolution()));
-                    zSet.add(tr);
-                    //System.out.println("new reaction triggered: \n"+ev+" -> "+tr.reaction);
-                    if (isSpy()){
-                        spy("new reaction triggered: \n"+ev+" -> "+tr.reaction);
-                    }
-                    if (trigCore.hasOpenAlternatives()){
-                        info=trigCore.solveNext();
-                    } else {
-                        break;
-                    }
-                    trigCore.solveEnd();
+					 SolveInfo info = trigCore.solve(tev);
+					 while (info.isSuccess()){
+						 TriggeredReaction tr=new TriggeredReaction(ev,new LogicReaction((Struct)info.getSolution()));
+						 ztrapSet.add(tr);
+						 //System.out.println("new reaction triggered: \n"+ev+" -> "+tr.reaction);
+						 if (isSpy()){
+							 spy("new trap reaction triggered: \n"+ev+" -> "+tr.reaction);
+						 }
+						 if (trigCore.hasOpenAlternatives()){
+							 info=trigCore.solveNext();
+						 } else {
+							 break;
+						 }
+						 trigCore.solveEnd();
+					 }
+				} else {
+	                Struct tev=new Struct("reaction",reactionTerm,new alice.tuprolog.Var("R"));
+    	            //String tev="reaction("+reactionTerm+",R).";
+
+	                SolveInfo info = trigCore.solve(tev);
+    	            while (info.isSuccess()){
+        	            TriggeredReaction tr=new TriggeredReaction(ev,new LogicReaction((Struct)info.getSolution()));
+           	         	zSet.add(tr);
+                    	//System.out.println("new reaction triggered: \n"+ev+" -> "+tr.reaction);
+                    	if (isSpy()){
+                        	spy("new reaction triggered: \n"+ev+" -> "+tr.reaction);
+                    	}
+                    	if (trigCore.hasOpenAlternatives()){
+                        	info=trigCore.solveNext();
+                    	} else {
+                        	break;
+                    	}
+                    	trigCore.solveEnd();
+    	            }
                 }
             }
         } catch (Exception ex){
@@ -198,7 +252,10 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
         wSet.beginTransaction();
         zSet.beginTransaction();
         outputEventSet.beginTransaction();
-
+		//
+		trapGenSet.beginTransaction();
+		ztrapSet.beginTransaction();
+		//
         Term goalList=((LogicReaction)z.reaction).getStructReaction().getTerm(1);
         currentEvent=z.event;
 
@@ -213,18 +270,22 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
                 spy("reaction evaluation ok: "+goalList);
             }
             //System.out.println("EVAL REACTION OK");
-            if (hasObservableEventListeners()){
-                notifyObservableEvent(new ObservableEventReactionOK(this,z));
+            if (hasInspectors()){
+                notifyInspectableEvent(new ObservableEventReactionOK(this,z));
             }
         } else {
             if (isSpy()){
                 spy("reaction evaluation fail: "+goalList);
             }
             //System.out.println("EVAL REACTION FAIL");
-            if (hasObservableEventListeners()){
-                notifyObservableEvent(new ObservableEventReactionFail(this,z));
+            if (hasInspectors()){
+                notifyInspectableEvent(new ObservableEventReactionFail(this,z));
             }
         }
+		
+		ztrapSet.endTransaction(info.isSuccess());
+		trapGenSet.endTransaction(info.isSuccess());
+		//
         outputEventSet.endTransaction(info.isSuccess());
         zSet.endTransaction(info.isSuccess());
         wSet.endTransaction(info.isSuccess());
@@ -276,6 +337,9 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
         return reactionSpec;
     }
 
+	public Event getCurrentEvent(){
+		return currentEvent;
+	}
     /**
      *  Static services that checks if a source text
      *  contains a valid ReSpecT specification
@@ -297,7 +361,7 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
                 core.setTheory(thspec);
             } else {
                 core=null;
-                return new LogicTuple("invalid",alice.logictuple.Var.ANY);
+                return new LogicTuple("invalid",new alice.logictuple.Var());
             }
             core=null;
             return new LogicTuple("valid");
@@ -346,6 +410,20 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
     public void removeAllTuples(){
         tSet.empty();
     }
+
+    // ext
+    
+    public  List       removeMatchingTuples(TupleTemplate t){
+        List tuples=tSet.getMatchingTuples((alice.logictuple.LogicTuple)t);
+        return tuples;
+
+    }
+
+    public List       readMatchingTuples(TupleTemplate t){
+        return  tSet.readMatchingTuples((alice.logictuple.LogicTuple)t);
+    }
+
+    
     // ---------------------------------------------------------------
 
     public void        addPendingQueryEvent(PendingQueryEvent w){
@@ -361,8 +439,8 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
      *
      * @param id the identifier of the agent whose events must be removed
      */
-    public void removePendingQueryEventsOf(alice.tuplecentre.AgentId id){
-        wSet.removeEventsOf(id);
+    public void removePendingQueryEventsOf(alice.tuplecentre.AgentId aid){
+        wSet.removeEventsOf(aid);
     }
 
     // ---------------------------------------------------------------
@@ -381,7 +459,9 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
     // ----------------------------------------------------------------
 
     public TriggeredReaction removeTriggeredReaction(){
-        if (zSet.isEmpty()){
+    	if (!ztrapSet.isEmpty()){
+    		return ztrapSet.get();
+    	} else if (zSet.isEmpty()){
             return null;
         } else {
             return zSet.get();
@@ -446,6 +526,29 @@ public class RespectVM extends alice.tuplecentre.TupleCentreVM {
 				ex.printStackTrace();
 			}
 		}
+	}
+	
+	// ----------------
+	
+	public TrapGenerator addTrapGenerator(long time, LogicTuple t){
+		// check che non ci sia giˆ e che time < tc
+		trapGenCounter++;
+		TrapGenerator gen = new TrapGenerator(trapGenCounter,time,t,this);
+		trapGenSet.add(gen);
+		return gen;		
+	}
+	
+	public void addTrapEvent(TrapEvent ev){
+		acceptTrapEvent(ev);
+	}
+	
+	public boolean removeTrapGenerator(long aid){
+		return trapGenSet.remove(aid);
+	}
+	
+	public void installTrapTimerTask(TrapTimerTask t){
+		spy("Schedule trap for "+t.getScheduledTime()+" (now: "+System.currentTimeMillis()+" )");
+		trapsTimer.schedule(t,t.getScheduledTime());
 	}
 }
 

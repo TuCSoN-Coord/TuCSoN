@@ -540,20 +540,4 @@ public class Parser implements Serializable {
         return(tb);
     }
 
-    // helpers
-
-    /**
-     * finds a var already present in a list
-     */
-    /*
-    private Var findIn(String name,alice.util.LinkedList l) {
-        while(!l.isEmptyList()) {
-            Var v = (Var)l.head;
-            l = l.tail;
-            if(v.getName().equals(name)){
-                return(v);
-            }
-        }
-        return(null);
-    }*/
 }

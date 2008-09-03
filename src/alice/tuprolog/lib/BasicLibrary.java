@@ -17,6 +17,7 @@
  */
 package alice.tuprolog.lib;
 import alice.tuprolog.*;
+import alice.tuprolog.Long;
 import alice.tuprolog.Number;
 
 /**
@@ -38,13 +39,15 @@ public class BasicLibrary extends Library {
     //
 
     /**
-     * sets a new theory provided as a text
+     * sets a new theory provided as a text.
+     * With no specified name, it is set to default.
      */
     public boolean set_theory_1(Struct theory){
         try {
         	if (!theory.isAtom()){
         		return false;
         	}
+        	//NON recupera il nome della teoria, ma il suo testo, da cambiare.
             getEngine().setTheory(new Theory(theory.getName()));
             return true;
         } catch (InvalidTheoryException ex){
@@ -52,6 +55,30 @@ public class BasicLibrary extends Library {
             return false;
         }
     }
+    
+    
+    
+    /**
+     * sets a new theory provided as a text, with the specified name.
+     *
+     *@param theory the text representing the Theory
+     *@param thName the name of the Theory
+     */
+     //ENANETTI
+    public boolean set_theory_2(Struct theory, Struct thName){
+        try {
+        	if (!theory.isAtom()){
+        		return false;
+        	}
+        	//NON recupera il nome della teoria, ma il suo testo, da cambiare.
+            getEngine().setTheory(new Theory(theory.getName(), thName.getName()));
+            return true;
+        } catch (InvalidTheoryException ex){
+            System.err.println("invalid theory - line "+ex.line);
+            return false;
+        }
+    }
+    
 
     /**
      *  adds a new theory provided as a text
@@ -61,7 +88,28 @@ public class BasicLibrary extends Library {
             if (!theory.isAtom()){
                 return false;
             }
-            getEngine().setTheory(new Theory(theory.getName()));
+            getEngine().addTheory(new Theory(theory.getName()));
+            return true;
+        } catch (InvalidTheoryException ex){
+            System.err.println("invalid theory - line "+ex.line);
+            return false;
+        }
+    }
+    
+    
+    /**
+     *  adds a new theory provided as a text, with the specified name as a string
+     *
+     *@param theory the text representing the Theory
+     *@param thName the name of the Theory
+     */
+     //ENANETTI
+    public boolean add_theory_2(Struct theory, Struct thName){
+        try {
+            if (!theory.isAtom()){
+                return false;
+            }
+            getEngine().addTheory(new Theory(theory.getName(), thName.getName()));
             return true;
         } catch (InvalidTheoryException ex){
             System.err.println("invalid theory - line "+ex.line);
@@ -69,8 +117,13 @@ public class BasicLibrary extends Library {
         }
     }
 
-    /** gets current theory text */
-    public boolean get_theory_1(Struct arg){
+    
+    /** 
+     * gets current whole theory text 
+     * Same as get_theory. To keep compatibility.
+     **/
+    //ENANETTI
+    public boolean get_theory_1(Term arg){
         try {
             Term theory=new Struct(getEngine().getTheory().toString());
             return (unify(arg,theory));
@@ -78,6 +131,79 @@ public class BasicLibrary extends Library {
             return false;
         }
     }
+    
+    
+    /**
+     * gets loaded Theories whose name is the specified one, they are stored in a list.
+     *
+     *@param arg where the struct is stored
+     *@param thName the name of desired theory
+     */
+    //ENANETTI
+    public boolean get_theory_2(Term arg, Struct thName){
+    	try{
+    		//ottengo l'elenco delle teorie caricate nel motore
+    		Term theory=new Struct(getEngine().getTheory(alice.util.Tools.removeApices(thName.getName())).toString());
+         return (unify(arg,theory));
+    	}catch (InvalidTheoryException ite){
+    		return false;
+    	}//fine try-catch
+	
+    }//fine get_theories
+    
+    
+    /**
+     * removes the specified theory from database.
+     *
+     *returns true if successful, false elsewhere.
+     *@param thName the name of the Theory to be removed     *
+     */
+     //ENANETTI
+    public boolean remove_theory_1(Struct thName){
+    	try{
+    		getEngine().removeTheory(thName.getName());
+    		return true;
+    	}catch(InvalidTheoryException ite){
+    		return false;	
+    	}
+    	
+    }//fine remove_theory
+    
+
+
+	public boolean load_library_2(Struct className, Term libName){
+		try {
+			Library lib = getEngine().loadLibrary(alice.util.Tools.removeApices(className.getName()));
+			return unify(libName,new Struct(lib.getName()));
+		} catch (Exception ex){
+			return false;
+		}
+	}
+    
+    /**
+     * Loads a library constructed from a theory.
+     * 
+     * @param theory theory text
+     * @param libName name of the library
+     * @return true if the library has been succesfully loaded.
+     */
+	public boolean load_library_from_theory_2(Struct theory, Struct libName){
+        try {
+            if (!theory.isAtom()){
+                return false;
+            }
+            if (!libName.isAtom()){
+                return false;
+            }
+            Theory th = new Theory(theory.getName());
+            TheoryLibrary thlib = new TheoryLibrary(libName.getName(),th);
+            getEngine().loadLibrary(thlib);
+            return true;
+        } catch (Exception ex){
+            return false;
+        }
+    }
+    
 
     public boolean get_operators_list_1(Struct arg){
         Struct list=new Struct();
@@ -542,6 +668,7 @@ public class BasicLibrary extends Library {
             ":- op(  200, fx,   '\\'). \n"+
             ":- op(  200, fy,   '-'). \n"+
             ":- op(  200, fy,   '+'). \n"+
+            ":- op(  200, xfx,   '\\'). \n"+
             ":- op(  50, xfx,  ':'). \n"+
             //
             // flags defined by the BasicLibrary theory
@@ -607,10 +734,11 @@ public class BasicLibrary extends Library {
             // theory update predicates
             //
             "asserta(C)    :- '$asserta'(C). \n                                                                      " +
-            "asserta(C)    :- '$restore_db',fail. \n                                                                 " +
             "assertz(C)    :- '$assertz'(C). \n                                                                      " +
-            "assertz(C)    :- '$restore_db',fail. \n                                                                 " +
-            "assert(C)     :- '$asserta'(C),!. \n                                                                    " +
+            "assert(C)     :- '$assertz'(C). \n                                                                    " +
+            "asserta(C,T)    :- '$asserta'(C,T). \n                                                                      " +
+            "assertz(C,T)    :- '$assertz'(C,T). \n                                                                      " +
+            "assert(C,T)     :- '$assertz'(C,T). \n                                                                    " +
             //
             "retract(C)    :- current_prolog_flag(retract_backtrackable,false),!,retract_nb(C).\n                        " +
             "retract(C)    :- retract_bt(C). \n                                                                 " +
@@ -619,8 +747,9 @@ public class BasicLibrary extends Library {
             "retract_nb(C)    :- '$retract'(C). \n"+
             "retract_all([]).\n                                                                                      " +
             "retract_all([P|L]):-!,retract(P),retract_all(L).\n                                                      " +
-            "abolish(P)    :- findall(P,clause(P,_),L),retract_all(L),!.\n                                            " +
-            //
+            "abolish(P)       :- findall(P,clause(P,_),L),retract_all(L),!.\n                                            " +
+            "retractall(P)    :- findall(P,clause(P,_),L),retract_all(L),!.\n                                            " +
+		    //
             // auxiliary predicates
             //
             "member(E,[E|_]). \n                                                                                     " +
@@ -654,8 +783,6 @@ public class BasicLibrary extends Library {
             "   split(X,Tail,Pred,Small,Big).                   \n"+
             "split(X,[Y|Tail],Pred,[Y|Small],Big):-             \n"+
             "   split(X,Tail,Pred,Small,Big).                   \n";
-
-
     }
 
     /**

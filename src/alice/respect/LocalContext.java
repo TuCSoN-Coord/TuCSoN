@@ -1,21 +1,28 @@
 /*
- * UserLocal.java
+ * ReSpecT Framework - aliCE team at deis.unibo.it
  *
- * Copyright 2000-2001-2002  aliCE team at deis.unibo.it
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
  *
- * This software is the proprietary information of deis.unibo.it
- * Use is subject to license terms.
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
  *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.respect;
 import alice.logictuple.*;
 import alice.tuplecentre.*;
-import java.util.*;
 
 /**
  *
  */
-class LocalContext implements OutputEventListener {
+class LocalContext implements ITupleCentre, OutputEventListener {
 
     /** user id */
     private AgentId  id;
@@ -26,13 +33,20 @@ class LocalContext implements OutputEventListener {
     /** event notified by the tuple centre */
     private OutputEvent  evReceived;
 
+	private Object semaphore;
+	
     public LocalContext(AgentId id_, RespectVM core_){
         core=core_;
         id=id_;
+        semaphore = new Object();
     }
 
-    public AgentId getId(){
+    public AgentId getAgentId(){
         return id;
+    }
+    
+    public TupleCentreId getId(){
+    	return (TupleCentreId)core.getId();
     }
 
     public synchronized void out(LogicTuple t) throws InvalidLogicTupleException {
@@ -48,12 +62,15 @@ class LocalContext implements OutputEventListener {
             throw new InvalidLogicTupleException();
         }
         //spy(id+" in "+t);
+		evReceived=null;
         core.in(t,id,this);
         //spy(id+" in processed "+t);
-        try {
-            wait();
-        } catch (Exception e){
-        }
+		while (evReceived==null){
+			try {
+				wait();
+			} catch (Exception e){
+			}
+		}
         //spy(id+" in return "+evReceived.tuple);
         return unify(t,((OutputEvent_in)evReceived).getTuple());
     }
@@ -63,12 +80,15 @@ class LocalContext implements OutputEventListener {
             throw new InvalidLogicTupleException();
         }
         //spy(id+" rd "+t);
+		evReceived=null;
         core.rd(t,id,this);
         //spy(id+" rd processed "+t);
-        try {
-            wait();
-        } catch (Exception e){
-        }
+		while (evReceived==null){
+			try {
+				wait();
+			} catch (Exception e){
+			}
+		}
         //spy(id+" rd return "+evReceived.tuple);
         return unify(t,((OutputEvent_rd)evReceived).getTuple());
     }
@@ -77,10 +97,13 @@ class LocalContext implements OutputEventListener {
         if (t==null){
             throw new InvalidLogicTupleException();
         }
+		evReceived=null;
         core.inp(t,id,this);
-        try {
-            wait();
-        } catch (Exception e){
+		while (evReceived==null){
+	        try {
+	            wait();
+    	    } catch (Exception e){
+	        }
         }
         if (evReceived.isSuccess())
             return unify(t,((OutputEvent_inp)evReceived).getTuple());
@@ -92,11 +115,14 @@ class LocalContext implements OutputEventListener {
         if (t==null){
             throw new InvalidLogicTupleException();
         }
+		evReceived=null;
         core.rdp(t,id,this);
-        try {
-            wait();
-        } catch (Exception e){
-        }
+		while (evReceived==null){
+			try {
+	            wait();
+    	    } catch (Exception e){
+        	}
+		}
         if (evReceived.isSuccess())
             return unify(t,((OutputEvent_rdp)evReceived).getTuple());
         else
@@ -107,10 +133,13 @@ class LocalContext implements OutputEventListener {
         if (spec==null){
             throw new InvalidSpecificationException();
         }
+		evReceived=null;
         core.setSpec(spec,id,this);
-        try {
-            wait();
-        } catch (Exception e){
+        while (evReceived==null){
+        	try {
+	            wait();
+    	    } catch (Exception e){
+        	}
         }
         if (!evReceived.isSuccess()){
             throw new InvalidSpecificationException();
@@ -118,11 +147,14 @@ class LocalContext implements OutputEventListener {
     }
 
     public synchronized String getSpec(){
+		evReceived=null;
         core.getSpec(id,this);
-        try {
-            wait();
-        } catch (Exception e){
-        }
+		while (evReceived==null){
+			try {
+				wait();
+			} catch (Exception e){
+			}
+		}
         return ((OutputEvent_getSpec)evReceived).getSpec();
     }
 
@@ -135,9 +167,13 @@ class LocalContext implements OutputEventListener {
         }
     }
 
-    public synchronized void notify(OutputEvent ev) {
+    public  synchronized void notify(OutputEvent ev) {
         evReceived=ev;
-        notify();
+        try {
+        	notify();
+        } catch (Exception ex){
+        	ex.printStackTrace();
+        }
     }
     
     

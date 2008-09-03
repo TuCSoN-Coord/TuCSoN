@@ -171,7 +171,6 @@ public class Value extends TupleArgument {
     /**
      * Constructs a structured (compound) argument as a logic list
      *
-     * @param f the name of the structure
      * @param argList the list of the arguments
      */
     public Value(TupleArgument[] argList) {

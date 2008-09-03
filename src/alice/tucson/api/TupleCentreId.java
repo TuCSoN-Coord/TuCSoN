@@ -127,5 +127,7 @@ public class TupleCentreId extends alice.respect.TupleCentreId {
         return id.toString();
     }
 
-
+	public boolean equals(Object obj){
+		return id.toString().equals(obj.toString());
+	} 
 }

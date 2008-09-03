@@ -144,6 +144,7 @@ public class Struct extends Term {
     public Struct() {
         this(".",2);
         arg[0] = arg[1] = NullTerm.NULL_TERM;
+        resolved = true;
     }
 
 
@@ -301,6 +302,38 @@ public class Struct extends Term {
         return this;
     }
 
+    
+    //
+    
+    /**
+     * Gets an argument inside this structure, given its name
+     * 
+     * @param name name of the structure 
+     * @return the argument or null if not found
+     */
+    public Struct getArg(String name){
+    		if (arity==0){
+    			return null;
+    		}
+    		for (int i=0; i<arg.length; i++){
+    			if (arg[i].isStruct()){
+    				Struct s = (Struct)arg[i];
+    				if (s.getName().equals(name)){
+    					return s;
+    				}
+    			}
+    		}
+    		for (int i=0; i<arg.length; i++){
+    			if (arg[i].isStruct()){
+    				Struct s = (Struct)arg[i];
+    				Struct sol = s.getArg(name);
+    				if (sol!=null){
+    					return sol;
+    				}
+    			}
+    		}
+    		return null;
+    }
 
     //
 
@@ -835,4 +868,13 @@ public class Struct extends Term {
         return(v);
     }
 
+    public String toStringWithoutApices(){
+        String st = toString();
+    	if (st.startsWith("'") && st.endsWith("'")){
+            return st.substring(1,st.length()-1);
+       } else {
+           return st;
+       }
+    }
+    
 }

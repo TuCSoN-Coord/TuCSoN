@@ -267,6 +267,21 @@ import java.util.*;
     }
 
     /**
+     * Gets an argument of this argument supposed to be a compound
+     *
+     * @param name of the argument
+     * @return the argument of the compound
+     */
+    public TupleArgument getArg(String name)  {
+        Struct s = ((Struct)value).getArg(name);
+    	    if (s!=null){
+    	    		return new TupleArgument(s);
+        } else {
+        		return null;
+        }
+    }
+    
+    /**
      * Gets the argument linked to a variable inside the tuple argument
      *
      * @param varName is the name of the variable
@@ -274,7 +289,7 @@ import java.util.*;
      *         the variable exits inside the argument, null otherwise
      */
     public TupleArgument getVarValue(String varName) {
-        if (value.isVar()){
+        if (value.isVar() && ((alice.tuprolog.Var)value).getName().equals(varName)){
             return new TupleArgument(((alice.tuprolog.Var)value).getTerm());
         } else if (!value.isStruct()){
             return null;
@@ -296,6 +311,11 @@ import java.util.*;
                 if (v.getName().equals(name)){
                     return v.getTerm();
                 }
+            } else if (st.getArg(i).isStruct()){
+            	Term t = getVarValue(name,(Struct)st.getArg(i));
+            	if (t!=null){
+            		return t;
+            	}
             }
         }
         return null;
@@ -349,6 +369,20 @@ import java.util.*;
 	}
 
 	/**
+	 * Checks if this argument is equal to another
+	 * 
+	 * Two arguments are equal if they match
+	 * 
+	 */
+	public boolean equals(Object obj){
+		if (obj instanceof TupleArgument){
+			return match((TupleArgument)obj);
+		} else {
+			return false;
+		}
+	}
+
+	/**
 	 * Tries to unify this tuple argument with another one
 	 * 
 	 * @param t a tuple argument
@@ -361,6 +395,15 @@ import java.util.*;
 		} catch (Exception ex){
 			return false;
 		}
+	}
+
+	/**
+	 * Gets a copy of argument
+	 * 
+	 * @return a copy
+	 */
+	public TupleArgument getCopy(){
+		return new TupleArgument(value.copy());
 	}
     
     /**

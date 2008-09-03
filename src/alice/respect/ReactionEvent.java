@@ -1,5 +1,5 @@
 /*
- * Tuple Centre media - Copyright (C) 2001-2002  aliCE team at deis.unibo.it
+ * ReSpecT Framework - aliCE team at deis.unibo.it
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -18,12 +18,11 @@
 package alice.respect;
 
 /**
- * Represents input events of the tuple centre virtual machine
  *
  *
  * @version 1.0
  */
-public abstract class ReactionEvent extends alice.tuplecentre.Event {
+abstract class ReactionEvent extends alice.tuplecentre.Event {
 
     public ReactionEvent(long myid,AgentId aid,TupleCentreId tid){
         super(myid,aid,tid);
@@ -34,10 +33,6 @@ public abstract class ReactionEvent extends alice.tuplecentre.Event {
     }
 
     public  boolean isFailure(){
-        return false;
-    }
-
-    public  boolean isException(){
         return false;
     }
 }

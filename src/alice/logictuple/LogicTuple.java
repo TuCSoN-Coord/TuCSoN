@@ -201,7 +201,7 @@ public class LogicTuple implements alice.tuplecentre.Tuple, alice.tuplecentre.Tu
     }
 
     /**
-     * Gets a argument inside the logic tuple
+     * Gets an argument inside the logic tuple
      *
      * @param index the position (index) of the argument
      * @return the tuple argument if it exists, <code>null</code> otherwise
@@ -211,6 +211,16 @@ public class LogicTuple implements alice.tuplecentre.Tuple, alice.tuplecentre.Tu
         return info.getArg(index);
     }
 
+    /**
+     * Gets an argument (typically a structured value) given its name
+     * 
+     * @param name name of the argument
+     * @return the argument (a structured Value) or null if not presemt
+     */
+    public TupleArgument getArg(String name) {
+    		return info.getArg(name);
+    }
+    
      /**
       * Gets the argument linked to a variable inside the tuple.
       *
@@ -293,6 +303,38 @@ public class LogicTuple implements alice.tuplecentre.Tuple, alice.tuplecentre.Tu
         }
     }
 
+
+	/**
+	 * Checks if this logic tuple is equal to another
+	 * 
+	 * Two logic tuples are equal if they match
+	 * 
+	 */
+	public boolean equals(Object obj){
+		if (obj instanceof LogicTuple){
+			return match((LogicTuple)obj);
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Gets a copy of the logic tuple
+	 * 
+	 * @return a copy
+	 */
+	public LogicTuple getCopy(){
+		return new LogicTuple(info.getCopy());	
+	}
+	
+	/**
+	 * Gets a representation of this tuple as a tuple argument
+	 * @return a tuple argument
+	 */
+	public TupleArgument toTupleArgument(){
+		return info;
+	}
+	
     /**
      * Static service to get a Logic tuple from a textual representation
      *

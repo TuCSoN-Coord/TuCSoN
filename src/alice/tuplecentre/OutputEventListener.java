@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.tuplecentre;
-import alice.tuplecentre.*;
 
 /**
  * Defines the services that must be provided by any object

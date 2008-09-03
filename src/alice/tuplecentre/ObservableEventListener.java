@@ -1,5 +1,5 @@
 /*
- * Tuple Centre media - Copyright (C) 2001-2002  aliCE team at deis.unibo.it
+ * Tuple Centre  Framework - aliCE team at deis.unibo.it
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -16,24 +16,21 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.tuplecentre;
-import java.util.*;
 
-/**
- * Defines listeners of tuple centre virtual machine observable events
- * (actually inspectors)
- *
- * @see ObservableEvent
- * @see TupleCentreVM
- *
- *
- * @version 1.0
- */
-public interface ObservableEventListener extends EventListener {
-    /**
-     * Method triggered by the tuple centre virtual machine
-     * when an observable event is observed inside the VM
-     *
-     * @param e the observed event
-     */
-    public abstract void onObservableEvent(ObservableEvent e);
+public interface ObservableEventListener {
+
+	void in_requested(TupleCentreId tid, AgentId id, TupleTemplate t);
+	void in_completed(TupleCentreId tid, AgentId id, Tuple t);
+	void rd_requested(TupleCentreId tid, AgentId id, TupleTemplate t);
+	void rd_completed(TupleCentreId tid, AgentId id, Tuple t);
+	void out_requested(TupleCentreId tid, AgentId id, Tuple t);
+	void inp_requested(TupleCentreId tid, AgentId id, TupleTemplate t);
+	void inp_completed(TupleCentreId tid, AgentId id, Tuple t);
+	void rdp_requested(TupleCentreId tid, AgentId id, TupleTemplate t);
+	void rdp_completed(TupleCentreId tid, AgentId id, Tuple t);
+
+	void setSpec_requested(TupleCentreId tid, AgentId id, String spec);
+	void setSpec_completed(TupleCentreId tid, AgentId id);
+	void getSpec_requested(TupleCentreId tid, AgentId id);
+	void getSpec_completed(TupleCentreId tid, AgentId id, String spec);
 }

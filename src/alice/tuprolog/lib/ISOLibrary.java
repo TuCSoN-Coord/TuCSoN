@@ -245,15 +245,15 @@ public class ISOLibrary extends Library {
     public Term mod_2(Term v0, Term v1) {
         Term val0 = evalExpression(v0);
         Term val1 = evalExpression(v1);
-        if(!val0.isNumber()){
+        if (!val0.isNumber() || !val1.isNumber()) {
             return null;
         }
-        if(!val1.isNumber()){
-            return null;
-        }
-        return(new alice.tuprolog.Int(((Number)val0).intValue() % ((Number)val1).intValue()));
-    }
-
+        int x = ((Number) val0).intValue();
+        int y = ((Number) val1).intValue();
+        int f = new java.lang.Double(Math.floor((double) x / (double) y)).intValue();
+        return new Int(x - (f * y));
+    }    
+    
     public Term rem_2(Term v0, Term v1) {
         Term val0 = evalExpression(v0);
         Term val1 = evalExpression(v1);
@@ -274,7 +274,6 @@ public class ISOLibrary extends Library {
             //
             // operators defined by the ISOLibrary theory
             //
-            ":- op( 1200, xfx,  '-->'). \n"+
             ":- op(  300, yfx,  'div'). \n"+
             ":- op(  400, yfx,  'mod'). \n"+
             ":- op(  400, yfx,  'rem'). \n"+
@@ -284,7 +283,6 @@ public class ISOLibrary extends Library {
             ":- op(  200, fx,   'atan'). \n"+
             ":- op(  200, fx,   'exp'). \n"+
             ":- op(  200, fx,   'log'). \n"+
-            ":- op(  200, xfx,   '\\'). \n"+
             //
             // flags defined by the ISOLibrary theory
             //
@@ -318,24 +316,12 @@ public class ISOLibrary extends Library {
             "number_chars(Number,List):-num_atom(Number,Struct),atom_chars(Struct,List),!.\n"+
             "number_chars(Number,List):-atom_chars(Struct,List),num_atom(Number,Struct).\n"+
             "number_codes(Number,List):-num_atom(Number,Struct),atom_codes(Struct,List),!.\n"+
-            "number_codes(Number,List):-atom_codes(Struct,List),num_atom(Number,Struct).\n"+
+            "number_codes(Number,List):-atom_codes(Struct,List),num_atom(Number,Struct).\n";
             //
             // ISO default
             //"current_prolog_flag(changeable_flags,[ char_conversion(on,off), debug(on,off), undefined_predicate(error,fail,warning),double_quotes(chars,codes,atom) ]).\n"+
             //"current_prolog_flag(changeable_flags,[]).\n                                                              "+
 
-            // DCG support
-            "dcg_nonterminal(X) :- list(X),!,fail.  \n"+
-            "dcg_nonterminal(_).                    \n"+
-            "dcg_terminals(Xs) :- list(Xs).         \n"+
-            "phrase(Category,String,Left) :- dcg_parse(Category,String\\Left).      \n"+
-            "phrase(Category,[H|T]) :- dcg_parse(Category,[H|T]\\[]).      \n"+
-            "dcg_parse(A,Tokens) :- dcg_nonterminal(A), (A --> B), dcg_parse(B,Tokens).            \n"+
-            "dcg_parse((A,B),(Tokens \\ Xs)) :- dcg_parse(A,(Tokens \\ Tokens1)), dcg_parse(B,(Tokens1 \\ Xs)).    \n"+
-            "dcg_parse(A,Tokens) :- dcg_terminals(A), dcg_connect(A,Tokens).    \n"+
-            "dcg_parse({A},(Xs \\ Xs)) :- A. \n"+
-            "dcg_connect([],(Xs \\ Xs)). \n"+
-            "dcg_connect([W|Ws],([W|Xs] \\ Ys)) :- dcg_connect(Ws,(Xs \\ Ys)). \n";
     }
 
 }

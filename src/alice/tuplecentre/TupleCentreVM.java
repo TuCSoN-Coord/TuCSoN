@@ -33,17 +33,20 @@ public abstract class TupleCentreVM implements Runnable {
     /** tuple centre boot time in ms*/
     protected long bootTime;
 
+	/** tuple centre current time in ms*/
+	protected long currentTime;
+
     /** input event queue */
     protected LinkedList       inputEvents;
-    protected List             inputEventsSynchWrapper;
 
     private boolean busy;
 
     /** identifier of the tuple centre */
     protected TupleCentreId id;
 
-    /** listener to VM observable events (typically Inspectors) */
-    protected List observableEventListeners;
+    /** listener to VM inspectable events  */
+    protected List inspectors;
+
 
     /**
      * registered listeners of communication events
@@ -51,6 +54,9 @@ public abstract class TupleCentreVM implements Runnable {
      * (typically tuple centre users such as agents)
      */
     protected HashMap     receiversMap;
+    
+    // true when the tuple centre is ready
+    private boolean ready;
 
     /**
      * unique event timestamp, incremented each time
@@ -59,17 +65,33 @@ public abstract class TupleCentreVM implements Runnable {
     protected long        evTimeStamp;
 
     protected boolean isSpy = false;
+    protected Object  outLock; 
+    
+	//	-------------- timing extension
+	private LinkedList trapEventQueue;
+	//-----------------------
+
+
+	// 20041205 
+	protected List observers;
+
 
 
     public TupleCentreVM(TupleCentreId tid){
         inputEvents=new LinkedList();
-        inputEventsSynchWrapper=Collections.synchronizedList(inputEvents);
-        observableEventListeners=new Vector();
+        inspectors=new ArrayList();
         bootTime=System.currentTimeMillis();
         id=tid;
         busy=true;
         receiversMap=new HashMap();
         evTimeStamp=0;
+        ready=false; 
+		//
+		trapEventQueue = new LinkedList();
+		//
+		observers=new ArrayList();
+		outLock = new Object();
+		
     }
 
     //-------------------------------------------------------------------------
@@ -86,20 +108,73 @@ public abstract class TupleCentreVM implements Runnable {
      *
      * @param ev the input (communication) event
      */
-    public synchronized void acceptEvent(InputEvent ev){
-        while (busy){
-            try {
-                wait();
-            } catch (Exception  ex){
-            }
+    public void acceptEvent(InputEvent ev){
+		if (isSpy){
+			spy("accepting event "+ev);
+		}
+		
+		synchronized (trapEventQueue){
+
+			//synchronized(inputEvents){
+				inputEvents.add(ev);
+			//}
+			
+			if (!busy){
+				trapEventQueue.notifyAll();
+			}
         }
-        if (isSpy){
-            spy("accepting event "+ev);
-        }
-        inputEventsSynchWrapper.add(ev);
-        /** inform the VM thread of control which a new event is available*/
-        notifyAll();
+		if (isSpy){
+			spy("accepted event "+ev);
+		}
     }
+
+	//----------
+	
+	/**
+	 * Accepts a trap event
+	 *
+	 * @param ev the trap event
+	 */
+	protected void acceptTrapEvent(TrapEvent ev){
+		try {
+			if (isSpy){
+				spy("accepting trap event "+ev);
+			}
+			synchronized (trapEventQueue){
+				trapEventQueue.addLast(ev);
+				if (!busy){
+					trapEventQueue.notifyAll();
+				}
+			}
+		} catch (Exception ex){
+			ex.printStackTrace();
+		}
+		if (isSpy){
+			spy("accepted trap event "+ev);
+		}
+	}
+	
+	/**
+	 * Get trap Event
+	 * 
+	 * @return
+	 */
+	protected TrapEvent removeTrapEvent(){
+		try {
+			synchronized (trapEventQueue){
+				if (trapEventQueue.isEmpty()){
+					return null;
+				} else {
+					return (TrapEvent)trapEventQueue.removeFirst();
+				}
+			}
+		} catch (Exception ex){
+			ex.printStackTrace();
+		}
+		return null;
+	}
+		
+	//------
 
     /** gets the identifier of this tuple centre */
     public TupleCentreId getId(){
@@ -109,19 +184,25 @@ public abstract class TupleCentreVM implements Runnable {
     /**
      * blocks the VM thread of control, waiting for events incoming
      */
-    protected synchronized void waitEvents(){
+    protected void waitEvents(){
         try {
-            if (isSpy){
-                spy("[core ] WAIT");
-                spyState();
+            if (inspectors.size()>0){
+                notifyInspectableEvent(new InspectableEvent(this,InspectableEvent.TYPE_NEWSTATE));
             }
-            if (observableEventListeners.size()>0){
-                notifyObservableEvent(new ObservableEvent(this,ObservableEvent.TYPE_NEWSTATE));
-            }
-            busy=false;
-            notifyAll();
-            wait();
-            busy=true;
+
+			synchronized (trapEventQueue){
+				if (inputEvents.size()==0){
+					busy=false;
+					trapEventQueue.notifyAll();
+					if (isSpy){
+						spy("WAIT");
+						spyState();
+					}
+					trapEventQueue.wait();
+				}
+				busy=true;
+			}
+
             if (isSpy){
                 spy("[core ] AWAKED]");
                 spyState();
@@ -138,26 +219,41 @@ public abstract class TupleCentreVM implements Runnable {
         Iterator l=getOutputEventSetIterator();
         while (l.hasNext()){
             OutputEvent ev=(OutputEvent)l.next();
+            if (isSpy()){
+    	        spy("notifying event "+ev+"...");
+            }
             if (ev.getId()!=-1){
-                Long id=new Long(ev.getId());
-                OutputEventListenerActionInfo receiverInfo=(OutputEventListenerActionInfo)receiversMap.get(id);
-                if (receiverInfo!=null){
-                    try {
-                        receiverInfo.receiver.notify(ev);
-                    } catch (Exception ex){
-                    }
-                    // added 020629 -----------------------------
-                    if (!receiverInfo.persistent){
-                        receiversMap.remove(id);
-                    }
-                    //-------------------------------------------
-                    if (isSpy){
-                        spy("notify event "+ev);
-                    }
+                Long eid=new Long(ev.getId());
+                synchronized (receiversMap){
+	                OutputEventListenerActionInfo receiverInfo=(OutputEventListenerActionInfo)receiversMap.get(eid);
+	                if (receiverInfo!=null){
+	                    try {
+	                        receiverInfo.receiver.notify(ev);
+	                    } catch (Exception ex){
+	                    	ex.printStackTrace();
+	                    }
+	                    // added 020629 -----------------------------
+	                    //if (!receiverInfo.persistent){
+	                    receiversMap.remove(eid);
+	                    //}
+	                    //-------------------------------------------
+	                    if (isSpy){
+	                        spy("notify event "+ev+" OK");
+	                    }
+	                } else {
+	                	if (isSpy){
+	                		spy("notifying event "+ev+" ... failed (unknown receiver)");
+	                	}
+	                }
                 }
             } else {
                 notifyUnknownOutputEvent(ev);
             }
+            
+			if (observers.size()>0){
+				notifyObservableEvent(ev);
+			}
+            
             l.remove();
         }
     }
@@ -175,6 +271,7 @@ public abstract class TupleCentreVM implements Runnable {
      * VM listening-reacting-speaking behaviour
      */
     public void run(){
+        ready = true;
         Thread me = Thread.currentThread();
         while (!me.isInterrupted()){
             //spy("[core ] before waitEvents");
@@ -188,17 +285,24 @@ public abstract class TupleCentreVM implements Runnable {
             boolean pendingOperations=true;
             while (pendingOperations){
 
+				//-check Traps----
+				TrapEvent tev = this.removeTrapEvent();
+				if (tev!=null){
+					fetchTriggeredReactions(tev);
+				}		
+				//----------------
+				
                 // check for reaction transition
-
                 TriggeredReaction z=removeTriggeredReaction();
                 if (z!=null){
+                	updateTime();
                     evalReaction(z);
                     if (!isOutputEventSetEmpty()){
                         try {
                             notifyOutputEvents();
                         } catch(Exception ex){
                         }
-                    }
+                    }                    
                 } else {
                     // check for speaking transition
 
@@ -213,9 +317,9 @@ public abstract class TupleCentreVM implements Runnable {
                         if (out_ev!=null){
                             found=true;
                             // added 020624 ------------
-                            if (!ev.isPersistent()){
-                                it.remove();
-                            }
+                            //if (!ev.isPersistent()){
+                            it.remove();
+                            //}
                             // -------------------------
                             break;
                         }
@@ -230,9 +334,15 @@ public abstract class TupleCentreVM implements Runnable {
                         fetchTriggeredReactions(out_ev);
                     } else {
 
-                        // check for listening transition
-                        if (!inputEvents.isEmpty()){
-                            InputEvent evi=(InputEvent)inputEvents.removeFirst();
+                    	  InputEvent evi = null;
+                    	  //synchronized (inputEvents){
+                    	  synchronized (trapEventQueue){
+                    		  // check for listening transition
+                    		  if (!inputEvents.isEmpty()){
+                    			  evi=(InputEvent)inputEvents.removeFirst();
+                    		  }
+                    	  }                    		 
+                    	  if (evi!=null){
                             evi.listen_action(this);
                             if (isSpy){
                                 spy("listening ..."+evi);
@@ -244,13 +354,19 @@ public abstract class TupleCentreVM implements Runnable {
                     }
                 }
             }
-
+            
             try {
                 notifyOutputEvents();
             } catch(Exception ex){
+            	ex.printStackTrace();
             }
+            
         }
     }
+
+	public boolean isReady(){
+		return ready;
+	}
 
 
     //-------------------------------------------------------------------------------------------------------
@@ -329,7 +445,7 @@ public abstract class TupleCentreVM implements Runnable {
 
     /**
      * Removes (not deterministically) from the tuple set  a tuple
-     * that matches with the provided tuple template
+     * that matches  the provided tuple template
      *
      * @param t the tuple template that must be matched by the tuple
      * @return a tuple matching the tuple template
@@ -337,14 +453,33 @@ public abstract class TupleCentreVM implements Runnable {
     public abstract Tuple       removeMatchingTuple(TupleTemplate t);
 
     /**
-     * Get (not deterministically) without removing from the tuple set  a tuple
-     * that matches with the provided tuple template
+     * Gets (not deterministically) without removing from the tuple set  a tuple
+     * that matches  the provided tuple template
      *
      * @param t the tuple template that must be matched by the tuple
      * @return a tuple matching the tuple template
      */
     public abstract Tuple       readMatchingTuple(TupleTemplate t);
 
+    /**
+     * Removes all the tuples
+     * that match the provided tuple template
+     *
+     * @param t the tuple template that must be matched by the tuple
+     * @return a tuple array  with tuples matching the tuple template
+     */
+    public abstract List       removeMatchingTuples(TupleTemplate t);
+
+    /**
+     * Gets without removing from the tuple set  all the  tuples
+     * that match the provided tuple template
+     *
+     * @param t the tuple template that must be matched by the tuple
+     * @return a tuple array with tuples matching the tuple template
+     */
+    public abstract List       readMatchingTuples(TupleTemplate t);
+   
+    
     /**
      * Gets an iterator over the tuple set (T)
      *
@@ -377,7 +512,7 @@ public abstract class TupleCentreVM implements Runnable {
      */
     public abstract Iterator    getPendingQuerySetIterator();
 
-    public abstract void        removePendingQueryEventsOf(AgentId id);
+    public abstract void        removePendingQueryEventsOf(AgentId aid);
 
     // ------------------------------
 
@@ -428,9 +563,12 @@ public abstract class TupleCentreVM implements Runnable {
      * to the standard Java measurement of time.
      */
     public long getCurrentTime(){
-        return System.currentTimeMillis()-bootTime;
+        return currentTime;
     }
-
+    
+   	private void updateTime(){
+		currentTime = System.currentTimeMillis()-bootTime;
+   	}
     // --------------------------------------------------------------------------
 
 
@@ -438,9 +576,11 @@ public abstract class TupleCentreVM implements Runnable {
      * resets the virtual machine to boot state
      */
     public synchronized void reset(){
-        inputEvents.clear();
-        setReactionSpec("");
-        notifyAll();
+    	synchronized (trapEventQueue){
+    		inputEvents.clear();
+    		setReactionSpec("");
+    		notifyAll();
+    	}
     }
 
     // --------------------------------------------------------------
@@ -454,35 +594,44 @@ public abstract class TupleCentreVM implements Runnable {
     }
 
     protected void spy(String m){
-        System.out.println("[ core ] "+m);
-    }
+		synchronized (outLock){
+			System.out.println("[ core ] "+m);
+		}
+	}
 
     protected void log(String m){
-        System.out.println(m);
+    		synchronized (outLock){
+    			System.out.println(m);
+    		}
     }
 
     private void spyState(){
         if (isSpy){
-            spy("-----------STATE--------------------");
-            spy("input events");
-            Iterator l=inputEvents.listIterator();
-            while (l.hasNext())
-                spy("[ev]"+(Event)l.next());
-            spy("TSET");
-            l=getTupleSetIterator();
-            while (l.hasNext())
-                spy("[tuple]"+(Tuple)l.next());
-            spy("WSET");
-            l=getPendingQuerySetIterator();
-            while (l.hasNext())
-                spy("[ev]"+(Event)l.next());
-            spy("ZSET");
-            l=getTriggeredReactionSetIterator();
-            while (l.hasNext()){
-                TriggeredReaction tr=(TriggeredReaction)l.next();
-                spy("[reaction]"+tr+" "+tr.reaction);
-            }
-            spy("------------------------------------");
+        	synchronized (outLock){
+		            spy("-----------STATE--------------------");
+		            spy("input events");
+		        	Iterator l = null;
+		            synchronized(trapEventQueue){
+		            	l=inputEvents.listIterator();
+		            	while (l.hasNext())
+		            		spy("[ev]"+(Event)l.next());
+		            }
+		            spy("TSET");
+		            l=getTupleSetIterator();
+		            while (l.hasNext())
+		                spy("[tuple]"+(Tuple)l.next());
+		            spy("WSET");
+		            l=getPendingQuerySetIterator();
+		            while (l.hasNext())
+		                spy("[ev]"+(Event)l.next());
+		            spy("ZSET");
+		            l=getTriggeredReactionSetIterator();
+		            while (l.hasNext()){
+		                TriggeredReaction tr=(TriggeredReaction)l.next();
+		                spy("[reaction]"+tr+" "+tr.reaction);
+		            }
+		            spy("------------------------------------");
+	        }
         }
     }
 
@@ -506,8 +655,11 @@ public abstract class TupleCentreVM implements Runnable {
      * @return the communication event generated by the invocation
      */
     public synchronized InputEvent out(Tuple t,AgentId aid,OutputEventListener receiver){
-        InputEvent ev=new InputEvent_out(evTimeStamp++,aid,getId(),t);
+        InputEvent_out ev=new InputEvent_out(evTimeStamp++,aid,getId(),t);
         acceptEvent(ev);
+        if (observers.size()>0){
+        	notifyObservableEvent(ev);
+        }
         return ev;
     }
 
@@ -522,9 +674,14 @@ public abstract class TupleCentreVM implements Runnable {
      * @return the communication event generated by the invocation
      */
     public synchronized InputEvent in(TupleTemplate t,AgentId aid,OutputEventListener receiver){
-        InputEvent ev=new InputEvent_in(evTimeStamp++,aid,getId(),t);
+        InputEvent_in ev=new InputEvent_in(evTimeStamp++,aid,getId(),t);
+        synchronized (receiversMap){
+        	receiversMap.put(new Long(ev.getId()),new OutputEventListenerActionInfo(ev,receiver));
+        } 	
         acceptEvent(ev);
-        receiversMap.put(new Long(ev.getId()),new OutputEventListenerActionInfo(ev,receiver));
+		if (observers.size()>0){
+			notifyObservableEvent(ev);
+		}
         return ev;
     }
 
@@ -539,9 +696,14 @@ public abstract class TupleCentreVM implements Runnable {
      * @return the communication event generated by the invocation
      */
     public synchronized InputEvent rd(TupleTemplate t,AgentId aid,OutputEventListener receiver){
-        InputEvent ev=new InputEvent_rd(evTimeStamp++,aid,getId(),t);
+        InputEvent_rd ev=new InputEvent_rd(evTimeStamp++,aid,getId(),t);
+        synchronized (receiversMap){
+        	receiversMap.put(new Long(ev.getId()),new OutputEventListenerActionInfo(ev,receiver));
+        } 	
         acceptEvent(ev);
-        receiversMap.put(new Long(ev.getId()),new OutputEventListenerActionInfo(ev,receiver));
+		if (observers.size()>0){
+			notifyObservableEvent(ev);
+		}
         return ev;
     }
 
@@ -556,9 +718,11 @@ public abstract class TupleCentreVM implements Runnable {
      * @return the communication event generated by the invocation
      */
     public synchronized InputEvent inp(TupleTemplate t,AgentId aid,OutputEventListener receiver){
-        InputEvent ev=new InputEvent_inp(evTimeStamp++,aid,getId(),t);
+        InputEvent_inp ev=new InputEvent_inp(evTimeStamp++,aid,getId(),t);
+        synchronized (receiversMap){
+        	receiversMap.put(new Long(ev.getId()),new OutputEventListenerActionInfo(ev,receiver));
+        } 	
         acceptEvent(ev);
-        receiversMap.put(new Long(ev.getId()),new OutputEventListenerActionInfo(ev,receiver));
         return ev;
     }
 
@@ -574,8 +738,10 @@ public abstract class TupleCentreVM implements Runnable {
      */
     public synchronized InputEvent rdp(TupleTemplate t,AgentId aid,OutputEventListener receiver){
         InputEvent ev=new InputEvent_rdp(evTimeStamp++,aid,getId(),t);
+        synchronized (receiversMap){
+        	receiversMap.put(new Long(ev.getId()),new OutputEventListenerActionInfo(ev,receiver));
+        } 	
         acceptEvent(ev);
-        receiversMap.put(new Long(ev.getId()),new OutputEventListenerActionInfo(ev,receiver));
         return ev;
     }
 
@@ -590,9 +756,14 @@ public abstract class TupleCentreVM implements Runnable {
      * @return the communication event generated by the invocation
      */
     public synchronized InputEvent setSpec(String spec,AgentId aid,OutputEventListener receiver){
-        InputEvent ev=new InputEvent_setSpec(evTimeStamp++,aid,getId(),spec);
-        acceptEvent(ev);
-        receiversMap.put(new Long(ev.getId()),new OutputEventListenerActionInfo(ev,receiver));
+        InputEvent_setSpec ev=new InputEvent_setSpec(evTimeStamp++,aid,getId(),spec);
+        synchronized (receiversMap){
+        	receiversMap.put(new Long(ev.getId()),new OutputEventListenerActionInfo(ev,receiver));
+        } 	
+         acceptEvent(ev);
+		if (observers.size()>0){
+			notifyObservableEvent(ev);
+		}
         return ev;
     }
 
@@ -607,9 +778,14 @@ public abstract class TupleCentreVM implements Runnable {
      * @return the communication event generated by the invocation
      */
     public synchronized InputEvent getSpec(AgentId aid,OutputEventListener receiver){
-        InputEvent ev=new InputEvent_getSpec(evTimeStamp++,aid,getId());
+        InputEvent_getSpec ev=new InputEvent_getSpec(evTimeStamp++,aid,getId());
+        synchronized (receiversMap){
+        	receiversMap.put(new Long(ev.getId()),new OutputEventListenerActionInfo(ev,receiver));
+        } 	
         acceptEvent(ev);
-        receiversMap.put(new Long(ev.getId()),new OutputEventListenerActionInfo(ev,receiver));
+		if (observers.size()>0){
+			notifyObservableEvent(ev);
+		}
         return ev;
     }
 
@@ -626,11 +802,11 @@ public abstract class TupleCentreVM implements Runnable {
      *
      * @param e the observable event
      */
-    protected void notifyObservableEvent(ObservableEvent e){
-        Iterator it=observableEventListeners.iterator();
+    protected void notifyInspectableEvent(InspectableEvent e){
+        Iterator it=inspectors.iterator();
         while (it.hasNext()){
             try {
-                ((ObservableEventListener)it.next()).onObservableEvent(e);
+                ((InspectableEventListener)it.next()).onInspectableEvent(e);
             } catch (Exception ex){
                 ex.printStackTrace();
                 it.remove();
@@ -643,8 +819,8 @@ public abstract class TupleCentreVM implements Runnable {
      *
      * @param l the listener to be notified
      */
-    public void addObservableEventListener(ObservableEventListener l){
-        observableEventListeners.add(l);
+    public void addInspector(InspectableEventListener l){
+        inspectors.add(l);
     }
 
     /**
@@ -652,12 +828,12 @@ public abstract class TupleCentreVM implements Runnable {
      *
      * @param l the listener to be removed
      */
-    public void removeObservableEventListener(ObservableEventListener l){
-        observableEventListeners.remove(l);
+    public void removeInspector(InspectableEventListener l){
+        inspectors.remove(l);
     }
 
-    public boolean hasObservableEventListeners(){
-        return observableEventListeners.size()>0;
+    public boolean hasInspectors(){
+        return inspectors.size()>0;
     }
     // ---------------------------------------------------------------
 
@@ -666,17 +842,104 @@ public abstract class TupleCentreVM implements Runnable {
      *
      * @param id identifier of the agent whose events must be removed
      */
-    public synchronized void removeAgentEvents(AgentId id){
-        removePendingQueryEventsOf(id);
+    public synchronized void removeAgentEvents(AgentId aid){
+        removePendingQueryEventsOf(aid);
         Iterator it=receiversMap.values().iterator();
         while (it.hasNext()){
             OutputEventListenerActionInfo info=(OutputEventListenerActionInfo)it.next();
-            if (info.ev.getAgentId().toString().equals(id.toString())){
+            if (info.ev.getAgentId().toString().equals(aid.toString())){
                 it.remove();
             }
         }
     }
 
+	// --------------------------------------------------------------------------------------------
+
+	protected void notifyObservableEvent(Event e){
+		if (e.isToTupleCentre()){
+			if (e instanceof InputEvent_in){
+				InputEvent_in ev = (InputEvent_in)e;
+				int size = observers.size();
+				for (int i=0; i<size; i++){
+					((ObservableEventListener)observers.get(i)).in_requested(id,ev.getAgentId(),ev.getTupleTemplate());
+				}
+			} else	if (e instanceof InputEvent_rd){
+				InputEvent_rd ev = (InputEvent_rd)e;
+				int size = observers.size();
+				for (int i=0; i<size; i++){
+					((ObservableEventListener)observers.get(i)).rd_requested(id,ev.getAgentId(),ev.getTupleTemplate());
+				}
+			} else	if (e instanceof InputEvent_out){
+				InputEvent_out ev = (InputEvent_out)e;
+				int size = observers.size();
+				for (int i=0; i<size; i++){
+					((ObservableEventListener)observers.get(i)).out_requested(id,ev.getAgentId(),ev.getTuple());
+				}
+			} else	if (e instanceof InputEvent_setSpec){
+				InputEvent_setSpec ev = (InputEvent_setSpec)e;
+				int size = observers.size();
+				for (int i=0; i<size; i++){
+					((ObservableEventListener)observers.get(i)).setSpec_requested(id,ev.getAgentId(),ev.getSpec());
+				}
+			} else	if (e instanceof InputEvent_getSpec){
+				InputEvent_getSpec ev = (InputEvent_getSpec)e;
+				int size = observers.size();
+				for (int i=0; i<size; i++){
+					((ObservableEventListener)observers.get(i)).getSpec_requested(id,ev.getAgentId());
+				}
+			}
+		} else {
+			if (e instanceof OutputEvent_in){
+				OutputEvent_in ev = (OutputEvent_in)e;
+				int size = observers.size();
+				for (int i=0; i<size; i++){
+					((ObservableEventListener)observers.get(i)).in_completed(id,ev.getAgentId(),ev.getTuple());
+				}
+			} else	if (e instanceof OutputEvent_rd){
+				OutputEvent_rd ev = (OutputEvent_rd)e;
+				int size = observers.size();
+				for (int i=0; i<size; i++){
+					((ObservableEventListener)observers.get(i)).rd_completed(id,ev.getAgentId(),ev.getTuple());
+				}
+			} else	if (e instanceof OutputEvent_setSpec){
+				OutputEvent_setSpec ev = (OutputEvent_setSpec)e;
+				int size = observers.size();
+				for (int i=0; i<size; i++){
+					((ObservableEventListener)observers.get(i)).setSpec_completed(id,ev.getAgentId());
+				}
+			} else	if (e instanceof OutputEvent_getSpec){
+				OutputEvent_getSpec ev = (OutputEvent_getSpec)e;
+				int size = observers.size();
+				for (int i=0; i<size; i++){
+					((ObservableEventListener)observers.get(i)).getSpec_requested(id,ev.getAgentId());
+				}
+			}
+		}
+	}
+
+
+	/**
+	 * Registers a new observer to observable events
+	 *
+	 * @param l the listener to be notified
+	 */
+	public void addObserver(ObservableEventListener l){
+		observers.add(l);
+	}
+
+	/**
+	 * Removes (if present) a listener to observable events
+	 *
+	 * @param l the listener to be removed
+	 */
+	public void removeObserver(ObservableEventListener l){
+		observers.remove(l);
+	}
+
+	public boolean hasObservers(){
+		return observers.size()>0;
+	}
+	// ---------------------------------------------------------------
 
 
 }

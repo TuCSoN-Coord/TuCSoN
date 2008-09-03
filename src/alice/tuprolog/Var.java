@@ -35,8 +35,8 @@ public class Var extends Term {
     private String name;
 
     // time, link, mark  are used for unification process */
-    private int    time;
-    private Term   link;
+	private int    time;
+	private Term   link;
     private Term   linkBackup;
     private int    mark;
     private int    renameStage=-1;
@@ -74,8 +74,8 @@ public class Var extends Term {
         link = null;
     }
 
-    //
-    Var(String n,int t) {
+    
+    private Var(String n,int t) {
         name = n;
         time = t;
         link = null;
@@ -267,21 +267,20 @@ public class Var extends Term {
 
     void restoreVariables(){
         link=linkBackup;
+        //time=timeBackup;
     }
 
 
     /**
      * renaming of all the variables of the argument list.
+     * 
+     * if f is true, the name is updated (for not anonymous var) 
      */
     static int rename(alice.util.LinkedList vl,int c,boolean f) {
         while(!vl.isEmptyList()) {
             Var v=(Var)vl.head;
             v.time = c++;
             if (f){
-                //
-                // anonymous variables are not renamed:
-                // they keep anonymous
-                //
                 if (v.name!=null){
                    v.name = ANY+v.time;
                 }
@@ -330,7 +329,7 @@ public class Var extends Term {
                     return(true);
                 }
             } else if (t.isStruct()){
-                // occcur-check
+                // occur-check
                 if(findIn((Struct)t)){
                     return(false);
                 }

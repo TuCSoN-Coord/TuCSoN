@@ -22,7 +22,7 @@ package alice.tucson.api;
  *  used for parsing tuple centre identifiers.
  *
  */
-public class TupleCentreIdOperatorManager extends alice.respect.TupleCentreIdOperatorManager {
+public class TupleCentreIdOperatorManager extends alice.tuprolog.OperatorManager {
     public TupleCentreIdOperatorManager(){
         opNew("@","xfx",550);
     }

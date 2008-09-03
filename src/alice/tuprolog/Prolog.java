@@ -22,105 +22,100 @@ import java.io.*;
 
 /**
  *
- * The Prolog class represents a tuProlog engine providing basic
- * services to solve goals, manage theories and libraries.
+ * The Prolog class represents a tuProlog engine.
  *
  */
 public class Prolog implements Serializable {
 
     // 2P version
-    private static final String VERSION = "1.2.1";
+    private static final String VERSION = "1.4.0 ";
+
     /*
      * possible values returned by step functions
      * and used as eval state flags
      */
-    /** eval just started */
+    /* eval just started */
     private static final int INIT = 0;
-    /** false goal */
+    /* false goal */
     private static final int FALSE = 1;
-    /** ask for continuing eval cycle */
+    /* ask for continuing eval cycle */
     private static final int CONT = 2;
-    /** true goal */
+    /* true goal */
     private static final int TRUE = 3;
-    /** true goal with open alternatives */
+    /* true goal with open alternatives */
     private static final int TRUE_CP = 4;
-    /** the demo process must halt */
+    /* the demo process must halt */
     private static final int HALT = 5;
-
-    /* runtime context of the demonstration */
-    private RTContext currentContext;
-
-    /** the process demo must stop? */
-    private boolean mustStop;
-
-    /**  manager of current theory */
-    private TheoryManager theoryManager;
-
-    /** current goal to be evaluated */
-    private Term currentGoal;
-
-    /** vars present in current goal */
-    private alice.util.LinkedList currentVars;
-
-    /* eval result (FALSE,TRUE,TRUE_CP,...) */
-    private int evalFlag;
-
-    /* in the case of HALT flag */
-    private int haltCode;
-
-    /* dynamically loaded built-in libraries */
-    private Vector currentLibraries = new Vector();
-
-    /* builtin predicates currently defined by libraries */
-    private HashMap extPredicates = new HashMap();
-
-    /* builtin evaluable functors currently defined by libraries */
-    private HashMap extFunctors = new HashMap();
-
-    /* listeners registrated for virtual machine output events */
-    private Vector outputListeners = new Vector();
-
-    /* listeners registrated for virtual machine internal events */
-    private Vector spyListeners = new Vector();
-
-    /* listeners registrated for virtual machine state change events */
-    private Vector warningListeners = new Vector();
-
-    /*  spying state?  */
-    private boolean spy = false;
-
-    /*  state information ?  */
-    private boolean warning = true;
-
-    /* component managing operators inside the engine */
-    private OperatorManager opManager = new OperatorManager();
-
-    /* flag list */
-    private Vector flags = new Vector();
 
     /*
      *  some of the core builtin predicates
      *  arranged as matrix for fast recognition
-     * during identifying process
+     *  during identifying process
      */
     private static final String[][] BUILTIN =
             {
                 {"fail", "true", "halt", "!", "$restore_db"},
                 {"$asserta", "$assertz", "$retract", "halt", "load_library", "unload_library", "flag_list"},
-                {",", "is", "=", "\\=", "$tolist", "$fromlist", "$copy", "$append", "$find", "flag"},
+                {",","is", "=","\\=","$tolist","$fromlist","$copy","$append","$find","flag","$assertA","$assertZ"},
                 {"op"}
             };
+    
+    
+    /* runtime context of the demonstration */
+    private RTContext currentContext;
+    /* the process demo must stop? */
+    private boolean mustStop;
+    /*  manager of current theory */
+    private TheoryManager theoryManager;    
+    /* component managing operators inside the engine */
+    private OperatorManager opManager;    
+    /* flag list */
+    private ArrayList flags;
+    /* current goal to be evaluated */
+    private Term currentGoal;
+    /* start query */
+    private Term startQuery;
+    /* vars present in current goal */
+    private alice.util.LinkedList currentVars;
+    /* eval result (FALSE,TRUE,TRUE_CP,...) */
+    private int evalFlag;
+    /* in the case of HALT flag */
+    private int haltCode;
 
+    /* dynamically loaded built-in libraries */
+    private ArrayList currentLibraries;
+    /* builtin predicates currently defined by libraries */
+    private HashMap extPredicates;    
+    /* builtin evaluable functors currently defined by libraries */
+    private HashMap extFunctors;
+    
+    /*  spying activated ?  */
+    private boolean spy;  
+    /*  warning activated ?  */
+    private boolean warning;
+    /* listeners registrated for virtual machine output events */
+    private ArrayList outputListeners;
+    /* listeners registrated for virtual machine internal events */
+    private ArrayList spyListeners;
+    /* listeners registrated for virtual machine state change events */
+    private ArrayList warningListeners;
+    
+    /* listeners to theory events */
+    private ArrayList theoryListeners;
+    /* listeners to library events */
+    private ArrayList libraryListeners;
+    /* listeners to query events */
+    private ArrayList queryListeners;
+    
 
     /**
-     * Builds a prolog engine with
-     * default libraries loaded.
+     * Builds a prolog engine with default libraries loaded.
      *
      * The default libraries are BasicLibrary, ISOLibrary,
      * IOLibrary, and  JavaLibrary
      */
     public Prolog() {
-        theoryManager = new TheoryManager(this);
+        this(false,true);
         try {
             loadLibrary("alice.tuprolog.lib.BasicLibrary");
         } catch (Exception ex) {
@@ -150,7 +145,7 @@ public class Prolog implements Serializable {
      * @param libs the (class) name of the libraries to be loaded
      */
     public Prolog(String[] libs) throws InvalidLibraryException {
-        theoryManager = new TheoryManager(this);
+        this(false,true);
         if (libs != null) {
             for (int i = 0; i < libs.length; i++) {
                 loadLibrary(libs[i]);
@@ -158,6 +153,30 @@ public class Prolog implements Serializable {
         }
     }
 
+    /**
+     * Initialize basic engine structures.
+     * 
+     * @param spy spying activated
+     * @param warning warning activated
+     */
+    private Prolog(boolean spy, boolean warning){
+        currentLibraries = new ArrayList();
+        extPredicates = new HashMap();
+        extFunctors = new HashMap();
+        outputListeners = new ArrayList();
+        spyListeners = new ArrayList();
+        warningListeners = new ArrayList();
+        this.spy = spy;
+        this.warning = warning;
+        opManager = new OperatorManager();
+        flags = new ArrayList();
+        theoryListeners = new ArrayList();
+        queryListeners = new ArrayList();
+        libraryListeners = new ArrayList();
+        theoryManager = new TheoryManager(this);
+    
+    }
+    
     /**
      * Gets the current version of the tuProlog system
      */
@@ -175,28 +194,12 @@ public class Prolog implements Serializable {
      * @see Theory
      */
     public synchronized void setTheory(Theory th) throws InvalidTheoryException {
-        theoryManager.consult(th, true, true, null);
-        if (theoryManager.getStartGoal() != null) {
-            try {
-                Term bak_goal = currentGoal;
-                alice.util.LinkedList bak_vars = currentVars;
-                solve(theoryManager.getStartGoal());
-                currentGoal = bak_goal;
-                currentVars = bak_vars;
-            } catch (Exception ex) {
-            }
-        }
-    }
-
-    /**
-     * Adds (appends) a theory
-     *
-     * @param th is the theory to be added
-     * @throws InvalidTheoryException if the new theory is not valid
-     * @see Theory
-     */
-    public synchronized void addTheory(Theory th) throws InvalidTheoryException {
-        theoryManager.consult(th, false, true, null);
+        Theory oldTh = theoryManager.getLastConsultedTheory();
+		
+        //theoryManager.consult(th, false, true, null);       ENANETTI
+        //calls for TM inner method
+        theoryManager.setTheory(th);
+                
         if (theoryManager.getStartGoal() != null) {
             try {
                 Term bak_goal = currentGoal;
@@ -208,31 +211,184 @@ public class Prolog implements Serializable {
                 ex.printStackTrace();
             }
         }
+        Theory newTh = theoryManager.getLastConsultedTheory();
+        TheoryEvent ev = new TheoryEvent(this,oldTh,newTh);	
+        this.notifyChangedTheory(ev);
     }
 
     /**
-     * Gets current theory
+     * Adds (appends) a theory
      *
-     * @return current(dynamic) theory
+     * @param th is the theory to be added
+     * @throws InvalidTheoryException if the new theory is not valid
+     * @see Theory
+     */
+    public synchronized void addTheory(Theory th) throws InvalidTheoryException {
+        Theory oldTh = theoryManager.getLastConsultedTheory();
+        
+        theoryManager.addTheory(th); //ENANETTI
+        
+        if (theoryManager.getStartGoal() != null) {
+            try {
+                Term bak_goal = currentGoal;
+                alice.util.LinkedList bak_vars = currentVars;
+                solve(theoryManager.getStartGoal());
+                currentGoal = bak_goal;
+                currentVars = bak_vars;
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        Theory newTh = theoryManager.getLastConsultedTheory();
+        TheoryEvent ev = new TheoryEvent(this,oldTh,newTh);	
+        this.notifyChangedTheory(ev);
+    }
+
+	
+
+
+    /**
+     * Gets current whole Theory
+     *
+     *@return current(dynamic) whole theory
      */
     public synchronized Theory getTheory() {
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        // get only dynamic theory
-        theoryManager.save(out, true);
         try {
-            return new Theory(new ByteArrayInputStream(out.toByteArray()));
-        } catch (Exception e) {
+           return theoryManager.getWholeTheory();
+        } catch (Exception ex){
+            return null;
+        }
+    }
+    
+    
+    
+    /**
+     * Gets last consulted theory, with the original textual format
+     *  
+     * @return theory
+     */
+    public synchronized Theory getLastConsultedTheory() {
+        try {
+            return theoryManager.getLastConsultedTheory();
+        } catch (Exception ex){
             return null;
         }
     }
 
+    
+    
     /**
      * Clears current theory
      */
     public synchronized void clearTheory() {
+        Theory oldTh = theoryManager.getLastConsultedTheory();
         theoryManager.clear(true);
+        Theory newTh = theoryManager.getLastConsultedTheory();
+        TheoryEvent ev = new TheoryEvent(this,oldTh,newTh);	
+        this.notifyChangedTheory(ev);
     }
 
+
+	/**
+	 * Removes all the clauses of the specified theory.
+	 * If there are many theories with the same name, it removes the last inserted one.
+	 *
+	 *@param thName the name of the desired theory
+	 */
+	public void removeTheory(String thName) throws InvalidTheoryException{		
+		theoryManager.removeTheory(thName);
+	}
+	//fine removeTheory  	OK
+
+
+	/**
+	 * Gets all the names of loaded Theories.
+	 *
+	 *@return an array of String representing all the names of the Theories
+	 */	
+	public String[] getTheoryNames(){
+		return theoryManager.getTheoryNames();			
+	
+	}//fine getTheoeyNames
+	
+	
+	/**
+     * Returns a theory with the specified name
+     *
+     *@param ThName the name of the wanted theory
+     */
+    public Theory getTheory(String ThName) throws InvalidTheoryException{
+    		return theoryManager.getTheory(ThName);
+    }
+	
+    
+    /**
+     * Removes all the clauses matching the specified param
+     * 
+     * The parameter must be a valid clause, of type "H :- B"
+     * @param clause term
+     */
+    public void removeClauses(String clause) throws InvalidTheoryException {
+    	boolean error = false;
+    	try {
+    		clause = clause.trim();
+    		if (clause.endsWith(".")){
+    			clause = clause.substring(0,clause.length()-1);
+    		}
+    		Term t = this.toTerm(clause);
+    		if (t.isStruct()){
+    			Struct st = (Struct)t;
+    			if (st.getArity()==2 && st.getName().equals(":-")){
+        			theoryManager.removeClauses(st);
+    			} else {
+    		   		theoryManager.removeClauses(new Struct(":-",st,new Struct("true")));
+    			}
+    		} else {
+    			error = true;
+    		}
+    	} catch (Exception ex){
+    		error = true;
+    	}
+    	if (error){
+    		throw new InvalidTheoryException();
+    	}
+    }
+    
+    /**
+     * Adds a clause to current theory
+     * 
+     * The parameter must be a valid clause, of type "H :- B"
+     * @param clause
+     * @throws InvalidTheoryException
+     */
+    public void addClause(String clause) throws InvalidTheoryException {
+    	boolean error = false;
+    	try {
+    		clause = clause.trim();
+    		if (clause.endsWith(".")){
+    			clause = clause.substring(0,clause.length()-1);
+    		}
+    		Term t = this.toTerm(clause);
+    		if (t.isStruct()){
+    			Struct st = (Struct)t;
+    			if (st.getArity()==2 && st.getName().equals(":-")){
+    		   		theoryManager.addClause(st);
+    			} else {
+    		   		theoryManager.addClause(new Struct(":-",st,new Struct("true")));
+    			}
+    		} else {
+    			error = true;
+    		}
+    	} catch (Exception ex){
+    		error = true;
+    	}
+    	if (error){
+    		throw new InvalidTheoryException();
+    	}
+    }
+	
+//************************************************************************************	
+	
 
     // libraries management interface
 
@@ -242,7 +398,7 @@ public class Prolog implements Serializable {
      * If a library with the same name is already present,
      * a warning event is notified and the request is ignored.
      *
-     * @param the name of the Java class containing the library to be loaded
+     * @param className name of the Java class containing the library to be loaded
      * @return the reference to the Library just loaded
      * @throws InvalidLibraryException if name is not a valid library
      */
@@ -253,8 +409,9 @@ public class Prolog implements Serializable {
 			String name=lib.getName();
             boolean found = false;
             Library alib = null;
-            for (int i = 0; i < currentLibraries.size(); i++) {
-                alib = (Library) currentLibraries.elementAt(i);
+            Iterator it = currentLibraries.listIterator();
+            while (it.hasNext()){
+                alib = (Library) it.next();
                 if (alib.getName().equals(name)) {
                     found = true;
                     break;
@@ -268,9 +425,11 @@ public class Prolog implements Serializable {
                 return alib;
             }
         } catch (Exception ex){
-            throw new InvalidLibraryException(className);
+            throw new InvalidLibraryException(className,-1,-1);
         }
         bindLibrary(lib);
+        LibraryEvent ev = new LibraryEvent(this,lib.getName());
+        notifyLoadedLibrary(ev);
         return lib;
     }
 
@@ -278,8 +437,8 @@ public class Prolog implements Serializable {
      * Loads a specific instance of a library
      *
      * If a library with the same name is already present,
-     * a warning event is notified and the request is ignored.
-     *
+     * a warning event is notified 
+     * 
      * @param lib the (Java class) name of the library to be loaded
      * @throws InvalidLibraryException if name is not a valid library
      */
@@ -287,8 +446,9 @@ public class Prolog implements Serializable {
         boolean found = false;
         String name = lib.getName();
         Library alib = null;
-        for (int i = 0; i < currentLibraries.size(); i++) {
-            alib = (Library) currentLibraries.elementAt(i);
+        Iterator it = currentLibraries.listIterator();
+        while (it.hasNext()){
+            alib = (Library) it.next();
             if (alib.getName().equals(name)) {
                 found = true;
                 break;
@@ -299,9 +459,11 @@ public class Prolog implements Serializable {
                 notifyWarning(new WarningEvent(this,"library "+alib.getName()+
                     " already loaded."));
             }
-            //unloadLibrary(name);
+            unloadLibrary(name);
         }
-        //bindLibrary(lib);
+        bindLibrary(lib);
+        LibraryEvent ev = new LibraryEvent(this,lib.getName());
+        notifyLoadedLibrary(ev);
     }
 
     /**
@@ -324,11 +486,12 @@ public class Prolog implements Serializable {
      */
     public synchronized void unloadLibrary(String name) throws InvalidLibraryException {
         boolean found = false;
-        for (int j = 0; j < currentLibraries.size(); j++) {
-            Library lib = (Library) currentLibraries.elementAt(j);
+        Iterator it0 = currentLibraries.listIterator();
+        while (it0.hasNext()){
+            Library lib = (Library) it0.next();
             if (lib.getName().equals(name)) {
                 found = true;
-                currentLibraries.removeElementAt(j);
+                it0.remove();
                 lib.dismiss();
                 Iterator it = lib.getPredicates().iterator();
                 while (it.hasNext()) {
@@ -346,6 +509,8 @@ public class Prolog implements Serializable {
         }
         theoryManager.removeLibraryTheory(name);
         theoryManager.rebindBuiltins();
+        LibraryEvent ev = new LibraryEvent(this,name);
+        notifyUnloadedLibrary(ev);
 
     }
 
@@ -361,7 +526,7 @@ public class Prolog implements Serializable {
         try {
             String name = lib.getName();
             lib.setEngine(this);
-            currentLibraries.addElement(lib);
+            currentLibraries.add(lib);
             Iterator it = lib.getPredicates().iterator();
             while (it.hasNext()) {
                 String pred_name = (String)it.next();
@@ -390,7 +555,7 @@ public class Prolog implements Serializable {
             }
             String th = lib.getTheory();
             if (th != null) {
-                theoryManager.consult(new Theory(th), false, false, name);
+                theoryManager.consult(new Theory(th), true, false, name);
                 if (theoryManager.getStartGoal() != null) {
                     try {
                         Term bak_goal = currentGoal;
@@ -408,10 +573,10 @@ public class Prolog implements Serializable {
             //
             return lib;
         } catch (InvalidTheoryException ex) {
-            System.out.println("line "+ex.line+"  "+ex.pos);
-            throw new InvalidLibraryException(lib.getName());
+            //System.out.println("line "+ex.line+"  "+ex.pos);
+            throw new InvalidLibraryException(lib.getName(),ex.line,ex.pos);
         } catch (Exception ex) {
-            throw new InvalidLibraryException(lib.getName());
+            throw new InvalidLibraryException(lib.getName(),-1,-1);
         }
     }
 
@@ -423,8 +588,9 @@ public class Prolog implements Serializable {
      *         not found
      */
     public synchronized Library getLibrary(String name) {
-        for (int i = 0; i < currentLibraries.size(); i++) {
-            Library alib = (Library) currentLibraries.elementAt(i);
+        Iterator it = currentLibraries.listIterator();
+        while (it.hasNext()){
+            Library alib = (Library) it.next();
             if (alib.getName().equals(name)) {
                 return alib;
             }
@@ -473,14 +639,25 @@ public class Prolog implements Serializable {
             return null;
         }
         try {
+            startQuery = g.copy();
+            
             g.resolveVariables(0);
 
             //System.out.println("solving "+g);
-            for (int i = 0; i < currentLibraries.size(); i++) {
-                ((Library) currentLibraries.elementAt(i)).onSolveBegin(g);
+            Iterator it = currentLibraries.listIterator();
+            while (it.hasNext()){
+                ((Library) it.next()).onSolveBegin(g);
             }
             identify(g, false);
-            currentContext = new RTContext();
+            
+            /*
+             * 20050910
+             * The RTContext is initialised with a value
+             * for variable timestamp renaming, to solve
+             * the bagof bug.  
+             */
+            currentContext = new RTContext(1000000);
+            
             mustStop = false;
             currentVars = new alice.util.LinkedList();
             currentGoal = g.copy(currentVars);
@@ -492,18 +669,22 @@ public class Prolog implements Serializable {
             evalFlag = eval();
 			SolveInfo sinfo = null;
             if (evalFlag==TRUE||evalFlag==TRUE_CP){
-            	sinfo = new SolveInfo(toVarArray(currentVars), currentGoal.copy());
+            		sinfo = new SolveInfo(startQuery,toVarArray(currentVars), currentGoal.copy());
             } else {
-            	sinfo = new SolveInfo();
+            		sinfo = new SolveInfo(startQuery);
             }
               
             if (evalFlag == FALSE || evalFlag == TRUE || evalFlag == HALT) {
                 solveEnd();
             }
+            
+            QueryEvent ev = new QueryEvent(this,sinfo);
+            notifyNewQueryResultAvailable(ev);
+            
             return sinfo;
         } catch (Exception ex) {
             ex.printStackTrace();
-            return new SolveInfo();
+            return new SolveInfo(startQuery);
         }
     }
 
@@ -554,14 +735,16 @@ public class Prolog implements Serializable {
             evalFlag = backTracking();
             SolveInfo sinfo;
             if (evalFlag == FALSE) {
-                sinfo = new SolveInfo();
+                sinfo = new SolveInfo(startQuery);
             } else {
                 evalFlag = eval();
-                sinfo = new SolveInfo(toVarArray(currentVars), currentGoal.copy());
+                sinfo = new SolveInfo(startQuery,toVarArray(currentVars), currentGoal.copy());
             }
             if (evalFlag == FALSE || evalFlag == TRUE || evalFlag == HALT) {
                 solveEnd();
             }
+            QueryEvent ev = new QueryEvent(this,sinfo);
+            notifyNewQueryResultAvailable(ev);
             return sinfo;
         } else
             throw new NoMoreSolutionException();
@@ -580,8 +763,9 @@ public class Prolog implements Serializable {
     public synchronized void solveEnd() {
         theoryManager.transEnd(evalFlag == TRUE || evalFlag == TRUE_CP);
         theoryManager.optimize();
-        for (int i = 0; i < currentLibraries.size(); i++) {
-            ((Library) currentLibraries.elementAt(i)).onSolveEnd();
+        Iterator it = currentLibraries.listIterator();
+        while (it.hasNext()){
+            ((Library) it.next()).onSolveEnd();
         }
     }
 
@@ -1015,7 +1199,7 @@ public class Prolog implements Serializable {
                         if (!arg0.isStruct()) {
                             return FALSE;
                         }
-                        theoryManager.assertA((Struct) arg0, true, null);
+                        theoryManager.assertA((Struct) arg0, true, null,false);
                         return (TRUE);
 
                         // $assertz
@@ -1023,7 +1207,7 @@ public class Prolog implements Serializable {
                         if (!arg0.isStruct()) {
                             return FALSE;
                         }
-                        theoryManager.assertZ((Struct) arg0, true, null);
+                        theoryManager.assertZ((Struct) arg0, true, null,false);
                         return (TRUE);
 
                         // $retract
@@ -1196,10 +1380,10 @@ public class Prolog implements Serializable {
                         // $find
                     case 208:
                         // look for clauses whose head unifies whith arg0 and enqueue them to list arg1
-                        if (!arg0.isStruct() || !arg1.isList()) {
+                        if (/*!arg0.isStruct() ||*/ !arg1.isList()) {
                             break;
                         }
-                        l = theoryManager.find((Struct) arg0, e.time, e.mark);
+                        l = theoryManager.find(arg0, e.time, e.mark);
                         while (!l.isEmptyList()) {
                             ClauseInfo b = (ClauseInfo) l.head;
                             l = l.tail;
@@ -1230,6 +1414,23 @@ public class Prolog implements Serializable {
                             }
                         }
                         break;
+                        
+                    //$asserta(what,theory)
+                    case 210:
+                        if (!arg0.isStruct() && !arg1.isStruct()) {
+                            return FALSE;
+                        }
+                        theoryManager.assertA((Struct) arg0, true, arg1.toString(),false);
+                        return (TRUE);
+
+                        // $assertz
+                    case 211:
+                        if (!arg0.isStruct() && !arg1.isStruct()) {
+                            return FALSE;
+                        }
+                        theoryManager.assertZ((Struct) arg0, true, arg1.toString(),false);
+                        return (TRUE);
+
                 }
                 return (FALSE);
             } else if (gcode < 400) {
@@ -1281,9 +1482,9 @@ public class Prolog implements Serializable {
 
         int arity = t.getArity();
         //------------------------------------------
-        //for(int c = 0;c < arity;c++){
-        //    identify(t.getArg(c));
-        //}
+        for(int c = 0;c < arity;c++){
+            identify(t.getArg(c),true);
+        }
         //------------------------------------------
         //
         //  The identification is forced (recursively)
@@ -1292,6 +1493,7 @@ public class Prolog implements Serializable {
         //  In the other cases, the arguments are identified
         //  only if the structure is a Clause or ',' structure.
         //
+        /*
         if (forceArgumentIdentification) {
             for (int c = 0; c < arity; c++) {
                 identify(t.getArg(c), true);
@@ -1306,6 +1508,7 @@ public class Prolog implements Serializable {
                 identify(t.getTerm(1), true);
             }
         }
+        */
         //------------------------------------------
 
         try {
@@ -1450,17 +1653,44 @@ public class Prolog implements Serializable {
      * @param l the listener
      */
     public synchronized void addOutputListener(OutputListener l) {
-        outputListeners.addElement(l);
+        outputListeners.add(l);
     }
 
 
+    /**
+     * Adds a listener to theory events
+     *
+     * @param l the listener
+     */
+    public synchronized void addTheoryListener(TheoryListener l) {
+        theoryListeners.add(l);
+    }
+    
+    /**
+     * Adds a listener to library events
+     *
+     * @param l the listener
+     */
+    public synchronized void addLibraryListener(LibraryListener l) {
+        libraryListeners.add(l);
+    }
+    
+    /**
+     * Adds a listener to theory events
+     *
+     * @param l the listener
+     */
+    public synchronized void addQueryListener(QueryListener l) {
+        queryListeners.add(l);
+    }
+    
     /**
      * Adds a listener to spy events
      *
      * @param l the listener
      */
     public synchronized void addSpyListener(SpyListener l) {
-        spyListeners.addElement(l);
+        spyListeners.add(l);
     }
 
     /**
@@ -1469,7 +1699,7 @@ public class Prolog implements Serializable {
      * @param l the listener
      */
     public synchronized void addWarningListener(WarningListener l) {
-        warningListeners.addElement(l);
+        warningListeners.add(l);
     }
 
     /**
@@ -1478,30 +1708,58 @@ public class Prolog implements Serializable {
      * @param l the listener
      */
     public synchronized void removeOutputListener(OutputListener l) {
-        outputListeners.removeElement(l);
+        outputListeners.remove(l);
     }
 
     /**
      * Removes all output event listeners
      */
     public synchronized void removeAllOutputListeners() {
-        outputListeners.removeAllElements();
+        outputListeners.clear();
     }
 
+    /**
+     * Removes a listener to theory events
+     *
+     * @param l the listener
+     */
+    public synchronized void removeTheoryListener(TheoryListener l) {
+        theoryListeners.remove(l);
+    }
+
+    /**
+     * Removes a listener to library events
+     *
+     * @param l the listener
+     */
+    public synchronized void removeLibraryListener(LibraryListener l) {
+        libraryListeners.remove(l);
+    }
+    
+    /**
+     * Removes a listener to query events
+     *
+     * @param l the listener
+     */
+    public synchronized void removeQueryListener(QueryListener l) {
+        queryListeners.remove(l);
+    }
+
+    
     /**
      * Removes a listener to spy events
      *
      * @param l the listener
      */
     public synchronized void removeSpyListener(SpyListener l) {
-        spyListeners.removeElement(l);
+        spyListeners.remove(l);
     }
 
     /**
      * Removes all spy event listeners
      */
     public synchronized void removeAllSpyListeners() {
-        spyListeners.removeAllElements();
+        spyListeners.clear();
     }
 
     /**
@@ -1510,14 +1768,14 @@ public class Prolog implements Serializable {
      * @param l the listener
      */
     public synchronized void removeWarningListener(WarningListener l) {
-        warningListeners.removeElement(l);
+        warningListeners.remove(l);
     }
 
     /**
      * Removes all warning event listeners
      */
     public synchronized void removeAllWarningListeners() {
-        warningListeners.removeAllElements();
+        warningListeners.clear();
     }
 
     /**
@@ -1543,7 +1801,29 @@ public class Prolog implements Serializable {
         return (List) outputListeners.clone();
     }
 
+    /**
+     * Gets a copy of current listener list to theory events
+     * 
+     */
+    public synchronized List getTheoryListenerList() {
+        return (List) theoryListeners.clone();
+    }
 
+    /**
+     * Gets a copy of current listener list to library events
+     *
+     */
+    public synchronized List getLibraryListenerList() {
+        return (List) libraryListeners.clone();
+    }
+
+    /**
+     * Gets a copy of current listener list to query events
+     *
+     */
+    public synchronized List getQueryListenerList() {
+        return (List) queryListeners.clone();
+    }
 
     // notification
 
@@ -1553,8 +1833,9 @@ public class Prolog implements Serializable {
      * @param e the event
      */
     protected void notifyOutput(OutputEvent e) {
-        for (int i = 0; i < outputListeners.size(); i++) {
-            ((OutputListener) outputListeners.elementAt(i)).onOutput(e);
+        Iterator it = outputListeners.listIterator();
+        while (it.hasNext()){
+            ((OutputListener) it.next()).onOutput(e);
         }
     }
 
@@ -1564,8 +1845,9 @@ public class Prolog implements Serializable {
      * @param e the event
      */
     protected void notifySpy(SpyEvent e) {
-        for (int i = 0; i < spyListeners.size(); i++) {
-            ((SpyListener) spyListeners.elementAt(i)).onSpy(e);
+        Iterator it = spyListeners.listIterator();
+        while (it.hasNext()){
+            ((SpyListener) it.next()).onSpy(e);
         }
     }
 
@@ -1575,9 +1857,61 @@ public class Prolog implements Serializable {
      * @param e the event
      */
     protected void notifyWarning(WarningEvent e) {
-        for (int i = 0; i < warningListeners.size(); i++) {
-            ((WarningListener) warningListeners.elementAt(i)).onWarning(e);
+        Iterator it = warningListeners.listIterator();
+        while (it.hasNext()){
+            ((WarningListener) it.next()).onWarning(e);
         }
     }
 
+
+    //
+    
+    /**
+     * Notifies a new theory set or updated event
+     * 
+     * @param e the event
+     */
+    protected void notifyChangedTheory(TheoryEvent e) {
+        Iterator it = theoryListeners.listIterator();
+        while (it.hasNext()){
+            ((TheoryListener) it.next()).theoryChanged(e);
+        }
+    }
+
+    /**
+     * Notifies a library loaded event
+     * 
+     * @param e the event
+     */
+    protected void notifyLoadedLibrary(LibraryEvent e) {
+        Iterator it = libraryListeners.listIterator();
+        while (it.hasNext()){
+            ((LibraryListener) it.next()).libraryLoaded(e);
+        }
+    }
+
+    /**
+     * Notifies a library unloaded event
+     * 
+     * @param e the event
+     */
+    protected void notifyUnloadedLibrary(LibraryEvent e) {
+        Iterator it = libraryListeners.listIterator();
+        while (it.hasNext()){
+            ((LibraryListener) it.next()).libraryUnloaded(e);
+        }
+    }
+
+    /**
+     * Notifies a library loaded event
+     * 
+     * @param e the event
+     */
+    protected void notifyNewQueryResultAvailable(QueryEvent e) {
+        Iterator it = queryListeners.listIterator();
+        while (it.hasNext()){
+            ((QueryListener) it.next()).newQueryResultAvailable(e);
+        }
+    }
+    
 }

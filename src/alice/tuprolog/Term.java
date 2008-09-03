@@ -145,9 +145,6 @@ public abstract class Term implements java.io.Serializable {
 	 * Resolves variables inside the term
 	 * 
 	 * If the variables has been already resolved, no renaming is done.
-	 *
-	 * @param count new starting time count for resolving process
-	 * @return the new time count, after resolving process
 	 */
 	public void resolveVariables(){
 		resolveVariables(0);

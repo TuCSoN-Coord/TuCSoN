@@ -38,7 +38,7 @@ public interface TucsonContext {
      * @throws s UnreachableNodeException if the node specified in the tuple centre
      *         identifier is not reachable
      */
-    void out(TupleCentreId tid, LogicTuple t)
+	TucsonOpId out(TupleCentreId tid, LogicTuple t)
             throws  OperationNotAllowedException,
                     UnreachableNodeException;
 
@@ -54,7 +54,7 @@ public interface TucsonContext {
      * @throws s UnreachableNodeException if the node specified in the tuple centre
      *         identifier is not reachable
      */
-    LogicTuple in(TupleCentreId tid, LogicTuple t)
+    TucsonOpId in(TupleCentreId tid, LogicTuple t)
             throws  OperationNotAllowedException,
                     UnreachableNodeException;
 
@@ -70,7 +70,7 @@ public interface TucsonContext {
      * @throws s UnreachableNodeException if the node specified in the tuple centre
      *         identifier is not reachable
      */
-    LogicTuple rd(TupleCentreId tid, LogicTuple t)
+    TucsonOpId rd(TupleCentreId tid, LogicTuple t)
             throws  OperationNotAllowedException,
                     UnreachableNodeException;
 
@@ -87,7 +87,7 @@ public interface TucsonContext {
      * @throws s UnreachableNodeException if the node specified in the tuple centre
      *         identifier is not reachable
      */
-    LogicTuple inp(TupleCentreId tid, LogicTuple t)
+    TucsonOpId inp(TupleCentreId tid, LogicTuple t)
             throws  OperationNotAllowedException,
                     UnreachableNodeException;
 
@@ -104,7 +104,7 @@ public interface TucsonContext {
      * @throws s UnreachableNodeException if the node specified in the tuple centre
      *         identifier is not reachable
      */
-    LogicTuple rdp(TupleCentreId tid, LogicTuple t)
+    TucsonOpId rdp(TupleCentreId tid, LogicTuple t)
             throws  OperationNotAllowedException,
                     UnreachableNodeException;
 
@@ -119,7 +119,7 @@ public interface TucsonContext {
      *         identifier is not reachable
      * @throws s InvalidSpecificationException if the specification is not valid
      */
-    void setSpec(TupleCentreId tid, String spec)
+    TucsonOpId setSpec(TupleCentreId tid, String spec)
             throws  OperationNotAllowedException,
                     UnreachableNodeException,
                     InvalidSpecificationException;
@@ -133,10 +133,14 @@ public interface TucsonContext {
      * @throws s UnreachableNodeException if the node specified in the tuple centre
      *         identifier is not reachable
      */
-    String getSpec(TupleCentreId tid)
+    TucsonOpId getSpec(TupleCentreId tid)
         throws  OperationNotAllowedException,
                 UnreachableNodeException;
 
+    ContextEvent waitForCompletion(TucsonOpId id, int timeout);
+
+    ContextEvent waitForCompletion(TucsonOpId id);
+    
     /**
      * Exits from the coordination context
      *

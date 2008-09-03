@@ -1,5 +1,5 @@
 /*
- * Tuple Centre media - Copyright (C) 2001-2002  aliCE team at deis.unibo.it
+ * ReSpecT Framework - aliCE team at deis.unibo.it
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -22,7 +22,7 @@ import alice.tuplecentre.*;
  *
  * @version 1.0
  */
-public class ObservableEventExt extends ObservableEvent {
+public class ObservableEventExt extends InspectableEvent {
 
     public static final int TYPE_REACTIONOK     = 100;
     public static final int TYPE_REACTIONFAIL   = 101;

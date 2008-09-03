@@ -32,7 +32,9 @@ public class Theory implements Serializable {
 
     private String theory;
     private Struct clauseList;
-
+	//nome della teoria inizializzato a "default"  ENANETTI
+ 	private String name = "default";
+	
     /**
      * Creates a theory getting its source text from an input stream
      *
@@ -70,6 +72,56 @@ public class Theory implements Serializable {
         this.clauseList=clauseList;
     }
 
+
+    /**
+     * Creates a theory getting its source text from an input stream.
+     * Sets the name according to the specified parameter
+     *
+     * @param is the input stream acting as source
+     * @param name the name of the Theory
+     */
+    public Theory(InputStream is, String name) throws IOException, InvalidTheoryException {
+        byte[] info=new byte[is.available()];
+        is.read(info);
+        theory=new String(info);
+        this.name=name;
+    }
+
+
+    /**
+     * Creates a theory from its source text, with the desired name
+     *
+     * @param theory the source text
+     * @param name the name of the theory
+     * @throws s InvalidTheoryException if theory is null
+     */
+    public Theory(String theory, String name) throws InvalidTheoryException {
+        if (theory==null){
+            throw new InvalidTheoryException();
+        }
+        this.theory=theory;
+        this.name=name;
+    }
+
+    /**
+     * Creates a theory from a clause list, with the desired name
+     *
+     * @param clauseList the source text
+     * @param name the name of the Theory
+     * @throws s InvalidTheoryException if clauseList is null or is not a prolog list
+     */
+    public Theory(Struct clauseList, String name) throws InvalidTheoryException{
+        if (clauseList==null || !clauseList.isList()){
+            throw new InvalidTheoryException();
+        }
+        this.clauseList=clauseList;
+        this.name=name;
+    }
+
+
+
+
+
     /**
      * Adds (appends) a theory to this.
      *
@@ -78,9 +130,9 @@ public class Theory implements Serializable {
      *  compatibles when both have been built from texts or both from clause lists)
      */
     public void append(Theory th) throws InvalidTheoryException {
-        if (th.isTextual() && isTextual()){
+        if (th.isTextual() && isTextual() && name.equals(th.getName())){
             theory=theory+th.theory;
-        } else if (!th.isTextual() && !isTextual()){
+        } else if (!th.isTextual() && !isTextual() && name.equals(th.getName())){
             clauseList.append(th.getClauseListRepresentation());
         } else {
             throw new InvalidTheoryException();
@@ -100,6 +152,19 @@ public class Theory implements Serializable {
     Struct getClauseListRepresentation(){
         return clauseList;
     }
+
+
+ 	/**
+ 	 *metodo per recuperare il nome della teoria.
+ 	 *Restituisce il nome della teoria se e' definito.
+ 	 *
+ 	 *@return il nome della teoria come stringa
+ 	 */
+ 	public String getName(){
+ 		return name;
+ 	}//fine getName
+    
+    
 
     public String toString(){
         if (theory!=null){

@@ -27,10 +27,6 @@ package alice.logictuple;
  * @version 1.0
  */
 public class Var extends TupleArgument {
-
-    /** the 'any' (anonymous, which is _) variable constant */
-    static public final Var ANY = new Var();
-
     /**
      * Construct a variable tuple argument identified with a name
      *
