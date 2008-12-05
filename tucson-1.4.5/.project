@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Tucson</name>
+	<comment></comment>
+	<projects>
+		<project>respect-1.5</project>
+		<project>tuplecentre-1.5</project>
+		<project>tuprolog-1.4</project>
+		<project>util-1.0</project>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>build-TuCSoN.xml</name>
+			<type>1</type>
+			<location>C:/Users/Shared/Workspace/build-TuCSoN.xml</location>
+		</link>
+	</linkedResources>
+</projectDescription>

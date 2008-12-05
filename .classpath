@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="tucson-1.4.5/src"/>
+	<classpathentry kind="lib" path="tucson-1.4.5/lib/tuplecentre-2.0.jar"/>
+	<classpathentry kind="lib" path="tucson-1.4.5/lib/tuprolog-1.4.jar"/>
+	<classpathentry kind="lib" path="tucson-1.4.5/lib/util-1.0.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="tucson-1.4.5/bin"/>
+</classpath>

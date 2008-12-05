@@ -1,0 +1,119 @@
+snapshot( 
+    time_vm(1224271668532),
+    time_local(1224271668545),
+    tuple_filter(null),
+    tuple_log_filter(null),
+    tuple_list([ 
+])).
+snapshot( 
+    time_vm(1224271670695),
+    time_local(1224271670697),
+    tuple_filter(null),
+    tuple_log_filter(null),
+    tuple_list([ 
+])).
+snapshot( 
+    time_vm(1224271670977),
+    time_local(1224271670980),
+    tuple_filter(null),
+    tuple_log_filter(null),
+    tuple_list([ 
+])).
+snapshot( 
+    time_vm(1224271671290),
+    time_local(1224271671291),
+    tuple_filter(null),
+    tuple_log_filter(null),
+    tuple_list([ 
+])).
+snapshot( 
+    time_vm(1224271699728),
+    time_local(1224271699753),
+    tuple_filter(null),
+    tuple_log_filter(null),
+    tuple_list([ 
+        a])).
+snapshot( 
+    time_vm(1224271703585),
+    time_local(1224271703588),
+    tuple_filter(null),
+    tuple_log_filter(null),
+    tuple_list([ 
+        a,
+        a
+])).
+snapshot( 
+    time_vm(1224271704135),
+    time_local(1224271704137),
+    tuple_filter(null),
+    tuple_log_filter(null),
+    tuple_list([ 
+        a,
+        a
+,
+        a
+])).
+snapshot( 
+    time_vm(1224271704571),
+    time_local(1224271704574),
+    tuple_filter(null),
+    tuple_log_filter(null),
+    tuple_list([ 
+        a,
+        a
+,
+        a
+,
+        a
+])).
+snapshot( 
+    time_vm(1224271704861),
+    time_local(1224271704866),
+    tuple_filter(null),
+    tuple_log_filter(null),
+    tuple_list([ 
+        a,
+        a
+,
+        a
+,
+        a
+,
+        a
+])).
+snapshot( 
+    time_vm(1224271705037),
+    time_local(1224271705040),
+    tuple_filter(null),
+    tuple_log_filter(null),
+    tuple_list([ 
+        a,
+        a
+,
+        a
+,
+        a
+,
+        a
+,
+        a
+])).
+snapshot( 
+    time_vm(1224271705206),
+    time_local(1224271705210),
+    tuple_filter(null),
+    tuple_log_filter(null),
+    tuple_list([ 
+        a,
+        a
+,
+        a
+,
+        a
+,
+        a
+,
+        a
+,
+        a
+])).
