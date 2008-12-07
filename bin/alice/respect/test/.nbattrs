@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="ReactionTest.java">
+        <attr name="class_dependency_java.lang.Object" stringvalue="ReactionTest"/>
+    </fileobject>
+    <fileobject name="PhiloRun2.java">
+        <attr name="class_dependency_java.lang.Thread" stringvalue="JavaPhilo2"/>
+        <attr name="class_dependency_java.lang.Runnable" stringvalue="JavaPhilo"/>
+    </fileobject>
+    <fileobject name="ReactionTest2.java">
+        <attr name="class_dependency_java.lang.Thread" stringvalue="Agent1"/>
+        <attr name="class_dependency_java.lang.Object" stringvalue="ReactionTest2"/>
+    </fileobject>
+    <fileobject name="PhiloRun.java">
+        <attr name="class_dependency_java.lang.Thread" stringvalue="JavaPhilo"/>
+    </fileobject>
+    <fileobject name="ReactionTest3.java">
+        <attr name="class_dependency_java.lang.Thread" stringvalue="AgentXX;AgentYY"/>
+        <attr name="class_dependency_java.lang.Object" stringvalue="ReactionTest3"/>
+    </fileobject>
+</attributes>

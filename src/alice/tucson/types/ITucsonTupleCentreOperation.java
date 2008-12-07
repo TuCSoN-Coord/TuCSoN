@@ -1,0 +1,62 @@
+package alice.tucson.types;
+
+import alice.tuplecentre.api.OperationTimeOutException;
+
+public interface ITucsonTupleCentreOperation {
+	
+	boolean isIn();
+
+	boolean isRd();
+
+	boolean isOut();
+
+	boolean isInp();
+
+	boolean isRdp();
+	
+	boolean isSetSpec();
+	
+	boolean isGetSpec();
+	
+	boolean isIn_s();
+
+	boolean isRd_s();
+
+	boolean isOut_s();
+
+	boolean isInp_s();
+
+	boolean isRdp_s();
+	
+	/**
+	 * Tests if the operation is completed
+	 * 
+	 * @return true if the operation is completed
+	 */
+	boolean isOperationCompleted();
+
+	/**
+	 * Wait for operation completion
+	 * 
+	 * Current execution flow is blocked until the operation is completed
+	 */
+	void waitForOperationCompletion();
+
+	/**
+	 * Wait for operation completion, with time out
+	 * 
+	 * Current execution flow is blocked until the operation is completed
+	 * or a maximum waiting time is elapsed
+	 * 
+	 * @param ms maximum waiting time
+	 * @throws OperationTimeOutException
+	 */
+	void waitForOperationCompletion(long ms) throws OperationTimeOutException;
+
+	/**
+	 * Get operation identifier
+	 * 
+	 * @return Operation identifier
+	 */
+	long getId();
+}
