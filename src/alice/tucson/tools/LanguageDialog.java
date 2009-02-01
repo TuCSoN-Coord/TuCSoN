@@ -3,7 +3,6 @@ package alice.tucson.tools;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
@@ -12,7 +11,6 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -22,6 +20,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import alice.tucson.service.LanguageInfo;
+import alice.tucson.service.TucsonNodeLanguageManager;
 import alice.tucson.service.TucsonTCContainer;
 
 public class LanguageDialog extends JDialog implements ActionListener, ListSelectionListener{
@@ -55,7 +54,7 @@ public class LanguageDialog extends JDialog implements ActionListener, ListSelec
 		p2.setBorder(BorderFactory.createEmptyBorder(10,10,0,10));
 		p2.setLayout(new BoxLayout(p2, BoxLayout.LINE_AXIS));
 		
-		Collection<LanguageInfo> ar1 = (Collection<LanguageInfo>) TucsonTCContainer.getAvailableContainer().values();
+		Collection<LanguageInfo> ar1 = (Collection<LanguageInfo>) TucsonNodeLanguageManager.getAvailableLanguages().values();
 		String[] ar2= new String[ar1.size()];
 		Iterator<LanguageInfo> it = ar1.iterator();
 		for (int i=0; i< ar1.size(); i++){

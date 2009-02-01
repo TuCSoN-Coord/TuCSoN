@@ -107,7 +107,7 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation {
 		return result.getResult();
 	}
 	
-	void setResult(Tuple t){
+	public void setResult(Tuple t){
 		result.setResult(t);
 		result.setEndTime(System.currentTimeMillis());
 	}

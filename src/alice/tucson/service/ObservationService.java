@@ -6,10 +6,8 @@
  */
 package alice.tucson.service;
 
-import alice.tucson.api.*;
 import alice.tucson.types.TucsonAgentId;
 import alice.tucson.types.TucsonTupleCentreId;
-import alice.logictuple.*;
 import alice.respect.api.AgentId;
 import alice.respect.api.TupleCentreId;
 

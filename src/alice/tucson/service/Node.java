@@ -18,11 +18,9 @@
 package alice.tucson.service;
 
 import alice.tucson.api.exception.InvalidConfigException;
-import alice.tucson.api.exception.OperationNotAllowedException;
 import alice.tucson.api.exception.TCInstantiationNotPossibleException;
 import alice.tucson.api.exception.TucsonException;
 import alice.tucson.api.exception.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exception.TucsonTupleException;
 import alice.tucson.types.TucsonAgentId;
 import alice.tucson.types.TucsonOpType;
 import alice.tucson.types.TucsonTupleCentreId;
@@ -30,9 +28,6 @@ import alice.logictuple.*;
 
 import alice.tuprolog.Prolog;
 import alice.tuprolog.Theory;
-import inspector.InspectorGUI;
-import inspector.RespectInspectorSubInterface;
-
 import java.util.*;
 import java.io.*;
 
@@ -610,8 +605,7 @@ public class Node  {
 						System.exit(-1);
 					}
 				}
-				TucsonTCContainer.setNodeMode();
-				TucsonTCContainer.useLanguage(languageInfo);
+				TucsonNodeLanguageManager.useLanguage(languageInfo);
 				//new InspectorGUI(new RespectInspectorSubInterface());
 				new Node(configInfo,portNumber,template).install();
 			} catch (Exception ex) {

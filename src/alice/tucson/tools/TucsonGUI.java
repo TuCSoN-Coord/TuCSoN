@@ -8,19 +8,13 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
-
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -28,9 +22,8 @@ import javax.swing.JScrollPane;
 import alice.respect.api.InvalidTupleCentreIdException;
 import alice.tucson.api.exception.TucsonException;
 import alice.tucson.service.Node;
-import alice.tucson.service.TucsonTCContainer;
+import alice.tucson.service.TucsonNodeLanguageManager;
 import alice.tucson.service.TucsonTCUsers;
-import alice.tucson.types.TucsonAgentId;
 
 
 @SuppressWarnings("serial")
@@ -145,8 +138,8 @@ public class TucsonGUI extends JFrame implements ActionListener{
 			}
 		}
 		
-		TucsonTCContainer.useLanguage(langDialog.getLanguage());
-		setTitle("TuCSoN 1.9           Language "+TucsonTCContainer.getCurLanguage().getName());
+		TucsonNodeLanguageManager.useLanguage(langDialog.getLanguage());
+		setTitle("TuCSoN 1.9           Language "+TucsonNodeLanguageManager.getCurLanguage().getName());
 		int portNum = Integer.parseInt(langDialog.getPort());
 		try {
 			if (portNum<0 || portNum>64000){

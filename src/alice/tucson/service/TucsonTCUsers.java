@@ -51,7 +51,6 @@ public class TucsonTCUsers {
         synchronized(currentAidUsers){
         	if (!currentAidUsers.contains(aid)){
         		currentAidUsers.add(aid);
-        		System.out.println("aggiungo un utente");
         	}        	
         }
     }

@@ -20,11 +20,9 @@ package alice.tucson.tools;
 import java.io.*;
 import java.util.*;
 
-import alice.respect.api.InvalidSpecificationException;
 import alice.tucson.api.*;
 import alice.tucson.types.TucsonTupleCentreId;
 import alice.logictuple.*;
-import java.lang.reflect.*;
 
 public class ConsoleInterpreter extends alice.util.Automaton  {
 

@@ -19,7 +19,6 @@ package alice.tucson.service;
 import alice.respect.core.RespectOperation;
 import alice.tucson.api.*;
 import alice.tucson.common.*;
-import alice.tucson.service.*;
 import alice.tucson.types.TucsonAgentId;
 import alice.tucson.types.TucsonOpType;
 import alice.tucson.types.TucsonTupleCentreId;
@@ -82,7 +81,7 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
     }
 
     protected void log(String st){
-        System.out.println("["+agentId+" CONTEXT] "+st);
+        System.out.println("[ACC SKELETON] "+st);
     }
 
     /**
@@ -91,7 +90,7 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
      * dispatch them to the virtual machine
      */
     public void run() {
-    	log("ACC agent "+agentId+" booted.");
+    	log("ACC agent "+agentId.toString()+" booted.");
 
     	node.addAgent(agentId);
 
@@ -99,6 +98,7 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
     		try {
 
     			TucsonMsgRequest msg = TucsonMsgRequest.read(inStream);
+    			log("new request type = "+msg.getType()+"; destination = "+msg.getTid().toString()+"; tuple = "+msg.getTuple()+";");
 
     			int msg_type=msg.getType();
     			//Have no sense speak of tid for exit operation
@@ -109,7 +109,6 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
     				break;
     			}
     			TucsonTupleCentreId tid = msg.getTid();
-    			log("New request "+msg.getId()+"  type: "+msg_type);
     			if (msg_type == TucsonOpType.OPTYPE_SET_SPEC || msg_type == TucsonOpType.OPTYPE_GET_SPEC){
     				//setSpec and getSpec are managed in a different way because of their synchronous nature
     				node.resolveCore(tid.getName());
@@ -132,14 +131,13 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
     					node.addTCAgent(agentId, tid);
     					ITupleCentreOperation op = TucsonTCContainer.doNonBlockingOperation(msg_type, agentId, tid, msg.getTuple(), this);
     					log("call executed");
-    					//TODO gestire opportunamente le eccezioni e ritornare i replymsg e non aggiungere l'op. nel pendingOps
     					pendingOps.put(new Long(op.getId()),msg);
     				}
     			}
     			
     		} catch (Exception e){
     			log("agent "+agentId+" disconnected.");
-    			//e.printStackTrace();
+    			e.printStackTrace();
     			break;
     		}
     	}
@@ -152,34 +150,10 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 
     	node.removeAgent(agentId);
     	
-    	/*
-    	synchronized (cores){
-    		Iterator it = cores.values().iterator();
-    		while (it.hasNext()){
-    			TucsonTCUsers info = (TucsonTCUsers)it.next();
-    			info.removeUser(this);
-    			info.getVirtualMachine().removeAgentEvents(agentId);
-    		}
-    	}*/
-
     	manager.shutdownContext(ctxId,agentId);
 
     	log("agent "+agentId+" exit.");
     }
-
-    /*
-    private TucsonVM getCore(TupleCentreId tid){
-    	synchronized (cores){
-    		TucsonTCUsers coreInfo = (TucsonTCUsers)cores.get(tid.getName()); 
-    		if (coreInfo==null){	
-    			coreInfo = node.resolveCore(tid.getName());
-    			coreInfo.addUser(this);
-    			cores.put(tid.getName(),coreInfo);
-    		}
-    		TucsonVM core=coreInfo.getVirtualMachine();
-    		return core;
-    	}
-    }*/
 
     synchronized public void exit(){
     	exit=true;
@@ -198,7 +172,7 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
     			TucsonMsgReply reply = null;
     			//log("Co-related request: "+msg.getId());
     			if (op.isOut() || op.isOut_s()){
-    				log("Send Response");
+    				log("end Response");
     				reply = new TucsonMsgReply(msg.getId(),op.getType(),true,true);
     			} else if (op.isIn() || op.isIn_s() || op.isRd() || op.isRd_s()){
     				reply = new TucsonMsgReply(msg.getId(),op.getType(),true,true,msg.getTuple(), ((RespectOperation)op).getLogicTupleResult());
@@ -217,5 +191,6 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
     		}
     	}		
 	}
+	
 }
 

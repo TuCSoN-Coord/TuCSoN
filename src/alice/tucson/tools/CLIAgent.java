@@ -16,16 +16,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.tucson.tools;
-import java.io.*;
-import java.util.*;
-
-import alice.respect.api.AgentId;
 import alice.tucson.api.*;
-import alice.tucson.service.TucsonTCContainer;
+import alice.tucson.service.TucsonAgentLanguageManager;
 import alice.tucson.types.TucsonAgentId;
 import alice.tucson.types.TucsonOpType;
-import alice.logictuple.*;
-import java.lang.reflect.*;
 
 /**
  * Command Line Interpreter
@@ -33,28 +27,25 @@ import java.lang.reflect.*;
 public class CLIAgent {
 
     public static void main(String[] args) throws Exception{
-    	TucsonTCContainer.setAgentMode();
+    	log("Booting TuCSoN Command Line Intepreter ...");
     	//The CLIAgent use "ReSpecT 2.2"
-    	TucsonTCContainer.useLanguage(TucsonOpType.DEFLANGUAGE);
-        System.out.println("Booting TuCSoN Command Line Intepreter ...");
+    	TucsonAgentLanguageManager.useLanguage(TucsonOpType.DEFLANGUAGE);
         if (alice.util.Tools.isOpt(args,"-?")){
-            System.out.println("Argument Template: ");
-            System.out.println("{-aid agent identifier} {-console} {-?}");
+            log("Argument Template: ");
+            log("{-aid agent identifier} {-console} {-?}");
         } else {
             String st_aid = null;
             if (alice.util.Tools.isOpt(args,"-aid")){
                 st_aid=alice.util.Tools.getOpt(args,"-aid");
             } else {
                 try {
-                	st_aid = "cli";
-                    /*st_aid="cli_"+System.currentTimeMillis()+"@"+
-                                    java.net.InetAddress.getLocalHost().getHostAddress();*/
+                	st_aid = "cli"+System.currentTimeMillis();
                 } catch (Exception ex){
                     st_aid="cli_"+System.currentTimeMillis();
                 }
             }
 
-            System.out.println("Agent Identifier: "+st_aid);
+            log("Agent Identifier: "+st_aid);
             TucsonContextSynch context = null;
             try {
                 context=new TucsonContextSynch(Tucson.getContext(new TucsonAgentId(st_aid), TucsonOpType.DEFLANGUAGE));
@@ -71,5 +62,9 @@ public class CLIAgent {
                 System.err.println("AGENT FAILED: "+ex);
             }
         }
+    }
+    
+    public static void log(String s){
+    	System.out.println("[CLIAgent] "+s);
     }
 }

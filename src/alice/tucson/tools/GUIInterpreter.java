@@ -20,8 +20,8 @@ package alice.tucson.tools;
 import alice.tucson.api.*;
 import alice.tucson.types.TucsonTupleCentreId;
 import alice.logictuple.*;
-import java.lang.reflect.*;
 
+@SuppressWarnings("serial")
 public class GUIInterpreter extends javax.swing.JFrame {
 
     private TucsonContextSynch context;
@@ -191,13 +191,11 @@ public class GUIInterpreter extends javax.swing.JFrame {
 
                     hostName=removeSpaces(hostName);
                     tcName=removeSpaces(tcName);
-                    System.out.println(hostName+" "+tcName);
                     TucsonTupleCentreId tid=new TucsonTupleCentreId(tcName+"@"+hostName);
 
                     if (index1!=-1 && index2!=-1){
                         String methodName=removeSpaces(cmd.substring(0,index1));
                         String tuple=cmd.substring(index1+1,index2);
-                        System.out.println(tuple);
                         if (methodName.equals("out")){
                             LogicTuple t=LogicTuple.parse(tuple);
                             context.out(tid,t);

@@ -71,7 +71,7 @@ public class TucsonProtocolTCP extends TucsonProtocol {
 
 
     protected String receiveString() throws Exception {
-        return inStream.readUTF();
+        return (String) inStream.readObject();
     }
 
     protected int receiveInt() throws Exception {
@@ -96,7 +96,7 @@ public class TucsonProtocolTCP extends TucsonProtocol {
     }
 
     protected void send(String value) throws Exception {
-        outStream.writeUTF(value);
+        outStream.writeObject(value);
     }
     
     protected void send(Object value) throws Exception {

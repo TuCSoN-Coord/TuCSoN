@@ -2,43 +2,45 @@ package alice.tucson.types;
 
 import java.io.Serializable;
 
-import alice.respect.api.AgentId;
-import alice.respect.api.InvalidAgentIdException;
-import alice.respect.api.InvalidTupleCentreIdException;
-import alice.respect.api.TupleCentreId;
 import alice.tucson.api.exception.TucsonInvalidAgentIdException;
-import alice.tucson.api.exception.TucsonInvalidTupleCentreIdException;
+
 import alice.tucson.service.LanguageInfo;
-import alice.tucson.service.TucsonTCContainer;
+import alice.tucson.service.TucsonAgentLanguageManager;
+import alice.tucson.service.TucsonLanguageManager;
+import alice.tucson.service.TucsonNodeLanguageManager;
+
 
 @SuppressWarnings("serial")
 public class TucsonAgentId implements Serializable{
 
 	private Object aid;
+	private IAgentIdResolver resolver;
 
 	public TucsonAgentId(Object id) throws TucsonInvalidAgentIdException{
-		String lang = TucsonTCContainer.getCurLanguage().getName();
-		if (lang.equals(TucsonOpType.DEFLANGUAGE)){
-			if (id.getClass().getName().equals("alice.respect.api.TupleCentreId")){
-				aid = id;
-			} else {
-				try {
-					aid = new AgentId((String)id);
-				} catch (InvalidAgentIdException e) {
-					throw new TucsonInvalidAgentIdException();
-				}
-			}	
+		LanguageInfo lang = TucsonNodeLanguageManager.getCurLanguage();
+		if (lang==null){
+			lang = TucsonAgentLanguageManager.getCurLanguage();
+		}
+		try {
+			resolver = (IAgentIdResolver) TucsonLanguageManager.createObject(lang.getResolverComponentName(), new Object[0]);
+			aid = TucsonLanguageManager.callMethodObjPar(resolver, "agentIdConstructor", new Object[]{(Object)id});
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
 	}
 
-	//TODO nei metodi sotto ci andrebbe cmq il controllo (però vanno fatti dinamici)
 	
 	public Object getInternalAgentId(){
 		return aid;
 	}
 	
 	public String toString(){
-		return ((AgentId)aid).toString();
+		try {
+			return (String) TucsonLanguageManager.callMethodObjPar(resolver, "agentIdToString", new Object[]{(Object)aid});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public boolean isAgent() {
@@ -50,17 +52,20 @@ public class TucsonAgentId implements Serializable{
 	}
 	
 	public TucsonAgentId translateSyntax(LanguageInfo languageTo){
-		//TODO V. tucsonResolver
 		try {
-			return new TucsonAgentId(aid.toString());
-		} catch (TucsonInvalidAgentIdException e) {
-			e.printStackTrace();
-		}
-
+    		return (TucsonAgentId) TucsonLanguageManager.callMethodObjPar(resolver, "agentIdTranslateSyntax", new Object[]{(Object) languageTo, (Object)aid});
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
 		return null;
     }
 	
 	public boolean checkSyntax(){
-		return true;
+		try {
+			return (Boolean) TucsonLanguageManager.callMethodObjPar(resolver, "agentIdCheckSyntax", new Object[]{(Object)aid});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 }

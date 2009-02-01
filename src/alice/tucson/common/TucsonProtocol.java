@@ -25,6 +25,7 @@ import java.io.*;
 /**
  *
  */
+@SuppressWarnings("serial")
 public abstract class TucsonProtocol implements java.io.Serializable {
 
     abstract public ObjectInputStream getInputStream();
@@ -88,31 +89,11 @@ public abstract class TucsonProtocol implements java.io.Serializable {
     	return lang;
     }
 
-    public void sendTelnetRequestAnswer(String info) throws Exception {
-        send(info.getBytes());
-        flush();
-    }
     // ----------------------------------------------
 
 
     public void receiveFirstRequest() throws Exception {
-        // in order to see if it's a telnet interaction
-        // we test some times if there are not
-        // avaiable bytes (telnet case)
-        int nchecks=0;
-        boolean telnet_req=false;
-        while (getInputStream().available()==0){
-            Thread.currentThread().sleep(50);
-            if (++nchecks==4){
-                telnet_req = true;
-                break;
-            }
-        }
-        if (telnet_req){
-            request_type = REQ_TELNET;
-        } else {
-            request_type = receiveInt();
-        }
+        request_type = receiveInt();
     }
 
     public void receiveEnterRequest() throws Exception {
@@ -132,23 +113,21 @@ public abstract class TucsonProtocol implements java.io.Serializable {
     }
 
     public void sendEnterRequestRefused(ContextDescription context) throws Exception {
+    	//System.out.println("send "+(LanguageInfo)context.getLanguageInfo());
         send(false);
         send((Object)context.getLanguageInfo());
         flush();
     }
 
     public void sendEnterRequestAccepted(ContextDescription context)throws Exception {
+    	//System.out.println("send "+(LanguageInfo)context.getLanguageInfo());
         send(true);
-        send((Object)context.getLanguageInfo());
+        send((LanguageInfo)context.getLanguageInfo());
         flush();
     }
 
     public ContextDescription getContextDescription() {
         return context;
-    }
-
-    public boolean isTelnetRequest(){
-        return request_type == REQ_TELNET;
     }
 
     public boolean isEnterRequest(){

@@ -8,7 +8,6 @@
  *
  */
 package alice.tucson.service;
-import alice.tucson.api.*;
 import alice.tucson.api.exception.TucsonInvalidAgentIdException;
 import alice.tucson.types.TucsonAgentId;
 import alice.tucson.types.TucsonTupleCentreId;

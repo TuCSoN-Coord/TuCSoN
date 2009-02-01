@@ -17,7 +17,6 @@
  */
 package alice.tucson.api;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import alice.tucson.api.exception.LanguageNotFoundException;

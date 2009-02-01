@@ -22,8 +22,6 @@ import alice.tucson.common.TucsonProtocolTCP;
 
 import java.net.*;
 
-import java.io.OutputStream;
-import java.util.Date;
 
 
 /**
@@ -51,24 +49,16 @@ public class WelcomeAgent extends Thread  {
     public void run() {
         try {
             TucsonProtocol mainDialog = new TucsonProtocolTCP(new ServerSocket(port));
-            log("welcome agent for TCP/IP booted. Listening on port "+port);
 
             while (true){
                 TucsonProtocol dialog=null;
                 try {
+                	log("welcome agent for TCP/IP booted. Listening on port "+port+"...");
                     dialog = mainDialog.acceptNewDialog();
                     dialog.receiveFirstRequest();
-
-                    if (dialog.isTelnetRequest()){
-                        String message="TuCSoN Infrastructure (version "+node.getVersion()+
-                                       ")\n\rCurrent date  "+new Date()+
-                                       "\n\rRunning since "+ node.getInstallationDate()+"\n";
-                        dialog.sendTelnetRequestAnswer(message);
-                        dialog.end();
-
-                    } else if (dialog.isEnterRequest()){
+                    if (dialog.isEnterRequest()){
+                    	log("New request received");
                         dialog.receiveEnterRequest();
-
                         ContextDescription desc = dialog.getContextDescription();
                         contextManager.processContextRequest(desc,dialog);
                     }

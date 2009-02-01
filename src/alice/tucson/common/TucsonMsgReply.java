@@ -3,7 +3,6 @@ package alice.tucson.common;
 import java.io.*;
 
 
-import alice.tucson.api.*;
 import alice.logictuple.*;
 
 public class TucsonMsgReply implements Serializable {

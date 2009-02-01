@@ -18,8 +18,6 @@
 package alice.tucson.api;
 
 import alice.logictuple.*;
-import alice.respect.api.AgentId;
-import alice.tucson.api.*;
 import alice.tucson.api.exception.LanguageNotFoundException;
 import alice.tucson.api.exception.OperationNotAllowedException;
 import alice.tucson.api.exception.TucsonInvalidAgentIdException;
@@ -32,8 +30,7 @@ import java.io.*;
 
 import alice.tucson.common.*;
 import alice.tucson.service.LanguageInfo;
-import alice.tucson.service.TucsonResolver;
-import alice.tucson.service.TucsonTCContainer;
+import alice.tucson.service.TucsonAgentLanguageManager;
 import alice.tucson.types.TucsonAgentId;
 import alice.tucson.types.TucsonOpType;
 import alice.tucson.types.TucsonTupleCentreId;
@@ -52,8 +49,7 @@ public class AgentContextStub implements TucsonContext {
     private int opId;
         
     public AgentContextStub(Object aid, Object language){
-    	TucsonTCContainer.setAgentMode();
-    	TucsonTCContainer.useLanguage((String)language);
+    	TucsonAgentLanguageManager.useLanguage((String)language);
     	if (aid.getClass().getName().equals("alice.tucson.types.TucsonAgentId")){
     		this.aid = (TucsonAgentId)aid;
     	} else {
@@ -71,60 +67,60 @@ public class AgentContextStub implements TucsonContext {
 
     
     public synchronized TucsonOpId out(Object tid, Object t) throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-        return doOperation(tid,TucsonOpType.OPTYPE_OUT,t,TucsonTCContainer.getCurLanguage().getName());
+        return doOperation(tid,TucsonOpType.OPTYPE_OUT,t,TucsonAgentLanguageManager.getCurLanguage().getName());
     }
 
     public synchronized TucsonOpId in(Object tid, Object t) throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-        return doOperation(tid,TucsonOpType.OPTYPE_IN,t,TucsonTCContainer.getCurLanguage().getName());
+        return doOperation(tid,TucsonOpType.OPTYPE_IN,t,TucsonAgentLanguageManager.getCurLanguage().getName());
     }
 
     public synchronized TucsonOpId rd(Object tid, Object t) throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-        return doOperation(tid,TucsonOpType.OPTYPE_RD,t,TucsonTCContainer.getCurLanguage().getName());
+        return doOperation(tid,TucsonOpType.OPTYPE_RD,t,TucsonAgentLanguageManager.getCurLanguage().getName());
     }
     
     public synchronized TucsonOpId inp(Object tid, Object t) throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-        return doOperation(tid,TucsonOpType.OPTYPE_INP,t,TucsonTCContainer.getCurLanguage().getName());
+        return doOperation(tid,TucsonOpType.OPTYPE_INP,t,TucsonAgentLanguageManager.getCurLanguage().getName());
     }
  
     public synchronized TucsonOpId rdp(Object tid, Object t) throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-        return doOperation(tid,TucsonOpType.OPTYPE_RDP,t,TucsonTCContainer.getCurLanguage().getName());
+        return doOperation(tid,TucsonOpType.OPTYPE_RDP,t,TucsonAgentLanguageManager.getCurLanguage().getName());
     }
     
     public synchronized TucsonOpId in_s(Object tid, Object tuple)
     throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-    	return doOperation(tid,TucsonOpType.OPTYPE_IN_S,tuple,TucsonTCContainer.getCurLanguage().getName());
+    	return doOperation(tid,TucsonOpType.OPTYPE_IN_S,tuple,TucsonAgentLanguageManager.getCurLanguage().getName());
     }
 
 
     public synchronized TucsonOpId inp_s(Object tid, Object tuple)
     throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-    	 return doOperation(tid,TucsonOpType.OPTYPE_INP_S,tuple,TucsonTCContainer.getCurLanguage().getName());
+    	 return doOperation(tid,TucsonOpType.OPTYPE_INP_S,tuple,TucsonAgentLanguageManager.getCurLanguage().getName());
     }
 
 
     public synchronized TucsonOpId out_s(Object tid, Object tuple)
     throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-    	 return doOperation(tid,TucsonOpType.OPTYPE_OUT_S,tuple,TucsonTCContainer.getCurLanguage().getName());
+    	 return doOperation(tid,TucsonOpType.OPTYPE_OUT_S,tuple,TucsonAgentLanguageManager.getCurLanguage().getName());
     }
 
 
     public synchronized TucsonOpId rd_s(Object tid, Object tuple)
     throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-    	return doOperation(tid,TucsonOpType.OPTYPE_RD_S,tuple,TucsonTCContainer.getCurLanguage().getName());
+    	return doOperation(tid,TucsonOpType.OPTYPE_RD_S,tuple,TucsonAgentLanguageManager.getCurLanguage().getName());
     }
 
 
     public synchronized TucsonOpId rdp_s(Object tid, Object tuple)
     throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-    	return doOperation(tid,TucsonOpType.OPTYPE_RDP_S,tuple,TucsonTCContainer.getCurLanguage().getName());
+    	return doOperation(tid,TucsonOpType.OPTYPE_RDP_S,tuple,TucsonAgentLanguageManager.getCurLanguage().getName());
     }
 
     public synchronized TucsonOpId setSpec(Object tid, Object t) throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-        return doOperation(tid,TucsonOpType.OPTYPE_SET_SPEC,t,TucsonTCContainer.getCurLanguage().getName());
+        return doOperation(tid,TucsonOpType.OPTYPE_SET_SPEC,t,TucsonAgentLanguageManager.getCurLanguage().getName());
     }
     
     public synchronized TucsonOpId getSpec(Object tid) throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-       return doOperation(tid,TucsonOpType.OPTYPE_GET_SPEC,new Object(), TucsonTCContainer.getCurLanguage().getName());
+       return doOperation(tid,TucsonOpType.OPTYPE_GET_SPEC,new Object(), TucsonAgentLanguageManager.getCurLanguage().getName());
     }
     
     public synchronized TucsonOpId doOperation(Object tid, int type, Object t, String language) throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
@@ -138,7 +134,7 @@ public class AgentContextStub implements TucsonContext {
 				throw new OperationNotAllowedException();
 			}
     	}
-    	TucsonTCContainer.useLanguage(language);
+    	TucsonAgentLanguageManager.useLanguage(language);
         //First phase: syntax check before going on remote node
     	log("Syntax check");
     	if (!tcid.checkSyntax() || !aid.checkSyntax()){
@@ -148,7 +144,7 @@ public class AgentContextStub implements TucsonContext {
     	int nTry = 1;
         do {
         	//Second phase: negotiation (method getSession)
-        	log("Negotiation");
+        	log("Negotiation with "+tcid.toString());
         	TucsonProtocol session = getSession(tcid, language);        	
         	ObjectOutputStream outStream = session.getOutputStream();
             try {
@@ -158,6 +154,7 @@ public class AgentContextStub implements TucsonContext {
             	TucsonMsgRequest.write(outStream,msg);
             	outStream.flush();
                 //log("Request done: "+type+" "+t+" "+opId);
+            	log("Operation executed succesfully");
                 return new TucsonOpId(opId);
             } catch (IOException ex) {
             		ex.printStackTrace();
@@ -170,7 +167,7 @@ public class AgentContextStub implements TucsonContext {
     public synchronized void exit() throws OperationNotAllowedException {
         Object tid = new Object();
         Object t = new Object();
-    	Iterator it = controllerSessions.values().iterator();
+    	Iterator<ControllerSession> it = controllerSessions.values().iterator();
         while (it.hasNext()) {
             try {
                 ControllerSession cs = (ControllerSession) it.next();
@@ -189,12 +186,12 @@ public class AgentContextStub implements TucsonContext {
     }
     
     public HashMap<String, LanguageInfo> getInfo(){
-    	return TucsonTCContainer.getAvailableContainer();
+    	return TucsonAgentLanguageManager.getAvailableLanguages();
     }
 
 
     private ContextEvent findEvent(TucsonOpId id){
-    		Iterator it = events.iterator();
+    		Iterator<ContextEvent> it = events.iterator();
     		while (it.hasNext()){
     			ContextEvent ev = (ContextEvent)it.next(); 
     			if (ev.getOpId().equals(id)){
@@ -209,6 +206,7 @@ public class AgentContextStub implements TucsonContext {
     		try {
     			long startTime = System.currentTimeMillis();
     			synchronized (events){
+    				log("Waiting for result...");
     				long dt = System.currentTimeMillis() - startTime;
     				ContextEvent ev = findEvent(id);
     				while (ev==null && dt < timeout){
@@ -217,6 +215,7 @@ public class AgentContextStub implements TucsonContext {
         				ev = findEvent(id);
         				dt = System.currentTimeMillis() - startTime;
     				}
+    				log("Result received...");
     				return ev;
     			}
     		} catch (Exception ex){
@@ -227,12 +226,14 @@ public class AgentContextStub implements TucsonContext {
     public ContextEvent waitForCompletion(TucsonOpId id) {
 		try {			
 			synchronized (events){
+				log("Waiting for result...");
 				ContextEvent ev = findEvent(id);
 				while (ev==null){
 					//log("waiting for "+id.getId());
 					events.wait();
 					ev = findEvent(id);
 				}
+				log("Result received...");
 				return ev;
 			}
 		} catch (Exception ex){
@@ -244,44 +245,43 @@ public class AgentContextStub implements TucsonContext {
     private TucsonProtocol getSession(TucsonTupleCentreId tid, String language)
             throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
         String node = alice.util.Tools.removeApices(tid.getNode());
+        //Discriminate between remote node 
         ControllerSession tc = controllerSessions.get(node);
         if (tc != null) {
             return tc.getSession();
         } else {
-			String snode = tid.toString();
-			
-			//TODO da sistemare
-		    //profile.setProperty("node", snode );  //TODO controllare uso in remoto
-		    profile.setProperty("agent-identity",aid.toString());
-	        profile.setProperty("agent-role","user");
+        	try {
+        		profile.setProperty("agent-identity",aid.toString());
+        		profile.setProperty("agent-role","user");
 
-            try {
-				int idx = node.indexOf(':');
-				int port = 20504;
-				try {
-					if (idx!=-1){
-						port = Integer.parseInt(node.substring(idx));
-						node = node.substring(0,idx-1);
-					}
-				} catch (Exception ex){
-					throw new UnreachableNodeException();
-				}
-                TucsonProtocol dialog = new TucsonProtocolTCP(node, port);
-                dialog.sendEnterRequest(profile);
-                dialog.receiveEnterRequestAnswer();
-                if (dialog.isEnterRequestAccepted()) {
-                	ObjectInputStream din = dialog.getInputStream();
-                	Controller contr = new Controller(din);
-                	ControllerSession cs = new ControllerSession(contr,dialog);
-                	controllerSessions.put(node, cs);
-                	contr.start();
-                	return dialog;
-                }
-            } catch (Exception ex){
-                throw new UnreachableNodeException();
-            }
+        		int idx = node.indexOf(':');
+        		int port = 20504;				
+        		try {
+        			if (idx!=-1){
+        				port = Integer.parseInt(node.substring(idx));
+        				node = node.substring(0,idx-1);
+        			}
+        		} catch (Exception ex){
+        			throw new UnreachableNodeException();
+        		}
+        		TucsonProtocol dialog = new TucsonProtocolTCP(node, port);
+        		dialog.sendEnterRequest(profile);
+        		dialog.receiveEnterRequestAnswer();
+        		if (dialog.isEnterRequestAccepted()) {
+        			ObjectInputStream din = dialog.getInputStream();
+        			Controller contr = new Controller(din);
+        			ControllerSession cs = new ControllerSession(contr,dialog);
+        			controllerSessions.put(node, cs);
+        			contr.start();
+        			return dialog;
+        		}
+        	} catch (UnreachableNodeException ex){
+        		throw new UnreachableNodeException();
+        	} catch (Exception ex2){
+        		 throw new OperationNotAllowedException();
+        	}
         }
-        throw new OperationNotAllowedException();
+		return null;
     }
 
     private void postEvent(ContextEvent ev){
@@ -370,7 +370,7 @@ public class AgentContextStub implements TucsonContext {
 	}
 
     
-    class Controller extends Thread {
+    public class Controller extends Thread {
     	
     		private boolean stop;
     		private ObjectInputStream in;
@@ -450,7 +450,7 @@ public class AgentContextStub implements TucsonContext {
     	    }
     }
     
-    class ControllerSession {
+    public class ControllerSession {
     		private Controller controller;
     		private TucsonProtocol session;
     		

@@ -20,16 +20,16 @@ package alice.tucson.service;
 import alice.tucson.api.*;
 import alice.tucson.api.exception.LanguageNotFoundException;
 import alice.tucson.api.exception.OperationNotAllowedException;
-import alice.tucson.api.exception.TucsonException;
 import alice.tucson.api.exception.UnreachableNodeException;
-import alice.tucson.types.TucsonAgentId;
-import alice.tucson.types.TucsonTupleCentreId;
-import alice.logictuple.*;
 
 /**
  *  Context enabling the out_tc inter tuple centre operation
  */
 public interface InterTupleCentreContext {
+	
+	public ContextEvent waitForCompletion(TucsonOpId id, int timeout);
+	
+	public ContextEvent waitForCompletion(TucsonOpId id);
 	
 	 /**
      * 

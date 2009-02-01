@@ -1,7 +1,6 @@
 package alice.tucson.api;
 
 import alice.logictuple.*;
-import alice.tucson.common.*;
 
 public class ContextEvent {
 

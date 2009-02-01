@@ -76,7 +76,7 @@ public class RespectInspectorSubInterface implements
 		LinkedList<String> new_list=new LinkedList<String>();
 		LogicTuple tuple;
 		for (int i=0;i<list.length;i++){
-			tuple=LogicTuple.parse(list[i]);
+			tuple=LogicTuple.parse(list[i]);			
 			if (tuple.match(template)) new_list.add(list[i]);
 		}
 		Object[] array1=new_list.toArray();
@@ -95,7 +95,10 @@ public class RespectInspectorSubInterface implements
 		index=specification.indexOf("reaction",1);
 		while (index>0){
 			reaction=specification.substring(pre_index,index);
-			list.add(reaction);
+			//lsemprini
+			if (pre_index != 0)
+				list.add(reaction);
+			
 			pre_index=index;
 			index=specification.indexOf("reaction",index+1);
 		}

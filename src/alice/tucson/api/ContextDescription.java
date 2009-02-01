@@ -17,7 +17,6 @@
  */
 package alice.tucson.api;
 
-import alice.tucson.api.*;
 import alice.tucson.service.LanguageInfo;
 
 import java.util.Properties;

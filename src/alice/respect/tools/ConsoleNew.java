@@ -225,7 +225,7 @@ private void loadSpecificationButtonActionPerformed(java.awt.event.ActionEvent e
         //This is where a real application would open the file.
         this.outputTextArea.append("Opening: " + file.getName() + ".\n");
         String spec = this.readFile(file);
-        
+
         try{
             context.setSpec(this.agentId, new RespectSpecification(spec));
             outputTextArea.append("Specification loading: OK \n");

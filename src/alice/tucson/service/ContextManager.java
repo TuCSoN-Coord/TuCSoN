@@ -16,6 +16,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.tucson.service;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import alice.tucson.api.*;
 import alice.tucson.common.TucsonProtocol;
 import alice.tucson.types.TucsonAgentId;
@@ -24,9 +27,6 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.TupleArgument;
-
-import java.lang.reflect.Constructor;
-import java.util.Iterator;
 
 
 /**
@@ -37,9 +37,11 @@ import java.util.Iterator;
  */
 public class ContextManager  {
 
+	protected final static int threadsNumber = 5;
 	protected TucsonTupleCentreId config;
 	protected TucsonAgentId aid;
 	protected Node node;
+	protected ExecutorService exec;
 
     public ContextManager(Node node, TucsonTupleCentreId tid){
         try {
@@ -48,6 +50,8 @@ public class ContextManager  {
         }
         this.node=node;
         this.config = tid;
+        
+        exec =	Executors.newFixedThreadPool(threadsNumber);
     }
 
     private void log(String st){
@@ -57,53 +61,53 @@ public class ContextManager  {
     
 
     public synchronized  boolean processContextRequest(ContextDescription profile, TucsonProtocol dialog){
-    	    try {
-    	    	    log("creating context..");
-    	    		
-	        String agentName = profile.getProperty("agent-identity");
-	        log(agentName);
-	        LogicTuple req=new LogicTuple("context_request",
-	            									new Value(agentName),                                                
-	            									new Var("CtxId"));
-	        log(req.toString());
-	        LogicTuple result = TucsonTCContainer.inp(aid, config, req);
-	        log("Context creation result: "+result);
-	        if (result==null){
-	        	profile.setProperty("failure","context not available");
-	        	dialog.sendEnterRequestRefused(profile);
-	        	return false;
-	        	
-	        }
-	        TupleArgument res = result.getArg(1);
-	        if (res.getName().equals("failed")){
-	        	profile.setProperty("failure",res.getArg(0).getName());
-	        	dialog.sendEnterRequestRefused(profile);
-	        	return false;
-	        }
+    	try {
+    		log("creating context..");
 
-	        TupleArgument ctxId = res.getArg(0);
-	        profile.setProperty("context-id",ctxId.toString());
-	        profile.setLanguageInfo(TucsonTCContainer.getCurLanguage());
+    		String agentName = profile.getProperty("agent-identity");
+    		log(agentName);
+    		LogicTuple req=new LogicTuple("context_request",
+    				new Value(agentName),                                                
+    				new Var("CtxId"));
+    		log(req.toString());
+    		LogicTuple result = TucsonTCContainer.inp(aid, config, req);
+    		log("Context creation result: "+result);
+    		if (result==null){
+    			profile.setProperty("failure","context not available");
+    			dialog.sendEnterRequestRefused(profile);
+    			return false;
 
-	        dialog.sendEnterRequestAccepted(profile);
+    		}
+    		TupleArgument res = result.getArg(1);
+    		if (res.getName().equals("failed")){
+    			profile.setProperty("failure",res.getArg(0).getName());
+    			dialog.sendEnterRequestRefused(profile);
+    			return false;
+    		}
 
-	        String agentRole = profile.getProperty("agent-role");
-	        if (agentRole.equals("$inspector")){
-	        	//ContextSkeleton skel = new InspectorContextSkel(this,dialog,node,profile);
-	        	//skel.start();
-	        } else {
-	        	//TODO usare un pool di thread fisso
-	        	log("creating skeleton");
-	        	ContextSkeleton skel = new AgentContextSkeleton(this,dialog,node,profile);
-	        	skel.start();
-	        } 	        
-	        return true;
+    		TupleArgument ctxId = res.getArg(0);
+    		profile.setProperty("context-id",ctxId.toString());
+    		profile.setLanguageInfo(TucsonNodeLanguageManager.getCurLanguage());
 
-    	    } catch (Exception ex){
-    	    	ex.printStackTrace();
-    	    	profile.setProperty("failure","generic");
-    	    	return false;
-    	    }
+    		dialog.sendEnterRequestAccepted(profile);
+
+    		String agentRole = profile.getProperty("agent-role");
+    		if (agentRole.equals("$inspector")){
+    			//TODO
+    			//ContextSkeleton skel = new InspectorContextSkel(this,dialog,node,profile);
+    			//skel.start();
+    		} else {
+    			log("creating skeleton");
+    			ContextSkeleton skel = new AgentContextSkeleton(this,dialog,node,profile);
+    			exec.execute(skel);
+    		} 	        
+    		return true;
+
+    	} catch (Exception ex){
+    		ex.printStackTrace();
+    		profile.setProperty("failure","generic");
+    		return false;
+    	}
     }
 
     public synchronized boolean shutdownContext(int ctxId, TucsonAgentId aid){

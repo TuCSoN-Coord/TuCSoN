@@ -10,7 +10,8 @@ public class LanguageInfo implements Serializable{
 	private ArrayList<String> compatibleLanguages;
 	private ArrayList<String> transLanguages;
 	private ArrayList<String> transLanguagesComponent;
-	private String componentName;
+	private String containerComponentName;
+	private String resolverComponentName;
 	
 	public LanguageInfo(String languageName){
 		this.languageName = languageName;
@@ -28,8 +29,12 @@ public class LanguageInfo implements Serializable{
 		transLanguagesComponent.add(comp);
 	}
 	
-	public void setComponentName(String comp){
-		componentName = comp;
+	public void setContainerComponentName(String comp){
+		containerComponentName = comp;
+	}
+	
+	public void setResolverComponentName(String comp){
+		resolverComponentName = comp;
 	}
 	
 	public String getName(){
@@ -40,16 +45,27 @@ public class LanguageInfo implements Serializable{
 		return compatibleLanguages;
 	}
 	
-	public String getComponentName(){
-		return componentName;
+	public String getContainerComponentName(){
+		return containerComponentName;
 	}
 	
-	public ArrayList<String> getTransLanguages(){
+	public String getResolverComponentName(){
+		return resolverComponentName;
+	}
+	
+	public ArrayList<String> getTranslatorLanguages(){
 		return transLanguages;
 	}
 	
-	public String getTransLanguageComponent(String transLanguage){
-		return transLanguagesComponent.get(transLanguages.indexOf(transLanguage));
+	public String getTranslatorComponentName(String transLanguage){
+		int index = transLanguages.indexOf(transLanguage);
+		String result = null;
+		if (index != -1){
+			result = transLanguagesComponent.get(index);
+		} else {
+			return null;
+		}
+		return result;
 	}
 	
 	

@@ -16,20 +16,17 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.tucson.service;
-import alice.respect.api.AgentId;
-import alice.respect.api.TupleCentreId;
 import alice.tucson.api.*;
+import alice.tucson.api.AgentContextStub.Controller;
+import alice.tucson.api.AgentContextStub.ControllerSession;
 import alice.tucson.api.exception.LanguageNotFoundException;
 import alice.tucson.api.exception.OperationNotAllowedException;
-import alice.tucson.api.exception.TucsonException;
-import alice.tucson.api.exception.TucsonInvalidAgentIdException;
 import alice.tucson.api.exception.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exception.UnreachableNodeException;
 import alice.tucson.common.TucsonMsgReply;
 import alice.tucson.common.TucsonMsgRequest;
 import alice.tucson.common.TucsonProtocol;
 import alice.tucson.common.TucsonProtocolTCP;
-import alice.tucson.types.TucsonAgentId;
 import alice.tucson.types.TucsonOpType;
 import alice.tucson.types.TucsonTupleCentreId;
 import alice.logictuple.*;
@@ -45,48 +42,48 @@ import java.io.*;
 public class InterTupleCentreContextStub implements InterTupleCentreContext{
 
 	private TucsonTupleCentreId aid;
-    private ContextDescription profile;
+	private ContextDescription profile;
 
-    private LinkedList<ContextEvent> events;
-    private HashMap<String, ControllerSession> controllerSessions;
-    
-    private int opId;
-	
+	private LinkedList<ContextEvent> events;
+	private HashMap<String, ControllerSession> controllerSessions;
+
+	private int opId;
+
 
 	public InterTupleCentreContextStub(Object id, Object language) {
-		//TucsonTCContainer.setAgentMode();
-    	//TucsonTCContainer.useLanguage((String)language);
+		TucsonNodeLanguageManager.useLanguage((String)language);
 		if(id.getClass().getName().equals("alice.tucson.types.TucsonTupleCentreId")){
-    		this.aid = (TucsonTupleCentreId) id;
-    	} else {
-    		try {
-    			this.aid = new TucsonTupleCentreId(id);
+			this.aid = (TucsonTupleCentreId) id;
+		} else {
+			try {
+				this.aid = new TucsonTupleCentreId(id);
 			} catch (TucsonInvalidTupleCentreIdException e) {
 				e.printStackTrace();
 			}
-    	}
-    	
-        profile = new ContextDescription();
-        opId = 0;
-        events = new LinkedList<ContextEvent>();        
-        controllerSessions = new HashMap<String, ControllerSession>();
+		}
+
+		profile = new ContextDescription();
+		opId = 0;
+		events = new LinkedList<ContextEvent>();        
+		controllerSessions = new HashMap<String, ControllerSession>();
 
 	}
 
 	public synchronized TucsonOpId doOperation(Object tid, int type, Object t, String language) 
 	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-		TucsonTCContainer.useLanguage(language);
+		TucsonNodeLanguageManager.useLanguage(language);
 		TucsonTupleCentreId tcid = null;
-    	if(tid.getClass().getName().equals("alice.tucson.types.TucsonTupleCentreId")){
-    		tcid = (TucsonTupleCentreId) tid;
-    	} else {
-    		try {
+		if(tid.getClass().getName().equals("alice.tucson.types.TucsonTupleCentreId")){
+			tcid = (TucsonTupleCentreId) tid;
+		} else {
+			try {
 				tcid = new TucsonTupleCentreId(tid);
 			} catch (TucsonInvalidTupleCentreIdException e) {
 				throw new OperationNotAllowedException();
 			}
-    	}
+		}
 		//First phase: syntax check before going on remote node
+		log("Syntax check");
 		if (!tcid.checkSyntax() || !aid.checkSyntax()){
 			throw new OperationNotAllowedException();
 		}
@@ -94,15 +91,17 @@ public class InterTupleCentreContextStub implements InterTupleCentreContext{
 		int nTry = 1;
 		do {
 			//Second phase: negotiation (method getSession)
+			log("Negotiation with "+tcid.toString());
 			TucsonProtocol session = getSession(tcid, language);
-
 			ObjectOutputStream outStream = session.getOutputStream();
 			try {
 				opId++;
+				log("Remote call & eventually translation");
 				TucsonMsgRequest msg = new TucsonMsgRequest(opId,type,tcid.translateSyntax(session.getLanguageInfo()), (LogicTuple)t);
 				TucsonMsgRequest.write(outStream,msg);
 				outStream.flush();
 				// System.out.println("Request done: "+type+" "+t+" "+opId);
+				log("Operation executed succesfully");
 				return new TucsonOpId(opId);
 			} catch (IOException ex) {
 				ex.printStackTrace();
@@ -112,23 +111,71 @@ public class InterTupleCentreContextStub implements InterTupleCentreContext{
 		throw new UnreachableNodeException();
 	}
 
+	private ContextEvent findEvent(TucsonOpId id){
+		Iterator<ContextEvent> it = events.iterator();
+		while (it.hasNext()){
+			ContextEvent ev = (ContextEvent)it.next(); 
+			if (ev.getOpId().equals(id)){
+				it.remove();
+				return ev; 
+			} 
+		}
+		return null;
+	}
+
+	public ContextEvent waitForCompletion(TucsonOpId id, int timeout) {
+		try {
+			long startTime = System.currentTimeMillis();
+			synchronized (events){
+				log("Waiting for result...");
+				long dt = System.currentTimeMillis() - startTime;
+				ContextEvent ev = findEvent(id);
+				while (ev==null && dt < timeout){
+					//log("waiting for "+id.getId());
+					events.wait(timeout-dt);
+					ev = findEvent(id);
+					dt = System.currentTimeMillis() - startTime;
+				}
+				log("Result received...");
+				return ev;
+			}
+		} catch (Exception ex){
+			return null;
+		}
+	}
+
+	public ContextEvent waitForCompletion(TucsonOpId id) {
+		try {			
+			synchronized (events){
+				log("Waiting for result...");
+				ContextEvent ev = findEvent(id);
+				while (ev==null){
+					//log("waiting for "+id.getId());
+					events.wait();
+					ev = findEvent(id);
+				}
+				log("Result received...");
+				return ev;
+			}
+		} catch (Exception ex){
+			return null;
+		}
+	}
+
 	private TucsonProtocol getSession(TucsonTupleCentreId tid, String language)
 	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-		String node = alice.util.Tools.removeApices(tid.toString());
+		String node = alice.util.Tools.removeApices(tid.getNode());
+		//Discriminate between remote node 
 		ControllerSession tc = controllerSessions.get(node);
 		if (tc != null) {
 			return tc.getSession();
 		} else {
-			String snode = tid.toString();
-
-			//TODO da sistemare
-			//profile.setProperty("node", snode );  //TODO controllare uso in remoto
-			profile.setProperty("agent-identity",aid.toString());
-			profile.setProperty("agent-role","user");
-
 			try {
+				profile.setProperty("agent-identity",aid.toString());
+				profile.setProperty("agent-role","user");
+
 				int idx = node.indexOf(':');
-				int port = 20504;
+				int port = 20504;				
 				try {
 					if (idx!=-1){
 						port = Integer.parseInt(node.substring(idx));
@@ -141,29 +188,34 @@ public class InterTupleCentreContextStub implements InterTupleCentreContext{
 				dialog.sendEnterRequest(profile);
 				dialog.receiveEnterRequestAnswer();
 				if (dialog.isEnterRequestAccepted()) {
-					ObjectInputStream din = new ObjectInputStream(dialog.getInputStream());
+					ObjectInputStream din = dialog.getInputStream();
 					Controller contr = new Controller(din);
 					ControllerSession cs = new ControllerSession(contr,dialog);
 					controllerSessions.put(node, cs);
 					contr.start();
 					return dialog;
 				}
-			} catch (Exception ex){
+			} catch (UnreachableNodeException ex){
 				throw new UnreachableNodeException();
+			} catch (Exception ex2){
+				throw new OperationNotAllowedException();
 			}
 		}
-		throw new OperationNotAllowedException();
+		return null;
 	}
-	
-    private void postEvent(ContextEvent ev){
+
+	private void postEvent(ContextEvent ev){
 		synchronized (events){
 			events.addLast(ev);
 			//log("notified ev "+ev.getTuple()+" - op id: "+ev.getOpId().getId());
 			events.notifyAll();
 		}
-    }
+	}
 
-	
+	private void log(String msg){
+		System.out.println("[ITCC STUB] "+msg);
+	}
+
 	class Controller extends Thread {
 
 		private boolean stop;

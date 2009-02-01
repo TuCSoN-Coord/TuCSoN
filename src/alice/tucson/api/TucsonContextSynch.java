@@ -25,86 +25,86 @@ import alice.tucson.api.exception.UnreachableNodeException;
 
 public class TucsonContextSynch {
 
-    private TucsonContext ctx;
-    
-    public TucsonContextSynch(TucsonContext ctx){
-    		this.ctx = ctx;
-    }
-    
-    public void out(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-    		TucsonOpId opId = ctx.out(tid,t);
-    		ctx.waitForCompletion(opId);
-    }
+	private TucsonContext ctx;
 
-    public Object in(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
+	public TucsonContextSynch(TucsonContext ctx){
+		this.ctx = ctx;
+	}
+
+	public void out(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
+		TucsonOpId opId = ctx.out(tid,t);
+		ctx.waitForCompletion(opId);
+	}
+
+	public Object in(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
 		TucsonOpId opId = ctx.in(tid,t);
 		ContextEvent ev = ctx.waitForCompletion(opId);
 		return ev.getTuple();
-    }
+	}
 
-    public Object rd(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
+	public Object rd(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
 		TucsonOpId opId = ctx.rd(tid,t);
 		ContextEvent ev = ctx.waitForCompletion(opId);
 		return ev.getTuple();
-    }
+	}
 
-    public Object inp(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
+	public Object inp(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
 		TucsonOpId opId = ctx.inp(tid,t);
 		ContextEvent ev = ctx.waitForCompletion(opId);
 		return ev.getTuple();
-    }
+	}
 
-    public Object rdp(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
+	public Object rdp(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
 		TucsonOpId opId = ctx.rdp(tid,t);
 		ContextEvent ev = ctx.waitForCompletion(opId);
 		return ev.getTuple();
-    }
-    
+	}
 
-    public void setSpec(Object tid, Object spec) throws  OperationNotAllowedException, UnreachableNodeException, TucsonInvalidSpecificationException, LanguageNotFoundException {
-        TucsonOpId opId = ctx.setSpec(tid,spec);
-    		ContextEvent ev = ctx.waitForCompletion(opId);
-    		if (!ev.operationSucceeded()){
-    			throw new TucsonInvalidSpecificationException();
-    		}
-    }
 
-    public Object getSpec(Object tid) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-    		TucsonOpId opId = ctx.getSpec(tid);
+	public void setSpec(Object tid, Object spec) throws  OperationNotAllowedException, UnreachableNodeException, TucsonInvalidSpecificationException, LanguageNotFoundException {
+		TucsonOpId opId = ctx.setSpec(tid,spec);
+		ContextEvent ev = ctx.waitForCompletion(opId);
+		if (!ev.operationSucceeded()){
+			throw new TucsonInvalidSpecificationException();
+		}
+	}
+
+	public Object getSpec(Object tid) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
+		TucsonOpId opId = ctx.getSpec(tid);
 		ContextEvent ev = ctx.waitForCompletion(opId);
 		return ev.getSpec();
-    }
-    
-    public void out_s(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
+	}
+
+	public void out_s(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
 		TucsonOpId opId = ctx.out_s(tid,t);
 		ctx.waitForCompletion(opId);
-}
+	}
 
-public Object in_s(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-	TucsonOpId opId = ctx.in_s(tid,t);
-	ContextEvent ev = ctx.waitForCompletion(opId);
-	return ev.getTuple();
-}
+	public Object in_s(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
+		TucsonOpId opId = ctx.in_s(tid,t);
+		ContextEvent ev = ctx.waitForCompletion(opId);
+		return ev.getTuple();
+	}
 
-public Object rd_s(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-	TucsonOpId opId = ctx.rd_s(tid,t);
-	ContextEvent ev = ctx.waitForCompletion(opId);
-	return ev.getTuple();
-}
+	public Object rd_s(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
+		TucsonOpId opId = ctx.rd_s(tid,t);
+		ContextEvent ev = ctx.waitForCompletion(opId);
+		return ev.getTuple();
+	}
 
-public Object inp_s(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-	TucsonOpId opId = ctx.inp_s(tid,t);
-	ContextEvent ev = ctx.waitForCompletion(opId);
-	return ev.getTuple();
-}
+	public Object inp_s(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
+		TucsonOpId opId = ctx.inp_s(tid,t);
+		ContextEvent ev = ctx.waitForCompletion(opId);
+		return ev.getTuple();
+	}
 
-public Object rdp_s(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
-	TucsonOpId opId = ctx.rdp_s(tid,t);
-	ContextEvent ev = ctx.waitForCompletion(opId);
-	return ev.getTuple();
-}
+	public Object rdp_s(Object tid, Object t) throws  OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException {
+		TucsonOpId opId = ctx.rdp_s(tid,t);
+		ContextEvent ev = ctx.waitForCompletion(opId);
+		return ev.getTuple();
+	}
 
-    public void exit() throws  OperationNotAllowedException {
-    		ctx.exit();
-    }
+	public void exit() throws  OperationNotAllowedException {
+		ctx.exit();
+	}
 }
