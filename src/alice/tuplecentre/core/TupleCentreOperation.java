@@ -47,7 +47,7 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation {
 	protected static final int OPTYPE_RDP_S = 15;
   
 	
-    private boolean operationCompleted; 
+    protected boolean operationCompleted; 
 	protected OperationCompletionListener listener;
   
 	private Tuple tupleArgument;
@@ -62,7 +62,7 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation {
 	private static long idCounter = 0;
 	
 	// used for possible synchronisation 
-	private Object token; 
+	protected Object token; 
 	
 	private TupleCentreOperation(int type){
 		operationCompleted=false;
