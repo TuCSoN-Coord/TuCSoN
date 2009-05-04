@@ -48,7 +48,7 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation {
   
 	
     private boolean operationCompleted; 
-	private OperationCompletionListener listener;
+	protected OperationCompletionListener listener;
   
 	private Tuple tupleArgument;
 	private TupleTemplate templateArgument;
