@@ -10,5 +10,7 @@ public interface IId {
 	public boolean isAgent();
 	
 	public boolean isTC();
+	
+	public boolean isEnv();
 
 }

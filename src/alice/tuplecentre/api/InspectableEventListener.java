@@ -16,24 +16,27 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.tuplecentre.api;
+
 import java.util.*;
 
 /**
- * Defines listeners of tuple centre virtual machine observable events
- * (actually inspectors)
- *
+ * Defines listeners of tuple centre virtual machine observable events (actually
+ * inspectors)
+ * 
  * @see ObservableEvent
  * @see TupleCentreVM
- *
- *
+ * 
+ * 
  * @version 1.0
  */
-public interface InspectableEventListener extends EventListener {
-    /**
-     * Method triggered by the tuple centre virtual machine
-     * when an observable event is observed inside the VM
-     *
-     * @param e the observed event
-     */
-    public abstract void onInspectableEvent(InspectableEvent e);
+public interface InspectableEventListener extends EventListener
+{
+	/**
+	 * Method triggered by the tuple centre virtual machine when an observable
+	 * event is observed inside the VM
+	 * 
+	 * @param e
+	 *            the observed event
+	 */
+	public abstract void onInspectableEvent(InspectableEvent e);
 }
