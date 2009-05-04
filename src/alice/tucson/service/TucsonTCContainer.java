@@ -360,10 +360,7 @@ public class TucsonTCContainer
 			{
 				throw new TucsonInvalidSpecificationException();
 			}
-			catch (OperationNotPossibleException e)
-			{
-				throw new OperationNotAllowedException();
-			}
+			
 		}
 			
 		return res;
