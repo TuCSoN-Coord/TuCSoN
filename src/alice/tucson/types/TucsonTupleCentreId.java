@@ -133,4 +133,9 @@ public class TucsonTupleCentreId implements Serializable, TupleCentreId
 		}
 		return false;
 	}
+
+	public boolean isEnv() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }
