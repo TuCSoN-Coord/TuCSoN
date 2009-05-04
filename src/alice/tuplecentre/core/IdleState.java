@@ -24,7 +24,9 @@ package alice.tuplecentre.core;
  */
 public class IdleState extends TupleCentreVMState {
     
-    private TupleCentreVMState listeningState;
+	private TupleCentreVMState listeningState;
+    private TupleCentreVMState fetchState;
+    private TupleCentreVMState fetchEnvState;
      
     public IdleState(TupleCentreVMContext vm) {
         super(vm);
@@ -33,19 +35,22 @@ public class IdleState extends TupleCentreVMState {
     public TupleCentreVMState getNextState(){
         if (vm.pendingEvents()){
         	return listeningState;
-        } else {
-        	return this;
+        }else if(vm.pendingEnvEvents()){
+        	return fetchEnvState;
         }
+        return this;
     }
     
     public void resolveLinks(){
-        listeningState = vm.getState("ListeningState");
+		listeningState = vm.getState("ListeningState");
+        fetchState = vm.getState("FetchState");
+        fetchEnvState = vm.getState("FetchEnvState");
     }
     
     public void execute(){
     }
 
     public boolean isIdle(){
-        return !vm.pendingEvents();
+        return (!vm.pendingEvents()) && (!vm.pendingEnvEvents());
     }
 }

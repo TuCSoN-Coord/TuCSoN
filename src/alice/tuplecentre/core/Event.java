@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.tuplecentre.core;
+import java.util.HashMap;
+import java.util.Map;
 
 import alice.tuplecentre.api.IId;
 import alice.tuplecentre.api.Tuple;
@@ -49,13 +51,21 @@ abstract public class Event implements java.io.Serializable {
 	/** time at which this event occurs*/
 	private long time;
 	
+	private HashMap<String, String> ev_prop;
+	
 	public Event(IId aid, TupleCentreOperation op, TupleCentreId c, long time){
 		this.aid=aid;
 		operation=op;
 		this.c = c;
 		this.time = time;
+		ev_prop=new HashMap<String, String>();
 	}
 
+	public Event(IId aid, TupleCentreOperation op, TupleCentreId c, long time, Map<String, String> prop){
+		this(aid,op,c,time);
+		ev_prop.putAll(prop);
+	}
+	
 	public long getTime(){
 		
 		return this.time;
@@ -117,7 +127,9 @@ abstract public class Event implements java.io.Serializable {
 		return this.operation.getTupleArgument();
 		
 	}
-	
+	public String getEventProp(String key){
+		return ev_prop.get(key);
+	}
 	/**
 	 * Tests if it is an input event
 	 * 

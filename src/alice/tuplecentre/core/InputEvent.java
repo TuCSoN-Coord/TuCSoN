@@ -17,6 +17,10 @@
  */
 package alice.tuplecentre.core;
 
+import java.util.Map;
+
+import alice.respect.core.RespectTCContainer;
+import alice.respect.core.RespectVMContext;
 import alice.tuplecentre.api.AgentId;
 import alice.tuplecentre.api.IId;
 import alice.tuplecentre.api.TupleCentreId;
@@ -36,6 +40,10 @@ public class InputEvent extends Event {
         this.isLinking = false;
     }
 
+    public InputEvent(IId aid, TupleCentreOperation op, TupleCentreId c,long time, Map<String, String> prop){
+    	super(aid,op,c,time,prop);
+        this.isLinking = false;
+    }
     public String toString(){
     	return "input_event(agentId("+getId()+"),operation("+getOperation()+"))";
     }

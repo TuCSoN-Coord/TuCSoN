@@ -71,7 +71,7 @@ public class SpeakingState extends TupleCentreVMState {
 	            TupleCentreOperation op = ev.getOperation();
 	            
 	            if(op.isResultDefined() || ev.isLinking()){
-	            	
+	            	System.out.println("(speaking) IS LINKING --> "+ev.isLinking());
 	            	foundSatisfied = true;
 	            }else{
 	            
@@ -82,6 +82,7 @@ public class SpeakingState extends TupleCentreVMState {
 		            } else if (op.isIn()){
 		                tuple=vm.removeMatchingTuple(op.getTemplateArgument());
 						if (tuple!=null){
+							System.out.println("INNNNNN");
 							foundSatisfied=true;
 						}
 		            } else if (op.isRd()){
@@ -129,24 +130,33 @@ public class SpeakingState extends TupleCentreVMState {
 			if(!op.isResultDefined())	op.setResult(tuple);						
 			// generates and notifies the event
 			
-			
+			//op.setResult(tuple);
 			out_ev = new OutputEvent(ev);
+			System.out.println("TUPLE: "+tuple+" res: "+out_ev.getOperation().getResult());
 			
 			//if(ev.isLinking()) out_ev.setIsLinking(true);
-			if(!ev.isLinking()) vm.notifyOutputEvent(out_ev);
+			if(!ev.isLinking()){
+				System.out.println("NON LINKING, SOURCE: "+out_ev.getSource());
+				//out_ev.setSource(vm.getId());
+				vm.notifyOutputEvent(out_ev);
+			}
 			
+			
+			
+			
+			if(ev.isLinking() && !op.isResultDefined()){
+				out_ev.setTarget(ev.getTarget());
+				System.out.println("TARGET: "+ev.getTarget()+" SOURCE: "+ev.getSource());
+				vm.linkOperation(out_ev);
+			}
+			
+		//	System.out.println("$$$$$$$$$$$$$"+out_ev.getSource());
 			// triggers possible reactions
+			//out_ev.setReactingTC(vm.getId());
 			vm.fetchTriggeredReactions(out_ev);
 			
 			noMoreSatisfiablePendingQuery=false;
 			it.remove();
-			
-			if(ev.isLinking() && !op.isResultDefined()){
-				out_ev.setTarget(ev.getTarget());
-				vm.linkOperation(out_ev);
-			}
-			
-			
 			
 			
 		}

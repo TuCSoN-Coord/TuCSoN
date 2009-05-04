@@ -46,7 +46,8 @@ public abstract class TupleCentreVMContext implements ITupleCentreManagement, IT
 
     private long bootTime;
     
-    private LinkedList       inputEvents;
+    private LinkedList inputEvents;
+    private LinkedList inputEnvEvents;
     
     private TupleCentreVMState currentState;
     
@@ -77,20 +78,25 @@ public abstract class TupleCentreVMContext implements ITupleCentreManagement, IT
     	management = false;
     	    
         inputEvents=new LinkedList();
+        inputEnvEvents=new LinkedList();
         
         this.tid=tid;
         maxPendingInputEventNumber = ieSize;
         
         TupleCentreVMState resetState = new ResetState(this);
         TupleCentreVMState idleState = new IdleState(this);
-        TupleCentreVMState listeningState = new ListeningState(this);
+		TupleCentreVMState listeningState = new ListeningState(this);
+        TupleCentreVMState fetchState = new FetchState(this);
+        TupleCentreVMState fetchEnvState = new FetchEnvState(this);
         TupleCentreVMState reactingState = new ReactingState(this);
         TupleCentreVMState speakingState = new SpeakingState(this);
         
         states = new HashMap();
         states.put("ResetState", resetState);
         states.put("IdleState", idleState);
-        states.put("ListeningState", listeningState);
+		states.put("ListeningState", listeningState);
+        states.put("FetchState", fetchState);
+        states.put("FetchEnvState", fetchEnvState);
         states.put("ReactingState", reactingState);
         states.put("SpeakingState", speakingState);
         
@@ -119,7 +125,11 @@ public abstract class TupleCentreVMContext implements ITupleCentreManagement, IT
 			inputEvents.add(ev);
 		}
 	}	
-	    
+	public void addEnvInputEvent(InputEvent in){
+		synchronized(inputEvents){
+			inputEnvEvents.add(in);
+		}
+	} 
 	public void addInputEvent(InputEvent in){
 		
 		synchronized(inputEvents){
@@ -192,7 +202,16 @@ public abstract class TupleCentreVMContext implements ITupleCentreManagement, IT
             return false;
         }
     }
-    
+    public boolean pendingEnvEvents(){
+        try {
+            synchronized(inputEnvEvents){
+                return inputEnvEvents.size()>0;
+            }
+        }catch (Exception ex){
+            notifyException(ex);
+            return false;
+        }
+    }
     
     /**
      * Fetches a new pending input event.
@@ -209,6 +228,17 @@ public abstract class TupleCentreVMContext implements ITupleCentreManagement, IT
         }catch (Exception ex){
             notifyException(ex);
         }
+    }
+    public void fetchPendingEnvEvent(){
+    	if (pendingEnvEvents()){
+    		try {
+	    		synchronized(inputEnvEvents){
+	                currentEvent = (InputEvent)(inputEnvEvents.removeFirst());
+	            }
+			}catch (Exception ex){
+		           notifyException(ex);
+		    }        
+    	}
     }
 
     /**
@@ -382,6 +412,7 @@ public abstract class TupleCentreVMContext implements ITupleCentreManagement, IT
     
     protected void setBootTime(){
     	this.bootTime = System.currentTimeMillis();
+    	spy("Current ReSpecT VM time is: "+this.getCurrentTime());
     }
     
     /**

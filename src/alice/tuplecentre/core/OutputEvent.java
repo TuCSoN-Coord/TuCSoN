@@ -66,7 +66,7 @@ public class OutputEvent extends Event {
 
 	
 	public String toString(){
-		return "output_event(agentId("+getId()+"),operation("+getOperation()+"))";
+		return "output_event(agentId("+getId()+"),operation("+(this.getOperation().isResultDefined() ? getOperation().getResult(): getOperation())+"))";
 	}
     
 }
