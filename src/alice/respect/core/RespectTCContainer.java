@@ -15,8 +15,6 @@ import alice.respect.api.InstantiationNotPossibleException;
 import alice.respect.api.OperationNotPossibleException;
 import alice.respect.api.RespectTC;
 import alice.respect.api.TupleCentreId;
-import alice.tucson.service.LanguageInfo;
-import alice.tucson.service.TucsonNodeLanguageManager;
 
 /**
  * A Container for ReSpecT tuple centres
@@ -27,17 +25,12 @@ import alice.tucson.service.TucsonNodeLanguageManager;
 
 public class RespectTCContainer
 {
-	private static ITCRegistry registry = new RespectLocalRegistry();
-	private static boolean isTucsonPresent = false;
-	private static HashMap<String, RespectInterTupleCentreContextStub> remoteRegistry;
+	protected static ITCRegistry registry = new RespectLocalRegistry();
 
-	public static LanguageInfo getLanguage()
-	{
-		LanguageInfo lInfo = new LanguageInfo("ReSpecT 2.2");
-		lInfo.setCompatibleLanguage("ReSpecT 2.1");
-		lInfo.setCompatibleLanguage("ReSpecT 2.0");
-		return lInfo;
-	}
+	// private static boolean isTucsonPresent = false;
+	// private static HashMap<String, RespectInterTupleCentreContextStub>
+	// remoteRegistry;
+
 
 	public static boolean createRespectTC(TupleCentreId id, Integer q) throws InstantiationNotPossibleException
 	{
@@ -61,16 +54,13 @@ public class RespectTCContainer
 	 * @param id
 	 *            the identifier of the agent whose events must be removed
 	 */
-	public static void setTucson()
-	{
-		// Create the remote registry only the first time
-		if (remoteRegistry == null)
-		{
-			remoteRegistry = new HashMap<String, RespectInterTupleCentreContextStub>();
-		}
-		
-		isTucsonPresent = true;
-	}
+	/*
+	 * public static void setTucson() { // Create the remote registry only the
+	 * first time if (remoteRegistry == null) { remoteRegistry = new
+	 * HashMap<String, RespectInterTupleCentreContextStub>(); }
+	 * 
+	 * isTucsonPresent = true; }
+	 */
 
 	/**
 	 * Return a LinkContext for remote/local call
@@ -81,51 +71,15 @@ public class RespectTCContainer
 	public static ILinkContext getLinkContext(TupleCentreId id) throws OperationNotPossibleException
 	{
 		System.out.println("[ReSpecT TC CONTAINER]  Link call to tc " + id.toString());
-		if (!isTucsonPresent)
+		try
 		{
-			// TuCSoN not set
-			try
-			{
-				if (id.getNode().equals("'" + InetAddress.getLocalHost().getHostAddress() + "'")
-						|| id.getNode().equals("localhost"))
-				{
-					return ((RespectTC) registry.getTC(id)).getLinkContext();
-				}
-			}
-			catch (UnknownHostException e)
-			{
-				e.printStackTrace();
-			}
+			TupleCentreId idNew = new TupleCentreId(id.getName() + "@localhost");
+			return ((RespectTC) registry.getTC(idNew)).getLinkContext();
 		}
-		else
+		catch (Exception e)
 		{
-			try
-			{
-				// Local call (check if is created a not existent tuple centre)
-				if (id.getNode().equals("'" + InetAddress.getLocalHost().getHostAddress() + "'")
-						|| id.getNode().equals("localhost"))
-				{
-					return ((RespectTC) registry.getTC(id)).getLinkContext();
-				}
-				else
-				{
-					// Remote call with TuCSoN set
-					System.out.println("[ReSpecT TC CONTAINER] Link Context request");
-					RespectInterTupleCentreContextStub helper = remoteRegistry.get(id.toString());
-					if (helper == null)
-					{
-						helper = new RespectInterTupleCentreContextStub(id, TucsonNodeLanguageManager.getCurLanguage().getName());
-						remoteRegistry.put(id.toString(), helper);
-					}
-					return helper;
-				}
-			}
-			catch (UnknownHostException e)
-			{
-				e.printStackTrace();
-			}
+			throw new OperationNotPossibleException();
 		}
-		throw new OperationNotPossibleException();
 	}
 
 	public static INonBlockingSpecContext getNonBlockingSpecContext(TupleCentreId id) throws OperationNotPossibleException

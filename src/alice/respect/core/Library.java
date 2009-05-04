@@ -16,6 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.respect.core;
+import alice.respect.api.EnvId;
 import alice.respect.api.INonBlockingContext;
 import alice.respect.api.TupleCentreId;
 import  alice.tuprolog.*;
@@ -37,12 +38,13 @@ public class Library extends alice.tuprolog.Library {
 
     RespectVMContext vm;
 
+/*
     private static final Struct op_out = new Struct("out");
     private static final Struct op_in = new Struct("in");
     private static final Struct op_inp = new Struct("inp");
     private static final Struct op_rd = new Struct("rd");
     private static final Struct op_rdp = new Struct("rdp");
-    
+  */  
     
     public Library(){
     }
@@ -65,9 +67,14 @@ public class Library extends alice.tuprolog.Library {
         "TC ? no(T) :- no(T,TC). \n"+
         "TC  ? set_s(T) :- set_s(T,TC). \n"+
         "TC  ? get_s(T) :- get_s(T,TC). \n"+
-        "out(T):-out(T,this@localhost). \n"+
-        "out_s(T):-out_s(T,this@localhost). \n"+
+        
+        "out(T):-out(T,this@localhost). \n" +
         "in(T):-in(T,this@localhost). \n"+
+        
+        "Env ? getEnv(Key,Value) :- getEnv(Env,Key,Value). \n" +
+        "Env ? setEnv(Key,Value) :- setEnv(Env,Key,Value). \n" +
+        "out_s(T):-out_s(T,this@localhost). \n"+
+        
         "in_s(T):-in_s(T,this@localhost). \n"+
         "rd(T):-rd(T,this@localhost). \n"+
         "rd_s(T):-rd(T,this@localhost). \n"+
@@ -257,9 +264,11 @@ public boolean inp_2(Term arg0, Term arg1){
 	        }
 	    }else{
 	    	spy("IT IS NOT THIS TC");	
-	    	spy("TC NAME:"+tid);
+	    	
+	    	spy("TC TARGET NAME:"+tid);
 	    	spy("IT IS NOT THIS TC");
 	    	InputEvent ce=vm.getCurrentEvent();
+	    	spy("TC SOURCE NAME:"+ce.getReactingTC());
 		/*	InternalEvent evt = new InternalEvent(ce,InternalOperation.makeRdR(new LogicTuple(arg0.getRenamedCopy())));
 			evt.setTarget(tid);*/
 			
@@ -640,7 +649,7 @@ public boolean inp_2(Term arg0, Term arg1){
     }
 
     public boolean current_operation_1(Term arg0){
-        return unify(arg0,new Struct(vm.getCurrentReactionTerm().getName()));
+        return unify(arg0,vm.getCurrentReactionTerm());
     }
 
     public boolean current_source_1(Term arg0){
@@ -652,7 +661,7 @@ public boolean inp_2(Term arg0, Term arg1){
     }
     
     public boolean current_tuple_1(Term arg0){
-        return unify(arg0,getRenamedCopy(vm.getCurrentReactionTerm().getArg(0)));
+        return unify(arg0,getRenamedCopy(vm.getCurrentReactionTerm()));
     }
 
     public boolean event_operation_1(Term arg0){
@@ -671,10 +680,24 @@ public boolean inp_2(Term arg0, Term arg1){
         return unify(arg0,new Struct(""+vm.getCurrentReactionEvent().getSource()));
     }
     
+    public boolean from_env_0(){
+    	return vm.getCurrentReactionEvent().getSource().isEnv(); 
+    }
+    public boolean to_env_0(){
+    	return vm.getCurrentReactionEvent().getTarget().isEnv(); 
+    }
     public boolean event_target_1(Term arg0){
         return unify(arg0,new Struct(""+vm.getCurrentReactionEvent().getTarget()));
     }
-    
+    public boolean env_2(Term key, Term value){
+    	if (value.isVar()){
+    		String res=vm.getCurrentReactionEvent().getEventProp(key.getTerm().toString());
+    		//The specified value doesn't exists.
+    		if (res==null)return false;
+    		return unify(value, new Struct(res));
+    	}
+    	return false;
+    }
     public boolean pre_0(){
         Event ev = vm.getCurrentReactionEvent();
         if (ev.isInput()){
@@ -833,10 +856,13 @@ public boolean inp_2(Term arg0, Term arg1){
     public boolean exo_0(){
     	
     	Event ev = vm.getCurrentReactionEvent();
+    	
+    	vm.spy("EVALUATING EXO source: "+ev.getSource()+" c: "+ev.getReactingTC());
         
     	IId id = ev.getId();
     	
-    	IId c = ev.getReactingTC();
+    	IId c = this.vm.getId();
+    	//vm.spy("EVALUATING EXO current"+);
     	
     	if(!c.toString().equals(id.toString())){
     		
@@ -991,6 +1017,33 @@ public boolean inp_2(Term arg0, Term arg1){
         return true;
     }
 
+    public boolean getEnv_3(Term env, Term key, Term val){
+    	LogicTuple lt=new LogicTuple("getEnv",new TupleArgument(key.getRenamedCopy()),new TupleArgument(val.getRenamedCopy()));
+    	InputEvent ev=vm.getCurrentEvent();
+    	InternalEvent ie=new InternalEvent(ev,InternalOperation.makeGetEnv(lt));
+    	ie.setTarget(new EnvId((Struct)env));
+    	ie.setSource(vm.getId());
+    	
+    	if (vm.getTransducerManager().notifyOutputEnv(ie)){
+    		vm.fetchTriggeredReactions(ie);
+    		return true;
+    	}
+    	return false;
+    }
+    
+    public boolean setEnv_3(Term env, Term key, Term val){
+    	LogicTuple lt=new LogicTuple("setEnv",new TupleArgument(key.getRenamedCopy()),new TupleArgument(val.getRenamedCopy()));
+    	InputEvent ev=vm.getCurrentEvent();
+    	InternalEvent ie=new InternalEvent(ev,InternalOperation.makeSetEnv(lt));
+    	ie.setTarget(new EnvId((Struct)env));
+    	ie.setSource(vm.getId());
+    	
+    	if (vm.getTransducerManager().notifyOutputEnv(ie)){
+    		vm.fetchTriggeredReactions(ie);
+    		return true;
+    	}
+    	return false;
+    }
     //
 
     protected void spy(String msg){

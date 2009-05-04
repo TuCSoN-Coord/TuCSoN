@@ -18,12 +18,12 @@
 package alice.respect.core;
 
 /**
- * This class defines the operator manager used for parsing agent identifiers.
- * 
- * Currently, no operators are allowed in ReSpecT agent identifiers
- * 
- * @author aricci
+ *  This class defines the operator manager
+ *  used for parsing agent identifiers.
+ *
+ *  Currently, no operators are allowed in ReSpecT agent identifiers
+ *  
+ *  @author aricci
  */
-public class AgentIdOperatorManager extends alice.tuprolog.OperatorManager
-{
+public class AgentIdOperatorManager extends alice.tuprolog.OperatorManager {
 }

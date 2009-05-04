@@ -16,7 +16,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.respect.core;
-
 import alice.logictuple.*;
 import alice.respect.api.AgentId;
 import alice.respect.api.IBlockingContext;
@@ -27,111 +26,91 @@ import alice.respect.api.OperationNotPossibleException;
 import alice.respect.api.RespectSpecification;
 
 /**
- * 
- * A Blocking Context wraps the access to a tuple centre virtual machine for a
- * specific thread of control, providing a blocking interface.
+ *
+ * A Blocking Context wraps the access to a tuple centre virtual machine
+ * for a specific thread of control, providing a blocking interface.
  * 
  * @author aricci
  */
-public class BlockingContext implements IBlockingContext
-{
-	private IRespectTC core;
-
-	public BlockingContext(IRespectTC core_)
-	{
-		core = core_;
-	}
-
-	public void out(AgentId id, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException
-	{
-		if (t == null)
-		{
-			throw new InvalidLogicTupleException();
-		}
-		IRespectOperation op = core.out(id, t);
+public class BlockingContext implements IBlockingContext {
+    
+    private IRespectTC core;
+    
+    public BlockingContext(IRespectTC core_){
+        core=core_;
+    }
+    
+    public void out(AgentId id, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException {
+        if (t==null){
+            throw new InvalidLogicTupleException();
+        }
+		IRespectOperation op = core.out(id,t);
 		op.waitForOperationCompletion();
-	}
-
-	public LogicTuple in(AgentId id, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException
-	{
-		if (t == null)
-		{
-			throw new InvalidLogicTupleException();
-		}
-		IRespectOperation op = core.in(id, t);
+    }
+    
+    public LogicTuple in(AgentId id, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException {
+        if (t==null){
+            throw new InvalidLogicTupleException();
+        }
+		IRespectOperation op = core.in(id,t);
 		op.waitForOperationCompletion();
-		return unify(t, op.getLogicTupleResult());
-	}
-
-	public LogicTuple rd(AgentId id, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException
-	{
-		if (t == null)
-		{
+        return unify(t,op.getLogicTupleResult());
+    }
+    
+	public LogicTuple rd(AgentId id, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException {
+		if (t==null){
 			throw new InvalidLogicTupleException();
 		}
-		IRespectOperation op = core.rd(id, t);
+		IRespectOperation op = core.rd(id,t);
 		op.waitForOperationCompletion();
-		return unify(t, op.getLogicTupleResult());
+		return unify(t,op.getLogicTupleResult());
 	}
 
-	public LogicTuple inp(AgentId id, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException
-	{
-		if (t == null)
-		{
+	public LogicTuple inp(AgentId id, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException {
+		if (t==null){
 			throw new InvalidLogicTupleException();
 		}
-		IRespectOperation op = core.inp(id, t);
+		IRespectOperation op = core.inp(id,t);
 		op.waitForOperationCompletion();
 		LogicTuple result = op.getLogicTupleResult();
-		if (result == null)
-		{
+		if (result==null){
 			return null;
-		}
-		else
-		{
-			return unify(t, op.getLogicTupleResult());
+		} else {
+			return unify(t,op.getLogicTupleResult());
 		}
 	}
-
-	public LogicTuple rdp(AgentId id, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException
-	{
-		if (t == null)
-		{
+    
+	public LogicTuple rdp(AgentId id, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException {
+		if (t==null){
 			throw new InvalidLogicTupleException();
 		}
-		IRespectOperation op = core.rdp(id, t);
+		IRespectOperation op = core.rdp(id,t);
 		op.waitForOperationCompletion();
 		LogicTuple result = op.getLogicTupleResult();
-		if (result == null)
-		{
+		if (result==null){
 			return null;
-		}
-		else
-		{
-			return unify(t, op.getLogicTupleResult());
+		} else {
+			return unify(t,op.getLogicTupleResult());
 		}
 	}
-
-	private LogicTuple unify(alice.tuplecentre.api.TupleTemplate template, alice.tuplecentre.api.Tuple tuple)
-	{
-		boolean res = template.propagate(tuple);
-		if (res)
-		{
-			return (LogicTuple) template;
-		}
-		else
-		{
-			return null;
-		}
+  	
+	public void setSpec(AgentId aid, RespectSpecification spec) throws InvalidSpecificationException {
+		core.setSpec(aid,spec);
 	}
-
-	public RespectSpecification getSpec(AgentId aid) throws OperationNotPossibleException
-	{
+	
+	public RespectSpecification getSpec(AgentId aid) {
 		return core.getSpec(aid);
 	}
 
-	public void setSpec(AgentId aid, RespectSpecification spec) throws InvalidSpecificationException, OperationNotPossibleException
-	{
-		core.setSpec(aid, spec);
-	}
+	private LogicTuple unify(alice.tuplecentre.api.TupleTemplate template,alice.tuplecentre.api.Tuple tuple){
+        boolean res=template.propagate(tuple);
+        if (res){
+            return (LogicTuple)template;
+        } else {
+            return null;
+        }
+    }
+   
+    
 }
+

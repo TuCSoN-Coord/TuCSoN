@@ -43,6 +43,8 @@ public class InternalOperation {
 	private static final int OPTYPE_OUT_SR = 7; 
 	private static final int OPTYPE_IN_SR = 8;
 	private static final int OPTYPE_RD_SR = 9;
+	private static final int OPTYPE_GET_ENV = 10;
+	private static final int OPTYPE_SET_ENV = 11;
  	
  	private int type;
  	
@@ -94,6 +96,22 @@ public class InternalOperation {
 	
 	public boolean isRd_sR(){
 		return type == OPTYPE_RD_SR;
+	}
+	
+	public boolean isGetEnv(){
+		return type==OPTYPE_GET_ENV;
+	}
+	
+	public boolean isSetEnv(){
+		return type==OPTYPE_SET_ENV;
+	}
+	
+	static public InternalOperation makeGetEnv(LogicTuple t){
+		return new InternalOperation(OPTYPE_GET_ENV,t);
+	}
+	
+	static public InternalOperation makeSetEnv(LogicTuple t){
+		return new InternalOperation(OPTYPE_SET_ENV,t);
 	}
 	
 	static public InternalOperation makeInR(LogicTuple t){

@@ -32,7 +32,7 @@ public class LogicReaction implements alice.tuplecentre.core.Reaction, java.io.S
     }
 
     public LogicReaction(Struct t){
-        reaction=t;
+        reaction=(Struct)t.getRenamedCopy();
     }
 
     public String toString(){

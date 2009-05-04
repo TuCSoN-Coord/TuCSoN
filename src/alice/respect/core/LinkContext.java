@@ -15,8 +15,7 @@ public class LinkContext implements ILinkContext {
 	}
 	
 	public void doOperation(TupleCentreId id, TupleCentreOperation op) throws OperationNotPossibleException {
-		//TODO da rimuovere
-		System.out.println("[LINK CONTEXT] executed call on link context");
+		
 		vm.doOperation(id, (RespectOperation)op);
 
 	}
