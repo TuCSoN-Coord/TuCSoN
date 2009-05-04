@@ -16,101 +16,85 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.respect.api;
-
 import alice.respect.core.AgentIdOperatorManager;
 import alice.tuprolog.*;
-
 /**
  * Agent identifier.
  * 
  * @author aricci
  */
-public class AgentId implements alice.tuplecentre.api.AgentId, java.io.Serializable
-{
-	private static AgentIdOperatorManager opManager = new AgentIdOperatorManager();
+public class AgentId implements alice.tuplecentre.api.AgentId, java.io.Serializable {
 
-	protected Term id;
+    private static AgentIdOperatorManager opManager = new AgentIdOperatorManager();
 
-	public AgentId()
-	{
-	}
+    protected Term id;
 
-	/**
-	 * Constructs an agent identifier
-	 * 
-	 * The Agent identifier must be a ground valid logic term
-	 * 
-	 * @param sid
-	 *            is the string representation of the identifier
-	 * @throws InvalidAgentIdException
-	 *             if it is not a valid identifier
-	 */
-	public AgentId(String sid) throws InvalidAgentIdException
-	{
-		try
-		{
-			id = Term.parse(sid, opManager);
-		}
-		catch (Exception ex)
-		{
-			throw new InvalidAgentIdException();
-		}
-		if (!id.isGround())
-		{
-			throw new InvalidAgentIdException();
-		}
-	}
+    public AgentId(){
+    }
 
-	/**
-	 * Constructs an agent identifier
-	 * 
-	 * The Agent identifier must be a ground logic term
-	 * 
-	 * @param tid
-	 *            the identifier as tuProlog term
-	 * @throws InvalidAgentIdException
-	 *             if it is not a valid identifier
-	 */
-	public AgentId(Term tid) throws InvalidAgentIdException
-	{
-		try
-		{
-			id = tid.getTerm();
-		}
-		catch (Exception ex)
-		{
-			throw new InvalidAgentIdException();
-		}
-		if (!id.isGround())
-		{
-			throw new InvalidAgentIdException();
-		}
-	}
+    /**
+     * Constructs an agent identifier
+     *
+     * The Agent identifier must be a ground valid logic term
+     *
+     * @param sid is the string representation of the identifier
+     * @throws InvalidAgentIdException if it is not a valid identifier
+     */
+    public AgentId(String sid) throws InvalidAgentIdException {
+        try{
+            id=Term.parse(sid,opManager);
+        } catch (Exception ex){
+            throw new InvalidAgentIdException();
+        }
+        if (!id.isGround()){
+            throw new InvalidAgentIdException();
+        }
+    }
 
-	/**
-	 * Provides the logic term representation of the identifier
-	 * 
-	 * @return the term representing the identifier
-	 */
-	public Term toTerm()
-	{
-		return id;
-	}
+    /**
+     * Constructs an agent identifier
+     *
+     * The Agent identifier must be a ground logic term
+     *
+     * @param tid the identifier as tuProlog term
+     * @throws InvalidAgentIdException if it is not a valid identifier
+     */
+    public AgentId(Term tid) throws InvalidAgentIdException {
+        try{
+            id=tid.getTerm();
+        } catch (Exception ex){
+            throw new InvalidAgentIdException();
+        }
+        if (!id.isGround()){
+            throw new InvalidAgentIdException();
+        }
+    }
 
-	public String toString()
-	{
-		return id.toString();
-	}
+    /**
+     * Provides the logic term representation of the identifier
+     *
+     * @return the term representing the identifier
+     */
+    public Term toTerm(){
+        return id;
+    }
 
-	public boolean isAgent()
-	{
+    public String toString(){
+        return id.toString();
+    }
+
+	public boolean isAgent() {
 		// TODO Auto-generated method stub
 		return true;
 	}
 
-	public boolean isTC()
-	{
+	public boolean isTC() {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public boolean isEnv(){
+		return false;
+	}
 }
+
