@@ -27,6 +27,7 @@ import alice.tuplecentre.api.TupleTemplate;
 public class ReactingState extends TupleCentreVMState {
     
     private TupleCentreVMState speakingState;
+    private TupleCentreVMState fetchEnvState;
     
     public ReactingState(TupleCentreVMContext vm) {
         super(vm);
@@ -35,13 +36,15 @@ public class ReactingState extends TupleCentreVMState {
     public TupleCentreVMState getNextState(){
         if (vm.triggeredReaction() || vm.time_triggeredReaction()){
             return this;
-        }else {
-            return speakingState;
+        }else if (vm.pendingEnvEvents()){
+            return fetchEnvState;
         }
+        return speakingState;
     }
     
     public void resolveLinks(){
-        speakingState = vm.getState("SpeakingState");
+    	speakingState = vm.getState("SpeakingState");
+    	fetchEnvState = vm.getState("FetchEnvState");
     }
     
     public void execute(){
