@@ -21,25 +21,21 @@ import alice.tuplecentre.api.BehaviourSpecification;
 
 /**
  * Specification of a tuple centre behaviour encoded in the ReSpecT language.
- * 
  * @author aricci
- * 
+ *
  */
-public class RespectSpecification extends BehaviourSpecification
-{
-	private String spec;
+public class RespectSpecification extends BehaviourSpecification {
 
+	private String spec;
 	/**
 	 * 
 	 */
-	public RespectSpecification(String s)
-	{
+	public RespectSpecification(String s) {
 		super();
-		spec = s;
+		spec=s;
 	}
 
-	public String toString()
-	{
+	public String toString(){
 		return spec;
 	}
 }

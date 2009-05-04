@@ -171,4 +171,9 @@ public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId, java.
 			e.printStackTrace();
 		}
 	}
+
+	public boolean isEnv() {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

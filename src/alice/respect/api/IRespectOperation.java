@@ -6,10 +6,10 @@ import alice.logictuple.LogicTuple;
  * ReSpecT Operation Interface.
  * 
  * @author aricci
- * 
+ *
  */
-public interface IRespectOperation extends alice.tuplecentre.api.ITupleCentreOperation
-{
+public interface IRespectOperation extends alice.tuplecentre.api.ITupleCentreOperation {
+
 	/**
 	 * Gets the result of the operation,
 	 * 
@@ -23,5 +23,9 @@ public interface IRespectOperation extends alice.tuplecentre.api.ITupleCentreOpe
 	 * @return
 	 */
 	LogicTuple getLogicTupleArgument();
+	boolean isTime();
+	boolean isGetEnv();
+	boolean isSetEnv();
+	boolean isEnv();
 
 }
