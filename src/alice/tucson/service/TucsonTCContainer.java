@@ -10,6 +10,7 @@ import alice.logictuple.LogicTuple;
 import alice.respect.api.AgentId;
 import alice.respect.api.IBlockingContext;
 import alice.respect.api.IBlockingSpecContext;
+import alice.respect.api.ILinkContext;
 import alice.respect.api.INonBlockingContext;
 import alice.respect.api.INonBlockingSpecContext;
 import alice.respect.api.IManagementContext;
@@ -20,6 +21,7 @@ import alice.respect.api.OperationNotPossibleException;
 import alice.respect.api.RespectSpecification;
 import alice.respect.api.TupleCentreId;
 
+import alice.respect.core.RespectTCContainer;
 import alice.respect.core.RespectVM;
 
 import alice.tucson.api.exception.OperationNotAllowedException;
@@ -32,6 +34,7 @@ import alice.tucson.types.TucsonAgentId;
 import alice.tucson.types.TucsonTupleCentreId;
 
 import alice.tucson.service.TucsonOperation;
+import alice.tucson.service.stubs.RespectInterTupleCentreContextStub;
 
 import alice.tuplecentre.api.ITupleCentreOperation;
 import alice.tuplecentre.core.OperationCompletionListener;
@@ -40,8 +43,27 @@ import alice.tuplecentre.core.OperationCompletionListener;
  * @author lsemprini
  * 
  */
-public class TucsonTCContainer
+public class TucsonTCContainer extends RespectTCContainer
 {		
+	
+	private static HashMap<String, RespectInterTupleCentreContextStub> remoteRegistry;
+	
+	public static ILinkContext getLinkContext(TupleCentreId id)throws OperationNotPossibleException{
+	if (id.getNode().equals("localhost")){
+		return RespectTCContainer.getLinkContext(id);
+	} else  {
+		//Remote call with TuCSoN set
+		System.out.println("[Remote Link Context requested]");
+		//Remote call with TuCSoN set
+		RespectInterTupleCentreContextStub helper = remoteRegistry.get(id.toString());
+		if (helper == null){
+			helper = new RespectInterTupleCentreContextStub(id, TucsonNodeLanguageManager.getCurLanguage().getName());
+			remoteRegistry.put(id.toString(), helper);
+		}
+		return helper;
+		}
+	}
+	
 	public static void loadContainerLanguage(ArrayList<String> cont, HashMap<String, LanguageInfo> languages)
 	{
 		// Add the container component (the language is not responsible of the
