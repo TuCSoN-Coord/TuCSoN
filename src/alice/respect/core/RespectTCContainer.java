@@ -12,6 +12,7 @@ import alice.respect.api.INonBlockingContext;
 import alice.respect.api.INonBlockingSpecContext;
 import alice.respect.api.ITCRegistry;
 import alice.respect.api.InstantiationNotPossibleException;
+import alice.respect.api.InvalidTupleCentreIdException;
 import alice.respect.api.OperationNotPossibleException;
 import alice.respect.api.RespectTC;
 import alice.respect.api.TupleCentreId;
@@ -32,6 +33,8 @@ public class RespectTCContainer
 	// remoteRegistry;
 	
 	private static RespectTCContainer container;
+	
+	public static final int QUEUE_SIZE = 10;
 
 	private RespectTCContainer(){
 		this.registry= new RespectLocalRegistry();
@@ -50,18 +53,29 @@ public class RespectTCContainer
 
 	public boolean createRespectTC(TupleCentreId id, Integer q) throws InstantiationNotPossibleException
 	{
-		registry.addTC(new RespectTC(id, q));
+		registry.addTC(new RespectTC(id, this, q));
 		return true;
 	}
 
 	public IBlockingContext getBlockingContext(TupleCentreId id) throws OperationNotPossibleException
 	{
-		return ((RespectTC) registry.getTC(id)).getBlockingContext();
+		try{
+			return ((RespectTC) registry.getTC(id)).getBlockingContext();
+		}catch(Exception e){
+			RespectTC tc = new RespectTC(id,this,QUEUE_SIZE);
+			this.registry.addTC(tc);
+			return tc.getBlockingContext();
+		}
 	}
 
-	public INonBlockingContext getNonBlockingContext(TupleCentreId id) throws OperationNotPossibleException
-	{
-		return ((RespectTC) registry.getTC(id)).getNonBlockingContext();
+	public INonBlockingContext getNonBlockingContext(TupleCentreId id){
+		try{
+			return ((RespectTC) registry.getTC(id)).getNonBlockingContext();
+		}catch(Exception e){
+			RespectTC tc = new RespectTC(id,this,QUEUE_SIZE);
+			this.registry.addTC(tc);
+			return tc.getNonBlockingContext();
+		}	
 	}
 
 	/**
@@ -87,30 +101,53 @@ public class RespectTCContainer
 	public ILinkContext getLinkContext(TupleCentreId id) throws OperationNotPossibleException
 	{
 		System.out.println("[ReSpecT TC CONTAINER]  Link call to tc " + id.toString());
+		TupleCentreId idNew = null;
 		try
 		{
-			TupleCentreId idNew = new TupleCentreId(id.getName() + "@localhost");
+			idNew = new TupleCentreId(id.getName() + "@localhost");
 			return ((RespectTC) registry.getTC(idNew)).getLinkContext();
-		}
-		catch (Exception e)
-		{
+		}catch(InvalidTupleCentreIdException e){
 			throw new OperationNotPossibleException();
 		}
+		catch(InstantiationNotPossibleException e){
+			RespectTC tc = new RespectTC(idNew,this,QUEUE_SIZE);
+			this.registry.addTC(tc);
+			return tc.getLinkContext();
+		}
+		
 	}
 
 	public INonBlockingSpecContext getNonBlockingSpecContext(TupleCentreId id) throws OperationNotPossibleException
 	{
-		return ((RespectTC) registry.getTC(id)).getNonBlockingSpecContext();
+		try{
+			return ((RespectTC) registry.getTC(id)).getNonBlockingSpecContext();
+		}catch(Exception e){
+			RespectTC tc = new RespectTC(id,this,QUEUE_SIZE);
+			this.registry.addTC(tc);
+			return tc.getNonBlockingSpecContext();
+		}
 	}
 
 	public IBlockingSpecContext getBlockingSpecContext(TupleCentreId id) throws OperationNotPossibleException
 	{
-		return ((RespectTC) registry.getTC(id)).getBlockingSpecContext();
+		try{
+			return ((RespectTC) registry.getTC(id)).getBlockingSpecContext();
+		}catch(Exception e){
+			RespectTC tc = new RespectTC(id,this,QUEUE_SIZE);
+			this.registry.addTC(tc);
+			return tc.getBlockingSpecContext();
+		}
 	}
 
 	public IManagementContext getManagementContext(TupleCentreId id) throws OperationNotPossibleException
 	{
-		return ((RespectTC) registry.getTC(id)).getManagementContext();
+		try{
+			return ((RespectTC) registry.getTC(id)).getManagementContext();
+		}catch(Exception e){
+			RespectTC tc = new RespectTC(id,this,QUEUE_SIZE);
+			this.registry.addTC(tc);
+			return tc.getManagementContext();
+		}
 	}
 
 	//***METHOD NO LONGER USED
