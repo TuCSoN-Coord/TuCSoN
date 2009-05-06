@@ -28,7 +28,6 @@ import java.lang.reflect.*;
  */
 public abstract class Agent  {
 
-	private RespectFramework  context;
 
     private AgentId id;
 	private static final Class[] ARGS_CLASS = new Class[]{}; 
