@@ -25,25 +25,41 @@ import alice.respect.api.TupleCentreId;
 
 public class RespectTCContainer
 {
-	protected static ITCRegistry registry = new RespectLocalRegistry();
+	private ITCRegistry registry;
 
 	// private static boolean isTucsonPresent = false;
 	// private static HashMap<String, RespectInterTupleCentreContextStub>
 	// remoteRegistry;
+	
+	private static RespectTCContainer container;
 
+	private RespectTCContainer(){
+		this.registry= new RespectLocalRegistry();
+	}
+	
+	public static RespectTCContainer getRespectTCContainer()
+	{
+		if(RespectTCContainer.container==null){
+			RespectTCContainer.container = new RespectTCContainer();
+		}
+		
+		return RespectTCContainer.container;
+		
+	}
+	
 
-	public static boolean createRespectTC(TupleCentreId id, Integer q) throws InstantiationNotPossibleException
+	public boolean createRespectTC(TupleCentreId id, Integer q) throws InstantiationNotPossibleException
 	{
 		registry.addTC(new RespectTC(id, q));
 		return true;
 	}
 
-	public static IBlockingContext getBlockingContext(TupleCentreId id) throws OperationNotPossibleException
+	public IBlockingContext getBlockingContext(TupleCentreId id) throws OperationNotPossibleException
 	{
 		return ((RespectTC) registry.getTC(id)).getBlockingContext();
 	}
 
-	public static INonBlockingContext getNonBlockingContext(TupleCentreId id) throws OperationNotPossibleException
+	public INonBlockingContext getNonBlockingContext(TupleCentreId id) throws OperationNotPossibleException
 	{
 		return ((RespectTC) registry.getTC(id)).getNonBlockingContext();
 	}
@@ -68,7 +84,7 @@ public class RespectTCContainer
 	 * @param id
 	 *            the identifier of the tuple centre target (local or remote)
 	 */
-	public static ILinkContext getLinkContext(TupleCentreId id) throws OperationNotPossibleException
+	public ILinkContext getLinkContext(TupleCentreId id) throws OperationNotPossibleException
 	{
 		System.out.println("[ReSpecT TC CONTAINER]  Link call to tc " + id.toString());
 		try
@@ -82,25 +98,26 @@ public class RespectTCContainer
 		}
 	}
 
-	public static INonBlockingSpecContext getNonBlockingSpecContext(TupleCentreId id) throws OperationNotPossibleException
+	public INonBlockingSpecContext getNonBlockingSpecContext(TupleCentreId id) throws OperationNotPossibleException
 	{
 		return ((RespectTC) registry.getTC(id)).getNonBlockingSpecContext();
 	}
 
-	public static IBlockingSpecContext getBlockingSpecContext(TupleCentreId id) throws OperationNotPossibleException
+	public IBlockingSpecContext getBlockingSpecContext(TupleCentreId id) throws OperationNotPossibleException
 	{
 		return ((RespectTC) registry.getTC(id)).getBlockingSpecContext();
 	}
 
-	public static IManagementContext getManagementContext(TupleCentreId id) throws OperationNotPossibleException
+	public IManagementContext getManagementContext(TupleCentreId id) throws OperationNotPossibleException
 	{
 		return ((RespectTC) registry.getTC(id)).getManagementContext();
 	}
 
-	// For use RespectFramework
-	public static RespectTC getVM(TupleCentreId id)
+	//***METHOD NO LONGER USED
+	// Was used by RespectFramework
+	/*public RespectTC getVM(TupleCentreId id)
 	{
 		return (RespectTC) registry.getTC(id);
-	}
+	}*/
 
 }
