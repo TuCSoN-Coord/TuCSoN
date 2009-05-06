@@ -10,6 +10,7 @@ import alice.respect.api.ILinkContext;
 import alice.respect.api.IManagementContext;
 import alice.respect.api.INonBlockingContext;
 import alice.respect.api.INonBlockingSpecContext;
+import alice.respect.api.IRemoteContainerStub;
 import alice.respect.api.ITCRegistry;
 import alice.respect.api.InstantiationNotPossibleException;
 import alice.respect.api.InvalidTupleCentreIdException;
@@ -27,10 +28,8 @@ import alice.respect.api.TupleCentreId;
 public class RespectTCContainer
 {
 	private ITCRegistry registry;
-
-	// private static boolean isTucsonPresent = false;
-	// private static HashMap<String, RespectInterTupleCentreContextStub>
-	// remoteRegistry;
+	
+	private IRemoteContainerStub stub;
 	
 	private static RespectTCContainer container;
 	
@@ -38,6 +37,7 @@ public class RespectTCContainer
 
 	private RespectTCContainer(){
 		this.registry= new RespectLocalRegistry();
+		this.stub = null;
 	}
 	
 	public static RespectTCContainer getRespectTCContainer()
@@ -97,22 +97,38 @@ public class RespectTCContainer
 	 * 
 	 * @param id
 	 *            the identifier of the tuple centre target (local or remote)
+	 * @throws OperationNotPossibleException 
 	 */
-	public ILinkContext getLinkContext(TupleCentreId id)
+	public ILinkContext getLinkContext(TupleCentreId id) throws OperationNotPossibleException
 	{
 		System.out.println("[ReSpecT TC CONTAINER]  Link call to tc " + id.toString());
 		//TupleCentreId idNew = null;
-		try
-		{
-			return ((RespectTC) registry.getTC(id)).getLinkContext();
-
-		}
-		catch(InstantiationNotPossibleException e){
-			RespectTC tc = new RespectTC(id,this,QUEUE_SIZE);
-			this.registry.addTC(tc);
-			return tc.getLinkContext();
+		if(id.getNode().equals("localhost")){
+			try
+			{
+				return ((RespectTC) registry.getTC(id)).getLinkContext();
+	
+			}
+			catch(InstantiationNotPossibleException e){
+				RespectTC tc = new RespectTC(id,this,QUEUE_SIZE);
+				this.registry.addTC(tc);
+				return tc.getLinkContext();
+			}
 		}
 		
+		if(this.stub==null){
+			throw new OperationNotPossibleException();
+		}
+		
+		return stub.getRemoteLinkContext(id);	
+		
+	}
+	
+	
+	public void addStub(IRemoteContainerStub stub){
+		if(stub==null){
+			this.stub = stub;
+		}
 	}
 
 	public INonBlockingSpecContext getNonBlockingSpecContext(TupleCentreId id) throws OperationNotPossibleException
