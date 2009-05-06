@@ -43,8 +43,7 @@ import alice.logictuple.InvalidVarNameException;
  * @version 1.0
  */
 public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContext {
-
-
+	
 	/**Kist of timers scheduled for execution*/
 	private List<Timer> timers;
 	
@@ -861,7 +860,7 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 			TupleCentreOperation op = arg0.getOperation();
 			op.addListener(new CompletionListener(arg0,target));
 			spy("target tc "+target+" arg0.getSource(): "+arg0.getSource());
-			ILinkContext link = RespectTCContainer.getLinkContext(target);
+			ILinkContext link = this.vm.getContainer().getLinkContext(target);
 			
 			link.doOperation((TupleCentreId)arg0.getSource(), op);
 			
