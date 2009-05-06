@@ -48,7 +48,8 @@ import alice.logictuple.*;
 public class RespectVM implements Runnable {
     
     private RespectVMContext context;
-	
+	private RespectTCContainer container;
+    
 	// semaphores
 	private Object news;
 	private Object idle;
@@ -58,7 +59,8 @@ public class RespectVM implements Runnable {
 	/** listener to VM inspectable events  */
     protected List<InspectableEventListener> inspectors;
     
-    public RespectVM(TupleCentreId tid, int qSize){
+    public RespectVM(TupleCentreId tid, RespectTCContainer container, int qSize){
+    	this.container = container;
         context = new RespectVMContext(this,tid, qSize);
 		news = new Object();
 		idle = new Object();
@@ -403,9 +405,12 @@ public class RespectVM implements Runnable {
 		return (TupleCentreId) context.getId();
 	}
 
-
 	public RespectVMContext getRespectVMContext() {
 		return context;
+	}
+	
+	public RespectTCContainer getContainer() {
+		return this.container;
 	}
 }
 
