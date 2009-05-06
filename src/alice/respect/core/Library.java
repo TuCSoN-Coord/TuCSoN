@@ -841,7 +841,7 @@ public boolean inp_2(Term arg0, Term arg1){
         
     	IId id = ev.getId();
     	
-    	IId c = ev.getReactingTC();
+    	IId c = this.vm.getId();
     	
     	if(c.toString().equals(id.toString())){
     		
