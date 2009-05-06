@@ -48,6 +48,10 @@ public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId, java.
 	 */
 	public TupleCentreId(String name) throws InvalidTupleCentreIdException
 	{
+		if(name.indexOf("@")<0){
+			name +="@localhost";
+		}
+		
 		try
 		{
 			id = Term.parse(name, opManager);
