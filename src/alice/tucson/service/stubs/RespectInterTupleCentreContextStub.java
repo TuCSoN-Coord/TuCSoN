@@ -28,10 +28,10 @@ public class RespectInterTupleCentreContextStub implements ILinkContext
 	private alice.tuplecentre.api.TupleCentreId idTo;
 	private String lang;
 
-	public RespectInterTupleCentreContextStub(alice.tuplecentre.api.TupleCentreId id, String language)
+	public RespectInterTupleCentreContextStub(alice.tuplecentre.api.TupleCentreId id)
 	{
 		idTo = id;
-		lang = language;
+		//lang = language;
 		if (helpList == null)
 		{
 			helpList = new HashMap<String, InterTupleCentreContext>();
