@@ -98,19 +98,17 @@ public class RespectTCContainer
 	 * @param id
 	 *            the identifier of the tuple centre target (local or remote)
 	 */
-	public ILinkContext getLinkContext(TupleCentreId id) throws OperationNotPossibleException
+	public ILinkContext getLinkContext(TupleCentreId id)
 	{
 		System.out.println("[ReSpecT TC CONTAINER]  Link call to tc " + id.toString());
-		TupleCentreId idNew = null;
+		//TupleCentreId idNew = null;
 		try
 		{
-			idNew = new TupleCentreId(id.getName() + "@localhost");
-			return ((RespectTC) registry.getTC(idNew)).getLinkContext();
-		}catch(InvalidTupleCentreIdException e){
-			throw new OperationNotPossibleException();
+			return ((RespectTC) registry.getTC(id)).getLinkContext();
+
 		}
 		catch(InstantiationNotPossibleException e){
-			RespectTC tc = new RespectTC(idNew,this,QUEUE_SIZE);
+			RespectTC tc = new RespectTC(id,this,QUEUE_SIZE);
 			this.registry.addTC(tc);
 			return tc.getLinkContext();
 		}
