@@ -17,6 +17,7 @@
  */
 package alice.respect.core;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -64,6 +65,7 @@ public class RespectVM implements Runnable {
         context = new RespectVMContext(this,tid, qSize);
 		news = new Object();
 		idle = new Object();
+		inspectors = new ArrayList<InspectableEventListener>();
     }
 
     /**
