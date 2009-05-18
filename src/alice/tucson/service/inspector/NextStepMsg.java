@@ -19,7 +19,7 @@ package alice.tucson.service.inspector;
 
 import java.io.*;
 
-import alice.tucson.types.TucsonAgentId;
+import alice.tucson.api.TucsonAgentId;
 
 /**
  * inspector message to ask a new execution step for a traced tuple centre vm

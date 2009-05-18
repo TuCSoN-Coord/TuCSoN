@@ -17,11 +17,13 @@
  */
 package alice.tucson.api;
 
-import alice.tucson.api.exception.LanguageNotFoundException;
-import alice.tucson.api.exception.OperationNotAllowedException;
-import alice.tucson.api.exception.UnreachableNodeException;
-import alice.tucson.service.TucsonOperationCompletionListener;
 import alice.logictuple.*;
+
+import alice.tucson.api.exception.LanguageNotFoundException;
+import alice.tucson.api.exception.TucsonOperationNotPossibleException;
+import alice.tucson.api.exception.UnreachableNodeException;
+
+import alice.tucson.service.TucsonOperationCompletionListener;
 
 /**
  * 
@@ -45,12 +47,12 @@ public interface TucsonNonBlockingContext
 	 *            relation with the used language: LogicTuple, String, ...)
 	 * @throws LanguageNotFoundException
 	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
+	 *             TucsonOperationNotPossibleException of the operation is not allowed
 	 * @throws s
 	 *             UnreachableNodeException if the node specified in the tuple
 	 *             centre identifier is not reachable
 	 */
-	ITucsonOperation out(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) throws OperationNotAllowedException, UnreachableNodeException,
+	ITucsonOperation out(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 			LanguageNotFoundException;
 
 	/**
@@ -68,12 +70,12 @@ public interface TucsonNonBlockingContext
 	 *            language: LogicTuple, String, ...)
 	 * @return the logic tuple retrieved from the tuple centre
 	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
+	 *             TucsonOperationNotPossibleException of the operation is not allowed
 	 * @throws s
 	 *             UnreachableNodeException if the node specified in the tuple
 	 *             centre identifier is not reachable
 	 */
-	ITucsonOperation in(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) throws OperationNotAllowedException, UnreachableNodeException,
+	ITucsonOperation in(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 			LanguageNotFoundException;
 
 	/**
@@ -91,12 +93,12 @@ public interface TucsonNonBlockingContext
 	 *            language: LogicTuple, String, ...)
 	 * @return the logic tuple matching the request
 	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
+	 *             TucsonOperationNotPossibleException of the operation is not allowed
 	 * @throws s
 	 *             UnreachableNodeException if the node specified in the tuple
 	 *             centre identifier is not reachable
 	 */
-	ITucsonOperation rd(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) throws OperationNotAllowedException, UnreachableNodeException,
+	ITucsonOperation rd(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 			LanguageNotFoundException;
 	
 	/**
@@ -116,12 +118,12 @@ public interface TucsonNonBlockingContext
 	 * @return the logic tuple retrieved from the tuple centre or null if no
 	 *         tuple is found
 	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
+	 *             TucsonOperationNotPossibleException of the operation is not allowed
 	 * @throws s
 	 *             UnreachableNodeException if the node specified in the tuple
 	 *             centre identifier is not reachable
 	 */
-	ITucsonOperation inp(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) throws OperationNotAllowedException, UnreachableNodeException,
+	ITucsonOperation inp(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 			LanguageNotFoundException;
 
 	/**
@@ -141,12 +143,12 @@ public interface TucsonNonBlockingContext
 	 * @return the logic tuple retrieved from the tuple centre or null if no
 	 *         tuple is found
 	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
+	 *             TucsonOperationNotPossibleException of the operation is not allowed
 	 * @throws s
 	 *             UnreachableNodeException if the node specified in the tuple
 	 *             centre identifier is not reachable
 	 */
-	ITucsonOperation rdp(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) throws OperationNotAllowedException, UnreachableNodeException,
+	ITucsonOperation rdp(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 			LanguageNotFoundException;
 	
 	/**
@@ -161,7 +163,7 @@ public interface TucsonNonBlockingContext
 	 *            different types in relation with the used language: String,
 	 *            ...)
 	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
+	 *             TucsonOperationNotPossibleException of the operation is not allowed
 	 * @throws s
 	 *             UnreachableNodeException if the node specified in the tuple
 	 *             centre identifier is not reachable
@@ -169,7 +171,7 @@ public interface TucsonNonBlockingContext
 	 *             InvalidSpecificationException if the specification is not
 	 *             valid
 	 */
-	ITucsonOperation setSpec(Object tid, String spec, TucsonOperationCompletionListener l) throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException;
+	ITucsonOperation setSpec(Object tid, String spec, TucsonOperationCompletionListener l) throws TucsonOperationNotPossibleException, UnreachableNodeException, LanguageNotFoundException;
 
 	/**
 	 * Gets the behaviour specification of a tuple centre
@@ -180,185 +182,10 @@ public interface TucsonNonBlockingContext
 	 *            TupleCentreId, String, ...)
 	 * @return the behavious specification in the ReSpecT language
 	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
+	 *             TucsonOperationNotPossibleException of the operation is not allowed
 	 * @throws s
 	 *             UnreachableNodeException if the node specified in the tuple
 	 *             centre identifier is not reachable
 	 */
-	ITucsonOperation getSpec(Object tid, TucsonOperationCompletionListener l) throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException;
-
-	/**
-	 * Inserts a tuple in a tuple centre
-	 * 
-	 * @param tid
-	 *            is the identifier of the target tuple centre (supports
-	 *            different types in relation with the used language:
-	 *            TupleCentreId, String, ...)
-	 * @param tuple
-	 *            is the logic tuple to be inserted (supports different types in
-	 *            relation with the used language: LogicTuple, String, ...)
-	 * @param language
-	 *            is the language for labeled the primitive (supports different
-	 *            types in relation with the used language: String, ...)
-	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
-	 * @throws s
-	 *             UnreachableNodeException if the node specified in the tuple
-	 *             centre identifier is not reachable
-	 */
-	ITucsonOperation out(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-			LanguageNotFoundException;
-
-	/**
-	 * Gets a tuple from a tuple centre
-	 * 
-	 * This coordination primitive is blocking
-	 * 
-	 * @param tid
-	 *            is the identifier of the target tuple centre (supports
-	 *            different types in relation with the used language:
-	 *            TupleCentreId, String, ...)
-	 * @param tuple
-	 *            is the logic tuple specifying the template used for the
-	 *            matching (supports different types in relation with the used
-	 *            language: LogicTuple, String, ...)
-	 * @param language
-	 *            is the language for labeled the primitive (supports different
-	 *            types in relation with the used language: String, ...)
-	 * @return the logic tuple retrieved from the tuple centre
-	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
-	 * @throws s
-	 *             UnreachableNodeException if the node specified in the tuple
-	 *             centre identifier is not reachable
-	 */
-	ITucsonOperation in(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-			LanguageNotFoundException;
-
-	/**
-	 * Reads a tuple from a tuple centre
-	 * 
-	 * This coordination primitive is blocking
-	 * 
-	 * @param tid
-	 *            is the identifier of the target tuple centre (supports
-	 *            different types in relation with the used language:
-	 *            TupleCentreId, String, ...)
-	 * @param tuple
-	 *            is the logic tuple specifying the template used for the
-	 *            matching (supports different types in relation with the used
-	 *            language: LogicTuple, String, ...)
-	 * @param language
-	 *            is the language for labeled the primitive (supports different
-	 *            types in relation with the used language: String, ...)
-	 * @return the logic tuple matching the request
-	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
-	 * @throws s
-	 *             UnreachableNodeException if the node specified in the tuple
-	 *             centre identifier is not reachable
-	 */
-	ITucsonOperation rd(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-			LanguageNotFoundException;
-
-	/**
-	 * Gets a tuple from a tuple centre, without blocking
-	 * 
-	 * This coordination primitive is non-blocking: if no tuple is found the
-	 * primitive returns a null value.
-	 * 
-	 * @param tid
-	 *            is the identifier of the target tuple centre (supports
-	 *            different types in relation with the used language:
-	 *            TupleCentreId, String, ...)
-	 * @param tuple
-	 *            is the logic tuple specifying the template used for the
-	 *            matching (supports different types in relation with the used
-	 *            language: LogicTuple, String, ...)
-	 * @param language
-	 *            is the language for labeled the primitive (supports different
-	 *            types in relation with the used language: String, ...)
-	 * @return the logic tuple retrieved from the tuple centre or null if no
-	 *         tuple is found
-	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
-	 * @throws s
-	 *             UnreachableNodeException if the node specified in the tuple
-	 *             centre identifier is not reachable
-	 */
-	ITucsonOperation inp(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-			LanguageNotFoundException;
-
-	/**
-	 * Reads a tuple from a tuple centre, without blocking
-	 * 
-	 * This coordination primitive is non-blocking: if no tuple is found the
-	 * primitive returns a null value.
-	 * 
-	 * @param tid
-	 *            is the identifier of the target tuple centre (supports
-	 *            different types in relation with the used language:
-	 *            TupleCentreId, String, ...)
-	 * @param tuple
-	 *            is the logic tuple specifying the template used for the
-	 *            matching (supports different types in relation with the used
-	 *            language: LogicTuple, String, ...)
-	 * @param language
-	 *            is the language for labeled the primitive (supports different
-	 *            types in relation with the used language: String, ...)
-	 * @return the logic tuple retrieved from the tuple centre or null if no
-	 *         tuple is found
-	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
-	 * @throws s
-	 *             UnreachableNodeException if the node specified in the tuple
-	 *             centre identifier is not reachable
-	 */
-	ITucsonOperation rdp(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-			LanguageNotFoundException;
-
-	/**
-	 * Sets the behaviour of a tuple centre
-	 * 
-	 * @param tid
-	 *            is the identifier of the target tuple centre (supports
-	 *            different types in relation with the used language:
-	 *            TupleCentreId, String, ...)
-	 * @param spec
-	 *            is behaviour specification in the ReSpecT language (supports
-	 *            different types in relation with the used language: String,
-	 *            ...)
-	 * @param language
-	 *            is the language for labeled the primitive (supports different
-	 *            types in relation with the used language: String, ...)
-	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
-	 * @throws s
-	 *             UnreachableNodeException if the node specified in the tuple
-	 *             centre identifier is not reachable
-	 * @throws s
-	 *             InvalidSpecificationException if the specification is not
-	 *             valid
-	 */
-	ITucsonOperation setSpec(Object tid, String spec, TucsonOperationCompletionListener l, Object language) throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException;
-
-	/**
-	 * Gets the behaviour specification of a tuple centre
-	 * 
-	 * @param tid
-	 *            is the identifier of the target tuple centre (supports
-	 *            different types in relation with the used language:
-	 *            TupleCentreId, String, ...)
-	 * @param language
-	 *            is the language for labeled the primitive (supports different
-	 *            types in relation with the used language: String, ...)
-	 * @return the behavious specification in the ReSpecT language
-	 * @throws s
-	 *             OperationNotAllowedException of the operation is not allowed
-	 * @throws s
-	 *             UnreachableNodeException if the node specified in the tuple
-	 *             centre identifier is not reachable
-	 */
-	ITucsonOperation getSpec(Object tid, TucsonOperationCompletionListener l, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-			LanguageNotFoundException;
+	ITucsonOperation getSpec(Object tid, TucsonOperationCompletionListener l) throws TucsonOperationNotPossibleException, UnreachableNodeException, LanguageNotFoundException;
 }

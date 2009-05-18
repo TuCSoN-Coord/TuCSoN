@@ -26,6 +26,6 @@ package alice.tucson.api.exception;
  * @version 1.0
  * @author aricci
 */
-public class TucsonInvalidVarNameException extends TucsonTupleException {
+public class TucsonInvalidVarNameException extends TucsonInvalidLogicTupleException {
 }
 

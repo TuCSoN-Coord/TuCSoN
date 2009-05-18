@@ -20,6 +20,8 @@ package alice.tucson.tools;
 import java.io.*;
 import java.util.*;
 
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.types.*;
 
 import alice.logictuple.LogicTuple;

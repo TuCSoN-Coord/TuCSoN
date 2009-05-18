@@ -17,6 +17,8 @@
  */
 package alice.tuplecentre.api;
 
+import alice.tuplecentre.api.IId;
+
 /**
  *
  * Represents identifier for a tuple centre

@@ -2,7 +2,7 @@ package alice.tucson.common;
 
 import java.io.*;
 
-import alice.tucson.types.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreId;
 
 import alice.logictuple.*;
 

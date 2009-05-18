@@ -21,7 +21,6 @@ import java.io.*;
 import java.util.*;
 
 import alice.tucson.api.*;
-import alice.tucson.types.TucsonTupleCentreId;
 import alice.logictuple.*;
 
 public class ConsoleInterpreter extends alice.util.Automaton

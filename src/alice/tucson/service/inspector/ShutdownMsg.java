@@ -19,7 +19,7 @@ package alice.tucson.service.inspector;
 
 import java.io.*;
 
-import alice.tucson.types.TucsonAgentId;
+import alice.tucson.api.TucsonAgentId;
 
 /**
  * base class for message requesting a service from a user or inspector to a

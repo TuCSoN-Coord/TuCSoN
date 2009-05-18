@@ -168,7 +168,8 @@ public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId, java.
 	{
 		try
 		{
-			System.out.println("allora" + new TupleCentreId("tc1@localhost").equals(new TupleCentreId("tc1@localhost")));
+			//System.out.println("allora" + new TupleCentreId("tc1@localhost").equals(new TupleCentreId("tc1@localhost")));
+			//System.out.println(new TupleCentreId("tc1@localhost").getNode());
 		}
 		catch (Exception e)
 		{

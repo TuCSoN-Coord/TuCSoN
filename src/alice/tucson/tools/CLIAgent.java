@@ -18,9 +18,9 @@
 package alice.tucson.tools;
 
 import alice.tucson.api.*;
+
 import alice.tucson.service.TucsonAgentLanguageManager;
-import alice.tucson.types.TucsonAgentId;
-import alice.tucson.types.TucsonConstant;
+import alice.tucson.service.TucsonLanguageManager;
 
 /**
  * Command Line Interpreter
@@ -32,7 +32,7 @@ public class CLIAgent
 		log("Booting TuCSoN Command Line Intepreter ...");
 		
 		// CLIAgent utilizza "ReSpecT 2.2"
-		TucsonAgentLanguageManager.useLanguage(TucsonConstant.DEFLANGUAGE);
+		TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
 		
 		if (alice.util.Tools.isOpt(args, "-?"))
 		{
@@ -63,7 +63,7 @@ public class CLIAgent
 			
 			try
 			{
-				context = Tucson.getContext(new TucsonAgentId(st_aid), TucsonConstant.DEFLANGUAGE);
+				context = Tucson.getContext(new TucsonAgentId(st_aid), TucsonAgentLanguageManager.getCurLanguage());
 
 				if (alice.util.Tools.isOpt(args, "-console"))
 				{

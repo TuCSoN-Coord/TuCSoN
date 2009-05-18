@@ -17,7 +17,7 @@
  */
 package alice.tucson.service.inspector;
 
-import alice.tucson.types.*;
+import alice.tucson.api.*;
 
 import java.io.*;
 

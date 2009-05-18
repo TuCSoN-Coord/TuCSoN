@@ -17,8 +17,8 @@
  */
 package alice.tucson.service;
 
-import alice.tucson.types.TucsonAgentId;
-import alice.tucson.types.TucsonTupleCentreId;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonTupleCentreId;
 import java.util.*;
 
 /**

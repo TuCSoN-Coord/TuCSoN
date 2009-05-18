@@ -8,10 +8,12 @@
  *
  */
 package alice.tucson.service;
-import alice.tucson.api.exception.TucsonInvalidAgentIdException;
-import alice.tucson.types.TucsonAgentId;
-import alice.tucson.types.TucsonTupleCentreId;
+
 import alice.logictuple.*;
+
+import alice.tucson.api.exception.TucsonInvalidAgentIdException;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonTupleCentreId;
 
 public class NodeManagementAgent extends Thread
 {
@@ -22,13 +24,13 @@ public class NodeManagementAgent extends Thread
 	private TucsonAgentId nodeManAid;
 
 	/**
-	 * for local access (valid only if user is in the same java VM of daemon
+	 * for local access (valid only if user is in the same java VM of daemon)
 	 */
-	// private alice.tuplecentre.Event evReceived;
 	private TucsonTupleCentreId config;
 
 	public NodeManagementAgent(TucsonTupleCentreId config, Node node)
 	{
+		// agente che riceve comandi nel tuple centre $ORG
 		try
 		{
 			nodeManAid = new TucsonAgentId("node_management_agent");
@@ -51,11 +53,10 @@ public class NodeManagementAgent extends Thread
 		}
 	}
 
-	//
 	public void run()
 	{
 		log("agent booted.");
-		//
+		
 		while (true)
 		{
 			try
@@ -75,26 +76,33 @@ public class NodeManagementAgent extends Thread
 	protected void execCmd(TupleArgument cmd) throws Exception
 	{
 		String name = cmd.getName();
+		
 		if (name.equals("destroy"))
 		{
 			String tcName = cmd.getArg(0).getName();
 			boolean result = node.destroyCore(tcName);
+			
 			if (result)
 			{
 				log(tcName + " destroyed");
-				TucsonTCContainer.out(nodeManAid, config, new LogicTuple("cmd_result", new Value("destroy"), new Value("ok")));
+				
+				TucsonTCContainer.out(nodeManAid, config, 
+						new LogicTuple("cmd_result", new Value("destroy"), new Value("ok")));
 			}
 			else
 			{
 				log("cannot destroy " + tcName);
-				TucsonTCContainer
-						.out(nodeManAid, config, new LogicTuple("cmd_result", new Value("destroy"), new Value("failed")));
+				
+				TucsonTCContainer.out(nodeManAid, config, 
+								new LogicTuple("cmd_result", new Value("destroy"), new Value("failed")));
 			}
 		}
 		else if (name.equals("enable_persistency"))
 		{
 			node.enablePersistence(cmd.getArg(0));
-			TucsonTCContainer.out(nodeManAid, config, new LogicTuple("cmd_result", cmd, new Value("ok")));
+			TucsonTCContainer.out(nodeManAid, config, 
+								new LogicTuple("cmd_result", cmd, new Value("ok")));
+			
 			log("enabled persistency for " + cmd.getArg(0) + " tuple centres");
 		}
 		else if (name.equals("disable_persistency"))

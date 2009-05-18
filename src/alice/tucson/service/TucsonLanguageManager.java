@@ -15,6 +15,41 @@ import java.util.StringTokenizer;
  */
 public class TucsonLanguageManager
 {
+	public static final String RESOLVERPATH = "alice.tucson.resolver.";
+	public static final String RESPECT22 = "ReSpecT 2.2";		
+	public static final String DEFLANGUAGE = RESPECT22;
+	
+	public static ArrayList<String> getConfLanguage()
+	{
+		// Load the properties specified in the config file
+		Properties prop = new Properties();
+
+		try
+		{
+			prop.load(new FileInputStream("tucson_conf.properties"));
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+
+		// Load the languages
+		String languages = prop.getProperty("languages");	
+		StringTokenizer st = new StringTokenizer(languages, ",");
+		ArrayList<String> lang = new ArrayList<String>();
+
+		while (st.hasMoreTokens())
+		{
+			String language = st.nextToken();
+			lang.add(language);
+		}
+		return lang;
+	}
+	
 	public static ArrayList<String> getConfContainer()
 	{
 		// Load the properties specified in the config file
@@ -34,14 +69,14 @@ public class TucsonLanguageManager
 		}
 
 		// Load the containers
-		String containers = prop.getProperty("containers");
-		StringTokenizer st = new StringTokenizer(containers);
+		String containers = prop.getProperty("containers");	
+		StringTokenizer st = new StringTokenizer(containers, ",");
 		ArrayList<String> cont = new ArrayList<String>();
 
 		while (st.hasMoreTokens())
 		{
-			String temp = st.nextToken().substring(0);
-			cont.add(temp.substring(0, temp.length() - 1));
+			String container = st.nextToken();
+			cont.add(container);
 		}
 		return cont;
 	}
@@ -62,53 +97,21 @@ public class TucsonLanguageManager
 		{
 			e.printStackTrace();
 		}
-		// Load the resolvers(component for Agent Module interaction like
-		// AgentId, TupleCentreId, LogicTuple, ecc.)
-		String resolvers = prop.getProperty("resolvers");
-		StringTokenizer st = new StringTokenizer(resolvers);
+		
+		String resolvers = prop.getProperty("resolvers");	
+		StringTokenizer st = new StringTokenizer(resolvers, ",");
 		ArrayList<String> res = new ArrayList<String>();
 
 		while (st.hasMoreTokens())
 		{
-			String temp = st.nextToken().substring(0);
-			res.add(temp.substring(0, temp.length() - 1));
+			String resolver = st.nextToken();
+			res.add(resolver);
 		}
 		return res;
 	}
 
-	public static ArrayList<String> getConfTranslator()
-	{
-		// Load the properties specified in the config file
-		Properties prop = new Properties();
-		try
-		{
-			prop.load(new FileInputStream("tucson_conf.properties"));
-		}
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		// Load the translators
-		String translators = prop.getProperty("translators");
-		StringTokenizer st = new StringTokenizer(translators);
-		ArrayList<String> tran = new ArrayList<String>();
-		
-		while (st.hasMoreTokens())
-		{
-			String temp = st.nextToken().substring(0);
-			tran.add(temp.substring(0, temp.length() - 1));
-		}
-		
-		return tran;
-	}
-
 	public static Object createObject(String name, Object[] arglist) throws Exception
 	{
-		System.out.println(name);
 		Class cls = Class.forName(name);
 		Class partypes[] = new Class[arglist.length];
 
@@ -126,7 +129,9 @@ public class TucsonLanguageManager
 
 	public static Object callMethod(Object obj, String method, Object[] arglist) throws Exception
 	{
-		Class cls = Class.forName(obj.getClass().getName());
+		Class cls = obj.getClass();
+		System.out.println("Nome classe " + obj.getClass());
+		
 		Class partypes[] = new Class[arglist.length];
 		
 		for (int i = 0; i < arglist.length; i++)
@@ -145,7 +150,7 @@ public class TucsonLanguageManager
 	 */
 	public static Object callMethodObjPar(Object obj, String method, Object[] arglist) throws Exception
 	{
-		Class cls = Class.forName(obj.getClass().getName());
+		Class cls = obj.getClass();
 		Class partypes[] = new Class[arglist.length];
 
 		for (int i = 0; i < arglist.length; i++)
@@ -170,8 +175,8 @@ public class TucsonLanguageManager
 		}
 		
 		Method meth = cls.getMethod(method, partypes);
-		Object retobj = meth.invoke(null, arglist);
 		
+		Object retobj = meth.invoke(null, arglist);
 		return retobj;
 	}
 }

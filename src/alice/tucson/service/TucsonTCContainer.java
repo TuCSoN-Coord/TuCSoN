@@ -1,152 +1,49 @@
 package alice.tucson.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import alice.logictuple.InvalidLogicTupleException;
-import alice.logictuple.InvalidTupleOperationException;
 import alice.logictuple.LogicTuple;
 
-import alice.respect.api.AgentId;
-import alice.respect.api.IBlockingContext;
-import alice.respect.api.IBlockingSpecContext;
-import alice.respect.api.ILinkContext;
-import alice.respect.api.INonBlockingContext;
-import alice.respect.api.INonBlockingSpecContext;
-import alice.respect.api.IManagementContext;
-import alice.respect.api.InstantiationNotPossibleException;
-import alice.respect.api.InvalidAgentIdException;
-import alice.respect.api.InvalidSpecificationException;
-import alice.respect.api.OperationNotPossibleException;
-import alice.respect.api.RespectSpecification;
-import alice.respect.api.TupleCentreId;
-
-import alice.respect.core.RespectTCContainer;
-import alice.respect.core.RespectVM;
-
-import alice.tucson.api.exception.OperationNotAllowedException;
-import alice.tucson.api.exception.TCInstantiationNotPossibleException;
-import alice.tucson.api.exception.TucsonInvalidSpecificationException;
-import alice.tucson.api.exception.TucsonTupleException;
-
-import alice.tucson.types.TucsonConstant;
-import alice.tucson.types.TucsonAgentId;
-import alice.tucson.types.TucsonTupleCentreId;
-
-import alice.tucson.service.TucsonOperation;
-import alice.tucson.service.stubs.RespectInterTupleCentreContextStub;
-
 import alice.tuplecentre.api.ITupleCentreOperation;
+
 import alice.tuplecentre.core.OperationCompletionListener;
 
-/**
- * @author lsemprini
- * 
- */
-public class TucsonTCContainer extends RespectTCContainer
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonTupleCentreId;
+
+import alice.tucson.service.TucsonOperation;
+
+import alice.tucson.types.IContainerResolver;
+
+public class TucsonTCContainer
 {		
+	public static final int RESPECTQUEUE = 10;
 	
-	private static HashMap<String, RespectInterTupleCentreContextStub> remoteRegistry;
-	
-	public static ILinkContext getLinkContext(TupleCentreId id)throws OperationNotPossibleException{
-	if (id.getNode().equals("localhost")){
-		return RespectTCContainer.getLinkContext(id);
-	} else  {
-		//Remote call with TuCSoN set
-		System.out.println("[Remote Link Context requested]");
-		//Remote call with TuCSoN set
-		RespectInterTupleCentreContextStub helper = remoteRegistry.get(id.toString());
-		if (helper == null){
-			helper = new RespectInterTupleCentreContextStub(id, TucsonNodeLanguageManager.getCurLanguage().getName());
-			remoteRegistry.put(id.toString(), helper);
-		}
-		return helper;
-		}
-	}
-	
-	public static void loadContainerLanguage(ArrayList<String> cont, HashMap<String, LanguageInfo> languages)
+	public static boolean createTC(TucsonTupleCentreId id)
 	{
-		// Add the container component (the language is not responsible of the
-		// component)
-		for (int i = 0; i < cont.size(); i++)
-		{
-			LanguageInfo respectCont;
-			try
-			{
-				// Calls DynamicRespectTCContainer.getLanguage()
-				respectCont = (LanguageInfo) TucsonLanguageManager.callStaticMethod(cont.get(i), "getLanguage", new Object[0]);
-				respectCont.setContainerComponentName(cont.get(i));
-				languages.put(respectCont.getName(), respectCont);
-				log("Container " + respectCont.getName() + " loaded succesfully");
-			}
-			catch (Exception e)
-			{
-				log("Error: Unable to load " + cont.get(i));
-			}
-		}
-	}
-
-	public static void attachTucson()
-	{
+		IContainerResolver resolver;
+		LanguageInfo currLang = TucsonNodeLanguageManager.getCurLanguage();
+		
 		try
 		{
-			// Calls DynamicRespectTCContainer.setTucson()
-			TucsonLanguageManager.callStaticMethod(TucsonNodeLanguageManager.getCurLanguage().getContainerComponentName(),
-					"setTucson", new Object[0]);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	public static boolean createTC(TucsonTupleCentreId id) throws TCInstantiationNotPossibleException
-	{
-		// Calls
-		// DynamicRespectTCContainer.createRespectTC((TupleCentreId)id.getInternalTupleCentreId(),
-		// TucsonOpType.RESPECTQUEUE)
-		try
-		{
-			return (Boolean) TucsonLanguageManager.callStaticMethod(TucsonNodeLanguageManager.getCurLanguage()
-					.getContainerComponentName(), "createRespectTC", new Object[] {
-					(TupleCentreId) id.getInternalTupleCentreId(), TucsonConstant.RESPECTQUEUE });
-		}
-		catch (InstantiationNotPossibleException e)
-		{
-			throw new TCInstantiationNotPossibleException();
-		}
-		catch (Exception e1)
-		{
-			e1.printStackTrace();
-		}
-
-		return false;
-	}
-
-	// forse da cancellare ...
-	public static RespectVM getVM(TucsonTupleCentreId id)
-	{
-		try
-		{
-			return (RespectVM) TucsonLanguageManager.callStaticMethod(TucsonNodeLanguageManager.getCurLanguage()
-					.getContainerComponentName(), "getVM", new Object[] {
-					(TupleCentreId) id.getInternalTupleCentreId()});
-		}		
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
-		return null;
-	}
-	
-	public static Object doManagementOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid,
-			LogicTuple filter, OperationCompletionListener l) throws OperationNotAllowedException, TucsonTupleException,
-			TucsonInvalidSpecificationException
-	{
-		ITupleCentreOperation res = null;
-		IManagementContext context = null;
+			// Ottengo il resolver relativo al linguaggio corrente
+			resolver = (IContainerResolver) TucsonNodeLanguageManager.createObject(currLang.getResolverComponentName(), new Object[0]);
 			
+			return resolver.tupleCentreCreator(id, RESPECTQUEUE);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return false;
+		}			
+	}
+	
+	// mettere questo metodo nel resolver ...
+	public static Object doManagementOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple filter,
+			OperationCompletionListener l) //throws OperationNotAllowedException, TucsonTupleException,
+			//TucsonInvalidSpecificationException
+	{
+		/*ITupleCentreOperation res = null;
+		IManagementContext context = null;
+
 		try
 		{
 			context = (IManagementContext) TucsonLanguageManager.callStaticMethod(TucsonNodeLanguageManager.getCurLanguage()
@@ -161,579 +58,209 @@ public class TucsonTCContainer extends RespectTCContainer
 		{
 			e1.printStackTrace();
 		}
-		
+
 		log(aid + " " + " " + filter + " " + tid);
-		if(type == TucsonOperation.get_TSet())
-			return context.getTSet(filter);
-			/*try
-			{
-				log(aid + " " + " " + t + " " + tid);
-				if(type == TucsonOperation.outCode())
-					return context.out((AgentId) aid.getInternalAgentId(), t, l);
-				if(type == TucsonOperation.inCode())
-					return context.in((AgentId) aid.getInternalAgentId(), t, l);
-				if(type == TucsonOperation.inpCode())
-					return context.inp((AgentId) aid.getInternalAgentId(), t, l);
-				if(type == TucsonOperation.rdCode())
-					return context.rd((AgentId) aid.getInternalAgentId(), t, l);
-				if(type == TucsonOperation.rdpCode())
-					return context.rdp((AgentId) aid.getInternalAgentId(), t, l);
-			}
-			catch (InvalidLogicTupleException e)
-			{
-				throw new TucsonTupleException();
-			}
-			catch (OperationNotPossibleException e)
-			{
-				throw new OperationNotAllowedException();
-			}
-		*/
-		return res;
-	}
-	
-	public static ITupleCentreOperation doNonBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid,
-			LogicTuple t, OperationCompletionListener l) throws OperationNotAllowedException, TucsonTupleException,
-			TucsonInvalidSpecificationException
-	{
-		ITupleCentreOperation res = null;
-		INonBlockingContext context = null;
-			
-			try
-			{
-				// Calls
-				// DynamicRespectTCContainer.getNonBlockingContext((TupleCentreId)
-				// tid.getInternalTupleCentreId())
-				context = (INonBlockingContext) TucsonLanguageManager.callStaticMethod(TucsonNodeLanguageManager.getCurLanguage()
-						.getContainerComponentName(), "getNonBlockingContext", new Object[] { (TupleCentreId) tid
-						.getInternalTupleCentreId() });
-			}
-			catch (OperationNotPossibleException e)
-			{
-				throw new OperationNotAllowedException();
-			}
-			catch (Exception e1)
-			{
-				e1.printStackTrace();
-			}
-			try
-			{
-				log(aid + " " + " " + t + " " + tid);
-				if(type == TucsonOperation.outCode())
-					return context.out((AgentId) aid.getInternalAgentId(), t, l);
-				if(type == TucsonOperation.inCode())
-					return context.in((AgentId) aid.getInternalAgentId(), t, l);
-				if(type == TucsonOperation.inpCode())
-					return context.inp((AgentId) aid.getInternalAgentId(), t, l);
-				if(type == TucsonOperation.rdCode())
-					return context.rd((AgentId) aid.getInternalAgentId(), t, l);
-				if(type == TucsonOperation.rdpCode())
-					return context.rdp((AgentId) aid.getInternalAgentId(), t, l);
-			}
-			catch (InvalidLogicTupleException e)
-			{
-				throw new TucsonTupleException();
-			}
-			catch (OperationNotPossibleException e)
-			{
-				throw new OperationNotAllowedException();
-			}
+		if (type == TucsonOperation.get_TSet())
+			return context.getTSet(filter);*/
 		
-		return res;
+		return null;
+	}
+
+	public static ITupleCentreOperation doNonBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid,
+			LogicTuple t, OperationCompletionListener l) throws Exception
+	{			
+		IContainerResolver resolver;
+		LanguageInfo currLang = TucsonNodeLanguageManager.getCurLanguage();
+		
+		try
+		{
+			// Ottengo il resolver relativo al linguaggio corrente
+			resolver = (IContainerResolver) TucsonNodeLanguageManager.createObject(currLang.getResolverComponentName(), new Object[0]);
+			
+			return resolver.doNonBlockingOperation(type, aid, tid, t, l);
+		}
+		catch (Exception e)
+		{
+			throw new Exception();
+		}
 	}
 
 	public static ITupleCentreOperation doNonBlockingSpecOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid,
-			LogicTuple t, OperationCompletionListener l) throws OperationNotAllowedException, TucsonTupleException,
-			TucsonInvalidSpecificationException
+			LogicTuple t, OperationCompletionListener l) throws Exception
 	{
-		ITupleCentreOperation res = null;		
-		INonBlockingSpecContext context = null;
+		IContainerResolver resolver;
+		LanguageInfo currLang = TucsonNodeLanguageManager.getCurLanguage();
 		
 		try
 		{
-			// Calls
-			// DynamicRespectTCContainer.getNonBlockingSpecContext((TupleCentreId)
-			// tid.getInternalTupleCentreId())
-			context = (INonBlockingSpecContext) TucsonLanguageManager.callStaticMethod(TucsonNodeLanguageManager
-					.getCurLanguage().getContainerComponentName(), "getNonBlockingSpecContext",
-					new Object[] { (TupleCentreId) tid.getInternalTupleCentreId() });
-		}
-		catch (OperationNotPossibleException e)
-		{
-			throw new OperationNotAllowedException();
-		}
-		catch (Exception e1)
-		{
-			e1.printStackTrace();
-		}
-		
-		try
-		{
-			if(type == TucsonOperation.out_sCode())
-				return context.out_s((AgentId) aid.getInternalAgentId(), t, l);
-			if(type == TucsonOperation.in_sCode())
-				return context.in_s((AgentId) aid.getInternalAgentId(), t, l);
-			if(type == TucsonOperation.inp_sCode())
-				return context.inp_s((AgentId) aid.getInternalAgentId(), t, l);
-			if(type == TucsonOperation.rd_sCode())
-				return context.rd_s((AgentId) aid.getInternalAgentId(), t, l);
-			if(type == TucsonOperation.rdp_sCode())
-				return context.rdp_s((AgentId) aid.getInternalAgentId(), t, l);
-		}
-		catch (InvalidLogicTupleException e)
-		{
-			throw new TucsonTupleException();
-		}
-		catch (OperationNotPossibleException e)
-		{
-			throw new OperationNotAllowedException();
-		}
+			// Ottengo il resolver relativo al linguaggio corrente
+			resolver = (IContainerResolver) TucsonNodeLanguageManager.createObject(currLang.getResolverComponentName(), new Object[0]);
 			
-		return res;
+			return resolver.doNonBlockingSpecOperation(type, aid, tid, t, l);
+		}
+		catch (Exception e)
+		{
+			throw new Exception();
+		}
 	}
-	
+
 	public static LogicTuple doBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
-	throws OperationNotAllowedException, TucsonTupleException, TucsonInvalidSpecificationException, InvalidTupleOperationException
+			throws Exception
 	{
-		LogicTuple res = null;
+		IContainerResolver resolver;
+		LanguageInfo currLang = TucsonNodeLanguageManager.getCurLanguage();
 		
-		if (type == TucsonOperation.outCode() || type == TucsonOperation.inCode() || type == TucsonOperation.inpCode()
-				|| type == TucsonOperation.rdCode() || type == TucsonOperation.rdpCode())
+		try
 		{
-			IBlockingContext context = null;
-			try
-			{
-				// Calls
-				// DynamicRespectTCContainer.getBlockingContext((TupleCentreId)
-				// tid.getInternalTupleCentreId())
-				context = (IBlockingContext) TucsonLanguageManager.callStaticMethod(TucsonNodeLanguageManager
-						.getCurLanguage().getContainerComponentName(), "getBlockingContext",
-						new Object[] { (TupleCentreId) tid.getInternalTupleCentreId() });
-				
-				//System.out.println(context);
-			}
-			catch (OperationNotPossibleException e)
-			{
-				throw new OperationNotAllowedException();
-			}
-			catch (Exception e1)
-			{
-				e1.printStackTrace();
-			}
-	
-			try
-			{
-				if(type == TucsonOperation.outCode())
-				{
-					context.out((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-					return res;
-				}
-				if(type == TucsonOperation.inCode())
-					return context.in((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-				if(type == TucsonOperation.inpCode())
-					return context.inp((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-				if(type == TucsonOperation.rdCode())
-					return context.rd((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-				if(type == TucsonOperation.rdpCode())
-					return context.rdp((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-			}
-			catch (InvalidLogicTupleException e)
-			{
-				throw new TucsonTupleException();
-			}
-			catch (OperationNotPossibleException e)
-			{
-				throw new OperationNotAllowedException();
-			}
+			// Ottengo il resolver relativo al linguaggio corrente
+			resolver = (IContainerResolver) TucsonNodeLanguageManager.createObject(currLang.getResolverComponentName(), new Object[0]);
+			
+			return resolver.doBlockingOperation(type, aid, tid, t);
 		}
-		else if (type == TucsonOperation.set_specCode() || type == TucsonOperation.get_specCode())
+		catch (Exception e)
 		{
-			IBlockingContext context = null;
-			try
-			{
-				// Calls
-				// DynamicRespectTCContainer.getBlockingContext((TupleCentreId)
-				// tid.getInternalTupleCentreId())
-				context = (IBlockingContext) TucsonLanguageManager.callStaticMethod(TucsonNodeLanguageManager
-						.getCurLanguage().getContainerComponentName(), "getBlockingContext",
-						new Object[] { (TupleCentreId) tid.getInternalTupleCentreId() });
-			}
-			catch (OperationNotPossibleException e)
-			{
-				throw new OperationNotAllowedException();
-			}
-			catch (Exception e1)
-			{
-				e1.printStackTrace();
-			}
-			try
-			{
-				if (type == TucsonOperation.set_specCode())
-				{					
-					context.setSpec((AgentId) aid.getInternalAgentId(), new RespectSpecification(((LogicTuple)t).getArg(0).getName()));
-					return res;
-				}
-				else
-				{
-					res = new LogicTuple(context.getSpec((AgentId) aid.getInternalAgentId()).toString());
-					return res;
-				}
-			}
-			catch (InvalidSpecificationException e)
-			{
-				throw new TucsonInvalidSpecificationException();
-			}
-			
+			throw new Exception();
 		}
-			
-		return res;
 	}
 
 	public static LogicTuple doBlockingSpecOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
-			throws OperationNotAllowedException, TucsonTupleException, TucsonInvalidSpecificationException
+			throws Exception
 	{
-		LogicTuple res = null;
+		IContainerResolver resolver;
+		LanguageInfo currLang = TucsonNodeLanguageManager.getCurLanguage();
 		
-		IBlockingSpecContext context = null;
 		try
 		{
-			// Calls
-			// DynamicRespectTCContainer.getBlockingSpecContext((TupleCentreId)
-			// tid.getInternalTupleCentreId())
-			context = (IBlockingSpecContext) TucsonLanguageManager.callStaticMethod(TucsonNodeLanguageManager
-					.getCurLanguage().getContainerComponentName(), "getBlockingSpecContext",
-					new Object[] { (TupleCentreId) tid.getInternalTupleCentreId() });
+			// Ottengo il resolver relativo al linguaggio corrente
+			resolver = (IContainerResolver) TucsonNodeLanguageManager.createObject(currLang.getResolverComponentName(), new Object[0]);
+			
+			return resolver.doBlockingSpecOperation(type, aid, tid, t);
 		}
-		catch (OperationNotPossibleException e)
+		catch (Exception e)
 		{
-			throw new OperationNotAllowedException();
+			throw new Exception();
 		}
-		catch (Exception e1)
-		{
-			e1.printStackTrace();
-		}
-		try
-		{
-			if(type == TucsonOperation.out_sCode())
-			{
-				context.out_s((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-				return res;
-			}
-			if(type == TucsonOperation.in_sCode())
-				return context.in_s((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-			if(type == TucsonOperation.inp_sCode())
-				return context.inp_s((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-			if(type == TucsonOperation.rdCode())
-				return context.rd_s((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-			if(type == TucsonOperation.rdp_sCode())
-				return context.rdp_s((AgentId) aid.getInternalAgentId(), (LogicTuple) t);				
-		}
-		catch (InvalidLogicTupleException e)
-		{
-			throw new TucsonTupleException();
-		}
-		catch (OperationNotPossibleException e)
-		{
-			throw new OperationNotAllowedException();
-		}		
-		
-		return res;
 	}
-	
+
 	public static ITupleCentreOperation out(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t,
-			OperationCompletionListener l) throws OperationNotAllowedException, TucsonTupleException
+			OperationCompletionListener l) throws Exception
 	{
-		ITupleCentreOperation res = null;
-		try
-		{
-			res = doNonBlockingOperation(TucsonOperation.outCode(), aid, tid, t, l);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return res;
+		return doNonBlockingOperation(TucsonOperation.outCode(), aid, tid, t, l);
 	}
-	
+
 	public static ITupleCentreOperation in(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t, OperationCompletionListener l)
-			throws OperationNotAllowedException, TucsonTupleException
+			throws Exception
 	{
-		ITupleCentreOperation res = null;
-		try
-		{
-			res = doNonBlockingOperation(TucsonOperation.inCode(), aid, tid, t, l);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return res;
+		return doNonBlockingOperation(TucsonOperation.inCode(), aid, tid, t, l);
 	}
 
 	public static ITupleCentreOperation rd(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t, OperationCompletionListener l)
-			throws OperationNotAllowedException, TucsonTupleException
+			throws Exception
 	{
-		ITupleCentreOperation res = null;
-		try
-		{
-			res = doNonBlockingOperation(TucsonOperation.rdCode(), aid, tid, t, l);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return res;
+		return doNonBlockingOperation(TucsonOperation.rdCode(), aid, tid, t, l);
 	}
 
 	public static ITupleCentreOperation inp(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t,
-			OperationCompletionListener l) throws OperationNotAllowedException, TucsonTupleException
+			OperationCompletionListener l) throws Exception
 	{
-		ITupleCentreOperation res = null;
-		try
-		{
-			res = doNonBlockingOperation(TucsonOperation.inpCode(), aid, tid, t, l);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return res;
+		return doNonBlockingOperation(TucsonOperation.inpCode(), aid, tid, t, l);
 	}
 
 	public static ITupleCentreOperation rdp(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t,
-			OperationCompletionListener l) throws OperationNotAllowedException, TucsonTupleException
+			OperationCompletionListener l) throws Exception
 	{
-		ITupleCentreOperation res = null;
-		try
-		{
-			res = doNonBlockingOperation(TucsonOperation.rdpCode(), aid, tid, t, l);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return res;
+		return doNonBlockingOperation(TucsonOperation.rdpCode(), aid, tid, t, l);
 	}
 
 	public static ITupleCentreOperation out_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t,
-			OperationCompletionListener l) throws OperationNotAllowedException, TucsonTupleException
+			OperationCompletionListener l) throws Exception
 	{
-		ITupleCentreOperation res = null;
-		try
-		{
-			res = doNonBlockingOperation(TucsonOperation.out_sCode(), aid, tid, t, l);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return res;
+		return doNonBlockingOperation(TucsonOperation.out_sCode(), aid, tid, t, l);
 	}
 
 	public static ITupleCentreOperation in_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t,
-			OperationCompletionListener l) throws OperationNotAllowedException, TucsonTupleException
+			OperationCompletionListener l) throws Exception
 	{
-		ITupleCentreOperation res = null;
-		try
-		{
-			res = doNonBlockingOperation(TucsonOperation.in_sCode(), aid, tid, t, l);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return res;
+		return doNonBlockingOperation(TucsonOperation.in_sCode(), aid, tid, t, l);
 	}
 
 	public static ITupleCentreOperation rd_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t,
-			OperationCompletionListener l) throws OperationNotAllowedException, TucsonTupleException
+			OperationCompletionListener l) throws Exception
 	{
-		ITupleCentreOperation res = null;
-		try
-		{
-			res = doNonBlockingOperation(TucsonOperation.rd_sCode(), aid, tid, t, l);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return res;
+		return doNonBlockingOperation(TucsonOperation.rd_sCode(), aid, tid, t, l);
 	}
 
 	public static ITupleCentreOperation rdp_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t,
-			OperationCompletionListener l) throws OperationNotAllowedException, TucsonTupleException
+			OperationCompletionListener l) throws Exception
 	{
-		ITupleCentreOperation res = null;
-		try
-		{
-			res = doNonBlockingOperation(TucsonOperation.rdp_sCode(), aid, tid, t, l);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return res;
+		return doNonBlockingOperation(TucsonOperation.rdp_sCode(), aid, tid, t, l);
 	}
 
 	public static ITupleCentreOperation inp_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t,
-			OperationCompletionListener l) throws OperationNotAllowedException, TucsonTupleException
+			OperationCompletionListener l) throws Exception
 	{
-		ITupleCentreOperation res = null;
-		try
-		{
-			res = doNonBlockingOperation(TucsonOperation.inp_sCode(), aid, tid, t, l);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return res;
+		return doNonBlockingOperation(TucsonOperation.inp_sCode(), aid, tid, t, l);
 	}
 
-	public static void setSpec(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple spec) throws OperationNotAllowedException,
-			TucsonInvalidSpecificationException, InvalidTupleOperationException
+	public static void setSpec(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple spec) throws Exception
 	{
-		try
-		{
-			doBlockingOperation(TucsonOperation.set_specCode(), aid, tid, spec);
-		}
-		catch (TucsonTupleException e)
-		{
-		}
+		doBlockingOperation(TucsonOperation.set_specCode(), aid, tid, spec);
 	}
 
-	public static LogicTuple getSpec(TucsonAgentId aid, TucsonTupleCentreId tid) throws OperationNotAllowedException, InvalidTupleOperationException
+	public static LogicTuple getSpec(TucsonAgentId aid, TucsonTupleCentreId tid) throws Exception
 	{
-		try
-		{
-			return doBlockingOperation(TucsonOperation.get_specCode(), aid, tid, null);
-		}
-		catch (TucsonTupleException e)
-		{
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return null;
+
+		return doBlockingOperation(TucsonOperation.get_specCode(), aid, tid, null);
 	}
 
-	public static LogicTuple out(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws OperationNotAllowedException,
-			TucsonTupleException, InvalidTupleOperationException
+	public static LogicTuple out(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		try
-		{
-			return doBlockingOperation(TucsonOperation.outCode(), aid, tid, t);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return null;
+		return doBlockingOperation(TucsonOperation.outCode(), aid, tid, t);
 	}
 
-	public static LogicTuple in(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws OperationNotAllowedException,
-			TucsonTupleException, InvalidTupleOperationException
+	public static LogicTuple in(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		try
-		{
-			return doBlockingOperation(TucsonOperation.inCode(), aid, tid, t);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return null;
+		return doBlockingOperation(TucsonOperation.inCode(), aid, tid, t);
 	}
 
-	public static LogicTuple rd(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws OperationNotAllowedException,
-			TucsonTupleException, InvalidTupleOperationException
+	public static LogicTuple rd(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		try
-		{
-			return doBlockingOperation(TucsonOperation.rdCode(), aid, tid, t);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return null;
+		return doBlockingOperation(TucsonOperation.rdCode(), aid, tid, t);
 	}
 
-	public static LogicTuple inp(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws OperationNotAllowedException,
-			TucsonTupleException, InvalidTupleOperationException
+	public static LogicTuple inp(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		try
-		{
-			return doBlockingOperation(TucsonOperation.inpCode(), aid, tid, t);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return null;
+		return doBlockingOperation(TucsonOperation.inpCode(), aid, tid, t);
 	}
 
-	public static LogicTuple rdp(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws OperationNotAllowedException,
-			TucsonTupleException, InvalidTupleOperationException
+	public static LogicTuple rdp(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		try
-		{
-			return doBlockingOperation(TucsonOperation.rdpCode(), aid, tid, t);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return null;
+		return doBlockingOperation(TucsonOperation.rdpCode(), aid, tid, t);
 	}
 
-	public static LogicTuple out_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws OperationNotAllowedException,
-			TucsonTupleException, InvalidTupleOperationException
+	public static LogicTuple out_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		try
-		{
-			return doBlockingOperation(TucsonOperation.out_sCode(), aid, tid, t);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return null;
+		return doBlockingOperation(TucsonOperation.out_sCode(), aid, tid, t);
 	}
 
-	public static LogicTuple in_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws OperationNotAllowedException,
-			TucsonTupleException, InvalidTupleOperationException
+	public static LogicTuple in_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		try
-		{
-			return doBlockingOperation(TucsonOperation.in_sCode(), aid, tid, t);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return null;
+		return doBlockingOperation(TucsonOperation.in_sCode(), aid, tid, t);
 	}
 
-	public static LogicTuple rd_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws OperationNotAllowedException,
-			TucsonTupleException, InvalidTupleOperationException
+	public static LogicTuple rd_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		try
-		{
-			return doBlockingOperation(TucsonOperation.rd_sCode(), aid, tid, t);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return null;
+		return doBlockingOperation(TucsonOperation.rd_sCode(), aid, tid, t);
 	}
 
-	public static LogicTuple rdp_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws OperationNotAllowedException,
-			TucsonTupleException, InvalidTupleOperationException
+	public static LogicTuple rdp_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		try
-		{
-			return doBlockingOperation(TucsonOperation.rdp_sCode(), aid, tid, t);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return null;
+		return doBlockingOperation(TucsonOperation.rdp_sCode(), aid, tid, t);
 	}
 
-	public static LogicTuple inp_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws OperationNotAllowedException,
-			TucsonTupleException, InvalidTupleOperationException
+	public static LogicTuple inp_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		try
-		{
-			return doBlockingOperation(TucsonOperation.inp_sCode(), aid, tid, t);
-		}
-		catch (TucsonInvalidSpecificationException e)
-		{
-		}
-		return null;
+		return doBlockingOperation(TucsonOperation.inp_sCode(), aid, tid, t);
 	}
 
 	public static synchronized void activateObservability(TucsonTupleCentreId tid, ObservableEventListener l)
@@ -769,5 +296,4 @@ public class TucsonTCContainer extends RespectTCContainer
 	{
 		System.out.println("[TuCSoN TC CONTAINER] " + m);
 	}
-
 }

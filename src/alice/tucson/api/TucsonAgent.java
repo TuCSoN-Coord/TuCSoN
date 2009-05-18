@@ -18,11 +18,9 @@
 package alice.tucson.api;
 
 import java.util.*;
-import alice.logictuple.*;
 import alice.tucson.service.TucsonAgentLanguageManager;
+import alice.tucson.service.TucsonLanguageManager;
 import alice.tucson.service.TucsonOperationCompletionListener;
-import alice.tucson.types.*;
-import alice.tucson.api.exception.*;
 
 /**
  * Defines the skeleton for simple TuCSoN agent base class
@@ -37,7 +35,7 @@ public abstract class TucsonAgent implements TucsonOperationCompletionListener
 	protected TucsonAgent(TucsonAgentId id, Object language)
 	{
 		if(language == null)
-			TucsonAgentLanguageManager.useLanguage(TucsonConstant.DEFLANGUAGE);
+			TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
 		else
 			TucsonAgentLanguageManager.useLanguage((String)language);
 		

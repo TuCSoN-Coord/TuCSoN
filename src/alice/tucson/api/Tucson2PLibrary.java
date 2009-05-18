@@ -21,8 +21,6 @@ import alice.tuprolog.*;
 
 import alice.logictuple.*;
 
-import alice.tucson.types.*;
-
 import alice.tucson.api.exception.*;
 
 import alice.tucson.service.*;
@@ -39,7 +37,7 @@ public class Tucson2PLibrary extends Library
 
 	public Tucson2PLibrary() throws TucsonException
 	{		
-		TucsonAgentLanguageManager.useLanguage(TucsonConstant.DEFLANGUAGE);
+		TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
 		System.out.println(TucsonAgentLanguageManager.getCurLanguage().getName());
 		System.out.println("TuCSoN2PLibrary loaded.");
 	}
@@ -80,7 +78,7 @@ public class Tucson2PLibrary extends Library
 			}
 			ITucsonOperation op = context.out(tid, new LogicTuple(arg0), (TucsonOperationCompletionListener) null);
 			op.waitForOperationCompletion();
-			return op.isSuccess();
+			return op.isSuccessed();
 		}
 		catch (Exception x)
 		{
@@ -138,7 +136,7 @@ public class Tucson2PLibrary extends Library
 			}
 			ITucsonOperation op = context.inp(tid, new LogicTuple(arg0), (TucsonOperationCompletionListener) null);
 			op.waitForOperationCompletion();
-			return (op.isSuccess() && unify(arg0, op.getLogicTupleArgument().toTerm()));
+			return (op.isSuccessed() && unify(arg0, op.getLogicTupleArgument().toTerm()));
 		}
 		catch (Exception x)
 		{
@@ -158,7 +156,7 @@ public class Tucson2PLibrary extends Library
 			}
 			ITucsonOperation op = context.rdp(tid, new LogicTuple(arg0), (TucsonOperationCompletionListener) null);
 			op.waitForOperationCompletion();
-			return (op.isSuccess() && unify(arg0, op.getLogicTupleArgument().toTerm()));
+			return (op.isSuccessed() && unify(arg0, op.getLogicTupleArgument().toTerm()));
 		}
 		catch (Exception x)
 		{
@@ -178,7 +176,7 @@ public class Tucson2PLibrary extends Library
 			}
 			ITucsonOperation op = context.setSpec(tid, alice.util.Tools.removeApices(arg0.toString()), (TucsonOperationCompletionListener) null);
 			op.waitForOperationCompletion();
-			return op.isSuccess();
+			return op.isSuccessed();
 		}
 		catch (Exception x)
 		{
@@ -198,7 +196,7 @@ public class Tucson2PLibrary extends Library
 			}
 			ITucsonOperation op = context.getSpec(tid, (TucsonOperationCompletionListener) null);
 			op.waitForOperationCompletion();
-			return (op.isSuccess() && unify(arg0, new Struct(op.getSpecResult())));			
+			return (op.isSuccessed() && unify(arg0, new Struct(op.getSpecResult())));			
 		}
 		catch (Exception x)
 		{
@@ -239,7 +237,7 @@ public class Tucson2PLibrary extends Library
 		try
 		{
 			this.agentId = new TucsonAgentId(id.getArg(0).toString());
-			context = Tucson.getContext(agentId, TucsonAgentLanguageManager.getCurLanguage().getName());
+			context = Tucson.getContext(agentId, TucsonAgentLanguageManager.getCurLanguage());
 			return true;
 		}
 		catch (Exception ex)

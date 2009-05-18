@@ -1,20 +1,29 @@
 package alice.tucson.test;
 
-import alice.tucson.api.*;
 import alice.logictuple.*;
 
-public class TestReceive {
+import alice.tucson.api.*;
 
-	public static void main(String[] args) throws Exception {
-		
-		TupleCentreId tid = new TupleCentreId(args[0]);
+import alice.tucson.service.TucsonAgentLanguageManager;
+import alice.tucson.service.TucsonLanguageManager;
+
+public class TestReceive
+{
+	public static void main(String[] args) throws Exception
+	{
+		// Viene utilizzato "ReSpecT 2.2"
+		TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
+
+		TucsonTupleCentreId tid = new TucsonTupleCentreId(args[0]);
 		Value dest = new Value(args[1]);
-				
-		TucsonContextSynch cnt = new TucsonContextSynch(Tucson.getContext(new AgentId("pippo")));
-				
-		while (true){
-			LogicTuple msg = cnt.in(tid,new LogicTuple("msg",dest,new Var("Msg")));
-			System.out.println("New message: "+msg.getArg(1));
+
+		TucsonContext cnt = Tucson.getContext(new TucsonAgentId("pippo"), TucsonAgentLanguageManager.getCurLanguage());
+
+		while (true)
+		{
+			LogicTuple msg = cnt.in(tid, new LogicTuple("msg", dest, new Var("Msg")), (Long) null);
+			
+			System.out.println("New message: " + msg.getArg(1));
 		}
 	}
 }

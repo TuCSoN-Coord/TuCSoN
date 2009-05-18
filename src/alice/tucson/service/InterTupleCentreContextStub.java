@@ -21,14 +21,14 @@ import alice.tucson.api.*;
 import alice.tucson.api.AgentContextStub.Controller;
 import alice.tucson.api.AgentContextStub.ControllerSession;
 import alice.tucson.api.exception.LanguageNotFoundException;
-import alice.tucson.api.exception.OperationNotAllowedException;
+import alice.tucson.api.exception.TucsonOperationNotPossibleException;
 import alice.tucson.api.exception.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exception.UnreachableNodeException;
 import alice.tucson.common.TucsonMsgReply;
 import alice.tucson.common.TucsonMsgRequest;
 import alice.tucson.common.TucsonProtocol;
 import alice.tucson.common.TucsonProtocolTCP;
-import alice.tucson.types.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.logictuple.*;
 
 import java.util.*;
@@ -75,7 +75,7 @@ public class InterTupleCentreContextStub implements InterTupleCentreContext
 	}
 
 	public synchronized TucsonOpId doOperation(Object tid, int type, Object t, String language)
-			throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+			throws TucsonOperationNotPossibleException, UnreachableNodeException, LanguageNotFoundException
 	{
 		TucsonNodeLanguageManager.useLanguage(language);
 		TucsonTupleCentreId tcid = null;
@@ -91,14 +91,14 @@ public class InterTupleCentreContextStub implements InterTupleCentreContext
 			}
 			catch (TucsonInvalidTupleCentreIdException e)
 			{
-				throw new OperationNotAllowedException();
+				throw new TucsonOperationNotPossibleException();
 			}
 		}
 		// First phase: syntax check before going on remote node
 		log("Syntax check");
 		if (!tcid.checkSyntax() || !aid.checkSyntax())
 		{
-			throw new OperationNotAllowedException();
+			throw new TucsonOperationNotPossibleException();
 		}
 
 		int nTry = 1;
@@ -112,8 +112,7 @@ public class InterTupleCentreContextStub implements InterTupleCentreContext
 			{
 				opId++;
 				log("Remote call & eventually translation");
-				TucsonMsgRequest msg = new TucsonMsgRequest(opId, type, tcid.translateSyntax(session.getLanguageInfo()),
-						(LogicTuple) t);
+				TucsonMsgRequest msg = new TucsonMsgRequest(opId, type, tcid, (LogicTuple) t);
 				TucsonMsgRequest.write(outStream, msg);
 				outStream.flush();
 				// System.out.println("Request done: "+type+" "+t+" "+opId);
@@ -196,7 +195,7 @@ public class InterTupleCentreContextStub implements InterTupleCentreContext
 		}
 	}
 
-	private TucsonProtocol getSession(TucsonTupleCentreId tid, String language) throws OperationNotAllowedException,
+	private TucsonProtocol getSession(TucsonTupleCentreId tid, String language) throws TucsonOperationNotPossibleException,
 			UnreachableNodeException, LanguageNotFoundException
 	{
 		String node = alice.util.Tools.removeApices(tid.getNode());
@@ -246,7 +245,7 @@ public class InterTupleCentreContextStub implements InterTupleCentreContext
 			}
 			catch (Exception ex2)
 			{
-				throw new OperationNotAllowedException();
+				throw new TucsonOperationNotPossibleException();
 			}
 		}
 		return null;

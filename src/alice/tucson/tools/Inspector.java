@@ -17,17 +17,16 @@
  */
 package alice.tucson.tools;
 
+import java.io.*;
+
 import alice.logictuple.*;
 
 import alice.tucson.api.*;
 import alice.tucson.api.exception.*;
 
-import alice.tucson.types.*;
-
 import alice.tucson.service.TucsonAgentLanguageManager;
+import alice.tucson.service.TucsonLanguageManager;
 import alice.tucson.service.inspector.*;
-
-import java.io.*;
 
 /**
  * TuCSoN Inspector tool
@@ -654,7 +653,7 @@ public class Inspector extends javax.swing.JFrame
 	{
 		System.out.println("Booting Inspector ...");
 		
-		TucsonAgentLanguageManager.useLanguage(TucsonConstant.DEFLANGUAGE);
+		TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
 		
 		if (alice.util.Tools.isOpt(args, "-?"))
 		{

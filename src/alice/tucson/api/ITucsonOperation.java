@@ -22,5 +22,7 @@ public interface ITucsonOperation extends ITupleCentreOperation
 	
 	String getSpecResult() throws InvalidTupleOperationException;
 	
-	boolean isSuccess();
+	boolean isSuccessed();
+	
+	boolean isAllowed();
 }

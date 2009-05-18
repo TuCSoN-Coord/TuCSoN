@@ -20,15 +20,16 @@ package alice.tucson.service;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import alice.tucson.service.inspector.*;
-import alice.tucson.api.*;
-import alice.tucson.common.TucsonProtocol;
-import alice.tucson.types.TucsonAgentId;
-import alice.tucson.types.TucsonTupleCentreId;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.TupleArgument;
+
+import alice.tucson.service.inspector.*;
+
+import alice.tucson.common.TucsonProtocol;
+
+import alice.tucson.api.*;
 
 /**
  * 
@@ -67,12 +68,14 @@ public class ContextManager
 	{
 		try
 		{
-			log("creating context..");
+			log("creating context ...");
 
 			String agentName = profile.getProperty("agent-identity");
 			log(agentName);
+			
 			LogicTuple req = new LogicTuple("context_request", new Value(agentName), new Var("CtxId"));
 			log(req.toString());
+			
 			LogicTuple result = TucsonTCContainer.inp(aid, config, req);
 			log("Context creation result: " + result);
 			
@@ -94,7 +97,7 @@ public class ContextManager
 
 			TupleArgument ctxId = res.getArg(0);
 			profile.setProperty("context-id", ctxId.toString());
-			profile.setLanguageInfo(TucsonNodeLanguageManager.getCurLanguage());
+			//profile.setLanguageInfo(TucsonNodeLanguageManager.getCurLanguage());
 
 			dialog.sendEnterRequestAccepted(profile);
 
@@ -128,7 +131,9 @@ public class ContextManager
 		{
 			LogicTuple req = new LogicTuple("context_shutdown", new Value(ctxId), new Value(aid.toString()), new Var("CtxId"));
 			LogicTuple result = TucsonTCContainer.inp(this.aid, config, req);
-			// log("shutdown context: "+result);
+			
+			log("shutdown context: " + result);
+			
 			if (result.getArg(2).getName().equals("ok"))
 			{
 				return true;

@@ -19,7 +19,7 @@ package alice.tucson.service.inspector;
 
 import alice.tucson.api.exception.*;
 
-import alice.tucson.types.*;
+import alice.tucson.api.*;
 
 public class Inspector extends Thread implements InspectorContextListener
 {

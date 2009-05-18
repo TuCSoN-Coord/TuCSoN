@@ -18,7 +18,6 @@
 package alice.tucson.tools;
 
 import alice.tucson.api.*;
-import alice.tucson.types.TucsonTupleCentreId;
 import alice.logictuple.*;
 
 @SuppressWarnings("serial")

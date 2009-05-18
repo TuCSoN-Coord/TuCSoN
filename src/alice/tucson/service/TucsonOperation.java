@@ -2,6 +2,7 @@ package alice.tucson.service;
 
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
+
 import alice.tuplecentre.core.*;
 
 import alice.logictuple.*;
@@ -14,9 +15,8 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 	private static final int OPTYPE_EXIT = 16;
 	private static final int OPTYPE_GET_TSET = 17;
 	private static final int OPTYPE_GET_WSET = 18;
-	//public static final int OPTYPE_BLOCK = 100;
-	//public static final int OPTYPE_NOBLOCK = 101;
-	private boolean success;
+	private boolean successed;
+	private boolean allowed;
 	
 	public TucsonOperation(int type, Tuple t, OperationCompletionListener l)
 	{
@@ -50,7 +50,7 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 	
 	public static int rdpCode()
 	{
-		return OPTYPE_RD;
+		return OPTYPE_RDP;
 	}
 
 	public static int set_specCode()
@@ -107,9 +107,11 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 	 * Changes the state of the operation to complete.
 	 * 
 	 */
-	public void notifyCompletion(boolean success)
-	{
-		this.success = success;
+	public void notifyCompletion(boolean successed, boolean allowed)
+	{				
+		this.successed = successed;
+		this.allowed = allowed;
+		
 		if (listener != null)
 		{
 			operationCompleted = true;
@@ -154,8 +156,13 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 		return getLogicTupleResult().getArg(0).getName();
 	}
 	
-	public boolean isSuccess()
+	public boolean isSuccessed()
 	{
-		return success;
+		return successed;
+	}
+	
+	public boolean isAllowed()
+	{
+		return allowed;
 	}
 }

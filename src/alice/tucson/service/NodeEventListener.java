@@ -17,20 +17,16 @@
  */
 package alice.tucson.service;
 
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonTupleCentreId;
 
-
-import alice.tucson.types.TucsonAgentId;
-import alice.tucson.types.TucsonTupleCentreId;
-
-
-public interface NodeEventListener extends ObservableEventListener{
-
+public interface NodeEventListener extends ObservableEventListener
+{
 	void accEntered(TucsonAgentId aid);
-	
+
 	void accQuit(TucsonAgentId aid);
-	
+
 	void tcCreated(TucsonTupleCentreId tid);
 
 	void tcDestroyed(TucsonTupleCentreId tid);
-	
 }

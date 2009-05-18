@@ -1,4 +1,4 @@
-package alice.tucson.types;
+package alice.tucson.api;
 
 import java.io.Serializable;
 import alice.tucson.api.exception.TucsonInvalidAgentIdException;
@@ -6,6 +6,7 @@ import alice.tucson.service.LanguageInfo;
 import alice.tucson.service.TucsonAgentLanguageManager;
 import alice.tucson.service.TucsonLanguageManager;
 import alice.tucson.service.TucsonNodeLanguageManager;
+import alice.tucson.types.IAgentIdResolver;
 
 @SuppressWarnings("serial")
 public class TucsonAgentId implements Serializable
@@ -23,9 +24,8 @@ public class TucsonAgentId implements Serializable
 		}
 		try
 		{
-			System.out.println(lang.getResolverComponentName());
-			resolver = (IAgentIdResolver) TucsonLanguageManager.createObject(lang.getResolverComponentName(), new Object[0]);
-			//System.out.println(id);
+			//System.out.println((String)id);
+			resolver = (IAgentIdResolver) TucsonLanguageManager.createObject(lang.getResolverComponentName(), new Object[0]);			
 			aid = TucsonLanguageManager.callMethodObjPar(resolver, "agentIdConstructor", new Object[] { (Object) id });
 		}
 		catch (Exception e1)

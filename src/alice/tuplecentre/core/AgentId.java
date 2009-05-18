@@ -17,6 +17,8 @@
  */
 package alice.tuplecentre.core;
 
+import alice.tuplecentre.api.IId;
+
 /**
  * Represents an agent identifier
  *

@@ -19,7 +19,7 @@ package alice.tucson.service.inspector;
 
 import java.io.*;
 
-import alice.tucson.types.TucsonAgentId;
+import alice.tucson.api.TucsonAgentId;
 
 /**
  * message sent by an node inspector to a daemon

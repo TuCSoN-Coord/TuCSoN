@@ -3,8 +3,6 @@ package alice.tucson.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import alice.tucson.types.IResolver;
-import alice.tucson.types.ITranslator;
-import alice.tucson.types.TucsonConstant;
 
 /**
  * @author lsemprini
@@ -30,7 +28,7 @@ public class TucsonAgentLanguageManager
 		if (curLang == null)
 		{
 			// TuCSoN 1.9.1 Default language
-			curLang = languages.get(TucsonConstant.DEFLANGUAGE);
+			curLang = languages.get(TucsonLanguageManager.DEFLANGUAGE);
 		}
 		
 		log("Language choose: " + curLang.getName());		
@@ -40,62 +38,29 @@ public class TucsonAgentLanguageManager
 	{
 		languages = new HashMap<String, LanguageInfo>();
 
-		// elenco dei resolver 
+		ArrayList<String> lang = TucsonLanguageManager.getConfLanguage();
+		log("Loading available languages ...");
 		ArrayList<String> res = TucsonLanguageManager.getConfResolver();
+		log("Loading available resolvers ...");
 		
-		// elenco dei translator
-		ArrayList<String> tran = TucsonLanguageManager.getConfTranslator();
-
-		log("Loading available resolvers...");
+		LanguageInfo language = null;
 		
-		// Dynamically load the resolvers and merge them with the languages of
-		// the containers
-		for (int i = 0; i < res.size(); i++)
-		{
-			try
+		for (int i = 0; i < lang.size(); i++)
+		{			
+			try 
 			{
-				IResolver resolv = (IResolver) createObject(TucsonConstant.RESOLVERPATH + res.get(i), new Object[0]);
-				String langName = ((LanguageInfo) callMethod(resolv, "getInfo", new Object[0])).getName();
-				languages.put(langName.substring(0), (LanguageInfo) callMethod(resolv, "getInfo", new Object[0]));
-				log("Resolver " + langName + " loaded succesfully");
-			}
-			catch (Exception e)
-			{
-				log("Error: Unable to load " + res.get(i));
-			}
-		}
+				language = new LanguageInfo(lang.get(i));
+				log("Language " + language.getName() + " loaded succesfully");
+				language.setResolverComponentName(TucsonLanguageManager.RESOLVERPATH + res.get(i));
+				log("Resolver " + language.getName() + " loaded succesfully");
 
-		log("Loading available translators...");
-		
-		// Dynamically load the resolvers and merge them with the languages of
-		// the resolvers
-		for (int i = 0; i < tran.size(); i++)
-		{
-			try
+				languages.put(lang.get(i), language);																				
+			} 
+			catch (Exception e) 
 			{
-				ITranslator translator = (ITranslator) createObject(TucsonConstant.TRANSLATORPATH + tran.get(i), new Object[0]);
-				String[] transInfo = (String[]) callMethod(translator, "getInfo", new Object[0]);
-				String langFrom = transInfo[0];
-				String langTo = transInfo[1];
-				LanguageInfo tmp = languages.get(langFrom);
-				
-				if (tmp != null)
-				{
-					tmp.setTransLanguage(langTo, TucsonConstant.TRANSLATORPATH + tran.get(i));
-				}
-				else
-				{
-					log("Error: Undefined translator " + tran.get(i));
-				}
-				
-				log("Translator " + tran.get(i) + " loaded succesfully");
-			}
-			catch (Exception e)
-			{
-				log("Error: Unable to load " + tran.get(i));
-			}
-		}
-
+				log("Error: Unable to load " + language.getName());
+			}		
+		}		
 		firstTime = false;
 	}
 

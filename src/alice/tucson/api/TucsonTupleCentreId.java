@@ -1,41 +1,47 @@
-package alice.tucson.types;
+package alice.tucson.api;
 
-import java.io.Serializable;
 import alice.tucson.api.exception.TucsonInvalidTupleCentreIdException;
+
 import alice.tucson.service.LanguageInfo;
 import alice.tucson.service.TucsonAgentLanguageManager;
 import alice.tucson.service.TucsonLanguageManager;
 import alice.tucson.service.TucsonNodeLanguageManager;
-import alice.tuplecentre.api.*;
 
-@SuppressWarnings("serial")
-public class TucsonTupleCentreId implements Serializable, TupleCentreId
+import alice.tucson.types.ITCIdResolver;
+
+public class TucsonTupleCentreId implements alice.tuplecentre.api.TupleCentreId, java.io.Serializable
 {
 	private Object tid;
 	private ITCIdResolver resolver;
 
 	public TucsonTupleCentreId(Object id) throws TucsonInvalidTupleCentreIdException
-	{
-		// se chi fa la richiesta è il nodo, prendo il linguaggio corrente del nodo
+	{		
+		// Ottengo il linguaggio corrente per il nodo ...
 		LanguageInfo lang = TucsonNodeLanguageManager.getCurLanguage();
-		
 		if (lang == null)
 		{
-			// se chi fa la richiesta è l'agente, prendo il linguaggio corrente dell'agente
+			// ... o per l'agente
 			lang = TucsonAgentLanguageManager.getCurLanguage();
 		}
-
+		
 		try
-		{			
+		{
+			// Ottengo il resolver relativo al linguaggio corrente
 			resolver = (ITCIdResolver) TucsonLanguageManager.createObject(lang.getResolverComponentName(), new Object[0]);
+			// Ottengo l'id del tuple centre corrispondente al linguaggio corrente
 			tid = TucsonLanguageManager.callMethodObjPar(resolver, "tupleCentreIdConstructor", new Object[] { (Object) id });
 		}
 		catch (Exception e1)
 		{
 			e1.printStackTrace();
-		}
+		}				
 	}
 
+	public Object getInternalTupleCentreId()
+	{
+		return tid;
+	}
+	
 	public Object callMethod(String method, Object[] args)
 	{
 		try
@@ -47,13 +53,8 @@ public class TucsonTupleCentreId implements Serializable, TupleCentreId
 			e.printStackTrace();
 		}
 		return null;
-	}
+	}		
 	
-	public Object getInternalTupleCentreId()
-	{
-		return tid;
-	}
-
 	public String toString()
 	{
 		try
@@ -66,16 +67,6 @@ public class TucsonTupleCentreId implements Serializable, TupleCentreId
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	public boolean isAgent()
-	{
-		return false;
-	}
-
-	public boolean isTC()
-	{
-		return true;
 	}
 
 	public String getName()
@@ -134,8 +125,18 @@ public class TucsonTupleCentreId implements Serializable, TupleCentreId
 		return false;
 	}
 
-	public boolean isEnv() {
-		// TODO Auto-generated method stub
+	public boolean isAgent()
+	{
+		return false;
+	}
+
+	public boolean isTC()
+	{
+		return false;
+	}
+	
+	public boolean isEnv()
+	{
 		return false;
 	}
 }

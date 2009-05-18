@@ -17,7 +17,7 @@
  */
 package alice.tucson.service.inspector;
 
-//import alice.respect.core.*;
+import alice.respect.core.*;
 
 import alice.tuplecentre.*;
 import alice.tuplecentre.core.*;
@@ -26,16 +26,13 @@ import alice.tuplecentre.api.*;
 import alice.tucson.api.*;
 import alice.tucson.api.exception.*;
 import alice.tucson.service.*;
-import alice.tucson.types.TucsonAgentId;
-import alice.tucson.types.TucsonTupleCentreId;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.common.TucsonProtocol;
-
-//import alice.respect.*;
 
 import alice.logictuple.LogicTuple;
 
 import java.util.*;
-import java.net.*;
 import java.io.*;
 import java.lang.reflect.*;
 
@@ -87,14 +84,15 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 		
 		NewInspectorMsg msg = (NewInspectorMsg) inStream.readObject();	
 		tcId = new TucsonTupleCentreId(msg.tcName);
-		//TucsonTCUsers coreInfo = node.resolveCore(msg.tcName);		
 		
-		//if (coreInfo == null)
-		//{
-			//throw new TucsonException("Internal error: InspectorContextSkel constructor");
-		//}
+		TucsonTCUsers coreInfo = node.resolveCore(msg.tcName);		
+		
+		if (coreInfo == null)
+		{
+			throw new TucsonException("Internal error: InspectorContextSkel constructor");
+		}
 				
-		//core = TucsonTCContainer.getVM(coreInfo.getTucsonTupleCentreId());
+		core = TucsonTCContainer.getVM(coreInfo.getTucsonTupleCentreId());
 		protocol = msg.info;
 	}
 
@@ -106,7 +104,7 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 	public void run()
 	{
 		log("inspector booted.");
-		//core.addInspector(this);
+		core.addInspector(this);
 		
 		while (!shutdown)
 		{
@@ -134,7 +132,7 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 			ex.printStackTrace();
 		}
 		
-		//core.removeInspector(this);
+		core.removeInspector(this);
 		manager.shutdownContext(ctxId, agentId);
 		log("inspector exit.");
 	}

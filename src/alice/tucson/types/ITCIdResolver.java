@@ -1,5 +1,6 @@
 package alice.tucson.types;
 
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exception.TucsonInvalidTupleCentreIdException;
 
 public interface ITCIdResolver
@@ -11,8 +12,6 @@ public interface ITCIdResolver
 	public String tupleCentreIdGetName(Object id);
 
 	public String tupleCentreIdGetNode(Object id);
-
-	public TucsonTupleCentreId tupleCentreIdTranslateSyntax(Object languageTo, Object id);
 
 	public boolean tupleCentreIdCheckSyntax(Object id);
 }

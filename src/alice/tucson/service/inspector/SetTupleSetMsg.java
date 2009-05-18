@@ -17,7 +17,7 @@
  */
 package alice.tucson.service.inspector;
 
-import alice.tucson.types.TucsonAgentId;
+import alice.tucson.api.TucsonAgentId;
 
 /**
  * inspector message to set a new tuple set in the observed tuple centre

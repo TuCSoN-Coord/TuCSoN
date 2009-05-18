@@ -19,27 +19,27 @@ package alice.tucson.api;
 
 import alice.logictuple.*;
 
+import java.util.*;
+
+import java.io.*;
+
+import alice.tuplecentre.api.OperationTimeOutException;
+import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleTemplate;
+
 import alice.tucson.api.exception.LanguageNotFoundException;
-import alice.tucson.api.exception.OperationNotAllowedException;
+import alice.tucson.api.exception.TucsonOperationNotPossibleException;
 import alice.tucson.api.exception.TucsonInvalidAgentIdException;
 import alice.tucson.api.exception.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exception.UnreachableNodeException;
 
 import alice.tucson.common.*;
 
-import alice.tucson.service.LanguageInfo;
 import alice.tucson.service.TucsonAgentLanguageManager;
 
-import alice.tucson.types.*;
+import alice.tucson.service.LanguageInfo;
 import alice.tucson.service.TucsonOperation;
 import alice.tucson.service.TucsonOperationCompletionListener;
-
-import alice.tuplecentre.api.OperationTimeOutException;
-import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleTemplate;
-
-import java.util.*;
-import java.io.*;
 
 /**
  * Implementation of a generic agent coordination context
@@ -51,14 +51,15 @@ public class AgentContextStub implements TucsonContext
 	private LinkedList<ContextEvent> events;
 	private HashMap<String, ControllerSession> controllerSessions;
 	private HashMap<Long, TucsonOperation> operations;
-	//private int opId;
+	private LanguageInfo chosenLanguage;
 	
-	public AgentContextStub(Object aid, Object language)
+	public AgentContextStub(Object aid, LanguageInfo chosenLanguage)
 	{		
-		// imposto il linguaggio per l'agente
-		TucsonAgentLanguageManager.useLanguage((String) language);
-		
-		if (aid.getClass().getName().equals("alice.tucson.types.TucsonAgentId"))
+		// Imposto il linguaggio per l'agente
+		//TucsonAgentLanguageManager.useLanguage((String) language);
+		this.chosenLanguage = chosenLanguage; 
+		//System.out.println(aid.getClass().getName());
+		if (aid.getClass().getName().equals("alice.tucson.api.TucsonAgentId"))
 		{
 			this.aid = (TucsonAgentId) aid;
 		}
@@ -69,12 +70,11 @@ public class AgentContextStub implements TucsonContext
 				this.aid = new TucsonAgentId(aid);
 			}
 			catch (TucsonInvalidAgentIdException e)
-			{
+			{				
 			}
 		}
 
 		profile = new ContextDescription();
-		//opId = 0;
 		events = new LinkedList<ContextEvent>();
 		controllerSessions = new HashMap<String, ControllerSession>();
 		operations = new HashMap<Long, TucsonOperation>();
@@ -85,162 +85,86 @@ public class AgentContextStub implements TucsonContext
 	// operazioni non bloccanti senza linguaggio
 	
 	public ITucsonOperation out(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+	throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{
-		return doNonBlockingOperation(TucsonOperation.outCode(), tid, tuple, l, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doNonBlockingOperation(TucsonOperation.outCode(), tid, tuple, l);
 	}
 	
 	public ITucsonOperation in(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+	throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{
-		return doNonBlockingOperation(TucsonOperation.inCode(), tid, tuple, l, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doNonBlockingOperation(TucsonOperation.inCode(), tid, tuple, l);
 	}
 	
 	public ITucsonOperation rd(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+	throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{
-		return doNonBlockingOperation(TucsonOperation.rdCode(), tid, tuple, l, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doNonBlockingOperation(TucsonOperation.rdCode(), tid, tuple, l);
 	}
 	
 	public ITucsonOperation inp(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+	throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{
-		return doNonBlockingOperation(TucsonOperation.inpCode(), tid, tuple, l, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doNonBlockingOperation(TucsonOperation.inpCode(), tid, tuple, l);
 	}
 	
 	public ITucsonOperation rdp(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+	throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{
-		return doNonBlockingOperation(TucsonOperation.rdpCode(), tid, tuple, l, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doNonBlockingOperation(TucsonOperation.rdpCode(), tid, tuple, l);
 	}
 	
 	public ITucsonOperation setSpec(Object tid, String spec, TucsonOperationCompletionListener l) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+	throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{
 		LogicTuple specT = new LogicTuple("spec", new Value(spec));
-		return doNonBlockingOperation(TucsonOperation.set_specCode(), tid, specT, l, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doNonBlockingOperation(TucsonOperation.set_specCode(), tid, specT, l);
 	}
 	
 	public ITucsonOperation getSpec(Object tid, TucsonOperationCompletionListener l) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+	throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{		
 		LogicTuple spec = new LogicTuple("spec");
-		return doNonBlockingOperation(TucsonOperation.get_specCode(), tid, spec, l, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doNonBlockingOperation(TucsonOperation.get_specCode(), tid, spec, l);
 	}
 	
 	public ITucsonOperation out_s(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l)
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+	throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{
-		return doNonBlockingOperation(TucsonOperation.out_sCode(), tid, tuple, l, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doNonBlockingOperation(TucsonOperation.out_sCode(), tid, tuple, l);
 	}
 	
 	public ITucsonOperation in_s(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l)
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+	throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{
-		return doNonBlockingOperation(TucsonOperation.in_sCode(), tid, tuple, l, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doNonBlockingOperation(TucsonOperation.in_sCode(), tid, tuple, l);
 	}
 	
 	public ITucsonOperation rd_s(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l)
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+	throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{
-		return doNonBlockingOperation(TucsonOperation.rd_sCode(), tid, tuple, l, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doNonBlockingOperation(TucsonOperation.rd_sCode(), tid, tuple, l);
 	}
 	
 	public ITucsonOperation inp_s(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l)
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+	throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{
-		return doNonBlockingOperation(TucsonOperation.inp_sCode(), tid, tuple, l, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doNonBlockingOperation(TucsonOperation.inp_sCode(), tid, tuple, l);
 	}
 	
 	public ITucsonOperation rdp_s(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l)
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+	throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{
-		return doNonBlockingOperation(TucsonOperation.rdp_sCode(), tid, tuple, l, TucsonAgentLanguageManager.getCurLanguage().getName());
-	}
-	
-	// operazioni non bloccanti con linguaggio
-	
-	public ITucsonOperation out(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
-	{
-		return doNonBlockingOperation(TucsonOperation.outCode(), tid, tuple, l, (String) language);
-	}
-	
-	public ITucsonOperation in(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
-	{
-		return doNonBlockingOperation(TucsonOperation.inCode(), tid, tuple, l, (String) language);
-	}
-	
-	public ITucsonOperation rd(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
-	{
-		return doNonBlockingOperation(TucsonOperation.rdCode(), tid, tuple, l, (String) language);
-	}
-	
-	public ITucsonOperation inp(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
-	{
-		return doNonBlockingOperation(TucsonOperation.inpCode(), tid, tuple, l, (String) language);
-	}
-	
-	public ITucsonOperation rdp(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
-	{
-		return doNonBlockingOperation(TucsonOperation.rdpCode(), tid, tuple, l, (String) language);
-	}
-	
-	public ITucsonOperation setSpec(Object tid, String spec, TucsonOperationCompletionListener l, Object language) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
-	{
-		LogicTuple specT = new LogicTuple("spec", new Value(spec));
-		return doNonBlockingOperation(TucsonOperation.set_specCode(), tid, specT, l, (String) language);
-	}
-	
-	public ITucsonOperation getSpec(Object tid, TucsonOperationCompletionListener l, Object language) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
-	{
-		LogicTuple spec = new LogicTuple("spec");
-		return doNonBlockingOperation(TucsonOperation.get_specCode(), tid, spec, l, (String) language);
-	}
-	
-	public ITucsonOperation out_s(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
-	{
-		return doNonBlockingOperation(TucsonOperation.out_sCode(), tid, tuple, l, (String) language);
-	}
-	
-	public ITucsonOperation in_s(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
-	{
-		return doNonBlockingOperation(TucsonOperation.in_sCode(), tid, tuple, l, (String) language);
-	}
-	
-	public ITucsonOperation rd_s(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
-	{
-		return doNonBlockingOperation(TucsonOperation.rd_sCode(), tid, tuple, l, (String) language);
-	}
-	
-	public ITucsonOperation inp_s(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
-	{
-		return doNonBlockingOperation(TucsonOperation.inp_sCode(), tid, tuple, l, (String) language);
-	}
-	
-	public ITucsonOperation rdp_s(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l, Object language) 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
-	{
-		return doNonBlockingOperation(TucsonOperation.rdp_sCode(), tid, tuple, l, (String) language);
+		return doNonBlockingOperation(TucsonOperation.rdp_sCode(), tid, tuple, l);
 	}
 	
 	public ITucsonOperation doNonBlockingOperation(int type, Object tid, LogicTuple t, 
-			TucsonOperationCompletionListener l, String language)			 
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException
+			TucsonOperationCompletionListener l)			 
+	throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{
 		TucsonTupleCentreId tcid = null;
 		
-		if (tid.getClass().getName().equals("alice.tucson.types.TucsonTupleCentreId"))
+		if (tid.getClass().getName().equals("alice.tucson.api.TucsonTupleCentreId"))
 		{
 			tcid = (TucsonTupleCentreId) tid;
 		}
@@ -252,188 +176,108 @@ public class AgentContextStub implements TucsonContext
 			}
 			catch (TucsonInvalidTupleCentreIdException e)
 			{
+				e.printStackTrace();
+				return null;
 			}
 		}
 		
 		try
 		{
-			return doOperation(tcid, type, t, l, language);
+			return doOperation(tcid, type, t, l);
 		}
-		catch (OperationNotAllowedException e)
+		catch (TucsonOperationNotPossibleException e)
 		{
-			throw new OperationNotAllowedException();
+			throw new TucsonOperationNotPossibleException();
 		}
 		catch (UnreachableNodeException e)
 		{
 			throw new UnreachableNodeException();
-		}
-		catch (LanguageNotFoundException e)
-		{
-			throw new LanguageNotFoundException();
-		}		
+		}	
 	}
 	
 	// operazioni bloccanti senza linguaggio
 	
-	public LogicTuple out(Object tid, LogicTuple tuple, Long ms) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
+	public LogicTuple out(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
+	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.outCode(), tid, tuple, null, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doBlockingOperation(TucsonOperation.outCode(), tid, tuple, null);
 	}
 	
-	public LogicTuple in(Object tid, LogicTuple tuple, Long ms) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
+	public LogicTuple in(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
+	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.inCode(), tid, tuple, null, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doBlockingOperation(TucsonOperation.inCode(), tid, tuple, null);
 	}
 	
-	public LogicTuple rd(Object tid, LogicTuple tuple, Long ms) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
+	public LogicTuple rd(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
+	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.rdCode(), tid, tuple, null, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doBlockingOperation(TucsonOperation.rdCode(), tid, tuple, null);
 	}
 	
-	public LogicTuple inp(Object tid, LogicTuple tuple, Long ms) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
+	public LogicTuple inp(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
+	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.inpCode(), tid, tuple, null, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doBlockingOperation(TucsonOperation.inpCode(), tid, tuple, null);
 	}
 	
-	public LogicTuple rdp(Object tid, LogicTuple tuple, Long ms) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
+	public LogicTuple rdp(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
+	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.rdpCode(), tid, tuple, null, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doBlockingOperation(TucsonOperation.rdpCode(), tid, tuple, null);
 	}
 	
-	public LogicTuple setSpec(Object tid, String spec, Long ms) throws OperationNotAllowedException,
-	UnreachableNodeException, LanguageNotFoundException, OperationTimeOutException
+	public LogicTuple setSpec(Object tid, String spec, Long ms) throws TucsonOperationNotPossibleException,
+	UnreachableNodeException, OperationTimeOutException
 	{		
 		LogicTuple specT = new LogicTuple("spec", new Value(spec));
-		return doBlockingOperation(TucsonOperation.set_specCode(), tid, specT, null, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doBlockingOperation(TucsonOperation.set_specCode(), tid, specT, null);
 	}
 	
-	public String getSpec(Object tid, Long ms) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException, InvalidTupleOperationException
+	public String getSpec(Object tid, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
+	OperationTimeOutException, InvalidTupleOperationException
 	{		
 		LogicTuple spec = new LogicTuple("spec");		
-		LogicTuple tupleRes = doBlockingOperation(TucsonOperation.get_specCode(), tid, spec, null, TucsonAgentLanguageManager.getCurLanguage().getName());
-		//System.out.println(tupleRes);
+		LogicTuple tupleRes = doBlockingOperation(TucsonOperation.get_specCode(), tid, spec, null);
 		return tupleRes.getArg(0).getName();		
 	}
 
-	public LogicTuple out_s(Object tid, LogicTuple tuple, Long ms) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
+	public LogicTuple out_s(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
+	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.out_sCode(), tid, tuple, null, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doBlockingOperation(TucsonOperation.out_sCode(), tid, tuple, null);
 	}
 	
-	public LogicTuple in_s(Object tid, LogicTuple tuple, Long ms) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
+	public LogicTuple in_s(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
+	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.in_sCode(), tid, tuple, null, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doBlockingOperation(TucsonOperation.in_sCode(), tid, tuple, null);
 	}
 	
-	public LogicTuple rd_s(Object tid, LogicTuple tuple, Long ms) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
+	public LogicTuple rd_s(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
+	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.rd_sCode(), tid, tuple, null, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doBlockingOperation(TucsonOperation.rd_sCode(), tid, tuple, null);
 	}
 	
-	public LogicTuple inp_s(Object tid, LogicTuple tuple, Long ms) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
+	public LogicTuple inp_s(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
+	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.inp_sCode(), tid, tuple, null, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doBlockingOperation(TucsonOperation.inp_sCode(), tid, tuple, null);
 	}
 	
-	public LogicTuple rdp_s(Object tid, LogicTuple tuple, Long ms) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
+	public LogicTuple rdp_s(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
+	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.rdp_sCode(), tid, tuple, null, TucsonAgentLanguageManager.getCurLanguage().getName());
+		return doBlockingOperation(TucsonOperation.rdp_sCode(), tid, tuple, null);
 	}
 	
-	// operazioni bloccanti con linguaggio
-	
-	public LogicTuple out(Object tid, LogicTuple tuple, Long ms, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
-	{
-		return doBlockingOperation(TucsonOperation.outCode(), tid, tuple, null, (String) language);
-	}
-	
-	public LogicTuple in(Object tid, LogicTuple tuple, Long ms, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
-	{
-		return doBlockingOperation(TucsonOperation.inCode(), tid, tuple, null, (String) language);
-	}
-	
-	public LogicTuple rd(Object tid, LogicTuple tuple, Long ms, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
-	{
-		return doBlockingOperation(TucsonOperation.rdCode(), tid, tuple, null, (String) language);
-	}
-	
-	public LogicTuple inp(Object tid, LogicTuple tuple, Long ms, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
-	{
-		return doBlockingOperation(TucsonOperation.inpCode(), tid, tuple, null, (String) language);
-	}
-	
-	public LogicTuple rdp(Object tid, LogicTuple tuple, Long ms, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
-	{
-		return doBlockingOperation(TucsonOperation.rdpCode(), tid, tuple, null, (String) language);
-	}
-	
-	public LogicTuple setSpec(Object tid, String spec, Long ms, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
-	{
-		LogicTuple specT = new LogicTuple("spec", new Value(spec));
-		return doBlockingOperation(TucsonOperation.set_specCode(), tid, specT, null, (String) language);
-	}
-	
-	public String getSpec(Object tid, Long ms, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException, InvalidTupleOperationException
-	{
-		LogicTuple spec = new LogicTuple("spec");		
-		LogicTuple tupleRes = doBlockingOperation(TucsonOperation.get_specCode(), tid, spec, null, (String) language);
-		return tupleRes.getArg(0).getName();	
-	}
-	
-	public LogicTuple out_s(Object tid, LogicTuple tuple, Long ms, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
-	{
-		return doBlockingOperation(TucsonOperation.out_sCode(), tid, tuple, null, (String) language);
-	}
-	
-	public LogicTuple in_s(Object tid, LogicTuple tuple, Long ms, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
-	{
-		return doBlockingOperation(TucsonOperation.in_sCode(), tid, tuple, null, (String) language);
-	}
-	
-	public LogicTuple rd_s(Object tid, LogicTuple tuple, Long ms, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
-	{
-		return doBlockingOperation(TucsonOperation.rd_sCode(), tid, tuple, null, (String) language);
-	}
-	
-	public LogicTuple inp_s(Object tid, LogicTuple tuple, Long ms, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
-	{
-		return doBlockingOperation(TucsonOperation.inp_sCode(), tid, tuple, null, (String) language);
-	}
-	
-	public LogicTuple rdp_s(Object tid, LogicTuple tuple, Long ms, Object language) throws OperationNotAllowedException, UnreachableNodeException,
-	LanguageNotFoundException, OperationTimeOutException
-	{
-		return doBlockingOperation(TucsonOperation.rdp_sCode(), tid, tuple, null, (String) language);
-	}
-	
-	public LogicTuple doBlockingOperation(int type, Object tid, LogicTuple t, Long ms, String language)
-	throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException, OperationTimeOutException
+	public LogicTuple doBlockingOperation(int type, Object tid, LogicTuple t, Long ms)
+	throws TucsonOperationNotPossibleException, UnreachableNodeException, OperationTimeOutException
 	{		
 		TucsonTupleCentreId tcid = null;
 		
-		if (tid.getClass().getName().equals("alice.tucson.types.TucsonTupleCentreId"))
+		if (tid.getClass().getName().equals("alice.tucson.api.TucsonTupleCentreId"))
 		{
 			tcid = (TucsonTupleCentreId) tid;
 		}
@@ -450,7 +294,7 @@ public class AgentContextStub implements TucsonContext
 		
 		try
 		{			
-			ITucsonOperation op = doOperation(tcid, type, t, null, (String) language);
+			ITucsonOperation op = doOperation(tcid, type, t, null);
 			
 			if(ms == null)
 				op.waitForOperationCompletion();
@@ -459,46 +303,48 @@ public class AgentContextStub implements TucsonContext
 			
 			return op.getLogicTupleResult();
 		}
-		catch (OperationNotAllowedException e)
+		catch (TucsonOperationNotPossibleException e)
 		{
-			throw new OperationNotAllowedException();
+			e.printStackTrace();
+			throw new TucsonOperationNotPossibleException();
 		}
 		catch (UnreachableNodeException e)
 		{
+			e.printStackTrace();
 			throw new UnreachableNodeException();
 		}
-		catch (LanguageNotFoundException e)
+		catch (OperationTimeOutException e)
 		{
-			throw new LanguageNotFoundException();
+			e.printStackTrace();
+			throw new OperationTimeOutException();
 		}
 	}
 	
-	public synchronized ITucsonOperation doOperation(TucsonTupleCentreId tcid, int type, LogicTuple t, TucsonOperationCompletionListener l, String language)
-			throws OperationNotAllowedException, UnreachableNodeException, LanguageNotFoundException // ??? controllare
-																									 // le eccezioni
+	public synchronized ITucsonOperation doOperation(TucsonTupleCentreId tcid, int type, LogicTuple t, TucsonOperationCompletionListener l)
+			throws TucsonOperationNotPossibleException, UnreachableNodeException
 	{				
-		// imposto il linguaggio per l'agente
-		TucsonAgentLanguageManager.useLanguage(language);
+		// Imposto il linguaggio per l'agente
+		//TucsonAgentLanguageManager.useLanguage(language);
 				
 		// First phase: syntax check before going on remote node
-		log("Syntax check");
+		//log("Syntax check");
 		
-		if (!tcid.checkSyntax() || !aid.checkSyntax())
-		{
-			throw new OperationNotAllowedException();
-		}
+		//if (!tcid.checkSyntax() || !aid.checkSyntax())
+		//{
+		//	throw new TucsonOperationNotPossibleException();
+		//}
 
 		int nTry = 1;
 		do
 		{
-			// Second phase: negotiation (method getSession)
-			log("Negotiation with " + tcid.toString());
-			
-			TucsonProtocol session = getSession(tcid, language);
-			ObjectOutputStream outStream = session.getOutputStream();
-			
 			try
-			{						
+			{
+				// Second phase: negotiation (method getSession)
+				log("Negotiation with " + tcid.toString());
+				
+				TucsonProtocol session = getSession(tcid);
+				ObjectOutputStream outStream = session.getOutputStream();		
+									
 				// creo un'operazione TuCSoN
 				TucsonOperation op = null;					
 					
@@ -508,27 +354,29 @@ public class AgentContextStub implements TucsonContext
 				else
 					op = new TucsonOperation(type, (TupleTemplate) t, l);
 				
-				//System.out.println("ELENA " + op.getLogicTupleArgument());
-				//opId++;	
 				operations.put(op.getId(), op);
 				
-				log("Remote call & eventually translation");
+				//log("Remote call & eventually translation");
+				log("Remote call");
 				
 				TucsonMsgRequest msg = new TucsonMsgRequest(op.getId(), op.getType(), 
-						tcid.translateSyntax(session.getLanguageInfo()), op.getLogicTupleArgument());
+						tcid, op.getLogicTupleArgument());
 				
 				TucsonMsgRequest.write(outStream, msg);
 				outStream.flush();
 				
-				log("Request done: " + op.getType() + " " + op.getLogicTupleArgument() + " " + op.getId());
-				//log("Operation executed succesfully");
+				log("Request done: type = " + op.getType() + ", logic tuple argument = " + op.getLogicTupleArgument() + ", operation identifier " + op.getId());
 				
 				return op;
-				//return new TucsonOpId(opId);
 			}
-			catch (IOException ex)
+			catch (IOException e)
 			{
-				ex.printStackTrace();
+				e.printStackTrace();				
+			}
+			catch (TucsonOperationNotPossibleException e1)
+			{
+				e1.printStackTrace();	
+				throw new TucsonOperationNotPossibleException();
 			}
 			nTry++;
 		}
@@ -536,10 +384,8 @@ public class AgentContextStub implements TucsonContext
 		throw new UnreachableNodeException();
 	}
 
-	public synchronized void exit() throws OperationNotAllowedException
+	public synchronized void exit() throws TucsonOperationNotPossibleException
 	{
-		//Object tid = new Object();
-		//LogicTuple t = new LogicTuple();
 		Iterator<ControllerSession> it = controllerSessions.values().iterator();
 		
 		while (it.hasNext())
@@ -555,26 +401,26 @@ public class AgentContextStub implements TucsonContext
 				TucsonOperation op = new TucsonOperation(TucsonOperation.exitCode(), (TupleTemplate) null, null);				
 				operations.put(op.getId(), op);
 				
-				//opId++;
 				TucsonMsgRequest exit = new TucsonMsgRequest((int) op.getId(), op.getType(), null,
 						op.getLogicTupleArgument());
 				TucsonMsgRequest.write(outStream, exit);
 				outStream.flush();
 			}
-			catch (Exception ex)
+			catch (Exception e)
 			{
-				ex.printStackTrace();
+				e.printStackTrace();
+				throw new TucsonOperationNotPossibleException();
 			}
 		}
 	}
 
-	public HashMap<String, LanguageInfo> getInfo()
+	/*public HashMap<String, LanguageInfo> getInfo()
 	{
 		return TucsonAgentLanguageManager.getAvailableLanguages();
-	}
+	}*/
 
-	private TucsonProtocol getSession(TucsonTupleCentreId tid, String language) throws OperationNotAllowedException,
-			UnreachableNodeException, LanguageNotFoundException
+	private TucsonProtocol getSession(TucsonTupleCentreId tid) throws TucsonOperationNotPossibleException,
+			UnreachableNodeException
 	{				
 		String node = alice.util.Tools.removeApices(tid.getNode());
 		// Discriminate between remote node
@@ -623,7 +469,8 @@ public class AgentContextStub implements TucsonContext
 			}
 			catch (Exception ex2)
 			{
-				throw new OperationNotAllowedException();
+				ex2.printStackTrace();
+				throw new TucsonOperationNotPossibleException();
 			}
 		}
 		return null;
@@ -664,7 +511,7 @@ public class AgentContextStub implements TucsonContext
 				try
 				{
 					TucsonMsgReply msg = TucsonMsgReply.read(in);
-					// log("received msg "+msg);
+					// log("received msg " + msg);
 					boolean ok = msg.isAllowed();
 					
 					if (ok)
@@ -716,8 +563,8 @@ public class AgentContextStub implements TucsonContext
 					TucsonOperation op = operations.remove(msg.getId());
 					
 					op.setResult(msg.getTupleResult());	
-					//System.out.println(ev.getTuple());
-					op.notifyCompletion(ev.operationSucceeded());
+					//System.out.println("RES = " + msg.getTupleResult());
+					op.notifyCompletion(ev.operationSucceeded(), msg.isAllowed());
 					
 					postEvent(ev);
 				}

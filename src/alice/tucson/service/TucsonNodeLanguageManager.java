@@ -1,11 +1,17 @@
 package alice.tucson.service;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Properties;
+import java.util.StringTokenizer;
 
 import alice.tucson.types.IResolver;
-import alice.tucson.types.ITranslator;
-import alice.tucson.types.TucsonConstant;
 
 /**
  * @author lsemprini
@@ -24,88 +30,49 @@ public class TucsonNodeLanguageManager
 		if (firstTime)
 		{
 			loadLanguages();
-			firstTime = false;
 		}
 
 		curLang = languages.get(lang);
-		
 		// If the language isn't available, so try with the default language
 		if (curLang == null)
 		{
-			// TuCSoN 1.9.0 Default language
-			curLang = languages.get(TucsonConstant.DEFLANGUAGE);
+			curLang = languages.get(TucsonLanguageManager.DEFLANGUAGE);
 		}
 		
 		log("Language choose: " + curLang.getName());
-
-		TucsonTCContainer.attachTucson();
 	}
 
 	private static void loadLanguages()
 	{
 		languages = new HashMap<String, LanguageInfo>();
 
+		ArrayList<String> lang = TucsonLanguageManager.getConfLanguage();
+		log("Loading available languages ...");
 		ArrayList<String> cont = TucsonLanguageManager.getConfContainer();
-		log("Loading available containers...");
-		TucsonTCContainer.loadContainerLanguage(cont, languages);
-
+		log("Loading available containers ...");
 		ArrayList<String> res = TucsonLanguageManager.getConfResolver();
-		ArrayList<String> tran = TucsonLanguageManager.getConfTranslator();
-		log("Loading available resolvers...");
-		// Dynamically load the resolvers and merge them with the languages of
-		// the containers
-		for (int i = 0; i < res.size(); i++)
-		{
-			try
+		log("Loading available resolvers ...");
+		
+		LanguageInfo language = null;
+		
+		for (int i = 0; i < cont.size(); i++)
+		{			
+			try 
 			{
-				IResolver resolv = (IResolver) createObject(TucsonConstant.RESOLVERPATH + res.get(i), new Object[0]);
-				String langName = ((LanguageInfo) callMethod(resolv, "getInfo", new Object[0])).getName();
-				LanguageInfo tmp = languages.get(langName);
-				
-				if (tmp != null)
-				{
-					tmp.setResolverComponentName(TucsonConstant.RESOLVERPATH + res.get(i));
-					log("Resolver " + langName + " loaded succesfully");
-				}
-				else
-				{
-					log("Error: Undefined resolver " + res.get(i));
-				}
-			}
-			catch (Exception e)
-			{
-				log("Error: Unable to load " + res.get(i));
-			}
-		}
+				language = new LanguageInfo(lang.get(i));
+				log("Language " + language.getName() + " loaded succesfully");
+				language.setContainerComponentName(cont.get(i));
+				log("Container " + language.getName() + " loaded succesfully");
+				language.setResolverComponentName(TucsonLanguageManager.RESOLVERPATH + res.get(i));
+				log("Resolver " + language.getName() + " loaded succesfully");
 
-		log("Loading available translators...");
-		// Dynamically load the resolvers and merge them with the languages of
-		// the resolvers
-		for (int i = 0; i < tran.size(); i++)
-		{
-			try
+				languages.put(lang.get(i), language);																				
+			} 
+			catch (Exception e) 
 			{
-				ITranslator translator = (ITranslator) createObject(TucsonConstant.TRANSLATORPATH + tran.get(i), new Object[0]);
-				String[] transInfo = (String[]) callMethod(translator, "getInfo", new Object[0]);
-				String langFrom = transInfo[0];
-				String langTo = transInfo[1];
-				LanguageInfo tmp = languages.get(langFrom);
-				if (tmp != null)
-				{
-					tmp.setTransLanguage(langTo, TucsonConstant.TRANSLATORPATH + tran.get(i));
-				}
-				else
-				{
-					log("Error: Undefined translator " + tran.get(i));
-				}
-				log("Translator " + tran.get(i) + " loaded succesfully");
-			}
-			catch (Exception e)
-			{
-				log("Error: Unable to load " + tran.get(i));
-			}
-		}
-
+				log("Error: Unable to load " + language.getName());
+			}		
+		}		
 		firstTime = false;
 	}
 
@@ -137,5 +104,4 @@ public class TucsonNodeLanguageManager
 	{
 		return TucsonLanguageManager.callMethod(obj, method, arglist);
 	}
-
 }

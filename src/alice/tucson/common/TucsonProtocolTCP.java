@@ -17,9 +17,12 @@
  */
 package alice.tucson.common;
 
-import alice.tucson.common.TucsonProtocol;
 import java.io.*;
+
 import java.net.*;
+
+import alice.tucson.common.TucsonProtocol;
+
 
 /**
  * 

@@ -17,15 +17,13 @@
  */
 package alice.tucson.service;
 
-import alice.tucson.api.*;
-import alice.tucson.common.TucsonProtocol;
-import alice.tucson.common.TucsonProtocolTCP;
 import java.net.*;
 
-/**
- * 
- * 
- */
+import alice.tucson.api.*;
+
+import alice.tucson.common.TucsonProtocol;
+import alice.tucson.common.TucsonProtocolTCP;
+
 public class WelcomeAgent extends Thread
 {
 	ContextManager contextManager;
@@ -59,12 +57,19 @@ public class WelcomeAgent extends Thread
 				{
 					log("welcome agent for TCP/IP booted. Listening on port " + port + "...");
 					dialog = mainDialog.acceptNewDialog();
+					
+					// riceve un intero per che identifica il tipo di richiesta (request_type)
 					dialog.receiveFirstRequest();
 					
 					if (dialog.isEnterRequest())
 					{
-						log("New request received");
+						log("new request received");
+						
+						// riceve il nome ed il ruolo dell'agente ed il tuple centre su cui vuole operare
+						// crea un descrittore di contesto
 						dialog.receiveEnterRequest();
+						
+						// ottengo il descrittore di contesto che passo la manager di contesto
 						ContextDescription desc = dialog.getContextDescription();
 						contextManager.processContextRequest(desc, dialog);
 					}

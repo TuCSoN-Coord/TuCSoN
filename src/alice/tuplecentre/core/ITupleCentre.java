@@ -7,6 +7,7 @@
 package alice.tuplecentre.core;
 
 import alice.tuplecentre.core.TupleCentreOperation;
+import alice.tuplecentre.api.IId;
 
 /**
  * @author aricci

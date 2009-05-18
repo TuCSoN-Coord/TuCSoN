@@ -17,11 +17,11 @@
  */
 package alice.tucson.common;
 
-import alice.tucson.api.*;
-import alice.tucson.service.LanguageInfo;
-
 import java.util.*;
+
 import java.io.*;
+
+import alice.tucson.api.*;
 
 /**
  * 
@@ -61,7 +61,6 @@ public abstract class TucsonProtocol implements java.io.Serializable
 
 	public void sendEnterRequest(ContextDescription context) throws Exception
 	{
-
 		send(REQ_ENTERCONTEXT);
 
 		// agent name
@@ -93,17 +92,11 @@ public abstract class TucsonProtocol implements java.io.Serializable
 	public void receiveEnterRequestAnswer() throws Exception
 	{
 		request_allowed = receiveBoolean();
-		lang = (LanguageInfo) receiveObject();
 	}
 
 	public boolean isEnterRequestAccepted() throws Exception
 	{
 		return request_allowed;
-	}
-
-	public LanguageInfo getLanguageInfo()
-	{
-		return lang;
 	}
 
 	// ----------------------------------------------
@@ -121,7 +114,7 @@ public abstract class TucsonProtocol implements java.io.Serializable
 		String agentRole = receiveString();
 		// tuple centre name
 		String tcName = receiveString();
-		//
+
 		Properties profile = new Properties();
 		profile.setProperty("agent-identity", agentName);
 		profile.setProperty("agent-role", agentRole);
@@ -142,7 +135,6 @@ public abstract class TucsonProtocol implements java.io.Serializable
 	{
 		// System.out.println("send "+(LanguageInfo)context.getLanguageInfo());
 		send(true);
-		send((LanguageInfo) context.getLanguageInfo());
 		flush();
 	}
 
@@ -160,7 +152,6 @@ public abstract class TucsonProtocol implements java.io.Serializable
 
 	private int request_type;
 	private boolean request_allowed;
-	private LanguageInfo lang;
 
 	private static final int TUCSON_MARK = 303;
 	private static final int REQ_TELNET = 0;

@@ -18,23 +18,22 @@
 
 package alice.tucson.service;
 
-import alice.tucson.api.exception.InvalidConfigException;
-import alice.tucson.api.exception.TCInstantiationNotPossibleException;
-import alice.tucson.api.exception.TucsonException;
-import alice.tucson.api.exception.TucsonInvalidTupleCentreIdException;
+import java.util.*;
 
-import alice.tucson.types.TucsonAgentId;
-import alice.tucson.types.TucsonConstant;
-import alice.tucson.types.TucsonTupleCentreId;
+import java.io.*;
 
 import alice.logictuple.*;
 
 import alice.tuprolog.Prolog;
 import alice.tuprolog.Theory;
 
-import java.util.*;
+import alice.tucson.api.exception.InvalidConfigException;
+import alice.tucson.api.exception.TCInstantiationNotPossibleException;
+import alice.tucson.api.exception.TucsonException;
+import alice.tucson.api.exception.TucsonInvalidTupleCentreIdException;
 
-import java.io.*;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonTupleCentreId;
 
 /**
  * Node class provides the basic daemon of a TuCSoN infrastructure node.
@@ -52,9 +51,7 @@ public class Node
 	private HashMap<String, TucsonTCUsers> cores;
 
 	private TucsonAgentId nodeAid;
-
 	private TucsonTupleCentreId idConfigTC;
-
 	private TucsonTupleCentreId idObsTC;
 	private ObservationService obsService;
 
@@ -103,6 +100,7 @@ public class Node
 		try
 		{
 			outMsg("TuCSoN Infrastructure (version " + Node.getVersion() + ") - start installation ...");
+			
 			configManager = new Prolog();
 
 			cores = new HashMap<String, TucsonTCUsers>();
@@ -116,7 +114,7 @@ public class Node
 				outMsg("Setup configuration (default configuration file).");
 			}
 			
-			// configuro ...
+			// configurazione
 			setupConfiguration(configFile);
 
 			outMsg("Setup observation tuple centre.");
@@ -168,7 +166,7 @@ public class Node
 	}
 
 	/**
-	 * resolves a tuple medium reference givent its name.
+	 * resolves a tuple medium reference given its name.
 	 * <p>
 	 * if the tuple medium is not found, then a new VM is created and registered
 	 * with specified name
@@ -178,7 +176,7 @@ public class Node
 		try
 		{
 			TucsonTupleCentreId tid = new TucsonTupleCentreId(tcName);
-			// TODO controllare passaggio tra i vari nomi
+
 			String realName = tid.getName();
 			TucsonTCUsers core = cores.get(realName);
 			
@@ -220,7 +218,7 @@ public class Node
 			obsService.tcCreated(id);
 		}
 		TucsonTCUsers tcUsers = new TucsonTCUsers(id);
-		// TODO controllare evenuali errori sul nome dei tc
+
 		cores.put(id.getName(), tcUsers);
 
 		try
@@ -248,7 +246,6 @@ public class Node
 	{
 		try
 		{
-			// TODO controllare passaggio tra i vari nomi
 			TucsonTupleCentreId tid = new TucsonTupleCentreId(tcName);
 			// String realName = tid.getName();
 			String realName = tcName;
@@ -339,6 +336,7 @@ public class Node
 	public synchronized void enablePersistence(String tc)
 	{
 		TucsonTCUsers tar = cores.get(tc);
+		
 		try
 		{
 			TucsonTCContainer.enablePersistence(tar.getTucsonTupleCentreId(), PERSISTENCY_PATH + "tc_"
@@ -557,7 +555,6 @@ public class Node
 		//
 		try
 		{
-
 			bootTupleCentre(idObsTC.getName());
 
 			InputStream is = ClassLoader.getSystemResourceAsStream(DEFAULT_OBS_SPEC_FILE);
@@ -596,10 +593,11 @@ public class Node
 
 	private void bootManagementAgents()
 	{
-		// tuple center $ORG
+		// risponde alle richieste inserite nel tuple centre $ORG
 		new NodeManagementAgent(idConfigTC, this);
 
 		ContextManager ctxman = new ContextManager(this, idConfigTC);
+		
 		new WelcomeAgent(tcp_port, this, ctxman);
 	}
 
@@ -631,6 +629,7 @@ public class Node
 	synchronized public void removeAgent(TucsonAgentId aid)
 	{
 		boolean present = true;
+		
 		if (agents.contains(aid))
 		{
 			agents.remove(aid);
@@ -639,6 +638,7 @@ public class Node
 		{
 			present = false;
 		}
+		
 		if (observed && present)
 		{
 			obsService.accQuit(aid);
@@ -715,7 +715,7 @@ public class Node
 	}
 
 	/**
-	 * Add an agent to a TC (see AgentContextSkeleton
+	 * Add an agent to a TC (see AgentContextSkeleton)
 	 * 
 	 */
 	public void addTCAgent(TucsonAgentId agentId, TucsonTupleCentreId tid)
@@ -737,7 +737,7 @@ public class Node
 			
 			if (languageInfo == null)
 			{
-				languageInfo = TucsonConstant.DEFLANGUAGE;
+				languageInfo = TucsonLanguageManager.DEFLANGUAGE;
 			}
 			
 			String configInfo = alice.util.Tools.getOpt(args, "-config");
@@ -782,7 +782,6 @@ public class Node
 				}
 				
 				TucsonNodeLanguageManager.useLanguage(languageInfo);
-				// new InspectorGUI(new RespectInspectorSubInterface());
 				
 				new Node(configInfo, portNumber, template).install();
 			}
@@ -792,5 +791,4 @@ public class Node
 			}
 		}
 	}
-
 }

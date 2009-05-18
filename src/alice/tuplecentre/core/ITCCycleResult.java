@@ -1,5 +1,7 @@
 package alice.tuplecentre.core;
 
+import alice.tuplecentre.api.Tuple;
+
 
 public interface ITCCycleResult {
 	

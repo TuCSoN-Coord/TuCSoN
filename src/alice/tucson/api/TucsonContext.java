@@ -19,7 +19,8 @@ package alice.tucson.api;
 
 import java.util.HashMap;
 
-import alice.tucson.api.exception.OperationNotAllowedException;
+import alice.tucson.api.exception.TucsonOperationNotPossibleException;
+
 import alice.tucson.service.LanguageInfo;
 
 /**
@@ -33,19 +34,18 @@ import alice.tucson.service.LanguageInfo;
 public interface TucsonContext extends TucsonBlockingContext, TucsonNonBlockingContext, 
 									   TucsonBlockingSpecContext, TucsonNonBlockingSpecContext 
 {	
-
 	/**
 	 * Exits from the coordination context
 	 * 
 	 * @throws s
 	 *             OperationNotAllowedException of the operation is not allowed
 	 */
-	void exit() throws OperationNotAllowedException;
+	void exit() throws TucsonOperationNotPossibleException;
 
 	/**
 	 * Return the instructions (languages available, syntax) for use the ACC
 	 * 
 	 * @return the instructions
 	 */
-	HashMap<String, LanguageInfo> getInfo();
+	//HashMap<String, LanguageInfo> getInfo();
 }

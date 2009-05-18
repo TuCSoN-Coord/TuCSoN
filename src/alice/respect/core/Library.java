@@ -16,12 +16,15 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.respect.core;
+
 import alice.respect.api.EnvId;
 import alice.respect.api.INonBlockingContext;
 import alice.respect.api.TupleCentreId;
+
 import  alice.tuprolog.*;
 
 import  alice.logictuple.*;
+
 import alice.tuplecentre.api.IId;
 import alice.tuplecentre.core.*;
 import alice.tuplecentre.core.OutputEvent;
@@ -841,7 +844,7 @@ public boolean inp_2(Term arg0, Term arg1){
         
     	IId id = ev.getId();
     	
-    	IId c = this.vm.getId();
+    	IId c = ev.getReactingTC();
     	
     	if(c.toString().equals(id.toString())){
     		

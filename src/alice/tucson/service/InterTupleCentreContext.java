@@ -19,7 +19,7 @@ package alice.tucson.service;
 
 import alice.tucson.api.*;
 import alice.tucson.api.exception.LanguageNotFoundException;
-import alice.tucson.api.exception.OperationNotAllowedException;
+import alice.tucson.api.exception.TucsonOperationNotPossibleException;
 import alice.tucson.api.exception.UnreachableNodeException;
 
 /**
@@ -36,7 +36,7 @@ public interface InterTupleCentreContext
 	 * 
 	 * 
 	 */
-	TucsonOpId doOperation(Object tid, int type, Object t, String language) throws OperationNotAllowedException,
+	TucsonOpId doOperation(Object tid, int type, Object t, String language) throws TucsonOperationNotPossibleException,
 			UnreachableNodeException, LanguageNotFoundException;
 
 }

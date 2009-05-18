@@ -21,6 +21,7 @@ import java.net.*;
 import java.io.*;
 
 import alice.tucson.api.exception.ContextNotAvailableException;
+import alice.tucson.service.LanguageInfo;
 
 /**
  * Tucson Meta Agent Coordiation Context, which can be used to get an agent
@@ -28,7 +29,6 @@ import alice.tucson.api.exception.ContextNotAvailableException;
  */
 public class Tucson
 {
-
 	protected Tucson()
 	{
 	}
@@ -46,11 +46,11 @@ public class Tucson
 	 * @return a context.
 	 * @throws ContextNotAvailableException
 	 */
-	public static TucsonContext getContext(Object agentId, Object lang) throws ContextNotAvailableException
+	public static TucsonContext getContext(Object agentId, LanguageInfo chosenLanguage) throws ContextNotAvailableException
 	{
 		try
 		{
-			return new AgentContextStub(agentId, lang);
+			return new AgentContextStub(agentId, chosenLanguage);
 		}
 		catch (Exception ex)
 		{
@@ -65,7 +65,7 @@ public class Tucson
 	 */
 	public static String getVersion()
 	{
-		return "1.9.0";
+		return "1.9.1";
 	}
 
 	public static boolean isActive(InetAddress node)
@@ -75,6 +75,7 @@ public class Tucson
 			Socket s = new Socket(node, 20504);
 			StringBuffer buf = new StringBuffer();
 			BufferedReader br = new BufferedReader(new InputStreamReader(s.getInputStream()));
+			
 			try
 			{
 				String line = br.readLine();

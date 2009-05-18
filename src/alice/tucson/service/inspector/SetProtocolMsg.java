@@ -17,7 +17,7 @@
  */
 package alice.tucson.service.inspector;
 
-import alice.tucson.types.TucsonAgentId;
+import alice.tucson.api.TucsonAgentId;
 import java.io.*;
 
 /**

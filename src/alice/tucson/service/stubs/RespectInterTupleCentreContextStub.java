@@ -1,21 +1,27 @@
 package alice.tucson.service.stubs;
 
 import java.util.HashMap;
+
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import alice.tuplecentre.core.TupleCentreOperation;
+
 import alice.respect.api.*;
+
 import alice.respect.core.RespectOperation;
+
 import alice.tucson.api.ContextEvent;
 import alice.tucson.api.TucsonOpId;
+
 import alice.tucson.api.exception.LanguageNotFoundException;
-import alice.tucson.api.exception.OperationNotAllowedException;
 import alice.tucson.api.exception.TucsonInvalidTupleCentreIdException;
+import alice.tucson.api.exception.TucsonOperationNotPossibleException;
 import alice.tucson.api.exception.UnreachableNodeException;
+
 import alice.tucson.service.InterTupleCentreContext;
 import alice.tucson.service.InterTupleCentreContextStub;
-import alice.tucson.types.TucsonTupleCentreId;
-import alice.tuplecentre.core.TupleCentreOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 
 public class RespectInterTupleCentreContextStub implements ILinkContext
 {
@@ -104,7 +110,7 @@ public class RespectInterTupleCentreContextStub implements ILinkContext
 				// TODO to activate only when the Vm is able to manage
 				// op.notifyCompletion();
 			}
-			catch (OperationNotAllowedException e)
+			catch (TucsonOperationNotPossibleException e)
 			{
 				e.printStackTrace();
 				// TODO gestire eccezioni
