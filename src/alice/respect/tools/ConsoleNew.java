@@ -8,10 +8,10 @@ package alice.respect.tools;
 
 import alice.logictuple.LogicTuple;
 import alice.respect.api.IBlockingSpecContext;
+import alice.respect.api.InstantiationNotPossibleException;
 import alice.respect.api.RespectException;
 import alice.respect.api.Agent;
 import alice.respect.api.IBlockingContext;
-import alice.respect.api.InstantiationNotPossibleException;
 import alice.respect.api.InvalidAgentIdException;
 import alice.respect.api.InvalidTupleCentreIdException;
 import alice.respect.api.OperationNotPossibleException;
@@ -24,6 +24,7 @@ import javax.swing.JComboBox;
 import alice.respect.api.RespectSpecification;
 import alice.logictuple.InvalidLogicTupleException;
 import alice.respect.api.InvalidSpecificationException;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -49,7 +50,7 @@ public class ConsoleNew extends javax.swing.JFrame {
     public ConsoleNew(TupleCentreId tupleCentreId) {
         initComponents();
         try {
-            context = RespectTCContainer.getBlockingContext(tupleCentreId);
+            context = RespectTCContainer.getRespectTCContainer().getBlockingContext(tupleCentreId);
         } catch (OperationNotPossibleException ex) {
             Logger.getLogger(ConsoleNew.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -245,7 +246,7 @@ private void tupleCentreComboBoxActionPerformed(java.awt.event.ActionEvent evt) 
                 ((JComboBox) evt.getSource()).getSelectedItem().toString();
         this.tupleCentreComboBox.addItem(selectedItem);
             try {
-                this.context = RespectTCContainer.getBlockingContext(new TupleCentreId(selectedItem + "@localhost"));
+                this.context = RespectTCContainer.getRespectTCContainer().getBlockingContext(new TupleCentreId(selectedItem + "@localhost"));
             } catch (InvalidTupleCentreIdException ex) {
                 Logger.getLogger(ConsoleNew.class.getName()).log(Level.SEVERE, null, ex);
             } catch (OperationNotPossibleException ex) {
@@ -314,8 +315,8 @@ private void operationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {/
             try {
                 TupleCentreId tcId = new TupleCentreId("default@localhost");
                 // TODO change to $DEFAULT tuple centre
-                IBlockingContext ctx = RespectTCContainer.getBlockingContext(tcId);
-                IBlockingSpecContext ctx_s = RespectTCContainer.getBlockingSpecContext(tcId);
+                IBlockingContext ctx = RespectTCContainer.getRespectTCContainer().getBlockingContext(tcId);
+                IBlockingSpecContext ctx_s = RespectTCContainer.getRespectTCContainer().getBlockingSpecContext(tcId);
                 console.operationComboBox.setEnabled(false);
                 String cmd = console.operationComboBox.getSelectedItem().toString();
                 if (cmd.equals("quit")){
@@ -342,8 +343,8 @@ private void operationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {/
                         }
                         tcId = new TupleCentreId(cmd.substring(0, indexQmark) +
                                 "@localhost");
-                        ctx = RespectTCContainer.getBlockingContext(tcId);
-                        ctx_s = RespectTCContainer.getBlockingSpecContext(tcId);
+                        ctx = RespectTCContainer.getRespectTCContainer().getBlockingContext(tcId);
+                        ctx_s = RespectTCContainer.getRespectTCContainer().getBlockingSpecContext(tcId);
                         cmd = cmd.substring(indexQmark+1);
                         index1 = cmd.indexOf('(');
                         index2 = cmd.lastIndexOf(')');
