@@ -20,21 +20,5 @@ public interface IBlockingContext {
 
 	LogicTuple rdp(AgentId aid, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException;
 
-	/**
-	 * 
-	 * @param aid
-	 * @param spec
-	 * @throws InvalidSpecificationException
-	 * @deprecated
-	 */
-	void setSpec(AgentId aid, RespectSpecification spec) throws InvalidSpecificationException;
 	
-	/**
-	 * 
-	 * @param aid
-	 * @return
-	 * @deprecated
-	 */
-	RespectSpecification getSpec(AgentId aid);    
-
 }
