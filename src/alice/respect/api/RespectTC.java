@@ -100,11 +100,21 @@ public class RespectTC implements IRespectTC {
 		return op;
 	}
 	
+	/*public IRespectOperation set(IId id, LogicTuple[] t) throws OperationNotPossibleException {
+		
+		return this.set(id, t,null);
+	}*/
+
 	public IRespectOperation out(IId id, LogicTuple t) throws OperationNotPossibleException {
 		
 		return this.out(id, t,null);
 	}
 
+	public IRespectOperation get(IId id) throws OperationNotPossibleException {
+		
+		return this.get(id,null);
+	}
+	
 	public IRespectOperation in(IId id, LogicTuple t) throws OperationNotPossibleException {
 		
 		return this.in(id, t,null);
@@ -134,6 +144,12 @@ public class RespectTC implements IRespectTC {
 	
 	public RespectSpecification getSpec(IId id) {
 		return (RespectSpecification)vm.getReactionSpec();
+	}
+	
+	public IRespectOperation get(IId id, OperationCompletionListener l) throws OperationNotPossibleException {
+		RespectOperation op=RespectOperation.makeGet(l);
+		vm.doOperation(id,op);
+		return op;
 	}
 	
 	public IRespectOperation out_s(IId id, LogicTuple t) throws OperationNotPossibleException {
