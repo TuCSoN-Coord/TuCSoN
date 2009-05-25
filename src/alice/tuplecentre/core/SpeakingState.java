@@ -61,6 +61,7 @@ public class SpeakingState extends TupleCentreVMState {
 		
 		boolean foundSatisfied = false;	  	 
 		Tuple tuple = null;
+		List<Tuple> tupleList= null;
 
         while (it.hasNext() && !foundSatisfied) {
             try {
@@ -114,7 +115,13 @@ public class SpeakingState extends TupleCentreVMState {
 					} else if (op.isRdp_s()){
 						tuple=vm.readMatchingSpecTuple(op.getTemplateArgument());
 						foundSatisfied=true;
-					} else throw new InvalidOperationException();
+					}else if (op.isGet()){
+						tupleList = new LinkedList<Tuple>();
+						tupleList=vm.getAllTuples();
+						foundSatisfied=true;
+					}
+					
+					else throw new InvalidOperationException();
 	            }
             } catch(InvalidOperationException ex){
             	vm.spy(ev.getOperation().getType()+"");
@@ -127,12 +134,18 @@ public class SpeakingState extends TupleCentreVMState {
 			TupleCentreOperation op = ev.getOperation();
 			// for failed inp/rdp the tuple ref can be null
 			
-			if(!op.isResultDefined())	op.setResult(tuple);						
+			if(!op.isResultDefined()){	
+				if(op.isGet()){
+					op.setResultList(tupleList);
+				}else{
+					op.setResult(tuple);
+				}
+			}
 			// generates and notifies the event
 			
 			//op.setResult(tuple);
 			out_ev = new OutputEvent(ev);
-			System.out.println("TUPLE: "+tuple+" res: "+out_ev.getOperation().getResult());
+			//System.out.println("TUPLE: "+tuple+" res: "+out_ev.getOperation().getResult());
 			
 			//if(ev.isLinking()) out_ev.setIsLinking(true);
 			if(!ev.isLinking()){
