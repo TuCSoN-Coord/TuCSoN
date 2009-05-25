@@ -1,5 +1,7 @@
 package alice.respect.api;
 
+import java.util.List;
+
 import alice.logictuple.*;
 
 /**
@@ -19,6 +21,7 @@ public interface IBlockingContext {
 	LogicTuple inp(AgentId aid, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException;
 
 	LogicTuple rdp(AgentId aid, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException;
-
+	
+	List<LogicTuple> get(AgentId aid) throws OperationNotPossibleException;
 	
 }
