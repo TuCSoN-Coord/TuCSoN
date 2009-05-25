@@ -33,13 +33,10 @@ import alice.logictuple.*;
  */
 public class RespectOperation extends TupleCentreOperation implements IRespectOperation {
 	
-	public static final int OPTYPE_TIME = 10;
-	public static final int OPTYPE_GET_ENV = 16;
-	public static final int OPTYPE_SET_ENV = 17;
-	public static final int OPTYPE_ENV = 18;
-	
-	
-	
+	public static final int OPTYPE_TIME = 18;
+	public static final int OPTYPE_GET_ENV = 19;
+	public static final int OPTYPE_SET_ENV = 20;
+	public static final int OPTYPE_ENV = 21;
 	
 	protected RespectOperation(int type,  OperationCompletionListener l){
 		//Bleah
