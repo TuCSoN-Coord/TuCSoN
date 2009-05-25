@@ -16,6 +16,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.respect.core;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
 import alice.logictuple.*;
 import alice.respect.api.AgentId;
 import alice.respect.api.IBlockingContext;
@@ -24,6 +28,7 @@ import alice.respect.api.IRespectOperation;
 import alice.respect.api.InvalidSpecificationException;
 import alice.respect.api.OperationNotPossibleException;
 import alice.respect.api.RespectSpecification;
+import alice.tuplecentre.api.Tuple;
 
 /**
  *
@@ -94,8 +99,22 @@ public class BlockingContext implements IBlockingContext {
 		}
 	}
   	
-	public void setSpec(AgentId aid, RespectSpecification spec) throws InvalidSpecificationException {
-		core.setSpec(aid,spec);
+	/*public void set(AgentId aid, LogicTuple[] list) throws InvalidSpecificationException {
+		core.set(aid,spec);
+	}*/
+	
+	public List<LogicTuple> get(AgentId aid) throws OperationNotPossibleException {
+		
+		IRespectOperation op = core.get(aid);
+		
+		List<LogicTuple> res = new LinkedList<LogicTuple>();
+		
+		Iterator<Tuple> it = op.getLTupleResultList().iterator();
+		
+		while(it.hasNext()){
+			res.add((LogicTuple)it.next());
+		}
+		return res;
 	}
 	
 	public RespectSpecification getSpec(AgentId aid) {
@@ -110,6 +129,7 @@ public class BlockingContext implements IBlockingContext {
             return null;
         }
     }
+
    
     
 }
