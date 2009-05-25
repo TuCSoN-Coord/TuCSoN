@@ -39,15 +39,16 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 	protected static final int OPTYPE_INP = 4;
 	protected static final int OPTYPE_RDP = 5;
 	protected static final int OPTYPE_NO = 6;
-	protected static final int OPTYPE_SET_SPEC = 7;
-	protected static final int OPTYPE_GET_SPEC = 8;
+	protected static final int OPTYPE_GET = 7;
+	protected static final int OPTYPE_SET = 8;
 
 	protected static final int OPTYPE_IN_S = 11;
 	protected static final int OPTYPE_RD_S = 12;
 	protected static final int OPTYPE_OUT_S = 13;
 	protected static final int OPTYPE_INP_S = 14;
 	protected static final int OPTYPE_RDP_S = 15;
-	public static final int OPTYPE_GET = 19;
+	public static final int OPTYPE_SET_SPEC = 16;
+	public static final int OPTYPE_GET_SPEC = 17;
 	
 	protected boolean operationCompleted;
 	protected OperationCompletionListener listener;
