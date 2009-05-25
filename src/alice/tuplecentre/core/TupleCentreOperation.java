@@ -17,6 +17,9 @@
  */
 package alice.tuplecentre.core;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import alice.tuplecentre.api.ITupleCentreOperation;
 import alice.tuplecentre.api.OperationTimeOutException;
 import alice.tuplecentre.api.Tuple;
@@ -44,14 +47,17 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 	protected static final int OPTYPE_OUT_S = 13;
 	protected static final int OPTYPE_INP_S = 14;
 	protected static final int OPTYPE_RDP_S = 15;
-
+	public static final int OPTYPE_GET = 19;
+	
 	protected boolean operationCompleted;
 	protected OperationCompletionListener listener;
 
 	private Tuple tupleArgument;
 	private TupleTemplate templateArgument;
 	private TCCycleResult result;
-
+	
+	
+	
 	private int type;
 
 	// internal identifier of the operation
@@ -72,6 +78,13 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 		idCounter++;
 	}
 
+	protected TupleCentreOperation(int type, OperationCompletionListener l)
+	{
+		this(type, (Tuple)null);
+		listener = l;
+		
+	}
+	
 	protected TupleCentreOperation(int type, Tuple t)
 	{
 		this(type);
@@ -108,6 +121,12 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 		return tupleArgument;
 	}	
 
+	
+	public List<Tuple> getResultList()
+	{
+		return result.getResultList();
+	}
+	
 	public Tuple getResult()
 	{
 		return result.getResult();
@@ -119,6 +138,13 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 		if (this.templateArgument != null)
 			this.templateArgument.propagate(t);
 		this.tupleArgument = t;
+		result.setEndTime(System.currentTimeMillis());
+	}
+	
+	public void setResultList(List<Tuple> t)
+	{
+		result.setResultList(t);
+	
 		result.setEndTime(System.currentTimeMillis());
 	}
 
@@ -176,6 +202,11 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 	{
 		return type == TupleCentreOperation.OPTYPE_INP_S;
 	}
+	
+	public boolean isGet()
+	{
+		return type == TupleCentreOperation.OPTYPE_GET;
+	}
 
 	public boolean isRdp_s()
 	{
@@ -210,7 +241,7 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 	public boolean isResultDefined()
 	{
 
-		if (isInp() || isRdp() || isInp_s() || isRdp_s())
+		if (isInp() || isRdp() || isInp_s() || isRdp_s() || isGet())
 		{
 
 			return this.isOperationCompleted();
