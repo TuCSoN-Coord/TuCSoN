@@ -1,11 +1,15 @@
 package alice.tuplecentre.core;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.Tuple;
 
 public class TCCycleResult implements ITCCycleResult {
 
 	private Tuple result;
+	private List<Tuple> resultList;
 	private long startTime, endTime;
 
 	
@@ -13,6 +17,7 @@ public class TCCycleResult implements ITCCycleResult {
 		
 		this.result = null;
 		this.startTime = System.currentTimeMillis();
+		this.resultList = new LinkedList<Tuple>();
 		
 	}
 	
@@ -21,11 +26,20 @@ public class TCCycleResult implements ITCCycleResult {
 		this.result = res;
 	}
 	
+	public void setResultList(List<Tuple> res) {
+		this.resultList = res;
+	}
+	
 	public Tuple getResult() {
 		// TODO Auto-generated method stub
 		return this.result;
 	}
 
+	public List<Tuple> getResultList() {
+		// TODO Auto-generated method stub
+		return this.resultList;
+	}
+	
 	public void setEndTime(long time) {
 		// TODO Auto-generated method stub
 		this.endTime = time;
