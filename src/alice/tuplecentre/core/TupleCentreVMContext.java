@@ -338,6 +338,14 @@ public abstract class TupleCentreVMContext implements ITupleCentreManagement, IT
     public abstract Tuple       removeMatchingTuple(TupleTemplate t);
 
     /**
+     * Gets all the tuples of the tuple centre
+     *
+     * @param 
+     * @return the whole tuple set
+     */
+    public abstract List<Tuple>       getAllTuples();
+    
+    /**
      * Gets (not deterministically) without removing from the tuple set  a tuple
      * that matches with the provided tuple template
      *
