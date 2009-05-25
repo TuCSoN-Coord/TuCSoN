@@ -563,7 +563,7 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 
     }
 
-    public Tuple       readMatchingTuple(TupleTemplate t){
+    public Tuple  readMatchingTuple(TupleTemplate t){
         return  tSet.readMatchingTuple((alice.logictuple.LogicTuple)t);
     }
     
@@ -913,6 +913,16 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 
 	public TransducerManager getTransducerManager() {
 		return tm;
+	}
+
+	@Override
+	public List<Tuple> getAllTuples() {
+		List<Tuple> tl = new LinkedList<Tuple>();
+		Iterator<LogicTuple> it = this.tSet.getIterator();
+		while(it.hasNext()){
+			tl.add((Tuple)it.next());
+		}
+		return tl;
 	}
 	
 
