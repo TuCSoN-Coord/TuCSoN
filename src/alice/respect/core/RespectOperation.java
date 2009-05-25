@@ -17,6 +17,9 @@
  */
 package alice.respect.core;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import alice.respect.api.IRespectOperation;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
@@ -35,6 +38,14 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 	public static final int OPTYPE_SET_ENV = 17;
 	public static final int OPTYPE_ENV = 18;
 	
+	
+	
+	
+	protected RespectOperation(int type,  OperationCompletionListener l){
+		//Bleah
+		super(type,l);
+	}
+	
 	protected RespectOperation(int type, Tuple t, OperationCompletionListener l){
 		super(type,t,l);
 	}
@@ -50,6 +61,13 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 	 */
 	public LogicTuple getLogicTupleResult(){
 		return (LogicTuple)getResult();
+	}
+	
+	/**
+	 * Gets the results of a get operation
+	 */
+	public List<Tuple> getLTupleResultList(){
+		return this.getLTupleResultList();
 	}
 	
 	/**
@@ -112,11 +130,18 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 	public static RespectOperation makeRdp_s(LogicTuple t, OperationCompletionListener l){
 		return new RespectOperation(RespectOperation.OPTYPE_RDP_S, (TupleTemplate)t, l);
 	}
+	
 	public static RespectOperation makeGetEnv(LogicTuple t, OperationCompletionListener l){
 		RespectOperation temp=new RespectOperation(RespectOperation.OPTYPE_GET_ENV, (TupleTemplate)t, l);
 		temp.setResult(t);
 		return temp;
 	}
+	
+	public static RespectOperation makeGet(OperationCompletionListener l){
+		RespectOperation temp=new RespectOperation(RespectOperation.OPTYPE_GET, l);
+		return temp;
+	}
+	
 	public static RespectOperation makeSetEnv(LogicTuple t, OperationCompletionListener l){
 		RespectOperation temp= new RespectOperation(RespectOperation.OPTYPE_SET_ENV, (TupleTemplate)t, l);
 		temp.setResult(t);
