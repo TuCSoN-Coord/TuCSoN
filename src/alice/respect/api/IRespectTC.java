@@ -39,6 +39,25 @@ public interface IRespectTC  {
 	IRespectOperation out(IId id, LogicTuple t) throws OperationNotPossibleException;
    
 	/**
+	 * Gets the whole tuple set
+	 * 
+	 * @param id agent identifier
+	 * @return The object representing the operation
+	 * @throws OperationNotPossibleException if the operation is not possible given current state of the tuple centre
+	 */
+	IRespectOperation get(IId id) throws OperationNotPossibleException;
+	
+	/**
+	 * Gets the whole tuple set
+	 * 
+	 * @param id agent identifier
+	 * @param listener listening for operation completion
+	 * @return The object representing the operation
+	 * @throws OperationNotPossibleException if the operation is not possible given current state of the tuple centre
+	 */
+	IRespectOperation get(IId id,OperationCompletionListener l) throws OperationNotPossibleException;
+	
+	/**
 	 * Retrieves a tuple in the tuple centre
 	 * 
 	 * @param id agent identifier
