@@ -47,8 +47,10 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 	protected static final int OPTYPE_OUT_S = 13;
 	protected static final int OPTYPE_INP_S = 14;
 	protected static final int OPTYPE_RDP_S = 15;
+
 	public static final int OPTYPE_SET_SPEC = 16;
 	public static final int OPTYPE_GET_SPEC = 17;
+
 	
 	protected boolean operationCompleted;
 	protected OperationCompletionListener listener;
@@ -79,12 +81,6 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 		idCounter++;
 	}
 
-	protected TupleCentreOperation(int type, OperationCompletionListener l)
-	{
-		this(type, (Tuple)null);
-		listener = l;
-		
-	}
 	
 	protected TupleCentreOperation(int type, Tuple t)
 	{
