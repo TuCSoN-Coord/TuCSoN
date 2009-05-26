@@ -159,7 +159,7 @@ public class RespectVM implements Runnable {
 				news.notifyAll();
 			}
 		} catch (Exception ex){
-			//ex.printStackTrace();
+			ex.printStackTrace();
 			throw new OperationNotPossibleException();
 		}
 	}
