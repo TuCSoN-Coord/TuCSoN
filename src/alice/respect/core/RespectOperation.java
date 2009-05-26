@@ -17,6 +17,7 @@
  */
 package alice.respect.core;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -24,6 +25,8 @@ import alice.respect.api.IRespectOperation;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.*;
+import alice.tuprolog.Struct;
+import alice.tuprolog.Term;
 import alice.logictuple.*;
 
 /**
@@ -33,15 +36,12 @@ import alice.logictuple.*;
  */
 public class RespectOperation extends TupleCentreOperation implements IRespectOperation {
 	
+
 	public static final int OPTYPE_TIME = 18;
 	public static final int OPTYPE_GET_ENV = 19;
 	public static final int OPTYPE_SET_ENV = 20;
 	public static final int OPTYPE_ENV = 21;
-	
-	protected RespectOperation(int type,  OperationCompletionListener l){
-		//Bleah
-		super(type,l);
-	}
+
 	
 	protected RespectOperation(int type, Tuple t, OperationCompletionListener l){
 		super(type,t,l);
@@ -63,8 +63,14 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 	/**
 	 * Gets the results of a get operation
 	 */
-	public List<Tuple> getLTupleResultList(){
-		return this.getLTupleResultList();
+	public List<LogicTuple> getTupleResultList(){
+		List<Tuple> tl = this.getResultList();
+		List<LogicTuple> tll = new LinkedList<LogicTuple>();
+		for(Tuple t :tl){
+			tll.add((LogicTuple)t);
+		}
+		
+		return tll;
 	}
 	
 	/**
@@ -134,8 +140,8 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 		return temp;
 	}
 	
-	public static RespectOperation makeGet(OperationCompletionListener l){
-		RespectOperation temp=new RespectOperation(RespectOperation.OPTYPE_GET, l);
+	public static RespectOperation makeGet(LogicTuple t, OperationCompletionListener l){
+		RespectOperation temp=new RespectOperation(RespectOperation.OPTYPE_GET, (Tuple)t, l);
 		return temp;
 	}
 	
@@ -145,7 +151,8 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 		return temp;
 	}
 	public LogicTuple toTuple(){
-		LogicTuple t;
+		LogicTuple t=null;
+		Term[] tl=null;
 		if (isOperationCompleted()){
 			t = getLogicTupleResult();
 		} else {
@@ -162,7 +169,18 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 			opName = "inp";
 		} else if (isRdp()){
 			opName = "rdp";
-		} else if (isOut_s()){
+		} else if (isGet()){
+			opName = "get";
+			LogicTuple[] tupleL=new LogicTuple[]{};
+			System.out.println("LUNGHEZZA1: "+this.getTupleResultList().size());
+			tupleL=this.getTupleResultList().toArray(tupleL);
+			System.out.println("LUNGHEZZA2: "+tupleL.length);
+			tl = new Term[tupleL.length];
+			for(int i=0;i<tupleL.length;i++){
+				tl[i]=(tupleL[i]).toTerm();
+				System.out.println("TERMINE: "+tl[i]);
+			}
+		}else if (isOut_s()){
 			opName = "out_s";
 		} else if (isIn_s()){
 			opName = "in_s";
@@ -184,7 +202,7 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 			opName = "unknownOp";
 		}
 		return new LogicTuple(opName, 
-				new TupleArgument(t.toTerm()));
+				new TupleArgument(tl!=null ? new Struct(tl) : t.toTerm()));
 	}
 
 	public String toString(){
