@@ -121,7 +121,7 @@ public abstract class TupleCentreVMContext implements ITupleCentreManagement, IT
 			if (inputEvents.size()>this.maxPendingInputEventNumber){
 				throw new OperationNotPossibleException();
 			}
-			spy("Accepting new event " + ev);
+			//spy("Accepting new event " + ev);
 			inputEvents.add(ev);
 		}
 	}	
