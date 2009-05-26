@@ -52,12 +52,14 @@ public class ListeningState extends TupleCentreVMState {
             vm.addTuple(op.getTupleArgument());
             op.notifyCompletion();
         } else {*/
-        // 10 is TIME_OP in alice.respect.core.RespectOperation
-        if( ev.getOperation().getType()!=10)
+        // 18 is TIME_OP in alice.respect.core.RespectOperation
+        if( ev.getOperation().getType()!=18){
         	vm.addPendingQueryEvent(ev);
+        	vm.fetchTriggeredReactions(ev);
+        }
         //}
-        vm.fetchTriggeredReactions(ev);
-        
-        vm.fetchTimedReactions(ev);
+        else{
+        	vm.fetchTimedReactions(ev);
+        }
     }
 }
