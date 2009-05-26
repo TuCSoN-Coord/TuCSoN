@@ -106,14 +106,8 @@ public class BlockingContext implements IBlockingContext {
 	public List<LogicTuple> get(AgentId aid) throws OperationNotPossibleException {
 		
 		IRespectOperation op = core.get(aid);
-		
-		List<LogicTuple> res = new LinkedList<LogicTuple>();
-		
-		Iterator<Tuple> it = op.getLTupleResultList().iterator();
-		
-		while(it.hasNext()){
-			res.add((LogicTuple)it.next());
-		}
+		op.waitForOperationCompletion();
+		List<LogicTuple> res =  op.getTupleResultList();
 		return res;
 	}
 	
