@@ -22,6 +22,6 @@ public interface IBlockingContext {
 
 	LogicTuple rdp(AgentId aid, LogicTuple t) throws InvalidLogicTupleException, OperationNotPossibleException;
 	
-	List<LogicTuple> get(AgentId aid) throws OperationNotPossibleException;
+	public List<LogicTuple> get(AgentId aid) throws OperationNotPossibleException;
 	
 }
