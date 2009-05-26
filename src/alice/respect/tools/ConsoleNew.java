@@ -8,6 +8,7 @@ package alice.respect.tools;
 
 import alice.logictuple.LogicTuple;
 import alice.respect.api.IBlockingSpecContext;
+import alice.respect.api.IManagementContext;
 import alice.respect.api.InstantiationNotPossibleException;
 import alice.respect.api.RespectException;
 import alice.respect.api.Agent;
@@ -18,6 +19,9 @@ import alice.respect.api.OperationNotPossibleException;
 import alice.respect.core.RespectTCContainer;
 import alice.respect.api.AgentId;
 import alice.respect.api.TupleCentreId;
+
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -41,6 +45,12 @@ public class ConsoleNew extends javax.swing.JFrame {
      * Current tuple centre of the console
      */
     protected IBlockingContext context;
+    
+    /**
+     * Mangement Context for the current tuple centre of the console
+     */
+    protected IManagementContext managementContext;
+    
     /**
      * Agent associated with the console acting on the tuple centre
      */
@@ -51,6 +61,7 @@ public class ConsoleNew extends javax.swing.JFrame {
         initComponents();
         try {
             context = RespectTCContainer.getRespectTCContainer().getBlockingContext(tupleCentreId);
+            managementContext = RespectTCContainer.getRespectTCContainer().getManagementContext(tupleCentreId);
         } catch (OperationNotPossibleException ex) {
             Logger.getLogger(ConsoleNew.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -228,7 +239,7 @@ private void loadSpecificationButtonActionPerformed(java.awt.event.ActionEvent e
         String spec = this.readFile(file);
 
         try{
-            context.setSpec(this.agentId, new RespectSpecification(spec));
+            managementContext.setSpec(new RespectSpecification(spec));
             outputTextArea.append("Specification loading: OK \n");
         }catch(Exception e){
             e.printStackTrace();
@@ -316,6 +327,7 @@ private void operationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {/
                 TupleCentreId tcId = new TupleCentreId("default@localhost");
                 // TODO change to $DEFAULT tuple centre
                 IBlockingContext ctx = RespectTCContainer.getRespectTCContainer().getBlockingContext(tcId);
+                IManagementContext manCtx = RespectTCContainer.getRespectTCContainer().getManagementContext(tcId);
                 IBlockingSpecContext ctx_s = RespectTCContainer.getRespectTCContainer().getBlockingSpecContext(tcId);
                 console.operationComboBox.setEnabled(false);
                 String cmd = console.operationComboBox.getSelectedItem().toString();
@@ -353,6 +365,7 @@ private void operationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {/
                     if (index1 != -1 && index2 != -1){
                         String methodName = removeSpaces(cmd.substring(0, index1));
                         String tuple = cmd.substring(index1+1, index2);
+                        //System.out.println("METH NAME: "+methodName+"|");
                         if (methodName.equals("out")){
                             LogicTuple t=LogicTuple.parse(tuple);
                             ctx.out(agentId, t);
@@ -391,6 +404,21 @@ private void operationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {/
                             } else {
                                 console.outputTextArea.append("answer: "+t+"\n");
                             }
+                        }else if (methodName.equals("get")){
+                            //LogicTuple templ=LogicTuple.parse(tuple);
+                            List<LogicTuple> t = ctx.get(agentId);
+                            /*if (t.size()==0){
+                                console.outputTextArea.append("answer: no\n");
+                            } else {*/
+                            Iterator<LogicTuple> it = t.iterator();
+                            String res="[";
+                            
+                            while(it.hasNext()){
+                            	res+=""+it.next()+",";
+                            }
+                            res=res.substring(0,res.lastIndexOf(","));
+                            console.outputTextArea.append(res+"]\n");
+                            
                         } else if (methodName.equals("out_s")){
                             LogicTuple t=LogicTuple.parse(tuple);
                             ctx_s.out_s(agentId, t);
@@ -433,10 +461,10 @@ private void operationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {/
                             if (tuple.startsWith("'")){
                                 tuple=tuple.substring(1,tuple.length()-1);
                             }
-                            ctx.setSpec(agentId,new RespectSpecification(tuple));
+                            manCtx.setSpec(new RespectSpecification(tuple));
                             console.outputTextArea.append("ok"+"\n");
                         } else if (methodName.equals("get_spec")){
-                            RespectSpecification spec = ctx.getSpec(agentId);
+                            RespectSpecification spec = manCtx.getSpec();
                             console.outputTextArea.append("answer: "+spec+"\n");
                         } else {
                             console.outputTextArea.append("unknown operation: "+methodName+"\n");
@@ -453,6 +481,7 @@ private void operationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {/
                 console.outputTextArea.append("syntax error in logic tuple description.\n");
             } catch (Exception ex){
                 //output.append(ex.toString()+"\n");
+            	ex.printStackTrace();
                 console.operationComboBox.setEnabled(true);
                 console.outputTextArea.append("error.\n");
             }
