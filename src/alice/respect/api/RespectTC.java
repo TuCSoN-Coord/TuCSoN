@@ -147,7 +147,7 @@ public class RespectTC implements IRespectTC {
 	}
 	
 	public IRespectOperation get(IId id, OperationCompletionListener l) throws OperationNotPossibleException {
-		RespectOperation op=RespectOperation.makeGet(l);
+		RespectOperation op=RespectOperation.makeGet(new LogicTuple("get"),l);
 		vm.doOperation(id,op);
 		return op;
 	}
