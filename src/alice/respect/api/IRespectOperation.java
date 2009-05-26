@@ -35,6 +35,6 @@ public interface IRespectOperation extends alice.tuplecentre.api.ITupleCentreOpe
 	/**
 	 * Gets the results of a get operation
 	 */
-	public List<Tuple> getLTupleResultList();
+	public List<LogicTuple> getTupleResultList();
 
 }
