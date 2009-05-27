@@ -1,16 +1,17 @@
 package alice.tucson.common;
 
 import java.io.*;
+import java.util.List;
 
 import alice.logictuple.*;
 
 public class TucsonMsgReply implements Serializable
 {
-	static public LogicTuple NULL = new LogicTuple("null");
+	//static public LogicTuple NULL = new LogicTuple("null");
 	private long id;
 	private int type;
 	private LogicTuple tuple_requested;
-	private LogicTuple tuple_result;
+	private Object tuple_result;
 	private boolean allowed;
 	private boolean success;
 
@@ -24,10 +25,11 @@ public class TucsonMsgReply implements Serializable
 		this.type = type;
 		this.allowed = allowed;
 		this.success = success;
-		tuple_requested = tuple_result = NULL;
+		tuple_requested = null;
+		tuple_result = null;
 	}
 
-	public TucsonMsgReply(long id, int type, boolean allowed, boolean success, LogicTuple req, LogicTuple res)
+	public TucsonMsgReply(long id, int type, boolean allowed, boolean success, LogicTuple req, Object res)
 	{
 		this.id = id;
 		this.type = type;
@@ -36,17 +38,17 @@ public class TucsonMsgReply implements Serializable
 		tuple_requested = req;
 		tuple_result = res;
 	}
-
+	
 	public LogicTuple getTupleRequested()
 	{
 		return tuple_requested;
 	}
 
-	public LogicTuple getTupleResult()
+	public Object getTupleResult()
 	{
 		return tuple_result;
 	}
-
+	
 	public long getId()
 	{
 		return id;
