@@ -2,6 +2,7 @@ package alice.tucson.service;
 
 import java.util.*;
 
+// Report relativo all'installazione del nodo
 public class TucsonInstallReport
 {
 	private boolean succeeded;
@@ -21,6 +22,7 @@ public class TucsonInstallReport
 		succeeded = success;
 		this.descr = descr;
 		this.date = date;
+		
 		synchronized (synch)
 		{
 			synch.notifyAll();
