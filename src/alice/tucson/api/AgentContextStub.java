@@ -27,15 +27,12 @@ import alice.tuplecentre.api.OperationTimeOutException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 
-import alice.tucson.api.exception.LanguageNotFoundException;
 import alice.tucson.api.exception.TucsonOperationNotPossibleException;
 import alice.tucson.api.exception.TucsonInvalidAgentIdException;
 import alice.tucson.api.exception.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exception.UnreachableNodeException;
 
 import alice.tucson.common.*;
-
-import alice.tucson.service.TucsonAgentLanguageManager;
 
 import alice.tucson.service.LanguageInfo;
 import alice.tucson.service.TucsonOperation;
@@ -51,6 +48,7 @@ public class AgentContextStub implements TucsonContext
 	private LinkedList<ContextEvent> events;
 	private HashMap<String, ControllerSession> controllerSessions;
 	private HashMap<Long, TucsonOperation> operations;
+	private ArrayList<Long> operationExpired;
 	private LanguageInfo chosenLanguage;
 	
 	public AgentContextStub(Object aid, LanguageInfo chosenLanguage)
@@ -78,11 +76,12 @@ public class AgentContextStub implements TucsonContext
 		events = new LinkedList<ContextEvent>();
 		controllerSessions = new HashMap<String, ControllerSession>();
 		operations = new HashMap<Long, TucsonOperation>();
+		operationExpired = new ArrayList<Long>();
 	}
 
 	// ACC Interface
 	
-	// operazioni non bloccanti senza linguaggio
+	// operazioni non bloccanti
 	
 	public ITucsonOperation out(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) 
 	throws TucsonOperationNotPossibleException, UnreachableNodeException
@@ -195,81 +194,81 @@ public class AgentContextStub implements TucsonContext
 		}	
 	}
 	
-	// operazioni bloccanti senza linguaggio
+	// operazioni bloccanti
 	
 	public LogicTuple out(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.outCode(), tid, tuple, null);
+		return doBlockingOperation(TucsonOperation.outCode(), tid, tuple, ms);
 	}
 	
 	public LogicTuple in(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.inCode(), tid, tuple, null);
+		return doBlockingOperation(TucsonOperation.inCode(), tid, tuple, ms);
 	}
 	
 	public LogicTuple rd(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.rdCode(), tid, tuple, null);
+		return doBlockingOperation(TucsonOperation.rdCode(), tid, tuple, ms);
 	}
 	
 	public LogicTuple inp(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.inpCode(), tid, tuple, null);
+		return doBlockingOperation(TucsonOperation.inpCode(), tid, tuple, ms);
 	}
 	
 	public LogicTuple rdp(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.rdpCode(), tid, tuple, null);
+		return doBlockingOperation(TucsonOperation.rdpCode(), tid, tuple, ms);
 	}
 	
 	public LogicTuple setSpec(Object tid, String spec, Long ms) throws TucsonOperationNotPossibleException,
 	UnreachableNodeException, OperationTimeOutException
 	{		
 		LogicTuple specT = new LogicTuple("spec", new Value(spec));
-		return doBlockingOperation(TucsonOperation.set_specCode(), tid, specT, null);
+		return doBlockingOperation(TucsonOperation.set_specCode(), tid, specT, ms);
 	}
 	
 	public String getSpec(Object tid, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException, InvalidTupleOperationException
 	{		
 		LogicTuple spec = new LogicTuple("spec");		
-		LogicTuple tupleRes = doBlockingOperation(TucsonOperation.get_specCode(), tid, spec, null);
+		LogicTuple tupleRes = doBlockingOperation(TucsonOperation.get_specCode(), tid, spec, ms);
 		return tupleRes.getArg(0).getName();		
 	}
 
 	public LogicTuple out_s(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.out_sCode(), tid, tuple, null);
+		return doBlockingOperation(TucsonOperation.out_sCode(), tid, tuple, ms);
 	}
 	
 	public LogicTuple in_s(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.in_sCode(), tid, tuple, null);
+		return doBlockingOperation(TucsonOperation.in_sCode(), tid, tuple, ms);
 	}
 	
 	public LogicTuple rd_s(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.rd_sCode(), tid, tuple, null);
+		return doBlockingOperation(TucsonOperation.rd_sCode(), tid, tuple, ms);
 	}
 	
 	public LogicTuple inp_s(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.inp_sCode(), tid, tuple, null);
+		return doBlockingOperation(TucsonOperation.inp_sCode(), tid, tuple, ms);
 	}
 	
 	public LogicTuple rdp_s(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException
 	{
-		return doBlockingOperation(TucsonOperation.rdp_sCode(), tid, tuple, null);
+		return doBlockingOperation(TucsonOperation.rdp_sCode(), tid, tuple, ms);
 	}
 	
 	public LogicTuple doBlockingOperation(int type, Object tid, LogicTuple t, Long ms)
@@ -292,10 +291,12 @@ public class AgentContextStub implements TucsonContext
 			}
 		}
 		
+		ITucsonOperation op = null;
+		
 		try
 		{			
-			ITucsonOperation op = doOperation(tcid, type, t, null);
-			
+			op = doOperation(tcid, type, t, null);
+
 			if(ms == null)
 				op.waitForOperationCompletion();
 			else
@@ -318,6 +319,11 @@ public class AgentContextStub implements TucsonContext
 			e.printStackTrace();
 			throw new OperationTimeOutException();
 		}
+	}
+	
+	public void addOperationExpired(long id)
+	{
+		this.operationExpired.add(id);
 	}
 	
 	public synchronized ITucsonOperation doOperation(TucsonTupleCentreId tcid, int type, LogicTuple t, TucsonOperationCompletionListener l)
@@ -350,9 +356,9 @@ public class AgentContextStub implements TucsonContext
 					
 				if((type == TucsonOperation.outCode()) | (type == TucsonOperation.out_sCode())
 						 | (type == TucsonOperation.set_specCode()))
-					op = new TucsonOperation(type, (Tuple) t, l);
+					op = new TucsonOperation(type, (Tuple) t, l, this);
 				else
-					op = new TucsonOperation(type, (TupleTemplate) t, l);
+					op = new TucsonOperation(type, (TupleTemplate) t, l, this);
 				
 				operations.put(op.getId(), op);
 				
@@ -398,7 +404,7 @@ public class AgentContextStub implements TucsonContext
 				contr.setStop();
 				ObjectOutputStream outStream = info.getOutputStream();
 				
-				TucsonOperation op = new TucsonOperation(TucsonOperation.exitCode(), (TupleTemplate) null, null);				
+				TucsonOperation op = new TucsonOperation(TucsonOperation.exitCode(), (TupleTemplate) null, null, this);				
 				operations.put(op.getId(), op);
 				
 				TucsonMsgRequest exit = new TucsonMsgRequest((int) op.getId(), op.getType(), null,
@@ -500,18 +506,25 @@ public class AgentContextStub implements TucsonContext
 		{
 			this.in = in;
 			stop = false;
+			this.setDaemon(true);
 		}
 
 		public void run()
 		{
-			// log("Controller started.");
+			log("Controller started.");
 			ContextEvent ev = null;
 			while (!isStopped())
 			{
 				try
 				{
+					// Elimino tutte le operazioni di cui non si è più interessati
+					for(Long operation : operationExpired)
+					{
+						operations.remove(operation);
+					}
+					
 					TucsonMsgReply msg = TucsonMsgReply.read(in);
-					// log("received msg " + msg);
+					log("received msg " + msg);
 					boolean ok = msg.isAllowed();
 					
 					if (ok)
@@ -560,6 +573,7 @@ public class AgentContextStub implements TucsonContext
 					}
 					
 					log("posting event " + ev.getOpId().getId());
+					
 					TucsonOperation op = operations.remove(msg.getId());
 					
 					op.setResult(msg.getTupleResult());	
@@ -586,7 +600,7 @@ public class AgentContextStub implements TucsonContext
 			stop = true;
 		}
 
-		LogicTuple unify(alice.tuplecentre.api.TupleTemplate template, alice.tuplecentre.api.Tuple tuple)
+		LogicTuple unify(TupleTemplate template, Tuple tuple)
 		{
 			boolean res = template.propagate(tuple);
 			if (res)
