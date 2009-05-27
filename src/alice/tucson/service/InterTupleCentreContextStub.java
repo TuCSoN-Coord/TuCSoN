@@ -34,6 +34,8 @@ import alice.logictuple.*;
 import java.util.*;
 import java.io.*;
 
+import com.sun.tools.javac.util.List;
+
 /**
  * Inter tuple centre context stub
  * 
@@ -322,6 +324,12 @@ public class InterTupleCentreContextStub implements InterTupleCentreContext
 								|| type == TucsonOperation.out_sCode())
 						{
 							ev = new ContextEvent(new TucsonOpId(msg.getId()), ok, msg.isSuccess());
+						}
+						else if (type == TucsonOperation.get_Code())
+						{
+							List<LogicTuple> tupleSetRes = (List<LogicTuple>) msg.getTupleResult();
+							//System.out.println(spec);
+							ev = new ContextEvent(new TucsonOpId(msg.getId()), ok, msg.isSuccess(), tupleSetRes);
 						}
 						else if (type == TucsonOperation.exitCode())
 						{
