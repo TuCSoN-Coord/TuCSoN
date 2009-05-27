@@ -70,11 +70,17 @@ public class TucsonMsgReply implements Serializable
 	public static void write(ObjectOutputStream dout, TucsonMsgReply msg) throws IOException
 	{
 		dout.writeLong(msg.getId());
+		//System.out.println(msg.getId());
 		dout.writeInt(msg.getType());
+		//System.out.println(msg.getType());
 		dout.writeBoolean(msg.isAllowed());
+		//System.out.println(msg.isAllowed());
 		dout.writeBoolean(msg.isSuccess());
+		//System.out.println(msg.isSuccess());
 		dout.writeObject(msg.getTupleRequested());
+		//System.out.println(msg.getTupleRequested());
 		dout.writeObject(msg.getTupleResult());
+		//System.out.println(msg.getTupleResult());		
 	}
 
 	public static TucsonMsgReply read(ObjectInputStream din) throws Exception
