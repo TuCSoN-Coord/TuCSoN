@@ -18,6 +18,7 @@
 package alice.tucson.api;
 
 import java.util.*;
+
 import alice.tucson.service.TucsonAgentLanguageManager;
 import alice.tucson.service.TucsonLanguageManager;
 import alice.tucson.service.TucsonOperationCompletionListener;
@@ -32,7 +33,7 @@ public abstract class TucsonAgent implements TucsonOperationCompletionListener
 	private TucsonAgentId id;
 	private HashMap <TucsonOpId, ContextEvent> events = null;
 
-	protected TucsonAgent(TucsonAgentId id, Object language)
+	protected TucsonAgent(TucsonAgentId id, String language)
 	{
 		if(language == null)
 			TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
