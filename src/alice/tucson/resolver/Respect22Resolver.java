@@ -17,6 +17,7 @@ import alice.respect.api.InvalidTupleCentreIdException;
 import alice.respect.api.OperationNotPossibleException;
 import alice.respect.api.RespectSpecification;
 import alice.respect.api.TupleCentreId;
+import alice.respect.core.BlockingSpecContext;
 import alice.respect.core.RespectTCContainer;
 
 import alice.tucson.api.TucsonAgentId;
@@ -131,10 +132,9 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 		return res;		
 	}
 	
-	public LogicTuple doBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
-	throws TucsonOperationNotPossibleException, TucsonInvalidLogicTupleException, TucsonInvalidSpecificationException
+	public Object doBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
+	throws TucsonOperationNotPossibleException, TucsonInvalidLogicTupleException
 	{
-		LogicTuple res = null;
 		IBlockingContext context = null;
 		
 		try
@@ -143,8 +143,9 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 		
 			if (type == TucsonOperation.outCode())
 			{
+				// La out restituisce un "null" --> la "out" di ReSpecT ritorna un void 
 				context.out((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-				return res;
+				return null;
 			}
 			if (type == TucsonOperation.inCode())
 				return context.in((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
@@ -165,19 +166,11 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 		{
 			throw new TucsonOperationNotPossibleException();
 		}		
-		catch (InvalidTupleOperationException e)
-		{
-			throw new TucsonInvalidLogicTupleException();
-		}
-		catch (InvalidSpecificationException e)
-		{
-			throw new TucsonInvalidSpecificationException();
-		}
-		return res;
+		return null;
 	}
 
-	public LogicTuple doBlockingSpecOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
-	throws TucsonOperationNotPossibleException, TucsonInvalidLogicTupleException
+	public Object doBlockingSpecOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
+	throws TucsonOperationNotPossibleException, TucsonInvalidLogicTupleException, TucsonInvalidSpecificationException
 	{
 		LogicTuple res = null;		
 		IBlockingSpecContext context = null;
@@ -198,18 +191,19 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 			if (type == TucsonOperation.rdCode())
 				return context.rd_s((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
 			if (type == TucsonOperation.rdp_sCode())
-				return context.rdp_s((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-			//if (type == TucsonOperation.set_specCode())
-			//{
-				//context.setSpec((AgentId) aid.getInternalAgentId(), new RespectSpecification(((LogicTuple) t).getArg(0).getName()));
-				//return res;
-			//}
-			//if (type == TucsonOperation.get_specCode())
-			//{
-				//res = new LogicTuple(context.getSpec((AgentId) aid.getInternalAgentId()).toString());
-				//return res;
-			//}
-			
+				return context.rdp_s((AgentId) aid.getInternalAgentId(), (LogicTuple) t);	
+			if (type == TucsonOperation.set_specCode())
+			{
+				// andrˆ solo nel contesto di gestione e richiederˆ un BehaviourSpecification ...
+				((BlockingSpecContext)context).setSpec((AgentId) aid.getInternalAgentId(), new RespectSpecification(((LogicTuple) t).getArg(0).getName()));
+				return res;
+			}
+			if (type == TucsonOperation.get_specCode())
+			{
+				// andrˆ solo nel contesto di gestione e ritornerˆ un BehaviourSpecification ...
+				res = new LogicTuple(((BlockingSpecContext)context).getSpec((AgentId) aid.getInternalAgentId()).toString());
+				return res;
+			}
 		}
 		catch (InvalidLogicTupleException e)
 		{
@@ -217,6 +211,18 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 		}
 		catch (OperationNotPossibleException e)
 		{
+			throw new TucsonOperationNotPossibleException();
+		}
+		catch (InvalidSpecificationException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			throw new TucsonInvalidSpecificationException();
+		}
+		catch (InvalidTupleOperationException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			throw new TucsonOperationNotPossibleException();
 		}	
 		
@@ -290,21 +296,4 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 	{
 		return ((AgentId) id).toString();
 	}
-
-	/*@Override
-	public TucsonOperation getTucsonOperation(TupleCentreOperation op)
-	{
-		RespectOperation respectOp = (RespectOperation) op;
-		TucsonOperation tucsonOp = null;
-		
-		if((respectOp.getType() == TucsonOperation.outCode()) | (respectOp.getType() == TucsonOperation.out_sCode())
-				 | (respectOp.getType() == TucsonOperation.set_specCode()))
-			tucsonOp = new TucsonOperation(respectOp.getType(), (Tuple)respectOp.getLogicTupleArgument(), respectOp.getListener());		
-		else
-			tucsonOp = new TucsonOperation(respectOp.getType(), (TupleTemplate)respectOp.getLogicTupleArgument(), respectOp.getListener());
-		
-		tucsonOp.setResult(respectOp.getLogicTupleResult());
-		
-		return tucsonOp;
-	}*/
 }
