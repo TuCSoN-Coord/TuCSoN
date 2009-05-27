@@ -174,9 +174,9 @@ public class Tucson2PLibrary extends Library
 			{
 				return false;
 			}
-			ITucsonOperation op = context.setSpec(tid, alice.util.Tools.removeApices(arg0.toString()), (TucsonOperationCompletionListener) null);
-			op.waitForOperationCompletion();
-			return op.isSuccessed();
+			
+			context.setSpec(tid, alice.util.Tools.removeApices(arg0.toString()), null);
+			return true;
 		}
 		catch (Exception x)
 		{
@@ -194,9 +194,10 @@ public class Tucson2PLibrary extends Library
 			{
 				return false;
 			}
-			ITucsonOperation op = context.getSpec(tid, (TucsonOperationCompletionListener) null);
-			op.waitForOperationCompletion();
-			return (op.isSuccessed() && unify(arg0, new Struct(op.getSpecResult())));			
+			
+			String spec = context.getSpec(tid, null);
+			
+			return unify(arg0, new Struct(spec));			
 		}
 		catch (Exception x)
 		{
