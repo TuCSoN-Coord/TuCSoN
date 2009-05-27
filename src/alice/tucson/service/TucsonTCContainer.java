@@ -117,16 +117,12 @@ public class TucsonTCContainer
 			// Ottengo il resolver relativo al linguaggio corrente
 			resolver = (IContainerResolver) TucsonNodeLanguageManager.createObject(currLang.getResolverComponentName(), new Object[0]);
 			
-			if(type == TucsonOperation.get_Code())
-				
 			return resolver.doBlockingOperation(type, aid, tid, t);
 		}
 		catch (Exception e)
 		{
 			throw new Exception();
-		}
-		
-		return null;
+		}		
 	}
 
 	public static Object doBlockingSpecOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)

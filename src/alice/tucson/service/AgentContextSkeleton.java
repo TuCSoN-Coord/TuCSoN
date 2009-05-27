@@ -133,7 +133,7 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 					
 					node.resolveCore(tid.getName());
 					node.addTCAgent(agentId, tid);
-					LogicTuple res = TucsonTCContainer.doBlockingOperation(msg_type, agentId, tid, msg.getTuple());
+					LogicTuple res = (LogicTuple)TucsonTCContainer.doBlockingSpecOperation(msg_type, agentId, tid, msg.getTuple());
 					
 					TucsonMsgReply reply = null;
 					
@@ -146,6 +146,22 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 					{
 						reply = new TucsonMsgReply(msg.getId(), msg_type, true, true);
 					}
+					
+					log("call executed");
+					TucsonMsgReply.write(outStream, reply);
+					outStream.flush();
+				}
+				else if (msg_type == TucsonOperation.get_Code())
+				{
+					log("execute call " + msg_type);
+					
+					node.resolveCore(tid.getName());
+					node.addTCAgent(agentId, tid);
+					List<LogicTuple> res = (List<LogicTuple>) TucsonTCContainer.doBlockingOperation(msg_type, agentId, tid, null);
+					
+					TucsonMsgReply reply = null;
+										
+					reply = new TucsonMsgReply(msg.getId(), msg_type, true, true, null, res);
 					
 					log("call executed");
 					TucsonMsgReply.write(outStream, reply);

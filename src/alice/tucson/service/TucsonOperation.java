@@ -183,10 +183,22 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 		
 		for(Tuple t : tl)
 		{
-			tll.add((LogicTuple)t);
+			tll.add((LogicTuple) t);
 		}
 		
 		return tll;
+	}
+	
+	public void setTupleResultList(List<LogicTuple> tl)
+	{
+		List<Tuple> t = new LinkedList<Tuple>();
+		
+		for(LogicTuple logicTuple : tl)
+		{
+			t.add(logicTuple);
+		}
+		
+		setResultList(t);
 	}
 	
 	// da togliere ...
