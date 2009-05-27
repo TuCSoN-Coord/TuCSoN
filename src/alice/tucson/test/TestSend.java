@@ -17,9 +17,9 @@ public class TestSend
 		TucsonTupleCentreId tid = new TucsonTupleCentreId(args[0]);
 		Value dest = new Value(args[1]);
 		Value msg = new Value(args[2]);
-
+	
 		TucsonContext cnt = Tucson.getContext(new TucsonAgentId("paperino"), TucsonAgentLanguageManager.getCurLanguage());
 		
-		cnt.out(tid, new LogicTuple("msg", dest, msg), (Long) null);
+		cnt.out(tid, new LogicTuple("msg", dest, msg), (Long) null);	
 	}
 }
