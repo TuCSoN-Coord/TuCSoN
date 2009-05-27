@@ -303,7 +303,7 @@ public class InterTupleCentreContextStub implements InterTupleCentreContext
 							if (succeeded)
 							{
 								LogicTuple tupleReq = msg.getTupleRequested();
-								LogicTuple tupleRes = msg.getTupleResult();
+								LogicTuple tupleRes = (LogicTuple) msg.getTupleResult();
 								LogicTuple res = unify(tupleReq, tupleRes);
 								ev = new ContextEvent(new TucsonOpId(msg.getId()), ok, true, res);
 							}
@@ -314,7 +314,7 @@ public class InterTupleCentreContextStub implements InterTupleCentreContext
 						}
 						else if (type == TucsonOperation.get_specCode())
 						{
-							LogicTuple tupleRes = msg.getTupleResult();
+							LogicTuple tupleRes = (LogicTuple) msg.getTupleResult();
 							String spec = tupleRes.getArg(0).getName();
 							ev = new ContextEvent(new TucsonOpId(msg.getId()), ok, msg.isSuccess(), spec);
 						}
