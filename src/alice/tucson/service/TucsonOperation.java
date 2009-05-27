@@ -1,5 +1,8 @@
 package alice.tucson.service;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import alice.tuplecentre.api.OperationTimeOutException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
@@ -172,6 +175,21 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 		}
 	}
 	
+	// Necessario per la "get"
+	public List<LogicTuple> getTupleResultList()
+	{
+		List<Tuple> tl = this.getResultList();
+		List<LogicTuple> tll = new LinkedList<LogicTuple>();
+		
+		for(Tuple t : tl)
+		{
+			tll.add((LogicTuple)t);
+		}
+		
+		return tll;
+	}
+	
+	// da togliere ...
 	public String getSpecResult() throws InvalidTupleOperationException
 	{
 		return getLogicTupleResult().getArg(0).getName();
