@@ -1,10 +1,13 @@
 package alice.tucson.api;
 
+import com.sun.tools.javac.util.List;
+
 import alice.logictuple.*;
 
 public class ContextEvent
 {
 	private LogicTuple tuple;
+	private List<LogicTuple> tupleList;
 	private boolean allowed;
 	private TucsonOpId opId;
 	private String spec;
@@ -32,6 +35,14 @@ public class ContextEvent
 		this.success = success;
 		this.spec = spec;
 	}
+	
+	public ContextEvent(TucsonOpId opId, boolean allowed, boolean success, List<LogicTuple> tupleList)
+	{
+		this.opId = opId;
+		this.allowed = allowed;
+		this.success = success;
+		this.tupleList = tupleList;
+	}
 
 	public boolean operationAllowed()
 	{
@@ -51,6 +62,11 @@ public class ContextEvent
 	public LogicTuple getTuple()
 	{
 		return tuple;
+	}
+	
+	public List<LogicTuple> getSetTuple()
+	{
+		return tupleList;
 	}
 
 	public String getSpec()

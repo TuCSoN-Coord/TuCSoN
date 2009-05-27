@@ -150,42 +150,4 @@ public interface TucsonNonBlockingContext
 	 */
 	ITucsonOperation rdp(Object tid, LogicTuple tuple, TucsonOperationCompletionListener l) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 			LanguageNotFoundException;
-	
-	/**
-	 * Sets the behaviour of a tuple centre
-	 * 
-	 * @param tid
-	 *            is the identifier of the target tuple centre (supports
-	 *            different types in relation with the used language:
-	 *            TupleCentreId, String, ...)
-	 * @param spec
-	 *            is behaviour specification in the ReSpecT language (supports
-	 *            different types in relation with the used language: String,
-	 *            ...)
-	 * @throws s
-	 *             TucsonOperationNotPossibleException of the operation is not allowed
-	 * @throws s
-	 *             UnreachableNodeException if the node specified in the tuple
-	 *             centre identifier is not reachable
-	 * @throws s
-	 *             InvalidSpecificationException if the specification is not
-	 *             valid
-	 */
-	ITucsonOperation setSpec(Object tid, String spec, TucsonOperationCompletionListener l) throws TucsonOperationNotPossibleException, UnreachableNodeException, LanguageNotFoundException;
-
-	/**
-	 * Gets the behaviour specification of a tuple centre
-	 * 
-	 * @param tid
-	 *            is the identifier of the target tuple centre (supports
-	 *            different types in relation with the used language:
-	 *            TupleCentreId, String, ...)
-	 * @return the behavious specification in the ReSpecT language
-	 * @throws s
-	 *             TucsonOperationNotPossibleException of the operation is not allowed
-	 * @throws s
-	 *             UnreachableNodeException if the node specified in the tuple
-	 *             centre identifier is not reachable
-	 */
-	ITucsonOperation getSpec(Object tid, TucsonOperationCompletionListener l) throws TucsonOperationNotPossibleException, UnreachableNodeException, LanguageNotFoundException;
 }

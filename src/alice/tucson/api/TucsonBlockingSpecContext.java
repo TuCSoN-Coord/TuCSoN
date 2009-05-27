@@ -149,4 +149,44 @@ public interface TucsonBlockingSpecContext
 	 */
 	LogicTuple rdp_s(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	LanguageNotFoundException, OperationTimeOutException;
+	
+	/**
+	 * Sets the behaviour of a tuple centre
+	 * 
+	 * @param tid
+	 *            is the identifier of the target tuple centre (supports
+	 *            different types in relation with the used language:
+	 *            TupleCentreId, String, ...)
+	 * @param spec
+	 *            is behaviour specification in the ReSpecT language (supports
+	 *            different types in relation with the used language: String,
+	 *            ...)
+	 * @throws s
+	 *             TucsonOperationNotPossibleException of the operation is not allowed
+	 * @throws s
+	 *             UnreachableNodeException if the node specified in the tuple
+	 *             centre identifier is not reachable
+	 * @throws s
+	 *             InvalidSpecificationException if the specification is not
+	 *             valid
+	 */
+	LogicTuple setSpec(Object tid, String spec, Long ms) throws TucsonOperationNotPossibleException, 
+	UnreachableNodeException, LanguageNotFoundException, OperationTimeOutException;
+	
+	/**
+	 * Gets the behaviour specification of a tuple centre
+	 * 
+	 * @param tid
+	 *            is the identifier of the target tuple centre (supports
+	 *            different types in relation with the used language:
+	 *            TupleCentreId, String, ...)
+	 * @return the behavious specification in the ReSpecT language
+	 * @throws s
+	 *             TucsonOperationNotPossibleException of the operation is not allowed
+	 * @throws s
+	 *             UnreachableNodeException if the node specified in the tuple
+	 *             centre identifier is not reachable
+	 */
+	String getSpec(Object tid, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
+	LanguageNotFoundException, OperationTimeOutException, InvalidTupleOperationException;
 }
