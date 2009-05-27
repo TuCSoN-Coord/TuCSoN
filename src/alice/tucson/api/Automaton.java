@@ -44,7 +44,7 @@ public abstract class Automaton extends TucsonAgent implements java.io.Serializa
 	 * @param id
 	 *            the automaton identifier
 	 */
-	public Automaton(TucsonAgentId id, Object language)
+	public Automaton(TucsonAgentId id, String language)
 	{
 		super(id, language);
 	}
