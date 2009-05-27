@@ -29,28 +29,11 @@ class AgentA extends TucsonAgent
 			String spec = "reaction(out(p(X)),( in_r(p(X)),out_r(pp(X)))).\n";
 			TucsonTupleCentreId tid = new TucsonTupleCentreId("agora");
 
-			TucsonOperation op = (TucsonOperation) (super.getContext().setSpec(tid, spec, (TucsonOperationCompletionListener) null));
-			
-			op.waitForOperationCompletion(10000l);
-								
-			if(!op.isOperationCompleted())
-				return;
-			
-			// Operazione completata
-			System.out.println(op.isSuccessed());
-
-			op = (TucsonOperation) (super.getContext().getSpec(tid, (TucsonOperationCompletionListener) null));
-			
-			op.waitForOperationCompletion(10000);
-			
-			if(!op.isOperationCompleted())
-				return;
-								
-			// Operazione completata
-			System.out.println(op.isSuccessed());
-			System.out.println(op.getSpecResult());
-			
-			op = (TucsonOperation) (super.getContext().out(tid, new LogicTuple("ready"), (TucsonOperationCompletionListener) null));
+			super.getContext().setSpec(tid, spec, (Long) null);
+						
+			String specReturn = super.getContext().getSpec(tid, (Long) null);
+						
+			TucsonOperation op = (TucsonOperation) (super.getContext().out(tid, new LogicTuple("ready"), (TucsonOperationCompletionListener) null));
 		}
 		catch (Exception ex)
 		{
