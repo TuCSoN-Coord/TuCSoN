@@ -21,9 +21,9 @@ public interface IContainerResolver
 			LogicTuple t, OperationCompletionListener l) throws TucsonOperationNotPossibleException, TucsonInvalidLogicTupleException,
 			TucsonInvalidSpecificationException;
 	
-	public LogicTuple doBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
+	public Object doBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
 			throws TucsonOperationNotPossibleException, TucsonInvalidLogicTupleException, TucsonInvalidSpecificationException;
 	
-	public LogicTuple doBlockingSpecOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
+	public Object doBlockingSpecOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
 		throws TucsonOperationNotPossibleException, TucsonInvalidLogicTupleException;
 }
