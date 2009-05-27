@@ -76,7 +76,6 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 		try
 		{
 			context = (RespectTCContainer.getRespectTCContainer()).getNonBlockingContext((TupleCentreId) tid.getInternalTupleCentreId());			
-			
 			if (type == TucsonOperation.outCode())
 				return context.out((AgentId) aid.getInternalAgentId(), t, l);
 			if (type == TucsonOperation.inCode())
@@ -155,16 +154,8 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 				return context.rd((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
 			if (type == TucsonOperation.rdpCode())
 				return context.rdp((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-			if (type == TucsonOperation.set_specCode())
-			{
-				context.setSpec((AgentId) aid.getInternalAgentId(), new RespectSpecification(((LogicTuple) t).getArg(0).getName()));
-				return res;
-			}
-			if (type == TucsonOperation.get_specCode())
-			{
-				res = new LogicTuple(context.getSpec((AgentId) aid.getInternalAgentId()).toString());
-				return res;
-			}
+			if (type == TucsonOperation.get_Code())
+				return context.get((AgentId) aid.getInternalAgentId());	
 		}
 		catch (InvalidLogicTupleException e)
 		{
@@ -173,7 +164,7 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 		catch (OperationNotPossibleException e)
 		{
 			throw new TucsonOperationNotPossibleException();
-		}
+		}		
 		catch (InvalidTupleOperationException e)
 		{
 			throw new TucsonInvalidLogicTupleException();
@@ -181,7 +172,7 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 		catch (InvalidSpecificationException e)
 		{
 			throw new TucsonInvalidSpecificationException();
-		}		
+		}
 		return res;
 	}
 
@@ -208,6 +199,17 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 				return context.rd_s((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
 			if (type == TucsonOperation.rdp_sCode())
 				return context.rdp_s((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
+			//if (type == TucsonOperation.set_specCode())
+			//{
+				//context.setSpec((AgentId) aid.getInternalAgentId(), new RespectSpecification(((LogicTuple) t).getArg(0).getName()));
+				//return res;
+			//}
+			//if (type == TucsonOperation.get_specCode())
+			//{
+				//res = new LogicTuple(context.getSpec((AgentId) aid.getInternalAgentId()).toString());
+				//return res;
+			//}
+			
 		}
 		catch (InvalidLogicTupleException e)
 		{
@@ -216,7 +218,7 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 		catch (OperationNotPossibleException e)
 		{
 			throw new TucsonOperationNotPossibleException();
-		}
+		}	
 		
 		return res;
 	}
