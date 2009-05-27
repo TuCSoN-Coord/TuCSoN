@@ -1,5 +1,7 @@
 package alice.tucson.service;
 
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
 
 import alice.tuplecentre.api.ITupleCentreOperation;
@@ -104,7 +106,7 @@ public class TucsonTCContainer
 		}
 	}
 
-	public static LogicTuple doBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
+	public static Object doBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
 			throws Exception
 	{
 		IContainerResolver resolver;
@@ -115,15 +117,19 @@ public class TucsonTCContainer
 			// Ottengo il resolver relativo al linguaggio corrente
 			resolver = (IContainerResolver) TucsonNodeLanguageManager.createObject(currLang.getResolverComponentName(), new Object[0]);
 			
+			if(type == TucsonOperation.get_Code())
+				
 			return resolver.doBlockingOperation(type, aid, tid, t);
 		}
 		catch (Exception e)
 		{
 			throw new Exception();
 		}
+		
+		return null;
 	}
 
-	public static LogicTuple doBlockingSpecOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
+	public static Object doBlockingSpecOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
 			throws Exception
 	{
 		IContainerResolver resolver;
@@ -210,57 +216,62 @@ public class TucsonTCContainer
 	public static LogicTuple getSpec(TucsonAgentId aid, TucsonTupleCentreId tid) throws Exception
 	{
 
-		return doBlockingOperation(TucsonOperation.get_specCode(), aid, tid, null);
+		return (LogicTuple) doBlockingOperation(TucsonOperation.get_specCode(), aid, tid, null);
 	}
 
+	public static List<LogicTuple> get(TucsonAgentId aid, TucsonTupleCentreId tid) throws Exception
+	{
+		return (List<LogicTuple>) doBlockingOperation(TucsonOperation.outCode(), aid, tid, null);
+	}
+	
 	public static LogicTuple out(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		return doBlockingOperation(TucsonOperation.outCode(), aid, tid, t);
+		return (LogicTuple) doBlockingOperation(TucsonOperation.outCode(), aid, tid, t);
 	}
 
 	public static LogicTuple in(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		return doBlockingOperation(TucsonOperation.inCode(), aid, tid, t);
+		return (LogicTuple) doBlockingOperation(TucsonOperation.inCode(), aid, tid, t);
 	}
 
 	public static LogicTuple rd(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		return doBlockingOperation(TucsonOperation.rdCode(), aid, tid, t);
+		return (LogicTuple) doBlockingOperation(TucsonOperation.rdCode(), aid, tid, t);
 	}
 
 	public static LogicTuple inp(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		return doBlockingOperation(TucsonOperation.inpCode(), aid, tid, t);
+		return (LogicTuple) doBlockingOperation(TucsonOperation.inpCode(), aid, tid, t);
 	}
 
 	public static LogicTuple rdp(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		return doBlockingOperation(TucsonOperation.rdpCode(), aid, tid, t);
+		return (LogicTuple) doBlockingOperation(TucsonOperation.rdpCode(), aid, tid, t);
 	}
 
 	public static LogicTuple out_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		return doBlockingOperation(TucsonOperation.out_sCode(), aid, tid, t);
+		return (LogicTuple) doBlockingOperation(TucsonOperation.out_sCode(), aid, tid, t);
 	}
 
 	public static LogicTuple in_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		return doBlockingOperation(TucsonOperation.in_sCode(), aid, tid, t);
+		return (LogicTuple) doBlockingOperation(TucsonOperation.in_sCode(), aid, tid, t);
 	}
 
 	public static LogicTuple rd_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		return doBlockingOperation(TucsonOperation.rd_sCode(), aid, tid, t);
+		return (LogicTuple) doBlockingOperation(TucsonOperation.rd_sCode(), aid, tid, t);
 	}
 
 	public static LogicTuple rdp_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		return doBlockingOperation(TucsonOperation.rdp_sCode(), aid, tid, t);
+		return (LogicTuple) doBlockingOperation(TucsonOperation.rdp_sCode(), aid, tid, t);
 	}
 
 	public static LogicTuple inp_s(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception
 	{
-		return doBlockingOperation(TucsonOperation.inp_sCode(), aid, tid, t);
+		return (LogicTuple) doBlockingOperation(TucsonOperation.inp_sCode(), aid, tid, t);
 	}
 
 	public static synchronized void activateObservability(TucsonTupleCentreId tid, ObservableEventListener l)
