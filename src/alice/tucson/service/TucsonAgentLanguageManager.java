@@ -2,12 +2,7 @@ package alice.tucson.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import alice.tucson.types.IResolver;
 
-/**
- * @author lsemprini
- * 
- */
 public class TucsonAgentLanguageManager
 {
 	private static LanguageInfo curLang;
