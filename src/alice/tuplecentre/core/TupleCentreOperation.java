@@ -57,9 +57,7 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 
 	private Tuple tupleArgument;
 	private TupleTemplate templateArgument;
-	private TCCycleResult result;
-	
-	
+	private TCCycleResult result;	
 	
 	private int type;
 
