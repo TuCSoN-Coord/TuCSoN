@@ -1,5 +1,6 @@
 package alice.tucson.service;
 
+import alice.tuplecentre.api.OperationTimeOutException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 
@@ -12,20 +13,25 @@ import alice.tucson.api.*;
 
 public class TucsonOperation extends TupleCentreOperation implements ITucsonOperation
 {	
-	private static final int OPTYPE_EXIT = 16;
-	private static final int OPTYPE_GET_TSET = 17;
-	private static final int OPTYPE_GET_WSET = 18;
+	private static final int OPTYPE_EXIT = 18;
+	private static final int OPTYPE_GET_TSET = 19;
+	private static final int OPTYPE_GET_WSET = 20;
 	private boolean successed;
 	private boolean allowed;
+	private AgentContextStub context = null;
 	
-	public TucsonOperation(int type, Tuple t, OperationCompletionListener l)
+	public TucsonOperation(int type, Tuple t, OperationCompletionListener l, AgentContextStub context)
 	{
 		super(type, t, l);
+		this.context = context;
+		successed = false;
 	}
 
-	public TucsonOperation(int type, TupleTemplate t, OperationCompletionListener l)
+	public TucsonOperation(int type, TupleTemplate t, OperationCompletionListener l, AgentContextStub context)
 	{
 		super(type, t, l);
+		this.context = context;
+		successed = false;
 	}
 	
 	public static int outCode()
@@ -53,14 +59,14 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 		return OPTYPE_RDP;
 	}
 
-	public static int set_specCode()
+	public static int set_Code()
 	{
-		return OPTYPE_SET_SPEC;
+		return OPTYPE_SET;
 	}
 	
-	public static int get_specCode()
+	public static int get_Code()
 	{
-		return OPTYPE_GET_SPEC;
+		return OPTYPE_GET;
 	}
 	
 	public static int out_sCode()
@@ -88,6 +94,16 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 		return OPTYPE_RD_S;
 	}
 	
+	public static int set_specCode()
+	{
+		return OPTYPE_SET_SPEC;
+	}
+	
+	public static int get_specCode()
+	{
+		return OPTYPE_GET_SPEC;
+	}
+	
 	public static int get_TSet()
 	{
 		return OPTYPE_GET_TSET;
@@ -96,11 +112,16 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 	public static int get_WSet()
 	{
 		return OPTYPE_GET_WSET;
-	}
+	}	
 	
 	public static int exitCode()
 	{
 		return OPTYPE_EXIT;
+	}
+	
+	public TucsonContext getTucsonContex()
+	{
+		return context;
 	}
 	
 	/**
@@ -164,5 +185,28 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 	public boolean isAllowed()
 	{
 		return allowed;
+	}
+	
+	public void waitForOperationCompletion(long ms) throws OperationTimeOutException
+	{
+		try
+		{
+			synchronized (token)
+			{
+				if (!operationCompleted)
+				{
+					token.wait(ms);
+				}
+				if (!operationCompleted)
+				{
+					this.context.addOperationExpired(getId());
+					throw new OperationTimeOutException();
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 }
