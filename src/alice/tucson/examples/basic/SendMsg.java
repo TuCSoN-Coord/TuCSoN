@@ -1,11 +1,11 @@
 package alice.tucson.examples.basic;
 
+import alice.logictuple.*;
+
 import alice.tucson.api.*;
+
 import alice.tucson.service.TucsonAgentLanguageManager;
 import alice.tucson.service.TucsonLanguageManager;
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.logictuple.*;
 
 public class SendMsg
 {
