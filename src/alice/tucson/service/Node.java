@@ -521,7 +521,9 @@ public class Node
 			InputStream is = Thread.currentThread().getContextClassLoader().getResourceAsStream(DEFAULT_BOOT_SPEC_FILE);
 			String spec = alice.util.Tools.loadText(new BufferedInputStream(is));
 			LogicTuple specTuple = new LogicTuple("spec", new Value(spec));
+			
 			TucsonTCContainer.setSpec(nodeAid, idConfigTC, specTuple);
+			//System.out.println("GET_SPEC: " + TucsonTCContainer.getSpec(nodeAid, idConfigTC));
 		}
 		catch (Exception ex)
 		{

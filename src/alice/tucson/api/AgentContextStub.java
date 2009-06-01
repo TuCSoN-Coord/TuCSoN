@@ -442,6 +442,7 @@ public class AgentContextStub implements TucsonContext
 
 				int idx = node.indexOf(':');
 				int port = 20504;
+				
 				try
 				{
 					if (idx != -1)
@@ -454,11 +455,14 @@ public class AgentContextStub implements TucsonContext
 				{
 					throw new UnreachableNodeException();
 				}
+				
 				TucsonProtocol dialog = new TucsonProtocolTCP(node, port);
 				dialog.sendEnterRequest(profile);
-				dialog.receiveEnterRequestAnswer();
+				dialog.receiveEnterRequestAnswer();								
+
 				if (dialog.isEnterRequestAccepted())
 				{
+					System.out.println("richiesta accettata");
 					ObjectInputStream din = dialog.getInputStream();
 					Controller contr = new Controller(din);
 					ControllerSession cs = new ControllerSession(contr, dialog);

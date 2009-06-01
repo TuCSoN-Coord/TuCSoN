@@ -206,13 +206,13 @@ public class TucsonTCContainer
 
 	public static void setSpec(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple spec) throws Exception
 	{
-		doBlockingOperation(TucsonOperation.set_specCode(), aid, tid, spec);
+		doBlockingSpecOperation(TucsonOperation.set_specCode(), aid, tid, spec);
 	}
 
 	public static LogicTuple getSpec(TucsonAgentId aid, TucsonTupleCentreId tid) throws Exception
 	{
 
-		return (LogicTuple) doBlockingOperation(TucsonOperation.get_specCode(), aid, tid, null);
+		return (LogicTuple) doBlockingSpecOperation(TucsonOperation.get_specCode(), aid, tid, null);
 	}
 
 	public static List<LogicTuple> get(TucsonAgentId aid, TucsonTupleCentreId tid) throws Exception

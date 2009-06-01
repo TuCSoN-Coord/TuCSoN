@@ -71,10 +71,10 @@ public class ContextManager
 			log("creating context ...");
 
 			String agentName = profile.getProperty("agent-identity");
-			log(agentName);
+			log("agent-identity: " + agentName);
 			
 			LogicTuple req = new LogicTuple("context_request", new Value(agentName), new Var("CtxId"));
-			log(req.toString());
+			log("context_request: " + req.toString());
 			
 			LogicTuple result = TucsonTCContainer.inp(aid, config, req);
 			log("Context creation result: " + result);

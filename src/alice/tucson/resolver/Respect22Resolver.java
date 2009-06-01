@@ -136,13 +136,13 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 	throws TucsonOperationNotPossibleException, TucsonInvalidLogicTupleException
 	{
 		IBlockingContext context = null;
-		
 		try
 		{
 			context = (IBlockingContext) (RespectTCContainer.getRespectTCContainer()).getBlockingContext((TupleCentreId) tid.getInternalTupleCentreId());			
-		
+			
 			if (type == TucsonOperation.outCode())
 			{
+				//System.out.println("OK");
 				// La out restituisce un "null" --> la "out" di ReSpecT ritorna un void 
 				context.out((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
 				return null;
@@ -150,13 +150,17 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 			if (type == TucsonOperation.inCode())
 				return context.in((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
 			if (type == TucsonOperation.inpCode())
+			{
+				//System.out.println("OK" + context.inp((AgentId) aid.getInternalAgentId(), (LogicTuple) t));
 				return context.inp((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
+			}
 			if (type == TucsonOperation.rdCode())
 				return context.rd((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
 			if (type == TucsonOperation.rdpCode())
 				return context.rdp((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
 			if (type == TucsonOperation.get_Code())
-				return context.get((AgentId) aid.getInternalAgentId());	
+				return context.get((AgentId) aid.getInternalAgentId());
+						
 		}
 		catch (InvalidLogicTupleException e)
 		{
