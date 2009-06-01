@@ -23,7 +23,7 @@ import java.util.*;
 
 import java.io.*;
 
-import com.sun.tools.javac.util.List;
+import java.util.List;
 
 import alice.tuplecentre.api.OperationTimeOutException;
 import alice.tuplecentre.api.Tuple;
@@ -355,9 +355,10 @@ public class AgentContextStub implements TucsonContext
 				if((type == TucsonOperation.outCode()) | (type == TucsonOperation.out_sCode())
 						 | (type == TucsonOperation.set_specCode()))
 					op = new TucsonOperation(type, (Tuple) t, l, this);			
-				else if(type == TucsonOperation.get_Code())
-					op = new TucsonOperation(type, (Tuple) t, l, this);
+				else
+					op = new TucsonOperation(type, (TupleTemplate) t, l, this);
 				
+				System.out.println(op);
 				operations.put(op.getId(), op);
 				
 				//log("Remote call & eventually translation");

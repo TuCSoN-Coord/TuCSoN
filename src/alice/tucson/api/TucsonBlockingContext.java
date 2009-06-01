@@ -17,7 +17,7 @@
  */
 package alice.tucson.api;
 
-import com.sun.tools.javac.util.List;
+import java.util.List;
 
 import alice.logictuple.*;
 
