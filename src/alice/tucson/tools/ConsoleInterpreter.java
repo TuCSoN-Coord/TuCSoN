@@ -25,6 +25,10 @@ import alice.logictuple.*;
 
 public class ConsoleInterpreter extends alice.util.Automaton
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 	private TucsonContext context;
 
