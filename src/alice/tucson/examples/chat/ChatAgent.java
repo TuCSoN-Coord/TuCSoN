@@ -17,11 +17,16 @@
  */
 package alice.tucson.examples.chat;
 
-import alice.tucson.api.*;
-import alice.tucson.service.TucsonAgentLanguageManager;
-import alice.tucson.types.*;
 import alice.logictuple.*;
+
 import alice.tuprolog.*;
+
+import alice.tucson.api.*;
+
+import alice.tucson.service.TucsonAgentLanguageManager;
+import alice.tucson.service.TucsonLanguageManager;
+
+import alice.tucson.types.*;
 
 /**
  * GUI Component used by Chat Agent to get input from user and to display new
@@ -40,12 +45,12 @@ public class ChatAgent extends javax.swing.JFrame
 	/** Creates new form GUI */
 	public ChatAgent(String name, String host, TucsonTupleCentreId idMailbox) throws Exception
 	{
-		TucsonAgentLanguageManager.useLanguage(TucsonOpType.DEFLANGUAGE);
+		TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
 		// ask for a context
 		myId = "user('" + name + "')";
 		myName = name;
 
-		context = Tucson.getContext(new TucsonAgentId(myId), TucsonOpType.DEFLANGUAGE);
+		context = Tucson.getContext(new TucsonAgentId(myId), TucsonAgentLanguageManager.getCurLanguage());	
 
 		chatId = new TucsonTupleCentreId("chat_room@'" + host + "'");
 		
@@ -53,7 +58,7 @@ public class ChatAgent extends javax.swing.JFrame
 
 		// ask to enter the chat
 		// LogicTuple res=
-		context.out(chatId, new LogicTuple("join", new Value(myId), mailBox));
+		context.out(chatId, new LogicTuple("join", new Value(myId), mailBox), (java.lang.Long) null);
 
 		LogicTuple res = null;
 
@@ -156,7 +161,7 @@ public class ChatAgent extends javax.swing.JFrame
 	{// GEN-FIRST:event_inputActionPerformed
 		try
 		{
-			context.out(chatId, new LogicTuple("msg", new Value(myName), new Value(input.getText())));
+			context.out(chatId, new LogicTuple("msg", new Value(myName), new Value(input.getText())), (java.lang.Long) null);
 			input.setText("");
 		}
 		catch (Exception ex)
@@ -170,7 +175,7 @@ public class ChatAgent extends javax.swing.JFrame
 	{// GEN-FIRST:event_exitForm
 		try
 		{
-			context.out(chatId, new LogicTuple("leave", new Value(myName)));
+			context.out(chatId, new LogicTuple("leave", new Value(myName)), (java.lang.Long) null);
 		}
 		catch (Exception ex)
 		{
@@ -206,14 +211,14 @@ public class ChatAgent extends javax.swing.JFrame
 	{
 
 		private javax.swing.JTextArea output;
-		private TucsonContextSynch context;
+		private TucsonContext context;
 		private TucsonTupleCentreId myTC;
 
 		public Observer(javax.swing.JTextArea output, String aid, TucsonTupleCentreId id) throws Exception
 		{
 			this.output = output;
 			this.myTC = id;
-			context = new TucsonContextSynch(Tucson.getContext(new TucsonAgentId(aid), TucsonOpType.DEFLANGUAGE));
+			context = Tucson.getContext(new TucsonAgentId(aid), TucsonAgentLanguageManager.getCurLanguage());
 		}
 
 		public void run()
@@ -222,7 +227,7 @@ public class ChatAgent extends javax.swing.JFrame
 			{
 				while (true)
 				{
-					LogicTuple msg = (LogicTuple) context.in(myTC, new LogicTuple("msg", new alice.logictuple.Var("Who"), new alice.logictuple.Var("What"), new alice.logictuple.Var("When")));
+					LogicTuple msg = (LogicTuple) context.in(myTC, new LogicTuple("msg", new alice.logictuple.Var("Who"), new alice.logictuple.Var("What"), new alice.logictuple.Var("When")), (java.lang.Long) null);
 					
 					TupleArgument who = msg.getArg(0);
 					TupleArgument content = msg.getArg(1);

@@ -20,6 +20,7 @@ package alice.tucson.examples.chat;
 import alice.logictuple.*;
 import alice.tucson.api.*;
 import alice.tucson.service.TucsonAgentLanguageManager;
+import alice.tucson.service.TucsonLanguageManager;
 import alice.tucson.types.*;
 
 import java.io.BufferedInputStream;
@@ -41,17 +42,17 @@ public class ChatRoom
 			System.exit(-1);
 		}
 
-		TucsonAgentLanguageManager.useLanguage(TucsonOpType.DEFLANGUAGE);
+		TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
 		
 		TucsonTupleCentreId tid = new TucsonTupleCentreId("chat_room @ '" + args[0] + "'");
 
 		try
 		{
 
-			TucsonContext ctx = Tucson.getContext(new TucsonAgentId("chat_room"), TucsonOpType.DEFLANGUAGE);
+			TucsonContext ctx = Tucson.getContext(new TucsonAgentId("chat_room"), TucsonAgentLanguageManager.getCurLanguage());
 
 			ctx.setSpec(tid, alice.util.Tools.loadText(new BufferedInputStream(ClassLoader
-					.getSystemResourceAsStream("alice/tucson/examples/chat/chat_spec.rsp"))));
+					.getSystemResourceAsStream("alice/tucson/examples/chat/chat_spec.rsp"))), (java.lang.Long) null);
 
 			System.out.println("ok.");
 		}
