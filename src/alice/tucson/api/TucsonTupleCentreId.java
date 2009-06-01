@@ -11,6 +11,10 @@ import alice.tucson.types.ITCIdResolver;
 
 public class TucsonTupleCentreId implements alice.tuplecentre.api.TupleCentreId, java.io.Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Object tid;
 	private ITCIdResolver resolver;
 

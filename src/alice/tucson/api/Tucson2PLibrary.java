@@ -32,6 +32,10 @@ import alice.tucson.service.*;
  */
 public class Tucson2PLibrary extends Library
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private TucsonContext context;
 	private TucsonAgentId agentId;
 

@@ -29,7 +29,6 @@ import alice.tuplecentre.api.OperationTimeOutException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 
-import alice.tucson.api.exception.LanguageNotFoundException;
 import alice.tucson.api.exception.TucsonOperationNotPossibleException;
 import alice.tucson.api.exception.TucsonInvalidAgentIdException;
 import alice.tucson.api.exception.TucsonInvalidTupleCentreIdException;

@@ -17,9 +17,7 @@
  */
 package alice.tucson.api;
 
-import alice.logictuple.*;
 import java.lang.reflect.*;
-import alice.tucson.types.*;
 
 /**
  * This class defines a state-based TuCSoN Agent.
@@ -29,6 +27,11 @@ import alice.tucson.types.*;
  */
 public abstract class Automaton extends TucsonAgent implements java.io.Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/** method name representing state behaviour */
 	protected String state = "boot";
 

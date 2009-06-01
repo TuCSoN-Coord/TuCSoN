@@ -17,11 +17,7 @@
  */
 package alice.tucson.api;
 
-import java.util.HashMap;
-
 import alice.tucson.api.exception.TucsonOperationNotPossibleException;
-
-import alice.tucson.service.LanguageInfo;
 
 /**
  * 
