@@ -70,7 +70,7 @@ public class SpeakingState extends TupleCentreVMState {
             	
 	            ev = (InputEvent) (it.next());
 	            TupleCentreOperation op = ev.getOperation();
-	            
+	            vm.spy("(1)I GOT THIS OPERATION TO SERVE: "+op);
 	            if(op.isResultDefined() || ev.isLinking()){
 	            	System.out.println("(speaking) IS LINKING --> "+ev.isLinking());
 	            	foundSatisfied = true;
@@ -83,7 +83,7 @@ public class SpeakingState extends TupleCentreVMState {
 		            } else if (op.isIn()){
 		                tuple=vm.removeMatchingTuple(op.getTemplateArgument());
 						if (tuple!=null){
-							System.out.println("INNNNNN");
+							//System.out.println("INNNNNN");
 							foundSatisfied=true;
 						}
 		            } else if (op.isRd()){
@@ -92,6 +92,7 @@ public class SpeakingState extends TupleCentreVMState {
 							foundSatisfied=true;
 						}
 					} else if (op.isInp()){
+						vm.spy("RISULTATO SO FAR: "+op.getResult()); 
 						tuple=vm.removeMatchingTuple(op.getTemplateArgument());
 						foundSatisfied=true;
 					} else if (op.isRdp()){
@@ -124,7 +125,7 @@ public class SpeakingState extends TupleCentreVMState {
 					else throw new InvalidOperationException();
 	            }
             } catch(InvalidOperationException ex){
-            	vm.spy(ev.getOperation().getType()+"");
+            	vm.spy("ERROR: "+ev.getOperation().getType()+"");
             	vm.notifyException(ex);
             	it.remove();
             }                
@@ -132,12 +133,15 @@ public class SpeakingState extends TupleCentreVMState {
 
 		if (foundSatisfied){
 			TupleCentreOperation op = ev.getOperation();
+            vm.spy("(2)I GOT THIS OPERATION TO SERVE: "+op);
+
 			// for failed inp/rdp the tuple ref can be null
 			
-			if(!op.isResultDefined()){	
+			if(!op.isResultDefined() && !ev.isLinking()){	
 				if(op.isGet()){
 					op.setResultList(tupleList);
 				}else{
+					vm.spy("STO SETTANDO IL RISULTATO ORA");
 					op.setResult(tuple);
 				}
 			}
@@ -159,7 +163,7 @@ public class SpeakingState extends TupleCentreVMState {
 			
 			if(ev.isLinking() && !op.isResultDefined()){
 				out_ev.setTarget(ev.getTarget());
-				System.out.println("TARGET: "+ev.getTarget()+" SOURCE: "+ev.getSource());
+				//System.out.println("TARGET: "+ev.getTarget()+" SOURCE: "+ev.getSource()+" OPERATION: "+op);
 				vm.linkOperation(out_ev);
 			}
 			
