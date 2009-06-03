@@ -28,6 +28,7 @@ import alice.logictuple.*;
 class GUIInterpreter extends javax.swing.JFrame {
 
     private IBlockingContext context;
+    private IManagementContext mContext;
    // private IRespectTC tc;
     
     private AgentId id;
@@ -35,8 +36,9 @@ class GUIInterpreter extends javax.swing.JFrame {
     private String title;
     
     /** Creates new form GUIUser */
-    public GUIInterpreter(String title, AgentId id, IBlockingContext tc){
+    public GUIInterpreter(String title, AgentId id, IBlockingContext tc, IManagementContext mc){
         this.context=tc;
+        this.mContext=mc;
         //this.tc=tc;
         this.id=id;
         this.title = title;
@@ -160,7 +162,7 @@ class GUIInterpreter extends javax.swing.JFrame {
 	            String spec = this.readFile(file);
 	            
 	            try{
-	            	context.setSpec(this.id, new RespectSpecification(spec));
+	            	mContext.setSpec(new RespectSpecification(spec));
 	            	output.append("Specification loading: OK \n");
 	            }catch(Exception e){
 	                e.printStackTrace();
@@ -289,10 +291,10 @@ class GUIInterpreter extends javax.swing.JFrame {
                             if (tuple.startsWith("'")){
                                 tuple=tuple.substring(1,tuple.length()-1);
                             }
-                            context.setSpec(id,new RespectSpecification(tuple));
+                            mContext.setSpec(new RespectSpecification(tuple));
                             agent.output.append("ok"+"\n");
                         } else if (methodName.equals("get_spec")){
-                            RespectSpecification spec = context.getSpec(id);
+                            RespectSpecification spec = mContext.getSpec();
                             agent.output.append("answer: "+spec+"\n");
                         } else {
                             agent.output.append("unknown operation: "+methodName+"\n");
