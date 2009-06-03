@@ -133,6 +133,7 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 		if (this.templateArgument != null)
 			this.templateArgument.propagate(t);
 		this.tupleArgument = t;
+		System.out.println("[RespectOperation.setResult]: "+this.tupleArgument);
 		result.setEndTime(System.currentTimeMillis());
 	}
 	
