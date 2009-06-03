@@ -75,7 +75,7 @@ reaction(
     		( 
     			current_time(T),
     			out(user_list([])),
-    			out(multicast(god,message(amnew),T))
+    			out(multicast(god,['a new agent joined the chat: ',Name,' at ',T],T))
     		)
     	).
 
