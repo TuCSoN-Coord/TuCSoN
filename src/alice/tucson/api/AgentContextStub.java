@@ -187,7 +187,9 @@ public class AgentContextStub implements TucsonContext
 	public LogicTuple out(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException
 	{
-		return (LogicTuple) doBlockingOperation(TucsonOperation.outCode(), tid, tuple, ms);
+		LogicTuple res = (LogicTuple) doBlockingOperation(TucsonOperation.outCode(), tid, tuple, ms);
+		//System.out.println(res);
+		return res;
 	}
 	
 	public LogicTuple in(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
@@ -430,6 +432,7 @@ public class AgentContextStub implements TucsonContext
 		String node = alice.util.Tools.removeApices(tid.getNode());
 		// Discriminate between remote node
 		ControllerSession tc = controllerSessions.get(node);
+		
 		if (tc != null)
 		{			
 			return tc.getSession();

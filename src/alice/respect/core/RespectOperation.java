@@ -158,6 +158,7 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 		} else {
 			t = getLogicTupleArgument();
 		}
+		System.out.println("[RespectOperation] ECCOLOOOOOO ANCORA"+t);
 		String opName;
 		if (isOut()){
 			opName = "out";

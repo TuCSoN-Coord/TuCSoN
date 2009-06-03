@@ -53,6 +53,8 @@ public class ChatRoom
 					.getSystemResourceAsStream("alice/tucson/examples/chat/chat_spec.rsp"))), (java.lang.Long) null);
 
 			System.out.println("ok.");
+			
+			ctx.exit();
 		}
 		catch (Exception ex)
 		{

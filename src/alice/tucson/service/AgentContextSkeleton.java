@@ -249,18 +249,18 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 				if (op.isOut() || op.isOut_s())
 				{
 					log("end Response");
-					reply = new TucsonMsgReply(msg.getId(), op.getType(), true, true);
+					reply = new TucsonMsgReply(msg.getId(), op.getType(), true, true, msg.getTuple(), (LogicTuple) op.getResult());
 				}
 				else if (op.isIn() || op.isIn_s() || op.isRd() || op.isRd_s())
 				{
-					reply = new TucsonMsgReply(msg.getId(), op.getType(), true, true, msg.getTuple(), (LogicTuple)op.getResult());
+					reply = new TucsonMsgReply(msg.getId(), op.getType(), true, true, msg.getTuple(), (LogicTuple) op.getResult());
 				}
 				else if (op.isInp() || op.isInp_s() || op.isRdp() || op.isRdp_s())
 				{
 					if (op.isResultDefined())
 					{
-						log("" + msg.getId() + "  " + op.getType() + "   " + msg.getTuple() + "  " + (LogicTuple)op.getResult());
-						reply = new TucsonMsgReply(msg.getId(), op.getType(), true, true, msg.getTuple(), (LogicTuple)op.getResult());
+						log("" + msg.getId() + "  " + op.getType() + "   " + msg.getTuple() + "  " + (LogicTuple) op.getResult());
+						reply = new TucsonMsgReply(msg.getId(), op.getType(), true, true, msg.getTuple(), (LogicTuple) op.getResult());
 					}
 					else
 					{

@@ -311,8 +311,8 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 	                }
 	            }
 	        } catch (Exception ex){
+	        	ex.printStackTrace();
 	            notifyException("INTERNAL ERROR: fetchTriggeredReactions "+ev);
-				ex.printStackTrace();
 	            trigCore.solveEnd();
 	        }
         
@@ -385,10 +385,11 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
     
     public void addTemporaryOutputEvent(InputEvent out){
     	
+ 
     	synchronized(this.temporaryOutputEventList){
     		
     		this.temporaryOutputEventList.add(out);
-    		
+    		spy("Added a temporary outputEvent, operation: "+out.getOperation());
     		
     	}
     	
@@ -859,7 +860,7 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 			
 			TupleCentreOperation op = arg0.getOperation();
 			op.addListener(new CompletionListener(arg0,target));
-			spy("target tc "+target+" arg0.getSource(): "+arg0.getSource());
+			//spy("target tc "+target+" arg0.getSource(): "+arg0.getSource()+"operation: "+op);
 			ILinkContext link = this.vm.getContainer().getLinkContext(target);
 			
 			link.doOperation((TupleCentreId)arg0.getSource(), op);

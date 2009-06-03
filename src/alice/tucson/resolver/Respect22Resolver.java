@@ -145,7 +145,7 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 				//System.out.println("OK");
 				// La out restituisce un "null" --> la "out" di ReSpecT ritorna un void 
 				context.out((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-				return null;
+				return t;
 			}
 			if (type == TucsonOperation.inCode())
 				return context.in((AgentId) aid.getInternalAgentId(), (LogicTuple) t);

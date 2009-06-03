@@ -30,11 +30,15 @@
 % accept a new user only if 
 % no other user are registered with the same Name
 %
-reaction(inp(join(Name,UserTC)),(
-        pre,
-        no_r(user(Name,_)),
-        out_r(user(Name,UserTC)),
-        out_r(join(Name,UserTC)))).
+reaction(
+			inp(join(Name,UserTC)),
+				request,
+	        (
+	        	no(user(Name,_)),
+	        	out(user(Name,UserTC)),
+	        	out(join(Name,UserTC))
+	        )
+        ).
 
 %
 % leaving the chat room
@@ -46,9 +50,13 @@ reaction(inp(join(Name,UserTC)),(
 % a registered user ask for leaving the chat: ok
 %
 
-reaction(out(leave(Name)),(
-    in_r(leave(Name)),
-    in_r(user(Name,_)))).
+reaction(
+			out(leave(Name)),
+			(
+    			in(leave(Name)),
+    			in(user(Name,_))
+    		)
+    	).
 
 % ----------------------------------------------------
 % Added on-the-fly: #1
@@ -58,21 +66,34 @@ reaction(out(leave(Name)),(
 % to participants
 %
 
- reaction(inp(join(Name,UserTC)),(
-    post,
-    success, 
-    current_time(T),
-    out_r(user_list([])),
-    out_r(multicast(god,['a new agent joined the chat: ',Name,' at ',T],T)))).
+ reaction(
+ 			inp(join(Name,UserTC)),
+ 			(
+    			response,
+    			success
+    		),
+    		( 
+    			current_time(T),
+    			out(user_list([])),
+    			out(multicast(god,message(amnew),T))
+    		)
+    	).
 
 
 %
 % reaction #3 B
 %
- reaction(in_r(leave(Name)),(
-    current_time(T),
-    out_r(user_list([])),
-    out_r(multicast(god,['an agent left the chat: ',Name,' at ',T],T)))).
+ reaction(
+ 			in(leave(Name)),
+ 			(
+ 				endo
+ 			),
+ 			(
+    			current_time(T),
+    			out(user_list([])),
+    			out(multicast(god,['an agent left the chat: ',Name,' at ',T],T))
+    		)
+    	).
 
 %
 % to fix coord problem (case #a in the private note of aricci)
@@ -132,29 +153,51 @@ reaction(out(leave(Name)),(
 % if a registered user sends a msg,
 % accept and broadcast the msg
 %
-reaction(out(msg(Name,Msg)),(
-    in_r(msg(Name,Msg)),
-        rd_r(user(Name,_)),
-        out_r(user_list([])),
-        current_time(T),
-    out_r(multicast(Name,Msg,T)))).
+reaction(
+			out(msg(Name,Msg)),
+			(
+				endo
+			),
+			(
+    			in(msg(Name,Msg)),
+        		rd(user(Name,_)),
+        		out(user_list([])),
+        		current_time(T),
+    			out(multicast(Name,Msg,T))
+    		)
+    	).
 
 %
 % generate a msg for each registered user
 %
-reaction(out_r(multicast(Who,Msg,When)),(
-    in_r(multicast(Who,Msg,When)),
-        in_r(user(Name,TupleCentre)),
-        in_r(user_list(L)),
-        out_r(user_list([user(Name,TupleCentre)|L])),
-        out_tc(TupleCentre, msg(Who,Msg,When)),
-        out_r(multicast(Who,Msg,When)))).
 
-reaction(out_r(multicast(Who,Msg,When)),(
-    in_r(multicast(Who,Msg,When)),
-    no_r(user(_,_)),
-    in_r(user_list(L)),
-    out_r(out_list(L)))).
+reaction(
+			out(multicast(Who,Msg,When)),
+			(
+				endo
+			),
+			(
+    			in(multicast(Who,Msg,When)),
+        		in(user(Name,TupleCentre)),
+        		in(user_list(L)),
+        		out(user_list([user(Name,TupleCentre)|L])),
+        		TupleCentre ? out(msg(Who,Msg,When)),
+        		out(multicast(Who,Msg,When))
+        	)
+        ).
+
+reaction(
+			out(multicast(Who,Msg,When)),
+			(
+				endo
+			),
+			(
+    			in(multicast(Who,Msg,When)),
+    			no(user(_,_)),
+    			in(user_list(L)),
+    			out(out_list(L))
+    		)
+    	).
 
 %-----------------------------------------------------------------------------
 
@@ -162,10 +205,24 @@ reaction(out_r(multicast(Who,Msg,When)),(
 % helper reactions
 %
 
-reaction(out_r(out_list([])),(
-    in_r(out_list([])))).
+reaction(
+			out(out_list([])),
+			(
+				endo
+			),
+			(
+	    		in(out_list([]))
+	    	)
+    	).
 
-reaction(out_r(out_list([X|Rest])),(
-    in_r(out_list([X|Rest])),
-    out_r(X),
-    out_r(out_list(Rest)))).
+reaction(
+			out(out_list([X|Rest])),
+			(
+				endo
+			),
+			(
+    			in(out_list([X|Rest])),
+    			out(X),
+    			out(out_list(Rest))
+    		)
+    	).
