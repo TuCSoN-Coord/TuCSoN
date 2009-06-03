@@ -358,7 +358,7 @@ public class AgentContextStub implements TucsonContext
 				else
 					op = new TucsonOperation(type, (TupleTemplate) t, l, this);
 				
-				System.out.println(op);
+				//System.out.println(op);
 				operations.put(op.getId(), op);
 				
 				//log("Remote call & eventually translation");
@@ -463,7 +463,7 @@ public class AgentContextStub implements TucsonContext
 
 				if (dialog.isEnterRequestAccepted())
 				{
-					System.out.println("richiesta accettata");
+					//System.out.println("richiesta accettata");
 					ObjectInputStream din = dialog.getInputStream();
 					Controller contr = new Controller(din);
 					ControllerSession cs = new ControllerSession(contr, dialog);
@@ -527,7 +527,7 @@ public class AgentContextStub implements TucsonContext
 					}
 					
 					TucsonMsgReply msg = TucsonMsgReply.read(in);
-					log("received msg " + msg);
+					log("received msg " + msg.toString());
 					boolean ok = msg.isAllowed();
 					
 					if (ok)

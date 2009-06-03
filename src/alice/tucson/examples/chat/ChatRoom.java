@@ -17,11 +17,9 @@
  */
 package alice.tucson.examples.chat;
 
-import alice.logictuple.*;
 import alice.tucson.api.*;
 import alice.tucson.service.TucsonAgentLanguageManager;
 import alice.tucson.service.TucsonLanguageManager;
-import alice.tucson.types.*;
 
 import java.io.BufferedInputStream;
 

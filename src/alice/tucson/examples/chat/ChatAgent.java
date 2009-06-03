@@ -26,8 +26,6 @@ import alice.tucson.api.*;
 import alice.tucson.service.TucsonAgentLanguageManager;
 import alice.tucson.service.TucsonLanguageManager;
 
-import alice.tucson.types.*;
-
 /**
  * GUI Component used by Chat Agent to get input from user and to display new
  * messages from the room
@@ -37,6 +35,10 @@ import alice.tucson.types.*;
  */
 public class ChatAgent extends javax.swing.JFrame
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private TucsonContext context;
 	private String myId;
 	private String myName;
@@ -45,7 +47,6 @@ public class ChatAgent extends javax.swing.JFrame
 	/** Creates new form GUI */
 	public ChatAgent(String name, String host, TucsonTupleCentreId idMailbox) throws Exception
 	{
-		TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
 		// ask for a context
 		myId = "user('" + name + "')";
 		myName = name;
@@ -57,7 +58,6 @@ public class ChatAgent extends javax.swing.JFrame
 		TupleArgument mailBox = new TupleArgument((Term)idMailbox.callMethod("toTerm", new Object[]{}));
 
 		// ask to enter the chat
-		// LogicTuple res=
 		context.out(chatId, new LogicTuple("join", new Value(myId), mailBox), (java.lang.Long) null);
 
 		LogicTuple res = null;
@@ -192,9 +192,10 @@ public class ChatAgent extends javax.swing.JFrame
 			System.err.println("args:  <user name> <chat room address>");
 			System.exit(-1);
 		}
+		TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
 		TucsonTupleCentreId tc = new TucsonTupleCentreId("user('" + args[0] + "')@'" + args[1] + "'");
 
-		new ChatAgent(args[0], args[1], tc).show();
+		new ChatAgent(args[0], args[1], tc).setVisible(true);
 
 	}
 
