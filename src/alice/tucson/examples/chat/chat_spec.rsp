@@ -75,7 +75,7 @@ reaction(
     		( 
     			current_time(T),
     			out(user_list([])),
-    			out(multicast(god,['a new agent joined the chat: ',Name,' at ',T],T))
+    			out(multicast('chat manager',['a new agent joined the chat: ',Name,' at ',T],T))
     		)
     	).
 
@@ -91,7 +91,7 @@ reaction(
  			(
     			current_time(T),
     			out(user_list([])),
-    			out(multicast(god,['an agent left the chat: ',Name,' at ',T],T))
+    			out(multicast('chat manager',['an agent left the chat: ',Name,' at ',T],T))
     		)
     	).
 
@@ -154,10 +154,7 @@ reaction(
 % accept and broadcast the msg
 %
 reaction(
-			out(msg(Name,Msg)),
-			(
-				endo
-			),
+			out(msg(Name,Msg)),true,
 			(
     			in(msg(Name,Msg)),
         		rd(user(Name,_)),

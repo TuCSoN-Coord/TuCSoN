@@ -54,7 +54,7 @@ public class ChatAgent extends javax.swing.JFrame
 
 		//System.out.println(context.getSpec(chatId, (java.lang.Long) null));
 		// ask to enter the chat
-		LogicTuple res = context.inp(chatId, new LogicTuple("join", new Value(myId), mailBox), (java.lang.Long) null);
+		LogicTuple res = context.inp(chatId, new LogicTuple("join", new Value(myName), mailBox), (java.lang.Long) null);
 
 		if (res == null)
 		{
