@@ -6,9 +6,11 @@
 package alice.tucson.examples.whiteboard;
 
 import java.awt.*;
+import java.awt.event.*;
 
 import javax.swing.*;
 
+import java.io.BufferedInputStream;
 import java.util.*;
 
 import alice.logictuple.*;
@@ -29,22 +31,21 @@ public class User extends JFrame
 	private JPanel whiteboard;
 
 	/** Creates new form User */
-	public User(String name, String wbAddress) throws Exception
+	public User(String name, String wbAddress, TucsonContext context) throws Exception
 	{				
 		this.name = name;
 		initComponents();
 		setTitle(name + " whiteboard at " + wbAddress);
 		setSize(400, 300);
 		tcName = "user('" + getName() + "')";
-
-		TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
-		context = Tucson.getContext(new TucsonAgentId(name), TucsonAgentLanguageManager.getCurLanguage());
+		
+		this.context = context;
 		
 		tid = new TucsonTupleCentreId("whiteboard@'" + wbAddress + "'");
 		
-		context.out(tid, LogicTuple.parse("subscription(line(_,_,_,_)," + tcName + ")"), (Long) null);
-		
 		TucsonTupleCentreId myTC = new TucsonTupleCentreId(tcName + "@'" + wbAddress + "'");
+		
+		context.out(tid, LogicTuple.parse("subscription(line(_,_,_,_)," + myTC + ")"), (Long) null);				
 		
 		new Visualiser(this, myTC, context).start();
 	}
@@ -61,35 +62,36 @@ public class User extends JFrame
 	 */
 	private void initComponents()
 	{
-		whiteboard = new javax.swing.JPanel();
+		whiteboard = new JPanel();
 
-		addWindowListener(new java.awt.event.WindowAdapter()
+		addWindowListener(new WindowAdapter()
 		{
-			public void windowClosing(java.awt.event.WindowEvent evt)
+			public void windowClosing(WindowEvent evt)
 			{
 				exitForm(evt);
 			}
 		});
 
-		whiteboard.setBackground(java.awt.Color.white);
-		whiteboard.addMouseListener(new java.awt.event.MouseAdapter()
+		whiteboard.setBackground(Color.white);
+		whiteboard.addMouseListener(new MouseAdapter()
 		{
-			public void mousePressed(java.awt.event.MouseEvent evt)
+			public void mousePressed(MouseEvent evt)
 			{
 				whiteboardMousePressed(evt);
 			}
 		});
 
-		getContentPane().add(whiteboard, java.awt.BorderLayout.CENTER);
+		getContentPane().add(whiteboard, BorderLayout.CENTER);
 
 		pack();
 	}
 
-	private void whiteboardMousePressed(java.awt.event.MouseEvent evt)
+	private void whiteboardMousePressed(MouseEvent evt)
 	{
 		try
 		{
 			Point newPoint = new Point(evt.getX(), evt.getY());
+			
 			if (prevPoint != null)
 			{
 				context.out(tid, new LogicTuple("line", new Value(prevPoint.getX()), new Value(prevPoint.getY()), new Value(
@@ -118,7 +120,7 @@ public class User extends JFrame
 	}
 
 	public void paint(Graphics g)
-	{
+	{		
 		super.paint(g);
 		Graphics gp = whiteboard.getGraphics();
 		Iterator<Line> it = points.iterator();
@@ -130,6 +132,7 @@ public class User extends JFrame
 			int y0 = (int) l.p0.getY();
 			int x1 = (int) l.p1.getX();
 			int y1 = (int) l.p1.getY();
+			
 			gp.drawLine(x0, y0, x1, y1);
 		}
 
@@ -150,7 +153,19 @@ public class User extends JFrame
 		if (args.length != 2)
 			System.err.println("args: <user name> <IP address of the TuCSoN Node where the Whiteboard service is located>");
 		else
-			new User(args[0], args[1]).setVisible(true);
+		{
+			TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
+			TucsonContext context = Tucson.getContext(new TucsonAgentId(args[0]), TucsonAgentLanguageManager.getCurLanguage());
+			
+			TucsonTupleCentreId tid = new TucsonTupleCentreId("whiteboard@'" + args[1] + "'");
+			
+			context.setSpec(tid, alice.util.Tools.loadText(new BufferedInputStream(ClassLoader
+					.getSystemResourceAsStream("alice/tucson/examples/whiteboard/spec.rsp"))), (Long) null);
+
+			System.out.println("ok.");
+			
+			new User(args[0], args[1], context).setVisible(true);
+		}
 	}
 
 	class Line
@@ -189,6 +204,8 @@ public class User extends JFrame
 					
 					user.newLine(new Point(t.getArg(0).intValue(), t.getArg(1).intValue()), new Point(t.getArg(2).intValue(), t
 							.getArg(3).intValue()));
+					
+					System.out.println("[USER] " + t);
 				}
 				catch (Exception ex)
 				{

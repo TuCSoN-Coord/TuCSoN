@@ -25,7 +25,7 @@ reaction(out(check_subscribers(_)),endo,(
 
 reaction(out(match(Info,Template,Dest)),endo,(
     current_tuple(match(X,X,_)),
-    Dest ? Info)).
+    Dest ? out(Info))).
 
 reaction(out(match(_,_,_)),endo,(
     in(match(_,_,_)))).
