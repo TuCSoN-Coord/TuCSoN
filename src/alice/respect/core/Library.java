@@ -89,7 +89,12 @@ public class Library extends alice.tuprolog.Library {
         "set_s(T):-set_s(T,this@localhost). \n"+
         "get_s(T):-get_s(T,this@localhost). \n"+
         "inp_s(T,TC) :- in_s(T,TC). \n"+
-        "rdp_s(T,TC) :- rd_s(T,TC). \n";
+        "rdp_s(T,TC) :- rd_s(T,TC). \n"+
+        //GUARD ALIASES
+        "completion :- response. \n"+
+        "between(T1,T2) :- before(T1), after(T2). \n"+
+        "operation :- from_agent, to_tc. \n"+
+        "internal :- from_tc, to_tc, endo, intra. \n";
     }
     
     public void init(RespectVMContext m){
@@ -920,7 +925,7 @@ public boolean inp_2(Term arg0, Term arg1){
     public boolean to_tc_0(){
     	
     	Event ev = vm.getCurrentReactionEvent();
-        
+        spy("EVENT++++>"+ev+" T: "+ev.getTarget());
     	IId id = ev.getTarget();
     	
     	if(id.isTC()){
