@@ -149,7 +149,6 @@ public class ChatAgent extends javax.swing.JFrame
 		gridBagConstraints1.fill = java.awt.GridBagConstraints.HORIZONTAL;
 		gridBagConstraints1.weightx = 1.0;
 		getContentPane().add(jPanel2, gridBagConstraints1);
-
 	}
 
 	private void inputActionPerformed(java.awt.event.ActionEvent evt)
