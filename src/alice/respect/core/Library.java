@@ -92,8 +92,11 @@ public class Library extends alice.tuprolog.Library {
         "rdp_s(T,TC) :- rd_s(T,TC). \n"+
         //GUARD ALIASES
         "completion :- response. \n"+
+        "invocation :- request. \n"+
         "between(T1,T2) :- before(T1), after(T2). \n"+
         "operation :- from_agent, to_tc. \n"+
+        "link_in :- from_tc,to_tc,exo,intra. \n"+
+        "link_out :- from_tc,to_tc,endo,inter. \n"+
         "internal :- from_tc, to_tc, endo, intra. \n";
     }
     
@@ -819,7 +822,7 @@ public boolean inp_2(Term arg0, Term arg1){
         
     	IId id = ev.getTarget();
     	
-    	IId c = ev.getReactingTC();
+    	IId c = this.vm.getId();
     	
     	if(c.toString().equals(id.toString())){
     		
@@ -830,7 +833,7 @@ public boolean inp_2(Term arg0, Term arg1){
     
     public boolean inter_0(){
     	
-    	Event ev = vm.getCurrentReactionEvent();
+    	/*Event ev = vm.getCurrentReactionEvent();
         
     	IId id = ev.getTarget();
     	
@@ -840,12 +843,13 @@ public boolean inp_2(Term arg0, Term arg1){
     		
     		return true;
     		
-    	}else return false;
+    	}else return false;*/
+    	return !intra_0();
     }
     
     public boolean endo_0(){
     	
-    	Event ev = vm.getCurrentReactionEvent();
+    	/*Event ev = vm.getCurrentReactionEvent();
         
     	IId id = ev.getId();
     	
@@ -855,7 +859,8 @@ public boolean inp_2(Term arg0, Term arg1){
     		
     		return true;
     		
-    	}else return false;
+    	}else return false;*/
+    	return !exo_0();
     }
     
     
