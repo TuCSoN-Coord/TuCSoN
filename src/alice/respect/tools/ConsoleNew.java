@@ -239,6 +239,7 @@ private void loadSpecificationButtonActionPerformed(java.awt.event.ActionEvent e
         String spec = this.readFile(file);
 
         try{
+        	managementContext = RespectTCContainer.getRespectTCContainer().getManagementContext(new TupleCentreId(this.tupleCentreComboBox.getSelectedItem()+"@localhost"));
             managementContext.setSpec(new RespectSpecification(spec));
             outputTextArea.append("Specification loading: OK \n");
         }catch(Exception e){
@@ -257,7 +258,14 @@ private void tupleCentreComboBoxActionPerformed(java.awt.event.ActionEvent evt) 
                 ((JComboBox) evt.getSource()).getSelectedItem().toString();
         this.tupleCentreComboBox.addItem(selectedItem);
             try {
-                this.context = RespectTCContainer.getRespectTCContainer().getBlockingContext(new TupleCentreId(selectedItem + "@localhost"));
+            	String tcId = this.tupleCentreComboBox.getSelectedItem().toString();
+            	int atIndex = tcId.indexOf("@");
+            	if (atIndex>0){
+            		tcId = tcId.substring(0, atIndex);
+            		((JComboBox) evt.getSource()).setSelectedItem(tcId);
+            	}
+            	
+                this.context = RespectTCContainer.getRespectTCContainer().getBlockingContext(new TupleCentreId(tcId + "@localhost"));
             } catch (InvalidTupleCentreIdException ex) {
                 Logger.getLogger(ConsoleNew.class.getName()).log(Level.SEVERE, null, ex);
             } catch (OperationNotPossibleException ex) {
@@ -348,15 +356,15 @@ private void operationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {/
                     if (indexQmark > -1 && indexQmark < index1){
                         int indexAtSign = cmd.indexOf("@");
                         // a node/space name location is specified
-                        /*if (indexAtSign > -1 && indexAtSign < index1){
-                            cmd = cmd.substring(0,indexAtSign) +
+                        if (indexAtSign > -1 && indexAtSign < index1){
+                           cmd = cmd.substring(0,indexAtSign) +
                                     cmd.substring(indexQmark);
                             index1 = cmd.indexOf('(');
                             index2 = cmd.lastIndexOf(')');
                             indexQmark = cmd.indexOf("?");
-                            
+                            //indexQmark = indexAtSign;
                             System.out.println("SET TC: "+tcId);
-                        }*/
+                        }
                         tcId = new TupleCentreId(cmd.substring(0, indexQmark) +
                         "@localhost");
                         ctx = RespectTCContainer.getRespectTCContainer().getBlockingContext(tcId);
