@@ -56,6 +56,7 @@ abstract public class Event implements java.io.Serializable {
 	public Event(IId aid, TupleCentreOperation op, TupleCentreId c, long time){
 		this.aid=aid;
 		operation=op;
+		this.target=c;
 		this.c = c;
 		this.time = time;
 		ev_prop=new HashMap<String, String>();
