@@ -88,7 +88,7 @@ public class RespectTCContainer
 	 */
 	public ILinkContext getLinkContext(TupleCentreId id) throws OperationNotPossibleException
 	{
-		System.out.println("[ReSpecT TC CONTAINER]  Link call to tc " + id.toString());
+		//System.out.println("[ReSpecT TC CONTAINER]  Link call to tc " + id.toString());
 		// TupleCentreId idNew = null;
 		if (id.getNode().equals("localhost"))
 		{

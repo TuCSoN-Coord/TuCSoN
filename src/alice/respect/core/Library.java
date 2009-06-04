@@ -1060,7 +1060,7 @@ public boolean inp_2(Term arg0, Term arg1){
     //
 
     protected void spy(String msg){
-        System.out.println("[ react ] "+msg);
+        //System.out.println("[ react ] "+msg);
     }
     
     

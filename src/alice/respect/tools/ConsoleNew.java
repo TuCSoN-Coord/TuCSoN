@@ -347,11 +347,11 @@ private void operationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {/
                      * used, if a node/name-space is specified the system is 
                      * forgiving, i.e the "@nodename" is discarded.
                      */
-                	System.out.println("ENTERING: "+tcId);
+                	//System.out.println("ENTERING: "+tcId);
                     int index1 = cmd.indexOf('(');
                     int index2 = cmd.lastIndexOf(')');
                     int indexQmark = cmd.indexOf("?");
-                    System.out.println("ENTERING: "+indexQmark);
+                   // System.out.println("ENTERING: "+indexQmark);
                     // a "tupleCentreId?" is specified
                     if (indexQmark > -1 && indexQmark < index1){
                         int indexAtSign = cmd.indexOf("@");
@@ -363,7 +363,7 @@ private void operationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {/
                             index2 = cmd.lastIndexOf(')');
                             indexQmark = cmd.indexOf("?");
                             //indexQmark = indexAtSign;
-                            System.out.println("SET TC: "+tcId);
+                          //  System.out.println("SET TC: "+tcId);
                         }
                         tcId = new TupleCentreId(cmd.substring(0, indexQmark) +
                         "@localhost");

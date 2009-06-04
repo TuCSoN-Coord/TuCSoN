@@ -72,7 +72,7 @@ public class SpeakingState extends TupleCentreVMState {
 	            TupleCentreOperation op = ev.getOperation();
 	            vm.spy("(1)I GOT THIS OPERATION TO SERVE: "+op);
 	            if(op.isResultDefined() || ev.isLinking()){
-	            	System.out.println("(speaking) IS LINKING --> "+ev.isLinking());
+	            	//System.out.println("(speaking) IS LINKING --> "+ev.isLinking());
 	            	foundSatisfied = true;
 	            }else{
 	            
@@ -153,7 +153,7 @@ public class SpeakingState extends TupleCentreVMState {
 			
 			//if(ev.isLinking()) out_ev.setIsLinking(true);
 			if(!ev.isLinking()){
-				System.out.println("NON LINKING, SOURCE: "+out_ev.getSource());
+				//System.out.println("NON LINKING, SOURCE: "+out_ev.getSource());
 				//out_ev.setSource(vm.getId());
 				vm.notifyOutputEvent(out_ev);
 			}

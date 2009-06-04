@@ -50,7 +50,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 		} catch (Exception ex){		
 			System.err.println("Invalid agent identity.");
 		}
-		System.out.println("Library loaded.");
+		//System.out.println("Library loaded.");
 	}	
 	
 	public boolean set_agent_id_1(Struct id){
