@@ -35,7 +35,7 @@ public class RespectTC implements IRespectTC {
 	
 	public RespectTC(TupleCentreId tid,RespectTCContainer container, int qSize){
 		vm=new RespectVM(tid,container,qSize);
-		vm.setSpy(true);
+		//vm.setSpy(true);
 		vmThread=new Thread(vm);
 		vmThread.start();	 
 	}
