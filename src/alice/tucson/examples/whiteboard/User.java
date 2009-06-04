@@ -35,7 +35,7 @@ public class User extends JFrame
 		initComponents();
 		setTitle(name + " whiteboard at " + wbAddress);
 		setSize(400, 300);
-		tcName = "user('" + this.name + "')";
+		tcName = "user('" + getName() + "')";
 
 		TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
 		context = Tucson.getContext(new TucsonAgentId(name), TucsonAgentLanguageManager.getCurLanguage());
@@ -46,7 +46,12 @@ public class User extends JFrame
 		
 		TucsonTupleCentreId myTC = new TucsonTupleCentreId(tcName + "@'" + wbAddress + "'");
 		
-		new Visualiser(this, myTC).start();
+		new Visualiser(this, myTC, context).start();
+	}
+	
+	public String getName()
+	{
+		return name;				
 	}
 
 	/**
@@ -166,9 +171,9 @@ public class User extends JFrame
 		private TucsonTupleCentreId localTid;
 		private User user;
 
-		Visualiser(User user, TucsonTupleCentreId tid) throws Exception
+		Visualiser(User user, TucsonTupleCentreId tid, TucsonContext context) throws Exception
 		{
-			context = Tucson.getContext(new TucsonAgentId(user), TucsonAgentLanguageManager.getCurLanguage());
+			this.context = context;
 			localTid = tid;
 			this.user = user;
 		}
@@ -187,6 +192,8 @@ public class User extends JFrame
 				}
 				catch (Exception ex)
 				{
+					ex.printStackTrace();
+					System.exit(ERROR);
 				}
 			}
 		}
