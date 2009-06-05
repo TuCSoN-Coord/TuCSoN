@@ -11,17 +11,15 @@ reaction(out(check_subscribers(Info)),endo,(
     in(subscription(Template,Dest)),
     out(bak(subscription(Template,Dest))),
     out(match(Info,Template,Dest)),
+    in(check_subscribers(Info)),
     out(check_subscribers(Info)))).
 
 reaction(out(check_subscribers(_)),endo,(
     no(subscription(_,_)),
     in(collecting),
+    in(check_subscribers(_)),
     out(restore_subscribers))).
 
-reaction(out(check_subscribers(_)),endo,(
-    in(check_subscribers(_)))).
-
-%
 
 reaction(out(match(Info,Template,Dest)),endo,(
     current_tuple(match(X,X,_)),
@@ -32,13 +30,11 @@ reaction(out(match(_,_,_)),endo,(
 
 % 
 
-reaction(out_r(restore_subscribers),endo,(
+reaction(out(restore_subscribers),endo,(
     in(bak(subscription(Template,Dest))),
     out(subscription(Template,Dest)),
+    in(restore_subscribers),
     out(restore_subscribers))).
-
-reaction(out(restore_subscribers),endo,(
-    in(restore_subscribers))).
 
 
 
