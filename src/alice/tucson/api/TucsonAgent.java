@@ -19,6 +19,7 @@ package alice.tucson.api;
 
 import java.util.*;
 
+import alice.tucson.api.exception.TucsonInvalidAgentIdException;
 import alice.tucson.service.TucsonAgentLanguageManager;
 import alice.tucson.service.TucsonLanguageManager;
 import alice.tucson.service.TucsonOperationCompletionListener;
@@ -30,17 +31,18 @@ import alice.tucson.service.TucsonOperationCompletionListener;
 public abstract class TucsonAgent implements TucsonOperationCompletionListener
 {
 	private TucsonContext context;
-	private TucsonAgentId id;
+	private TucsonAgentId aid;
+	@SuppressWarnings("unused")
 	private HashMap <TucsonOpId, ContextEvent> events = null;
 
-	protected TucsonAgent(TucsonAgentId id, String language)
+	protected TucsonAgent(String aid, String language) throws TucsonInvalidAgentIdException
 	{
 		if(language == null)
 			TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
 		else
 			TucsonAgentLanguageManager.useLanguage((String)language);
 		
-		this.id = id;
+		this.aid = new TucsonAgentId(aid);
 		
 		events = new HashMap <TucsonOpId, ContextEvent>();
 	}
@@ -60,7 +62,7 @@ public abstract class TucsonAgent implements TucsonOperationCompletionListener
 
 	public TucsonAgentId getTucsonAgentId()
 	{
-		return id;
+		return aid;
 	}
 	
 	protected TucsonContext getContext()
@@ -71,11 +73,6 @@ public abstract class TucsonAgent implements TucsonOperationCompletionListener
 	protected void setContext(TucsonContext context)
 	{
 		this.context = context;
-	}
-
-	final protected TucsonAgentId getId()
-	{
-		return id;
 	}
 
 	final class AgentThread extends Thread
@@ -91,7 +88,7 @@ public abstract class TucsonAgent implements TucsonOperationCompletionListener
 		{
 			try
 			{				
-				agent.setContext(Tucson.getContext(new TucsonAgentId(agent.getId()), TucsonAgentLanguageManager.getCurLanguage()));
+				agent.setContext(Tucson.getContext(agent.getTucsonAgentId(), TucsonAgentLanguageManager.getCurLanguage()));
 				agent.main();
 				agent.getContext().exit();
 			}

@@ -51,6 +51,7 @@ public class AgentContextStub implements TucsonContext
 	private HashMap<String, ControllerSession> controllerSessions;
 	private HashMap<Long, TucsonOperation> operations;
 	private ArrayList<Long> operationExpired;
+	@SuppressWarnings("unused")
 	private LanguageInfo chosenLanguage;
 	
 	public AgentContextStub(Object aid, LanguageInfo chosenLanguage)
@@ -187,8 +188,8 @@ public class AgentContextStub implements TucsonContext
 	public LogicTuple out(Object tid, LogicTuple tuple, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException
 	{
-		LogicTuple res = (LogicTuple) doBlockingOperation(TucsonOperation.outCode(), tid, tuple, ms);
-		//System.out.println(res);
+		
+		LogicTuple res = (LogicTuple) doBlockingOperation(TucsonOperation.outCode(), tid, tuple, ms);		
 		return res;
 	}
 	
@@ -216,6 +217,7 @@ public class AgentContextStub implements TucsonContext
 		return (LogicTuple) doBlockingOperation(TucsonOperation.rdpCode(), tid, tuple, ms);
 	}	
 	
+	@SuppressWarnings("unchecked")
 	public List<LogicTuple> get(Object tid, Long ms) throws TucsonOperationNotPossibleException, UnreachableNodeException,
 	OperationTimeOutException
 	{
@@ -298,7 +300,7 @@ public class AgentContextStub implements TucsonContext
 			else
 				op.waitForOperationCompletion(ms);
 			
-			if(op.getId() == TucsonOperation.get_Code())
+			if(op.isGet())
 				return op.getTupleResultList();
 			
 			return op.getLogicTupleResult();
@@ -515,6 +517,7 @@ public class AgentContextStub implements TucsonContext
 			this.setDaemon(true);
 		}
 
+		@SuppressWarnings("unchecked")
 		public void run()
 		{
 			log("Controller started.");
@@ -588,8 +591,11 @@ public class AgentContextStub implements TucsonContext
 					
 					TucsonOperation op = operations.remove(msg.getId());
 					
-					if(msg.getId() == TucsonOperation.get_Code())
+					if(msg.getType() == TucsonOperation.get_Code())
+					{
+						System.out.println();
 						op.setTupleResultList((List<LogicTuple>) msg.getTupleResult());
+					}
 					else
 						op.setResult((LogicTuple) msg.getTupleResult());	
 					//System.out.println("RES = " + msg.getTupleResult());

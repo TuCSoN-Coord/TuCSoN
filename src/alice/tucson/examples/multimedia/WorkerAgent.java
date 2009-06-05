@@ -40,7 +40,7 @@ public class WorkerAgent extends alice.tucson.api.Automaton
 
 	public WorkerAgent(String aid) throws TucsonException
 	{
-		super(new TucsonAgentId(aid), null);
+		super(aid, null);
 		become("boot");
 	}
 
@@ -79,7 +79,7 @@ public class WorkerAgent extends alice.tucson.api.Automaton
 		try
 		{
 			// get job details
-			LogicTuple tuple = super.getContext().in(tid, LogicTuple.parse("zone('" + getId() + "',X,Y,W,H,ByteSizeX,ByteSizeY)"), (Long) null);
+			LogicTuple tuple = super.getContext().in(tid, LogicTuple.parse("zone('" + getTucsonAgentId() + "',X,Y,W,H,ByteSizeX,ByteSizeY)"), (Long) null);
 			float x = tuple.getArg(1).floatValue();
 			float y = tuple.getArg(2).floatValue();
 			float w = tuple.getArg(3).floatValue();
@@ -93,7 +93,7 @@ public class WorkerAgent extends alice.tucson.api.Automaton
 			elaborateZone(x, y, w, h, sizeX, sizeY, info);
 
 			// place the result on the space
-			super.getContext().out(tid, new LogicTuple("zone_produced", new Value(getId().toString()), new Value(new String(info))), (Long) null);
+			super.getContext().out(tid, new LogicTuple("zone_produced", new Value(getTucsonAgentId().toString()), new Value(new String(info))), (Long) null);
 
 			// loop again
 			become("mainLoop");

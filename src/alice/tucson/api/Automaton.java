@@ -19,6 +19,9 @@ package alice.tucson.api;
 
 import java.lang.reflect.*;
 
+import alice.tucson.api.exception.TucsonInvalidAgentIdException;
+import alice.tucson.api.exception.TucsonOperationNotPossibleException;
+
 /**
  * This class defines a state-based TuCSoN Agent.
  * 
@@ -39,6 +42,7 @@ public abstract class Automaton extends TucsonAgent implements java.io.Serializa
 	protected Object[] arguments = null;
 
 	/** arguments class eventually associated to state transition */
+	@SuppressWarnings("unchecked")
 	static protected Class[] argType;
 
 	/**
@@ -46,10 +50,11 @@ public abstract class Automaton extends TucsonAgent implements java.io.Serializa
 	 * 
 	 * @param id
 	 *            the automaton identifier
+	 * @throws TucsonInvalidAgentIdException 
 	 */
-	public Automaton(TucsonAgentId id, String language)
+	public Automaton(String aid, String language) throws TucsonInvalidAgentIdException
 	{
-		super(id, language);
+		super(aid, language);
 	}
 
 	/**
@@ -139,9 +144,11 @@ public abstract class Automaton extends TucsonAgent implements java.io.Serializa
 
 	/**
 	 * Specifies the behaviour of the automaton in its end state
+	 * @throws TucsonOperationNotPossibleException 
 	 */
-	protected void end()
+	protected void end() throws TucsonOperationNotPossibleException
 	{
+		getContext().exit();
 	}
 
 	/**

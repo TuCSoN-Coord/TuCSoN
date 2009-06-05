@@ -47,7 +47,7 @@ public class MasterAgent extends Automaton
 
 	public MasterAgent(String name, String node) throws TucsonException
 	{		
-		super(new TucsonAgentId(name), null);
+		super(name, null);
 		tid = new TucsonTupleCentreId("default@'" + node + "'");
 	}
 
