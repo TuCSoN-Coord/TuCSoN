@@ -21,8 +21,7 @@
 % and master agent
 %
 
-reaction(in(zone(Id,X,Y,W,H,ByteSizeX,ByteSizeY)),(
-	request,
+reaction(in(zone(Id,X,Y,W,H,ByteSizeX,ByteSizeY)),request,(
 	in(free(ZoneId)),
 	rd(zone_extent(ZoneId,X,Y,W,H)),
 	rd(patch_pixel_size(Bx,By)),

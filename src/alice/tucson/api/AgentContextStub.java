@@ -353,7 +353,7 @@ public class AgentContextStub implements TucsonContext
 				TucsonProtocol session = getSession(tcid);
 				ObjectOutputStream outStream = session.getOutputStream();		
 									
-				// creo un'operazione TuCSoN
+				// creo un'operazione TuCSoN quindi l'id delle operazioni viene d'ora in poi viene aggiornato
 				TucsonOperation op = null;					
 					
 				if((type == TucsonOperation.outCode()) | (type == TucsonOperation.out_sCode())
@@ -533,7 +533,8 @@ public class AgentContextStub implements TucsonContext
 					}
 					
 					TucsonMsgReply msg = TucsonMsgReply.read(in);
-					log("received msg " + msg.toString());
+					log("received msg reply:  operation identifier = " + msg.getId() + ", type = " + msg.getType());
+
 					boolean ok = msg.isAllowed();
 					
 					if (ok)
@@ -587,17 +588,17 @@ public class AgentContextStub implements TucsonContext
 						ev = new ContextEvent(new TucsonOpId(msg.getId()), false, false);
 					}
 					
-					log("posting event " + ev.getOpId().getId());
+					//log("posting event " + ev.getOpId().getId());
 					
 					TucsonOperation op = operations.remove(msg.getId());
 					
-					if(msg.getType() == TucsonOperation.get_Code())
+					if(op.isGet())
 					{
-						System.out.println();
 						op.setTupleResultList((List<LogicTuple>) msg.getTupleResult());
 					}
 					else
 						op.setResult((LogicTuple) msg.getTupleResult());	
+					
 					//System.out.println("RES = " + msg.getTupleResult());
 					op.notifyCompletion(ev.operationSucceeded(), msg.isAllowed());
 					

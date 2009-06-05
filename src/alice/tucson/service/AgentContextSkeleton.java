@@ -56,7 +56,8 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 	ObjectInputStream inStream;
 	ObjectOutputStream outStream;
 	alice.tucson.service.Node node;
-	HashMap<Long, TucsonMsgRequest> pendingOps;
+	HashMap<Long, TucsonMsgRequest> requests;
+	HashMap<Long, Long> opVsReq;
 	ContextManager manager;
 	int ctxId;
 
@@ -79,7 +80,8 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 		inStream = dialog.getInputStream();
 		outStream = dialog.getOutputStream();
 
-		pendingOps = new HashMap<Long, TucsonMsgRequest>();
+		requests = new HashMap<Long, TucsonMsgRequest>();
+		opVsReq = new HashMap<Long, Long>();
 
 		this.node = node;
 		manager = man;
@@ -94,6 +96,7 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 	 * behaviour of the acceptor: wait for communication events from a user
 	 * proxy and dispatch them to the virtual machine
 	 */
+	@SuppressWarnings("unchecked")
 	public void run()
 	{
 		log("ACC agent " + agentId.toString() + " booted.");
@@ -106,11 +109,11 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 			{
 				// Leggo il messaggio dallo stream di input
 				TucsonMsgRequest msg = TucsonMsgRequest.read(inStream);
-				
+
 				if(msg.getType() == TucsonOperation.exitCode())
 					log("new request type = " + msg.getType() + ";");
 				else
-					log("new request type = " + msg.getType() + "; destination = " + msg.getTid().toString() + "; tuple = "
+					log("new request identifier = " + msg.getId() +"; type = " + msg.getType() + "; destination = " + msg.getTid().toString() + "; tuple = "
 						+ msg.getTuple() + ";");
 
 				// Viene analizzato il tipo di operazione richiesta
@@ -133,7 +136,7 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 					
 					node.resolveCore(tid.getName());
 					node.addTCAgent(agentId, tid);
-					LogicTuple res = (LogicTuple)TucsonTCContainer.doBlockingSpecOperation(msg_type, agentId, tid, msg.getTuple());
+					LogicTuple res = (LogicTuple) TucsonTCContainer.doBlockingSpecOperation(msg_type, agentId, tid, msg.getTuple());
 					
 					TucsonMsgReply reply = null;
 					
@@ -171,7 +174,7 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 						|| msg_type == TucsonOperation.inpCode() || msg_type == TucsonOperation.rdCode()
 						|| msg_type == TucsonOperation.rdpCode())
 				{
-					synchronized (pendingOps)
+					synchronized (requests)
 					{
 						log("execute call " + msg_type);
 						
@@ -183,14 +186,17 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 								.getTuple(), this);			
 						
 						log("call executed");
-						pendingOps.put(new Long(op.getId()), msg);
+						requests.put(new Long(msg.getId()), msg);
+						log("put in requests: msg.getId() = " + msg.getId() + ", msg " + msg);
+						opVsReq.put(new Long(op.getId()), new Long(msg.getId()));
+						log("put in opVsReq: op.getId() = " + op.getId() + ", msg.getId() " + msg.getId());
 					}
 				}
 				else if (msg_type == TucsonOperation.out_sCode()
 						|| msg_type == TucsonOperation.in_sCode() || msg_type == TucsonOperation.inp_sCode()
 						|| msg_type == TucsonOperation.rd_sCode() || msg_type == TucsonOperation.rdp_sCode())
 				{
-					synchronized (pendingOps)
+					synchronized (requests)
 					{
 						log("execute call " + msg_type);
 						
@@ -200,7 +206,10 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 								.getTuple(), this);
 						
 						log("call executed");
-						pendingOps.put(new Long(op.getId()), msg);
+						requests.put(new Long(msg.getId()), msg);
+						log("put in requests: msg.getId() = " + msg.getId() + ", msg " + msg);
+						opVsReq.put(new Long(op.getId()), new Long(msg.getId()));
+						log("put in opVsReq: op.getId() = " + op.getId() + ", msg.getId() " + msg.getId());
 					}
 				}
 			}
@@ -238,14 +247,20 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 	 */
 	public void operationCompleted(TupleCentreOperation op)
 	{
-		// log("PRE-NOTIFY " + op.getId());
-		synchronized (pendingOps)
+		log("Notify operation id " + op.getId());
+		synchronized (requests)
 		{
 			try
 			{
-				TucsonMsgRequest msg = pendingOps.remove(new Long(op.getId()));
+				// l'id della richiesta dato l'id dell'operazione
+				Long reqId = opVsReq.remove(new Long(op.getId()));
+				// il msg di request dato il suo id
+				TucsonMsgRequest msg = requests.remove(reqId);
+				
 				TucsonMsgReply reply = null;
-				// log("Co-related request: " + msg.getId());
+				
+				log("Related request id: " + msg.getId());
+				
 				if (op.isOut() || op.isOut_s())
 				{
 					log("end Response");

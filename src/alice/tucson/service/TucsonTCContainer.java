@@ -67,12 +67,14 @@ public class TucsonTCContainer
 		
 		return null;
 	}
-
+	
 	public static ITupleCentreOperation doNonBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid,
 			LogicTuple t, OperationCompletionListener l) throws Exception
 	{			
 		IContainerResolver resolver;
 		LanguageInfo currLang = TucsonNodeLanguageManager.getCurLanguage();
+		
+		log("Operazione non bloccante" + t.toString());
 		
 		try
 		{

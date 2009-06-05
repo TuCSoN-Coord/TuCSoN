@@ -19,10 +19,10 @@ package alice.tucson.examples.multimedia;
 
 import alice.logictuple.*;
 
+import alice.tuplecentre.core.TupleCentreOperation;
+
 import alice.tucson.api.*;
 import alice.tucson.api.exception.TucsonException;
-
-import alice.tuplecentre.core.TupleCentreOperation;
 
 /**
  * the master agent is responsible to setup coordination specification in the
@@ -68,28 +68,38 @@ public class MasterAgent extends Automaton
 	/**
 	 * setups the tuple centre
 	 */
-	public void installSpec() throws Exception
+	public void installSpec()
 	{
 		// installs coordination specification
-		super.getContext().setSpec(tid, alice.util.Tools.loadText(new java.io.BufferedInputStream(ClassLoader
-				.getSystemResourceAsStream("alice/tucson/examples/multimedia/spec.rsp"))), (Long) null);
-		
-		// setups basic data structure on the tuple centre
-		for (int x = 0; x < nx; x++)
+		try
 		{
-			for (int y = 0; y < ny; y++)
-			{
-				TupleArgument zoneId = new Value(y + "_" + x);
-				
-				super.getContext().out(tid, new LogicTuple("zone_extent", zoneId, new Value(deltax * x), new Value(deltay * y), new Value(deltax),
-						new Value(deltay)), (Long) null);
-				super.getContext().out(tid, new LogicTuple("free", zoneId), (Long) null);
-			}
-		}
+			super.getContext().setSpec(tid, alice.util.Tools.loadText(new java.io.BufferedInputStream(ClassLoader
+					.getSystemResourceAsStream("alice/tucson/examples/multimedia/spec.rsp"))), (Long) null);		
 		
-		super.getContext().out(tid, new LogicTuple("patch_pixel_size", new Value(imageSizeX / nx), new Value(imageSizeY / ny)), (Long) null);
-		// start looping
-		become("mainLoop");
+			// setups basic data structure on the tuple centre
+			for (int x = 0; x < nx; x++)
+			{
+				for (int y = 0; y < ny; y++)
+				{
+					TupleArgument zoneId = new Value(y + "_" + x);
+					
+					super.getContext().out(tid, new LogicTuple("zone_extent", zoneId, new Value(deltax * x), new Value(deltay * y), new Value(deltax),
+							new Value(deltay)), (Long) null);
+					System.out.println(zoneId);
+					super.getContext().out(tid, new LogicTuple("free", zoneId), (Long) null);
+				}
+			}
+			
+			System.out.println("OK");
+			super.getContext().out(tid, new LogicTuple("patch_pixel_size", new Value(imageSizeX / nx), new Value(imageSizeY / ny)), (Long) null);
+			// start looping
+			become("mainLoop");
+		}
+		catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 
 	// main agent cycle
