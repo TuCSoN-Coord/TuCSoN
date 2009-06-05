@@ -34,6 +34,7 @@ import alice.tuplecentre.core.TupleCentreOperation;
  */
 public class MasterAgent extends Automaton
 {
+	private static final long serialVersionUID = 1L;
 	private int nx = 16;
 	private int ny = 16;
 	private float deltax = 1.0f / nx;
@@ -48,7 +49,6 @@ public class MasterAgent extends Automaton
 	{		
 		super(new TucsonAgentId(name), null);
 		tid = new TucsonTupleCentreId("default@'" + node + "'");
-		become("boot");
 	}
 
 	public void boot()

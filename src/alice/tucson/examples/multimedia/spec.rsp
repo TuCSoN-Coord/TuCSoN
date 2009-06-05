@@ -22,20 +22,20 @@
 %
 
 reaction(in(zone(Id,X,Y,W,H,ByteSizeX,ByteSizeY)),(
-	pre,
-	in_r(free(ZoneId)),
-	rd_r(zone_extent(ZoneId,X,Y,W,H)),
-	rd_r(patch_pixel_size(Bx,By)),
+	request,
+	in(free(ZoneId)),
+	rd(zone_extent(ZoneId,X,Y,W,H)),
+	rd(patch_pixel_size(Bx,By)),
 	current_agent(Id),
-        out_r(zone(Id,X,Y,W,H,Bx,By)),
-	out_r(computing(Id,ZoneId)))).
+        out(zone(Id,X,Y,W,H,Bx,By)),
+	out(computing(Id,ZoneId)))).
 
-reaction(out(zone_produced(Id,Image)),(
-	in_r(zone_produced(Id,_)),
+reaction(out(zone_produced(Id,Image)),true,(
+	in(zone_produced(Id,_)),
 	current_agent(Id),
-	in_r(computing(Id,ZoneId)),
-	out_r(zone_image(ZoneId,Image)),
-	out_r(zone_updated(ZoneId)))).
+	in(computing(Id,ZoneId)),
+	out(zone_image(ZoneId,Image)),
+	out(zone_updated(ZoneId)))).
 
 
 
