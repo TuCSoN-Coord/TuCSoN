@@ -58,6 +58,11 @@ public abstract class TucsonAgent implements TucsonOperationCompletionListener
 	 */
 	abstract protected void main();
 
+	public TucsonAgentId getTucsonAgentId()
+	{
+		return id;
+	}
+	
 	protected TucsonContext getContext()
 	{
 		return context;
