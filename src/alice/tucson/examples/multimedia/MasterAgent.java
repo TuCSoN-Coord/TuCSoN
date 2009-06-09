@@ -35,12 +35,12 @@ import alice.tucson.api.exception.TucsonException;
 public class MasterAgent extends Automaton
 {
 	private static final long serialVersionUID = 1L;
-	private int nx = 16;
-	private int ny = 16;
+	private int nx = 1;
+	private int ny = 1;
 	private float deltax = 1.0f / nx;
 	private float deltay = 1.0f / ny;
-	private int imageSizeX = 512;
-	private int imageSizeY = 512;
+	private int imageSizeX = 32;
+	private int imageSizeY = 32;
 	private Gui gui;
 	private int[] image = new int[imageSizeX * imageSizeY];
 	private TucsonTupleCentreId tid;
@@ -85,7 +85,7 @@ public class MasterAgent extends Automaton
 					
 					super.getContext().out(tid, new LogicTuple("zone_extent", zoneId, new Value(deltax * x), new Value(deltay * y), new Value(deltax),
 							new Value(deltay)), (Long) null);
-					System.out.println(zoneId);
+					//System.out.println(zoneId);
 					super.getContext().out(tid, new LogicTuple("free", zoneId), (Long) null);
 				}
 			}

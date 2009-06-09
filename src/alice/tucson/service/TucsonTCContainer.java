@@ -74,7 +74,7 @@ public class TucsonTCContainer
 		IContainerResolver resolver;
 		LanguageInfo currLang = TucsonNodeLanguageManager.getCurLanguage();
 		
-		log("Operazione non bloccante" + t.toString());
+		log("Operazione non bloccante " + t.toString());
 		
 		try
 		{

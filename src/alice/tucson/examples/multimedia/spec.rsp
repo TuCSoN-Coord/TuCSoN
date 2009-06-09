@@ -35,11 +35,3 @@ reaction(out(zone_produced(Id,Image)),true,(
 	in(computing(Id,ZoneId)),
 	out(zone_image(ZoneId,Image)),
 	out(zone_updated(ZoneId)))).
-
-
-
-
-
-
-	
-

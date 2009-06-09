@@ -247,7 +247,7 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 	 */
 	public void operationCompleted(TupleCentreOperation op)
 	{
-		log("Notify operation id " + op.getId());
+		log("Notify operation id: " + op.getId());
 		synchronized (requests)
 		{
 			try

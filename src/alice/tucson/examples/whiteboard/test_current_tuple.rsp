@@ -1,0 +1,7 @@
+
+reaction(out(prova(delcazzo)),(operation,invocation),(
+    current_tuple(T),
+    out(latupla(T)))
+    
+    ).
+
