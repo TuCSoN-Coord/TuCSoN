@@ -672,7 +672,7 @@ public boolean inp_2(Term arg0, Term arg1){
     }
     
     public boolean current_tuple_1(Term arg0){
-        return unify(arg0,getRenamedCopy(vm.getCurrentReactionTerm()));
+        return unify(arg0,getRenamedCopy(vm.getCurrentReactionTerm().getArg(0)));
     }
 
     public boolean event_operation_1(Term arg0){
