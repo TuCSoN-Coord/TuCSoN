@@ -334,6 +334,10 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
         //System.out.println("Triggered Evaluation: "+goalList.toString());
         currentReactionEvent=z.getEvent();
 
+        //set the current term to the argument of the operation that caused this reaction
+        //to be triggered
+        this.currentReactionTerm = (Struct)((LogicReaction)z.getReaction()).getReactionTerm();
+        
         //System.out.println("CURRENT EVENT: "+currentEvent);
         spy("EVAL REACTION: "+goalList);
         SolveInfo info=core.solve(goalList);
