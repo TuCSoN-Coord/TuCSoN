@@ -42,6 +42,10 @@ public class LogicReaction implements alice.tuplecentre.core.Reaction, java.io.S
     public Struct getStructReaction(){
         return reaction;
     }
+    
+    public Term getReactionTerm(){
+    	return ((Struct)reaction.getArg(0));
+    }
       
 }
 
