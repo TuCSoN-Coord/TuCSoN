@@ -173,13 +173,13 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 		} else if (isGet()){
 			opName = "get";
 			LogicTuple[] tupleL=new LogicTuple[]{};
-			System.out.println("LUNGHEZZA1: "+this.getTupleResultList().size());
+			//System.out.println("LUNGHEZZA1: "+this.getTupleResultList().size());
 			tupleL=this.getTupleResultList().toArray(tupleL);
-			System.out.println("LUNGHEZZA2: "+tupleL.length);
+			//System.out.println("LUNGHEZZA2: "+tupleL.length);
 			tl = new Term[tupleL.length];
 			for(int i=0;i<tupleL.length;i++){
 				tl[i]=(tupleL[i]).toTerm();
-				System.out.println("TERMINE: "+tl[i]);
+				//System.out.println("TERMINE: "+tl[i]);
 			}
 		}else if (isOut_s()){
 			opName = "out_s";
