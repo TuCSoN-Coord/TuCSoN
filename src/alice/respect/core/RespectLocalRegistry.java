@@ -38,7 +38,7 @@ public class RespectLocalRegistry implements ITCRegistry {
             System.out.println("---------------------Added "+tc.getId().toString());*/
 		if (!reg.containsKey(tc.getId().getName()))
 			reg.put(tc.getId().getName(), tc);
-		System.out.println("---------------------Added "+tc.getId().toString());
+		//System.out.println("---------------------Added "+tc.getId().toString());
 		//System.out.println("********SIZE:********** "+this.getSize());	
 	}
 
