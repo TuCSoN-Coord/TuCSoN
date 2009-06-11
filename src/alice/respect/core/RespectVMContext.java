@@ -118,6 +118,7 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 	        	}};
 	        	core.addOutputListener(l);
 			core.loadLibrary("alice.tuprolog.lib.BasicLibrary");
+			core.loadLibrary("alice.tuprolog.lib.ISOLibrary");
 			((alice.respect.core.Library)core.loadLibrary("alice.respect.core.Library")).init(this);
         } catch (Exception ex){
             ex.printStackTrace();
@@ -125,12 +126,18 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 		try {
 			trigCore=new Prolog(new String[]{});
 			trigCore.loadLibrary("alice.tuprolog.lib.BasicLibrary");
+			trigCore.loadLibrary("alice.tuprolog.lib.ISOLibrary");
             trigCore.loadLibrary("alice.respect.core.Library");
             ((alice.respect.core.Library)trigCore.getLibrary("alice.respect.core.Library")).init(this);
         } catch (Exception ex){
             ex.printStackTrace();
         }
 
+        //******TEMPORARY CODE******
+        /*core.setSpy(true);
+        core.addSpyListener(new PrologSpyListener(this));*/
+        //**************************
+        
         reactionSpec=new RespectSpecification("");
         this.reset();
 
@@ -326,8 +333,8 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
         tSpecSet.beginTransaction();
         wSet.beginTransaction();
         zSet.beginTransaction();
-        timeSet.beginTransaction();
-
+        timeSet.beginTransaction();        
+        
 		temporaryOutputEventList.clear();
 
         Term goalList=((LogicReaction)z.getReaction()).getStructReaction().getTerm(1);
@@ -339,7 +346,7 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
         this.currentReactionTerm = (Struct)((LogicReaction)z.getReaction()).getReactionTerm();
         
         //System.out.println("CURRENT EVENT: "+currentEvent);
-        spy("EVAL REACTION: "+goalList);
+        spy("EVAL REACTION: "+goalList+" isSpy: "+core.isSpy());
         SolveInfo info=core.solve(goalList);
         core.solveEnd();
         if (info.isSuccess()){
