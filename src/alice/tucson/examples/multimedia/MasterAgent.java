@@ -19,6 +19,9 @@ package alice.tucson.examples.multimedia;
 
 import alice.logictuple.*;
 
+import alice.respect.core.RespectTCContainer;
+import alice.respect.api.AgentId;
+import alice.respect.api.TupleCentreId;
 import alice.tuplecentre.core.TupleCentreOperation;
 
 import alice.tucson.api.*;
@@ -35,12 +38,12 @@ import alice.tucson.api.exception.TucsonException;
 public class MasterAgent extends Automaton
 {
 	private static final long serialVersionUID = 1L;
-	private int nx = 1;
-	private int ny = 1;
+	private int nx = 16;
+	private int ny = 16;
 	private float deltax = 1.0f / nx;
 	private float deltay = 1.0f / ny;
-	private int imageSizeX = 32;
-	private int imageSizeY = 32;
+	private int imageSizeX = 512;
+	private int imageSizeY = 512;
 	private Gui gui;
 	private int[] image = new int[imageSizeX * imageSizeY];
 	private TucsonTupleCentreId tid;
@@ -82,11 +85,23 @@ public class MasterAgent extends Automaton
 				for (int y = 0; y < ny; y++)
 				{
 					TupleArgument zoneId = new Value(y + "_" + x);
-					
+					//Thread.sleep(1000);
 					super.getContext().out(tid, new LogicTuple("zone_extent", zoneId, new Value(deltax * x), new Value(deltay * y), new Value(deltax),
 							new Value(deltay)), (Long) null);
+					//Thread.sleep(1000);
 					//System.out.println(zoneId);
 					super.getContext().out(tid, new LogicTuple("free", zoneId), (Long) null);
+					
+					/*TupleArgument zoneId = new Value(y + "_" + x);
+					//Thread.sleep(1000);
+					RespectTCContainer.getRespectTCContainer().getBlockingContext((TupleCentreId) tid.getInternalTupleCentreId()).
+					out((AgentId)this.getTucsonAgentId().getInternalAgentId(), new LogicTuple("zone_extent", zoneId, new Value(deltax * x), new Value(deltay * y), new Value(deltax),
+							new Value(deltay)));
+					//Thread.sleep(1000);
+					//System.out.println(zoneId);
+					
+					RespectTCContainer.getRespectTCContainer().getBlockingContext((TupleCentreId) tid.getInternalTupleCentreId()).
+					out((AgentId)this.getTucsonAgentId().getInternalAgentId(), new LogicTuple("free", zoneId));*/
 				}
 			}
 			

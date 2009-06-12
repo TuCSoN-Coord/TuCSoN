@@ -96,7 +96,7 @@ public class WorkerAgent extends alice.tucson.api.Automaton
 			super.getContext().out(tid, new LogicTuple("zone_produced", new Value(getTucsonAgentId().toString()), new Value(new String(info))), (Long) null);
 
 			// loop again
-			become("mainLoop");
+			//become("mainLoop");
 		}
 		catch (Exception ex)
 		{
