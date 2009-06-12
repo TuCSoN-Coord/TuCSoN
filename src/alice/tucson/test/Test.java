@@ -4,6 +4,7 @@ import alice.logictuple.*;
 
 import alice.respect.api.OperationTimeOutException;
 import alice.tucson.api.*;
+import alice.tucson.api.exception.TucsonInvalidAgentIdException;
 
 import alice.tucson.service.LanguageInfo;
 import alice.tucson.service.TucsonAgentLanguageManager;
@@ -19,7 +20,7 @@ class AgentA extends TucsonAgent
 		super(aid, language);
 		
 		// Definisco il TucsonContex per l'agente
-		super.setContext(Tucson.getContext(super.getId(), TucsonAgentLanguageManager.getCurLanguage()));
+		super.setContext(Tucson.getContext(super.getTucsonAgentId(), TucsonAgentLanguageManager.getCurLanguage()));
 	}
 	
 	protected void main()
@@ -50,7 +51,7 @@ class AgentA extends TucsonAgent
 
 class AgentB extends TucsonAgent
 {
-	AgentB(TucsonAgentId aid, String language)
+	AgentB(TucsonAgentId aid, String language) throws TucsonInvalidAgentIdException
 	{
 		super(aid, language);
 	}
@@ -81,7 +82,7 @@ class AgentB extends TucsonAgent
 
 	private void log(String msg)
 	{
-		System.out.println("[" + getId() + "] " + msg);
+		System.out.println("[" + this.getTucsonAgentId() + "] " + msg);
 	}
 
 	@Override
@@ -93,7 +94,7 @@ class AgentB extends TucsonAgent
 
 class AgentC extends TucsonAgent
 {
-	AgentC(TucsonAgentId aid, String language)
+	AgentC(TucsonAgentId aid, String language) throws TucsonInvalidAgentIdException
 	{
 		super(aid, language);
 	}
@@ -129,7 +130,7 @@ class AgentC extends TucsonAgent
 
 	private void log(String msg)
 	{
-		System.out.println("[" + getId() + "] " + msg);
+		System.out.println("[" + this.getTucsonAgentId() + "] " + msg);
 	}
 
 	@Override
