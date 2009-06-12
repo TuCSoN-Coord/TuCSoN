@@ -154,6 +154,7 @@ public class RespectVM implements Runnable {
     
 	public void doOperation(IId id, RespectOperation op) throws OperationNotPossibleException {
 		try {
+			System.out.println("[Respect VM] tupla = " + op.getTupleArgument());
 			context.doOperation(id,op);
 			synchronized (news){
 				news.notifyAll();
@@ -197,10 +198,13 @@ public class RespectVM implements Runnable {
 				context.notifyException(ex);
 			}
             try {
+            	notifyInspectableEvent(new InspectableEvent(this,InspectableEvent.TYPE_NEWSTATE));
                 context.spy("Waiting for news...");
-                synchronized(news){
-                	notifyInspectableEvent(new InspectableEvent(this,InspectableEvent.TYPE_NEWSTATE));
-                	news.wait();
+                
+                if(!(context.pendingEvents() || context.pendingEnvEvents())){
+	                synchronized(news){
+	                	news.wait();
+	                }
                 }
             } catch (Exception ex){
                 context.notifyException(ex);
