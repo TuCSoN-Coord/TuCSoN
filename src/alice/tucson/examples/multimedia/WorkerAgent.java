@@ -65,6 +65,8 @@ public class WorkerAgent extends alice.tucson.api.Automaton
 		}
 		catch (Exception ex)
 		{
+			ex.printStackTrace();
+			become("end");
 		}
 	}
 

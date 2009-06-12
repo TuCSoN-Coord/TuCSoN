@@ -65,6 +65,8 @@ public class MasterAgent extends Automaton
 		}
 		catch (Exception ex)
 		{
+			ex.printStackTrace();
+			become("end");
 		}
 	}
 
@@ -85,27 +87,13 @@ public class MasterAgent extends Automaton
 				for (int y = 0; y < ny; y++)
 				{
 					TupleArgument zoneId = new Value(y + "_" + x);
-					//Thread.sleep(1000);
 					super.getContext().out(tid, new LogicTuple("zone_extent", zoneId, new Value(deltax * x), new Value(deltay * y), new Value(deltax),
 							new Value(deltay)), (Long) null);
-					//Thread.sleep(1000);
-					//System.out.println(zoneId);
 					super.getContext().out(tid, new LogicTuple("free", zoneId), (Long) null);
 					
-					/*TupleArgument zoneId = new Value(y + "_" + x);
-					//Thread.sleep(1000);
-					RespectTCContainer.getRespectTCContainer().getBlockingContext((TupleCentreId) tid.getInternalTupleCentreId()).
-					out((AgentId)this.getTucsonAgentId().getInternalAgentId(), new LogicTuple("zone_extent", zoneId, new Value(deltax * x), new Value(deltay * y), new Value(deltax),
-							new Value(deltay)));
-					//Thread.sleep(1000);
-					//System.out.println(zoneId);
-					
-					RespectTCContainer.getRespectTCContainer().getBlockingContext((TupleCentreId) tid.getInternalTupleCentreId()).
-					out((AgentId)this.getTucsonAgentId().getInternalAgentId(), new LogicTuple("free", zoneId));*/
 				}
 			}
 			
-			System.out.println("OK");
 			super.getContext().out(tid, new LogicTuple("patch_pixel_size", new Value(imageSizeX / nx), new Value(imageSizeY / ny)), (Long) null);
 			// start looping
 			become("mainLoop");
@@ -114,6 +102,7 @@ public class MasterAgent extends Automaton
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			become("end");
 		}		
 	}
 
@@ -170,6 +159,7 @@ public class MasterAgent extends Automaton
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
+			become("end");
 		}
 	}
 
