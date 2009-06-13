@@ -78,7 +78,10 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 		{
 			context = (RespectTCContainer.getRespectTCContainer()).getNonBlockingContext((TupleCentreId) tid.getInternalTupleCentreId());			
 			if (type == TucsonOperation.outCode())
-				return context.out((AgentId) aid.getInternalAgentId(), t, l);
+			{
+				System.out.println("[Respect22Resolver] operazione di out");
+				return context.out((AgentId) aid.getInternalAgentId(), t, l);				
+			}
 			if (type == TucsonOperation.inCode())
 				return context.in((AgentId) aid.getInternalAgentId(), t, l);
 			if (type == TucsonOperation.inpCode())
