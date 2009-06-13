@@ -288,7 +288,7 @@ public class AgentContextSkeleton extends ContextSkeleton implements OperationCo
 			}
 			catch (Exception ex)
 			{
-				//ex.printStackTrace();
+				ex.printStackTrace();
 			}
 		}
 	}
