@@ -19,9 +19,6 @@ package alice.tucson.examples.multimedia;
 
 import alice.logictuple.*;
 
-import alice.respect.core.RespectTCContainer;
-import alice.respect.api.AgentId;
-import alice.respect.api.TupleCentreId;
 import alice.tuplecentre.core.TupleCentreOperation;
 
 import alice.tucson.api.*;
