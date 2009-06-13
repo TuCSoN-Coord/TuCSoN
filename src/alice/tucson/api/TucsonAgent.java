@@ -46,6 +46,18 @@ public abstract class TucsonAgent implements TucsonOperationCompletionListener
 		
 		events = new HashMap <TucsonOpId, ContextEvent>();
 	}
+	
+	protected TucsonAgent(TucsonAgentId aid, String language) throws TucsonInvalidAgentIdException
+	{
+		if(language == null)
+			TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
+		else
+			TucsonAgentLanguageManager.useLanguage((String)language);
+		
+		this.aid = aid;
+		
+		events = new HashMap <TucsonOpId, ContextEvent>();
+	}
 
 	/**
 	 * Starts agent execution
