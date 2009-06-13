@@ -351,6 +351,7 @@ public class AgentGUI extends javax.swing.JFrame implements UserInterface
 	{
 		// informing agent of departure
 		player.onLeave();
+		
 		try
 		{
 			Thread.currentThread().sleep(100);

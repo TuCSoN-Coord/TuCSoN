@@ -28,7 +28,7 @@ import alice.tuplecentre.core.TupleCentreOperation;
 public class AgentPlayer extends Automaton
 {
 	// game tuple centre id
-	TucsonTupleCentreId tid = new TucsonTupleCentreId("tictactoe");
+	TucsonTupleCentreId tid;
 	// game id
 	TupleArgument id;
 	// role of the player = {o,x}
@@ -150,6 +150,7 @@ public class AgentPlayer extends Automaton
 	private LogicTuple refreshGameStatus() throws Exception
 	{
 		LogicTuple tuple = this.getContext().in(tid, new LogicTuple("view", id, role, new Var("Grid"), new Var("Status")), (Long) null);
+		
 		if (userInterface != null)
 		{
 			userInterface.updateInfo(new LogicTuple(tuple.getArg(3)), new LogicTuple(tuple.getArg(2)));

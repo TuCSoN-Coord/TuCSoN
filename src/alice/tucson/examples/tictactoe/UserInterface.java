@@ -16,8 +16,10 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.tucson.examples.tictactoe;
+
 import alice.logictuple.LogicTuple;
 
-public interface UserInterface {
-    public void updateInfo(LogicTuple info,LogicTuple grid);
+public interface UserInterface
+{
+	public void updateInfo(LogicTuple info, LogicTuple grid);
 }
