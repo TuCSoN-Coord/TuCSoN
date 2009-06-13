@@ -17,20 +17,22 @@
  */
 package alice.tucson.examples.service;
 
-import alice.logictuple.*;
+import alice.tuplecentre.core.TupleCentreOperation;
+
 import alice.tucson.api.*;
-import alice.tucson.types.*;
 import alice.tucson.api.exception.*;
 
-class SumServiceAgent extends alice.tucson.api.TucsonAgent
+import alice.tucson.service.TucsonLanguageManager;
+
+class SumServiceAgent extends TucsonAgent
 {
 	private TucsonTupleCentreId tid;
 	private boolean toStop;
 
-	public SumServiceAgent(TucsonAgentId id, Object language, TucsonTupleCentreId tid_) throws TucsonException
+	public SumServiceAgent(TucsonAgentId id, String language, TucsonTupleCentreId tid) throws TucsonException
 	{
 		super(id, language);
-		tid = tid_;
+		this.tid = tid;
 	}
 
 	protected void main()
@@ -51,7 +53,14 @@ class SumServiceAgent extends alice.tucson.api.TucsonAgent
 
 	private void log(String msg)
 	{
-		System.out.println("[ " + getId() + " ] " + msg);
+		System.out.println("[ " + this.getTucsonAgentId() + " ] " + msg);
+	}
+
+	@Override
+	public void operationCompleted(TupleCentreOperation op)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 }
 
@@ -84,7 +93,7 @@ public class SumService
 				return;
 			}
 
-			new SumServiceAgent(new TucsonAgentId(agentName), TucsonOpType.DEFLANGUAGE, tid).spawn();
+			new SumServiceAgent(new TucsonAgentId(agentName), TucsonLanguageManager.DEFLANGUAGE, tid).spawn();
 		}
 		catch (Exception e)
 		{

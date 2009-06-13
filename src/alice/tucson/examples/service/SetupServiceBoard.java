@@ -18,7 +18,9 @@
 package alice.tucson.examples.service;
 
 import alice.tucson.api.*;
-import alice.tucson.types.*;
+
+import alice.tucson.service.TucsonAgentLanguageManager;
+import alice.tucson.service.TucsonLanguageManager;
 
 public class SetupServiceBoard
 {
@@ -43,14 +45,16 @@ public class SetupServiceBoard
 				return;
 			}
 
-			TucsonContext ctx = Tucson.getContext(new TucsonAgentId("service_board"), TucsonOpType.DEFLANGUAGE);
+			TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
+			TucsonContext ctx = Tucson.getContext(new TucsonAgentId("service_board"), TucsonAgentLanguageManager.getCurLanguage());
 
 			ctx.setSpec(tid, "reaction(in(chops(C1,C2)), (pre, out_r(required(C1,C2)))).\n"
 					+ "reaction(in(chops(C1,C2)), (post,in_r(required(C1,C2)))).\n"
 					+ "reaction(out_r(required(C1,C2)),(in_r(chop(C1)),in_r(chop(C2)),out_r(chops(C1,C2)))).\n"
 					+ "reaction(out(chops(C1,C2)), ( in_r(chops(C1,C2)),out_r(chop(C1)),out_r(chop(C2)))).\n"
 					+ "reaction(out_r(chop(C1)), (rd_r(required(C1,C)), in_r(chop(C1)),in_r(chop(C)),out_r(chops(C1,C)))).\n"
-					+ "reaction(out_r(chop(C2)), (rd_r(required(C,C2)), in_r(chop(C)),in_r(chop(C2)),out_r(chops(C,C2)))).\n");
+					+ "reaction(out_r(chop(C2)), (rd_r(required(C,C2)), in_r(chop(C)),in_r(chop(C2)),out_r(chops(C,C2)))).\n",
+					(Long) null);
 
 			System.out.println("Service board initialized.");
 
