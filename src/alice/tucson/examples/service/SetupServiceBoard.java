@@ -28,6 +28,7 @@ public class SetupServiceBoard
 	{
 		try
 		{
+			TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
 			TucsonTupleCentreId tid;
 			
 			if (args.length == 0)
@@ -44,8 +45,7 @@ public class SetupServiceBoard
 				System.exit(-1);
 				return;
 			}
-
-			TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
+			
 			TucsonContext ctx = Tucson.getContext(new TucsonAgentId("service_board"), TucsonAgentLanguageManager.getCurLanguage());
 
 			ctx.setSpec(tid, "reaction(in(chops(C1,C2)), (pre, out_r(required(C1,C2)))).\n"
@@ -56,6 +56,8 @@ public class SetupServiceBoard
 					+ "reaction(out_r(chop(C2)), (rd_r(required(C,C2)), in_r(chop(C)),in_r(chop(C2)),out_r(chops(C,C2)))).\n",
 					(Long) null);
 
+			ctx.exit();
+			
 			System.out.println("Service board initialized.");
 
 		}

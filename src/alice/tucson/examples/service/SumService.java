@@ -22,6 +22,7 @@ import alice.tuplecentre.core.TupleCentreOperation;
 import alice.tucson.api.*;
 import alice.tucson.api.exception.*;
 
+import alice.tucson.service.TucsonAgentLanguageManager;
 import alice.tucson.service.TucsonLanguageManager;
 
 class SumServiceAgent extends TucsonAgent
@@ -33,6 +34,11 @@ class SumServiceAgent extends TucsonAgent
 	{
 		super(id, language);
 		this.tid = tid;
+	}
+	
+	public TucsonTupleCentreId getTcId()
+	{
+		return tid;
 	}
 
 	protected void main()
@@ -70,6 +76,8 @@ public class SumService
 	{
 		try
 		{
+			TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
+			
 			TucsonTupleCentreId tid;
 			String agentName = "mySumService";			
 			
@@ -93,7 +101,7 @@ public class SumService
 				return;
 			}
 
-			new SumServiceAgent(new TucsonAgentId(agentName), TucsonLanguageManager.DEFLANGUAGE, tid).spawn();
+			new SumServiceAgent(new TucsonAgentId(agentName), TucsonAgentLanguageManager.getCurLanguage().getName(), tid).spawn();
 		}
 		catch (Exception e)
 		{
