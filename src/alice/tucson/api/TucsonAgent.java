@@ -20,6 +20,7 @@ package alice.tucson.api;
 import java.util.*;
 
 import alice.tucson.api.exception.TucsonInvalidAgentIdException;
+
 import alice.tucson.service.TucsonAgentLanguageManager;
 import alice.tucson.service.TucsonLanguageManager;
 import alice.tucson.service.TucsonOperationCompletionListener;
@@ -37,7 +38,7 @@ public abstract class TucsonAgent implements TucsonOperationCompletionListener
 
 	protected TucsonAgent(String aid, String language) throws TucsonInvalidAgentIdException
 	{
-		if(language == null)
+		if(language == null && TucsonAgentLanguageManager.getCurLanguage() == null)
 			TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
 		else
 			TucsonAgentLanguageManager.useLanguage((String)language);
@@ -49,7 +50,7 @@ public abstract class TucsonAgent implements TucsonOperationCompletionListener
 	
 	protected TucsonAgent(TucsonAgentId aid, String language) throws TucsonInvalidAgentIdException
 	{
-		if(language == null)
+		if(language == null && TucsonAgentLanguageManager.getCurLanguage() == null)
 			TucsonAgentLanguageManager.useLanguage(TucsonLanguageManager.DEFLANGUAGE);
 		else
 			TucsonAgentLanguageManager.useLanguage((String)language);
@@ -58,7 +59,7 @@ public abstract class TucsonAgent implements TucsonOperationCompletionListener
 		
 		events = new HashMap <TucsonOpId, ContextEvent>();
 	}
-
+	
 	/**
 	 * Starts agent execution
 	 */
