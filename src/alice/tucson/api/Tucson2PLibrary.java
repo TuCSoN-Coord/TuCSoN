@@ -120,6 +120,7 @@ public class Tucson2PLibrary extends Library
 				return false;
 			}
 			LogicTuple tuple = context.rd(tid, new LogicTuple(arg0), (java.lang.Long) null);
+			System.out.println(tuple);
 			return unify(arg0, tuple.toTerm());
 		}
 		catch (Exception x)
@@ -241,7 +242,8 @@ public class Tucson2PLibrary extends Library
 		}
 		try
 		{
-			this.agentId = new TucsonAgentId(id.getArg(0).toString());
+			System.out.print(id);
+			this.agentId = new TucsonAgentId(id.toString());
 			context = Tucson.getContext(agentId, TucsonAgentLanguageManager.getCurLanguage());
 			return true;
 		}
