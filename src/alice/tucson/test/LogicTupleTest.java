@@ -1,13 +1,6 @@
 package alice.tucson.test;
 
-import java.io.*;
-
 import alice.logictuple.*;
-
-import alice.tucson.api.*;
-
-import alice.tucson.service.TucsonAgentLanguageManager;
-import alice.tucson.service.TucsonLanguageManager;
 
 public class LogicTupleTest
 {

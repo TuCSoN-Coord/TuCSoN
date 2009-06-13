@@ -2,11 +2,9 @@ package alice.tucson.test;
 
 import alice.logictuple.*;
 
-import alice.respect.api.OperationTimeOutException;
 import alice.tucson.api.*;
 import alice.tucson.api.exception.TucsonInvalidAgentIdException;
 
-import alice.tucson.service.LanguageInfo;
 import alice.tucson.service.TucsonAgentLanguageManager;
 import alice.tucson.service.TucsonLanguageManager;
 import alice.tucson.service.TucsonOperation;
@@ -32,9 +30,9 @@ class AgentA extends TucsonAgent
 
 			super.getContext().setSpec(tid, spec, (Long) null);
 						
-			String specReturn = super.getContext().getSpec(tid, (Long) null);
+			super.getContext().getSpec(tid, (Long) null);
 						
-			TucsonOperation op = (TucsonOperation) (super.getContext().out(tid, new LogicTuple("ready"), (TucsonOperationCompletionListener) null));
+			super.getContext().out(tid, new LogicTuple("ready"), (TucsonOperationCompletionListener) null);
 		}
 		catch (Exception ex)
 		{
@@ -80,6 +78,7 @@ class AgentB extends TucsonAgent
 		}
 	}
 
+	@SuppressWarnings("unused")
 	private void log(String msg)
 	{
 		System.out.println("[" + this.getTucsonAgentId() + "] " + msg);
