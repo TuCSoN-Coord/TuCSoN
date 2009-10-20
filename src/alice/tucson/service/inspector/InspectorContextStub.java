@@ -20,20 +20,13 @@ package alice.tucson.service.inspector;
 import alice.tucson.api.*;
 import alice.tucson.api.exception.*;
 
-import alice.tucson.types.*;
-
 import alice.tucson.common.TucsonProtocol;
 import alice.tucson.common.TucsonProtocolTCP;
 
 import alice.tuplecentre.core.Event;
 
-import alice.logictuple.*;
-
 import java.util.*;
-import java.net.*;
 import java.io.*;
-import java.lang.reflect.*;
-import alice.util.IPIdentifier;
 
 /**
  * 
@@ -105,9 +98,9 @@ public class InspectorContextStub implements InspectorContext
 	// action allowed to an inspector, according with current protocol
 
 	/** get a snapshot of tuple set */
-	public void getSnapshot() throws Exception
+	public void getSnapshot(byte snapshotMsg) throws Exception
 	{
-		outStream.writeObject(new GetSnapshotMsg(id, GetSnapshotMsg.TSET));
+		outStream.writeObject(new GetSnapshotMsg(id, snapshotMsg));
 		outStream.flush();
 	}
 

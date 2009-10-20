@@ -17,11 +17,13 @@
  */
 package alice.tucson.service.inspector;
 
+import alice.respect.api.*;
 import alice.respect.core.*;
 
-import alice.tuplecentre.*;
 import alice.tuplecentre.core.*;
 import alice.tuplecentre.api.*;
+import alice.tuplecentre.api.InspectableEvent;
+import alice.tuplecentre.api.InspectableEventListener;
 
 import alice.tucson.api.*;
 import alice.tucson.api.exception.*;
@@ -92,7 +94,7 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 			throw new TucsonException("Internal error: InspectorContextSkel constructor");
 		}
 				
-		core = TucsonTCContainer.getVM(coreInfo.getTucsonTupleCentreId());
+		core = ((RespectTC)TucsonTCContainer.getTC(coreInfo.getTucsonTupleCentreId())).getRespectVM();
 		protocol = msg.info;
 	}
 
@@ -112,9 +114,9 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 			{
 				NodeMsg msg = (NodeMsg) inStream.readObject();
 				Class cl = msg.getClass();
-				log("Elena: " + cl.getName());
+				//log("Elena: " + cl.getName());
 				Method m = this.getClass().getMethod(msg.action, new Class[] { cl });
-				log("Elena: " + m.getName());
+				//log("Elena: " + m.getName());
 				m.invoke(this, new Object[] { msg });
 			}
 			catch (Exception e)
@@ -158,15 +160,14 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 		try
 		{
 			InspectorContextEvent msg = new InspectorContextEvent();
-			// msg.localTime=System.currentTimeMillis();
+			msg.localTime=System.currentTimeMillis();
 			msg.vmTime = ev.getTime();
 
 			if (ev.getType() == InspectableEvent.TYPE_NEWSTATE)
 			{
 				if (protocol.tsetObservType == InspectorProtocol.PROACTIVE_OBSERVATION)
 				{
-					LogicTuple[] ltSet = (LogicTuple[]) TucsonTCContainer.doManagementOperation(TucsonOperation.get_TSet(), agentId, tcId, null, null);
-					
+					LogicTuple[] ltSet = (LogicTuple[]) TucsonTCContainer.doManagementOperation(TucsonOperation.getTSetCode(), tcId, protocol.tsetFilter);					
 					//LogicTuple[] ltSet = core.getTSet(protocol.tsetFilter);
 					//LogicTuple[] ltSet = core.getTSet(null);
 					
@@ -194,20 +195,33 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 				}
 				if (protocol.pendingQueryObservType == InspectorProtocol.PROACTIVE_OBSERVATION)
 				{
-					LogicTuple[] ltSet = (LogicTuple[]) TucsonTCContainer.doManagementOperation(TucsonOperation.get_WSet(), agentId, tcId, null, null);
+					LogicTuple[] ltSet = (LogicTuple[]) TucsonTCContainer.doManagementOperation(TucsonOperation.getWSetCode(), tcId, protocol.tsetFilter);
 					//LogicTuple[] ltSet = core.getWSet(protocol.tsetFilter);
 					//LogicTuple[] ltSet = core.getWSet(null);
 					
-					msg.wnEvents = new LinkedList();
+					msg.wnEvents = new LinkedList();					
 					if(ltSet != null)
 					{
-						for(LogicTuple lt: ltSet)
+						if (protocol.tsetFilter == null)
 						{
-							msg.wnEvents.add(lt);
+							for(LogicTuple lt: ltSet)
+							{
+								msg.wnEvents.add(lt);
+							}
 						}
+						else
+						{
+							for(LogicTuple lt: ltSet)
+							{
+								if (protocol.tsetFilter.match(lt))
+								{
+									msg.wnEvents.add(lt);
+								}
+							}
+						} 
 					}
-				}
-				// System.out.println("SEND "+msg.tuples+" "+msg.wnEvents);
+				}				
+				//System.out.println("SEND " + msg.tuples + " " + msg.wnEvents);
 				outStream.writeObject(msg);
 				outStream.flush();
 			}
@@ -258,42 +272,86 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 	/** get a tuple centre set (T set, W set,...) snapshot */
 	public void getSnapshot(GetSnapshotMsg m)
 	{
-		/*InspectorContextEvent msg = new InspectorContextEvent();
+		InspectorContextEvent msg = new InspectorContextEvent();
 		synchronized (core)
 		{
 			msg.vmTime = System.currentTimeMillis();
-			msg.localTime = System.currentTimeMillis();
+			msg.localTime = System.currentTimeMillis();						
+			
 			if (m.what == GetSnapshotMsg.TSET)
 			{
 				msg.tuples = new LinkedList();
-				Iterator it = core.getTupleSetIterator();
+				LogicTuple[] tSet = null;
+				
+				try
+				{
+					tSet = (LogicTuple[]) TucsonTCContainer.doManagementOperation(TucsonOperation.getTSetCode(), tcId, protocol.tsetFilter);
+				}
+				catch (TucsonOperationNotPossibleException e)
+				{
+					e.printStackTrace();
+				}
+				catch (TucsonInvalidLogicTupleException e)
+				{
+					e.printStackTrace();
+				}
+				
 				if (protocol.tsetFilter == null)
 				{
-					while (it.hasNext())
+					for(LogicTuple lt: tSet)
 					{
-						msg.tuples.add(it.next());
+						msg.tuples.add(lt);
 					}
 				}
 				else
 				{
-					while (it.hasNext())
+					for(LogicTuple lt: tSet)
 					{
-						Tuple tu = (Tuple) it.next();
-						if (protocol.tsetFilter.match(tu))
+						if (protocol.tsetFilter.match(lt))
 						{
-							msg.tuples.add(tu);
+							msg.tuples.add(lt);
 						}
 					}
 				}
 			}
 			else if (m.what == GetSnapshotMsg.WSET)
 			{
-				msg.wnEvents = new LinkedList();
-				Iterator it = core.getPendingQuerySetIterator();
-				while (it.hasNext())
+				System.out.println("update");
+				LogicTuple[] ltSet = null;
+				try
 				{
-					msg.wnEvents.add(it.next());
+					ltSet = (LogicTuple[]) TucsonTCContainer.doManagementOperation(TucsonOperation.getWSetCode(), tcId, protocol.tsetFilter);
 				}
+				catch (TucsonOperationNotPossibleException e)
+				{
+					e.printStackTrace();
+				}
+				catch (TucsonInvalidLogicTupleException e)
+				{
+					e.printStackTrace();
+				}
+				
+				msg.wnEvents = new LinkedList();
+				if(ltSet != null)
+				{
+					if (protocol.tsetFilter == null)
+					{
+						for(LogicTuple lt: ltSet)
+						{
+							msg.wnEvents.add(lt);
+						}
+					}
+					else
+					{
+						for(LogicTuple lt: ltSet)
+						{
+							if (protocol.tsetFilter.match(lt))
+							{
+								msg.wnEvents.add(lt);
+							}
+						}
+					}
+				}				
 			}
 			try
 			{
@@ -304,7 +362,7 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 			{
 				ex.printStackTrace();
 			}
-		}*/
+		}
 	}
 
 	/** reset the tuple centre VM */
@@ -335,7 +393,7 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 				while (it.hasNext())
 				{
 					Tuple tuple = (Tuple) it.next();
-					//core.addTuple(tuple);
+				//	core.addTuple(tuple);
 				}
 			}
 		}

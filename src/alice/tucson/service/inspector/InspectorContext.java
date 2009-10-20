@@ -36,7 +36,7 @@ public interface InspectorContext {
     // action allowed to an inspector, according with current protocol
 
     /** gets a snapshot of tuple set*/
-    void getSnapshot() throws Exception;
+    void getSnapshot(byte snapshotType) throws Exception;
 
     /** resets the tuple centre */
     void reset() throws Exception;
