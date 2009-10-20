@@ -19,6 +19,8 @@ package alice.tuplecentre.api;
 
 import java.util.*;
 
+import alice.tuplecentre.core.InspectableEvent;
+
 /**
  * Defines listeners of tuple centre virtual machine observable events (actually
  * inspectors)
