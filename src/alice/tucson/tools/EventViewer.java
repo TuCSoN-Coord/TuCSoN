@@ -19,6 +19,7 @@ package alice.tucson.tools;
 
 import alice.logictuple.*;
 import alice.tucson.api.*;
+import alice.tucson.service.inspector.GetSnapshotMsg;
 import alice.tucson.service.inspector.InspectorProtocol;
 
 /**
@@ -50,6 +51,7 @@ public class EventViewer extends javax.swing.JFrame
 
 	public void setText(String st)
 	{
+		System.out.println("textarea" + st);
 		outputArea.setText(st);
 	}
 
@@ -566,11 +568,28 @@ public class EventViewer extends javax.swing.JFrame
 
 	private void buttonAcceptFilterLogActionPerformed(java.awt.event.ActionEvent evt)
 	{// GEN-FIRST:event_buttonAcceptFilterLogActionPerformed
-		/*
-		 * String st=inputFilterLog.getText(); Tuple t=Tuple.parse(st); if
-		 * (t==null){ outputState.setText("filter (tuple) not valid."); } else {
-		 * mainForm.agent.logTupleFilter=t; }
-		 */
+		
+		String st = inputFilterLog.getText(); 
+		LogicTuple t = null;
+		
+		try
+		{
+			t = LogicTuple.parse(st);
+		}
+		catch (InvalidLogicTupleException e)
+		{
+			e.printStackTrace();
+		}
+		
+		if(t == null)
+		{ 
+			outputState.setText("filter (tuple) not valid."); 
+		} 
+		else 
+		{
+			mainForm.agent.logTupleFilter = t; 
+		}
+		 
 	}// GEN-LAST:event_buttonAcceptFilterLogActionPerformed
 
 	private void buttonBrowseActionPerformed(java.awt.event.ActionEvent evt)
@@ -596,21 +615,44 @@ public class EventViewer extends javax.swing.JFrame
 
 	private void checkFilterLogActionPerformed(java.awt.event.ActionEvent evt)
 	{// GEN-FIRST:event_checkFilterLogActionPerformed
-		/*
-		 * try { if (checkFilterLog.isSelected()){
-		 * buttonAcceptFilterLog.setEnabled(true); } else {
-		 * buttonAcceptFilterLog.setEnabled(false); } } catch (Exception ex){ }
-		 */
+		
+		try 
+		{ 
+			if (checkFilterLog.isSelected())
+			{
+				buttonAcceptFilterLog.setEnabled(true); 
+			} 
+			else 
+			{
+				buttonAcceptFilterLog.setEnabled(false); 
+			} 
+		} catch (Exception ex){ }
+		 
 	}// GEN-LAST:event_checkFilterLogActionPerformed
 
 	private void buttonAcceptPatternActionPerformed(java.awt.event.ActionEvent evt)
 	{// GEN-FIRST:event_buttonAcceptPatternActionPerformed
-		/*
-		 * try { String st=inputFilterView.getText(); Tuple t=Tuple.parse(st);
-		 * if (t==null){ outputState.setText("filter (tuple) not valid."); }
-		 * else { mainForm.protocol.tsetFilter=t;
-		 * context.setProtocol(mainForm.protocol); } } catch (Exception ex){ }
-		 */
+		
+		try 
+		{ 
+			String st = inputFilterView.getText(); 
+			LogicTuple t = LogicTuple.parse(st);
+			 
+			if (t == null)
+			{ 
+				outputState.setText("filter (tuple) not valid."); 
+			}
+			else 
+			{ 
+				mainForm.protocol.tsetFilter = t;
+				context.setProtocol(mainForm.protocol); 
+			} 
+		}
+		catch (Exception ex)
+		{ 
+			ex.printStackTrace();
+		}
+		 
 	}// GEN-LAST:event_buttonAcceptPatternActionPerformed
 
 	private void checkFilterViewActionPerformed(java.awt.event.ActionEvent evt)
@@ -624,6 +666,8 @@ public class EventViewer extends javax.swing.JFrame
 			else
 			{
 				buttonAcceptPattern.setEnabled(false);
+				// da sistemare
+				// anche per le tuple e per il log delle tuple: è da differenziare
 				mainForm.protocol.tsetFilter = null;
 				context.setProtocol(mainForm.protocol);
 			}
@@ -637,7 +681,8 @@ public class EventViewer extends javax.swing.JFrame
 	{// GEN-FIRST:event_buttonGetActionPerformed
 		try
 		{
-			context.getSnapshot();
+			System.out.println("update");
+			context.getSnapshot(GetSnapshotMsg.WSET);
 		}
 		catch (Exception ex)
 		{

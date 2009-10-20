@@ -32,6 +32,7 @@ import alice.tucson.service.inspector.*;
  * TuCSoN Inspector tool
  * 
  */
+@SuppressWarnings("serial")
 public class Inspector extends javax.swing.JFrame
 {
 	InspectorCore agent;
@@ -54,7 +55,7 @@ public class Inspector extends javax.swing.JFrame
 		this.aid = aid;
 		disableControlPanel();
 		isSessionOpen = false;
-		show();
+		this.setVisible(true);		
 	}
 
 	/** Creates new form Inspector */
@@ -479,6 +480,7 @@ public class Inspector extends javax.swing.JFrame
 			catch (Exception ex)
 			{
 				stateBar.setText("Operation Failed: " + ex);
+				ex.printStackTrace();
 			}
 			// Add your handling code here:
 		}
@@ -529,7 +531,7 @@ public class Inspector extends javax.swing.JFrame
 
 	private void jButton7ActionPerformed(java.awt.event.ActionEvent evt)
 	{// GEN-FIRST:event_jButton7ActionPerformed
-		specForm.show();
+		specForm.setVisible(true);
 	}// GEN-LAST:event_jButton7ActionPerformed
 
 	private void inputFreqActionPerformed(java.awt.event.ActionEvent evt)
@@ -542,7 +544,7 @@ public class Inspector extends javax.swing.JFrame
 		{
 			protocol.reactionsObservType = InspectorProtocol.PROACTIVE_OBSERVATION;
 			context.setProtocol(protocol);
-			reactionForm.show();
+			reactionForm.setVisible(true);
 		}
 		catch (Exception ex)
 		{
@@ -550,13 +552,14 @@ public class Inspector extends javax.swing.JFrame
 		}
 	}// GEN-LAST:event_jButton5ActionPerformed
 
+	// tuples
 	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt)
 	{// GEN-FIRST:event_jButton4ActionPerformed
 		try
 		{
 			protocol.tsetObservType = InspectorProtocol.PROACTIVE_OBSERVATION;
 			context.setProtocol(protocol);
-			tupleForm.show();
+			tupleForm.setVisible(true);
 		}
 		catch (Exception ex)
 		{
@@ -580,7 +583,7 @@ public class Inspector extends javax.swing.JFrame
 		{
 			protocol.pendingQueryObservType = InspectorProtocol.PROACTIVE_OBSERVATION;
 			context.setProtocol(protocol);
-			pendingQueryForm.show();
+			pendingQueryForm.setVisible(true);
 		}
 		catch (Exception ex)
 		{
@@ -589,7 +592,7 @@ public class Inspector extends javax.swing.JFrame
 
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)
 	{// GEN-FIRST:event_jButton1ActionPerformed
-		tupleForm.show();
+		tupleForm.setVisible(true);
 	}// GEN-LAST:event_jButton1ActionPerformed
 
 	/** Exit the Application */

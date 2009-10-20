@@ -17,6 +17,8 @@
  */
 package alice.tucson.tools;
 
+import java.util.List;
+
 import alice.tucson.api.*;
 import alice.logictuple.*;
 
@@ -286,6 +288,19 @@ public class GUIInterpreter extends javax.swing.JFrame
 							{
 								agent.output.append("answer: " + t + "\n");
 							}
+						}
+						else if(methodName.equals("get"))
+						{
+							//LogicTuple templ = LogicTuple.parse(tuple);
+							agent.output.append("waiting for tuple: ... " + tuple + "\n");
+							List<LogicTuple> tl = context.get(tid, (Long) null);
+							String res="[";
+							for(LogicTuple t :tl)
+							{
+								res+=t+",";
+							}
+							res=res.substring(0, res.lastIndexOf(","))+"]";
+							agent.output.append(res+"\n");
 						}
 						else if (methodName.equals("set_spec"))
 						{

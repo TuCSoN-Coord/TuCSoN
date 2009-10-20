@@ -145,17 +145,17 @@ public class InspectorCore extends alice.tucson.service.inspector.Inspector
 			String st = "";
 			Iterator it = msg.wnEvents.iterator();
 			int n = 0;
+			//System.out.println("Eventi" + it.hasNext());
 			while (it.hasNext())
 			{
-				Event ev = (Event) it.next();
-				String tupleEvent = ev.toString();
+				//System.out.println("while" + it.next());
 				// tupleEvent+=ev.getOperationName()+"(";
 				// if (ev.tuple!=null){
 				// tupleEvent+=ev.tuple+") from agent "+ev.idAgent;
 				// } else {
 				// tupleEvent+=ev.template+") from agent "+ev.idAgent;
 				// }
-				st = st + tupleEvent + "\n";
+				st = st + it.next() + "\n";				
 				n++;
 			}
 			viewer.setNItems(n);
@@ -167,20 +167,17 @@ public class InspectorCore extends alice.tucson.service.inspector.Inspector
 					st = "";
 					logQueryWriter.write("snapshot( \n" + "    time_vm(" + msg.vmTime + "),\n" + "    time_local("
 							+ msg.localTime + "),\n" +
-							// "
-							// query_filter("+form.protocol.queryFilter+"),\n"+
-							// " query_log_filter("+logQueryFilter+"),\n"+
+							 "query_filter(" + form.protocol.queryFilter + "),\n"+
+							 " query_log_filter(" + logQueryFilter + "),\n"+
 							"    query_list([ \n");
 
 					it = msg.wnEvents.iterator();
 					if (it.hasNext())
 					{
-						Event ev = (Event) it.next();
-						st = st + "        " + ev.toString();
+						st = st + "        " + it.next();
 						while (it.hasNext())
 						{
-							ev = (Event) it.next();
-							st = st + ",\n        " + ev.toString();
+							st = st + ",\n        " + it.next();
 						}
 					}
 

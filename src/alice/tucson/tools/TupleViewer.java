@@ -20,6 +20,7 @@ package alice.tucson.tools;
 
 import alice.logictuple.*;
 import alice.tucson.api.*;
+import alice.tucson.service.inspector.GetSnapshotMsg;
 import alice.tucson.service.inspector.InspectorProtocol;
 
 public class TupleViewer extends javax.swing.JFrame
@@ -698,7 +699,8 @@ public class TupleViewer extends javax.swing.JFrame
 	{// GEN-FIRST:event_buttonGetActionPerformed
 		try
 		{
-			context.getSnapshot();
+			//System.out.println("SNAPSHOT");
+			context.getSnapshot(GetSnapshotMsg.TSET);
 		}
 		catch (Exception ex)
 		{
