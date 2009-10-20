@@ -22,7 +22,6 @@ import alice.tuplecentre.api.AgentId;
 import alice.tuplecentre.api.IId;
 import alice.tuplecentre.api.ITupleCentre;
 import alice.tuplecentre.api.ITupleCentreManagement;
-import alice.tuplecentre.api.OperationNotPossibleException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.api.TupleTemplate;

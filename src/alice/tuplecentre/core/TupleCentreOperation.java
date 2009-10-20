@@ -21,7 +21,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import alice.tuplecentre.api.ITupleCentreOperation;
-import alice.tuplecentre.api.OperationTimeOutException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 
@@ -50,7 +49,16 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 
 	public static final int OPTYPE_SET_SPEC = 16;
 	public static final int OPTYPE_GET_SPEC = 17;
-
+	
+	public static final int OPTYPE_ABORT_OP = 18;
+	public static final int OPTYPE_SET_MNG_MODE = 19;
+	public static final int OPTYPE_STOP_CMD = 20;
+	public static final int OPTYPE_GO_CMD = 21;
+	public static final int OPTYPE_NEXT_STEP = 22;
+	public static final int OPTYPE_SET_SPY = 23;
+	public static final int OPTYPE_GET_TSET = 24;
+	public static final int OPTYPE_GET_WSET = 25;
+	public static final int OPTYPE_GET_TRSET = 26;
 	
 	protected boolean operationCompleted;
 	protected OperationCompletionListener listener;

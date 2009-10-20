@@ -19,7 +19,6 @@ package alice.tuplecentre.core;
 
 import java.util.*;
 
-import alice.tuplecentre.api.InvalidOperationException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
 
