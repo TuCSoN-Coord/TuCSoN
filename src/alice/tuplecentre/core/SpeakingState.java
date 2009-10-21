@@ -119,6 +119,10 @@ public class SpeakingState extends TupleCentreVMState {
 						tupleList = new LinkedList<Tuple>();
 						tupleList=vm.getAllTuples();
 						foundSatisfied=true;
+		            }else if (op.isSet()){
+		            	tupleList = op.getTupleListArgument();
+		            	vm.setAllTuples(tupleList);
+		            	foundSatisfied=true;
 					}
 					
 					else throw new InvalidOperationException();

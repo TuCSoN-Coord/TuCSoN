@@ -17,7 +17,6 @@
  */
 package alice.tuplecentre.core;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import alice.tuplecentre.api.ITupleCentreOperation;
@@ -50,20 +49,30 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 	public static final int OPTYPE_SET_SPEC = 16;
 	public static final int OPTYPE_GET_SPEC = 17;
 	
-	public static final int OPTYPE_ABORT_OP = 18;
-	public static final int OPTYPE_SET_MNG_MODE = 19;
-	public static final int OPTYPE_STOP_CMD = 20;
-	public static final int OPTYPE_GO_CMD = 21;
-	public static final int OPTYPE_NEXT_STEP = 22;
-	public static final int OPTYPE_SET_SPY = 23;
-	public static final int OPTYPE_GET_TSET = 24;
-	public static final int OPTYPE_GET_WSET = 25;
-	public static final int OPTYPE_GET_TRSET = 26;
+	// da 18 a 21 in RespectOperation
+	
+	public static final int OPTYPE_ABORT_OP = 22;
+	public static final int OPTYPE_SET_MNG_MODE = 23;
+	public static final int OPTYPE_STOP_CMD = 24;
+	public static final int OPTYPE_GO_CMD = 25;
+	public static final int OPTYPE_NEXT_STEP = 26;
+	public static final int OPTYPE_SET_SPY = 27;
+	public static final int OPTYPE_GET_TSET = 28;
+	public static final int OPTYPE_GET_WSET = 29;
+	public static final int OPTYPE_GET_TRSET = 30;
+	// 31 = PTYPE_EXIT in TucsonOperation
+	public static final int OPTYPE_ADD_OBS = 32;
+	public static final int OPTYPE_RMV_OBS = 33;
+	public static final int OPTYPE_HAS_OBS = 34;
+	public static final int OPTYPE_ADD_INSP = 35;
+	public static final int OPTYPE_RMV_INSP = 36;
+	public static final int OPTYPE_HAS_INSP = 37;
 	
 	protected boolean operationCompleted;
 	protected OperationCompletionListener listener;
 
 	private Tuple tupleArgument;
+	private List<Tuple> tupleListArgument;
 	private TupleTemplate templateArgument;
 	private TCCycleResult result;	
 	
@@ -87,7 +96,6 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 		idCounter++;
 	}
 
-	
 	protected TupleCentreOperation(int type, Tuple t)
 	{
 		this(type);
@@ -101,6 +109,14 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 		listener = null;
 		this.templateArgument = t;
 	}
+	
+	// Aggiunta per la set
+	protected TupleCentreOperation(int type, List<Tuple> tupleList)
+	{
+		this(type);
+		listener = null;
+		this.tupleListArgument = tupleList;
+	}
 
 	protected TupleCentreOperation(int type, Tuple t, OperationCompletionListener l)
 	{
@@ -113,6 +129,13 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 		this(type, t);
 		listener = l;
 	}
+	
+	// Aggiunta per la set
+	protected TupleCentreOperation(int type, List<Tuple> tupleList, OperationCompletionListener l)
+	{
+		this(type, tupleList);
+		listener = l;
+	}
 
 	public TupleTemplate getTemplateArgument()
 	{
@@ -122,9 +145,15 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 	public Tuple getTupleArgument()
 	{
 		return tupleArgument;
-	}	
-
+	}
 	
+	// Aggiunta per la set
+	public List<Tuple> getTupleListArgument()
+	{
+		return tupleListArgument;
+	}
+	
+	// Aggiunta per la get
 	public List<Tuple> getResultList()
 	{
 		return result.getResultList();
@@ -211,15 +240,15 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 	{
 		return type == TupleCentreOperation.OPTYPE_GET;
 	}
+	
+	public boolean isSet()
+	{
+		return type == TupleCentreOperation.OPTYPE_SET;
+	}
 
 	public boolean isRdp_s()
 	{
 		return type == TupleCentreOperation.OPTYPE_RDP_S;
-	}
-
-	public OperationCompletionListener getListener()
-	{
-		return listener;
 	}
 	
 	/**

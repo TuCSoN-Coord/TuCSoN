@@ -345,6 +345,14 @@ public abstract class TupleCentreVMContext implements ITupleCentreManagement, IT
     public abstract List<Tuple>       getAllTuples();
     
     /**
+     * Gets all the tuples of the tuple centre
+     *
+     * @param 
+     * @return the whole tuple set
+     */
+    public abstract void       setAllTuples(List<Tuple> tupleList);
+    
+    /**
      * Gets (not deterministically) without removing from the tuple set  a tuple
      * that matches with the provided tuple template
      *
