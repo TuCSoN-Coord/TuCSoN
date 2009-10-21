@@ -20,8 +20,10 @@ import alice.respect.core.RespectTCContainer;
 import alice.respect.api.AgentId;
 import alice.respect.api.TupleCentreId;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
@@ -428,8 +430,35 @@ private void operationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {/
                             while(it.hasNext()){
                             	res+=""+it.next()+",";
                             }
-                            res=res.substring(0,res.lastIndexOf(","));
+                            if(t.size() != 0)
+                            	res=res.substring(0,res.lastIndexOf(","));
                             console.outputTextArea.append(res+"]\n");
+                        }else if (methodName.equals("set")){
+                            List<LogicTuple> tupleList = new ArrayList<LogicTuple>();
+                        	//System.out.println(tuple);
+                        	//Leggo le tuple
+                        	StringTokenizer st = new StringTokenizer(tuple, ":");
+                        	while(st.hasMoreTokens())
+                        	{
+                        		String currentTuple = st.nextToken();
+                        		
+                        		if (!currentTuple.equals(""))
+                				{
+                					LogicTuple tu = LogicTuple.parse(currentTuple);
+                					if (tu != null)
+                					{
+                						//System.out.println(tu);
+                						tupleList.add(tu);
+                					}
+                					else
+                					{
+                						throw new Exception();
+                					}
+                				}
+                        	}
+                        	
+                            ctx.set(agentId, tupleList);
+                            console.outputTextArea.append("ok.\n");
                             
                         } else if (methodName.equals("out_s")){
                             LogicTuple t=LogicTuple.parse(tuple);
