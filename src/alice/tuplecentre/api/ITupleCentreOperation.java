@@ -25,6 +25,8 @@ public interface ITupleCentreOperation {
 	boolean isGetSpec();
 	
 	boolean isGet();
+	
+	boolean isSet();		
 
 	/**
 	 * Tests if the operation is completed

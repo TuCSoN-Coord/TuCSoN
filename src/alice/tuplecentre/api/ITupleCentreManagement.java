@@ -8,6 +8,7 @@ package alice.tuplecentre.api;
 
 import alice.tuplecentre.core.BehaviourSpecification;
 import alice.tuplecentre.core.OperationNotPossibleException;
+import alice.tuplecentre.core.TupleCentreOperation;
 
 
 /**
@@ -22,8 +23,6 @@ public interface ITupleCentreManagement {
 	void goCommand() throws OperationNotPossibleException;
 
 	void nextStepCommand() throws OperationNotPossibleException;
-
-	//
 
 	boolean	setReactionSpec(BehaviourSpecification spec);
 
