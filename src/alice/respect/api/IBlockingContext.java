@@ -24,4 +24,6 @@ public interface IBlockingContext {
 	
 	public List<LogicTuple> get(AgentId aid) throws OperationNotPossibleException;
 	
+	public void set(AgentId aid, List<LogicTuple> tupleList) throws OperationNotPossibleException;
+	
 }

@@ -17,7 +17,7 @@
  */
 package alice.respect.api;
 
-import alice.tuplecentre.api.BehaviourSpecification;
+import alice.tuplecentre.core.BehaviourSpecification;
 
 /**
  * Specification of a tuple centre behaviour encoded in the ReSpecT language.

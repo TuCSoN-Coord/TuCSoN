@@ -29,7 +29,14 @@ public class RespectFramework
 		 * String key = tid.toString(); RespectTC tc = (RespectTC) map.get(key);
 		 * if (tc == null){ tc = new RespectTC(tid,1000); map.put(key,tc); }
 		 */
-
-		return (RespectTC) RespectTCContainer.getVM(tid);
+		try
+		{
+			return (RespectTC) RespectTCContainer.getRespectTCContainer().getTC(tid);
+		}
+		catch (InstantiationNotPossibleException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

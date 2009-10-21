@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.respect.api;
+import java.util.List;
+
 import alice.logictuple.*;
 import alice.respect.core.*;
 import alice.tuplecentre.api.IId;
@@ -31,14 +33,22 @@ import alice.tuplecentre.core.OperationCompletionListener;
 public class RespectTC implements IRespectTC {
 	
 	private RespectVM vm;
-	private Thread vmThread; 
+	private Thread vmThread;
+	// Creare il riferimento al container respect
 	
+	// Qui devo passare il riferimento all'Ontologia al tc
 	public RespectTC(TupleCentreId tid,RespectTCContainer container, int qSize){
+		// Qui devo passare un riferimento a se stesso
 		vm=new RespectVM(tid,container,qSize);
 		vm.setSpy(true);
 		vmThread=new Thread(vm);
-		vmThread.start();	 
+		vmThread.start();
+		// Inizializzare il riferimento relativo al container respect
 	}
+	
+	// Metodo per ottenere l'ontologia relativa al tc
+	
+	// Metodo per settare l'ontologia relativa al tc
 	
 	public IRespectOperation out(IId id, LogicTuple t, OperationCompletionListener l) throws OperationNotPossibleException {
 		RespectOperation op=RespectOperation.makeOut(t,l);
@@ -115,6 +125,11 @@ public class RespectTC implements IRespectTC {
 		return this.get(id,null);
 	}
 	
+	public IRespectOperation set(IId id, List<LogicTuple> tupleList) throws OperationNotPossibleException {
+		
+		return this.set(id, tupleList, null);
+	}
+	
 	public IRespectOperation in(IId id, LogicTuple t) throws OperationNotPossibleException {
 		
 		return this.in(id, t,null);
@@ -148,6 +163,12 @@ public class RespectTC implements IRespectTC {
 	
 	public IRespectOperation get(IId id, OperationCompletionListener l) throws OperationNotPossibleException {
 		RespectOperation op=RespectOperation.makeGet(new LogicTuple("get"),l);
+		vm.doOperation(id,op);
+		return op;
+	}
+	
+	public IRespectOperation set(IId id, List<LogicTuple> tupleList, OperationCompletionListener l) throws OperationNotPossibleException {
+		RespectOperation op = RespectOperation.makeSet(tupleList, l);
 		vm.doOperation(id,op);
 		return op;
 	}

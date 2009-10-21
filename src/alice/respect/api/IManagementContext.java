@@ -18,6 +18,8 @@
 package alice.respect.api;
 
 import alice.logictuple.*;
+import alice.tuplecentre.api.InspectableEventListener;
+import alice.tuplecentre.api.ObservableEventListener;
 
 /**
  * Basic Management Interface for a RespecT Tuple Centre.
@@ -115,6 +117,18 @@ public interface IManagementContext  {
 	 * @param filter tuple filtering tuples to be retrieved
 	 */
 	LogicTuple[] getTRSet(LogicTuple filter);
+	
+	public void addObserver(ObservableEventListener l);
+	
+	public void removeObserver(ObservableEventListener l);
+
+	public boolean hasObservers();
+
+    public void addInspector(InspectableEventListener l);
+
+    public void removeInspector(InspectableEventListener l);
+
+    public boolean hasInspectors();
 
 }
 

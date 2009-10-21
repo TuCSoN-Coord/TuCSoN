@@ -16,6 +16,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 package alice.respect.api;
+import java.util.List;
+
 import alice.logictuple.*;
 import alice.tuplecentre.api.IId;
 import alice.tuplecentre.core.OperationCompletionListener;
@@ -28,6 +30,8 @@ import alice.tuplecentre.core.OperationCompletionListener;
  */
 public interface IRespectTC  {
 
+	// metodo per ottenere l'ontologia relativa al tc
+	
 	/**
 	 * Inserts a tuple in the tuple centre
 	 * 
@@ -56,6 +60,25 @@ public interface IRespectTC  {
 	 * @throws OperationNotPossibleException if the operation is not possible given current state of the tuple centre
 	 */
 	IRespectOperation get(IId id,OperationCompletionListener l) throws OperationNotPossibleException;
+	
+	/**
+	 * Gets the whole tuple set
+	 * 
+	 * @param id agent identifier
+	 * @return The object representing the operation
+	 * @throws OperationNotPossibleException if the operation is not possible given current state of the tuple centre
+	 */
+	IRespectOperation set(IId id, List<LogicTuple> tupleList) throws OperationNotPossibleException;
+	
+	/**
+	 * Gets the whole tuple set
+	 * 
+	 * @param id agent identifier
+	 * @param listener listening for operation completion
+	 * @return The object representing the operation
+	 * @throws OperationNotPossibleException if the operation is not possible given current state of the tuple centre
+	 */
+	IRespectOperation set(IId id, List<LogicTuple> tupleList, OperationCompletionListener l) throws OperationNotPossibleException;
 	
 	/**
 	 * Retrieves a tuple in the tuple centre
