@@ -46,7 +46,7 @@ public class TimedContext implements ITimedContext  {
 		IRespectOperation op = core.out(id,t);
 		try {
 			op.waitForOperationCompletion(ms);
-		} catch (alice.tuplecentre.api.OperationTimeOutException  ex){
+		} catch (alice.tuplecentre.core.OperationTimeOutException  ex){
 			throw new OperationTimeOutException(op);
 		}
     }
@@ -71,7 +71,7 @@ public class TimedContext implements ITimedContext  {
 		IRespectOperation op = core.rd(id,t);
 		try {
 			op.waitForOperationCompletion(ms);
-		} catch (alice.tuplecentre.api.OperationTimeOutException ex){
+		} catch (alice.tuplecentre.core.OperationTimeOutException ex){
 			throw new OperationTimeOutException(op);
 		}
 		return unify(t,op.getLogicTupleResult());
@@ -84,7 +84,7 @@ public class TimedContext implements ITimedContext  {
 		IRespectOperation op = core.inp(id,t);
 		try {
 			op.waitForOperationCompletion(ms);
-		} catch (alice.tuplecentre.api.OperationTimeOutException  ex){
+		} catch (alice.tuplecentre.core.OperationTimeOutException  ex){
 			throw new OperationTimeOutException(op);
 		}
 		LogicTuple result = op.getLogicTupleResult();
@@ -102,7 +102,7 @@ public class TimedContext implements ITimedContext  {
 		IRespectOperation op = core.rdp(id,t);
 		try {
 			op.waitForOperationCompletion(ms);
-		} catch (alice.tuplecentre.api.OperationTimeOutException  ex){
+		} catch (alice.tuplecentre.core.OperationTimeOutException  ex){
 			throw new OperationTimeOutException(op);
 		}
 		LogicTuple result = op.getLogicTupleResult();

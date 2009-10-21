@@ -21,12 +21,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import alice.respect.api.AgentId;
 import alice.respect.api.OperationNotPossibleException;
 import alice.respect.api.TupleCentreId;
-import alice.tuplecentre.api.BehaviourSpecification;
 import alice.tuplecentre.api.IId;
-import alice.tuplecentre.api.InspectableEvent;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.api.Tuple;
@@ -47,7 +44,7 @@ import alice.logictuple.*;
  * @version 1.0
  */
 public class RespectVM implements Runnable {
-    
+
     private RespectVMContext context;
 	private RespectTCContainer container;
     
@@ -60,8 +57,10 @@ public class RespectVM implements Runnable {
 	/** listener to VM inspectable events  */
     protected List<InspectableEventListener> inspectors;
     
+    // Qui devo passare un riferimento all'oggetto di tipo RespectTC che lo ha creato
     public RespectVM(TupleCentreId tid, RespectTCContainer container, int qSize){
     	this.container = container;
+    	// Qui devo passare anche il riferimento all'oggetto di tipo RespectTC che lo ha creato 
         context = new RespectVMContext(this,tid, qSize);
 		news = new Object();
 		idle = new Object();
@@ -154,7 +153,7 @@ public class RespectVM implements Runnable {
     
 	public void doOperation(IId id, RespectOperation op) throws OperationNotPossibleException {
 		try {
-			System.out.println("[Respect VM] tupla = " + op.getTupleArgument());
+			//System.out.println("[Respect VM] tupla = " + op.getTupleArgument());
 			context.doOperation(id,op);
 			synchronized (news){
 				news.notifyAll();
@@ -224,7 +223,7 @@ public class RespectVM implements Runnable {
 
     protected void notifyInspectableEvent(InspectableEvent e){
 
-        Iterator it=inspectors.iterator();
+        Iterator it = inspectors.iterator();
 
         while (it.hasNext()){
 
@@ -243,6 +242,7 @@ public class RespectVM implements Runnable {
         }
 
     }
+    
     protected void notifyObservableEvent(Event ev){
 
     	int size = observers.size();
@@ -400,6 +400,7 @@ public class RespectVM implements Runnable {
 	}
 
 	public LogicTuple[] getWSet(LogicTuple filter){
+		//System.out.println("context.getWSet(filter)" + context.getWSet(filter));
 		return context.getWSet(filter);
 	}
 

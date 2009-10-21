@@ -99,9 +99,12 @@ public class BlockingContext implements IBlockingContext {
 		}
 	}
   	
-	/*public void set(AgentId aid, LogicTuple[] list) throws InvalidSpecificationException {
-		core.set(aid,spec);
-	}*/
+	// Aggiunta la primitiva set
+	public void set(AgentId aid, List<LogicTuple> tupleList) throws OperationNotPossibleException {		
+		IRespectOperation op = core.set(aid, tupleList);
+		op.waitForOperationCompletion();
+		core.set(aid, tupleList);
+	}
 	
 	public List<LogicTuple> get(AgentId aid) throws OperationNotPossibleException {
 		
@@ -111,9 +114,9 @@ public class BlockingContext implements IBlockingContext {
 		return res;
 	}
 	
-	public RespectSpecification getSpec(AgentId aid) {
+	/*public RespectSpecification getSpec(AgentId aid) {
 		return core.getSpec(aid);
-	}
+	}*/
 
 	private LogicTuple unify(alice.tuplecentre.api.TupleTemplate template,alice.tuplecentre.api.Tuple tuple){
         boolean res=template.propagate(tuple);

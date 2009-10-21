@@ -28,10 +28,13 @@ public class RespectTCContainer
 	private static RespectTCContainer container;
 
 	public static final int QUEUE_SIZE = 10;
+	
+	// Definizione del Reasoner
 
 	private RespectTCContainer()
 	{
 		this.registry = new RespectLocalRegistry();
+		// Creazione del Reasoner
 		this.stub = null;
 	}
 
@@ -44,9 +47,13 @@ public class RespectTCContainer
 
 		return RespectTCContainer.container;
 	}
+	
+	// Metodo per ottenere il Reasoner
 
+	// Qui devo passare il riferimento all'Otologia relativa al tc
 	public boolean createRespectTC(TupleCentreId id, Integer q) throws InstantiationNotPossibleException
 	{
+		// Qui devo passare il riferimento all'Otologia relativa al tc
 		registry.addTC(new RespectTC(id, this, q));
 		return true;
 	}
@@ -116,6 +123,7 @@ public class RespectTCContainer
 
 	public void addStub(IRemoteContainerStub stub)
 	{
+		// per aggiungere lo stub nel caso in cui sia presente l'infrastruttura TuCSoN 
 		if (stub == null)
 		{
 			this.stub = stub;
@@ -164,10 +172,15 @@ public class RespectTCContainer
 		}
 	}
 
-	// ***METHOD NO LONGER USED
-	// Was used by RespectFramework	
-	 //public RespectTC getVM(TupleCentreId id) throws InstantiationNotPossibleException 
-	 //{ 				 
-		// return (RespectTC) registry.getTC(id);
-	 //}	 
+	// Was used by RespectFramework	and Inspector
+	/**
+	 * This method should not be used. Use instead get*ContextMethods 
+	 * 
+	 * @deprecated
+	 * 
+	 */	
+	public RespectTC getTC(TupleCentreId id) throws InstantiationNotPossibleException 
+	{ 				 
+		return (RespectTC) registry.getTC(id);
+	}	 
 }

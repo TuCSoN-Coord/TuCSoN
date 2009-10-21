@@ -17,6 +17,7 @@
  */
 package alice.respect.core;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -36,12 +37,10 @@ import alice.logictuple.*;
  */
 public class RespectOperation extends TupleCentreOperation implements IRespectOperation {
 	
-
 	public static final int OPTYPE_TIME = 18;
 	public static final int OPTYPE_GET_ENV = 19;
 	public static final int OPTYPE_SET_ENV = 20;
 	public static final int OPTYPE_ENV = 21;
-
 	
 	protected RespectOperation(int type, Tuple t, OperationCompletionListener l){
 		super(type,t,l);
@@ -49,6 +48,10 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 	
 	protected RespectOperation(int type, TupleTemplate t, OperationCompletionListener l){
 		super(type,t,l);
+	}
+	
+	protected RespectOperation(int type, List<Tuple> tupleList, OperationCompletionListener l){
+		super(type, tupleList, l);
 	}
 
 	/**
@@ -145,6 +148,15 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 		return temp;
 	}
 	
+	public static RespectOperation makeSet(List<LogicTuple> logicTupleList, OperationCompletionListener l){
+		List<Tuple> tupleList = new ArrayList<Tuple>(); 
+		for(LogicTuple lTuple : logicTupleList)
+			tupleList.add(lTuple);
+		
+		RespectOperation temp=new RespectOperation(RespectOperation.OPTYPE_SET, tupleList, l);
+		return temp;
+	}
+	
 	public static RespectOperation makeSetEnv(LogicTuple t, OperationCompletionListener l){
 		RespectOperation temp= new RespectOperation(RespectOperation.OPTYPE_SET_ENV, (TupleTemplate)t, l);
 		temp.setResult(t);
@@ -158,7 +170,7 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 		} else {
 			t = getLogicTupleArgument();
 		}
-		System.out.println("[RespectOperation] ECCOLOOOOOO ANCORA"+t);
+		//System.out.println("[RespectOperation] ECCOLOOOOOO ANCORA"+t);
 		String opName;
 		if (isOut()){
 			opName = "out";
@@ -175,6 +187,17 @@ public class RespectOperation extends TupleCentreOperation implements IRespectOp
 			LogicTuple[] tupleL=new LogicTuple[]{};
 			//System.out.println("LUNGHEZZA1: "+this.getTupleResultList().size());
 			tupleL=this.getTupleResultList().toArray(tupleL);
+			//System.out.println("LUNGHEZZA2: "+tupleL.length);
+			tl = new Term[tupleL.length];
+			for(int i=0;i<tupleL.length;i++){
+				tl[i]=(tupleL[i]).toTerm();
+				//System.out.println("TERMINE: "+tl[i]);
+			}
+		} else if (isSet()){
+			opName = "set";
+			LogicTuple[] tupleL=new LogicTuple[]{};
+			//System.out.println("LUNGHEZZA1: "+this.getTupleResultList().size());
+			tupleL=this.getTupleListArgument().toArray(tupleL);
 			//System.out.println("LUNGHEZZA2: "+tupleL.length);
 			tl = new Term[tupleL.length];
 			for(int i=0;i<tupleL.length;i++){

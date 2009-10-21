@@ -21,7 +21,6 @@ import java.util.*;
 import alice.respect.api.ILinkContext;
 import alice.respect.api.RespectSpecification;
 import alice.respect.api.TupleCentreId;
-import alice.tuplecentre.api.BehaviourSpecification;
 import alice.tuplecentre.api.IId;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
@@ -96,6 +95,9 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
     //operations on different tuple centres can start fetching new reactions at any time
     private Object semaphore;
     
+    // Qui devo definire l'OntManager
+    
+    // Qui devo passare anche l'OntoManager    
     public RespectVMContext(RespectVM vm, TupleCentreId tid, int queueSize){
         super(tid, queueSize);
         
@@ -109,6 +111,8 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
         this.vm = vm;
        // outputEventList = new ArrayList();
         temporaryOutputEventList = new ArrayList();
+        
+       // Qui devo assegnare l'OntManager passato come argomento
         
 		try {
 	        	core=new Prolog(new String[]{});
@@ -675,15 +679,29 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 
 	// 
 	
-	public LogicTuple[] getTSet(LogicTuple t){
-		return tSet.toArray();
+    // Aggiunta la gestione del filtro t
+	public LogicTuple[] getTSet(LogicTuple filter){
+		LogicTuple[] ltSet = tSet.toArray();
+		
+		ArrayList<LogicTuple> supportList = new ArrayList<LogicTuple>();
+		
+		if (filter == null)
+			return ltSet;
+		
+		for(LogicTuple tuple : ltSet)
+			if (filter.match(tuple))
+				supportList.add(tuple);		
+		
+		return supportList.toArray(new LogicTuple[0]);
 	}
 	
 	public LogicTuple[] getWSet(LogicTuple t){
 		LogicTuple[] tuples = new LogicTuple[this.wSet.size()];
 		Event[] ev = wSet.toArray();
-		for(int i=0;i<tuples.length;i++){
+		//System.out.println("context.getWSet(filter):");
+		for(int i=0;i<tuples.length;i++){			
 			tuples[i] = ((RespectOperation)ev[i].getOperation()).toTuple();
+			//System.out.println(tuples[i]);
 		}
 		return tuples;
 	}
@@ -878,10 +896,8 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 			
 		}catch(Exception e){
 			e.printStackTrace();
-		}
-		
+		}		
 	}
-	
 	
 	class CompletionListener implements OperationCompletionListener{
 
@@ -927,7 +943,6 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 		return tm;
 	}
 
-	@Override
 	public List<Tuple> getAllTuples() {
 		List<Tuple> tl = new LinkedList<Tuple>();
 		Iterator<LogicTuple> it = this.tSet.getIterator();
@@ -937,6 +952,23 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 		return tl;
 	}
 	
+	// Metodo necessario per realizzare la set 
+	public void setAllTuples(List<Tuple> tupleList) {		
+		
+		List<LogicTuple> tupleSet = new LinkedList<LogicTuple>();
+		Iterator<LogicTuple> it = this.tSet.getIterator();
+		
+		while(it.hasNext())
+			tupleSet.add((LogicTuple)it.next());
+			
+		it = tupleSet.iterator();
+		
+		while(it.hasNext())
+			this.removeMatchingTuple((TupleTemplate)it.next());
+
+		for(Tuple t : tupleList)
+			this.addTuple(t);
+	}
 
 }
 

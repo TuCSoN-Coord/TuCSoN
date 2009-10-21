@@ -1,16 +1,24 @@
 package alice.respect.core;
 
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
+import alice.respect.api.AgentId;
 import alice.respect.api.IManagementContext;
+import alice.respect.api.IRespectOperation;
 import alice.respect.api.InvalidSpecificationException;
 import alice.respect.api.OperationNotPossibleException;
 import alice.respect.api.RespectSpecification;
+import alice.tuplecentre.api.InspectableEventListener;
+import alice.tuplecentre.api.ObservableEventListener;
 
 public class ManagementContext implements IManagementContext {
 
 	private RespectVM vm;
 	private Thread vmThread; 
 
+	// Aggiungere due metodi per ottenere e per cambiare l'ontologia dando l'id del tuple centre
+	
 	public ManagementContext(RespectVM vm, Thread th){
 		this.vm=vm;
 		vmThread=th;
@@ -70,6 +78,8 @@ public class ManagementContext implements IManagementContext {
 	}
 	
 	public LogicTuple[] getWSet(LogicTuple t){
+		
+		//System.out.println("getWSet");
 		return vm.getWSet(t);
 	}
 
@@ -77,6 +87,27 @@ public class ManagementContext implements IManagementContext {
 		return vm.getTRSet(t);
 	}
 	
-    //
+	public void addObserver(ObservableEventListener l){
+		vm.addObserver(l);
+	}
+	
+	public void removeObserver(ObservableEventListener l){
+		vm.removeObserver(l);
+	}
 
+	public boolean hasObservers(){
+		return vm.hasObservers();
+	}
+
+    public void addInspector(InspectableEventListener l){
+        vm.addInspector(l);
+    }
+
+    public void removeInspector(InspectableEventListener l){
+        vm.removeInspector(l);
+    }
+
+    public boolean hasInspectors(){
+        return vm.hasInspectors();
+    }
 }
