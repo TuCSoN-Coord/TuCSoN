@@ -30,6 +30,8 @@ import javax.swing.JComboBox;
 import alice.respect.api.RespectSpecification;
 import alice.logictuple.InvalidLogicTupleException;
 import alice.respect.api.InvalidSpecificationException;
+import alice.tuprolog.Parser;
+import alice.tuprolog.Struct;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -435,30 +437,31 @@ private void operationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {/
                             console.outputTextArea.append(res+"]\n");
                         }else if (methodName.equals("set")){
                             List<LogicTuple> tupleList = new ArrayList<LogicTuple>();
-                        	//System.out.println(tuple);
                         	//Leggo le tuple
-                        	StringTokenizer st = new StringTokenizer(tuple, ":");
-                        	while(st.hasMoreTokens())
-                        	{
-                        		String currentTuple = st.nextToken();
-                        		
-                        		if (!currentTuple.equals(""))
-                				{
-                					LogicTuple tu = LogicTuple.parse(currentTuple);
-                					if (tu != null)
-                					{
-                						//System.out.println(tu);
-                						tupleList.add(tu);
-                					}
-                					else
-                					{
-                						throw new Exception();
-                					}
-                				}
-                        	}
-                        	
-                            ctx.set(agentId, tupleList);
-                            console.outputTextArea.append("ok.\n");
+                           
+                            //[prova(z,c),prova(x),prova,prova(x,s)]
+                        	          
+                            if(!tuple.equals(""))
+                            {
+	                            alice.tuprolog.Term term = alice.tuprolog.Parser.toTerm(tuple);	                            
+	                            alice.tuprolog.Struct struct = null;
+	                            
+	                            if(term.isStruct())
+	                            	struct = (Struct)term;
+	                            
+	                            while(!struct.getArg(0).isNull())
+	                            {
+	                            	tupleList.add(new LogicTuple(struct.getArg(0)));
+	                            	
+	                            	if(struct.getArg(1).isStruct())
+	                            		struct = (Struct)struct.getArg(1);
+	                            	else 
+	                            		break;
+	                            }                          
+                            }                                                                                 
+                            
+                            ctx.set(agentId, tupleList);                            
+                            console.outputTextArea.append("ok.\n");                            
                             
                         } else if (methodName.equals("out_s")){
                             LogicTuple t=LogicTuple.parse(tuple);
