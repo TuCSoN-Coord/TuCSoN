@@ -430,12 +430,12 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
             Struct co=new Struct(spec.toString());
             if (co.isAtom()){
                 alice.tuprolog.Theory thspec=new alice.tuprolog.Theory(co.getName());
-                core.setTheory(thspec);
-                trigCore.setTheory(thspec);
+                core.addTheory(thspec);
+                trigCore.addTheory(thspec);
             } else if (co.isList()){
                 alice.tuprolog.Theory thspec=new alice.tuprolog.Theory(co);
-                core.setTheory(thspec);
-                trigCore.setTheory(thspec);
+                core.addTheory(thspec);
+                trigCore.addTheory(thspec);
             } else {
                 notifyException("Invalid reaction spec:\n"+co);
                 return false;
@@ -955,16 +955,7 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 	// Metodo necessario per realizzare la set 
 	public void setAllTuples(List<Tuple> tupleList) {		
 		
-		List<LogicTuple> tupleSet = new LinkedList<LogicTuple>();
-		Iterator<LogicTuple> it = this.tSet.getIterator();
-		
-		while(it.hasNext())
-			tupleSet.add((LogicTuple)it.next());
-			
-		it = tupleSet.iterator();
-		
-		while(it.hasNext())
-			this.removeMatchingTuple((TupleTemplate)it.next());
+		this.tSet.empty();
 
 		for(Tuple t : tupleList)
 			this.addTuple(t);
