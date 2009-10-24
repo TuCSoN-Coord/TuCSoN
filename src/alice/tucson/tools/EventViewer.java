@@ -17,6 +17,8 @@
  */
 package alice.tucson.tools;
 
+import java.util.ArrayList;
+
 import alice.logictuple.*;
 import alice.tucson.api.*;
 import alice.tucson.service.inspector.GetSnapshotMsg;
@@ -537,21 +539,62 @@ public class EventViewer extends javax.swing.JFrame
 
 	}// GEN-END:initComponents
 
+	private String readTuple(String txt)
+	{
+		String tuple = "";
+		while (iCurrentPos < txt.length())
+		{
+			if ((txt.charAt(iCurrentPos) != '\n'))
+			{
+				tuple += txt.charAt(iCurrentPos++);
+			}
+			else
+			{
+				iCurrentPos++;
+				return tuple;
+			}
+		}
+		return null;
+	}
+	
 	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)
-	{// GEN-FIRST:event_jButton1ActionPerformed
-		/*
-		 * try {
-		 * 
-		 * String txt=tupleArea.getText(); java.util.ArrayList list=new
-		 * java.util.ArrayList(); iCurrentPos=0; String tuple=readTuple(txt);
-		 * while (tuple!=null){ if (!tuple.equals("")){ Tuple
-		 * tu=Tuple.parse(tuple); if (tu!=null){ list.add(tu);
-		 * tuple=readTuple(txt); } else { throw new Exception(); } } else {
-		 * tuple=readTuple(txt); } } context.setTupleSet(list);
-		 * outputState.setText("tuple set description accepted.");
-		 *  } catch (Exception ex){ outputState.setText("syntax error in tuple
-		 * set description."); }
-		 */
+	{// GEN-FIRST:event_jButton1ActionPerformed		
+		try 
+		{		 
+			String txt = outputArea.getText() + '\n'; 
+			ArrayList list = new ArrayList(); 
+			
+			iCurrentPos = 0; 
+			String tuple = readTuple(txt);
+		    
+			while (tuple!=null)
+			{ 
+				if (!tuple.equals(""))
+				{ 
+					LogicTuple tu = LogicTuple.parse(tuple); 
+					if (tu != null)
+					{ 
+						list.add(tu);
+						tuple = readTuple(txt);
+					} 
+					else 
+					{ 
+						throw new Exception(); 					 
+					} 
+				}
+				else 
+				{
+					tuple = readTuple(txt); 
+				} 
+			} 
+			context.setTupleSet(list);
+			outputState.setText("tuple set description accepted.");
+		} 
+		catch (Exception ex)
+		{ 
+			outputState.setText("syntax error in tupleset description."); 
+		}
+		 
 	}// GEN-LAST:event_jButton1ActionPerformed
 
 	private void checkLogEnableActionPerformed(java.awt.event.ActionEvent evt)
@@ -644,7 +687,7 @@ public class EventViewer extends javax.swing.JFrame
 			}
 			else 
 			{ 
-				mainForm.protocol.tsetFilter = t;
+				mainForm.protocol.wsetFilter = t;
 				context.setProtocol(mainForm.protocol); 
 			} 
 		}
@@ -759,6 +802,8 @@ public class EventViewer extends javax.swing.JFrame
 	private javax.swing.JCheckBox checkFilterLog;
 	private javax.swing.JButton buttonGet;
 	private javax.swing.JTextField inputFilterLog;
+	
+	private int iCurrentPos;
 	// End of variables declaration//GEN-END:variables
 
 }

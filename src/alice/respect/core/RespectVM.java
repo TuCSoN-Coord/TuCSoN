@@ -197,7 +197,8 @@ public class RespectVM implements Runnable {
 				context.notifyException(ex);
 			}
             try {
-            	notifyInspectableEvent(new InspectableEvent(this,InspectableEvent.TYPE_NEWSTATE));
+            	if (hasInspectors())
+            		notifyInspectableEvent(new InspectableEvent(this,InspectableEvent.TYPE_NEWSTATE));
                 context.spy("Waiting for news...");
                 
                 if(!(context.pendingEvents() || context.pendingEnvEvents())){
@@ -236,13 +237,10 @@ public class RespectVM implements Runnable {
                 ex.printStackTrace();
 
                 it.remove();
-
             }
-
         }
-
-    }
-    
+    }        
+        
     protected void notifyObservableEvent(Event ev){
 
     	int size = observers.size();

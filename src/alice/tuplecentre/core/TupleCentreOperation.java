@@ -29,6 +29,7 @@ import alice.tuplecentre.api.TupleTemplate;
  * @author aricci
  * 
  */
+@SuppressWarnings("serial")
 public abstract class TupleCentreOperation implements ITupleCentreOperation
 {
 	protected static final int OPTYPE_IN = 1;
@@ -60,7 +61,7 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 	public static final int OPTYPE_GET_TSET = 28;
 	public static final int OPTYPE_GET_WSET = 29;
 	public static final int OPTYPE_GET_TRSET = 30;
-	// 31 = PTYPE_EXIT in TucsonOperation
+	// 31 = OPTYPE_EXIT in TucsonOperation
 	public static final int OPTYPE_ADD_OBS = 32;
 	public static final int OPTYPE_RMV_OBS = 33;
 	public static final int OPTYPE_HAS_OBS = 34;

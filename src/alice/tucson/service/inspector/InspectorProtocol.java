@@ -40,6 +40,9 @@ public class InspectorProtocol implements Serializable
 
 	/** filter for tuple observed */
 	public LogicTuple tsetFilter = null;
+	
+	/** filter for query observed */
+	public LogicTuple wsetFilter = null;
 
 	/** defining W set observation */
 	public byte pendingQueryObservType = NO_OBSERVATION;

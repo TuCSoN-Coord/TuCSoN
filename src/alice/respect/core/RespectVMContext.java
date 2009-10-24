@@ -359,9 +359,8 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
             spy("Reaction evaluation succeeded: "+goalList);
 
             //System.out.println("EVAL REACTION OK");
-            /*if (hasObservableEventListeners()){
-                notifyObservableEvent(new ObservableEventReactionOK(this,z));
-            }*/
+            if (vm.hasInspectors())
+            	vm.notifyInspectableEvent(new ObservableEventReactionOK(this,z));            
 			
 			// notifies possible output events
 			int n = temporaryOutputEventList.size();
@@ -378,10 +377,8 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
             spy("Reaction evaluation failed: "+goalList);
             
             //System.out.println("EVAL REACTION FAIL");
-            /*
-            if (hasObservableEventListeners()){
-                notifyObservableEvent(new ObservableEventReactionFail(this,z));
-            }*/
+            if (vm.hasInspectors())
+            	vm.notifyInspectableEvent(new ObservableEventReactionFail(this,z));            
         }
         boolean success=info.isSuccess();
         boolean specModified = tSpecSet.operationsPending();
@@ -695,15 +692,25 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 		return supportList.toArray(new LogicTuple[0]);
 	}
 	
-	public LogicTuple[] getWSet(LogicTuple t){
+	public LogicTuple[] getWSet(LogicTuple filter){
 		LogicTuple[] tuples = new LogicTuple[this.wSet.size()];
+		
+		ArrayList<LogicTuple> supportList = new ArrayList<LogicTuple>();				
+		
 		Event[] ev = wSet.toArray();
 		//System.out.println("context.getWSet(filter):");
 		for(int i=0;i<tuples.length;i++){			
 			tuples[i] = ((RespectOperation)ev[i].getOperation()).toTuple();
 			//System.out.println(tuples[i]);
 		}
-		return tuples;
+		if (filter == null)
+			return tuples;
+		
+		for(LogicTuple tuple : tuples)
+			if (filter.match(tuple))
+				supportList.add(tuple);		
+		
+		return supportList.toArray(new LogicTuple[0]);		
 	}
 
 	public LogicTuple[] getTRSet(LogicTuple t){

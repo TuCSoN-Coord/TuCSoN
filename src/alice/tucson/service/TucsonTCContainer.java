@@ -4,12 +4,18 @@ import java.util.List;
 
 import alice.logictuple.LogicTuple;
 
+import alice.respect.api.InstantiationNotPossibleException;
+//import alice.respect.api.RespectTC;
+//import alice.respect.api.TupleCentreId;
 import alice.tuplecentre.api.ITupleCentreOperation;
+import alice.tuplecentre.api.ObservableEventListener;
 
 import alice.tuplecentre.core.OperationCompletionListener;
 
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.exception.TucsonInvalidLogicTupleException;
+import alice.tucson.api.exception.TucsonOperationNotPossibleException;
 
 import alice.tucson.service.TucsonOperation;
 
@@ -19,7 +25,10 @@ public class TucsonTCContainer
 {		
 	public static final int RESPECTQUEUE = 10;
 	
-	public static boolean createTC(TucsonTupleCentreId id)
+	// Questo metodo deve essere utilizzato dall'org per creare centri di tuple con una specifica ontologia
+	
+	// Qui devo passare il riferimento all'Otologia relativa al tc
+	public static boolean createTC(TucsonTupleCentreId id, int q)
 	{
 		IContainerResolver resolver;
 		LanguageInfo currLang = TucsonNodeLanguageManager.getCurLanguage();
@@ -29,7 +38,8 @@ public class TucsonTCContainer
 			// Ottengo il resolver relativo al linguaggio corrente
 			resolver = (IContainerResolver) TucsonNodeLanguageManager.createObject(currLang.getResolverComponentName(), new Object[0]);
 			
-			return resolver.tupleCentreCreator(id, RESPECTQUEUE);
+			// Qui devo passare il riferimento all'Otologia relativa al tc
+			return resolver.tupleCentreCreator(id, q);
 		}
 		catch (Exception e)
 		{
@@ -38,34 +48,43 @@ public class TucsonTCContainer
 		}			
 	}
 	
-	// mettere questo metodo nel resolver ...
-	public static Object doManagementOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple filter,
-			OperationCompletionListener l) //throws OperationNotAllowedException, TucsonTupleException,
-			//TucsonInvalidSpecificationException
-	{
-		/*ITupleCentreOperation res = null;
-		IManagementContext context = null;
-
+	public static Object getTC(TucsonTupleCentreId id) throws InstantiationNotPossibleException 
+	{ 	
+		IContainerResolver resolver;
+		LanguageInfo currLang = TucsonNodeLanguageManager.getCurLanguage();
+		
 		try
 		{
-			context = (IManagementContext) TucsonLanguageManager.callStaticMethod(TucsonNodeLanguageManager.getCurLanguage()
-					.getContainerComponentName(), "getManagementContext", new Object[] { (TupleCentreId) tid
-					.getInternalTupleCentreId() });
+			// Ottengo il resolver relativo al linguaggio corrente
+			resolver = (IContainerResolver) TucsonNodeLanguageManager.createObject(currLang.getResolverComponentName(), new Object[0]);
+			
+			return resolver.tupleCentreProvider(id);
 		}
-		catch (OperationNotPossibleException e)
+		catch (Exception e)
 		{
-			throw new OperationNotAllowedException();
-		}
-		catch (Exception e1)
-		{
-			e1.printStackTrace();
-		}
-
-		log(aid + " " + " " + filter + " " + tid);
-		if (type == TucsonOperation.get_TSet())
-			return context.getTSet(filter);*/
+			e.printStackTrace();
+			return null;
+		}				
+	 }	 
+	
+	// mettere questo metodo nel resolver ...
+	public static Object doManagementOperation(int type, TucsonTupleCentreId tid, Object obj) throws TucsonOperationNotPossibleException, TucsonInvalidLogicTupleException
+	{
+		IContainerResolver resolver;
+		LanguageInfo currLang = TucsonNodeLanguageManager.getCurLanguage();
 		
-		return null;
+		try
+		{
+			// Ottengo il resolver relativo al linguaggio corrente
+			resolver = (IContainerResolver) TucsonNodeLanguageManager.createObject(currLang.getResolverComponentName(), new Object[0]);
+			
+			return resolver.doManagementOperation(type, tid, obj);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}				
 	}
 	
 	public static ITupleCentreOperation doNonBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid,
@@ -108,7 +127,7 @@ public class TucsonTCContainer
 		}
 	}
 
-	public static Object doBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
+	public static Object doBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, Object o)
 			throws Exception
 	{
 		IContainerResolver resolver;
@@ -119,10 +138,11 @@ public class TucsonTCContainer
 			// Ottengo il resolver relativo al linguaggio corrente
 			resolver = (IContainerResolver) TucsonNodeLanguageManager.createObject(currLang.getResolverComponentName(), new Object[0]);
 			
-			return resolver.doBlockingOperation(type, aid, tid, t);
+			return resolver.doBlockingOperation(type, aid, tid, o);
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			throw new Exception();
 		}		
 	}
@@ -219,7 +239,12 @@ public class TucsonTCContainer
 
 	public static List<LogicTuple> get(TucsonAgentId aid, TucsonTupleCentreId tid) throws Exception
 	{
-		return (List<LogicTuple>) doBlockingOperation(TucsonOperation.outCode(), aid, tid, null);
+		return (List<LogicTuple>) doBlockingOperation(TucsonOperation.get_Code(), aid, tid, null);
+	}
+	
+	public static List<LogicTuple> set(TucsonAgentId aid, TucsonTupleCentreId tid, List<LogicTuple> tupleList) throws Exception
+	{
+		return (List<LogicTuple>) doBlockingOperation(TucsonOperation.set_Code(), aid, tid, null);
 	}
 	
 	public static LogicTuple out(TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t) throws Exception

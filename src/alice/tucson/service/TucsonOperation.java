@@ -3,7 +3,6 @@ package alice.tucson.service;
 import java.util.LinkedList;
 import java.util.List;
 
-import alice.tuplecentre.api.OperationTimeOutException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 
@@ -16,9 +15,7 @@ import alice.tucson.api.*;
 
 public class TucsonOperation extends TupleCentreOperation implements ITucsonOperation
 {	
-	private static final int OPTYPE_EXIT = 18;
-	private static final int OPTYPE_GET_TSET = 19;
-	private static final int OPTYPE_GET_WSET = 20;
+	private static final int OPTYPE_EXIT = 31;
 	private boolean successed;
 	private boolean allowed;
 	private AgentContextStub context = null;
@@ -105,16 +102,6 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 	public static int get_specCode()
 	{
 		return OPTYPE_GET_SPEC;
-	}
-	
-	public static int get_TSet()
-	{
-		return OPTYPE_GET_TSET;
-	}
-	
-	public static int get_WSet()
-	{
-		return OPTYPE_GET_WSET;
 	}	
 	
 	public static int exitCode()
@@ -122,10 +109,90 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 		return OPTYPE_EXIT;
 	}
 	
+	public static int abortOpCode()
+	{
+		return OPTYPE_ABORT_OP;
+	}
+	
+	public static int setMngModeCode()
+	{
+		return OPTYPE_SET_MNG_MODE;
+	}
+	
+	public static int stopCmdCode()
+	{
+		return OPTYPE_STOP_CMD;
+	}
+	
+	public static int goCmdCode()
+	{
+		return OPTYPE_GO_CMD;
+	}
+	
+	public static int nextStepCode()
+	{
+		return OPTYPE_NEXT_STEP;
+	}
+	
+	public static int setSpyCode()
+	{
+		return OPTYPE_SET_SPY;
+	}
+	
+	public static int getTSetCode()
+	{
+		return OPTYPE_GET_TSET;
+	}
+	
+	public static int getWSetCode()
+	{
+		return OPTYPE_GET_WSET;
+	}
+	
+	public static int getTRSetCode()
+	{
+		return OPTYPE_GET_TRSET;
+	}
+	
 	public TucsonContext getTucsonContex()
 	{
 		return context;
 	}
+	
+	public static int addObsCode()
+	{
+		return OPTYPE_ADD_OBS;
+	}
+	
+	public static int rmvObsCode()
+	{
+		return OPTYPE_RMV_OBS;
+	}
+	
+	public static int hasObsCode()
+	{
+		return OPTYPE_HAS_OBS;
+	}
+	
+	public static int addInspCode()
+	{
+		return OPTYPE_ADD_INSP;
+	}
+	
+	public static int rmvInspCode()
+	{
+		return OPTYPE_RMV_OBS;
+	}
+	
+	public static int hasInspCode()
+	{
+		return OPTYPE_HAS_INSP;
+	}
+	
+	public OperationCompletionListener getListener()
+	{
+		return listener;
+	}	
 	
 	/**
 	 * Changes the state of the operation to complete.

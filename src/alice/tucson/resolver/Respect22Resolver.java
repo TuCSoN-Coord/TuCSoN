@@ -2,12 +2,15 @@ package alice.tucson.resolver;
 
 import java.io.Serializable;
 
+import java.util.List;
+
 import alice.logictuple.InvalidLogicTupleException;
 import alice.logictuple.InvalidTupleOperationException;
 import alice.logictuple.LogicTuple;
 import alice.respect.api.AgentId;
 import alice.respect.api.IBlockingContext;
 import alice.respect.api.IBlockingSpecContext;
+import alice.respect.api.IManagementContext;
 import alice.respect.api.INonBlockingContext;
 import alice.respect.api.INonBlockingSpecContext;
 import alice.respect.api.InstantiationNotPossibleException;
@@ -39,6 +42,8 @@ import alice.tucson.types.IContainerResolver;
 import alice.tucson.types.IResolver;
 import alice.tucson.types.ITCIdResolver;
 import alice.tuplecentre.api.ITupleCentreOperation;
+import alice.tuplecentre.api.InspectableEventListener;
+import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.core.OperationCompletionListener;
 
 @SuppressWarnings("serial")
@@ -65,6 +70,137 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 		{
 			throw new TucsonInstantiationNotPossibleException();
 		}
+	}
+	
+	public Object tupleCentreProvider(TucsonTupleCentreId id) throws TucsonInstantiationNotPossibleException
+	{			
+		try
+		{
+			return (RespectTCContainer.getRespectTCContainer()).getTC((TupleCentreId)id.getInternalTupleCentreId());
+		}
+		catch (InstantiationNotPossibleException e)
+		{
+			throw new TucsonInstantiationNotPossibleException();
+		}
+	}
+	
+	public Object doManagementOperation(int type, TucsonTupleCentreId tid, Object obj) 
+			throws TucsonOperationNotPossibleException, TucsonInvalidLogicTupleException
+	{		
+		IManagementContext context = null;
+
+		try
+		{
+			context = (RespectTCContainer.getRespectTCContainer()).getManagementContext((TupleCentreId) tid.getInternalTupleCentreId());
+		}
+		catch (OperationNotPossibleException e)
+		{
+			throw new TucsonOperationNotPossibleException();
+		}
+
+		if (type == TucsonOperation.abortOpCode())
+			return context.abortOperation((Long)obj);
+		if (type == TucsonOperation.set_specCode())
+		{
+			// andrˆ solo nel contesto di gestione e richiederˆ un BehaviourSpecification ...
+			try
+			{
+				context.setSpec(new RespectSpecification(((LogicTuple) obj).getArg(0).getName()));
+			}
+			catch (InvalidSpecificationException e)
+			{
+				e.printStackTrace();
+			}
+			catch (InvalidTupleOperationException e)
+			{
+				e.printStackTrace();
+			}
+			return null;
+		}
+		if (type == TucsonOperation.get_specCode())
+		{
+			// andrˆ solo nel contesto di gestione e ritornerˆ un BehaviourSpecification ...
+			return new LogicTuple(context.getSpec().toString());
+		}
+		if (type == TucsonOperation.getTRSetCode())
+		{
+			return context.getTRSet((LogicTuple) obj);
+		}
+		if (type == TucsonOperation.getTSetCode())
+		{
+			return context.getTSet((LogicTuple) obj);
+		}
+		if (type == TucsonOperation.getWSetCode())
+		{
+			return context.getWSet((LogicTuple) obj);
+		}
+		if (type == TucsonOperation.goCmdCode())
+		{
+			try
+			{
+				context.goCommand();
+			}
+			catch (OperationNotPossibleException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		if (type == TucsonOperation.nextStepCode())
+		{
+			try
+			{
+				context.nextStepCommand();
+			}
+			catch (OperationNotPossibleException e)
+			{
+				e.printStackTrace();
+			}
+		}
+		if (type == TucsonOperation.setMngModeCode())
+		{
+			context.setManagementMode((Boolean)obj);
+		}
+		if (type == TucsonOperation.setSpyCode())
+		{
+			context.setSpy((Boolean)obj);
+		}
+		if (type == TucsonOperation.stopCmdCode())
+		{
+			try
+			{
+				context.stopCommand();
+			}
+			catch (OperationNotPossibleException e)
+			{
+				e.printStackTrace();
+			}
+		}		
+		if (type == TucsonOperation.addObsCode())
+		{
+			context.addObserver((ObservableEventListener)obj);
+		}
+		if (type == TucsonOperation.rmvObsCode())
+		{
+			context.removeObserver((ObservableEventListener)obj);
+		}
+		if (type == TucsonOperation.hasObsCode())
+		{
+			return context.hasObservers();
+		}
+		if (type == TucsonOperation.addInspCode())
+		{
+			context.addInspector((InspectableEventListener)obj);
+		}
+		if (type == TucsonOperation.rmvInspCode())
+		{
+			context.removeInspector((InspectableEventListener)obj);
+		}
+		if (type == TucsonOperation.hasInspCode())
+		{
+			return context.hasInspectors();
+		}
+		
+		return null;
 	}
 	
 	public ITupleCentreOperation doNonBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid,
@@ -135,7 +271,7 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 		return res;		
 	}
 	
-	public Object doBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, LogicTuple t)
+	public Object doBlockingOperation(int type, TucsonAgentId aid, TucsonTupleCentreId tid, Object o)
 	throws TucsonOperationNotPossibleException, TucsonInvalidLogicTupleException
 	{
 		IBlockingContext context = null;
@@ -147,22 +283,28 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 			{
 				//System.out.println("OK");
 				// La out restituisce un "null" --> la "out" di ReSpecT ritorna un void 
-				context.out((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
-				return t;
+				context.out((AgentId) aid.getInternalAgentId(), (LogicTuple) o);
+				return o;
 			}
 			if (type == TucsonOperation.inCode())
-				return context.in((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
+				return context.in((AgentId) aid.getInternalAgentId(), (LogicTuple) o);
 			if (type == TucsonOperation.inpCode())
 			{
 				//System.out.println("OK" + context.inp((AgentId) aid.getInternalAgentId(), (LogicTuple) t));
-				return context.inp((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
+				return context.inp((AgentId) aid.getInternalAgentId(), (LogicTuple) o);
 			}
 			if (type == TucsonOperation.rdCode())
-				return context.rd((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
+				return context.rd((AgentId) aid.getInternalAgentId(), (LogicTuple) o);
 			if (type == TucsonOperation.rdpCode())
-				return context.rdp((AgentId) aid.getInternalAgentId(), (LogicTuple) t);
+				return context.rdp((AgentId) aid.getInternalAgentId(), (LogicTuple) o);
 			if (type == TucsonOperation.get_Code())
 				return context.get((AgentId) aid.getInternalAgentId());
+			if (type == TucsonOperation.set_Code())
+			{
+				//System.out.println((List<LogicTuple>) o);
+				context.set((AgentId) aid.getInternalAgentId(), (List<LogicTuple>) o);
+				return o;
+			}
 						
 		}
 		catch (InvalidLogicTupleException e)

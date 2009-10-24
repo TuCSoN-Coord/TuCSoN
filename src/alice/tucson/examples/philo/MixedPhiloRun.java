@@ -20,6 +20,7 @@ package alice.tucson.examples.philo;
 import alice.logictuple.*;
 
 import alice.tuplecentre.core.TupleCentreOperation;
+import alice.tuprolog.Agent;
 
 import alice.tucson.api.*;
 import alice.tucson.api.exception.TucsonException;
@@ -96,7 +97,8 @@ class PrologPhilo
 	PrologPhilo(String aid, TucsonTupleCentreId tid)
 	{
 		String theory = makeTheory(tid, aid);
-		new alice.tuprolog.Agent(theory).spawn();
+		System.out.println(theory);
+		new Agent(theory).spawn();
 	}
 
 	String makeTheory(TucsonTupleCentreId tid, String name)
@@ -118,7 +120,7 @@ class PrologPhilo
 				+ "              philo(TCName,TCAddress,Name,C1,C2).                                          \n"
 				+ "go:- enter_context('" + name + "'), " + tid.getName() + " @ " + tid.getNode() + " ? rd(philo('" + name
 				+ "',C1,C2)),                         \n" + "     philo(" + tid.getName() + "," + tid.getNode() + "," + name
-				+ ",C1,C2).                                 \n";
+				+ ",C1,C2), exit_context.          \n";
 	}
 }
 
@@ -213,11 +215,11 @@ public class MixedPhiloRun
 			}
 			new MainResource(tid, TucsonAgentLanguageManager.getCurLanguage().getName()).spawn();
 			
-			new Philosopher("arnaldo", tid, TucsonAgentLanguageManager.getCurLanguage().getName()).spawn();
-			new Philosopher("etles", tid, TucsonAgentLanguageManager.getCurLanguage().getName()).spawn();
+			//new Philosopher("arnaldo", tid, TucsonAgentLanguageManager.getCurLanguage().getName()).spawn();
+			//new Philosopher("etles", tid, TucsonAgentLanguageManager.getCurLanguage().getName()).spawn();
 			new PrologPhilo("beppo", tid);
-			new PrologPhilo("cledes", tid);
-			new PrologPhilo("rosa", tid);
+			//new PrologPhilo("cledes", tid);
+			//new PrologPhilo("rosa", tid);
 		}
 		catch (Exception e)
 		{

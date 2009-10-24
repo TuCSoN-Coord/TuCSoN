@@ -45,7 +45,6 @@ public class NonBlockingContext implements INonBlockingContext {
 		if (t==null){
             throw new InvalidLogicTupleException();
         }
-		//System.out.println("ELENA: OK");
 		IRespectOperation op = core.out(id,t,l);
 		return op;
 		

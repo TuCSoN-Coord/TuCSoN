@@ -25,9 +25,9 @@ import java.io.*;
 
 import java.util.List;
 
-import alice.tuplecentre.api.OperationTimeOutException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
+import alice.tuplecentre.core.OperationTimeOutException;
 
 import alice.tucson.api.exception.TucsonOperationNotPossibleException;
 import alice.tucson.api.exception.TucsonInvalidAgentIdException;

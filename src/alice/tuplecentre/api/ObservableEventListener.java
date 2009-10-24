@@ -17,8 +17,6 @@
  */
 package alice.tuplecentre.api;
 
-import alice.tuplecentre.core.*;
-
 public interface ObservableEventListener {
 
 	void in_requested(TupleCentreId tid, IId id, TupleTemplate t);

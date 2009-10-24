@@ -22,8 +22,7 @@ import alice.logictuple.*;
 import alice.tucson.api.exception.LanguageNotFoundException;
 import alice.tucson.api.exception.TucsonOperationNotPossibleException;
 import alice.tucson.api.exception.UnreachableNodeException;
-
-import alice.tuplecentre.api.OperationTimeOutException;
+import alice.tuplecentre.core.OperationTimeOutException;
 
 /**
  * 

@@ -6,23 +6,21 @@
  */
 package alice.tucson.service;
 
-import alice.respect.api.AgentId;
-import alice.respect.api.TupleCentreId;
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.api.IId;
 import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.api.TupleTemplate;
 
 class ObservationService implements NodeEventListener
 {
-	private TucsonTupleCentreId obsContext;
+	private TupleCentreId obsContext;
 
-	public ObservationService(TucsonTupleCentreId ctx)
+	public ObservationService(TupleCentreId ctx)
 	{
 		obsContext = ctx;
 	}
 
-	public void accEntered(TucsonAgentId aid)
+	public void accEntered(IId aid)
 	{
 		try
 		{
@@ -42,7 +40,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void tcCreated(TucsonTupleCentreId tid)
+	public void tcCreated(TupleCentreId tid)
 	{
 		try
 		{
@@ -57,7 +55,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void tcDestroyed(TucsonTupleCentreId tid)
+	public void tcDestroyed(TupleCentreId tid)
 	{
 		try
 		{
@@ -72,7 +70,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void getSpec_completed(TucsonTupleCentreId tid, TucsonAgentId id, String spec)
+	public void getSpec_completed(TupleCentreId tid, IId id, String spec)
 	{
 		try
 		{
@@ -89,7 +87,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void getSpec_requested(TucsonTupleCentreId tid, TucsonAgentId id)
+	public void getSpec_requested(TupleCentreId tid, IId id)
 	{
 		try
 		{
@@ -106,7 +104,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void in_completed(TucsonTupleCentreId tid, TucsonAgentId id, alice.tuplecentre.api.Tuple t)
+	public void in_completed(TupleCentreId tid, IId id, Tuple t)
 	{
 		try
 		{
@@ -124,7 +122,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void in_requested(TucsonTupleCentreId tid, TucsonAgentId id, alice.tuplecentre.api.TupleTemplate t)
+	public void in_requested(TupleCentreId tid, IId id, TupleTemplate t)
 	{
 		try
 		{
@@ -142,7 +140,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void inp_completed(TucsonTupleCentreId tid, TucsonAgentId id, alice.tuplecentre.api.Tuple t)
+	public void inp_completed(TupleCentreId tid, IId id, Tuple t)
 	{
 		try
 		{
@@ -172,7 +170,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void inp_requested(TucsonTupleCentreId tid, TucsonAgentId id, alice.tuplecentre.api.TupleTemplate t)
+	public void inp_requested(TupleCentreId tid, IId id, TupleTemplate t)
 	{
 		try
 		{
@@ -190,7 +188,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void out_requested(TucsonTupleCentreId tid, TucsonAgentId id, alice.tuplecentre.api.Tuple t)
+	public void out_requested(TupleCentreId tid, IId id, Tuple t)
 	{
 		try
 		{
@@ -208,7 +206,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void rd_completed(TucsonTupleCentreId tid, TucsonAgentId id, alice.tuplecentre.api.Tuple t)
+	public void rd_completed(TupleCentreId tid, IId id, Tuple t)
 	{
 		try
 		{
@@ -226,7 +224,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void rd_requested(TucsonTupleCentreId tid, TucsonAgentId id, alice.tuplecentre.api.TupleTemplate t)
+	public void rd_requested(TupleCentreId tid, IId id, TupleTemplate t)
 	{
 		try
 		{
@@ -244,7 +242,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void rdp_completed(TucsonTupleCentreId tid, TucsonAgentId id, alice.tuplecentre.api.Tuple t)
+	public void rdp_completed(TupleCentreId tid, IId id, Tuple t)
 	{
 		try
 		{
@@ -274,7 +272,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void rdp_requested(TucsonTupleCentreId tid, TucsonAgentId id, alice.tuplecentre.api.TupleTemplate t)
+	public void rdp_requested(TupleCentreId tid, IId id, TupleTemplate t)
 	{
 		try
 		{
@@ -292,7 +290,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void setSpec_completed(TucsonTupleCentreId tid, TucsonAgentId id)
+	public void setSpec_completed(TupleCentreId tid, IId id)
 	{
 		try
 		{
@@ -309,7 +307,7 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void setSpec_requested(TucsonTupleCentreId tid, TucsonAgentId id, String spec)
+	public void setSpec_requested(TupleCentreId tid, IId id, String spec)
 	{
 		try
 		{
@@ -327,100 +325,10 @@ class ObservationService implements NodeEventListener
 	}
 
 	@Override
-	public void accQuit(TucsonAgentId aid)
+	public void accQuit(IId aid)
 	{
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void getSpec_completed(TupleCentreId tid, AgentId id, String spec)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void getSpec_requested(TupleCentreId tid, AgentId id)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void in_completed(TupleCentreId tid, AgentId id, Tuple t)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void in_requested(TupleCentreId tid, AgentId id, TupleTemplate t)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void inp_completed(TupleCentreId tid, AgentId id, Tuple t)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void inp_requested(TupleCentreId tid, AgentId id, TupleTemplate t)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void out_requested(TupleCentreId tid, AgentId id, Tuple t)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void rd_completed(TupleCentreId tid, AgentId id, Tuple t)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void rd_requested(TupleCentreId tid, AgentId id, TupleTemplate t)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void rdp_completed(TupleCentreId tid, AgentId id, Tuple t)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void rdp_requested(TupleCentreId tid, AgentId id, TupleTemplate t)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setSpec_completed(TupleCentreId tid, AgentId id)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void setSpec_requested(TupleCentreId tid, AgentId id, String spec)
-	{
-		// TODO Auto-generated method stub
-		
-	}
 }

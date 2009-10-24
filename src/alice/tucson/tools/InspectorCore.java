@@ -22,11 +22,9 @@ import java.util.*;
 
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.types.*;
 
 import alice.logictuple.LogicTuple;
 
-import alice.tuplecentre.core.Event;
 import alice.tuplecentre.core.TriggeredReaction;
 
 public class InspectorCore extends alice.tucson.service.inspector.Inspector
@@ -79,14 +77,16 @@ public class InspectorCore extends alice.tucson.service.inspector.Inspector
 
 			Iterator it = msg.tuples.iterator();
 			int n = 0;
+			
 			while (it.hasNext())
 			{
 				st = st + it.next().toString() + "\n";
-				// log("context event: "+st);
+				// log("context event: " + st);
 				n++;
 			}
 			viewer.setNItems(n);
 			viewer.setText(st);
+			
 			if (loggingTuples)
 			{
 				try
@@ -167,8 +167,8 @@ public class InspectorCore extends alice.tucson.service.inspector.Inspector
 					st = "";
 					logQueryWriter.write("snapshot( \n" + "    time_vm(" + msg.vmTime + "),\n" + "    time_local("
 							+ msg.localTime + "),\n" +
-							 "query_filter(" + form.protocol.queryFilter + "),\n"+
-							 " query_log_filter(" + logQueryFilter + "),\n"+
+							 //"query_filter(" + form.protocol.queryFilter + "),\n"+
+							 //" query_log_filter(" + logQueryFilter + "),\n"+
 							"    query_list([ \n");
 
 					it = msg.wnEvents.iterator();

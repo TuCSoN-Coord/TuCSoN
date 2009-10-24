@@ -538,10 +538,11 @@ public class TupleViewer extends javax.swing.JFrame
 	{// GEN-FIRST:event_jSetTupleSetActionPerformed
 		try
 		{
-			String txt = tupleArea.getText();
+			String txt = tupleArea.getText() + '\n';
 			java.util.ArrayList list = new java.util.ArrayList();
 			iCurrentPos = 0;
 			String tuple = readTuple(txt);
+			
 			while (tuple != null)
 			{
 				if (!tuple.equals(""))
@@ -562,6 +563,7 @@ public class TupleViewer extends javax.swing.JFrame
 					tuple = readTuple(txt);
 				}
 			}
+			//System.out.println(list);
 			context.setTupleSet(list);
 			outputState.setText("tuple set description accepted.");
 		}
@@ -576,7 +578,7 @@ public class TupleViewer extends javax.swing.JFrame
 		String tuple = "";
 		while (iCurrentPos < txt.length())
 		{
-			if (txt.charAt(iCurrentPos) != '\n')
+			if ((txt.charAt(iCurrentPos) != '\n'))
 			{
 				tuple += txt.charAt(iCurrentPos++);
 			}

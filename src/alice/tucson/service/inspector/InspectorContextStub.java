@@ -87,6 +87,7 @@ public class InspectorContextStub implements InspectorContext
 		InspectorProtocol newp = new InspectorProtocol();
 		newp.tsetObservType = p.tsetObservType;
 		newp.tsetFilter = p.tsetFilter;
+		newp.wsetFilter = p.wsetFilter;
 		newp.tracing = p.tracing;
 		newp.pendingQueryObservType = p.pendingQueryObservType;
 		newp.reactionsObservType = p.reactionsObservType;

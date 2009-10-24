@@ -123,8 +123,7 @@ public class SpeakingState extends TupleCentreVMState {
 		            	tupleList = op.getTupleListArgument();
 		            	vm.setAllTuples(tupleList);
 		            	foundSatisfied=true;
-					}
-					
+					}					
 					else throw new InvalidOperationException();
 	            }
             } catch(InvalidOperationException ex){

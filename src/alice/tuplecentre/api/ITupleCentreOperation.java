@@ -1,5 +1,7 @@
 package alice.tuplecentre.api;
 
+import java.io.Serializable;
+
 import alice.tuplecentre.core.OperationTimeOutException;
 
 
@@ -8,7 +10,7 @@ import alice.tuplecentre.core.OperationTimeOutException;
  * 
  * @author aricci
  */
-public interface ITupleCentreOperation {
+public interface ITupleCentreOperation extends Serializable {
 
 	boolean isIn();
 

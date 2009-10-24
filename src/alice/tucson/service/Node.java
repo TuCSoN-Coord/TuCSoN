@@ -24,6 +24,8 @@ import java.io.*;
 
 import alice.logictuple.*;
 
+import alice.tuplecentre.api.IId;
+import alice.tuplecentre.api.TupleCentreId;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.Theory;
 
@@ -210,7 +212,7 @@ public class Node
 	{
 		TucsonTupleCentreId id = new TucsonTupleCentreId(name);
 		cores.put(id.getName(), new TucsonTCUsers(id));
-		TucsonTCContainer.createTC(id);
+		TucsonTCContainer.createTC(id, 10);
 		
 		if (observed)
 		{
@@ -585,7 +587,7 @@ public class Node
 		try
 		{
 			TucsonTCContainer.out(nodeAid, idObsTC, new LogicTuple("boot"), null);
-			obsService = new ObservationService(idObsTC);
+			obsService = new ObservationService((TupleCentreId)idObsTC);
 		}
 		catch (Exception ex)
 		{
@@ -620,7 +622,7 @@ public class Node
 		}
 		if (observed && !present)
 		{
-			obsService.accEntered(aid);
+			obsService.accEntered((IId)aid);
 		}
 	}
 
@@ -643,7 +645,7 @@ public class Node
 		
 		if (observed && present)
 		{
-			obsService.accQuit(aid);
+			obsService.accQuit((IId)aid);
 		}
 
 		// remove the agent from all the tc

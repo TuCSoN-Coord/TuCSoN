@@ -92,7 +92,7 @@ public class TucsonMsgReply implements Serializable
 		boolean bool = din.readBoolean();
 		boolean succ = din.readBoolean();
 		LogicTuple treq = (LogicTuple) din.readObject();
-		LogicTuple tres = (LogicTuple) din.readObject();
+		Object tres = din.readObject();
 		TucsonMsgReply msg = new TucsonMsgReply();
 		msg.id = id;
 		msg.type = type;
