@@ -829,7 +829,7 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
                 		
                 		spy("TO BE REMOVED: "+timed+" local time is: "+this.getCurrentTime());
                 		SolveInfo removeInfo = this.core.solve("retract(reaction( "+timed+", (G),("+reactions+"))) .");
-                		spy("Remove time reaction - 2: \n"+ev+" -> "+removeInfo.isSuccess());
+                		spy("CORE: Remove time reaction - 2: \n"+ev+" -> "+removeInfo.isSuccess());
                 		this.core.solveEnd();
                 		
                 		spy("New time-triggered reaction: \n"+ev+" -> "+tr.getReaction());
@@ -842,18 +842,20 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
                         break;
                     }
                     trigCore.solveEnd();
-                    
+                    SolveInfo removeInfo = this.trigCore.solve("retract(reaction( "+timed+", (G),("+info.getVarValue("R")+"))) .");
+            		spy("TRIGCORE: Remove time reaction - 2: \n"+ev+" -> "+removeInfo.isSuccess());
+            		trigCore.solveEnd();
                     
                     
                     //spy("THEORY: "+trigCore.getTheory());
                 }
                 
                 
-                if(timedReaction) trigCore.setTheory(core.getTheory());
+                //if(timedReaction) trigCore.setTheory(core.getTheory());
             
         }catch (Exception ex){
             notifyException("INTERNAL ERROR: fetchTimedReactions "+ev);
-			ex.printStackTrace();
+			//ex.printStackTrace();
             trigCore.solveEnd();
         }/**finally{
         	
