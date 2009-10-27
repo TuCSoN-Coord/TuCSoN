@@ -427,12 +427,12 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
             Struct co=new Struct(spec.toString());
             if (co.isAtom()){
                 alice.tuprolog.Theory thspec=new alice.tuprolog.Theory(co.getName());
-                core.addTheory(thspec);
-                trigCore.addTheory(thspec);
+                core.setTheory(thspec);
+                trigCore.setTheory(thspec);
             } else if (co.isList()){
                 alice.tuprolog.Theory thspec=new alice.tuprolog.Theory(co);
-                core.addTheory(thspec);
-                trigCore.addTheory(thspec);
+                core.setTheory(thspec);
+                trigCore.setTheory(thspec);
             } else {
                 notifyException("Invalid reaction spec:\n"+co);
                 return false;
