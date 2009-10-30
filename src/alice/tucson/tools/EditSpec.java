@@ -23,13 +23,11 @@ import alice.logictuple.*;
 
 import alice.tucson.api.*;
 
-import alice.tucson.types.*;
-
 import alice.tucson.service.*;
 
+@SuppressWarnings("serial")
 public class EditSpec extends javax.swing.JFrame
 {
-
 	TucsonTupleCentreId tid;
 	String specFileName = "default.rsp";
 
@@ -42,8 +40,8 @@ public class EditSpec extends javax.swing.JFrame
 	{
 		initComponents();
 		setTitle("Specification Tuples of tuple centre " + tid_.getName() + "@" + tid_.getNode());
-		inputSpec = new alice.util.jedit.JEditTextArea(new RespectTextArea());
-		inputSpec.setTokenMarker(new RespectTokenMarker());
+		inputSpec = new alice.util.jedit.JEditTextArea(new SpecificationTextArea());
+		inputSpec.setTokenMarker(new SpecificationTokenMarker());
 		inputSpec.setPreferredSize(new java.awt.Dimension(400, 600));
 		java.awt.GridBagConstraints gridBagConstraints1 = new java.awt.GridBagConstraints();
 		gridBagConstraints1.gridx = 0;
@@ -395,6 +393,7 @@ public class EditSpec extends javax.swing.JFrame
 		}
 		catch (Exception ex)
 		{
+			ex.printStackTrace();
 			outputState.setText("Specification set failure (invalid specification).");
 		}
 	}// GEN-LAST:event_bOkActionPerformed
