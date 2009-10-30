@@ -197,9 +197,11 @@ public class InspectorCore extends alice.tucson.service.inspector.Inspector
 			viewer.appendText("time: " + msg.vmTime + "\n" + tr.getReaction() + " OK\n");
 			if (loggingReactions)
 			{
+				//System.out.println("LOG OK");
 				try
 				{
 					logReactionWriter.write("succeed-reaction( time(" + msg.vmTime + "), " + tr.getReaction() + ").\n");
+					logReactionWriter.flush();
 				}
 				catch (Exception ex)
 				{
@@ -214,9 +216,11 @@ public class InspectorCore extends alice.tucson.service.inspector.Inspector
 			viewer.appendText("time: " + msg.vmTime + "\n" + tr.getReaction() + " FAILED\n");
 			if (loggingReactions)
 			{
+				//System.out.println("LOG FAILED");
 				try
 				{
 					logReactionWriter.write("failed-reaction( time(" + msg.vmTime + "), " + tr.getReaction() + ").\n");
+					logReactionWriter.flush();
 				}
 				catch (Exception ex)
 				{
