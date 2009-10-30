@@ -10,7 +10,7 @@ import alice.tuplecentre.core.OperationTimeOutException;
  * 
  * @author aricci
  */
-public interface ITupleCentreOperation extends Serializable {
+public interface ITupleCentreOperation{
 
 	boolean isIn();
 
