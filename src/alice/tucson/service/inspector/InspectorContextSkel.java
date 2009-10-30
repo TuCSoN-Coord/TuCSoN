@@ -239,7 +239,11 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 			{
 				if (protocol.reactionsObservType != InspectorProtocol.NO_OBSERVATION)
 				{
-					msg.reactionOk = ((ObservableEventReactionOK) ev).z;
+					TriggeredReaction zCopy = new TriggeredReaction(null, ((ObservableEventReactionOK) ev).z.getReaction());
+					
+					//ObservableEventReactionFail evCopy = new ObservableEventReactionFail(ev.getSource(), ev.getType()); 
+					msg.reactionOk = zCopy;
+					
 					outStream.writeObject(msg);
 					outStream.flush();
 				}
@@ -248,7 +252,10 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 			{
 				if (protocol.reactionsObservType != InspectorProtocol.NO_OBSERVATION)
 				{
-					msg.reactionFailed = ((ObservableEventReactionFail) ev).z;
+					TriggeredReaction zCopy = new TriggeredReaction(null, ((ObservableEventReactionFail) ev).z.getReaction());
+					
+					//ObservableEventReactionFail evCopy = new ObservableEventReactionFail(ev.getSource(), ev.getType()); 
+					msg.reactionFailed = zCopy;
 					//System.out.println("QUIUIIIIIIIIIIIIIII" +msg.reactionFailed.getEvent().getEventProp(getName()).toString());
 					outStream.writeObject(msg);
 					outStream.flush();
