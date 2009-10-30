@@ -138,6 +138,11 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 		listener = l;
 	}
 
+	public void setListener(OperationCompletionListener l)
+	{
+		this.listener = l;
+	}
+	
 	public TupleTemplate getTemplateArgument()
 	{
 		return templateArgument;
