@@ -358,7 +358,7 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
             //activitiesToSpawn.addAll(activitiesToSpawn_singleReaction);
             spy("Reaction evaluation succeeded: "+goalList);
 
-            //System.out.println("EVAL REACTION OK");
+            System.out.println("EVAL REACTION OK");
             if (vm.hasInspectors())
             	vm.notifyInspectableEvent(new ObservableEventReactionOK(this,z));            
 			
@@ -376,7 +376,7 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
             
             spy("Reaction evaluation failed: "+goalList);
             
-            //System.out.println("EVAL REACTION FAIL");
+            System.out.println("EVAL REACTION FAIL");
             if (vm.hasInspectors())
             	vm.notifyInspectableEvent(new ObservableEventReactionFail(this,z));            
         }
@@ -427,12 +427,12 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
             Struct co=new Struct(spec.toString());
             if (co.isAtom()){
                 alice.tuprolog.Theory thspec=new alice.tuprolog.Theory(co.getName());
-                core.setTheory(thspec);
-                trigCore.setTheory(thspec);
+                core.addTheory(thspec);
+                trigCore.addTheory(thspec);
             } else if (co.isList()){
                 alice.tuprolog.Theory thspec=new alice.tuprolog.Theory(co);
-                core.setTheory(thspec);
-                trigCore.setTheory(thspec);
+                core.addTheory(thspec);
+                trigCore.addTheory(thspec);
             } else {
                 notifyException("Invalid reaction spec:\n"+co);
                 return false;
@@ -829,7 +829,7 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
                 		
                 		spy("TO BE REMOVED: "+timed+" local time is: "+this.getCurrentTime());
                 		SolveInfo removeInfo = this.core.solve("retract(reaction( "+timed+", (G),("+reactions+"))) .");
-                		spy("CORE: Remove time reaction - 2: \n"+ev+" -> "+removeInfo.isSuccess());
+                		spy("Remove time reaction - 2: \n"+ev+" -> "+removeInfo.isSuccess());
                 		this.core.solveEnd();
                 		
                 		spy("New time-triggered reaction: \n"+ev+" -> "+tr.getReaction());
@@ -842,20 +842,18 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
                         break;
                     }
                     trigCore.solveEnd();
-                    SolveInfo removeInfo = this.trigCore.solve("retract(reaction( "+timed+", (G),("+info.getVarValue("R")+"))) .");
-            		spy("TRIGCORE: Remove time reaction - 2: \n"+ev+" -> "+removeInfo.isSuccess());
-            		trigCore.solveEnd();
+                    
                     
                     
                     //spy("THEORY: "+trigCore.getTheory());
                 }
                 
                 
-                //if(timedReaction) trigCore.setTheory(core.getTheory());
+                if(timedReaction) trigCore.setTheory(core.getTheory());
             
         }catch (Exception ex){
             notifyException("INTERNAL ERROR: fetchTimedReactions "+ev);
-			//ex.printStackTrace();
+			ex.printStackTrace();
             trigCore.solveEnd();
         }/**finally{
         	
