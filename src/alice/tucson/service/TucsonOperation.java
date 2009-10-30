@@ -181,7 +181,7 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 	
 	public static int rmvInspCode()
 	{
-		return OPTYPE_RMV_OBS;
+		return OPTYPE_RMV_INSP;
 	}
 	
 	public static int hasInspCode()
