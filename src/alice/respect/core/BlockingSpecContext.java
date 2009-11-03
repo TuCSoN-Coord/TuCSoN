@@ -99,6 +99,7 @@ public class BlockingSpecContext implements IBlockingSpecContext {
 	}
 	
 	public RespectSpecification getSpec(AgentId aid) {
+		//System.out.println(core.getSpec(aid));
 		return core.getSpec(aid);
 	}
 
