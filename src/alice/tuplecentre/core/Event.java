@@ -79,6 +79,10 @@ abstract public class Event implements java.io.Serializable {
 	public TupleCentreOperation getOperation(){
 		return operation;
 	}
+	
+	public void setOperation(TupleCentreOperation op){
+		operation = op;
+	}
 
 	/**
 	 * Gets the executor of the operation which caused directly or indirectly this event.
