@@ -266,7 +266,7 @@ public class AgentContextStub implements TucsonContext
 	{		
 		LogicTuple spec = new LogicTuple("spec");		
 		LogicTuple tupleRes = (LogicTuple) doBlockingOperation(TucsonOperation.get_specCode(), tid, spec, ms);
-		return tupleRes.getArg(0).getName();		
+		return tupleRes.getArg(0).getName().replace('\'', ' ').trim();		
 	}
 	
 	public Object doBlockingOperation(int type, Object tid, LogicTuple t, Long ms)
