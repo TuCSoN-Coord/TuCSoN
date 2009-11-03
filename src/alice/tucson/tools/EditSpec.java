@@ -50,7 +50,7 @@ public class EditSpec extends javax.swing.JFrame
 		gridBagConstraints1.fill = java.awt.GridBagConstraints.BOTH;
 		gridBagConstraints1.weightx = 100.0;
 		gridBagConstraints1.weighty = 95.0;
-		getContentPane().add(inputSpec, gridBagConstraints1);
+		getContentPane().add(inputSpec, gridBagConstraints1);		
 
 		inputSpec.addCaretListener(new javax.swing.event.CaretListener()
 		{
@@ -58,8 +58,8 @@ public class EditSpec extends javax.swing.JFrame
 			{
 				caretPosition.setText("line " + (inputSpec.getCaretLine() + 1) + "   ");
 			}
-		});
-
+		});		
+		
 		pack();
 		tid = tid_;
 		try
@@ -69,7 +69,7 @@ public class EditSpec extends javax.swing.JFrame
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
-		}
+		}		
 	}
 
 	/**
@@ -264,7 +264,7 @@ public class EditSpec extends javax.swing.JFrame
 		gridBagConstraints.insets = new java.awt.Insets(0, 5, 0, 0);
 		gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
 		getContentPane().add(caretPosition, gridBagConstraints);
-
+	
 	}// GEN-END:initComponents
 
 	private void bGetActionPerformed(java.awt.event.ActionEvent evt)

@@ -587,12 +587,12 @@ public class EventViewer extends javax.swing.JFrame
 					tuple = readTuple(txt); 
 				} 
 			} 
-			context.setTupleSet(list);
-			outputState.setText("tuple set description accepted.");
+			context.setEventSet(list);
+			outputState.setText("event set description accepted.");
 		} 
 		catch (Exception ex)
 		{ 
-			outputState.setText("syntax error in tupleset description."); 
+			outputState.setText("syntax error in event set description."); 
 		}
 		 
 	}// GEN-LAST:event_jButton1ActionPerformed
