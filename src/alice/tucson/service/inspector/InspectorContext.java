@@ -46,6 +46,9 @@ public interface InspectorContext {
 
     /** sets the entire content of the tuple set */
     void setTupleSet(ArrayList tset) throws Exception;
+    
+    /** sets the entire content of the event set */
+    void setEventSet(ArrayList tset) throws Exception;
 
     /** shutdown inspector */
     void exit() throws Exception;

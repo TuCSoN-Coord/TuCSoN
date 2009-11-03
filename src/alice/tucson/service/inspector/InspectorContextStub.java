@@ -125,6 +125,13 @@ public class InspectorContextStub implements InspectorContext
 		outStream.writeObject(new SetTupleSetMsg(id, tset));
 		outStream.flush();
 	}
+	
+	/** set a new query set */
+	public void setEventSet(ArrayList wset) throws Exception
+	{
+		outStream.writeObject(new SetEventSetMsg(id, wset));
+		outStream.flush();
+	}
 
 	/** shutdown inspector */
 	public void exit() throws Exception
