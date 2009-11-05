@@ -24,6 +24,8 @@ import alice.respect.api.RespectSpecification;
 import alice.respect.api.TupleCentreId;
 import alice.tuplecentre.core.BehaviourSpecification;
 import alice.tuplecentre.api.IId;
+import alice.tuplecentre.api.InspectableEventListener;
+import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.*;
@@ -1177,6 +1179,11 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 
 		for(Tuple t : tupleList)
 			this.addTuple(t);
+	}
+	
+	public RespectVM getRespectVM()
+	{
+		return vm;
 	}
 
 }

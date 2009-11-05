@@ -65,6 +65,7 @@ public class RespectVM implements Runnable {
 		news = new Object();
 		idle = new Object();
 		inspectors = new ArrayList<InspectableEventListener>();
+		observers = new ArrayList<ObservableEventListener>();
     }
 
     /**
@@ -99,14 +100,17 @@ public class RespectVM implements Runnable {
 
 	}
 
-
-
 	public boolean hasObservers(){
 
 		return observers.size()>0;
 
 	}
 	
+	public List<ObservableEventListener> getObservers(){
+
+		return observers;
+
+	}
 	
 	 /**
 
@@ -124,8 +128,6 @@ public class RespectVM implements Runnable {
 
     }
 
-
-
     /**
 
      * Removes (if present) a listener to observable events
@@ -135,22 +137,23 @@ public class RespectVM implements Runnable {
      * @param l the listener to be removed
 
      */
-
     public void removeInspector(InspectableEventListener l){
 
         inspectors.remove(l);
 
     }
 
-
-
     public boolean hasInspectors(){
 
         return inspectors.size()>0;
 
     }
-
     
+    public List<InspectableEventListener> getInspectors(){
+
+		return inspectors;
+	}
+   
 	public void doOperation(IId id, RespectOperation op) throws OperationNotPossibleException {
 		try {
 			//System.out.println("[Respect VM] tupla = " + op.getTupleArgument());
@@ -222,7 +225,7 @@ public class RespectVM implements Runnable {
 
      */
 
-    protected void notifyInspectableEvent(InspectableEvent e){
+    public void notifyInspectableEvent(InspectableEvent e){
 
         Iterator it = inspectors.iterator();
 
@@ -241,7 +244,7 @@ public class RespectVM implements Runnable {
         }
     }        
         
-    protected void notifyObservableEvent(Event ev){
+    public void notifyObservableEvent(Event ev){
 
     	int size = observers.size();
     	
@@ -257,11 +260,28 @@ public class RespectVM implements Runnable {
 
 				}
 
-			} else	if (e.getOperation().isRd()){
+			}else	if (e.getOperation().isInp()){
+
+				for (int i=0; i<size; i++){
+
+					observers.get(i).inp_requested(this.getId(),ev.getSource(),((TupleTemplate)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
+
+				}
+
+			} 
+			else	if (e.getOperation().isRd()){
 
 				for (int i=0; i<size; i++){
 
 					observers.get(i).rd_requested(this.getId(),ev.getSource(),((TupleTemplate)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
+
+				}
+
+			}else	if (e.getOperation().isRdp()){
+
+				for (int i=0; i<size; i++){
+
+					observers.get(i).rdp_requested(this.getId(),ev.getSource(),((TupleTemplate)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
 
 				}
 
@@ -301,11 +321,27 @@ public class RespectVM implements Runnable {
 
 				}
 
-			} else	if (e.getOperation().isRd()){
+			} else	if (e.getOperation().isInp()){
+
+				for (int i=0; i<size; i++){
+
+					observers.get(i).inp_completed(this.getId(),ev.getSource(),((Tuple)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
+
+				}
+
+			}else	if (e.getOperation().isRd()){
 
 				for (int i=0; i<size; i++){
 
 					observers.get(i).rd_completed(this.getId(),ev.getSource(),((Tuple)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
+
+				}
+
+			} else	if (e.getOperation().isRdp()){
+
+				for (int i=0; i<size; i++){
+
+					observers.get(i).rdp_completed(this.getId(),ev.getSource(),((Tuple)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
 
 				}
 
