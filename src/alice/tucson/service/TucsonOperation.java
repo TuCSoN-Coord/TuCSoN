@@ -149,6 +149,11 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 		return OPTYPE_GET_WSET;
 	}
 	
+	public static int setWSetCode()
+	{
+		return OPTYPE_SET_WSET;
+	}
+	
 	public static int getTRSetCode()
 	{
 		return OPTYPE_GET_TRSET;
@@ -187,6 +192,11 @@ public class TucsonOperation extends TupleCentreOperation implements ITucsonOper
 	public static int hasInspCode()
 	{
 		return OPTYPE_HAS_INSP;
+	}
+	
+	public static int reset()
+	{
+		return RESET;
 	}
 	
 	public OperationCompletionListener getListener()
