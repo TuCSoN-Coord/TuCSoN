@@ -164,6 +164,7 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 	 */
 	synchronized public void onInspectableEvent(InspectableEvent ev)
 	{
+		//System.out.println("Nuovo envento");
 		while (protocol.tracing && !nextStep)
 		{
 			try
@@ -186,6 +187,7 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 			{
 				if (protocol.tsetObservType == InspectorProtocol.PROACTIVE_OBSERVATION)
 				{
+					//System.out.println("tuple");
 					LogicTuple[] ltSet = (LogicTuple[]) TucsonTCContainer.doManagementOperation(TucsonOperation.getTSetCode(), tcId, protocol.tsetFilter);					
 					//LogicTuple[] ltSet = core.getTSet(protocol.tsetFilter);
 					//LogicTuple[] ltSet = core.getTSet(null);
@@ -217,7 +219,8 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 					}
 				}
 				if (protocol.pendingQueryObservType == InspectorProtocol.PROACTIVE_OBSERVATION)
-				{
+				{			
+					//System.out.println("query");
 					LogicTuple[] ltSet = (LogicTuple[]) TucsonTCContainer.doManagementOperation(TucsonOperation.getWSetCode(), tcId, protocol.wsetFilter);
 					//LogicTuple[] ltSet = core.getWSet(protocol.tsetFilter);
 					//LogicTuple[] ltSet = core.getWSet(null);
@@ -228,11 +231,12 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 						for(LogicTuple lt: ltSet)
 						{
 							msg.wnEvents.add(lt);
+							//System.out.println(lt);
 						}
 					}
 				}				
 				//System.out.println("SEND " + msg.tuples + " " + msg.wnEvents);
- 
+				outStream.writeObject(msg);
 				outStream.flush();
 			}
 			else if (ev.getType() == ObservableEventExt.TYPE_REACTIONOK)
@@ -360,6 +364,18 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 	synchronized public void reset(ResetMsg msg)
 	{
 		//core.reset();
+		try
+		{
+			TucsonTCContainer.doManagementOperation(TucsonOperation.reset(), tcId, null);
+		}
+		catch (TucsonOperationNotPossibleException e)
+		{
+			e.printStackTrace();
+		}
+		catch (TucsonInvalidLogicTupleException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/** ask a new step for a tuple centre vm during tracing */
@@ -388,6 +404,19 @@ public class InspectorContextSkel extends ContextSkeleton implements Inspectable
 				}*/
 				TucsonTCContainer.doBlockingOperation(TucsonOperation.set_Code(), agentId, tcId, m.tupleSet);
 			//}
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	/** set a new tuple set */
+	synchronized public void setEventSet(SetEventSetMsg m)
+	{
+		try
+		{
+				TucsonTCContainer.doManagementOperation(TucsonOperation.setWSetCode(), tcId, m.eventWnSet);
 		}
 		catch (Exception ex)
 		{

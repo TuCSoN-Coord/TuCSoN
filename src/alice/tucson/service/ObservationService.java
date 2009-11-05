@@ -6,6 +6,13 @@
  */
 package alice.tucson.service;
 
+import alice.logictuple.LogicTuple;
+import alice.logictuple.TupleArgument;
+import alice.logictuple.Value;
+import alice.logictuple.Var;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.exception.TucsonInvalidAgentIdException;
 import alice.tuplecentre.api.IId;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
@@ -13,26 +20,47 @@ import alice.tuplecentre.api.TupleTemplate;
 
 class ObservationService implements NodeEventListener
 {
-	private TupleCentreId obsContext;
+	private TucsonTupleCentreId obsContext;
+	private TucsonAgentId obsAid;
 
-	public ObservationService(TupleCentreId ctx)
+	public ObservationService(TucsonTupleCentreId ctx)
 	{
 		obsContext = ctx;
+		try
+		{
+			obsAid = new TucsonAgentId("obs_agent");
+		}
+		catch (TucsonInvalidAgentIdException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
-	public void accEntered(IId aid)
+	public void accEntered(TucsonAgentId aid)
 	{
 		try
 		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("new_agent", new Value(aid.toString())))); } catch
-			 * (Exception ex){ ex.printStackTrace(); } }
-			 * 
-			 * public void accQuit(TucsonAgentId aid){ try {
-			 * /*obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("exit_agent", new Value(aid.toString()))));
-			 */
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", 
+							new Var(), 
+							new Value("new_agent", 
+									new Value(aid.toString()))));			
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	public void accQuit(TucsonAgentId aid)
+	{
+		try
+		{
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", 
+							new Var(), 
+							new Value("exit_agent", 
+									new Value(((TucsonAgentId)aid).toString()))));			
 		}
 		catch (Exception ex)
 		{
@@ -40,14 +68,15 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void tcCreated(TupleCentreId tid)
+	public void tcCreated(TucsonTupleCentreId tid)
 	{
 		try
 		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("new_tc", new TupleArgument(tid.toTerm()))));
-			 */
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", 
+							new Var(), 
+							new Value("new_tc", 
+									new TupleArgument(tid.toTerm()))));	
 		}
 		catch (Exception ex)
 		{
@@ -55,14 +84,15 @@ class ObservationService implements NodeEventListener
 		}
 	}
 
-	public void tcDestroyed(TupleCentreId tid)
+	public void tcDestroyed(TucsonTupleCentreId tid)
 	{
 		try
 		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("destoyed_tc", new TupleArgument(tid.toTerm()))));
-			 */
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", 
+							new Var(), 
+							new Value("destoyed_tc", 
+									new TupleArgument(tid.toTerm()))));	
 		}
 		catch (Exception ex)
 		{
@@ -73,13 +103,14 @@ class ObservationService implements NodeEventListener
 	public void getSpec_completed(TupleCentreId tid, IId id, String spec)
 	{
 		try
-		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("completed_getSpec", new
-			 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-			 * Value(((AgentId)id).toString()), new Value(spec))));
-			 */
+		{			
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", 
+							new Var(), 
+							new Value("completed_getSpec", 
+									new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+									new Value(((TucsonAgentId)id).toString()), 
+									new Value(spec))));
 		}
 		catch (Exception ex)
 		{
@@ -91,12 +122,12 @@ class ObservationService implements NodeEventListener
 	{
 		try
 		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("requested_getSpec", new
-			 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-			 * Value(((AgentId)id).toString()))));
-			 */
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", 
+							new Var(), 
+							new Value("requested_getSpec", 
+									new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+									new Value(((TucsonAgentId)id).toString()))));		
 		}
 		catch (Exception ex)
 		{
@@ -108,13 +139,12 @@ class ObservationService implements NodeEventListener
 	{
 		try
 		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("completed_in", new
-			 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-			 * Value(((AgentId)id).toString()), new
-			 * TupleArgument(((LogicTuple)t).toTerm()))));
-			 */
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", new Var(), 
+							new Value("completed_in", 
+									new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+									new Value(((TucsonAgentId)id).toString()),
+									new TupleArgument(((LogicTuple)t).toTerm()))));			
 		}
 		catch (Exception ex)
 		{
@@ -126,13 +156,12 @@ class ObservationService implements NodeEventListener
 	{
 		try
 		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("requested_in", new
-			 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-			 * Value(((AgentId)id).toString()), new
-			 * TupleArgument(((LogicTuple)t).toTerm()))));
-			 */
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", new Var(), 
+							new Value("requested_in", 
+									new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+									new Value(((TucsonAgentId)id).toString()),
+									new TupleArgument(((LogicTuple)t).toTerm()))));
 		}
 		catch (Exception ex)
 		{
@@ -146,22 +175,21 @@ class ObservationService implements NodeEventListener
 		{
 			if (t != null)
 			{
-				/*
-				 * obsContext.out(new LogicTuple("node_event", new Var(), new
-				 * Value("completed_inp", new
-				 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-				 * Value(((AgentId)id).toString()), new Value("succeeded", new
-				 * TupleArgument(((LogicTuple)t).toTerm())))));
-				 */
+				TucsonTCContainer.out(obsAid, obsContext, 
+						new LogicTuple("node_event", new Var(), 
+								new Value("completed_inp", 
+										new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+										new Value(((TucsonAgentId)id).toString()),
+										new Value("succeeded", new TupleArgument(((LogicTuple)t).toTerm())))));
 			}
 			else
 			{
-				/*
-				 * obsContext.out(new LogicTuple("node_event", new Var(), new
-				 * Value("completed_inp", new
-				 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-				 * Value(((AgentId)id).toString()), new Value("failed"))));
-				 */
+				TucsonTCContainer.out(obsAid, obsContext, 
+						new LogicTuple("node_event", new Var(), 
+								new Value("completed_inp", 
+										new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+										new Value(((TucsonAgentId)id).toString()),
+										new Value("failed"))));
 			}
 		}
 		catch (Exception ex)
@@ -174,13 +202,12 @@ class ObservationService implements NodeEventListener
 	{
 		try
 		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("requested_inp", new
-			 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-			 * Value(((AgentId)id).toString()), new
-			 * TupleArgument(((LogicTuple)t).toTerm()))));
-			 */
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", new Var(), 
+							new Value("requested_inp", 
+									new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+									new Value(((TucsonAgentId)id).toString()),
+									new TupleArgument(((LogicTuple)t).toTerm()))));
 		}
 		catch (Exception ex)
 		{
@@ -192,13 +219,12 @@ class ObservationService implements NodeEventListener
 	{
 		try
 		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("done_out", new
-			 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-			 * Value(((AgentId)id).toString()), new
-			 * TupleArgument(((LogicTuple)t).toTerm()))));
-			 */
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", new Var(), 
+							new Value("done_out", 
+									new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+									new Value(((TucsonAgentId)id).toString()),
+									new TupleArgument(((LogicTuple)t).toTerm()))));
 		}
 		catch (Exception ex)
 		{
@@ -210,13 +236,12 @@ class ObservationService implements NodeEventListener
 	{
 		try
 		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("completed_rd", new
-			 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-			 * Value(((AgentId)id).toString()), new
-			 * TupleArgument(((LogicTuple)t).toTerm()))));
-			 */
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", new Var(), 
+							new Value("completed_rd", 
+									new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+									new Value(((TucsonAgentId)id).toString()),
+									new TupleArgument(((LogicTuple)t).toTerm()))));
 		}
 		catch (Exception ex)
 		{
@@ -228,13 +253,12 @@ class ObservationService implements NodeEventListener
 	{
 		try
 		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("requested_rd", new
-			 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-			 * Value(((AgentId)id).toString()), new
-			 * TupleArgument(((LogicTuple)t).toTerm()))));
-			 */
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", new Var(), 
+							new Value("requested_rd", 
+									new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+									new Value(((TucsonAgentId)id).toString()),
+									new TupleArgument(((LogicTuple)t).toTerm()))));
 		}
 		catch (Exception ex)
 		{
@@ -248,22 +272,21 @@ class ObservationService implements NodeEventListener
 		{
 			if (t != null)
 			{
-				/*
-				 * obsContext.out(new LogicTuple("node_event", new Var(), new
-				 * Value("completed_rdp", new
-				 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-				 * Value(((AgentId)id).toString()), new Value("succeeded", new
-				 * TupleArgument(((LogicTuple)t).toTerm())))));
-				 */
+				TucsonTCContainer.out(obsAid, obsContext, 
+						new LogicTuple("node_event", new Var(), 
+								new Value("completed_rdp", 
+										new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+										new Value(((TucsonAgentId)id).toString()),
+										new Value("succeeded", new TupleArgument(((LogicTuple)t).toTerm())))));
 			}
 			else
 			{
-				/*
-				 * obsContext.out(new LogicTuple("node_event", new Var(), new
-				 * Value("completed_rdp", new
-				 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-				 * Value(((AgentId)id).toString()), new Value("failed"))));
-				 */
+				TucsonTCContainer.out(obsAid, obsContext, 
+						new LogicTuple("node_event", new Var(), 
+								new Value("completed_rdp", 
+										new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+										new Value(((TucsonAgentId)id).toString()),
+										new Value("failed"))));
 			}
 		}
 		catch (Exception ex)
@@ -276,13 +299,12 @@ class ObservationService implements NodeEventListener
 	{
 		try
 		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("requested_rdp", new
-			 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-			 * Value(((AgentId)id).toString()), new
-			 * TupleArgument(((LogicTuple)t).toTerm()))));
-			 */
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", new Var(), 
+							new Value("requested_rdp", 
+									new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+									new Value(((TucsonAgentId)id).toString()),
+									new TupleArgument(((LogicTuple)t).toTerm()))));
 		}
 		catch (Exception ex)
 		{
@@ -294,12 +316,11 @@ class ObservationService implements NodeEventListener
 	{
 		try
 		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("completed_setSpec", new
-			 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-			 * Value(((AgentId)id).toString()))));
-			 */
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", new Var(), 
+							new Value("completed_setSpec", 
+									new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+									new Value(((TucsonAgentId)id).toString()))));
 		}
 		catch (Exception ex)
 		{
@@ -311,24 +332,15 @@ class ObservationService implements NodeEventListener
 	{
 		try
 		{
-			/*
-			 * obsContext.out(new LogicTuple("node_event", new Var(), new
-			 * Value("requested_setSpec", new
-			 * TupleArgument(((TupleCentreId)tid).toTerm()), new
-			 * Value(((AgentId)id).toString()), new Value(spec))));
-			 */
+			TucsonTCContainer.out(obsAid, obsContext, 
+					new LogicTuple("node_event", new Var(), 
+							new Value("requested_setSpec", 
+									new TupleArgument(((TucsonTupleCentreId)tid).toTerm()), 
+									new Value(((TucsonAgentId)id).toString()), new Value(spec))));
 		}
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
 		}
 	}
-
-	@Override
-	public void accQuit(IId aid)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
 }

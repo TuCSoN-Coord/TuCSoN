@@ -72,9 +72,11 @@ public class InspectorContextStub implements InspectorContext
 	 * waits and processes TuCSoN virtual machine events
 	 */
 	public void acceptVMEvent() throws Exception
-	{
-		InspectorContextEvent msg = (InspectorContextEvent) inStream.readObject();
-
+	{		
+		//System.out.println("accept");
+		InspectorContextEvent msg = (InspectorContextEvent) inStream.readObject();		
+		//System.out.println("messaggio ricevuto");
+		
 		for (int i = 0; i < contextListeners.size(); i++)
 		{
 			((InspectorContextListener) contextListeners.elementAt(i)).onContextEvent(msg);

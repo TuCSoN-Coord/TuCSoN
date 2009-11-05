@@ -55,7 +55,7 @@ public class Inspector extends Thread implements InspectorContextListener
 			}
 			catch (Exception e)
 			{
-				// e.printStackTrace();
+				e.printStackTrace();
 				break;
 			}
 		}

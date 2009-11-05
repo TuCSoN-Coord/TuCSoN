@@ -32,7 +32,9 @@ import alice.tuprolog.Theory;
 import alice.tucson.api.exception.InvalidConfigException;
 import alice.tucson.api.exception.TCInstantiationNotPossibleException;
 import alice.tucson.api.exception.TucsonException;
+import alice.tucson.api.exception.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exception.TucsonInvalidTupleCentreIdException;
+import alice.tucson.api.exception.TucsonOperationNotPossibleException;
 
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -82,7 +84,9 @@ public class Node
 		persistencyTemplate = persistTempl;
 		nodeAid = new TucsonAgentId("node_agent");
 		idConfigTC = new TucsonTupleCentreId("'$ORG'");
-		idObsTC = new TucsonTupleCentreId("'$OBS'");
+		
+		// observation service
+		idObsTC = new TucsonTupleCentreId("'$OBS'");		
 		observed = false;
 		agents = new ArrayList<TucsonAgentId>();
 	}
@@ -210,17 +214,28 @@ public class Node
 	private TucsonTCUsers bootTupleCentre(String name) throws TucsonInvalidTupleCentreIdException,
 			TCInstantiationNotPossibleException
 	{
-		TucsonTupleCentreId id = new TucsonTupleCentreId(name);
-		cores.put(id.getName(), new TucsonTCUsers(id));
+		TucsonTupleCentreId id = new TucsonTupleCentreId(name);				
 		TucsonTCContainer.createTC(id, 10);
 		
 		if (observed)
 		{
-			TucsonTCContainer.activateObservability(id, obsService);
+			//TucsonTCContainer.activateObservability(id, obsService);
+			try
+			{
+				TucsonTCContainer.doManagementOperation(TucsonOperation.addObsCode(), id, obsService);
+			}
+			catch (TucsonOperationNotPossibleException e)
+			{
+				e.printStackTrace();
+			}
+			catch (TucsonInvalidLogicTupleException e)
+			{
+				e.printStackTrace();
+			}
 			obsService.tcCreated(id);
 		}
+		
 		TucsonTCUsers tcUsers = new TucsonTCUsers(id);
-
 		cores.put(id.getName(), tcUsers);
 
 		try
@@ -237,6 +252,7 @@ public class Node
 			ex.printStackTrace();
 			log("failed to enable persistency on tuple centre " + name);
 		}
+		
 		log("new tuple centre " + name + " booted.");
 		return tcUsers;
 	}
@@ -355,7 +371,7 @@ public class Node
 
 	public synchronized void disablePersistence(TupleArgument template)
 	{
-		// if (persistencyTemplate!=null){
+	 if (persistencyTemplate!=null){
 		try
 		{
 			Iterator<TucsonTCUsers> it = cores.values().iterator();
@@ -387,7 +403,7 @@ public class Node
 		{
 			persistencyTemplate = null;
 		}
-		// }
+	 }
 	}
 
 	public synchronized void disablePersistence(String tc)
@@ -555,7 +571,7 @@ public class Node
 	private void setupObsTupleCentre()
 	{
 		//
-		// setup management tuple centre
+		// setup observer tuple centre
 		//
 		try
 		{
@@ -582,12 +598,12 @@ public class Node
 		}		
 			    
 		//
-		// config spec initialisation
+		// observation spec initialisation
 		//
 		try
 		{
 			TucsonTCContainer.out(nodeAid, idObsTC, new LogicTuple("boot"), null);
-			obsService = new ObservationService((TupleCentreId)idObsTC);
+			obsService = new ObservationService(idObsTC);
 		}
 		catch (Exception ex)
 		{
@@ -622,7 +638,7 @@ public class Node
 		}
 		if (observed && !present)
 		{
-			obsService.accEntered((IId)aid);
+			obsService.accEntered(aid);
 		}
 	}
 
@@ -645,7 +661,7 @@ public class Node
 		
 		if (observed && present)
 		{
-			obsService.accQuit((IId)aid);
+			obsService.accQuit(aid);
 		}
 
 		// remove the agent from all the tc
@@ -679,7 +695,18 @@ public class Node
 			while (it.hasNext())
 			{
 				TucsonTCUsers tc = it.next();
-				TucsonTCContainer.activateObservability(tc.getTucsonTupleCentreId(), obsService);
+				try
+				{
+					TucsonTCContainer.doManagementOperation(TucsonOperation.addObsCode(), tc.getTucsonTupleCentreId(), obsService);
+				}
+				catch (TucsonOperationNotPossibleException e)
+				{
+					e.printStackTrace();
+				}
+				catch (TucsonInvalidLogicTupleException e)
+				{
+					e.printStackTrace();
+				}		
 			}
 		}
 		catch (Exception ex)
@@ -698,7 +725,20 @@ public class Node
 			while (it.hasNext())
 			{
 				TucsonTCUsers tc = it.next();
-				TucsonTCContainer.deactivateObservability(tc.getTucsonTupleCentreId());
+				
+				try
+				{
+					TucsonTCContainer.doManagementOperation(TucsonOperation.rmvObsCode(), tc.getTucsonTupleCentreId(), obsService);
+				}
+				catch (TucsonOperationNotPossibleException e)
+				{
+					e.printStackTrace();
+				}
+				catch (TucsonInvalidLogicTupleException e)
+				{
+					e.printStackTrace();
+				}	
+				//TucsonTCContainer.deactivateObservability(tc.getTucsonTupleCentreId());
 			}
 		}
 		catch (Exception ex)

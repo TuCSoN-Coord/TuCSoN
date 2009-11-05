@@ -297,7 +297,7 @@ public class TucsonTCContainer
 		return (LogicTuple) doBlockingOperation(TucsonOperation.inp_sCode(), aid, tid, t);
 	}
 
-	public static synchronized void activateObservability(TucsonTupleCentreId tid, ObservableEventListener l)
+	/*public static synchronized void activateObservability(TucsonTupleCentreId tid, ObservableEventListener l)
 	{
 		log("Activate observability on tuple centre " + tid.toString());
 	}
@@ -305,7 +305,7 @@ public class TucsonTCContainer
 	public static synchronized void deactivateObservability(TucsonTupleCentreId tid)
 	{
 		log("Deactivate observability on tuple centre " + tid.toString());
-	}
+	}*/
 
 	public static synchronized void enablePersistence(TucsonTupleCentreId tid, String path)
 	{
