@@ -2,6 +2,7 @@ package alice.tucson.resolver;
 
 import java.io.Serializable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import alice.logictuple.InvalidLogicTupleException;
@@ -134,6 +135,10 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 		{
 			return context.getWSet((LogicTuple) obj);
 		}
+		if (type == TucsonOperation.setWSetCode())
+		{
+			context.setWSet((List<LogicTuple>) obj);
+		}
 		if (type == TucsonOperation.goCmdCode())
 		{
 			try
@@ -197,6 +202,11 @@ public class Respect22Resolver implements IContainerResolver, ITCIdResolver, IAg
 		}
 		if (type == TucsonOperation.hasInspCode())
 		{
+			return context.hasInspectors();
+		}
+		if (type == TucsonOperation.reset())
+		{
+			// da finire
 			return context.hasInspectors();
 		}
 		
