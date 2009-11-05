@@ -19,6 +19,7 @@ package alice.respect.core;
 import java.util.*;
 
 import alice.respect.api.ILinkContext;
+import alice.respect.api.OperationNotPossibleException;
 import alice.respect.api.RespectSpecification;
 import alice.respect.api.TupleCentreId;
 import alice.tuplecentre.core.BehaviourSpecification;
@@ -855,6 +856,68 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
 				supportList.add(tuple);		
 		
 		return supportList.toArray(new LogicTuple[0]);		
+	}
+	
+	public void setWSet(List<LogicTuple> wSet){
+		
+		this.wSet.empty();
+		
+		for(LogicTuple t : wSet)
+		{
+			//System.out.println(t);
+			String operation = t.toString();
+			String opKind = operation.substring(0,2);
+			//System.out.println(opKind);						
+			
+			if(opKind.equals("rd"))				
+			{		
+				String tupla = operation.substring(3,operation.length()-1);
+				//System.out.println(tupla);
+				LogicTuple logicTuple = null;
+				try
+				{
+					logicTuple = LogicTuple.parse(tupla);
+				}
+				catch (InvalidLogicTupleException e1)
+				{
+					e1.printStackTrace();
+				}
+				
+				RespectOperation op = RespectOperation.makeRd(logicTuple, null);
+				try
+				{
+					vm.doOperation(null,op);
+				}
+				catch (OperationNotPossibleException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			else if(opKind.equals("in"))				
+			{
+				String tupla = operation.substring(3,operation.length()-1);
+				//System.out.println(tupla);
+				LogicTuple logicTuple = null;
+				try
+				{
+					logicTuple = LogicTuple.parse(tupla);
+				}
+				catch (InvalidLogicTupleException e1)
+				{
+					e1.printStackTrace();
+				}
+				
+				RespectOperation op = RespectOperation.makeIn(logicTuple,null);
+				try
+				{
+					vm.doOperation(null,op);
+				}
+				catch (OperationNotPossibleException e)
+				{
+					e.printStackTrace();
+				}
+			}
+		}
 	}
 
 	public LogicTuple[] getTRSet(LogicTuple t){
