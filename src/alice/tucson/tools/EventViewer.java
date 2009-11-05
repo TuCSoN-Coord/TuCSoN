@@ -562,7 +562,7 @@ public class EventViewer extends javax.swing.JFrame
 		try 
 		{		 
 			String txt = outputArea.getText() + '\n'; 
-			ArrayList list = new ArrayList(); 
+			ArrayList<LogicTuple> list = new ArrayList<LogicTuple>(); 
 			
 			iCurrentPos = 0; 
 			String tuple = readTuple(txt);
@@ -724,7 +724,7 @@ public class EventViewer extends javax.swing.JFrame
 	{// GEN-FIRST:event_buttonGetActionPerformed
 		try
 		{
-			System.out.println("update");
+			//System.out.println("update");
 			context.getSnapshot(GetSnapshotMsg.WSET);
 		}
 		catch (Exception ex)
