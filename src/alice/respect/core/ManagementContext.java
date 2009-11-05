@@ -82,6 +82,12 @@ public class ManagementContext implements IManagementContext {
 		//System.out.println("getWSet");
 		return vm.getWSet(t);
 	}
+	
+	public void setWSet(List<LogicTuple> wSet){
+		
+		//System.out.println("getWSet");
+		vm.setWSet(wSet);
+	}
 
 	public LogicTuple[] getTRSet(LogicTuple t){
 		return vm.getTRSet(t);
@@ -109,5 +115,9 @@ public class ManagementContext implements IManagementContext {
 
     public boolean hasInspectors(){
         return vm.hasInspectors();
+    }
+    
+    public void reset(){
+        vm.reset();
     }
 }
