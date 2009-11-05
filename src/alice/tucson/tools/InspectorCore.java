@@ -67,6 +67,8 @@ public class InspectorCore extends alice.tucson.service.inspector.Inspector
 
 	public void onContextEvent(alice.tucson.service.inspector.InspectorContextEvent msg)
 	{
+		//System.out.println("Eventi" + msg.wnEvents);
+		//System.out.println("Eventi" + msg.tuples);
 		if (msg.tuples != null)
 		{
 			TupleViewer viewer = form.getTupleForm();
@@ -137,7 +139,7 @@ public class InspectorCore extends alice.tucson.service.inspector.Inspector
 			}
 		}
 		if (msg.wnEvents != null)
-		{
+		{			
 			EventViewer viewer = form.getQueryForm();
 			msg.localTime = System.currentTimeMillis();
 			viewer.setVMTime(msg.vmTime);
@@ -155,6 +157,7 @@ public class InspectorCore extends alice.tucson.service.inspector.Inspector
 				// } else {
 				// tupleEvent+=ev.template+") from agent "+ev.idAgent;
 				// }
+				//System.out.println(it.next());
 				st = st + it.next() + "\n";				
 				n++;
 			}
