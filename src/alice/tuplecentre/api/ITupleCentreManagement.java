@@ -8,8 +8,6 @@ package alice.tuplecentre.api;
 
 import alice.tuplecentre.core.BehaviourSpecification;
 import alice.tuplecentre.core.OperationNotPossibleException;
-import alice.tuplecentre.core.TupleCentreOperation;
-
 
 /**
  * @author aricci

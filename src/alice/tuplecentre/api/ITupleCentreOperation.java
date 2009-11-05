@@ -1,7 +1,5 @@
 package alice.tuplecentre.api;
 
-import java.io.Serializable;
-
 import alice.tuplecentre.core.OperationTimeOutException;
 
 
