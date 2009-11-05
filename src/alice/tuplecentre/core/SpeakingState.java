@@ -19,6 +19,7 @@ package alice.tuplecentre.core;
 
 import java.util.*;
 
+import alice.respect.core.RespectVMContext;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
 
@@ -125,6 +126,10 @@ public class SpeakingState extends TupleCentreVMState {
 		            	foundSatisfied=true;
 					}					
 					else throw new InvalidOperationException();
+		            		            
+		            if (((RespectVMContext)vm).getRespectVM().getObservers().size()>0){
+						((RespectVMContext)vm).getRespectVM().notifyObservableEvent(ev);
+					}
 	            }
             } catch(InvalidOperationException ex){
             	vm.spy("ERROR: "+ev.getOperation().getType()+"");
@@ -158,6 +163,10 @@ public class SpeakingState extends TupleCentreVMState {
 				//System.out.println("NON LINKING, SOURCE: "+out_ev.getSource());
 				//out_ev.setSource(vm.getId());
 				vm.notifyOutputEvent(out_ev);
+				
+				if (((RespectVMContext)vm).getRespectVM().getObservers().size()>0){
+					((RespectVMContext)vm).getRespectVM().notifyObservableEvent(out_ev);
+				}
 			}
 			
 			

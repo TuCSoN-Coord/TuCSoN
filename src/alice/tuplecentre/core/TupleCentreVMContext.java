@@ -22,6 +22,8 @@ import alice.tuplecentre.api.AgentId;
 import alice.tuplecentre.api.IId;
 import alice.tuplecentre.api.ITupleCentre;
 import alice.tuplecentre.api.ITupleCentreManagement;
+import alice.tuplecentre.api.InspectableEventListener;
+import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.api.TupleTemplate;
@@ -257,6 +259,7 @@ public abstract class TupleCentreVMContext implements ITupleCentreManagement, IT
     protected void notifyOutputEvent(OutputEvent ev){
 		spy("notify event "+ev);
     	ev.getOperation().notifyCompletion();
+    	
     }
     
     //-------------------------
@@ -312,6 +315,7 @@ public abstract class TupleCentreVMContext implements ITupleCentreManagement, IT
     public abstract boolean  triggeredReaction();
     
     public abstract boolean  time_triggeredReaction();
+    
    
     //----------------------
     
