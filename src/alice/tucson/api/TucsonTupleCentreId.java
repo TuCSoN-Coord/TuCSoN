@@ -8,6 +8,7 @@ import alice.tucson.service.TucsonLanguageManager;
 import alice.tucson.service.TucsonNodeLanguageManager;
 
 import alice.tucson.types.ITCIdResolver;
+import alice.tuprolog.Term;
 
 public class TucsonTupleCentreId implements alice.tuplecentre.api.TupleCentreId, java.io.Serializable
 {
@@ -64,6 +65,20 @@ public class TucsonTupleCentreId implements alice.tuplecentre.api.TupleCentreId,
 		try
 		{
 			return (String) TucsonLanguageManager.callMethodObjPar(resolver, "tupleCentreIdToString",
+					new Object[] { (Object) tid });
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public Term toTerm()
+	{
+		try
+		{
+			return (Term) TucsonLanguageManager.callMethodObjPar(resolver, "toTerm",
 					new Object[] { (Object) tid });
 		}
 		catch (Exception e)
