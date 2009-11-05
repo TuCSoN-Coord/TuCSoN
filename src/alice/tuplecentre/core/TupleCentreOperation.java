@@ -59,7 +59,7 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 	public static final int OPTYPE_NEXT_STEP = 26;
 	public static final int OPTYPE_SET_SPY = 27;
 	public static final int OPTYPE_GET_TSET = 28;
-	public static final int OPTYPE_GET_WSET = 29;
+	public static final int OPTYPE_GET_WSET = 29;	
 	public static final int OPTYPE_GET_TRSET = 30;
 	// 31 = OPTYPE_EXIT in TucsonOperation
 	public static final int OPTYPE_ADD_OBS = 32;
@@ -68,6 +68,8 @@ public abstract class TupleCentreOperation implements ITupleCentreOperation
 	public static final int OPTYPE_ADD_INSP = 35;
 	public static final int OPTYPE_RMV_INSP = 36;
 	public static final int OPTYPE_HAS_INSP = 37;
+	public static final int OPTYPE_SET_WSET = 38;
+	public static final int RESET = 39;
 	
 	protected boolean operationCompleted;
 	protected OperationCompletionListener listener;
