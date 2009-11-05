@@ -17,6 +17,8 @@
  */
 package alice.respect.api;
 
+import java.util.List;
+
 import alice.logictuple.*;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
@@ -44,6 +46,8 @@ public interface IManagementContext  {
 	 */
 	RespectSpecification getSpec();    
 
+	void reset();
+	
 	/**
 	 * Abort a previously executed in or rd operation
 	 * 
@@ -110,6 +114,13 @@ public interface IManagementContext  {
 	 * @param filter tuple filtering tuples to be retrieved
 	 */
 	LogicTuple[] getWSet(LogicTuple filter);
+	
+	/**
+	 * Sets current content of the query set in terms of logic tuples 
+	 * 
+	 * @param query set in terms of logic tuples
+	 */
+	void setWSet(List<LogicTuple> wSet);
 
 	/**
 	 * Gets current content of the triggered reactions in terms of logic tuples 
