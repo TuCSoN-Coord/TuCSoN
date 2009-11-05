@@ -401,9 +401,17 @@ public class RespectVM implements Runnable {
 		//System.out.println("context.getWSet(filter)" + context.getWSet(filter));
 		return context.getWSet(filter);
 	}
+	
+	public void setWSet(List<LogicTuple> wSet){
+		context.setWSet(wSet);
+	}
 
 	public LogicTuple[] getTRSet(LogicTuple filter){
 		return context.getTRSet(filter);
+	}
+	
+	public void reset(){
+		context.reset();
 	}
 
 	public TupleCentreId getId(){
