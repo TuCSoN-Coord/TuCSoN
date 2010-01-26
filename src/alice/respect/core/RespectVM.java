@@ -17,17 +17,11 @@
  */
 package alice.respect.core;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
+import alice.respect.api.AgentId;
 import alice.respect.api.OperationNotPossibleException;
 import alice.respect.api.TupleCentreId;
+import alice.tuplecentre.core.BehaviourSpecification;
 import alice.tuplecentre.api.IId;
-import alice.tuplecentre.api.InspectableEventListener;
-import alice.tuplecentre.api.ObservableEventListener;
-import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.*;
 import alice.logictuple.*;
 
@@ -44,125 +38,38 @@ import alice.logictuple.*;
  * @version 1.0
  */
 public class RespectVM implements Runnable {
-
-    private RespectVMContext context;
-	private RespectTCContainer container;
     
+    private RespectVMContext context;
+	
 	// semaphores
 	private Object news;
 	private Object idle;
-	
-	protected List<ObservableEventListener> observers;
-	
-	/** listener to VM inspectable events  */
-    protected List<InspectableEventListener> inspectors;
+	private TransducerManager tm;
     
-    // Qui devo passare un riferimento all'oggetto di tipo RespectTC che lo ha creato
-    public RespectVM(TupleCentreId tid, RespectTCContainer container, int qSize){
-    	this.container = container;
-    	// Qui devo passare anche il riferimento all'oggetto di tipo RespectTC che lo ha creato 
+    public RespectVM(TupleCentreId tid, int qSize){
         context = new RespectVMContext(this,tid, qSize);
 		news = new Object();
 		idle = new Object();
-		inspectors = new ArrayList<InspectableEventListener>();
-		observers = new ArrayList<ObservableEventListener>();
-    }
-
-    /**
-
-	 * Registers a new observer to observable events
-
-	 *
-
-	 * @param l the listener to be notified
-
-	 */
-
-	public void addObserver(ObservableEventListener l){
-
-		observers.add(l);
-
-	}
-	
-	/**
-
-	 * Removes (if present) a listener to observable events
-
-	 *
-
-	 * @param l the listener to be removed
-
-	 */
-
-	public void removeObserver(ObservableEventListener l){
-
-		observers.remove(l);
-
-	}
-
-	public boolean hasObservers(){
-
-		return observers.size()>0;
-
-	}
-	
-	public List<ObservableEventListener> getObservers(){
-
-		return observers;
-
-	}
-	
-	 /**
-
-     * Registers a new listener to observable events
-
-     *
-
-     * @param l the listener to be notified
-
-     */
-
-    public void addInspector(InspectableEventListener l){
-
-        inspectors.add(l);
-
-    }
-
-    /**
-
-     * Removes (if present) a listener to observable events
-
-     *
-
-     * @param l the listener to be removed
-
-     */
-    public void removeInspector(InspectableEventListener l){
-
-        inspectors.remove(l);
-
-    }
-
-    public boolean hasInspectors(){
-
-        return inspectors.size()>0;
-
+		
     }
     
-    public List<InspectableEventListener> getInspectors(){
+    public RespectVM(TupleCentreId tid, int qSize, TransducerManager tm){
+        context = new RespectVMContext(this,tid, qSize,tm);
+		news = new Object();
+		idle = new Object();
+		this.tm=tm;
+		System.out.println("************************************************ TRANSDUCERMANAGER "+ this.tm.toString());
+    }
 
-		return inspectors;
-	}
-   
+    
 	public void doOperation(IId id, RespectOperation op) throws OperationNotPossibleException {
 		try {
-			//System.out.println("[Respect VM] tupla = " + op.getTupleArgument());
 			context.doOperation(id,op);
 			synchronized (news){
 				news.notifyAll();
 			}
 		} catch (Exception ex){
-			ex.printStackTrace();
+			//ex.printStackTrace();
 			throw new OperationNotPossibleException();
 		}
 	}
@@ -200,11 +107,9 @@ public class RespectVM implements Runnable {
 				context.notifyException(ex);
 			}
             try {
-            	if (hasInspectors())
-            		notifyInspectableEvent(new InspectableEvent(this,InspectableEvent.TYPE_NEWSTATE));
                 context.spy("Waiting for news...");
                 
-                if(!(context.pendingEvents() || context.pendingEnvEvents())){
+                if(!context.pendingEvents()){
 	                synchronized(news){
 	                	news.wait();
 	                }
@@ -215,159 +120,6 @@ public class RespectVM implements Runnable {
         }
     }
 
-    /**
-
-     * Notifies registered listeners of a new observable event
-
-     *
-
-     * @param e the observable event
-
-     */
-
-    public void notifyInspectableEvent(InspectableEvent e){
-
-        Iterator it = inspectors.iterator();
-
-        while (it.hasNext()){
-
-            try {
-
-                ((InspectableEventListener)it.next()).onInspectableEvent(e);
-
-            } catch (Exception ex){
-
-                ex.printStackTrace();
-
-                it.remove();
-            }
-        }
-    }        
-        
-    public void notifyObservableEvent(Event ev){
-
-    	int size = observers.size();
-    	
-    	InputEvent e = (InputEvent)ev;
-    	
-		if (ev.isInput()){
-			
-			if (e.getOperation().isIn()){
-
-				for (int i=0; i<size; i++){
-
-					observers.get(i).in_requested(this.getId(),ev.getSource(),((TupleTemplate)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
-
-				}
-
-			}else	if (e.getOperation().isInp()){
-
-				for (int i=0; i<size; i++){
-
-					observers.get(i).inp_requested(this.getId(),ev.getSource(),((TupleTemplate)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
-
-				}
-
-			} 
-			else	if (e.getOperation().isRd()){
-
-				for (int i=0; i<size; i++){
-
-					observers.get(i).rd_requested(this.getId(),ev.getSource(),((TupleTemplate)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
-
-				}
-
-			}else	if (e.getOperation().isRdp()){
-
-				for (int i=0; i<size; i++){
-
-					observers.get(i).rdp_requested(this.getId(),ev.getSource(),((TupleTemplate)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
-
-				}
-
-			} else	if (e.getOperation().isOut()){
-
-				for (int i=0; i<size; i++){
-
-					observers.get(i).out_requested(this.getId(),ev.getSource(),((Tuple)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
-
-				}
-
-			} else	if (e.getOperation().isSetSpec()){
-
-				for (int i=0; i<size; i++){
-
-					observers.get(i).setSpec_requested(this.getId(),ev.getSource(),((Tuple)((RespectOperation)ev.getOperation()).getLogicTupleArgument()).toString());
-
-				}
-
-			} else	if (e.getOperation().isGetSpec()){
-
-				for (int i=0; i<size; i++){
-
-					observers.get(i).getSpec_requested(this.getId(),ev.getSource());
-
-				}
-
-			}
-
-		} else {
-
-			if (e.getOperation().isIn()){
-				
-				for (int i=0; i<size; i++){
-
-					observers.get(i).in_completed(this.getId(),ev.getSource(),((Tuple)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
-
-				}
-
-			} else	if (e.getOperation().isInp()){
-
-				for (int i=0; i<size; i++){
-
-					observers.get(i).inp_completed(this.getId(),ev.getSource(),((Tuple)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
-
-				}
-
-			}else	if (e.getOperation().isRd()){
-
-				for (int i=0; i<size; i++){
-
-					observers.get(i).rd_completed(this.getId(),ev.getSource(),((Tuple)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
-
-				}
-
-			} else	if (e.getOperation().isRdp()){
-
-				for (int i=0; i<size; i++){
-
-					observers.get(i).rdp_completed(this.getId(),ev.getSource(),((Tuple)((RespectOperation)ev.getOperation()).getLogicTupleArgument()));
-
-				}
-
-			} else	if (e.getOperation().isSetSpec()){
-
-				for (int i=0; i<size; i++){
-
-					observers.get(i).setSpec_completed(this.getId(),ev.getSource());
-
-				}
-
-			} else	if (e.getOperation().isGetSpec()){
-
-				for (int i=0; i<size; i++){
-
-					observers.get(i).getSpec_completed(this.getId(),ev.getSource(),((Tuple)((RespectOperation)ev.getOperation()).getLogicTupleArgument()).toString());
-				}
-
-			}
-
-		}
-
-	}
-
-
-    
 	/*
 	 * This operation can be executed only when the VM is an idle
 	 * state, waiting for I/O
@@ -376,6 +128,7 @@ public class RespectVM implements Runnable {
 	public boolean setReactionSpec(BehaviourSpecification spec){
 		synchronized(idle){
 			// execute a basic VM (atomic) step
+			context.removeReactionSpec();
 			return context.setReactionSpec(spec);
 		}
 	}
@@ -434,33 +187,22 @@ public class RespectVM implements Runnable {
 	}
 
 	public LogicTuple[] getWSet(LogicTuple filter){
-		//System.out.println("context.getWSet(filter)" + context.getWSet(filter));
 		return context.getWSet(filter);
-	}
-	
-	public void setWSet(List<LogicTuple> wSet){
-		context.setWSet(wSet);
 	}
 
 	public LogicTuple[] getTRSet(LogicTuple filter){
 		return context.getTRSet(filter);
-	}
-	
-	public void reset(){
-		context.reset();
 	}
 
 	public TupleCentreId getId(){
 		return (TupleCentreId) context.getId();
 	}
 
+
 	public RespectVMContext getRespectVMContext() {
 		return context;
 	}
 	
-	public RespectTCContainer getContainer() {
-		return this.container;
-	}
 }
 
 
