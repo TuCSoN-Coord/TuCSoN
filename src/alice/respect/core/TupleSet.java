@@ -142,7 +142,7 @@ public class TupleSet  {
             	/* copy needs to be returned as tu referes to a tuple in
             	 * tuple set and it also gets stored in operation 
             	 * result thus creating aliasing
-            	 */ 
+            	 */             	
                 return new LogicTuple(tu.toTerm().copy());
             }
         }
