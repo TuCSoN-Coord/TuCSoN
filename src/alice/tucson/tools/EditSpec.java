@@ -17,11 +17,14 @@
  */
 package alice.tucson.tools;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 
 import alice.logictuple.*;
 
 import alice.tucson.api.*;
+import alice.tucson.api.exception.TucsonOperationNotPossibleException;
 
 import alice.tucson.service.*;
 
@@ -69,9 +72,21 @@ public class EditSpec extends javax.swing.JFrame
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
-		}		
+		}	
+				
 	}
 
+	public void exit()
+	{
+    	  try
+    	  {
+    		  context.exit();
+    	  }
+    	  catch (TucsonOperationNotPossibleException e1)
+    	  {
+    		  e1.printStackTrace();
+    	  }
+	}
 	/**
 	 * This method is called from within the constructor to initialize the form.
 	 * WARNING: Do NOT modify this code. The content of this method is always
