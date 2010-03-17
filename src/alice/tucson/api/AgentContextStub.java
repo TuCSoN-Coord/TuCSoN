@@ -277,6 +277,7 @@ public class AgentContextStub implements TucsonContext
 		if (tid.getClass().getName().equals("alice.tucson.api.TucsonTupleCentreId"))
 		{
 			tcid = (TucsonTupleCentreId) tid;
+			System.out.println("TC_ID" + tcid);
 		}
 		else
 		{
@@ -466,6 +467,8 @@ public class AgentContextStub implements TucsonContext
 				dialog.sendEnterRequest(profile);
 				dialog.receiveEnterRequestAnswer();								
 
+				System.out.println("richiesta accettata " + dialog.isEnterRequestAccepted());
+				
 				if (dialog.isEnterRequestAccepted())
 				{
 					//System.out.println("richiesta accettata");
