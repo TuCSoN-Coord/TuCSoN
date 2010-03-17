@@ -486,6 +486,7 @@ public class Inspector extends javax.swing.JFrame
 		}
 		else
 		{
+			specForm.exit();
 			agent.quit();
 			buttonInspect.setText("inspect");
 			disableControlPanel();
