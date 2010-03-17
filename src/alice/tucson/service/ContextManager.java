@@ -77,6 +77,7 @@ public class ContextManager
 			log("context_request: " + req.toString());
 			
 			LogicTuple result = TucsonTCContainer.inp(aid, config, req);
+			log("Context creation result: " + aid + " " + config + " " + req);
 			log("Context creation result: " + result);
 			
 			if (result == null)
@@ -90,6 +91,7 @@ public class ContextManager
 			
 			if (res.getName().equals("failed"))
 			{
+				//System.out.println("failure" + res.getArg(0).getName());
 				profile.setProperty("failure", res.getArg(0).getName());
 				dialog.sendEnterRequestRefused(profile);
 				return false;
