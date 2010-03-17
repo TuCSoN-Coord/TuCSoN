@@ -73,9 +73,9 @@ public class InspectorContextStub implements InspectorContext
 	 */
 	public void acceptVMEvent() throws Exception
 	{		
-		//System.out.println("accept");
+		//System.out.println("readObject " + inStream);		
 		InspectorContextEvent msg = (InspectorContextEvent) inStream.readObject();		
-		//System.out.println("messaggio ricevuto");
+		//System.out.println("messaggio ricevuto " + msg);
 		
 		for (int i = 0; i < contextListeners.size(); i++)
 		{
@@ -164,6 +164,8 @@ public class InspectorContextStub implements InspectorContext
 			TucsonProtocol dialog = new TucsonProtocolTCP(node, 20504);
 			dialog.sendEnterRequest(profile);			
 			dialog.receiveEnterRequestAnswer();			
+			
+			//System.out.println("Richiesta accettata " + dialog.isEnterRequestAccepted());
 			
 			if (dialog.isEnterRequestAccepted())
 			{								
