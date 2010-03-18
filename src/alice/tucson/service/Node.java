@@ -24,8 +24,6 @@ import java.io.*;
 
 import alice.logictuple.*;
 
-import alice.tuplecentre.api.IId;
-import alice.tuplecentre.api.TupleCentreId;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.Theory;
 
