@@ -67,7 +67,7 @@ public class EditSpec extends javax.swing.JFrame
 		tid = tid_;
 		try
 		{
-			context = Tucson.getContext(new TucsonAgentId("inspector_edit_spec"), TucsonAgentLanguageManager.getCurLanguage());
+			context = Tucson.getContext(new TucsonAgentId("inspector_edit_spec_" + System.currentTimeMillis()), TucsonAgentLanguageManager.getCurLanguage());
 		}
 		catch (Exception ex)
 		{
