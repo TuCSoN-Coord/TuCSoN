@@ -1,0 +1,20 @@
+
+reaction(
+			inp(join(Name,UserTC)),
+				request,
+	        (
+	        	no(user(Name,_)),
+	        	out(user(Name,UserTC)),
+	        	out(join(Name,UserTC))
+	        )
+        ).
+
+reaction(
+			out(leave(Name)),
+			(
+    			in(leave(Name)),
+    			in(user(Name,_))
+    		)
+    	).
+
+
