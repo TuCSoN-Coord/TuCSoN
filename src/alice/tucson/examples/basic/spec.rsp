@@ -1,6 +1,6 @@
 
 reaction(
-			out(X),
+			out(X), request,
 	        (
 	        	out(backup(X))
 	        )
