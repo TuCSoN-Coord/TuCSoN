@@ -1,20 +1,9 @@
 
 reaction(
-			inp(join(Name,UserTC)),
-				request,
+			out(X),
 	        (
-	        	no(user(Name,_)),
-	        	out(user(Name,UserTC)),
-	        	out(join(Name,UserTC))
+	        	out(backup(X))
 	        )
         ).
-
-reaction(
-			out(leave(Name)),
-			(
-    			in(leave(Name)),
-    			in(user(Name,_))
-    		)
-    	).
 
 
