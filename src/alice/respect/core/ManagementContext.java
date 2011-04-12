@@ -85,7 +85,7 @@ public class ManagementContext implements IManagementContext {
 	
 	public void setWSet(List<LogicTuple> wSet){
 		
-		//System.out.println("getWSet");
+		System.out.println("getWSet");
 		vm.setWSet(wSet);
 	}
 
