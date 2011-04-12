@@ -1,4 +1,4 @@
-s:- load_library('alice.tucson.api.Tucson2PLibrary').
+:- load_library('alice.tucson.api.Tucson2PLibrary').
 
 
 go:-
