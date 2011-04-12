@@ -1037,10 +1037,10 @@ public boolean inp_2(Term arg0, Term arg1){
     	ie.setTarget(new EnvId((Struct)env));
     	ie.setSource(vm.getId());
     	
-    	if (vm.getTransducerManager().notifyOutputEnv(ie)){
-    		vm.fetchTriggeredReactions(ie);
-    		return true;
-    	}
+//    	if (vm.getTransducerManager().notifyOutputEnv(ie)){
+//    		vm.fetchTriggeredReactions(ie);
+//    		return true;
+//    	}
     	return false;
     }
     
@@ -1051,10 +1051,10 @@ public boolean inp_2(Term arg0, Term arg1){
     	ie.setTarget(new EnvId((Struct)env));
     	ie.setSource(vm.getId());
     	
-    	if (vm.getTransducerManager().notifyOutputEnv(ie)){
-    		vm.fetchTriggeredReactions(ie);
-    		return true;
-    	}
+//    	if (vm.getTransducerManager().notifyOutputEnv(ie)){
+//    		vm.fetchTriggeredReactions(ie);
+//    		return true;
+//    	}
     	return false;
     }
     //
