@@ -1159,9 +1159,9 @@ public class RespectVMContext extends alice.tuplecentre.core.TupleCentreVMContex
     }
 
 
-	public TransducerManager getTransducerManager() {
-		return tm;
-	}
+//	public TransducerManager getTransducerManager() {
+//		return tm;
+//	}
 
 	public List<Tuple> getAllTuples() {
 		List<Tuple> tl = new LinkedList<Tuple>();
