@@ -1,0 +1,5 @@
+
+reaction(out(prova(caso)),(operation,invocation),(
+    current_tuple(T),
+    out(latupla(T)))).
+

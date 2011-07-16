@@ -1,0 +1,127 @@
+reaction(out(boot),true,(
+    in(boot),
+    no(boot_info(_)),
+    current_time(Time),
+    out(boot_info([time(Time)])),
+    out(context_id(0)),
+    out(authorised_agent(_)),
+    out(role(default,'default role')),
+    out(policy(default,'default policy')),
+    out(role_policy(default,default)),
+    out(role_assignment(_,_)))).
+
+
+%
+% context acquire
+%
+reaction( inp(context_request(AgentId,_)),request,(
+  no(authorised_agent(AgentId)),
+  out(context_request(AgentId,failed(agent_not_authorised))))).
+
+reaction( inp(context_request(AgentId,_)),request(
+  rd(open_session(_,AgentId)),
+  no(context_request(AgentId,ok(_))),
+  out(context_request(AgentId,failed(agent_already_present))) )).
+  
+reaction( inp(context_request(AgentId,_)),request,(
+  rd(authorised_agent(AgentId)),
+  in(context_id(Id)),
+  Id1 is Id + 1,
+  out(context_id(Id1)),
+  no(open_session(_,AgentId,_)),
+  out(open_session(Id,AgentId,[])),
+  out(context_request(AgentId,ok(Id))) )).
+
+%
+% context release
+%  
+reaction( inp(context_shutdown(CtxId,AgentId,_)),request,(
+  rd(open_session(CtxId,AgentId,_)),
+  out(context_shutdown(CtxId,AgentId,ok)) )).
+
+reaction( inp(context_shutdown(CtxId,AgentId,ok)),response,(
+  in(open_session(CtxId,AgentId,_)) )).
+
+reaction( inp(context_shutdown(CtxId,AgentId,_)),request,(
+  no(open_session(CtxId,AgentId,_)),
+  out(context_shutdown(CtxId,AgentId,failed(no_valid_context))) )).
+  
+%
+% role activation
+%  
+reaction( inp(role_activation_request(CtxId,RoleId,Result)),request,(
+  in(open_session(CtxId,AgentId,RoleList)),
+  rd(role(RoleId,Descr)),
+  rd(role_assignment(RoleId,AgentId)),
+  out(open_session(CtxId,AgentId,[RoleId|RoleList])),
+  rd(role_policy(RoleId,PolicyId)),
+  rd(policy(PolicyId,Policy)),
+  out( role_activation_request(CtxId,RoleId,ok(Policy))))).
+
+
+
+
+%
+% command management
+%
+
+reaction(in(cmd(X)),response,(
+  out(cmd_pending(X)))).
+  
+reaction(in(cmd_result(X,_)),request,(
+  no(cmd_result(X,_)),
+  no(cmd_pending(X)),
+  out(cmd_result(X,unknown)))).
+  
+reaction(in(cmd_result(X,R)),request,(
+  rd(cmd_pending(X)),
+  out(cmd_result(X,pending)))).
+
+reaction(out(cmd_result(X,R)),(
+  no(cmd_pending(X)),
+  in(cmd_result(X,R)))).
+ 
+reaction(out(cmd_result(X,R)),(
+  in(cmd_pending(X)) )).
+      
+%
+% for persistency management
+%
+reaction(rdp(is_persistent(TC,R)),(  
+  no(is_persistent(TC)),
+  out(is_persistent(TC,false)))).
+  
+reaction(rd(is_persistent(TC,R)),request,(  
+  no(is_persistent(TC)),
+  out(is_persistent(TC,false)))).
+  
+reaction(inp(in_persistent(TC,R)),(  
+  no(is_persistent(TC)),
+  out(is_persistent(TC,false)))).
+
+reaction(in(is_persistent(TC,R)),request,(  
+  no(is_persistent(TC)),
+  out(is_persistent(TC,false)))).
+
+%
+
+reaction(inp(is_persistent(TC,R)),request,(  
+  rd(is_persistent(TC)),
+  R = true,
+  out(is_persistent(TC,true)) )).
+
+reaction(in(is_persistent(TC,R)),request,(  
+  rd(is_persistent(TC)),
+  R = true,
+  out(is_persistent(TC,true)) )).
+
+reaction(rdp(is_persistent(TC,R)),(  
+  rd(is_persistent(TC)),
+  R = true,
+  out(is_persistent(TC,true)) )).
+
+reaction(rd(is_persistent(TC,R)),request,(  
+  rd(is_persistent(TC)),
+  R = true,
+  out(is_persistent(TC,true)) )).
+  
