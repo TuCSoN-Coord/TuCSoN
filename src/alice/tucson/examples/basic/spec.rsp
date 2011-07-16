@@ -1,9 +1,0 @@
-
-reaction(
-			out(p(X)), true,
-	        (
-	        	out(backup(X))
-	        )
-        ).
-
-

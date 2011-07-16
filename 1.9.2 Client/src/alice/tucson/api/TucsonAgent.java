@@ -1,0 +1,102 @@
+/*
+ * TuCSoN coordination infrastructure - Copyright (C) 2001-2002  aliCE team at deis.unibo.it
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+package alice.tucson.api;
+
+import java.util.*;
+
+import alice.tucson.api.exception.TucsonInvalidAgentIdException;
+
+
+
+/**
+ * @ a.pedone for mobile tucson
+ * 
+ */
+public abstract class TucsonAgent implements TucsonOperationCompletionListener
+{
+	private TucsonContext context;
+	private TucsonAgentId aid;
+	@SuppressWarnings("unused")
+	private HashMap <TucsonOpId, ContextEvent> events = null;
+
+	protected TucsonAgent(String aid, String language) throws TucsonInvalidAgentIdException
+	{
+		this.aid = new TucsonAgentId(aid);
+		
+		events = new HashMap <TucsonOpId, ContextEvent>();
+	}
+	
+	protected TucsonAgent(TucsonAgentId aid) throws TucsonInvalidAgentIdException
+	{
+		this.aid = aid;
+		
+		events = new HashMap <TucsonOpId, ContextEvent>();
+	}
+	
+	/**
+	 * Starts agent execution
+	 */
+	final public void spawn()
+	{
+		new AgentThread(this).start();
+	}
+
+	/**
+	 * Body of the agent
+	 */
+	abstract protected void mainPlan();
+
+	public TucsonAgentId getTucsonAgentId()
+	{
+		return aid;
+	}
+	
+	protected TucsonContext getContext()
+	{
+		return context;
+	}
+	
+	protected void setContext(TucsonContext context)
+	{
+		this.context = context;
+	}
+
+	final class AgentThread extends Thread
+	{
+		TucsonAgent agent;
+
+		AgentThread(TucsonAgent agent)
+		{
+			this.agent = agent;
+		}
+
+		final public void run()
+		{
+			try
+			{				
+				agent.setContext(Tucson.getContext(agent.getTucsonAgentId(), null));  //modified
+				agent.mainPlan();
+				agent.getContext().exit();
+			}
+			catch (Exception ex)
+			{
+				ex.printStackTrace();
+			}
+		}
+	}
+}
