@@ -1,0 +1,63 @@
+% ReSpecT specification of tuple centre tcEnvConfig, used with envConfigAgent
+% for the configuration of the environment.
+
+% Used to create a transducer and a sensor. 
+%   Tcid: tuple centre's id
+%   Tclass: transducer's class
+%   Tid: transducer's id
+%   Pclass: probe's class
+%   Pid: probe's id
+reaction(
+    out( createTransducerSensor(Tcid,Tclass,Tid,Pclass,Pid) ),
+    response,
+    out( cmd(createTransducerSensor) )
+).
+
+% Used to create a transducer and an actuator. 
+%   Tcid: tuple centre's id
+%   Tclass: transducer's class
+%   Tid: transducer's id
+%   Pclass: probe's class
+%   Pid: probe's id
+reaction(
+    out( createTransducerActuator(Tcid,Tclass,Tid,Pclass,Pid) ),
+    response,
+    out( cmd(createTransducerActuator) )
+).
+
+% Used to add a sensor. 
+%   Class: sensor's class
+%   Pid: sensor's id
+%   Tid: transducer's id
+reaction(
+    out( addSensor(Class,Pid,Tid) ),
+    response,
+    out( cmd(addSensor) )
+).
+
+% Used to add an actuator. 
+%   Class: actuator's class
+%   Pid: actuator's id
+%   Tid: transducer's id
+reaction(
+    out( addActuator(Class,Pid,Tid) ),
+    response,
+    out( cmd(addActuator) )
+).
+
+% Used to remove a probe. 
+%   Pid: probe's id
+reaction(
+    out( removeResource(Pid) ),
+    response,
+    out( cmd(removeResource) )
+).
+
+% Used to change the transducer associated to a probe. 
+%   Pid: probe's id
+%   Tid: transducer's id
+reaction(
+    out( changeTransducer(Pid,Tid) ),
+    response,
+    out( cmd(changeTransducer) )
+).

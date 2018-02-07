@@ -1,0 +1,298 @@
+reaction(
+    out(boot),
+    true,
+    (
+        in(boot),
+        no(boot_info(_)),
+        current_time(Time),
+        out(boot_info([time(Time)])),
+        out(is_rbac_installed(yes)),
+        out(context_id(0)),
+        out(authorised_agent('$EnvAgent')),
+        out(is_inspection_allowed(yes)),
+        out(is_login_required(no)),
+        out(role_assignment(_,_))
+    )
+).
+
+%
+% Context acquire
+%
+reaction(
+    inp(context_request(AgentId, _, AccUUID)),
+    invocation,
+    (
+        no(authorised_agent(AgentId)),
+        out(context_request(AgentId, failed(agent_not_authorised), AccUUID))
+    )
+).
+
+reaction(
+    inp(context_request(AgentId, _, AccUUID)),
+    invocation,
+    (
+        rd(open_session(Id, AgentId, AccUUID, _)),
+        no(context_request(AgentId, ok(_), AccUUID)),
+        out(context_request(AgentId, ok(Id), AccUUID))
+    )
+).
+
+reaction(
+    inp(context_request(AgentId, _, AccUUID)),
+    invocation,
+    (
+        rd(authorised_agent(AgentId)),
+        in(context_id(Id)),
+        NewId is Id + 1,
+        out(context_id(NewId)),
+        no(open_session(_, AgentId, AccUUID, _)),
+        out(open_session(Id, AgentId, AccUUID, [])),
+        out(context_request(AgentId, ok(Id), AccUUID))
+    )
+). 
+
+%
+% Context release
+%
+reaction(
+    inp(context_shutdown(CtxId, AgentId, _)),
+    invocation,
+    (
+        rd(open_session(CtxId, AgentId, _, _)),
+        out(context_shutdown(CtxId, AgentId, ok))
+    )
+).
+
+reaction(
+    inp(context_shutdown(CtxId, AgentId, ok)),
+    completion,
+    (
+        in(open_session(CtxId, AgentId, _, _))
+    )
+).
+
+reaction(
+    inp(context_shutdown(CtxId, AgentId, _)),
+    invocation,
+    (
+        no(open_session(CtxId, AgentId, _, _)),
+        out(context_shutdown(CtxId, AgentId, failed(no_valid_context)))
+    )
+).
+
+%
+% Role activation
+%
+reaction(
+    inp(role_activation_request(AgentId, AccUUID, RoleId, _)),
+    invocation,
+    (
+        in(open_session(CtxId, AgentId, AccUUID, RolesList)),
+        rd(role(RoleId, Descr)),										% Esiste il ruolo
+        rd(role_assignment(RoleId, AgentId)),
+        out(open_session(CtxId, AgentId, AccUUID, [RoleId|RolesList])),
+        rd(role_policy(RoleId, PolicyId)),
+        rd(policy(PolicyId, PermissionsList)),
+        out(role_activation_request(AgentId, AccUUID, RoleId, ok(PolicyId, PermissionsList)))
+    )
+).
+
+%
+% Policies list request
+%
+reaction(
+    inp(policies_list_request(AgentId, _)),
+    (invocation, operation),
+    (
+    	% in(open_session(CtxId,AgentId,RoleList)),
+        rd_all(policy(PolicyId, PermissionsList), PoliciesList),
+        out(policies_list_request(AgentId, ok(PoliciesList)))
+    )
+).
+		
+reaction(
+    inp(policy_role_request(PolicyId, _)),
+    (invocation, operation),
+    (
+        rd(role_policy(RoleId, PolicyId)),
+        out(policy_role_request(PolicyId, RoleId))
+	)
+).
+	
+reaction(
+    inp(role_policy_request(_, RoleId)),
+    (invocation, operation),
+    (
+        rd(role_policy(RoleId, PolicyId)),
+        out(role_policy_request(PolicyId, RoleId))
+	)
+).
+	
+%
+% Inspection authorisation
+%
+reaction(
+    inp(authorise_inspection(A)),
+    (invocation, operation),
+    (
+        in(is_inspection_allowed(_)),
+        out(is_inspection_allowed(A)),
+        out(authorise_inspection(A))
+    )
+).
+ 
+reaction(
+    inp(are_inspectors_auth(_)),
+    invocation,
+    (
+        rd(is_inspection_allowed(A)),
+        out(are_inspectors_auth(A))
+    )
+). 
+ 
+%
+% Role list
+%
+reaction(
+    inp(available_roles_request(AgentId, Result, ResultsList)),
+	(invocation,operation),
+	(
+		rd_all(role(RoleId, Desc), RolesList),
+		out(create_role_list(RolesList, AgentId, []))
+	)
+).
+	
+%reaction( out(create_role_list([role(RoleId,Desc)|AllRoleList], AgentId, ResultList)),
+%	internal,
+%	(
+%		in(create_role_list(_, AgentId, ResultList)), % tolgo la tupla scatenante la reazione 		
+	
+reaction(
+    out(create_role_list([], AgentId, ResultsList)), % list iterated
+	internal,
+    (
+        in(create_role_list(_, AgentId, ResultsList)), % remove triggering tuple    
+		out(available_roles_request(AgentId, ok(available_roles_request), ResultsList))
+    )
+).
+
+%
+% Commands management
+%
+reaction(
+    in(cmd(X)),
+    completion,
+    (
+        out(cmd_pending(X))
+    )
+).
+
+reaction(
+    in(cmd_result(X, _)),
+    invocation,
+    (
+        no(cmd_result(X, _)),
+        no(cmd_pending(X)),
+        out(cmd_result(X, unknown))
+    )
+).
+
+reaction(
+    in(cmd_result(X, R)),
+    invocation,
+    (
+        rd(cmd_pending(X)),
+        out(cmd_result(X, pending))
+    )
+).
+
+reaction(
+    out(cmd_result(X, R)),
+    (
+        no(cmd_pending(X)),
+        in(cmd_result(X, R))
+    )
+).
+
+reaction(
+    out(cmd_result(X, R)),
+    (
+        in(cmd_pending(X))
+    )
+).
+
+%
+% Persistency management
+%
+reaction(
+    rdp(is_persistent(TC, R)),
+    (
+        no(is_persistent(TC)),
+        out(is_persistent(TC, false))
+    )
+).
+
+reaction(
+    rd(is_persistent(TC, R)),
+    invocation,
+    (
+        no(is_persistent(TC)),
+        out(is_persistent(TC, false))
+    )
+).
+
+reaction(
+    inp(in_persistent(TC, R)),
+    (
+        no(is_persistent(TC)),
+        out(is_persistent(TC, false))
+    )
+).
+
+reaction(
+    in(is_persistent(TC, R)),
+    invocation,
+    (
+        no(is_persistent(TC)),
+        out(is_persistent(TC, false))
+    )
+).
+
+reaction(
+    inp(is_persistent(TC, R)),
+    invocation,
+    (
+        rd(is_persistent(TC)),
+        R = true,
+        out(is_persistent(TC, true)
+    )
+).
+
+reaction(
+    in(is_persistent(TC, R)),
+    invocation,
+    (
+        rd(is_persistent(TC)),
+        R = true,
+        out(is_persistent(TC, true))
+    )
+).
+
+reaction(
+    rdp(is_persistent(TC, R)),
+    (
+        rd(is_persistent(TC)),
+        R = true,
+        out(is_persistent(TC, true))
+    )
+).
+
+reaction(
+    rd(is_persistent(TC, R)),
+    invocation,
+    (
+        rd(is_persistent(TC)),
+        R = true,
+        out(is_persistent(TC, true))
+    )
+).

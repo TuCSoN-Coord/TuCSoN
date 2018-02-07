@@ -1,0 +1,58 @@
+% Timestamp new items from agents.
+reaction(
+	out(aggregate(filter('newest'), INFO)),
+	(operation, invocation),
+	(
+		event_time(TIME),
+		out(aggregate(filter('newest'), INFO, TIME))
+	)
+).
+% Timestamp new items from other tcs.
+reaction(
+	out(aggregate(filter('newest'), INFO)),
+	(from_tc),
+	(
+		event_time(TIME),
+		in(aggregate(filter('newest'), INFO)),
+		out(aggregate(filter('newest'), INFO, TIME))
+	)
+).
+% Delete garbage tuple.
+reaction(
+	out(aggregate(filter('newest'), INFO)),
+	(completion),
+	(
+		in(aggregate(filter('newest'), INFO))
+	)
+).
+% Aggregate any incoming item (agents' one is forwarded by tc itself).
+reaction(
+	out(aggregate(filter('newest'), INFO, _)),
+	(from_tc),
+	(
+		rd_all(aggregate(filter('newest'), INFO, _), LIST),
+		length(LIST, L),
+		L > 1,
+		in_all(aggregate(filter('newest'), INFO, _), LIST),
+		newest(LIST, NEW),
+		out(NEW)
+	)
+).
+% Do not aggregate if item is singleton.
+reaction(
+	out(aggregate(filter('newest'), INFO, _)),
+	(from_tc),
+	(
+		rd_all(aggregate(filter('newest'), INFO, _), LIST),
+		length(LIST, L),
+		L =< 1
+	)
+).
+% Find newest item.
+newest([aggregate(filter('newest'), INFO, TIME)|TAIL], NEW):- 
+	newest(TAIL, aggregate(filter('newest'), INFO, TIME), TIME, NEW).
+newest([], NEW, _, NEW).
+newest([aggregate(filter('newest'), INFO, TIME)|TAIL], TEMP, T, NEW):- TIME > T, 
+	newest(TAIL, aggregate(filter('newest'), INFO, TIME), TIME, NEW).
+newest([aggregate(filter('newest'), INFO, TIME)|TAIL], TEMP, T, NEW):- TIME =< T, 
+	newest(TAIL, TEMP, T, NEW).

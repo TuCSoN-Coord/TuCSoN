@@ -1,0 +1,17 @@
+% When requested to stimulate the sensor to perceive the enviroment, do so
+% exploiting ReSpecT situatedness.
+reaction(
+    in(sense(temp(T))),
+    (operation, invocation),
+    (
+        sensor@localhost:20504 ? getEnv(temp, T)
+    )
+).
+% Delete garbage tuple.
+reaction(
+    getEnv(temp, T),
+    (from_env, completion),
+    (
+        out(sense(temp(T)))
+    )
+).
