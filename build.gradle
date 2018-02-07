@@ -13,7 +13,7 @@ repositories {
 dependencies {
 
     // https://mvnrepository.com/artifact/it.unibo.alice.tuprolog/tuprolog
-    //implementation group: 'it.unibo.alice.tuprolog', name: 'tuprolog', version: '3.2.1'
+    implementation group: 'it.unibo.alice.tuprolog', name: 'tuprolog', version: '3.2.1'
 
     //TODO meglio avere un riferimento ad una libreria online (quella qui sopra non contiene tutte le classi necessarie)
     implementation fileTree(dir: 'src/main/resources', include: '*.jar')
