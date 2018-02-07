@@ -17,10 +17,11 @@
  *    along with MoK.  If not, see <https://www.gnu.org/licenses/lgpl.html>.
  *
  */
-package alice.tucson.examples.uniform.swarms.launchers;
+package uniform.swarms.launchers;
 
-import alice.tucson.examples.uniform.swarms.ants.Swarm;
-import alice.tucson.examples.uniform.swarms.gui.GUI;
+
+import uniform.swarms.ants.Swarm;
+import uniform.swarms.gui.GUI;
 
 /**
  * @author Stefano Mariani (mailto: s [dot] mariani [at] unibo [dot] it)

@@ -1,4 +1,4 @@
-package alice.tucson.examples.masterWorkers.bulk;
+package masterWorkers.bulk;
 
 import java.math.BigInteger;
 import java.util.LinkedList;

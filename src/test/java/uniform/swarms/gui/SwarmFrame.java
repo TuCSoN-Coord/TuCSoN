@@ -1,7 +1,7 @@
 /**
  *
  */
-package alice.tucson.examples.uniform.swarms.gui;
+package uniform.swarms.gui;
 
 import javax.swing.JFrame;
 

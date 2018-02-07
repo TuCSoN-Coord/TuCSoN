@@ -1,4 +1,4 @@
-package alice.tucson.examples.respect.bagOfTask;
+package respect.bagOfTask;
 
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 

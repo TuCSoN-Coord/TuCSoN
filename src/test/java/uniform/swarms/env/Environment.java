@@ -1,4 +1,4 @@
-package alice.tucson.examples.uniform.swarms.env;
+package uniform.swarms.env;
 
 import java.io.IOException;
 import alice.logictuple.LogicTuple;

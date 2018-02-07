@@ -1,4 +1,4 @@
-package alice.tucson.examples.messagePassing;
+package messagePassing;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;

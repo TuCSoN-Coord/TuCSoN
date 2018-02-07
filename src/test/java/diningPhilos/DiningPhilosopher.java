@@ -1,4 +1,4 @@
-package alice.tucson.examples.diningPhilos;
+package diningPhilos;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;

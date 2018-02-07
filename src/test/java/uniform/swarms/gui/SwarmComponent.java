@@ -17,7 +17,7 @@
  *    along with MoK.  If not, see <https://www.gnu.org/licenses/lgpl.html>.
  *
  */
-package alice.tucson.examples.uniform.swarms.gui;
+package uniform.swarms.gui;
 
 import java.awt.BasicStroke;
 import java.awt.Font;

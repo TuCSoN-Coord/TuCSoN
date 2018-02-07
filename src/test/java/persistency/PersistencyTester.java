@@ -1,7 +1,7 @@
 /**
  * Crated by ste on 07/giu/2014
  */
-package alice.tucson.examples.persistency;
+package persistency;
 
 import java.io.IOException;
 import alice.logictuple.LogicTuple;

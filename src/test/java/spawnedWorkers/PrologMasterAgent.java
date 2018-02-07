@@ -1,7 +1,7 @@
 /**
  * PrologMasterAgent.java
  */
-package alice.tucson.examples.spawnedWorkers;
+package spawnedWorkers;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

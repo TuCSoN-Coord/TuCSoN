@@ -1,4 +1,4 @@
-package alice.tucson.examples.timedDiningPhilos;
+package timedDiningPhilos;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;

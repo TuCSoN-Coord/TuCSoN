@@ -1,4 +1,4 @@
-package alice.tucson.examples.helloWorld;
+package helloWorld;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;

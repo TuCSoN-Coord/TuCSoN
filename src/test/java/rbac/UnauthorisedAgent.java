@@ -23,7 +23,7 @@
  *
  */
 
-package alice.tucson.examples.rbac;
+package rbac;
 
 import java.util.ArrayList;
 import java.util.List;

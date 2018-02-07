@@ -1,7 +1,7 @@
 /**
  *
  */
-package alice.tucson.examples.uniform.swarms.utils;
+package uniform.swarms.utils;
 
 import alice.tucson.service.TucsonNodeService;
 

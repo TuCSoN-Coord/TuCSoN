@@ -1,7 +1,7 @@
 /**
  *
  */
-package alice.tucson.examples.uniform.swarms.ants;
+package uniform.swarms.ants;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

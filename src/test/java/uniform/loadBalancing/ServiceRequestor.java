@@ -1,4 +1,4 @@
-package alice.tucson.examples.uniform.loadBalancing;
+package uniform.loadBalancing;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;

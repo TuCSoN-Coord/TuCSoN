@@ -17,7 +17,7 @@
  *    along with MoK.  If not, see <https://www.gnu.org/licenses/lgpl.html>.
  *
  */
-package alice.tucson.examples.uniform.dice;
+package uniform.dice;
 
 import java.util.HashMap;
 import java.util.Map;

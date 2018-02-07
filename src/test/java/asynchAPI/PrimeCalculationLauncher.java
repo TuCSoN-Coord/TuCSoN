@@ -17,7 +17,7 @@
  *    along with TuCSoN.  If not, see <https://www.gnu.org/licenses/lgpl.html>.
  *
  */
-package alice.tucson.examples.asynchAPI;
+package asynchAPI;
 
 import java.util.logging.Logger;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;

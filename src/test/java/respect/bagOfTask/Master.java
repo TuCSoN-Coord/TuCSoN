@@ -1,4 +1,4 @@
-package alice.tucson.examples.respect.bagOfTask;
+package respect.bagOfTask;
 
 import java.util.Random;
 import alice.logictuple.LogicTuple;

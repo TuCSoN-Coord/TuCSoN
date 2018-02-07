@@ -1,7 +1,7 @@
 /**
  * SensorTransducer.java
  */
-package alice.tucson.examples.situatedness;
+package situatedness;
 
 import alice.respect.situatedness.AbstractTransducer;
 import alice.respect.situatedness.ISimpleProbe;

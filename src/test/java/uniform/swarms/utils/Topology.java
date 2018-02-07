@@ -17,7 +17,7 @@
  *    along with MoK.  If not, see <https://www.gnu.org/licenses/lgpl.html>.
  *
  */
-package alice.tucson.examples.uniform.swarms.utils;
+package uniform.swarms.utils;
 
 import java.util.Properties;
 

@@ -1,14 +1,14 @@
 /**
  *
  */
-package alice.tucson.examples.uniform.swarms.launchers;
+package uniform.swarms.launchers;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import alice.tucson.examples.uniform.swarms.ants.Swarm;
-import alice.tucson.examples.uniform.swarms.env.Environment;
-import alice.tucson.examples.uniform.swarms.gui.GUI;
-import alice.tucson.examples.uniform.swarms.utils.Topology;
+import uniform.swarms.ants.Swarm;
+import uniform.swarms.env.Environment;
+import uniform.swarms.gui.GUI;
+import uniform.swarms.utils.Topology;
 
 /**
  * @author ste

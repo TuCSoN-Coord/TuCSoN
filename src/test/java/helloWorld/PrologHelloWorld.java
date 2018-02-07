@@ -1,7 +1,7 @@
 /**
  * PrologAgentTest.java
  */
-package alice.tucson.examples.helloWorld;
+package helloWorld;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;

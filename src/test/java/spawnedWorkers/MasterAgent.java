@@ -1,4 +1,4 @@
-package alice.tucson.examples.spawnedWorkers;
+package spawnedWorkers;
 
 import java.util.HashMap;
 import java.util.LinkedList;

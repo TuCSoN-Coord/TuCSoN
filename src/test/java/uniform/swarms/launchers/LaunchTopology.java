@@ -17,11 +17,12 @@
  *    along with MoK.  If not, see <https://www.gnu.org/licenses/lgpl.html>.
  *
  */
-package alice.tucson.examples.uniform.swarms.launchers;
+package uniform.swarms.launchers;
+
+import uniform.swarms.utils.Topology;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import alice.tucson.examples.uniform.swarms.utils.Topology;
 
 /**
  * @author Stefano Mariani (mailto: s [dot] mariani [at] unibo [dot] it)

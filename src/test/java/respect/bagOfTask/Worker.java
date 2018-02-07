@@ -1,4 +1,4 @@
-package alice.tucson.examples.respect.bagOfTask;
+package respect.bagOfTask;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;

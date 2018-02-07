@@ -1,4 +1,4 @@
-package alice.tucson.examples.masterWorkers;
+package masterWorkers;
 
 import java.util.HashMap;
 import java.util.LinkedList;

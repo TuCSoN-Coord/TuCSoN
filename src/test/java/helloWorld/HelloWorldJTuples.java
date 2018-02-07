@@ -1,7 +1,7 @@
 /**
  * HelloWorldJTuples.java
  */
-package alice.tucson.examples.helloWorld;
+package helloWorld;
 
 import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.NegotiationACC;

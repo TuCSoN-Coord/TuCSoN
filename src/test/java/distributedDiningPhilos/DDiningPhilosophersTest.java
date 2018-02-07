@@ -1,4 +1,4 @@
-package alice.tucson.examples.distributedDiningPhilos;
+package distributedDiningPhilos;
 
 import java.io.IOException;
 import alice.logictuple.LogicTuple;

@@ -1,4 +1,4 @@
-package alice.tucson.examples.rpc;
+package rpc;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;

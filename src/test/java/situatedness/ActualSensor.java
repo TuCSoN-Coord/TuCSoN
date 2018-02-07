@@ -1,7 +1,7 @@
 /**
  * ActualSensor.java
  */
-package alice.tucson.examples.situatedness;
+package situatedness;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;

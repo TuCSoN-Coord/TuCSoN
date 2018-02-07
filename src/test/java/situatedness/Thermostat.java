@@ -1,7 +1,7 @@
 /**
  * Thermostat.java
  */
-package alice.tucson.examples.situatedness;
+package situatedness;
 
 import java.io.IOException;
 import alice.logictuple.LogicTuple;
