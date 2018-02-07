@@ -1,63 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="737f48cd-5494-4419-a2eb-bbf566e36721" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/src/test/java/asynchAPI/MasterAgent.java" afterPath="$PROJECT_DIR$/src/test/java/asynchAPI/MasterAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/asynchAPI/PrimeCalculationLauncher.java" afterPath="$PROJECT_DIR$/src/test/java/asynchAPI/PrimeCalculationLauncher.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/asynchAPI/PrimeCalculator.java" afterPath="$PROJECT_DIR$/src/test/java/asynchAPI/PrimeCalculator.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/diningPhilos/DiningPhilosopher.java" afterPath="$PROJECT_DIR$/src/test/java/diningPhilos/DiningPhilosopher.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/diningPhilos/DiningPhilosophersTest.java" afterPath="$PROJECT_DIR$/src/test/java/diningPhilos/DiningPhilosophersTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/distributedDiningPhilos/DDiningPhilosophersTest.java" afterPath="$PROJECT_DIR$/src/test/java/distributedDiningPhilos/DDiningPhilosophersTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/distributedDiningPhilos/DiningPhilosopher.java" afterPath="$PROJECT_DIR$/src/test/java/distributedDiningPhilos/DiningPhilosopher.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/helloWorld/HelloWorld.java" afterPath="$PROJECT_DIR$/src/test/java/helloWorld/HelloWorld.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/helloWorld/HelloWorldAgent.java" afterPath="$PROJECT_DIR$/src/test/java/helloWorld/HelloWorldAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/helloWorld/HelloWorldJTuples.java" afterPath="$PROJECT_DIR$/src/test/java/helloWorld/HelloWorldJTuples.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/helloWorld/PrologHelloWorld.java" afterPath="$PROJECT_DIR$/src/test/java/helloWorld/PrologHelloWorld.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/masterWorkers/MasterAgent.java" afterPath="$PROJECT_DIR$/src/test/java/masterWorkers/MasterAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/masterWorkers/WorkerAgent.java" afterPath="$PROJECT_DIR$/src/test/java/masterWorkers/WorkerAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/masterWorkers/bulk/MasterAgent.java" afterPath="$PROJECT_DIR$/src/test/java/masterWorkers/bulk/MasterAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/masterWorkers/bulk/WorkerAgent.java" afterPath="$PROJECT_DIR$/src/test/java/masterWorkers/bulk/WorkerAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/messagePassing/ReceiverAgent.java" afterPath="$PROJECT_DIR$/src/test/java/messagePassing/ReceiverAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/messagePassing/SenderAgent.java" afterPath="$PROJECT_DIR$/src/test/java/messagePassing/SenderAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/persistency/PersistencyTester.java" afterPath="$PROJECT_DIR$/src/test/java/persistency/PersistencyTester.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/rbac/AdminAgent.java" afterPath="$PROJECT_DIR$/src/test/java/rbac/AdminAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/rbac/AuthorisedAgent.java" afterPath="$PROJECT_DIR$/src/test/java/rbac/AuthorisedAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/rbac/RBACLauncher.java" afterPath="$PROJECT_DIR$/src/test/java/rbac/RBACLauncher.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/rbac/UnauthorisedAgent.java" afterPath="$PROJECT_DIR$/src/test/java/rbac/UnauthorisedAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/respect/bagOfTask/BagOfTaskTest.java" afterPath="$PROJECT_DIR$/src/test/java/respect/bagOfTask/BagOfTaskTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/respect/bagOfTask/Master.java" afterPath="$PROJECT_DIR$/src/test/java/respect/bagOfTask/Master.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/respect/bagOfTask/Worker.java" afterPath="$PROJECT_DIR$/src/test/java/respect/bagOfTask/Worker.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/rpc/CalleeAgent.java" afterPath="$PROJECT_DIR$/src/test/java/rpc/CalleeAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/rpc/CallerAgent.java" afterPath="$PROJECT_DIR$/src/test/java/rpc/CallerAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/situatedness/ActualActuator.java" afterPath="$PROJECT_DIR$/src/test/java/situatedness/ActualActuator.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/situatedness/ActualSensor.java" afterPath="$PROJECT_DIR$/src/test/java/situatedness/ActualSensor.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/situatedness/ActuatorTransducer.java" afterPath="$PROJECT_DIR$/src/test/java/situatedness/ActuatorTransducer.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/situatedness/SensorTransducer.java" afterPath="$PROJECT_DIR$/src/test/java/situatedness/SensorTransducer.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/situatedness/Thermostat.java" afterPath="$PROJECT_DIR$/src/test/java/situatedness/Thermostat.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/spawnedWorkers/MasterAgent.java" afterPath="$PROJECT_DIR$/src/test/java/spawnedWorkers/MasterAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/spawnedWorkers/PrologMasterAgent.java" afterPath="$PROJECT_DIR$/src/test/java/spawnedWorkers/PrologMasterAgent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/spawnedWorkers/SpawnedWorkingActivity.java" afterPath="$PROJECT_DIR$/src/test/java/spawnedWorkers/SpawnedWorkingActivity.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/timedDiningPhilos/DiningPhilosopher.java" afterPath="$PROJECT_DIR$/src/test/java/timedDiningPhilos/DiningPhilosopher.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/timedDiningPhilos/TDiningPhilosophersTest.java" afterPath="$PROJECT_DIR$/src/test/java/timedDiningPhilos/TDiningPhilosophersTest.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/dice/DicePlayer.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/dice/DicePlayer.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/loadBalancing/ServiceProvider.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/loadBalancing/ServiceProvider.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/loadBalancing/ServiceRequestor.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/loadBalancing/ServiceRequestor.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/ants/Ant.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/ants/Ant.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/ants/Swarm.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/ants/Swarm.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/env/Environment.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/env/Environment.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/gui/GUI.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/gui/GUI.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/gui/SwarmComponent.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/gui/SwarmComponent.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/gui/SwarmFrame.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/gui/SwarmFrame.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/gui/SwarmListener.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/gui/SwarmListener.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/gui/SwarmMonitor.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/gui/SwarmMonitor.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchEnvironment.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchEnvironment.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchSwarmWithGUI.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchSwarmWithGUI.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchSwarmsScenario.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchSwarmsScenario.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchTopology.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchTopology.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/utils/Boot.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/utils/Boot.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/utils/Installer.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/utils/Installer.java" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/uniform/swarms/utils/Topology.java" afterPath="$PROJECT_DIR$/src/test/java/uniform/swarms/utils/Topology.java" />
-    </list>
+    <list default="true" id="737f48cd-5494-4419-a2eb-bbf566e36721" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -74,24 +18,12 @@
     </projectState>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="DiningPhilosophersTest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/diningPhilos/DiningPhilosophersTest.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="956">
-              <caret line="42" column="35" lean-forward="false" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="750">
       <file leaf-file-name="LaunchTopology.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchTopology.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="33" column="40" lean-forward="true" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
+            <state relative-caret-position="0">
+              <caret line="33" column="40" lean-forward="false" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -102,7 +34,7 @@
       <file leaf-file-name="LaunchSwarmWithGUI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchSwarmWithGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="760">
+            <state relative-caret-position="720">
               <caret line="37" column="11" lean-forward="false" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -121,10 +53,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LaunchEnvironment.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LaunchEnvironment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchEnvironment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="640">
+            <state relative-caret-position="600">
               <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
               <folding>
                 <element signature="e#1122#1123#0" expanded="true" />
@@ -134,10 +66,62 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DiningPhilosopher.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/java/diningPhilos/DiningPhilosopher.java">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-840">
+            <state relative-caret-position="80">
+              <caret line="2" column="11" lean-forward="false" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sd-project-siboni-piscaglia-1718.iml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sd-project-siboni-piscaglia-1718.iml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.gradle" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/settings.gradle">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gradlew.bat" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gradlew.bat">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="400">
+              <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3000">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="gradlew" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/gradlew">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -482,9 +466,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
@@ -496,57 +479,13 @@
             <path>
               <item name="sd-project-siboni-piscaglia-1718" type="b2602c69:ProjectViewProjectNode" />
               <item name="sd-project-siboni-piscaglia-1718" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sd-project-siboni-piscaglia-1718" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sd-project-siboni-piscaglia-1718" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="sd-project-siboni-piscaglia-1718" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sd-project-siboni-piscaglia-1718" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sd-project-siboni-piscaglia-1718" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sd-project-siboni-piscaglia-1718" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="uniform" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sd-project-siboni-piscaglia-1718" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sd-project-siboni-piscaglia-1718" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="uniform" type="462c0819:PsiDirectoryNode" />
-              <item name="swarms" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sd-project-siboni-piscaglia-1718" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sd-project-siboni-piscaglia-1718" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="sd-project-siboni-piscaglia-1718" type="b2602c69:ProjectViewProjectNode" />
-              <item name="sd-project-siboni-piscaglia-1718" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="env" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -678,40 +617,41 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2030000" />
+    <option name="totallyTimeSpent" value="2127000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3872" height="2092" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948294" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32948294" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25729167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13146314" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25729167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13146314" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -725,17 +665,9 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/test/java/diningPhilos/DiningPhilosopher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-840">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/diningPhilos/DiningPhilosophersTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="956">
+        <state relative-caret-position="1080">
           <caret line="42" column="35" lean-forward="false" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -745,8 +677,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchTopology.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="33" column="40" lean-forward="true" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
+        <state relative-caret-position="480">
+          <caret line="33" column="40" lean-forward="false" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -755,7 +687,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchSwarmWithGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="760">
+        <state relative-caret-position="720">
           <caret line="37" column="11" lean-forward="false" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -773,12 +705,216 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchEnvironment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="640">
+        <state relative-caret-position="600">
           <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
           <folding>
             <element signature="e#1122#1123#0" expanded="true" />
             <element signature="e#1158#1159#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="2" column="11" lean-forward="false" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sd-project-siboni-piscaglia-1718.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradlew">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradlew.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/diningPhilos/DiningPhilosopher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-840">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/diningPhilos/DiningPhilosophersTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1080">
+          <caret line="42" column="35" lean-forward="false" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchTopology.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="33" column="40" lean-forward="false" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchSwarmWithGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="37" column="11" lean-forward="false" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchSwarmsScenario.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchEnvironment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+          <folding>
+            <element signature="e#1122#1123#0" expanded="true" />
+            <element signature="e#1158#1159#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="2" column="11" lean-forward="false" selection-start-line="2" selection-start-column="11" selection-end-line="2" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradlew">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sd-project-siboni-piscaglia-1718.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="3" column="22" lean-forward="false" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/settings.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/diningPhilos/DiningPhilosopher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-840">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/diningPhilos/DiningPhilosophersTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="956">
+          <caret line="42" column="35" lean-forward="false" selection-start-line="42" selection-start-column="35" selection-end-line="42" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchTopology.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="33" column="40" lean-forward="false" selection-start-line="33" selection-start-column="40" selection-end-line="33" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchSwarmWithGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="37" column="11" lean-forward="false" selection-start-line="37" selection-start-column="11" selection-end-line="37" selection-end-column="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchSwarmsScenario.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/uniform/swarms/launchers/LaunchEnvironment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="600">
+          <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+          <folding>
+            <element signature="e#1122#1123#0" expanded="true" />
+            <element signature="e#1158#1159#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gradlew.bat">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="400">
+          <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3000">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
