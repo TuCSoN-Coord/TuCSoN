@@ -4,21 +4,26 @@
 
 apply plugin: 'java'
 apply plugin: 'java-library'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
 
     // https://mvnrepository.com/artifact/it.unibo.alice.tuprolog/tuprolog
-    implementation group: 'it.unibo.alice.tuprolog', name: 'tuprolog', version: '3.2.1'
+    compile group: 'it.unibo.alice.tuprolog', name: 'tuprolog', version: '3.2.1'
 
     //TODO meglio avere un riferimento ad una libreria online (quella qui sopra non contiene tutte le classi necessarie)
-    implementation fileTree(dir: 'src/main/resources', include: '*.jar')
+    //build fileTree(dir: 'src/main/resources', include: '*.jar')
+    // La cartella src/main/resources non va bene per contenere le dipendenze... ricordatemi di spiegarvi il perchè
+    compile fileTree(dir: 'libs', include: '*.jar')
 
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'
+    testCompile 'junit:junit:4.12'
 }
 
