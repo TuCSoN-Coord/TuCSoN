@@ -14,13 +14,17 @@
 package alice.tucson.introspection.tools;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import javax.swing.text.BadLocationException;
+
 import alice.tucson.api.EnhancedACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
@@ -39,7 +43,7 @@ public class EditSpec extends javax.swing.JFrame {
     private static final long serialVersionUID = 2491540632593263750L;
     private javax.swing.JTextField caretPosition;
     private EnhancedACC context;
-    private final alice.util.jedit.JEditTextArea inputSpec;
+    private final JTextArea inputSpec;
     private javax.swing.JTextField outputState;
     private String specFileName = "default.rsp";
     private final TucsonTupleCentreId tid;
@@ -55,9 +59,8 @@ public class EditSpec extends javax.swing.JFrame {
         this.initComponents();
         this.setTitle("ReSpecT specification tuples of tuplecentre < "
                 + t.getName() + "@" + t.getNode() + ":" + t.getPort() + " >");
-        this.inputSpec = new alice.util.jedit.JEditTextArea(
-                new SpecificationTextArea());
-        this.inputSpec.setTokenMarker(new SpecificationTokenMarker());
+        this.inputSpec = new JTextArea("% Write your respect reactions below\n");
+        this.inputSpec.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         this.inputSpec.setPreferredSize(new java.awt.Dimension(800, 600));
         final java.awt.GridBagConstraints gridBagConstraints1 = new java.awt.GridBagConstraints();
         gridBagConstraints1.gridx = 0;
@@ -71,8 +74,23 @@ public class EditSpec extends javax.swing.JFrame {
 
             @Override
             public void caretUpdate(final javax.swing.event.CaretEvent evt) {
-                EditSpec.this.caretPosition.setText("line "
-                        + (EditSpec.this.inputSpec.getCaretLine() + 1) + "   ");
+            	JTextArea editArea = (JTextArea)evt.getSource();
+
+                int linenum = 1;
+                int columnnum = 1;
+
+                    int caretpos = editArea.getCaretPosition();
+                    try {
+						linenum = editArea.getLineOfOffset(caretpos);
+	                    columnnum = caretpos - editArea.getLineStartOffset(linenum);
+
+	                    linenum += 1;
+	                    
+	                    caretPosition.setText(String.format("%s | %s", linenum, columnnum));
+					} catch (BadLocationException e) {
+						caretPosition.setText("- | -");
+					}
+
             }
         });
         this.pack();

@@ -17,11 +17,12 @@ dependencies {
 
     // https://mvnrepository.com/artifact/it.unibo.alice.tuprolog/tuprolog
     compile group: 'it.unibo.alice.tuprolog', name: 'tuprolog', version: '3.2.1'
+	
 
     //TODO meglio avere un riferimento ad una libreria online (quella qui sopra non contiene tutte le classi necessarie)
     //build fileTree(dir: 'src/main/resources', include: '*.jar')
     // La cartella src/main/resources non va bene per contenere le dipendenze... ricordatemi di spiegarvi il perchè
-    compile fileTree(dir: 'libs', include: '*.jar')
+    // compile fileTree(dir: 'libs', include: '*.jar')
 
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'

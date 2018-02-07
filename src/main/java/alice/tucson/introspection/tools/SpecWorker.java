@@ -14,6 +14,9 @@
 package alice.tucson.introspection.tools;
 
 import java.util.List;
+
+import javax.swing.JTextArea;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.EnhancedACC;
@@ -22,7 +25,7 @@ import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.util.jedit.JEditTextArea;
+//import alice.util.jedit.JEditTextArea;
 
 /**
  * @author Roberto D'Elia
@@ -59,14 +62,14 @@ public class SpecWorker extends Thread {
 
     private final EnhancedACC context;
     private final EditSpec form;
-    private final JEditTextArea inputSpec;
+    private final JTextArea inputSpec;
     /** Kind of operation */
     private final String operation;
     private final TucsonTupleCentreId tid;
 
     public SpecWorker(final String op, final EnhancedACC c,
             final TucsonTupleCentreId ttcid, final EditSpec editSpec,
-            final JEditTextArea input) {
+            final JTextArea input) {
         this.operation = op;
         this.context = c;
         this.tid = ttcid;
