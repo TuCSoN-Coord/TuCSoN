@@ -328,8 +328,6 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Close all open forms on exit (Inspector itself too).
      *
-     * @param evt
-     *            closing window event.
      */
     private void exitForm() {
         if (this.isSessionOpen) {
@@ -707,8 +705,6 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Handles 'pending query' button.
      *
-     * @param evt
-     *            'pending' button pushing event.
      */
     private void pendingBtnActionPerformed() {
         this.protocol
@@ -724,8 +720,6 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Handles 'edit specification space' button.
      *
-     * @param evt
-     *            'specification' button pushing event.
      */
     private void specBtnActionPerformed() {
         this.specForm.setVisible(true);
@@ -760,8 +754,6 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Handles 'inspect triggered reactions' button.
      *
-     * @param evt
-     *            'reaction' button pushing event.
      */
     private void trigReactsBtnActionPerformed() {
         this.protocol
@@ -777,8 +769,6 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Handles 'inspect tuples' button.
      *
-     * @param evt
-     *            'tuples' button pushing event.
      */
     private void tuplesBtnActionPerformed() {
         this.protocol

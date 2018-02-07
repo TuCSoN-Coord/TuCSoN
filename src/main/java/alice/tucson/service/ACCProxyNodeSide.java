@@ -13,7 +13,6 @@
  */
 package alice.tucson.service;
 
-import java.net.SocketException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -34,10 +33,7 @@ import alice.tucson.introspection.ShutdownMsg;
 import alice.tucson.network.AbstractTucsonProtocol;
 import alice.tucson.network.TucsonMsgReply;
 import alice.tucson.network.TucsonMsgRequest;
-import alice.tucson.network.exceptions.DialogCloseException;
 import alice.tucson.network.exceptions.DialogException;
-import alice.tucson.network.exceptions.DialogReceiveException;
-import alice.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.api.ITupleCentreOperation;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -506,8 +502,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     }
     
     /**
-     * 
-     * @param p
+     *
      * @param opType
      * @param tuple
      * @return

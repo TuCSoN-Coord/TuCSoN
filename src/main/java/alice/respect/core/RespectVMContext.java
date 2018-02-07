@@ -1737,8 +1737,8 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	}
 
 	/**
-	 * @param toAdd
-	 * @param addition2
+	 * @param update
+	 * @param mode
 	 */
 	private void writePersistencyUpdate(final LogicTuple update, final ModType mode) {
 		// this.log("update = " + update + ", mode = " + mode);

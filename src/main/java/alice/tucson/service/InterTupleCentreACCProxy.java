@@ -33,8 +33,6 @@ import alice.tucson.network.TucsonMsgRequest;
 import alice.tucson.network.TucsonProtocolTCP;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogInitializationException;
-import alice.tucson.network.exceptions.DialogReceiveException;
-import alice.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -62,7 +60,7 @@ OperationCompletionListener {
 
         /**
          *
-         * @param input
+         * @param d
          */
         Controller(final AbstractTucsonProtocol d) {
             super();
