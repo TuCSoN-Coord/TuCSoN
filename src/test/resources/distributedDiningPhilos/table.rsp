@@ -1,0 +1,48 @@
+reaction(
+    out(chops(C1,C2)),
+    (link_in, completion),
+    (
+        in(chops(C1,C2)),
+        out(chop(C1)),
+        out(chop(C2))
+    )
+).
+reaction(
+    in(chops(C1,C2)),
+    (link_in, invocation),
+    out(required(C1,C2))
+).
+reaction(
+    in(chops(C1,C2)),
+    (link_in, completion),
+    in(required(C1,C2))
+).
+reaction(
+    out(required(C1,C2)),
+    internal,
+    (
+        in(chop(C1)),
+        in(chop(C2)),
+        out(chops(C1,C2))
+    )
+).
+reaction(
+    out(chop(C)),
+    internal,
+    (
+        rd(required(C,C2)),
+        in(chop(C)),
+        in(chop(C2)),
+        out(chops(C,C2))
+    )
+).
+reaction(
+    out(chop(C)),
+    internal,
+    (
+        rd(required(C1,C)),
+        in(chop(C1)),
+        in(chop(C)),
+        out(chops(C1,C))
+    )
+).

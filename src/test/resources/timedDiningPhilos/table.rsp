@@ -1,0 +1,86 @@
+% 1) Whenever an agent asks for chops, trigger reaction 3
+reaction(
+    in(chops(C1,C2)),
+    (invocation, operation),
+    out(required(C1,C2))
+).
+% 2) Whenever an agent obtains its chops, clean up tuples used for coordination
+%    purpose
+reaction(
+    in(chops(C1,C2)),
+    (completion, operation),
+    in(required(C1,C2))
+).
+% 3) Only if this event is self-generated, try to acquire chops on behalf of
+%    the asking agent (who triggered reaction 1)
+reaction(
+    out(required(C1,C2)),
+    internal,
+    (
+        in(chop(C1)),
+        in(chop(C2)),
+        out(chops(C1,C2))
+    )
+).
+% 4a) Old reaction 4 splitted in two phases: phase-1) don't make chops suddenly
+%     available
+reaction(
+    out(chops(C1,C2)),
+    (completion, operation),
+    in(chops(C1,C2))
+).
+% 4b) Old reaction 4 splitted in two phases: phase-2) if philosopher stopped
+%     eating before timeout, stop tracking it
+reaction(
+    out(chops(C1,C2)),
+    (completion, operation),
+    (
+        in(used(C1,C2,_)),
+        out(chop(C1)),
+        out(chop(C2))
+    )
+).
+
+% 5a) If some of the newly released chops is needed by a waiting philosopher,
+%     give it to him
+reaction(
+    out(chop(C1)),
+    internal,
+    (
+        rd(required(C1,C)),
+        in(chop(C1)),
+        in(chop(C)),
+        out(chops(C1,C))
+    )
+).
+% 5b) If some of the newly released chops is needed by a waiting philosopher,
+%     give it to him
+reaction(
+    out(chop(C2)),
+    internal,
+    (
+        rd(required(C,C2)),
+        in(chop(C)),
+        in(chop(C2)),
+        out(chops(C,C2))
+    )
+).
+% 6) 'max_eating_time(Max)' configuration tuple is used to set max eating time
+%    allowed for philosophers
+reaction(
+    in(chops(C1,C2)),
+    (completion, operation),
+    (
+        current_time(T), rd(max_eating_time(Max)), T1 is T+Max,
+        out(used(C1,C2,T)),
+        out_s(
+            time(T1),
+            internal,
+            (
+                in(used(C1,C2,T)),
+                out(chop(C1)),
+                out(chop(C2))
+            )
+        )
+    )
+).
