@@ -15,4 +15,10 @@ include 'api'
 include 'services:webservice'
 */
 
+include 'core'
+include 'service'
+include 'inspector'
+include 'client'
+include 'cli'
+
 rootProject.name = 'sd-project-siboni-piscaglia-1718'
