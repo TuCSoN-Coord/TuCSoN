@@ -7,18 +7,10 @@ apply plugin: 'java-library'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
-// In this section you declare where to find the dependencies of your project
-allprojects {
-    repositories {
-        jcenter()
-        mavenCentral()
-    }
-}
-
 dependencies {
 
     // https://mvnrepository.com/artifact/it.unibo.alice.tuprolog/tuprolog
-    api group: 'it.unibo.alice.tuprolog', name: 'tuprolog', version: '3.2.1'
+    // api group: 'it.unibo.alice.tuprolog', name: 'tuprolog', version: '3.2.1'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
