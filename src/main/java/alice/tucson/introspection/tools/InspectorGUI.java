@@ -678,7 +678,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         this.imgPanel.setLayout(new java.awt.GridBagLayout());
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(this.getClass().getResource(
-                "/alice/tucson/images/logo.gif")));
+                "/tucson/images/logo.gif")));
         jLabel1.setPreferredSize(new java.awt.Dimension(90, 140));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;

@@ -22,3 +22,30 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
+
+
+
+task runNode(type: JavaExec, dependsOn:classes) {
+    group = "run"
+    description = "Starts a new TucsonNode with defaults"
+
+    classpath = sourceSets.main.runtimeClasspath
+    main = "alice.tucson.service.TucsonNodeService"
+}
+
+task runCli(type: JavaExec, dependsOn:classes) {
+    group = "run"
+    description = "Starts a new Command Line Interface with defaults"
+
+    standardInput = System.in
+    classpath = sourceSets.main.runtimeClasspath
+    main = "alice.tucson.service.tools.CommandLineInterpreter"
+}
+
+task runInspector(type: JavaExec, dependsOn:classes) {
+    group = "run"
+    description = "Starts a new InspectorGUI"
+
+    classpath = sourceSets.main.runtimeClasspath
+    main = "alice.tucson.introspection.tools.InspectorGUI"
+}

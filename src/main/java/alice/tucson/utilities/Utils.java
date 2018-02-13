@@ -30,8 +30,7 @@ public final class Utils {
      *             allow reading
      */
     public static String fileToString(final String path) throws IOException {
-        try (final BufferedInputStream br = new BufferedInputStream(ClassLoader
-                .getSystemClassLoader().getResourceAsStream(path));) {
+        try (BufferedInputStream br = new BufferedInputStream(Utils.class.getClassLoader().getResourceAsStream(path))) {
             final byte[] res = new byte[br.available()];
             br.read(res);
             return new String(res);
