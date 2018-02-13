@@ -19,7 +19,7 @@ import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.exceptions.DialogInitializationException;
 import alice.tucson.service.TucsonNodeService;
-import alice.tucson.utilities.Utils;
+import alice.utilities.Utils;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
 /**

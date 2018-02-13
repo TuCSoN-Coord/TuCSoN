@@ -61,6 +61,7 @@ import alice.tucson.network.TPConfig;
 import alice.tucson.network.exceptions.DialogInitializationException;
 import alice.tucson.service.tools.TucsonACCTool;
 import alice.tucson.utilities.Utils;
+import alice.utilities.Utils;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuprolog.InvalidTheoryException;
@@ -78,11 +79,11 @@ import alice.tuprolog.lib.InvalidObjectIdException;
  */
 public class TucsonNodeService {
 
-    private static final String BOOT_SETUP_THEORY = "alice/tucson/service/config/boot.pl";
-    private static final String DEFAULT_BOOT_SPEC_FILE = "alice/tucson/service/config/boot_spec.rsp";
-    private static final String DEFAULT_ENVCONFIG_SPEC_FILE = "alice/tucson/service/config/env_spec.rsp";
-    private static final String DEFAULT_GEOLOCATION_SPEC_FILE = "alice/tucson/service/config/geolocation_spec.rsp";
-    private static final String DEFAULT_OBS_SPEC_FILE = "alice/tucson/service/config/obs_spec.rsp";
+    private static final String BOOT_SETUP_THEORY = "alice/tucson/build/config/boot.pl";
+    private static final String DEFAULT_BOOT_SPEC_FILE = "alice/tucson/build/config/boot_spec.rsp";
+    private static final String DEFAULT_ENVCONFIG_SPEC_FILE = "alice/tucson/build/config/env_spec.rsp";
+    private static final String DEFAULT_GEOLOCATION_SPEC_FILE = "alice/tucson/build/config/geolocation_spec.rsp";
+    private static final String DEFAULT_OBS_SPEC_FILE = "alice/tucson/build/config/obs_spec.rsp";
     private static final int DEFAULT_TCP_PORT = 20504;
     // how to set a "proper" number?
     private static final int MAX_EVENT_QUEUE_SIZE = 1000;
@@ -470,7 +471,7 @@ public class TucsonNodeService {
     /**
      *
      * @param tc
-     *            the identifier of the tuple centre whose persistency service
+     *            the identifier of the tuple centre whose persistency build
      *            should be disabled
      * @return wether persistency has been succesfully disabled
      */
@@ -511,7 +512,7 @@ public class TucsonNodeService {
      *
      * @param template
      *            the tuple template to be used in filtering tuple centre
-     *            identifiers whose persistency service should be disabled
+     *            identifiers whose persistency build should be disabled
      */
     public synchronized void disablePersistency(final Tuple template) {
         if (this.persistencyTemplate != null) {
@@ -566,7 +567,7 @@ public class TucsonNodeService {
      * UNUSED ATM
      * 
      * @param tc
-     *            the identifier of the tuple centre whose persistency service
+     *            the identifier of the tuple centre whose persistency build
      *            should be enabled
      * @return wether persistency has been succesfully enabled
      */
@@ -605,7 +606,7 @@ public class TucsonNodeService {
      *
      * @param template
      *            the tuple template to be used in filtering tuple centre
-     *            identifiers whose persistency service should be enabled
+     *            identifiers whose persistency build should be enabled
      */
     public synchronized void enablePersistency(final Tuple template) {
         this.persistencyTemplate = template;
@@ -703,7 +704,7 @@ public class TucsonNodeService {
                 .log("--------------------------------------------------------------------------------");
         try {
             final StringTokenizer st = new StringTokenizer(
-                    Utils.fileToString("alice/tucson/service/config/tucsonCLIlogo3.txt"),
+                    Utils.fileToString("alice/tucson/build/config/tucsonCLIlogo3.txt"),
                     "\n");
             while (st.hasMoreTokens()) {
                 TucsonNodeService.log(st.nextToken());

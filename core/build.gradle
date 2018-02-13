@@ -10,7 +10,7 @@ apply plugin: 'idea'
 dependencies {
 
     // https://mvnrepository.com/artifact/it.unibo.alice.tuprolog/tuprolog
-    // api group: 'it.unibo.alice.tuprolog', name: 'tuprolog', version: '3.2.1'
+    api group: 'it.unibo.alice.tuprolog', name: 'tuprolog', version: '3.2.1'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'

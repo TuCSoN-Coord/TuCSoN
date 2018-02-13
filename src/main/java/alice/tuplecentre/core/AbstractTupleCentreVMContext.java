@@ -37,7 +37,7 @@ import alice.tuplecentre.api.exceptions.OperationNotPossibleException;
 import alice.tuprolog.Term;
 
 /**
- * Defines the core abstract behaviour of a tuple centre virtual machine.
+ * Defines the build abstract behaviour of a tuple centre virtual machine.
  *
  * The class is abstract because the specific implementation of the reacting
  * behaviour and of the set management is left to the derived classes.
@@ -72,7 +72,7 @@ public abstract class AbstractTupleCentreVMContext implements
     private final TupleCentreId tid;
 
     /**
-     * Creates a new tuple centre virtual machine core
+     * Creates a new tuple centre virtual machine build
      *
      * @param vm
      *            is the ReSpecT virtual machine
@@ -568,7 +568,7 @@ public abstract class AbstractTupleCentreVMContext implements
     public abstract Tuple removeUniformTuple(TupleTemplate t);
 
     /**
-     * Resets the tuple centre vm core.
+     * Resets the tuple centre vm build.
      */
     public abstract void reset();
 

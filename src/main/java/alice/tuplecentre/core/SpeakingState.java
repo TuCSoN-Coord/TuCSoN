@@ -394,7 +394,7 @@ public class SpeakingState extends AbstractTupleCentreVMState {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuplecentre.core.TupleCentreVMState#isIdle()
+     * @see alice.tuplecentre.build.TupleCentreVMState#isIdle()
      */
     @Override
     public boolean isIdle() {

@@ -1,6 +1,6 @@
 package alice.tucson.rbac;
 
-import alice.tucson.utilities.Utils;
+import alice.utilities.Utils;
 
 /**
  * Class implementing a RBAC role in TuCSoN.

@@ -5,7 +5,6 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractSpawnActivity;
-import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 
 /**

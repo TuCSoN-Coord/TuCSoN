@@ -1,9 +1,7 @@
 package alice.tucson.service;
 
 import java.net.InetAddress;
-import java.net.NetworkInterface;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
@@ -26,7 +24,7 @@ import alice.tucson.rbac.RBACStructure;
 import alice.tucson.rbac.Role;
 import alice.tucson.rbac.TucsonAuthorisedAgent;
 import alice.tucson.service.tools.TucsonACCTool;
-import alice.tucson.utilities.Utils;
+import alice.utilities.Utils;
 import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 

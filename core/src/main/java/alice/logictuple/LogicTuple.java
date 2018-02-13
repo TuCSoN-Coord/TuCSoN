@@ -16,6 +16,9 @@ package alice.logictuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Term;
+import alice.tuplecentre.api.TupleTemplate;
+
+import java.io.Serializable;
 
 /**
  * Class representing a logic tuple.
@@ -29,8 +32,8 @@ import alice.tuprolog.Term;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Saverio Cicora
  */
-public class LogicTuple implements alice.tuplecentre.api.TupleTemplate,
-        java.io.Serializable {
+public class LogicTuple implements TupleTemplate,
+        Serializable {
 
     /**
      *

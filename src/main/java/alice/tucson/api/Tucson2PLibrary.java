@@ -23,7 +23,6 @@ import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuprolog.Library;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
-import alice.tuprolog.Var;
 
 /**
  * TuCSoN library for tuProlog agents. By loading this library tuProlog agents
