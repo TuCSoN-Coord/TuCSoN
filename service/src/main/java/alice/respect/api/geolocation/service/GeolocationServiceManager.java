@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.ACCProxyAgentSide;
-import alice.tucson.service.ACCProxyAgentSide;
 import alice.util.Tools;
 
 /**

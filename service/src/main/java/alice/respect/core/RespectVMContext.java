@@ -75,7 +75,6 @@ import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 import alice.tuprolog.Theory;
 import alice.tuprolog.Var;
-import alice.tuprolog.event.OutputEvent;
 
 /**
  * This class defines a ReSpecT Context as a specialization of a tuple centre VM
@@ -102,7 +101,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 
 	class CompletionListener implements OperationCompletionListener {
 
-		private final OutputEvent oe;
+		private final alice.tuplecentre.core.OutputEvent oe;
 
 		public CompletionListener(final OutputEvent o) {
 			this.oe = o;

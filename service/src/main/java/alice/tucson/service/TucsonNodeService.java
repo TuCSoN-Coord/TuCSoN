@@ -61,7 +61,6 @@ import alice.tucson.network.TPConfig;
 import alice.tucson.network.exceptions.DialogInitializationException;
 import alice.tucson.service.tools.TucsonACCTool;
 import alice.tucson.utilities.Utils;
-import alice.utilities.Utils;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuprolog.InvalidTheoryException;

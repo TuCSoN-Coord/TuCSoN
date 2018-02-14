@@ -265,7 +265,7 @@ public class OperationHandler {
     /**
      * UUID of the agent using this OperationHandler
      */
-    protected UUID agentUUID;
+    public UUID agentUUID;
     /**
      * Active sessions toward different nodes
      */
@@ -273,7 +273,7 @@ public class OperationHandler {
     /**
      * TuCSoN requests completion events (node replies events)
      */
-    protected List<TucsonOpCompletionEvent> events;
+    public List<TucsonOpCompletionEvent> events;
     /**
      * Expired TuCSoN operations
      */
@@ -281,7 +281,7 @@ public class OperationHandler {
     /**
      * Requested TuCSoN operations
      */
-    protected Map<Long, TucsonOperation> operations;
+    public Map<Long, TucsonOperation> operations;
 
     /**
      * Current ACC session description
@@ -635,8 +635,8 @@ public class OperationHandler {
      * @see alice.tucson.network.AbstractTucsonProtocol TucsonProtocol
      * @see alice.tucson.service.ACCProxyNodeSide ACCProxyNodeSide
      */
-    protected AbstractTucsonProtocol getSession(final TucsonTupleCentreId tid,
-            final TucsonAgentId aid) throws UnreachableNodeException {
+    public AbstractTucsonProtocol getSession(final TucsonTupleCentreId tid,
+                                             final TucsonAgentId aid) throws UnreachableNodeException {
         final String opNode = alice.util.Tools.removeApices(tid.getNode());
         final int p = tid.getPort();
         ControllerSession tc = this.controllerSessions.get(opNode + ":" + p);
