@@ -32,7 +32,7 @@ public final class PrologMasterAgent {
     /*
      * The necessary Tucson2PLibrary...
      */
-    private static final String DEFAULT_LIBRARY_NAME = "alice.tucson.api.Tucson2PLibrary";
+    private static final String DEFAULT_LIBRARY_NAME = "Tucson2PLibrary";
     /*
      * ...can be found within TuCSoN .jar
      */

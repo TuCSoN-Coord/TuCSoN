@@ -69,7 +69,7 @@ public class SensorTransducer extends AbstractTransducer {
      * (non-Javadoc)
      * @see
      * alice.tucson.api.TucsonOperationCompletionListener#operationCompleted
-     * (alice.tucson.api.ITucsonOperation)
+     * (ITucsonOperation)
      */
     @Override
     public void operationCompleted(final ITucsonOperation op) {
