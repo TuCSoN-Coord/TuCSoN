@@ -2,8 +2,5 @@ apply plugin: 'java'
 apply plugin: 'java-library'
 
 dependencies {
-
     api project(":core")
-    api project(":client")
-    api project(":inspector")
 }
