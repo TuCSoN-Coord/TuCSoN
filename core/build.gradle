@@ -7,4 +7,3 @@ dependencies {
     // https://mvnrepository.com/artifact/it.unibo.alice.tuprolog/tuprolog
     api group: 'it.unibo.alice.tuprolog', name: 'tuprolog', version: '3.2.1'
 }
-
