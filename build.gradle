@@ -27,10 +27,9 @@ apply plugin: 'idea'
 dependencies {
     implementation project(":core")
     implementation project(":service")
-
-//    implementation project(":cli")
+    implementation project(":cli")
     implementation project(":client")
-//    implementation project(":inspector")
+    implementation project(":inspector")
 }
 
 
@@ -52,7 +51,7 @@ task runCli(type: JavaExec, dependsOn:classes) {
     main = "alice.tucson.service.tools.CommandLineInterpreter"
 }
 
-task runInspector(type: JavaExec, dependsOn:classes) {
+task runInspector (type: JavaExec, dependsOn:classes) {
     group = "run"
     description = "Starts a new InspectorGUI"
 
