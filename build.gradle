@@ -28,8 +28,7 @@ dependencies {
     implementation project(":core")
     implementation project(":service")
 
-
 //    implementation project(":cli")
-//    implementation project(":client")
+    implementation project(":client")
 //    implementation project(":inspector")
 }

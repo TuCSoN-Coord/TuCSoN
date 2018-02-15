@@ -16,6 +16,7 @@ package alice.tucson.introspection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.OperationNotAllowedException;
@@ -195,7 +196,7 @@ public class InspectorContextStub implements InspectorContext {
         } catch (final DialogException e) {
             e.printStackTrace();
         }
-        throw new alice.tucson.api.exceptions.OperationNotAllowedException();
+        throw new OperationNotAllowedException();
     }
 
     /**
