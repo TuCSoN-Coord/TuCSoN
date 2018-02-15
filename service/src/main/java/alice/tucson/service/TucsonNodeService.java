@@ -78,11 +78,11 @@ import alice.tuprolog.lib.InvalidObjectIdException;
  */
 public class TucsonNodeService {
 
-    private static final String BOOT_SETUP_THEORY = "alice/tucson/build/config/boot.pl";
-    private static final String DEFAULT_BOOT_SPEC_FILE = "alice/tucson/build/config/boot_spec.rsp";
-    private static final String DEFAULT_ENVCONFIG_SPEC_FILE = "alice/tucson/build/config/env_spec.rsp";
-    private static final String DEFAULT_GEOLOCATION_SPEC_FILE = "alice/tucson/build/config/geolocation_spec.rsp";
-    private static final String DEFAULT_OBS_SPEC_FILE = "alice/tucson/build/config/obs_spec.rsp";
+    private static final String BOOT_SETUP_THEORY = "alice/tucson/service/config/BOOT.pl";
+    private static final String DEFAULT_BOOT_SPEC_FILE = "alice/tucson/service/config/boot_spec.rsp";
+    private static final String DEFAULT_ENVCONFIG_SPEC_FILE = "alice/tucson/service/config/env_spec.rsp";
+    private static final String DEFAULT_GEOLOCATION_SPEC_FILE = "alice/tucson/service/config/geolocation_spec.rsp";
+    private static final String DEFAULT_OBS_SPEC_FILE = "alice/tucson/service/config/obs_spec.rsp";
     private static final int DEFAULT_TCP_PORT = 20504;
     // how to set a "proper" number?
     private static final int MAX_EVENT_QUEUE_SIZE = 1000;
@@ -703,7 +703,7 @@ public class TucsonNodeService {
                 .log("--------------------------------------------------------------------------------");
         try {
             final StringTokenizer st = new StringTokenizer(
-                    Utils.fileToString("alice/tucson/build/config/tucsonCLIlogo3.txt"),
+                    Utils.fileToString("alice/tucson/service/config/tucsonCLIlogo3.txt"),
                     "\n");
             while (st.hasMoreTokens()) {
                 TucsonNodeService.log(st.nextToken());
