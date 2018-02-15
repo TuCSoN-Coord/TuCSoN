@@ -23,13 +23,16 @@ allprojects {
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 
-// Dependencies for main project
+// Dependencies for main project (actually only examples/tests)
 dependencies {
-    implementation project(":core")
-    implementation project(":service")
-    implementation project(":cli")
-    implementation project(":client")
-    implementation project(":inspector")
+    testImplementation project(":core")
+    testImplementation project(":service")
+    testImplementation project(":client")
+
+// Those below aren't necessary for actual examples
+
+//    testImplementation project(":cli")
+//    testImplementation project(":inspector")
 }
 
 
