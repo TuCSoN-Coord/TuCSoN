@@ -2,7 +2,7 @@ package alice.respect.api.geolocation.service;
 
 import alice.respect.api.place.IPlace;
 import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.ACCProxyAgentSide;
+import alice.tucson.service.ACCProxyAgentSide;
 
 /**
  * This class represent the listener that listens for geolocation service

@@ -20,7 +20,7 @@
 package alice.tucson.asynchSupport;
 
 import java.util.concurrent.LinkedBlockingQueue;
-import alice.tucson.asynchSupport.actions.AbstractTucsonAction;
+import alice.tucson.api.actions.AbstractTucsonAction;
 
 /**
  * Queue storing pending operations delegated to

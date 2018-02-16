@@ -17,7 +17,6 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.logictuple.exceptions.InvalidLogicTupleOperationException;
 import alice.respect.api.IRespectOperation;
 import alice.respect.api.IRespectTC;
 import alice.respect.api.ITimedContext;

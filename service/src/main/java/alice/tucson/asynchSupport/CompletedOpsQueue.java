@@ -19,7 +19,7 @@
  */
 package alice.tucson.asynchSupport;
 
-import alice.tucson.asynchSupport.actions.AbstractTucsonAction;
+import alice.tucson.api.actions.AbstractTucsonAction;
 
 /**
  * {@link alice.tucson.asynchSupport.SearchableOpsQueue} specialised for

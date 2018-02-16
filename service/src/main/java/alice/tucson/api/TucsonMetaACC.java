@@ -13,9 +13,9 @@
  */
 package alice.tucson.api;
 
-import alice.tucson.api.exceptions.ACCProxyAgentSide;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tucson.service.ACCProxyAgentSide;
 import alice.tucson.service.AdminACCProxyAgentSide;
 import alice.tucson.service.NegotiationACCProxyAgentSide;
 

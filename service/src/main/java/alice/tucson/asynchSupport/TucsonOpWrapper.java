@@ -24,7 +24,7 @@ import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.asynchSupport.actions.AbstractTucsonAction;
+import alice.tucson.api.actions.AbstractTucsonAction;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
 /**

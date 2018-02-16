@@ -451,12 +451,12 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
 	                final String localNodeAddress = localhost.getHostAddress();
 	                tmpNode = localNodeAddress;
 	            } catch (final UnknownHostException e) {
-	                return new TucsonTupleCentreId(ACCProxyAgentSide.TC_ORG, "'"
+	                return new TucsonTupleCentreId(TC_ORG, "'"
 	                        + tmpNode + "'", "" + tmpPort);
 	            } 
 	        }
         }
-        return new TucsonTupleCentreId(ACCProxyAgentSide.TC_ORG, "'" + tmpNode
+        return new TucsonTupleCentreId(TC_ORG, "'" + tmpNode
                 + "'", "" + tmpPort);
 
     }
@@ -506,7 +506,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
 
     /*
      * (non-Javadoc)
-     * @see alice.tucson.api.exceptions.ACCProxyAgentSide#log(java.lang.String)
+     * @see alice.tucson.service.ACCProxyAgentSide#log(java.lang.String)
      */
     @Override
     protected void log(final String msg) {

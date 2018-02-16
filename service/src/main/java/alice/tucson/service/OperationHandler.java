@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+
 import alice.logictuple.LogicTuple;
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.geolocation.Position;
@@ -24,10 +25,10 @@ import alice.tucson.network.TucsonMsgRequest;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
+import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.TCCycleResult.Outcome;
 import alice.tuples.javatuples.impl.JTuple;
 import alice.tuples.javatuples.impl.JTupleTemplate;
 import alice.tuples.javatuples.impl.JTuplesEngine;
@@ -182,9 +183,9 @@ public class OperationHandler {
                             .getTupleResult());
                 }
                 if (msg.getOutputEvent().isResultSuccess()) {
-                    op.setOpResult(Outcome.SUCCESS);
+                    op.setOpResult(ITCCycleResult.Outcome.SUCCESS);
                 } else {
-                    op.setOpResult(Outcome.FAILURE);
+                    op.setOpResult(ITCCycleResult.Outcome.FAILURE);
                 }
                 OperationHandler.this.postEvent(ev);
                 op.notifyCompletion(ev.operationSucceeded(), msg

@@ -13,6 +13,7 @@ package alice.respect.core;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+
 import alice.logictuple.LogicTuple;
 import alice.respect.api.IEnvironmentContext;
 import alice.respect.api.ILinkContext;
@@ -29,15 +30,15 @@ import alice.respect.api.RespectSpecification;
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.InvalidSpecificationException;
 import alice.respect.api.exceptions.OperationNotPossibleException;
+import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.core.InputEvent;
-import alice.tuplecentre.core.TCCycleResult.Outcome;
 import alice.tuprolog.Prolog;
 
 /**
- * 
+ *
  * A ReSpecT tuple centre.
- * 
+ *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
@@ -48,7 +49,7 @@ public class RespectTC implements IRespectTC {
     private final Thread vmThread;
 
     /**
-     * 
+     *
      * @param tid
      *            the identifier of the tuple centre
      * @param container
@@ -71,7 +72,7 @@ public class RespectTC implements IRespectTC {
     }
 
     /**
-     * 
+     *
      * @return the environment context toward this tuple centre
      */
     public IEnvironmentContext getEnvironmentContext() {
@@ -85,7 +86,7 @@ public class RespectTC implements IRespectTC {
 
     /**
      * Gets a interface for linking operations
-     * 
+     *
      * @return the linking context toward this tuple centre
      */
     public ILinkContext getLinkContext() {
@@ -94,7 +95,7 @@ public class RespectTC implements IRespectTC {
 
     /**
      * Gets a context for tuple centre management.
-     * 
+     *
      * @return the management context toward this tuple centre
      */
     public IManagementContext getManagementContext() {
@@ -103,7 +104,7 @@ public class RespectTC implements IRespectTC {
 
     /**
      * Gets a context with no blocking functionalities
-     * 
+     *
      * @return the ordinary, asynchronous context toward this tuple centre
      */
     public IOrdinaryAsynchInterface getOrdinaryAsynchInterface() {
@@ -112,7 +113,7 @@ public class RespectTC implements IRespectTC {
 
     /**
      * Gets a context with blocking functionalities
-     * 
+     *
      * @return the ordinary, synchronous context toward this tuple centre
      */
     public IOrdinarySynchInterface getOrdinarySynchInterface() {
@@ -120,7 +121,7 @@ public class RespectTC implements IRespectTC {
     }
 
     /**
-     * 
+     *
      * @return the tuProlog engine behind this tuple centre
      */
     public Prolog getProlog() {
@@ -136,7 +137,7 @@ public class RespectTC implements IRespectTC {
 
     /**
      * Gets a context with spatial functionalities.
-     * 
+     *
      * @return the spatial context toward this tuple centre
      */
     public ISpatialContext getSpatialContext() {
@@ -144,7 +145,7 @@ public class RespectTC implements IRespectTC {
     }
 
     /**
-     * 
+     *
      * @return the specification, asynchronous context toward this tuple centre
      */
     public ISpecificationAsynchInterface getSpecificationAsynchInterface() {
@@ -153,7 +154,7 @@ public class RespectTC implements IRespectTC {
 
     /**
      * Gets a context with blocking specification functionalities
-     * 
+     *
      * @return the specification, synchronous context toward this tuple centre
      */
     public ISpecificationSynchInterface getSpecificationSynchInterface() {
@@ -162,7 +163,7 @@ public class RespectTC implements IRespectTC {
 
     /**
      * Gets a context with timing functionalities.
-     * 
+     *
      * @return the timed context toward this tuple centre
      */
     public ITimedContext getTimedContext() {
@@ -175,7 +176,7 @@ public class RespectTC implements IRespectTC {
     }
 
     /**
-     * 
+     *
      * @return the Java thread executing the ReSpecT VM managing this tuple
      *         centre
      */
@@ -346,7 +347,7 @@ public class RespectTC implements IRespectTC {
         while (rit.hasNext()) {
             reactionList.add(rit.next());
         }
-        op.setOpResult(Outcome.SUCCESS);
+        op.setOpResult(ITCCycleResult.Outcome.SUCCESS);
         op.setTupleListResult(reactionList);
         return op;
     }

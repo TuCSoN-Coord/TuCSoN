@@ -33,11 +33,11 @@ import alice.tucson.network.TucsonMsgRequest;
 import alice.tucson.network.TucsonProtocolTCP;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogInitializationException;
+import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.OperationCompletionListener;
-import alice.tuplecentre.core.TCCycleResult.Outcome;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.lib.InvalidObjectIdException;
 
@@ -167,9 +167,9 @@ OperationCompletionListener {
                     op.setTupleResult((LogicTuple) oEv.getTupleResult());
                 }
                 if (oEv.isResultSuccess()) {
-                    op.setOpResult(Outcome.SUCCESS);
+                    op.setOpResult(ITCCycleResult.Outcome.SUCCESS);
                 } else {
-                    op.setOpResult(Outcome.FAILURE);
+                    op.setOpResult(ITCCycleResult.Outcome.FAILURE);
                 }
                 op.notifyCompletion();
                 InterTupleCentreACCProxy.this.postEvent(ev);
