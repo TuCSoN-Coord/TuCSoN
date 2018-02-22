@@ -8,9 +8,9 @@ import alice.logictuple.TupleArgument;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidVarNameException;
-import alice.tucson.api.EnhancedACC;
+import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
+import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.*;
 import alice.tucson.rbac.Policy;
@@ -103,7 +103,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
 
     // TODO: Lista dei ruoli!!!
     @Override
-    public List<Role> listPlayableRoles()
+    public List<Role> getListOfPlayableRoles()
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         ITucsonOperation op = null;

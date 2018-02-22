@@ -10,7 +10,7 @@ import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidTupleArgumentException;
 import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.respect.api.exceptions.OperationNotAllowedException;
-import alice.tucson.api.AdminACC;
+import alice.tucson.api.acc.AdminACC;
 import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.*;

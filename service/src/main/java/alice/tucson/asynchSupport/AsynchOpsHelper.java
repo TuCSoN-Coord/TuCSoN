@@ -22,7 +22,7 @@ package alice.tucson.asynchSupport;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.EnhancedAsynchACC;
+import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonOperationCompletionListener;
@@ -50,7 +50,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent {
         System.out.println("....[AsynchOpsHelper (" + aid + ")]: " + msg);
     }
 
-    private EnhancedAsynchACC acc;
+    private EnhancedAsyncACC acc;
     private final CompletedOpsQueue completedOpsQueue;
     private boolean isHardStopped = false;
     private boolean isSoftStopped = false;

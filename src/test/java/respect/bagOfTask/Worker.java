@@ -5,8 +5,8 @@ import alice.logictuple.TupleArgument;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -81,7 +81,7 @@ public class Worker extends AbstractTucsonAgent {
 
     @Override
     protected void main() {
-        SynchACC acc = null;
+        SyncACC acc = null;
         try {
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());

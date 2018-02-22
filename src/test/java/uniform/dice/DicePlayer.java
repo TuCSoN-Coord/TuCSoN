@@ -28,9 +28,9 @@ import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.EnhancedSynchACC;
+import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
+import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -65,7 +65,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
                     "...boot done, now configuring space...");
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(new TucsonAgentId("god"));
-            final EnhancedSynchACC acc = negAcc.playDefaultRole();
+            final EnhancedSyncACC acc = negAcc.playDefaultRole();
             acc.outAll(
                     new TucsonTupleCentreId("dice", "localhost", "20504"),
                     LogicTuple
@@ -131,7 +131,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
         final NegotiationACC negAcc = TucsonMetaACC.getNegotiationContext(this
                 .getTucsonAgentId());
         try {
-            final EnhancedSynchACC acc = negAcc.playDefaultRole();
+            final EnhancedSyncACC acc = negAcc.playDefaultRole();
             ITucsonOperation op;
             LogicTuple template;
             final LogicTuple dieTuple = new LogicTuple("stahp", new Value(

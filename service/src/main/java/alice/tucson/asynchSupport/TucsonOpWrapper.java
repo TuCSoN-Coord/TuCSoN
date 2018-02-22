@@ -19,7 +19,7 @@
  */
 package alice.tucson.asynchSupport;
 
-import alice.tucson.api.EnhancedAsynchACC;
+import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -37,7 +37,7 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
  */
 public class TucsonOpWrapper {
 
-    private final EnhancedAsynchACC acc;
+    private final EnhancedAsyncACC acc;
     private final AbstractTucsonAction action;
     private boolean hasBeenRemoved = false;
     private final TucsonOperationCompletionListener listener;
@@ -53,7 +53,7 @@ public class TucsonOpWrapper {
      * @param l
      *            the TuCSoN listener handling operation completion
      */
-    public TucsonOpWrapper(final EnhancedAsynchACC eaacc,
+    public TucsonOpWrapper(final EnhancedAsyncACC eaacc,
             final AbstractTucsonAction a,
             final TucsonOperationCompletionListener l) {
         this.action = a;
@@ -74,7 +74,7 @@ public class TucsonOpWrapper {
      *            the maximum waiting time for operation completion (not used
      *            atm)
      */
-    public TucsonOpWrapper(final EnhancedAsynchACC eaacc,
+    public TucsonOpWrapper(final EnhancedAsyncACC eaacc,
             final AbstractTucsonAction a,
             final TucsonOperationCompletionListener l, final long timeout) {
         this.action = a;

@@ -15,6 +15,15 @@ package alice.tucson.api;
 import java.util.Iterator;
 import java.util.List;
 import alice.logictuple.LogicTuple;
+import alice.tucson.api.acc.BulkAsyncACC;
+import alice.tucson.api.acc.BulkSyncACC;
+import alice.tucson.api.acc.EnhancedACC;
+import alice.tucson.api.acc.OrdinaryAsyncACC;
+import alice.tucson.api.acc.OrdinarySyncACC;
+import alice.tucson.api.acc.SpecificationAsyncACC;
+import alice.tucson.api.acc.SpecificationSyncACC;
+import alice.tucson.api.acc.UniformAsyncACC;
+import alice.tucson.api.acc.UniformSyncACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -76,7 +85,7 @@ public class Tucson2PLibrary extends Library {
      *             if the given Term does not represent a valid TuCSoN
      *             identifier
      *
-     * @see alice.tucson.api.EnhancedACC EnhancedACC
+     * @see EnhancedACC EnhancedACC
      * @see alice.tucson.api.TucsonAgentId TucsonAgentId
      */
     public boolean acquire_acc_3(final Term id, final Term nodeHost, final Term portTerm)
@@ -145,8 +154,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean get_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -187,8 +196,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean get_s_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -308,8 +317,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean in_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -351,8 +360,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.BulkAsynchACC BulkAsynchACC
-     * @see alice.tucson.api.BulkSynchACC BulkSynchACC
+     * @see BulkAsyncACC BulkAsyncACC
+     * @see BulkSyncACC BulkSyncACC
      */
     public boolean in_all_3(final Term arg0, final Term arg1, final Term arg2)
             throws TucsonInvalidTupleCentreIdException,
@@ -401,8 +410,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean in_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -445,8 +454,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean inp_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -493,8 +502,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean inp_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -537,8 +546,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean no_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -580,8 +589,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.BulkAsynchACC BulkAsynchACC
-     * @see alice.tucson.api.BulkSynchACC BulkSynchACC
+     * @see BulkAsyncACC BulkAsyncACC
+     * @see BulkSyncACC BulkSyncACC
      */
     public boolean no_all_3(final Term arg0, final Term arg1, final Term arg2)
             throws TucsonInvalidTupleCentreIdException,
@@ -630,8 +639,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean no_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -674,8 +683,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean nop_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -722,8 +731,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean nop_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -766,8 +775,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean out_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -804,8 +813,8 @@ public class Tucson2PLibrary extends Library {
      * @throws OperationTimeOutException
      *             if the operation timeout expired prior to operation
      *             completion
-     * @see alice.tucson.api.BulkAsynchACC BulkAsynchACC
-     * @see alice.tucson.api.BulkSynchACC BulkSynchACC
+     * @see BulkAsyncACC BulkAsyncACC
+     * @see BulkSyncACC BulkSyncACC
      */
     public boolean out_all_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -850,8 +859,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean out_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -890,8 +899,8 @@ public class Tucson2PLibrary extends Library {
      * @throws OperationTimeOutException
      *             if the operation timeout expired prior to operation
      *             completion
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean rd_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -933,8 +942,8 @@ public class Tucson2PLibrary extends Library {
      * @throws OperationTimeOutException
      *             if the operation timeout expired prior to operation
      *             completion
-     * @see alice.tucson.api.BulkAsynchACC BulkAsynchACC
-     * @see alice.tucson.api.BulkSynchACC BulkSynchACC
+     * @see BulkAsyncACC BulkAsyncACC
+     * @see BulkSyncACC BulkSyncACC
      */
     public boolean rd_all_3(final Term arg0, final Term arg1, final Term arg2)
             throws TucsonInvalidTupleCentreIdException,
@@ -984,8 +993,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean rd_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -1029,8 +1038,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean rdp_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1078,8 +1087,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean rdp_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -1166,8 +1175,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean set_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1206,8 +1215,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean set_s_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1246,8 +1255,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean spawn_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1286,8 +1295,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.UniformAsynchACC UniformAsynchACC
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformAsyncACC UniformAsyncACC
+     * @see UniformSyncACC UniformSyncACC
      */
     public boolean uin_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1328,8 +1337,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.UniformAsynchACC UniformAsynchACC
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformAsyncACC UniformAsyncACC
+     * @see UniformSyncACC UniformSyncACC
      */
     public boolean uinp_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1371,8 +1380,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.UniformAsynchACC UniformAsynchACC
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformAsyncACC UniformAsyncACC
+     * @see UniformSyncACC UniformSyncACC
      */
     public boolean uno_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1413,8 +1422,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.UniformAsynchACC UniformAsynchACC
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformAsyncACC UniformAsyncACC
+     * @see UniformSyncACC UniformSyncACC
      */
     public boolean unop_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1456,8 +1465,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.UniformAsynchACC UniformAsynchACC
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformAsyncACC UniformAsyncACC
+     * @see UniformSyncACC UniformSyncACC
      */
     public boolean urd_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1498,8 +1507,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.UniformAsynchACC UniformAsynchACC
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformAsyncACC UniformAsyncACC
+     * @see UniformSyncACC UniformSyncACC
      */
     public boolean urdp_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,

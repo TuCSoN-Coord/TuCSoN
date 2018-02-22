@@ -5,6 +5,9 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.respect.core.RespectOperation;
+import alice.tucson.api.acc.BulkSyncACC;
+import alice.tucson.api.acc.OrdinarySyncACC;
+import alice.tucson.api.acc.UniformSyncACC;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.service.TucsonIdWrapper;
@@ -125,7 +128,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the tuple result of the operation
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple in(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -175,7 +178,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the list of tuples result of the operation
-     * @see alice.tucson.api.BulkSynchACC BulkSynchACC
+     * @see BulkSyncACC BulkSyncACC
      */
     protected final List<LogicTuple> inAll(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -226,7 +229,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the tuple result of the operation
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple inp(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -293,7 +296,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the tuple result of the operation
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple no(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -343,7 +346,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the list of tuples result of the operation
-     * @see alice.tucson.api.BulkSynchACC BulkSynchACC
+     * @see BulkSyncACC BulkSyncACC
      */
     protected final List<LogicTuple> noAll(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -394,7 +397,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the tuple result of the operation
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple nop(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -445,7 +448,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the tuple result of the operation
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple out(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -496,7 +499,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the list of tuples result of the operation
-     * @see alice.tucson.api.BulkSynchACC BulkSynchACC
+     * @see BulkSyncACC BulkSyncACC
      */
     protected final List<LogicTuple> outAll(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -547,7 +550,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the tuple result of the operation
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple rd(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -597,7 +600,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the list of tuples result of the operation
-     * @see alice.tucson.api.BulkSynchACC BulkSynchACC
+     * @see BulkSyncACC BulkSyncACC
      */
     protected final List<LogicTuple> rdAll(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -648,7 +651,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the tuple result of the operation
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple rdp(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -699,7 +702,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the tuple result of the operation
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformSyncACC UniformSyncACC
      */
     protected final LogicTuple uin(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -750,7 +753,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the tuple result of the operation
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformSyncACC UniformSyncACC
      */
     protected final LogicTuple uinp(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -801,7 +804,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the tuple result of the operation
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformSyncACC UniformSyncACC
      */
     protected final LogicTuple uno(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -852,7 +855,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the tuple result of the operation
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformSyncACC UniformSyncACC
      */
     protected final LogicTuple unop(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -903,7 +906,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the tuple result of the operation
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformSyncACC UniformSyncACC
      */
     protected final LogicTuple urd(final LogicTuple tuple) {
         if (this.aid != null) {
@@ -954,7 +957,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param tuple
      *            the tuple argument of the operation
      * @return the tuple result of the operation
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformSyncACC UniformSyncACC
      */
     protected final LogicTuple urdp(final LogicTuple tuple) {
         if (this.aid != null) {

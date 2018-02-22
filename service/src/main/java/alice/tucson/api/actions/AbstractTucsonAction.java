@@ -19,8 +19,8 @@
  */
 package alice.tucson.api.actions;
 
-import alice.tucson.api.EnhancedAsynchACC;
-import alice.tucson.api.EnhancedSynchACC;
+import alice.tucson.api.acc.EnhancedAsyncACC;
+import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -73,7 +73,7 @@ public abstract class AbstractTucsonAction {
      * @throws UnreachableNodeException
      *             if the target TuCSoN node is not available on the network
      */
-    public abstract ITucsonOperation executeAsynch(EnhancedAsynchACC acc,
+    public abstract ITucsonOperation executeAsynch(EnhancedAsyncACC acc,
             TucsonOperationCompletionListener listener)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
@@ -98,7 +98,7 @@ public abstract class AbstractTucsonAction {
      *             if the chosen timeout elapses prior to completion
      *             notification
      */
-    public abstract ITucsonOperation executeSynch(EnhancedSynchACC acc,
+    public abstract ITucsonOperation executeSynch(EnhancedSyncACC acc,
             Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 }

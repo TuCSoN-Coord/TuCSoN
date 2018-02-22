@@ -4,8 +4,8 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -79,7 +79,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
     protected void main() {
         final NegotiationACC negAcc = TucsonMetaACC.getNegotiationContext(this
                 .getTucsonAgentId());
-        SynchACC acc = null;
+        SyncACC acc = null;
         try {
             acc = negAcc.playDefaultRole();
         } catch (final TucsonOperationNotPossibleException e) {
@@ -91,7 +91,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
-        // final SynchACC acc = this.getContext();
+        // final SyncACC acc = this.getContext();
         ITucsonOperation op;
         // Ugly but effective, pardon me...
         while (true) {

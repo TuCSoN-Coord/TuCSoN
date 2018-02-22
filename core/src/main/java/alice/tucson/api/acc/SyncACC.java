@@ -11,19 +11,17 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tucson.api;
+package alice.tucson.api.acc;
 
 /**
- * Enhanced TuCSoN ACC. Can act both synchronously and asynchronously. Can act
- * both on the ordinary tuple space and on the specification tuple space. Bulk
- * and uniform primitives are included.
- *
- * @see alice.tucson.api.EnhancedSynchACC EnhancedSynchACC
- * @see alice.tucson.api.EnhancedAsynchACC EnhancedAsynchACC
+ * Synchronous ACC. Can act both on the ordinary tuple space and on the
+ * specification tuple space. Bulk and uniform primitives are NOT included.
  *
  * @author ste (mailto: s.mariani@unibo.it)
+ * @see OrdinaryAsyncACC OrdinarySyncACC
+ * @see SpecificationAsyncACC SpecificationSyncACC
  */
-public interface EnhancedACC extends EnhancedSynchACC, EnhancedAsynchACC {
+public interface SyncACC extends OrdinarySyncACC, SpecificationSyncACC {
     /*
      * Convenience interface
      */

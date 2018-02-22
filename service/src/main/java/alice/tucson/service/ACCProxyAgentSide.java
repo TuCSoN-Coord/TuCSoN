@@ -30,11 +30,12 @@ import alice.respect.api.geolocation.service.AbstractGeolocationService;
 import alice.respect.api.geolocation.service.GeoServiceId;
 import alice.respect.api.geolocation.service.GeolocationServiceManager;
 import alice.respect.api.place.IPlace;
-import alice.tucson.api.EnhancedACC;
+import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.DefaultACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -56,7 +57,7 @@ import alice.tuprolog.Parser;
  * {@link alice.tucson.api.AbstractTucsonAgent user} to fruitfully interact with
  * the TuCSoN Node Service {@link alice.tucson.service.TucsonNodeService TuCSoN}
  * . Essentially, it implements every method exposed in the Default ACC
- * Interface {@link alice.tucson.api.DefaultACC default} offered to the agent,
+ * Interface {@link DefaultACC default} offered to the agent,
  * maps each of them into TuCSoN Request Messages
  * {@link alice.tucson.network.TucsonMsgRequest req}, then waits for TuCSoN Node
  * Services replies {@link alice.tucson.network.TucsonMsgReply reply} forwarding
@@ -75,7 +76,7 @@ import alice.tuprolog.Parser;
  *
  * @see alice.tucson.api.AbstractTucsonAgent TucsonAgent
  * @see alice.tucson.service.TucsonNodeService TucsonNodeService
- * @see alice.tucson.api.DefaultACC DefaultACC
+ * @see DefaultACC DefaultACC
  * @see alice.tucson.network.TucsonMsgRequest TucsonMsgRequest
  * @see alice.tucson.network.TucsonMsgReply TucsonMsgReply
  * @see alice.tucson.api.TucsonMetaACC TucsonMetaACC
@@ -305,7 +306,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
     }
 
     @Override
-    public Map<Long, TucsonOperation> getPendingOperationsMap() {
+    public Map<Long, ITucsonOperation> getPendingOperationsMap() {
         return this.executor.operations;
     }
     

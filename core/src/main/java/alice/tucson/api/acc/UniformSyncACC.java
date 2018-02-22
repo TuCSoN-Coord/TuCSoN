@@ -11,8 +11,9 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tucson.api;
+package alice.tucson.api.acc;
 
+import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.Tuple;
@@ -20,11 +21,9 @@ import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
 /**
- *
  * @author ste (mailto: s.mariani@unibo.it)
- *
  */
-public interface UniformSynchACC extends RootACC {
+public interface UniformSyncACC extends RootACC {
 
     /**
      * <code>uin</code> TuCSoN primitive, retrieves the specified tuple from the
@@ -32,38 +31,29 @@ public interface UniformSynchACC extends RootACC {
      * Linda's non-deterministic selection is replaced by PROBABILISTIC,
      * UNIFORMLY DISTRIBUTED selection: the more a tuple is present, the more
      * likely it will be returned.
-     *
+     * <p>
      * Notice that the primitive semantics is SUSPENSIVE: until no tuple is
      * found to match the given template, no success completion answer is
      * forwarded to the TuCSoN Agent exploiting this ACC, which then is blocked
      * waiting.
      *
-     * @param tid
-     *            the target TuCSoN tuplecentre id
-     *            {@link alice.tucson.api.TucsonTupleCentreId tid}
-     * @param tuple
-     *            the tuple to be retrieved from the target tuplecentre
-     * @param timeout
-     *            the maximum waiting time for completion tolerated by the
-     *            TuCSoN agent behind this ACC. Notice that reaching the timeout
-     *            just unblocks the agent, but the request IS NOT REMOVED from
-     *            TuCSoN node pending requests (will still be served at sometime
-     *            in the future).
-     *
+     * @param tid     the target TuCSoN tuplecentre id
+     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     * @param tuple   the tuple to be retrieved from the target tuplecentre
+     * @param timeout the maximum waiting time for completion tolerated by the
+     *                TuCSoN agent behind this ACC. Notice that reaching the timeout
+     *                just unblocks the agent, but the request IS NOT REMOVED from
+     *                TuCSoN node pending requests (will still be served at sometime
+     *                in the future).
      * @return the interface to access the data about TuCSoN operations outcome.
-     *
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.ITucsonOperation ITucsonOperation
      */
-    ITucsonOperation uin(TupleCentreId tid, Tuple tuple, Long timeout)
+    ITucsonOperation uin(final TupleCentreId tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -73,37 +63,28 @@ public interface UniformSynchACC extends RootACC {
      * template, Linda's non-deterministic selection is replaced by
      * PROBABILISTIC, UNIFORMLY DISTRIBUTED selection: the more a tuple is
      * present, the more likely it will be returned.
-     *
+     * <p>
      * This time the primitive semantics is NOT SUSPENSIVE: if no tuple is found
      * to match the given template, a failure completion answer is forwarded to
      * the TuCSoN Agent exploiting this ACC.
      *
-     * @param tid
-     *            the target TuCSoN tuplecentre id
-     *            {@link alice.tucson.api.TucsonTupleCentreId tid}
-     * @param tuple
-     *            the tuple to be retrieved from the target tuplecentre
-     * @param timeout
-     *            the maximum waiting time for completion tolerated by the
-     *            TuCSoN agent behind this ACC. Notice that reaching the timeout
-     *            just unblocks the agent, but the request IS NOT REMOVED from
-     *            TuCSoN node pending requests (will still be served at sometime
-     *            in the future).
-     *
+     * @param tid     the target TuCSoN tuplecentre id
+     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     * @param tuple   the tuple to be retrieved from the target tuplecentre
+     * @param timeout the maximum waiting time for completion tolerated by the
+     *                TuCSoN agent behind this ACC. Notice that reaching the timeout
+     *                just unblocks the agent, but the request IS NOT REMOVED from
+     *                TuCSoN node pending requests (will still be served at sometime
+     *                in the future).
      * @return the interface to access the data about TuCSoN operations outcome.
-     *
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.ITucsonOperation ITucsonOperation
      */
-    ITucsonOperation uinp(TupleCentreId tid, Tuple tuple, Long timeout)
+    ITucsonOperation uinp(final TupleCentreId tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -113,39 +94,30 @@ public interface UniformSynchACC extends RootACC {
      * template, Linda's non-deterministic selection is replaced by
      * PROBABILISTIC, UNIFORMLY DISTRIBUTED selection: the more a tuple is
      * present, the more likely it will be returned.
-     *
+     * <p>
      * Notice that the primitive semantics is SUSPENSIVE: until any tuple is
      * found to match the given template, no success completion answer is
      * forwarded to the TuCSoN Agent exploiting this ACC, which then is blocked
      * waiting.
      *
-     * @param tid
-     *            the target TuCSoN tuplecentre id
-     *            {@link alice.tucson.api.TucsonTupleCentreId tid}
-     * @param tuple
-     *            the tuple to be checked for absence from the target
-     *            tuplecentre
-     * @param timeout
-     *            the maximum waiting time for completion tolerated by the
-     *            TuCSoN agent behind this ACC. Notice that reaching the timeout
-     *            just unblocks the agent, but the request IS NOT REMOVED from
-     *            TuCSoN node pending requests (will still be served at sometime
-     *            in the future).
-     *
+     * @param tid     the target TuCSoN tuplecentre id
+     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     * @param tuple   the tuple to be checked for absence from the target
+     *                tuplecentre
+     * @param timeout the maximum waiting time for completion tolerated by the
+     *                TuCSoN agent behind this ACC. Notice that reaching the timeout
+     *                just unblocks the agent, but the request IS NOT REMOVED from
+     *                TuCSoN node pending requests (will still be served at sometime
+     *                in the future).
      * @return the interface to access the data about TuCSoN operations outcome.
-     *
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.ITucsonOperation ITucsonOperation
      */
-    ITucsonOperation uno(TupleCentreId tid, Tuple tuple, Long timeout)
+    ITucsonOperation uno(final TupleCentreId tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -155,38 +127,29 @@ public interface UniformSynchACC extends RootACC {
      * template, Linda's non-deterministic selection is replaced by
      * PROBABILISTIC, UNIFORMLY DISTRIBUTED selection: the more a tuple is
      * present, the more likely it will be returned.
-     *
+     * <p>
      * This time the primitive semantics is NOT SUSPENSIVE: if any tuple is
      * found to match the given template, a failure completion answer is
      * forwarded to the TuCSoN Agent exploiting this ACC.
      *
-     * @param tid
-     *            the target TuCSoN tuplecentre id
-     *            {@link alice.tucson.api.TucsonTupleCentreId tid}
-     * @param tuple
-     *            the tuple to be checked for absence from the target
-     *            tuplecentre
-     * @param timeout
-     *            the maximum waiting time for completion tolerated by the
-     *            TuCSoN agent behind this ACC. Notice that reaching the timeout
-     *            just unblocks the agent, but the request IS NOT REMOVED from
-     *            TuCSoN node pending requests (will still be served at sometime
-     *            in the future).
-     *
+     * @param tid     the target TuCSoN tuplecentre id
+     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     * @param tuple   the tuple to be checked for absence from the target
+     *                tuplecentre
+     * @param timeout the maximum waiting time for completion tolerated by the
+     *                TuCSoN agent behind this ACC. Notice that reaching the timeout
+     *                just unblocks the agent, but the request IS NOT REMOVED from
+     *                TuCSoN node pending requests (will still be served at sometime
+     *                in the future).
      * @return the interface to access the data about TuCSoN operations outcome.
-     *
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.ITucsonOperation ITucsonOperation
      */
-    ITucsonOperation unop(TupleCentreId tid, Tuple tuple, Long timeout)
+    ITucsonOperation unop(final TupleCentreId tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -196,38 +159,29 @@ public interface UniformSynchACC extends RootACC {
      * the template, Linda's non-deterministic selection is replaced by
      * PROBABILISTIC, UNIFORMLY DISTRIBUTED selection: the more a tuple is
      * present, the more likely it will be returned.
-     *
+     * <p>
      * Notice that the primitive semantics is SUSPENSIVE: until no tuple is
      * found to match the given template, no success completion answer is
      * forwarded to the TuCSoN Agent exploiting this ACC, which then is blocked
      * waiting.
      *
-     * @param tid
-     *            the target TuCSoN tuplecentre id
-     *            {@link alice.tucson.api.TucsonTupleCentreId tid}
-     * @param tuple
-     *            the tuple to be read from the target tuplecentre
-     * @param timeout
-     *            the maximum waiting time for completion tolerated by the
-     *            TuCSoN agent behind this ACC. Notice that reaching the timeout
-     *            just unblocks the agent, but the request IS NOT REMOVED from
-     *            TuCSoN node pending requests (will still be served at sometime
-     *            in the future).
-     *
+     * @param tid     the target TuCSoN tuplecentre id
+     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     * @param tuple   the tuple to be read from the target tuplecentre
+     * @param timeout the maximum waiting time for completion tolerated by the
+     *                TuCSoN agent behind this ACC. Notice that reaching the timeout
+     *                just unblocks the agent, but the request IS NOT REMOVED from
+     *                TuCSoN node pending requests (will still be served at sometime
+     *                in the future).
      * @return the interface to access the data about TuCSoN operations outcome.
-     *
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.ITucsonOperation ITucsonOperation
      */
-    ITucsonOperation urd(TupleCentreId tid, Tuple tuple, Long timeout)
+    ITucsonOperation urd(final TupleCentreId tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -237,37 +191,28 @@ public interface UniformSynchACC extends RootACC {
      * the template, Linda's non-deterministic selection is replaced by
      * PROBABILISTIC, UNIFORMLY DISTRIBUTED selection: the more a tuple is
      * present, the more likely it will be returned.
-     *
+     * <p>
      * This time the primitive semantics is NOT SUSPENSIVE: if no tuple is found
      * to match the given template, a failure completion answer is forwarded to
      * the TuCSoN Agent exploiting this ACC.
      *
-     * @param tid
-     *            the target TuCSoN tuplecentre id
-     *            {@link alice.tucson.api.TucsonTupleCentreId tid}
-     * @param tuple
-     *            the tuple to be read from the target tuplecentre
-     * @param timeout
-     *            the maximum waiting time for completion tolerated by the
-     *            TuCSoN agent behind this ACC. Notice that reaching the timeout
-     *            just unblocks the agent, but the request IS NOT REMOVED from
-     *            TuCSoN node pending requests (will still be served at sometime
-     *            in the future).
-     *
+     * @param tid     the target TuCSoN tuplecentre id
+     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     * @param tuple   the tuple to be read from the target tuplecentre
+     * @param timeout the maximum waiting time for completion tolerated by the
+     *                TuCSoN agent behind this ACC. Notice that reaching the timeout
+     *                just unblocks the agent, but the request IS NOT REMOVED from
+     *                TuCSoN node pending requests (will still be served at sometime
+     *                in the future).
      * @return the interface to access the data about TuCSoN operations outcome.
-     *
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.ITucsonOperation ITucsonOperation
      */
-    ITucsonOperation urdp(TupleCentreId tid, Tuple tuple, Long timeout)
+    ITucsonOperation urdp(final TupleCentreId tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 }

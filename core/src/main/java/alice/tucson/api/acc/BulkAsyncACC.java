@@ -11,9 +11,12 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tucson.api;
+package alice.tucson.api.acc;
 
 import java.util.List;
+
+import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.service.TucsonOpCompletionEvent;
@@ -26,10 +29,9 @@ import alice.tuplecentre.api.TupleCentreId;
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public interface BulkAsynchACC extends RootACC {
+public interface BulkAsyncACC extends RootACC {
 
     /**
-     *
      * @return the List of the events regarding TuCSoN operations completion
      */
     List<TucsonOpCompletionEvent> getCompletionEventsList();
@@ -39,31 +41,22 @@ public interface BulkAsynchACC extends RootACC {
      * one shot (a single transition step). The empty list may be returned in
      * case no tuples match. Matching tuples are removed from the space.
      *
-     * @param tid
-     *            the TupleCentreId of the target tuple centre
-     * @param tuple
-     *            the tuple template to be used to retrieve tuples
-     * @param l
-     *            who to notify upon operation completion
-     *
+     * @param tid   the TupleCentreId of the target tuple centre
+     * @param tuple the tuple template to be used to retrieve tuples
+     * @param l     who to notify upon operation completion
      * @return the ITucsonOperation object storing the outcome of the execution.
-     *         Notice due to asynchronous semantics, there is no guarantee it
-     *         will store the result of the operation at anytime but when
-     *         asynchronously notified.
-     *
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     *
+     * Notice due to asynchronous semantics, there is no guarantee it
+     * will store the result of the operation at anytime but when
+     * asynchronously notified.
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     *      TucsonOperationCompletionListener
      * @see alice.tucson.api.ITucsonOperation ITucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    ITucsonOperation inAll(TupleCentreId tid, Tuple tuple,
-            TucsonOperationCompletionListener l)
+    ITucsonOperation inAll(final TupleCentreId tid, final Tuple tuple,
+                           final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 
@@ -74,31 +67,22 @@ public interface BulkAsynchACC extends RootACC {
      * all the tuples matching the template are returned (with <code> no </code>
      * only one non-deterministically selected is returned).
      *
-     * @param tid
-     *            the TupleCentreId of the target tuple centre
-     * @param tuple
-     *            the tuple template to be used to check absence
-     * @param l
-     *            who to notify upon operation completion
-     *
+     * @param tid   the TupleCentreId of the target tuple centre
+     * @param tuple the tuple template to be used to check absence
+     * @param l     who to notify upon operation completion
      * @return the ITucsonOperation object storing the outcome of the execution.
-     *         Notice due to asynchronous semantics, there is no guarantee it
-     *         will store the result of the operation at anytime but when
-     *         asynchronously notified.
-     *
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     *
+     * Notice due to asynchronous semantics, there is no guarantee it
+     * will store the result of the operation at anytime but when
+     * asynchronously notified.
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     *      TucsonOperationCompletionListener
      * @see alice.tucson.api.ITucsonOperation ITucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    ITucsonOperation noAll(TupleCentreId tid, Tuple tuple,
-            TucsonOperationCompletionListener l)
+    ITucsonOperation noAll(final TupleCentreId tid, final Tuple tuple,
+                           final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 
@@ -106,31 +90,22 @@ public interface BulkAsynchACC extends RootACC {
      * Inject in the space a list of tuples in one shot (a single transition
      * step).
      *
-     * @param tid
-     *            the TupleCentreId of the target tuple centre
-     * @param tuple
-     *            the list of tuples to inject (must be a Prolog list)
-     * @param l
-     *            who to notify upon operation completion
-     *
+     * @param tid   the TupleCentreId of the target tuple centre
+     * @param tuple the list of tuples to inject (must be a Prolog list)
+     * @param l     who to notify upon operation completion
      * @return the ITucsonOperation object storing the outcome of the execution.
-     *         Notice due to asynchronous semantics, there is no guarantee it
-     *         will store the result of the operation at anytime but when
-     *         asynchronously notified.
-     *
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     *
+     * Notice due to asynchronous semantics, there is no guarantee it
+     * will store the result of the operation at anytime but when
+     * asynchronously notified.
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     *      TucsonOperationCompletionListener
      * @see alice.tucson.api.ITucsonOperation ITucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    ITucsonOperation outAll(TupleCentreId tid, Tuple tuple,
-            TucsonOperationCompletionListener l)
+    ITucsonOperation outAll(final TupleCentreId tid, final Tuple tuple,
+                            final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 
@@ -139,31 +114,22 @@ public interface BulkAsynchACC extends RootACC {
      * shot (a single transition step). The empty list may be returned in case
      * no tuples match. Matching tuples are NOT removed from the space.
      *
-     * @param tid
-     *            the TupleCentreId of the target tuple centre
-     * @param tuple
-     *            the tuple template to be used to observe tuples
-     * @param l
-     *            who to notify upon operation completion
-     *
+     * @param tid   the TupleCentreId of the target tuple centre
+     * @param tuple the tuple template to be used to observe tuples
+     * @param l     who to notify upon operation completion
      * @return the ITucsonOperation object storing the outcome of the execution.
-     *         Notice due to asynchronous semantics, there is no guarantee it
-     *         will store the result of the operation at anytime but when
-     *         asynchronously notified.
-     *
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     *
+     * Notice due to asynchronous semantics, there is no guarantee it
+     * will store the result of the operation at anytime but when
+     * asynchronously notified.
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     *      TucsonOperationCompletionListener
      * @see alice.tucson.api.ITucsonOperation ITucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    ITucsonOperation rdAll(TupleCentreId tid, Tuple tuple,
-            TucsonOperationCompletionListener l)
+    ITucsonOperation rdAll(final TupleCentreId tid, final Tuple tuple,
+                           final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 }

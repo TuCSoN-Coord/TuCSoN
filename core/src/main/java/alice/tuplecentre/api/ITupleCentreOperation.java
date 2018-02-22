@@ -199,5 +199,5 @@ public interface ITupleCentreOperation {
      * @throws OperationTimeOutException
      *             if the given timeout expires prior to operation completion
      */
-    void waitForOperationCompletion(long ms) throws OperationTimeOutException;
+    void waitForOperationCompletion(final long ms) throws OperationTimeOutException;
 }

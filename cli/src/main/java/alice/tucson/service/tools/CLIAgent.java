@@ -19,7 +19,7 @@ import java.io.InputStreamReader;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.LogicTupleOpManager;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.EnhancedACC;
+import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;

@@ -11,7 +11,7 @@ import alice.respect.situatedness.AbstractTransducer;
 import alice.respect.situatedness.ISimpleProbe;
 import alice.respect.situatedness.TransducerId;
 import alice.respect.situatedness.TransducerStandardInterface;
-import alice.tucson.api.EnhancedSynchACC;
+import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
@@ -35,7 +35,7 @@ public class ActualSensor implements ISimpleProbe {
 
     private static final String DEFAULT_HOST = "localhost";
     private static final String DEFAULT_PORT = "20504";
-    private EnhancedSynchACC acc;
+    private EnhancedSyncACC acc;
     private final AbstractProbeId pid;
     private TucsonTupleCentreId tempTc;
     private TransducerId tid;

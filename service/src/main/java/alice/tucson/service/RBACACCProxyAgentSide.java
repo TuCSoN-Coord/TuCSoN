@@ -102,7 +102,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public Map<Long, TucsonOperation> getPendingOperationsMap() {
+    public Map<Long, ITucsonOperation> getPendingOperationsMap() {
         return this.executor.operations;
     }
 

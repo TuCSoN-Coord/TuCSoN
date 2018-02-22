@@ -22,7 +22,7 @@ package asynchAPI;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.EnhancedSynchACC;
+import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -266,7 +266,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                 }
             }
             super.say("Handlers registered, now I suspend myself until first loop completes...");
-            final EnhancedSynchACC accSynch = this.getContext();
+            final EnhancedSyncACC accSynch = this.getContext();
             final LogicTuple firstLoopTuple = LogicTuple.parse("firstloop");
             final In firstLoopIn = new In(tid, firstLoopTuple);
             /*

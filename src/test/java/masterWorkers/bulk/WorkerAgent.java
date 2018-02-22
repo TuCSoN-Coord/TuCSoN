@@ -7,9 +7,9 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.EnhancedSynchACC;
+import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
+import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -43,7 +43,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
         }
     }
 
-    private EnhancedSynchACC acc;
+    private EnhancedSyncACC acc;
     private boolean die;
 
     private TucsonTupleCentreId tid;

@@ -6,9 +6,9 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.EnhancedSynchACC;
+import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
+import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -43,7 +43,7 @@ public class MasterAgent extends AbstractTucsonAgent {
         }
     }
 
-    private EnhancedSynchACC acc;
+    private EnhancedSyncACC acc;
     private boolean die;
     private final int ITERs;
     private final int MAX_FACT;

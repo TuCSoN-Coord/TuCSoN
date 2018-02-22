@@ -4,8 +4,8 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -37,7 +37,7 @@ public class SenderAgent extends AbstractTucsonAgent {
         }
     }
 
-    private SynchACC acc;
+    private SyncACC acc;
     private ITucsonOperation op;
     private TucsonAgentId receiver;
 

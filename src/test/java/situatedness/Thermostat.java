@@ -8,9 +8,9 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.Value;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.EnhancedSynchACC;
+import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
+import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -64,9 +64,9 @@ public final class Thermostat {
             final NegotiationACC negACC = TucsonMetaACC.getNegotiationContext(
                     aid, Thermostat.DEFAULT_HOST,
                     Integer.valueOf(Thermostat.DEFAULT_PORT));
-            final EnhancedSynchACC acc = negACC.playDefaultRole();
+            final EnhancedSyncACC acc = negACC.playDefaultRole();
             /*
-             * final EnhancedSynchACC acc = TucsonMetaACC.getContext(aid,
+             * final EnhancedSyncACC acc = TucsonMetaACC.getContext(aid,
              * Thermostat.DEFAULT_HOST,
              * Integer.valueOf(Thermostat.DEFAULT_PORT));
              */

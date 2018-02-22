@@ -4,8 +4,8 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -22,7 +22,7 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
 public class DiningPhilosopher extends AbstractTucsonAgent {
 
     private static final int THINK_TIME = 5000;
-    private SynchACC acc;
+    private SyncACC acc;
     private final int chop1, chop2;
     private final TucsonTupleCentreId myTable;
     private final int time, step;

@@ -5,8 +5,8 @@ import alice.logictuple.TupleArgument;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -35,7 +35,7 @@ public class CallerAgent extends AbstractTucsonAgent {
         }
     }
 
-    private SynchACC acc;
+    private SyncACC acc;
     private final int MAX_FACT = 20;
 
     private TucsonTupleCentreId tid;

@@ -19,7 +19,7 @@ import javax.swing.JTextArea;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.EnhancedACC;
+import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;

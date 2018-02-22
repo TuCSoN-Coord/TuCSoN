@@ -5,8 +5,8 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -77,7 +77,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent {
         try {
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());
-            final SynchACC acc = negAcc.playDefaultRole();
+            final SyncACC acc = negAcc.playDefaultRole();
             final TucsonTupleCentreId[] seats = new TucsonTupleCentreId[DDiningPhilosophersTest.N_PHILOSOPHERS];
             for (int i = 0; i < DDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
                 seats[i] = new TucsonTupleCentreId("seat(" + i + "," + (i + 1)

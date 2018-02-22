@@ -167,7 +167,7 @@ public class OperationHandler {
                             .getOutputEvent().getOpId()), false, false, msg
                             .getOutputEvent().isResultSuccess());
                 }
-                final TucsonOperation op;
+                final ITucsonOperation op;
                 // removing completed op from pending list
                 synchronized (OperationHandler.this.operations) {
                     op = OperationHandler.this.operations.remove(msg
@@ -282,7 +282,7 @@ public class OperationHandler {
     /**
      * Requested TuCSoN operations
      */
-    public Map<Long, TucsonOperation> operations;
+    public Map<Long, ITucsonOperation> operations;
 
     /**
      * Current ACC session description
@@ -299,7 +299,7 @@ public class OperationHandler {
         this.profile = new ACCDescription();
         this.events = new LinkedList<TucsonOpCompletionEvent>();
         this.controllerSessions = new HashMap<String, OperationHandler.ControllerSession>();
-        this.operations = new HashMap<Long, TucsonOperation>();
+        this.operations = new HashMap<Long, ITucsonOperation>();
         this.operationExpired = new ArrayList<Long>();
     }
 
@@ -310,7 +310,7 @@ public class OperationHandler {
      * @param op
      *            the TuCSoN operation waiting to be served
      */
-    public void addOperation(final Long id, final TucsonOperation op) {
+    public void addOperation(final Long id, final ITucsonOperation op) {
         this.operations.put(id, op);
     }
 

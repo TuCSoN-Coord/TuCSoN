@@ -3,11 +3,10 @@ package alice.tucson.rbac;
 import java.io.Serializable;
 
 /**
- * Interface representing a RBAC permission.
+ * Interface representing a RBAC (Role-Based Access Control) permission.
  *
  * @author Emanuele Buccelli
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public interface Permission extends Serializable {
 

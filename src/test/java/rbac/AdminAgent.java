@@ -29,7 +29,7 @@ import java.util.logging.Logger;
 
 import alice.respect.api.exceptions.OperationNotAllowedException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.AdminACC;
+import alice.tucson.api.acc.AdminACC;
 import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;

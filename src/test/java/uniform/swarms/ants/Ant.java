@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.EnhancedSynchACC;
+import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -27,7 +27,7 @@ public class Ant extends AbstractTucsonAgent {
     private final static Long TIMEOUT = 500L;
 
     private TucsonTupleCentreId tcid;
-    private EnhancedSynchACC acc;
+    private EnhancedSyncACC acc;
 
     private boolean stopped;
     private boolean carryingFood;

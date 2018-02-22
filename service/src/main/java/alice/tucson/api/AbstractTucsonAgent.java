@@ -14,6 +14,8 @@
 package alice.tucson.api;
 
 import java.util.List;
+
+import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.service.TucsonOpCompletionEvent;
