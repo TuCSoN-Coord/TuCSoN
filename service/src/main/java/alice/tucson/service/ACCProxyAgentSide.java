@@ -206,7 +206,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     .getServiceByName(this.aid.getAgentName() + "_GeoService");
             if (geoService != null) {
                 this.myGeolocationService = geoService;
-                // geoService.addListener(new
+                // geoService.setCompletionListener(new
                 // AgentGeolocationServiceListener(this,
                 // this.myGeolocationService, tcId));
                 this.log("A geolocation service is already attached to this agent, using this.");
@@ -946,7 +946,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     .getGeolocationManager().createAgentService(platform, sId,
                             className, tcId, this);
             if (this.myGeolocationService != null) {
-                // this.myGeolocationService.addListener(new
+                // this.myGeolocationService.setCompletionListener(new
                 // AgentGeolocationServiceListener(this,
                 // this.myGeolocationService, tcId));
                 // GeolocationServiceManager.getGeolocationManager().addService(this.myGeolocationService);

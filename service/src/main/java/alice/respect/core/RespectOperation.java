@@ -19,7 +19,6 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.logictuple.exceptions.InvalidLogicTupleOperationException;
 import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.respect.api.IRespectOperation;
 import alice.respect.api.RespectSpecification;
@@ -849,7 +848,7 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
 
     @Override
     public List<LogicTuple> getLogicTupleListResult() {
-        final List<Tuple> tl = this.getTupleListResult();
+        final List<? extends Tuple> tl = this.getTupleListResult();
         final List<LogicTuple> tll = new LinkedList<LogicTuple>();
         if (tl == null) {
             return new LinkedList<LogicTuple>();

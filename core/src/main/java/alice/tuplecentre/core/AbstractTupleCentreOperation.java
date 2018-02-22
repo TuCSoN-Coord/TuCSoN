@@ -28,17 +28,15 @@ import alice.tuplecentre.api.exceptions.OperationTimeOutException;
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
-public abstract class AbstractTupleCentreOperation implements
-        ITupleCentreOperation {
+public abstract class AbstractTupleCentreOperation implements ITupleCentreOperation {
 
-    /**  */
-    public static final int OPTYPE_IS_STEP_MODE = 57;
     /**
      * shared id counter
      */
     private static long idCounter = 0;
+    /**  */
+    public static final int OPTYPE_IS_STEP_MODE = 57;
     /**  */
     protected static final int OPTYPE_ABORT_OP = 58;
     /**  */
@@ -107,7 +105,7 @@ public abstract class AbstractTupleCentreOperation implements
     protected static final int OPTYPE_RMV_OBS = 68;
     /**  */
     protected static final int OPTYPE_SET = 9;
-    /**  */
+
     // TODO must be delete.. protected static final int OPTYPE_SET_MNG_MODE =
     // 59;
     /**  */
@@ -136,6 +134,7 @@ public abstract class AbstractTupleCentreOperation implements
     protected static final int OPTYPE_URDP = 17;
     /**  */
     protected static final int RESET = 74;
+
     /**
      * internal identifier of the operation
      */
@@ -156,7 +155,7 @@ public abstract class AbstractTupleCentreOperation implements
     /**
      * used for possible synchronisation
      */
-    protected Object token;
+    protected final Object token; //TODO controllare se è usato bene per la sincronizzazione
 
     private AbstractTupleCentreOperation(final int ty) {
         this.operationCompleted = false;
@@ -168,40 +167,30 @@ public abstract class AbstractTupleCentreOperation implements
     }
 
     /**
-     *
-     * @param t
-     *            the type code of the operation
-     * @param tupleList
-     *            the list of tuples argument of the operation
+     * @param t         the type code of the operation
+     * @param tupleList the list of tuples argument of the operation
      */
     protected AbstractTupleCentreOperation(final int t,
-            final List<Tuple> tupleList) {
+                                           final List<Tuple> tupleList) {
         this(t);
         this.listener = null;
         this.tupleListArgument = tupleList;
     }
 
     /**
-     *
-     * @param t
-     *            the type code of the operation
-     * @param tupleList
-     *            the list of tuples argument of the operation
-     * @param l
-     *            the listener for operation completion
+     * @param t         the type code of the operation
+     * @param tupleList the list of tuples argument of the operation
+     * @param l         the listener for operation completion
      */
     protected AbstractTupleCentreOperation(final int t,
-            final List<Tuple> tupleList, final OperationCompletionListener l) {
+                                           final List<Tuple> tupleList, final OperationCompletionListener l) {
         this(t, tupleList);
         this.listener = l;
     }
 
     /**
-     *
-     * @param ty
-     *            the type code of the operation
-     * @param t
-     *            the tuple argument of the operation
+     * @param ty the type code of the operation
+     * @param t  the tuple argument of the operation
      */
     protected AbstractTupleCentreOperation(final int ty, final Tuple t) {
         this(ty);
@@ -210,26 +199,19 @@ public abstract class AbstractTupleCentreOperation implements
     }
 
     /**
-     *
-     * @param ty
-     *            the type code of the operation
-     * @param t
-     *            the tuple argument of the operation
-     * @param l
-     *            the listener for operation completion
+     * @param ty the type code of the operation
+     * @param t  the tuple argument of the operation
+     * @param l  the listener for operation completion
      */
     protected AbstractTupleCentreOperation(final int ty, final Tuple t,
-            final OperationCompletionListener l) {
+                                           final OperationCompletionListener l) {
         this(ty, t);
         this.listener = l;
     }
 
     /**
-     *
-     * @param ty
-     *            the type code of the operation
-     * @param t
-     *            the tuple template argument of the operation
+     * @param ty the type code of the operation
+     * @param t  the tuple template argument of the operation
      */
     protected AbstractTupleCentreOperation(final int ty, final TupleTemplate t) {
         this(ty);
@@ -238,46 +220,24 @@ public abstract class AbstractTupleCentreOperation implements
     }
 
     /**
-     *
-     * @param ty
-     *            the type code of the operation
-     * @param t
-     *            the tuple template argument of the operation
-     * @param l
-     *            the listener for operation completion
+     * @param ty the type code of the operation
+     * @param t  the tuple template argument of the operation
+     * @param l  the listener for operation completion
      */
     protected AbstractTupleCentreOperation(final int ty, final TupleTemplate t,
-            final OperationCompletionListener l) {
+                                           final OperationCompletionListener l) {
         this(ty, t);
         this.listener = l;
     }
 
-    /**
-     *
-     * @param lis
-     *            the listener for operation completion to add
-     */
-    public void addListener(final OperationCompletionListener lis) {
-        this.listener = lis;
-    }
-
-    /**
-     * Get operation identifier
-     *
-     * @return Operation identifier
-     */
     @Override
     public long getId() {
         return this.id;
     }
 
-    /**
-     *
-     * @return the tuple representing the whole invocation predicate (primitive
-     *         + tuple argument)
-     */
+    @Override
     public Tuple getPredicate() {
-        final StringBuffer pred = new StringBuffer();
+        final StringBuilder pred = new StringBuilder();
         try {
             if (this.isOut() || this.isOutS() || this.isOutAll()
                     || this.isSpawn() || this.isSet() || this.isSetS()) {
@@ -294,10 +254,8 @@ public abstract class AbstractTupleCentreOperation implements
         }
     }
 
-    /**
-     *
-     * @return the tuple representing the primitive invoked
-     */
+
+    @Override
     public Tuple getPrimitive() {
         switch (this.type) {
             case OPTYPE_OUT:
@@ -379,7 +337,7 @@ public abstract class AbstractTupleCentreOperation implements
     }
 
     @Override
-    public List<Tuple> getTupleListResult() {
+    public List<? extends Tuple> getTupleListResult() {
         return this.result.getTupleListResult();
     }
 
@@ -388,13 +346,13 @@ public abstract class AbstractTupleCentreOperation implements
         return this.result.getTupleResult();
     }
 
-    /**
-     *
-     * @return the type code of the operation
-     */
+    @Override
     public int getType() {
         return this.type;
     }
+
+
+    /* TODO i metodi qui sotto potrebbero essere rimossi e sostituiti dove usati con un confronto ... */
 
     @Override
     public boolean isGet() {
@@ -421,18 +379,12 @@ public abstract class AbstractTupleCentreOperation implements
         return this.type == AbstractTupleCentreOperation.OPTYPE_INP;
     }
 
-    /**
-     *
-     * @return wether this operation is a <code>inp_s</code>
-     */
+    @Override
     public boolean isInpS() {
         return this.type == AbstractTupleCentreOperation.OPTYPE_INP_S;
     }
 
-    /**
-     *
-     * @return wether this operation is a <code>in_s</code>
-     */
+    @Override
     public boolean isInS() {
         return this.type == AbstractTupleCentreOperation.OPTYPE_IN_S;
     }
@@ -442,10 +394,6 @@ public abstract class AbstractTupleCentreOperation implements
         return this.type == AbstractTupleCentreOperation.OPTYPE_NO;
     }
 
-    /**
-     *
-     * @return wether this operation is a <code>no_all</code>
-     */
     @Override
     public boolean isNoAll() {
         return this.type == AbstractTupleCentreOperation.OPTYPE_NO_ALL;
@@ -456,25 +404,14 @@ public abstract class AbstractTupleCentreOperation implements
         return this.type == AbstractTupleCentreOperation.OPTYPE_NOP;
     }
 
-    /**
-     *
-     * @return wether this operation is a <code>nop_s</code>
-     */
+    @Override
     public boolean isNopS() {
         return this.type == AbstractTupleCentreOperation.OPTYPE_NOP_S;
     }
 
-    /**
-     *
-     * @return wether this operation is a <code>no_s</code>
-     */
+    @Override
     public boolean isNoS() {
         return this.type == AbstractTupleCentreOperation.OPTYPE_NO_S;
-    }
-
-    @Override
-    public boolean isOperationCompleted() {
-        return this.operationCompleted;
     }
 
     @Override
@@ -487,10 +424,7 @@ public abstract class AbstractTupleCentreOperation implements
         return this.type == AbstractTupleCentreOperation.OPTYPE_OUT_ALL;
     }
 
-    /**
-     *
-     * @return wether this operation is a <code>out_s</code>
-     */
+    @Override
     public boolean isOutS() {
         return this.type == AbstractTupleCentreOperation.OPTYPE_OUT_S;
     }
@@ -510,27 +444,64 @@ public abstract class AbstractTupleCentreOperation implements
         return this.type == AbstractTupleCentreOperation.OPTYPE_RDP;
     }
 
-    /**
-     *
-     * @return wether this operation is a <code>rdp_s</code>
-     */
+    @Override
     public boolean isRdpS() {
         return this.type == AbstractTupleCentreOperation.OPTYPE_RDP_S;
     }
 
-    /**
-     *
-     * @return wether this operation is a <code>rd_s</code>
-     */
+    @Override
     public boolean isRdS() {
         return this.type == AbstractTupleCentreOperation.OPTYPE_RD_S;
     }
 
-    /**
-     * Tests if the result is defined
-     *
-     * @return true if the result is defined
-     */
+    @Override
+    public boolean isSet() {
+        return this.type == AbstractTupleCentreOperation.OPTYPE_SET;
+    }
+
+    @Override
+    public boolean isSetS() {
+        return this.type == AbstractTupleCentreOperation.OPTYPE_SET_S;
+    }
+
+    @Override
+    public boolean isUin() {
+        return this.type == AbstractTupleCentreOperation.OPTYPE_UIN;
+    }
+
+    @Override
+    public boolean isUinp() {
+        return this.type == AbstractTupleCentreOperation.OPTYPE_UINP;
+    }
+
+    @Override
+    public boolean isUno() {
+        return this.type == AbstractTupleCentreOperation.OPTYPE_UNO;
+    }
+
+    @Override
+    public boolean isUnop() {
+        return this.type == AbstractTupleCentreOperation.OPTYPE_UNOP;
+    }
+
+    @Override
+    public boolean isUrd() {
+        return this.type == AbstractTupleCentreOperation.OPTYPE_URD;
+    }
+
+    @Override
+    public boolean isUrdp() {
+        return this.type == AbstractTupleCentreOperation.OPTYPE_URDP;
+    }
+
+    @Override
+    public boolean isSpawn() {
+        return this.type == AbstractTupleCentreOperation.OPTYPE_SPAWN;
+    }
+
+
+    /* TODO fino qui */
+    @Override
     public boolean isResultDefined() {
         return this.result.isResultDefined();
     }
@@ -546,107 +517,32 @@ public abstract class AbstractTupleCentreOperation implements
     }
 
     @Override
-    public boolean isSet() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_SET;
+    public void setCompletionListener(final OperationCompletionListener lis) {
+        this.listener = lis;
     }
 
     @Override
-    public boolean isSetS() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_SET_S;
-    }
-
-    /**
-     *
-     * @return wether this operation is a <code>spawn</code>
-     */
-    public boolean isSpawn() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_SPAWN;
+    public boolean isOperationCompleted() {
+        return this.operationCompleted;
     }
 
     @Override
-    public boolean isUin() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_UIN;
-    }
-
-    @Override
-    public boolean isUinp() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_UINP;
-    }
-
-    public boolean isUno() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_UNO;
-    }
-
-    public boolean isUnop() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_UNOP;
-    }
-
-    @Override
-    public boolean isUrd() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_URD;
-    }
-
-    @Override
-    public boolean isUrdp() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_URDP;
-    }
-
-    /**
-     * Changes the state of the operation to complete.
-     *
-     */
-    public void notifyCompletion() {
-        if (this.listener != null) {
-            this.operationCompleted = true;
-            this.listener.operationCompleted(this);
-        } else {
-            synchronized (this.token) {
-                this.operationCompleted = true;
-                this.token.notifyAll();
-            }
-        }
-    }
-
-    /**
-     *
-     */
-    public void removeListener() {
+    public void removeCompletionListener() {
         this.listener = null;
     }
 
-    /**
-     *
-     * @param l
-     *            the listener for operation completion
-     */
-    public void setListener(final OperationCompletionListener l) {
-        this.listener = l;
-    }
-
-    /**
-     *
-     * @param o
-     *            the outcome of the operation
-     */
+    @Override
     public void setOpResult(final ITCCycleResult.Outcome o) {
         this.result.setOpResult(o);
     }
 
-    /**
-     *
-     * @param t
-     *            the list of tuples result of the operation
-     */
-    public void setTupleListResult(final List<Tuple> t) {
+    @Override
+    public void setTupleListResult(final List<? extends Tuple> t) {
         this.result.setTupleListResult(t);
         this.result.setEndTime(System.currentTimeMillis());
     }
 
-    /**
-     *
-     * @param t
-     *            the tuple result of the operation
-     */
+    @Override
     public void setTupleResult(final Tuple t) {
         this.result.setTupleResult(t);
         if (this.templateArgument != null) {
@@ -683,6 +579,19 @@ public abstract class AbstractTupleCentreOperation implements
             }
             if (!this.operationCompleted) {
                 throw new OperationTimeOutException(ms);
+            }
+        }
+    }
+
+    @Override
+    public void notifyCompletion() {
+        if (this.listener != null) {
+            this.operationCompleted = true;
+            this.listener.operationCompleted(this);
+        } else {
+            synchronized (this.token) {
+                this.operationCompleted = true;
+                this.token.notifyAll();
             }
         }
     }

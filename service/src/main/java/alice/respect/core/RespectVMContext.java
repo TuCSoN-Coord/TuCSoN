@@ -109,7 +109,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 
 		@Override
 		public void operationCompleted(final AbstractTupleCentreOperation arg0) {
-			arg0.removeListener();
+			arg0.removeCompletionListener();
 			// oe.getTarget() == oeTarget by construction (loc 1201)!
 			// 3rd arg is the target of the event,
 			RespectVMContext.this.log("Completion op = " + arg0 + ", from = " + this.oe.getSource() + ", to = "
@@ -1118,7 +1118,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 		final TupleCentreId target = (TupleCentreId) oe.getTarget();
 		try {
 			final AbstractTupleCentreOperation op = oe.getSimpleTCEvent();
-			op.addListener(new CompletionListener(oe));
+			op.setCompletionListener(new CompletionListener(oe));
 			final ILinkContext link = RespectTCContainer.getRespectTCContainer().getLinkContext(target);
 			// link.doOperation((TupleCentreId) oe.getSource(), op);
 			TupleCentreId source;

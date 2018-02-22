@@ -176,7 +176,7 @@ public class OperationHandler {
                 if (op.isNoAll() || op.isInAll() || op.isRdAll() || op.isGet()
                         || op.isSet() || op.isGetS() || op.isSetS()
                         || op.isOutAll()) {
-                    op.setLogicTupleListResult((List<LogicTuple>) msg
+                    op.setTupleListResult((List<LogicTuple>) msg
                             .getOutputEvent().getTupleResult());
                 } else {
                     op.setTupleResult((LogicTuple) msg.getOutputEvent()
@@ -188,8 +188,7 @@ public class OperationHandler {
                     op.setOpResult(ITCCycleResult.Outcome.FAILURE);
                 }
                 OperationHandler.this.postEvent(ev);
-                op.notifyCompletion(ev.operationSucceeded(), msg
-                        .getOutputEvent().isAllowed());
+                op.notifyCompletion();
             }
         }
 

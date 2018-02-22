@@ -16,7 +16,7 @@ public class TCCycleResult implements ITCCycleResult {
     private long endTime;
     private Outcome opResult;
     private final long startTime;
-    private List<Tuple> tupleListResult;
+    private List<?extends Tuple> tupleListResult;
     private Tuple tupleResult;
 
     /**
@@ -45,7 +45,7 @@ public class TCCycleResult implements ITCCycleResult {
     }
 
     @Override
-    public List<Tuple> getTupleListResult() {
+    public List<? extends Tuple> getTupleListResult() {
         return this.tupleListResult;
     }
 
@@ -80,7 +80,7 @@ public class TCCycleResult implements ITCCycleResult {
     }
 
     @Override
-    public void setTupleListResult(final List<Tuple> res) {
+    public void setTupleListResult(final List<? extends Tuple> res) {
         this.tupleListResult = res;
     }
 

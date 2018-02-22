@@ -562,7 +562,7 @@ public class TucsonOperation extends AbstractTupleCentreOperation implements ITu
 
     @Override
     public List<LogicTuple> getLogicTupleListResult() {
-        final List<Tuple> tl = this.getTupleListResult();
+        final List<?extends Tuple> tl = this.getTupleListResult();
         final List<LogicTuple> tll = new LinkedList<LogicTuple>();
         for (final Tuple t : tl) {
             tll.add((LogicTuple) t);
@@ -575,32 +575,7 @@ public class TucsonOperation extends AbstractTupleCentreOperation implements ITu
         return (LogicTuple) this.getTupleResult();
     }
 
-    /**
-     * @param s wether the operation succeeded
-     * @param a wether the operation was allowed
-     */
-    public void notifyCompletion(final boolean s, final boolean a) {
-        if (this.listener != null) {
-            // System.out.println("......[TucsonOperation]: listener is "
-            // + this.listener.getClass().getSimpleName());
-            this.operationCompleted = true;
-            this.listener.operationCompleted(this);
-        } else {
-            synchronized (this.token) {
-                this.operationCompleted = true;
-                this.token.notifyAll();
-            }
-        }
-    }
 
-    @Override
-    public void setLogicTupleListResult(final List<LogicTuple> logicTuples) {
-        final List<Tuple> t = new LinkedList<Tuple>();
-        for (final LogicTuple logicTuple : logicTuples) {
-            t.add(logicTuple);
-        }
-        this.setTupleListResult(t);
-    }
 
     @Override
     public void waitForOperationCompletion(final long ms)

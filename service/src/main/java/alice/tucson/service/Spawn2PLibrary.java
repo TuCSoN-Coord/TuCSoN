@@ -36,9 +36,9 @@ public class Spawn2PLibrary extends Library {
      *
      * @return the tuple list of tuples result of the conversion
      */
-    private static Term list2tuple(final List<Tuple> list) {
+    private static Term list2tuple(final List<?extends Tuple> list) {
         final Term[] termArray = new Term[list.size()];
-        final Iterator<Tuple> it = list.iterator();
+        final Iterator<?extends Tuple> it = list.iterator();
         int i = 0;
         while (it.hasNext()) {
             termArray[i] = ((LogicTuple) it.next()).toTerm();

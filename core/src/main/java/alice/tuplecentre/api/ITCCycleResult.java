@@ -32,7 +32,7 @@ public interface ITCCycleResult {
      *
      * @return the list of tuples result of the operation
      */
-    List<Tuple> getTupleListResult();
+    List<?extends Tuple> getTupleListResult();
 
     /**
      *
@@ -77,7 +77,7 @@ public interface ITCCycleResult {
      * @param resList
      *            the list of tuples result of the operation
      */
-    void setTupleListResult(List<Tuple> resList);
+    void setTupleListResult(List<?extends Tuple> resList);
 
     /**
      *
@@ -88,6 +88,8 @@ public interface ITCCycleResult {
 
 
     /**
+     *
+     * Enumeration defining the result types of an operation on a tuple centre
      *
      * @author ste (mailto: s.mariani@unibo.it) on 17/lug/2013
      *

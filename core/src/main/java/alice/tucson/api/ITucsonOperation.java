@@ -22,7 +22,6 @@ import alice.tuplecentre.api.Tuple;
  * TucsonOperation interface, to access the data about TuCSoN operations
  * outcome.
  *
- * @see alice.tucson.service.TucsonOperation TucsonOperation
  * @see alice.tuplecentre.api.ITupleCentreOperation ITupleCentreOperation
  *
  * @author ste (mailto: s.mariani@unibo.it)
@@ -68,13 +67,4 @@ public interface ITucsonOperation extends ITupleCentreOperation {
      * @return the tuple result of the requested operation.
      */
     LogicTuple getLogicTupleResult();
-
-    /**
-     * Checks success of operation execution.
-     *
-     * @return <code>true</code> if the operation succeeded, <code>false</code>
-     *         otherwise (failure or undefined)
-     */
-    @Override
-    boolean isResultSuccess();
 }
