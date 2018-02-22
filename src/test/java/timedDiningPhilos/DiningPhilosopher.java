@@ -3,7 +3,7 @@ package timedDiningPhilos;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonMetaACC;
@@ -66,14 +66,14 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation arg0) {
+    public void operationCompleted(final TucsonOperation arg0) {
         /*
          * not used atm
          */
     }
 
     private boolean acquireChops() {
-        ITucsonOperation op = null;
+        TucsonOperation op = null;
         try {
             /*
              * NB: The 2 needed chopsticks are "perceived" as a single item by
@@ -101,7 +101,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
 
     private boolean eat() {
         this.say("...gnam gnam...chomp chomp...munch munch...");
-        ITucsonOperation op = null;
+        TucsonOperation op = null;
         try {
             for (int i = 0; i < this.time / this.step; i++) {
                 Thread.sleep(this.step);

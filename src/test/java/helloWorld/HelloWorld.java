@@ -4,7 +4,7 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidVarNameException;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonAgentId;
@@ -57,7 +57,7 @@ public final class HelloWorld {
              * 5) Perform the coordination operation using the preferred
              * coordination primitive.
              */
-            ITucsonOperation op = acc.out(tid, tuple, null);
+            TucsonOperation op = acc.out(tid, tuple, null);
             /*
              * 6) Check requested operation success.
              */

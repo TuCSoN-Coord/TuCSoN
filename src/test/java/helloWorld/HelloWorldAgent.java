@@ -3,7 +3,7 @@ package helloWorld;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonMetaACC;
@@ -74,7 +74,7 @@ public class HelloWorldAgent extends AbstractTucsonAgent {
      * To override only for asynchronous coordination operations.
      */
     @Override
-    public void operationCompleted(final ITucsonOperation arg0) {
+    public void operationCompleted(final TucsonOperation arg0) {
         /*
          * not used atm
          */
@@ -107,7 +107,7 @@ public class HelloWorldAgent extends AbstractTucsonAgent {
              * 7) Perform the coordination operation using the preferred
              * coordination primitive.
              */
-            ITucsonOperation op = acc.out(tid, tuple, null);
+            TucsonOperation op = acc.out(tid, tuple, null);
             /*
              * 8) Check requested operation success.
              */

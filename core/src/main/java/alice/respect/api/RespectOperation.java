@@ -2,6 +2,7 @@ package alice.respect.api;
 
 import java.util.List;
 import alice.logictuple.LogicTuple;
+import alice.tuplecentre.api.TupleCentreOperation;
 
 /**
  * ReSpecT Operation Interface.
@@ -9,8 +10,8 @@ import alice.logictuple.LogicTuple;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
-public interface IRespectOperation extends
-        alice.tuplecentre.api.ITupleCentreOperation {
+public interface RespectOperation extends
+        TupleCentreOperation {
 
     /**
      * Gets the argument of the operation

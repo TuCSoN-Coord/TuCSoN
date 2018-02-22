@@ -18,7 +18,7 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.ITCCycleResult;
-import alice.tuplecentre.api.ITupleCentreOperation;
+import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -29,7 +29,7 @@ import alice.tuplecentre.api.exceptions.OperationTimeOutException;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
-public abstract class AbstractTupleCentreOperation implements ITupleCentreOperation {
+public abstract class AbstractTupleCentreOperation implements TupleCentreOperation {
 
     /**
      * shared id counter

@@ -14,7 +14,7 @@ import alice.tucson.network.exceptions.DialogSendException;
 import alice.tucson.service.ACCDescription;
 import alice.tucson.service.ACCProvider;
 import alice.tucson.service.TucsonNodeService;
-import alice.tucson.service.TucsonOperation;
+import alice.tucson.service.TucsonOperationDefault;
 import alice.tucson.service.TupleCentreContainer;
 import alice.tuplecentre.core.InspectableEvent;
 import alice.tuplecentre.core.ObservableEventExt;
@@ -80,7 +80,7 @@ public class Inspector4GuiContextSkel extends InspectorContextSkel {
             if (ev.getType() == InspectableEvent.TYPE_IDLESTATE) {
                     final LogicTuple[] ltSet = (LogicTuple[]) TupleCentreContainer
                             .doManagementOperation(
-                                    TucsonOperation.getTSetCode(), this.tcId, this.protocol.getTsetFilter());
+                                    TucsonOperationDefault.getTSetCode(), this.tcId, this.protocol.getTsetFilter());
 
                     updateTuples(ltSet);     
                     fillMsg(msg);
@@ -89,7 +89,7 @@ public class Inspector4GuiContextSkel extends InspectorContextSkel {
             if (ev.getType() == InspectableEvent.TYPE_NEWSTATE) {
                 	final LogicTuple[] ltSet = (LogicTuple[]) TupleCentreContainer
                             .doManagementOperation(
-                                    TucsonOperation.getTSetCode(), this.tcId, this.protocol.getTsetFilter());
+                                    TucsonOperationDefault.getTSetCode(), this.tcId, this.protocol.getTsetFilter());
                     updateTuples(ltSet);               
                     fillMsg(msg);
                 this.dialog.sendInspectorEvent(msg);

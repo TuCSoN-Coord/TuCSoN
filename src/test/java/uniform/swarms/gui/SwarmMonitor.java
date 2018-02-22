@@ -9,8 +9,8 @@ import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.BulkSyncACC;
-import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
@@ -89,7 +89,7 @@ public class SwarmMonitor {
     private int[] smell() {
         final int[] pheromones = new int[this.tcids.length];
         try {
-            ITucsonOperation op;
+            TucsonOperation op;
             List<LogicTuple> tuples;
             for (int i = 0; i < this.tcids.length; i++) {
                 SwarmMonitor.log("Smelling " + this.tcids[i].getName() + "...");

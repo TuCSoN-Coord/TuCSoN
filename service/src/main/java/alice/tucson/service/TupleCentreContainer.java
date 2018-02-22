@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.logictuple.exceptions.InvalidLogicTupleOperationException;
 import alice.respect.api.IEnvironmentContext;
 import alice.respect.api.IManagementContext;
 import alice.respect.api.IOrdinaryAsynchInterface;
@@ -18,7 +17,7 @@ import alice.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.respect.api.exceptions.OperationNotPossibleException;
 import alice.respect.core.InternalEvent;
 import alice.respect.core.InternalOperation;
-import alice.respect.core.RespectOperation;
+import alice.respect.core.RespectOperationDefault;
 import alice.respect.core.RespectTC;
 import alice.respect.core.RespectTCContainer;
 import alice.respect.core.SpecificationSynchInterface;
@@ -31,7 +30,7 @@ import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonInvalidSpecificationException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.api.ITupleCentreOperation;
+import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
@@ -105,62 +104,62 @@ public final class TupleCentreContainer {
         try {
             context = RespectTCContainer.getRespectTCContainer()
                     .getOrdinarySynchInterface(tid.getInternalTupleCentreId());
-            if (type == TucsonOperation.getCode()) {
+            if (type == TucsonOperationDefault.getCode()) {
                 return context.get(ev);
             }
-            if (type == TucsonOperation.setCode()) {
+            if (type == TucsonOperationDefault.setCode()) {
                 return context.set(ev);
             }
-            if (type == TucsonOperation.outCode()) {
+            if (type == TucsonOperationDefault.outCode()) {
                 context.out(ev);
                 return ev.getSimpleTCEvent().getTupleArgument();
             }
-            if (type == TucsonOperation.inCode()) {
+            if (type == TucsonOperationDefault.inCode()) {
                 return context.in(ev);
             }
-            if (type == TucsonOperation.inpCode()) {
+            if (type == TucsonOperationDefault.inpCode()) {
                 return context.inp(ev);
             }
-            if (type == TucsonOperation.rdCode()) {
+            if (type == TucsonOperationDefault.rdCode()) {
                 return context.rd(ev);
             }
-            if (type == TucsonOperation.rdpCode()) {
+            if (type == TucsonOperationDefault.rdpCode()) {
                 return context.rdp(ev);
             }
-            if (type == TucsonOperation.noCode()) {
+            if (type == TucsonOperationDefault.noCode()) {
                 return context.no(ev);
             }
-            if (type == TucsonOperation.nopCode()) {
+            if (type == TucsonOperationDefault.nopCode()) {
                 return context.nop(ev);
             }
-            if (type == TucsonOperation.outAllCode()) {
+            if (type == TucsonOperationDefault.outAllCode()) {
                 return context.outAll(ev);
             }
-            if (type == TucsonOperation.inAllCode()) {
+            if (type == TucsonOperationDefault.inAllCode()) {
                 return context.inAll(ev);
             }
-            if (type == TucsonOperation.rdAllCode()) {
+            if (type == TucsonOperationDefault.rdAllCode()) {
                 return context.rdAll(ev);
             }
-            if (type == TucsonOperation.noAllCode()) {
+            if (type == TucsonOperationDefault.noAllCode()) {
                 return context.noAll(ev);
             }
-            if (type == TucsonOperation.uinCode()) {
+            if (type == TucsonOperationDefault.uinCode()) {
                 return context.uin(ev);
             }
-            if (type == TucsonOperation.urdCode()) {
+            if (type == TucsonOperationDefault.urdCode()) {
                 return context.uin(ev);
             }
-            if (type == TucsonOperation.unoCode()) {
+            if (type == TucsonOperationDefault.unoCode()) {
                 return context.uin(ev);
             }
-            if (type == TucsonOperation.uinpCode()) {
+            if (type == TucsonOperationDefault.uinpCode()) {
                 return context.uin(ev);
             }
-            if (type == TucsonOperation.urdpCode()) {
+            if (type == TucsonOperationDefault.urdpCode()) {
                 return context.uin(ev);
             }
-            if (type == TucsonOperation.unopCode()) {
+            if (type == TucsonOperationDefault.unopCode()) {
                 return context.uin(ev);
             }
         } catch (final InvalidLogicTupleException e) {
@@ -183,7 +182,7 @@ public final class TupleCentreContainer {
             context = RespectTCContainer.getRespectTCContainer()
                     .getSpecificationSynchInterface(
                             tid.getInternalTupleCentreId());
-            if (type == TucsonOperation.setSCode()) {
+            if (type == TucsonOperationDefault.setSCode()) {
                 if ("spec".equals(t.getName())) {
                     return ((SpecificationSynchInterface) context)
                             .setS(new RespectSpecification(t.getArg(0)
@@ -191,7 +190,7 @@ public final class TupleCentreContainer {
                 }
                 return context.setS(t, ev);
             }
-            if (type == TucsonOperation.getSCode()) {
+            if (type == TucsonOperationDefault.getSCode()) {
                 return context.getS(ev);
             }
         } catch (final OperationNotPossibleException e) {
@@ -213,7 +212,7 @@ public final class TupleCentreContainer {
             context = RespectTCContainer.getRespectTCContainer()
                     .getSpecificationSynchInterface(
                             tid.getInternalTupleCentreId());
-            if (type == TucsonOperation.setSCode()) {
+            if (type == TucsonOperationDefault.setSCode()) {
                 if ("spec".equals(t.getName())) {
                     return ((SpecificationSynchInterface) context)
                             .setS(new RespectSpecification(t.getArg(0)
@@ -221,7 +220,7 @@ public final class TupleCentreContainer {
                 }
                 return context.setS(t, ev);
             }
-            if (type == TucsonOperation.getSCode()) {
+            if (type == TucsonOperationDefault.getSCode()) {
                 return context.getS(ev);
             }
         } catch (final OperationNotPossibleException e) {
@@ -254,20 +253,20 @@ public final class TupleCentreContainer {
     * @throws OperationTimeOutException
     *             if the notification operation expires timeout
     */
-   public static ITupleCentreOperation doEnvironmentalOperation(
+   public static TupleCentreOperation doEnvironmentalOperation(
            final int type, final TucsonAgentId aid,
            final TucsonTupleCentreId tid, final LogicTuple t,
            final OperationCompletionListener l)
            throws OperationTimeOutException,
            TucsonOperationNotPossibleException, UnreachableNodeException {
        IEnvironmentContext context = null;
-       RespectOperation op = null;
+       RespectOperationDefault op = null;
        context = RespectTCContainer.getRespectTCContainer()
                .getEnvironmentContext(tid.getInternalTupleCentreId());
-       if (type == TucsonOperation.getEnvCode()) {
-           op = RespectOperation.makeGetEnv(t, l);
-       } else if (type == TucsonOperation.setEnvCode()) {
-           op = RespectOperation.makeSetEnv(t, l);
+       if (type == TucsonOperationDefault.getEnvCode()) {
+           op = RespectOperationDefault.makeGetEnv(t, l);
+       } else if (type == TucsonOperationDefault.setEnvCode()) {
+           op = RespectOperationDefault.makeSetEnv(t, l);
        }
        // Preparing the input event for the tuple centre.
        final HashMap<String, String> eventMap = new HashMap<String, String>();
@@ -327,20 +326,20 @@ public final class TupleCentreContainer {
     * @throws OperationTimeOutException
     *             if the notification operation expires timeout
     */
-   public static ITupleCentreOperation doEnvironmentalOperation(
+   public static TupleCentreOperation doEnvironmentalOperation(
            final int type, final TucsonTupleCentreId aid,
            final TucsonTupleCentreId tid, final LogicTuple t,
            final OperationCompletionListener l)
            throws TucsonOperationNotPossibleException,
            UnreachableNodeException, OperationTimeOutException {
        IEnvironmentContext context = null;
-       RespectOperation op = null;
+       RespectOperationDefault op = null;
        context = RespectTCContainer.getRespectTCContainer()
                .getEnvironmentContext(tid.getInternalTupleCentreId());
-       if (type == TucsonOperation.getEnvCode()) {
-           op = RespectOperation.makeGetEnv(t, l);
-       } else if (type == TucsonOperation.setEnvCode()) {
-           op = RespectOperation.makeSetEnv(t, l);
+       if (type == TucsonOperationDefault.getEnvCode()) {
+           op = RespectOperationDefault.makeGetEnv(t, l);
+       } else if (type == TucsonOperationDefault.setEnvCode()) {
+           op = RespectOperationDefault.makeSetEnv(t, l);
        }
        // Preparing the input event for the tuple centre.
        final HashMap<String, String> eventMap = new HashMap<String, String>();
@@ -383,10 +382,10 @@ public final class TupleCentreContainer {
        IManagementContext context = null;
        context = RespectTCContainer.getRespectTCContainer()
                .getManagementContext(tid.getInternalTupleCentreId());
-       if (type == TucsonOperation.abortOpCode()) {
+       if (type == TucsonOperationDefault.abortOpCode()) {
            return context.abortOperation((Long) obj);
        }
-       if (type == TucsonOperation.setSCode()) {
+       if (type == TucsonOperationDefault.setSCode()) {
            try {
                context.setSpec(new RespectSpecification(((LogicTuple) obj)
                        .getArg(0).getName()));
@@ -399,19 +398,19 @@ public final class TupleCentreContainer {
                return false;
            }
        }
-       if (type == TucsonOperation.getSCode()) {
+       if (type == TucsonOperationDefault.getSCode()) {
            return new LogicTuple(context.getSpec().toString());
        }
-       if (type == TucsonOperation.getTRSetCode()) {
+       if (type == TucsonOperationDefault.getTRSetCode()) {
            return context.getTRSet((LogicTuple) obj);
        }
-       if (type == TucsonOperation.getTSetCode()) {
+       if (type == TucsonOperationDefault.getTSetCode()) {
            return context.getTSet((LogicTuple) obj);
        }
-       if (type == TucsonOperation.getWSetCode()) {
+       if (type == TucsonOperationDefault.getWSetCode()) {
            return context.getWSet((LogicTuple) obj);
        }
-       if (type == TucsonOperation.goCmdCode()) {
+       if (type == TucsonOperationDefault.goCmdCode()) {
            try {
                context.goCommand();
                return true;
@@ -420,7 +419,7 @@ public final class TupleCentreContainer {
                return false;
            }
        }
-       if (type == TucsonOperation.stopCmdCode()) {
+       if (type == TucsonOperationDefault.stopCmdCode()) {
            try {
                context.stopCommand();
                return true;
@@ -429,14 +428,14 @@ public final class TupleCentreContainer {
                return false;
            }
        }
-       if (type == TucsonOperation.isStepModeCode()) {
+       if (type == TucsonOperationDefault.isStepModeCode()) {
            return context.isStepModeCommand();
        }
-       if (type == TucsonOperation.stepModeCode()) {
+       if (type == TucsonOperationDefault.stepModeCode()) {
            context.stepModeCommand();
            return true;
        }
-       if (type == TucsonOperation.nextStepCode()) {
+       if (type == TucsonOperationDefault.nextStepCode()) {
            try {
                context.nextStepCommand();
                return true;
@@ -447,45 +446,45 @@ public final class TupleCentreContainer {
            }
        }
        /*
-        * TODO must be delete... if (type == TucsonOperation.setMngModeCode())
+        * TODO must be delete... if (type == TucsonOperationDefault.setMngModeCode())
         * { context.setManagementMode((Boolean) obj); return true; }
         */
-       if (type == TucsonOperation.addObsCode()) {
+       if (type == TucsonOperationDefault.addObsCode()) {
            context.addObserver((ObservableEventListener) obj);
            return true;
        }
-       if (type == TucsonOperation.rmvObsCode()) {
+       if (type == TucsonOperationDefault.rmvObsCode()) {
            context.removeObserver((ObservableEventListener) obj);
            return true;
        }
-       if (type == TucsonOperation.hasObsCode()) {
+       if (type == TucsonOperationDefault.hasObsCode()) {
            return context.hasObservers();
        }
-       if (type == TucsonOperation.addInspCode()) {
+       if (type == TucsonOperationDefault.addInspCode()) {
            context.addInspector((InspectableEventListener) obj);
            return true;
        }
-       if (type == TucsonOperation.rmvInspCode()) {
+       if (type == TucsonOperationDefault.rmvInspCode()) {
            context.removeInspector((InspectableEventListener) obj);
            return true;
        }
-       if (type == TucsonOperation.getInspectorsCode()) {
+       if (type == TucsonOperationDefault.getInspectorsCode()) {
            return context.getInspectors();
        }
-       if (type == TucsonOperation.hasInspCode()) {
+       if (type == TucsonOperationDefault.hasInspCode()) {
            return context.hasInspectors();
        }
        // I don't think this is finished...
-       if (type == TucsonOperation.reset()) {
+       if (type == TucsonOperationDefault.reset()) {
            return context.hasInspectors();
        }
        return null;
    }
 
-    public static ITupleCentreOperation doNonBlockingOperation(
+    public static TupleCentreOperation doNonBlockingOperation(
             final InputEvent ev) throws TucsonInvalidLogicTupleException,
             TucsonOperationNotPossibleException {
-        final ITupleCentreOperation res = null;
+        final TupleCentreOperation res = null;
         IOrdinaryAsynchInterface context = null;
         final int type = ev.getSimpleTCEvent().getType();
         final TucsonTupleCentreId tid = (TucsonTupleCentreId) ev.getTarget();
@@ -493,64 +492,64 @@ public final class TupleCentreContainer {
             context = RespectTCContainer.getRespectTCContainer()
                     .getOrdinaryAsynchInterface(tid.getInternalTupleCentreId());
             
-            if (type == TucsonOperation.spawnCode()) {
+            if (type == TucsonOperationDefault.spawnCode()) {
                 return context.spawn(ev);
             }
-            if (type == TucsonOperation.outCode()) {
+            if (type == TucsonOperationDefault.outCode()) {
                 return context.out(ev);
             }
-            if (type == TucsonOperation.inCode()) {
+            if (type == TucsonOperationDefault.inCode()) {
                 return context.in(ev);
             }
-            if (type == TucsonOperation.inpCode()) {
+            if (type == TucsonOperationDefault.inpCode()) {
                 return context.inp(ev);
             }
-            if (type == TucsonOperation.rdCode()) {
+            if (type == TucsonOperationDefault.rdCode()) {
                 return context.rd(ev);
             }
-            if (type == TucsonOperation.rdpCode()) {
+            if (type == TucsonOperationDefault.rdpCode()) {
                 return context.rdp(ev);
             }
-            if (type == TucsonOperation.noCode()) {
+            if (type == TucsonOperationDefault.noCode()) {
                 return context.no(ev);
             }
-            if (type == TucsonOperation.nopCode()) {
+            if (type == TucsonOperationDefault.nopCode()) {
                 return context.nop(ev);
             }
-            if (type == TucsonOperation.getCode()) {
+            if (type == TucsonOperationDefault.getCode()) {
                 return context.get(ev);
             }
-            if (type == TucsonOperation.setCode()) {
+            if (type == TucsonOperationDefault.setCode()) {
                 return context.set(ev);
             }
-            if (type == TucsonOperation.outAllCode()) {
+            if (type == TucsonOperationDefault.outAllCode()) {
                 return context.outAll(ev);
             }
-            if (type == TucsonOperation.inAllCode()) {
+            if (type == TucsonOperationDefault.inAllCode()) {
                 return context.inAll(ev);
             }
-            if (type == TucsonOperation.rdAllCode()) {
+            if (type == TucsonOperationDefault.rdAllCode()) {
                 return context.rdAll(ev);
             }
-            if (type == TucsonOperation.noAllCode()) {
+            if (type == TucsonOperationDefault.noAllCode()) {
                 return context.noAll(ev);
             }
-            if (type == TucsonOperation.uinCode()) {
+            if (type == TucsonOperationDefault.uinCode()) {
                 return context.uin(ev);
             }
-            if (type == TucsonOperation.uinpCode()) {
+            if (type == TucsonOperationDefault.uinpCode()) {
                 return context.uinp(ev);
             }
-            if (type == TucsonOperation.urdCode()) {
+            if (type == TucsonOperationDefault.urdCode()) {
                 return context.urd(ev);
             }
-            if (type == TucsonOperation.urdpCode()) {
+            if (type == TucsonOperationDefault.urdpCode()) {
                 return context.urdp(ev);
             }
-            if (type == TucsonOperation.unoCode()) {
+            if (type == TucsonOperationDefault.unoCode()) {
                 return context.uno(ev);
             }
-            if (type == TucsonOperation.unopCode()) {
+            if (type == TucsonOperationDefault.unopCode()) {
                 return context.unop(ev);
             }
         } catch (final InvalidLogicTupleException e) {
@@ -561,10 +560,10 @@ public final class TupleCentreContainer {
         return res;
     }
 
-    public static ITupleCentreOperation doNonBlockingSpecOperation(
+    public static TupleCentreOperation doNonBlockingSpecOperation(
             final InputEvent ev) throws TucsonInvalidLogicTupleException,
             TucsonOperationNotPossibleException {
-        final ITupleCentreOperation res = null;
+        final TupleCentreOperation res = null;
         ISpecificationAsynchInterface context = null;
         final int type = ev.getSimpleTCEvent().getType();
         final TucsonTupleCentreId tid = (TucsonTupleCentreId) ev.getTarget();
@@ -573,31 +572,31 @@ public final class TupleCentreContainer {
             context = RespectTCContainer.getRespectTCContainer()
                     .getSpecificationAsynchInterface(
                             tid.getInternalTupleCentreId());
-            if (type == TucsonOperation.noSCode()) {
+            if (type == TucsonOperationDefault.noSCode()) {
                 return context.noS(ev);
             }
-            if (type == TucsonOperation.nopSCode()) {
+            if (type == TucsonOperationDefault.nopSCode()) {
                 return context.nopS(ev);
             }
-            if (type == TucsonOperation.outSCode()) {
+            if (type == TucsonOperationDefault.outSCode()) {
                 return context.outS(ev);
             }
-            if (type == TucsonOperation.inSCode()) {
+            if (type == TucsonOperationDefault.inSCode()) {
                 return context.inS(ev);
             }
-            if (type == TucsonOperation.inpSCode()) {
+            if (type == TucsonOperationDefault.inpSCode()) {
                 return context.inpS(ev);
             }
-            if (type == TucsonOperation.rdSCode()) {
+            if (type == TucsonOperationDefault.rdSCode()) {
                 return context.rdS(ev);
             }
-            if (type == TucsonOperation.rdpSCode()) {
+            if (type == TucsonOperationDefault.rdpSCode()) {
                 return context.rdpS(ev);
             }
-            if (type == TucsonOperation.getSCode()) {
+            if (type == TucsonOperationDefault.getSCode()) {
                 return context.getS(ev);
             }
-            if (type == TucsonOperation.setSCode()) {
+            if (type == TucsonOperationDefault.setSCode()) {
                 return context.setS(new RespectSpecification(t.toString()), ev);
             }
         } catch (final InvalidLogicTupleException e) {

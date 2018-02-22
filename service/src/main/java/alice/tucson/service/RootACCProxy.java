@@ -3,7 +3,7 @@ package alice.tucson.service;
 import java.util.Map;
 import java.util.UUID;
 
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.RootACC;
 
 /**
@@ -33,7 +33,7 @@ public class RootACCProxy implements RootACC {
     }
 
     @Override
-    public Map<Long, ITucsonOperation> getPendingOperationsMap() {
+    public Map<Long, TucsonOperation> getPendingOperationsMap() {
         return null;
     }
 

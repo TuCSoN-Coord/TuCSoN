@@ -5,7 +5,7 @@ import java.util.List;
 import alice.respect.api.geolocation.Position;
 import alice.respect.api.place.IPlace;
 import alice.respect.api.place.PhPlace;
-import alice.respect.core.RespectOperation;
+import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonTupleCentreId;
 
 /**
@@ -109,14 +109,14 @@ public abstract class AbstractGeolocationService implements IGeolocationService 
     public void notifyStartMovement(final double lat, final double lng) {
         final IPlace place = new PhPlace("coords(" + lat + "," + lng + ")");
         for (final IGeolocationServiceListener l : this.listeners) {
-            l.moving(RespectOperation.OPTYPE_FROM, Position.PH, place);
+            l.moving(RespectOperationDefault.OPTYPE_FROM, Position.PH, place);
         }
     }
 
     @Override
     public void notifyStartMovement(final String space, final IPlace place) {
         for (final IGeolocationServiceListener l : this.listeners) {
-            l.moving(RespectOperation.OPTYPE_FROM, space, place);
+            l.moving(RespectOperationDefault.OPTYPE_FROM, space, place);
         }
     }
 
@@ -124,14 +124,14 @@ public abstract class AbstractGeolocationService implements IGeolocationService 
     public void notifyStopMovement(final double lat, final double lng) {
         final IPlace place = new PhPlace("coords(" + lat + "," + lng + ")");
         for (final IGeolocationServiceListener l : this.listeners) {
-            l.moving(RespectOperation.OPTYPE_TO, Position.PH, place);
+            l.moving(RespectOperationDefault.OPTYPE_TO, Position.PH, place);
         }
     }
 
     @Override
     public void notifyStopMovement(final String space, final IPlace place) {
         for (final IGeolocationServiceListener l : this.listeners) {
-            l.moving(RespectOperation.OPTYPE_TO, space, place);
+            l.moving(RespectOperationDefault.OPTYPE_TO, space, place);
         }
     }
 

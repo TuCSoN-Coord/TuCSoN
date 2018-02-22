@@ -20,7 +20,7 @@
 package alice.tucson.asynchSupport;
 
 import alice.tucson.api.acc.EnhancedAsyncACC;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -85,14 +85,14 @@ public class TucsonOpWrapper {
     /**
      * Executes the operation.
      *
-     * @return ITucsonOperation the TuCSoN operation executed
+     * @return TucsonOperation the TuCSoN operation executed
      * @throws TucsonOperationNotPossibleException
      *             if the requested operation cannot be performed
      * @throws UnreachableNodeException
      *             if the TuCSoN node target of the operation is not
      *             network-reachable
      */
-    public final ITucsonOperation execute()
+    public final TucsonOperation execute()
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
         return this.action.executeAsynch(this.acc, this.listener);

@@ -196,7 +196,7 @@ public abstract class AbstractTucsonAgent implements
     public abstract void operationCompleted(AbstractTupleCentreOperation op);
 
     @Override
-    public abstract void operationCompleted(ITucsonOperation op);
+    public abstract void operationCompleted(TucsonOperation op);
 
     /**
      * Getter for the ACC. At the moment the TucsonAgent base class always ask

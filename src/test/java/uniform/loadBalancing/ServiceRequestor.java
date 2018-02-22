@@ -3,8 +3,8 @@ package uniform.loadBalancing;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -79,7 +79,7 @@ public class ServiceRequestor extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation op) {
+    public void operationCompleted(final TucsonOperation op) {
         /*
          * not used atm
          */
@@ -91,7 +91,7 @@ public class ServiceRequestor extends AbstractTucsonAgent {
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());
             this.acc = negAcc.playDefaultRole();
-            ITucsonOperation op;
+            TucsonOperation op;
             LogicTuple templ;
             LogicTuple service;
             LogicTuple req;

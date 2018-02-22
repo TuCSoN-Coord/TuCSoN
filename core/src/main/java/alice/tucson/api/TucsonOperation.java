@@ -15,18 +15,18 @@ package alice.tucson.api;
 
 import java.util.List;
 import alice.logictuple.LogicTuple;
-import alice.tuplecentre.api.ITupleCentreOperation;
+import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.Tuple;
 
 /**
  * TucsonOperation interface, to access the data about TuCSoN operations
  * outcome.
  *
- * @see alice.tuplecentre.api.ITupleCentreOperation ITupleCentreOperation
+ * @see TupleCentreOperation TupleCentreOperation
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public interface ITucsonOperation extends ITupleCentreOperation {
+public interface TucsonOperation extends TupleCentreOperation {
 
     /**
      *

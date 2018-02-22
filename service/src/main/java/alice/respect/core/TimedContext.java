@@ -17,7 +17,7 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.respect.api.IRespectOperation;
+import alice.respect.api.RespectOperation;
 import alice.respect.api.IRespectTC;
 import alice.respect.api.ITimedContext;
 import alice.respect.api.exceptions.OperationNotPossibleException;
@@ -48,7 +48,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
     @Override
     public List<LogicTuple> get(final InputEvent ev, final long ms)
             throws OperationNotPossibleException, OperationTimeOutException {
-        final IRespectOperation op = this.getCore().get(ev);
+        final RespectOperation op = this.getCore().get(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -66,7 +66,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().in(ev);
+        final RespectOperation op = this.getCore().in(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -79,7 +79,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
     public LogicTuple inAll(final InputEvent ev, final long ms)
             throws InvalidLogicTupleException, OperationNotPossibleException,
             OperationTimeOutException {
-        IRespectOperation op = null;
+        RespectOperation op = null;
         TupleArgument arg = null;
         final AbstractTupleCentreOperation inOp = ev.getSimpleTCEvent();
         final LogicTuple t = (LogicTuple) inOp.getTemplateArgument();
@@ -110,7 +110,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().inp(ev);
+        final RespectOperation op = this.getCore().inp(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -128,7 +128,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().no(ev);
+        final RespectOperation op = this.getCore().no(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -141,7 +141,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
     public LogicTuple noAll(final InputEvent ev, final long ms)
             throws InvalidLogicTupleException, OperationNotPossibleException,
             OperationTimeOutException {
-        IRespectOperation op = null;
+        RespectOperation op = null;
         TupleArgument arg = null;
         final AbstractTupleCentreOperation inOp = ev.getSimpleTCEvent();
         final LogicTuple t = (LogicTuple) inOp.getTemplateArgument();
@@ -172,7 +172,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().nop(ev);
+        final RespectOperation op = this.getCore().nop(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -190,7 +190,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().out(ev);
+        final RespectOperation op = this.getCore().out(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -207,7 +207,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().outAll(ev);
+        final RespectOperation op = this.getCore().outAll(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -224,7 +224,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().rd(ev);
+        final RespectOperation op = this.getCore().rd(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -237,7 +237,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
     public LogicTuple rdAll(final InputEvent ev, final long ms)
             throws InvalidLogicTupleException, OperationNotPossibleException,
             OperationTimeOutException {
-        IRespectOperation op = null;
+        RespectOperation op = null;
         TupleArgument arg = null;
         final AbstractTupleCentreOperation inOp = ev.getSimpleTCEvent();
         final LogicTuple t = (LogicTuple) inOp.getTemplateArgument();
@@ -268,7 +268,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().rdp(ev);
+        final RespectOperation op = this.getCore().rdp(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -281,7 +281,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
     public List<LogicTuple> set(final InputEvent ev, final long ms)
             throws OperationNotPossibleException, InvalidLogicTupleException,
             OperationTimeOutException {
-        final IRespectOperation op = this.getCore().set(ev);
+        final RespectOperation op = this.getCore().set(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -299,7 +299,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().spawn(ev);
+        final RespectOperation op = this.getCore().spawn(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -317,7 +317,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().uin(ev);
+        final RespectOperation op = this.getCore().uin(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -335,7 +335,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().uinp(ev);
+        final RespectOperation op = this.getCore().uinp(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -354,7 +354,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().uno(ev);
+        final RespectOperation op = this.getCore().uno(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -372,7 +372,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().unop(ev);
+        final RespectOperation op = this.getCore().unop(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -391,7 +391,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().urd(ev);
+        final RespectOperation op = this.getCore().urd(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {
@@ -409,7 +409,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().urdp(ev);
+        final RespectOperation op = this.getCore().urdp(ev);
         try {
             op.waitForOperationCompletion(ms);
         } catch (final alice.tuplecentre.api.exceptions.OperationTimeOutException ex) {

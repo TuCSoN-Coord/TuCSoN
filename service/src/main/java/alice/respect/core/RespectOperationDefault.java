@@ -20,9 +20,9 @@ import alice.logictuple.TupleArgument;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.logictuple.exceptions.InvalidVarNameException;
-import alice.respect.api.IRespectOperation;
+import alice.respect.api.RespectOperation;
 import alice.respect.api.RespectSpecification;
-import alice.tucson.service.TucsonOperation;
+import alice.tucson.service.TucsonOperationDefault;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -38,8 +38,8 @@ import alice.tuprolog.Term;
  * @author (contributor) Michele Bombardi (mailto:
  *         michele.bombardi@studio.unibo.it)
  */
-public class RespectOperation extends AbstractTupleCentreOperation implements
-        IRespectOperation {
+public class RespectOperationDefault extends AbstractTupleCentreOperation implements
+        RespectOperation {
 
     /**
      *
@@ -79,15 +79,15 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      * @throws InvalidLogicTupleException
      *             if the given logic tuple is not a valid logic tuple
      */
-    public static RespectOperation make(final int opType,
-            final LogicTuple t, final OperationCompletionListener l)
+    public static RespectOperationDefault make(final int opType,
+                                               final LogicTuple t, final OperationCompletionListener l)
             throws InvalidLogicTupleException {
-        if (opType == TucsonOperation.getCode()) {
-            return RespectOperation.makeGet(new LogicTuple("get"), l);
+        if (opType == TucsonOperationDefault.getCode()) {
+            return RespectOperationDefault.makeGet(new LogicTuple("get"), l);
         }
-        if (opType == TucsonOperation.getSCode()) {
+        if (opType == TucsonOperationDefault.getSCode()) {
             try {
-				return RespectOperation.makeGetS(new LogicTuple("spec", new Var(
+				return RespectOperationDefault.makeGetS(new LogicTuple("spec", new Var(
 				        "S")), l);
 			} catch (InvalidVarNameException e) {
 				// TODO Auto-generated catch block
@@ -97,123 +97,123 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        if (opType == TucsonOperation.setCode()) {
-            return RespectOperation.makeSet(t, l);
+        if (opType == TucsonOperationDefault.setCode()) {
+            return RespectOperationDefault.makeSet(t, l);
         }
-        if (opType == TucsonOperation.setSCode()) {
+        if (opType == TucsonOperationDefault.setSCode()) {
             //try {
                 if ("spec".equals(t.getName())) {
-                    return RespectOperation.makeSetS(null);
+                    return RespectOperationDefault.makeSetS(null);
                 }
-                return RespectOperation.makeSetS(t, l);
+                return RespectOperationDefault.makeSetS(t, l);
            // } catch (final InvalidLogicTupleOperationException e) {
               //  e.printStackTrace();
           //  }
         }
-        if (opType == TucsonOperation.inCode()) {
-            return RespectOperation.makeIn(t, l);
+        if (opType == TucsonOperationDefault.inCode()) {
+            return RespectOperationDefault.makeIn(t, l);
         }
-        if (opType == TucsonOperation.inAllCode()) {
+        if (opType == TucsonOperationDefault.inAllCode()) {
           //  try {
                 if (",".equals(t.getName()) && t.getArity() == 2) {
-                    return RespectOperation.makeInAll(
+                    return RespectOperationDefault.makeInAll(
                             new LogicTuple(t.getArg(0)), l);
                 }
-                return RespectOperation.makeInAll(t, l);
+                return RespectOperationDefault.makeInAll(t, l);
         //    } catch (final InvalidLogicTupleOperationException e) {
           //      e.printStackTrace();
           //  }
         }
-        if (opType == TucsonOperation.inpCode()) {
-            return RespectOperation.makeInp(t, l);
+        if (opType == TucsonOperationDefault.inpCode()) {
+            return RespectOperationDefault.makeInp(t, l);
         }
-        if (opType == TucsonOperation.inpSCode()) {
-            return RespectOperation.makeInpS(t, l);
+        if (opType == TucsonOperationDefault.inpSCode()) {
+            return RespectOperationDefault.makeInpS(t, l);
         }
-        if (opType == TucsonOperation.inSCode()) {
-            return RespectOperation.makeInS(t, l);
+        if (opType == TucsonOperationDefault.inSCode()) {
+            return RespectOperationDefault.makeInS(t, l);
         }
-        if (opType == TucsonOperation.outCode()) {
-            return RespectOperation.makeOut(t, l);
+        if (opType == TucsonOperationDefault.outCode()) {
+            return RespectOperationDefault.makeOut(t, l);
         }
-        if (opType == TucsonOperation.outAllCode()) {
-            return RespectOperation.makeOutAll(t, l);
+        if (opType == TucsonOperationDefault.outAllCode()) {
+            return RespectOperationDefault.makeOutAll(t, l);
         }
-        if (opType == TucsonOperation.outSCode()) {
-            return RespectOperation.makeOutS(t, l);
+        if (opType == TucsonOperationDefault.outSCode()) {
+            return RespectOperationDefault.makeOutS(t, l);
         }
-        if (opType == TucsonOperation.rdCode()) {
-            return RespectOperation.makeRd(t, l);
+        if (opType == TucsonOperationDefault.rdCode()) {
+            return RespectOperationDefault.makeRd(t, l);
         }
-        if (opType == TucsonOperation.rdAllCode()) {
+        if (opType == TucsonOperationDefault.rdAllCode()) {
           //  try {
                 if (",".equals(t.getName()) && t.getArity() == 2) {
-                    return RespectOperation.makeRdAll(
+                    return RespectOperationDefault.makeRdAll(
                             new LogicTuple(t.getArg(0)), l);
                 }
-                return RespectOperation.makeRdAll(t, l);
+                return RespectOperationDefault.makeRdAll(t, l);
           //  } catch (final InvalidLogicTupleOperationException e) {
              //   e.printStackTrace();
            // }
         }
-        if (opType == TucsonOperation.rdpCode()) {
-            return RespectOperation.makeRdp(t, l);
+        if (opType == TucsonOperationDefault.rdpCode()) {
+            return RespectOperationDefault.makeRdp(t, l);
         }
-        if (opType == TucsonOperation.rdpSCode()) {
-            return RespectOperation.makeRdpS(t, l);
+        if (opType == TucsonOperationDefault.rdpSCode()) {
+            return RespectOperationDefault.makeRdpS(t, l);
         }
-        if (opType == TucsonOperation.rdSCode()) {
-            return RespectOperation.makeRdS(t, l);
+        if (opType == TucsonOperationDefault.rdSCode()) {
+            return RespectOperationDefault.makeRdS(t, l);
         }
-        if (opType == TucsonOperation.noCode()) {
-            return RespectOperation.makeNo(t, l);
+        if (opType == TucsonOperationDefault.noCode()) {
+            return RespectOperationDefault.makeNo(t, l);
         }
-        if (opType == TucsonOperation.noAllCode()) {
+        if (opType == TucsonOperationDefault.noAllCode()) {
           //  try {
                 if (",".equals(t.getName()) && t.getArity() == 2) {
-                    return RespectOperation.makeNoAll(
+                    return RespectOperationDefault.makeNoAll(
                             new LogicTuple(t.getArg(0)), l);
                 }
-                return RespectOperation.makeNoAll(t, l);
+                return RespectOperationDefault.makeNoAll(t, l);
           //  } catch (final InvalidLogicTupleOperationException e) {
            //     e.printStackTrace();
           //  }
         }
-        if (opType == TucsonOperation.nopCode()) {
-            return RespectOperation.makeNop(t, l);
+        if (opType == TucsonOperationDefault.nopCode()) {
+            return RespectOperationDefault.makeNop(t, l);
         }
-        if (opType == TucsonOperation.noSCode()) {
-            return RespectOperation.makeNoS(t, l);
+        if (opType == TucsonOperationDefault.noSCode()) {
+            return RespectOperationDefault.makeNoS(t, l);
         }
-        if (opType == TucsonOperation.nopSCode()) {
-            return RespectOperation.makeNopS(t, l);
+        if (opType == TucsonOperationDefault.nopSCode()) {
+            return RespectOperationDefault.makeNopS(t, l);
         }
-        if (opType == TucsonOperation.uinCode()) {
-            return RespectOperation.makeUin(t, l);
+        if (opType == TucsonOperationDefault.uinCode()) {
+            return RespectOperationDefault.makeUin(t, l);
         }
-        if (opType == TucsonOperation.urdCode()) {
-            return RespectOperation.makeUrd(t, l);
+        if (opType == TucsonOperationDefault.urdCode()) {
+            return RespectOperationDefault.makeUrd(t, l);
         }
-        if (opType == TucsonOperation.unoCode()) {
-            return RespectOperation.makeUno(t, l);
+        if (opType == TucsonOperationDefault.unoCode()) {
+            return RespectOperationDefault.makeUno(t, l);
         }
-        if (opType == TucsonOperation.uinpCode()) {
-            return RespectOperation.makeUinp(t, l);
+        if (opType == TucsonOperationDefault.uinpCode()) {
+            return RespectOperationDefault.makeUinp(t, l);
         }
-        if (opType == TucsonOperation.urdpCode()) {
-            return RespectOperation.makeUrdp(t, l);
+        if (opType == TucsonOperationDefault.urdpCode()) {
+            return RespectOperationDefault.makeUrdp(t, l);
         }
-        if (opType == TucsonOperation.unopCode()) {
-            return RespectOperation.makeUnop(t, l);
+        if (opType == TucsonOperationDefault.unopCode()) {
+            return RespectOperationDefault.makeUnop(t, l);
         }
-        if (opType == TucsonOperation.spawnCode()) {
-            return RespectOperation.makeSpawn(t, l);
+        if (opType == TucsonOperationDefault.spawnCode()) {
+            return RespectOperationDefault.makeSpawn(t, l);
         }
-        if (opType == TucsonOperation.getEnvCode()) {
-            return RespectOperation.makeGetEnv(t, l);
+        if (opType == TucsonOperationDefault.getEnvCode()) {
+            return RespectOperationDefault.makeGetEnv(t, l);
         }
-        if (opType == TucsonOperation.setEnvCode()) {
-            return RespectOperation.makeSetEnv(t, l);
+        if (opType == TucsonOperationDefault.setEnvCode()) {
+            return RespectOperationDefault.makeSetEnv(t, l);
         }
         return null;
     }
@@ -226,10 +226,10 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeFrom(final LogicTuple t,
-            final OperationCompletionListener l) {
-        final RespectOperation temp = new RespectOperation(
-                RespectOperation.OPTYPE_FROM, t, l);
+    public static RespectOperationDefault makeFrom(final LogicTuple t,
+                                                   final OperationCompletionListener l) {
+        final RespectOperationDefault temp = new RespectOperationDefault(
+                RespectOperationDefault.OPTYPE_FROM, t, l);
         temp.setTupleResult(t);
         return temp;
     }
@@ -242,9 +242,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeGet(final LogicTuple t,
-            final OperationCompletionListener l) {
-        final RespectOperation temp = new RespectOperation(
+    public static RespectOperationDefault makeGet(final LogicTuple t,
+                                                  final OperationCompletionListener l) {
+        final RespectOperationDefault temp = new RespectOperationDefault(
                 AbstractTupleCentreOperation.OPTYPE_GET, (Tuple) t, l);
         return temp;
     }
@@ -257,10 +257,10 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeGetEnv(final LogicTuple t,
-            final OperationCompletionListener l) {
-        final RespectOperation temp = new RespectOperation(
-                RespectOperation.OPTYPE_GET_ENV, t, l);
+    public static RespectOperationDefault makeGetEnv(final LogicTuple t,
+                                                     final OperationCompletionListener l) {
+        final RespectOperationDefault temp = new RespectOperationDefault(
+                RespectOperationDefault.OPTYPE_GET_ENV, t, l);
         temp.setTupleResult(t);
         return temp;
     }
@@ -273,9 +273,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeGetS(final LogicTuple t,
-            final OperationCompletionListener l) {
-        final RespectOperation temp = new RespectOperation(
+    public static RespectOperationDefault makeGetS(final LogicTuple t,
+                                                   final OperationCompletionListener l) {
+        final RespectOperationDefault temp = new RespectOperationDefault(
                 AbstractTupleCentreOperation.OPTYPE_GET_S, (Tuple) t, l);
         return temp;
     }
@@ -288,9 +288,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeIn(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_IN, t,
+    public static RespectOperationDefault makeIn(final LogicTuple t,
+                                                 final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_IN, t,
                 l);
     }
 
@@ -302,9 +302,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeInAll(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_IN_ALL,
+    public static RespectOperationDefault makeInAll(final LogicTuple t,
+                                                    final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_IN_ALL,
                 t, l);
     }
 
@@ -316,9 +316,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeInp(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_INP, t,
+    public static RespectOperationDefault makeInp(final LogicTuple t,
+                                                  final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_INP, t,
                 l);
     }
 
@@ -330,9 +330,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeInpS(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_INP_S,
+    public static RespectOperationDefault makeInpS(final LogicTuple t,
+                                                   final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_INP_S,
                 t, l);
     }
 
@@ -344,9 +344,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeInS(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_IN_S,
+    public static RespectOperationDefault makeInS(final LogicTuple t,
+                                                  final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_IN_S,
                 t, l);
     }
 
@@ -358,9 +358,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeNo(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_NO, t,
+    public static RespectOperationDefault makeNo(final LogicTuple t,
+                                                 final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_NO, t,
                 l);
     }
 
@@ -372,9 +372,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeNoAll(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_NO_ALL,
+    public static RespectOperationDefault makeNoAll(final LogicTuple t,
+                                                    final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_NO_ALL,
                 t, l);
     }
 
@@ -386,9 +386,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeNop(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_NOP, t,
+    public static RespectOperationDefault makeNop(final LogicTuple t,
+                                                  final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_NOP, t,
                 l);
     }
 
@@ -400,9 +400,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeNopS(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_NOP_S,
+    public static RespectOperationDefault makeNopS(final LogicTuple t,
+                                                   final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_NOP_S,
                 t, l);
     }
 
@@ -414,9 +414,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeNoS(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_NO_S,
+    public static RespectOperationDefault makeNoS(final LogicTuple t,
+                                                  final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_NO_S,
                 t, l);
     }
 
@@ -428,9 +428,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeOut(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_OUT,
+    public static RespectOperationDefault makeOut(final LogicTuple t,
+                                                  final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_OUT,
                 (Tuple) t, l);
     }
 
@@ -442,9 +442,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeOutAll(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(
+    public static RespectOperationDefault makeOutAll(final LogicTuple t,
+                                                     final OperationCompletionListener l) {
+        return new RespectOperationDefault(
                 AbstractTupleCentreOperation.OPTYPE_OUT_ALL, (Tuple) t, l);
     }
 
@@ -456,9 +456,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeOutS(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_OUT_S,
+    public static RespectOperationDefault makeOutS(final LogicTuple t,
+                                                   final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_OUT_S,
                 (Tuple) t, l);
     }
 
@@ -470,9 +470,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeRd(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_RD, t,
+    public static RespectOperationDefault makeRd(final LogicTuple t,
+                                                 final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_RD, t,
                 l);
     }
 
@@ -484,9 +484,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeRdAll(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_RD_ALL,
+    public static RespectOperationDefault makeRdAll(final LogicTuple t,
+                                                    final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_RD_ALL,
                 t, l);
     }
 
@@ -498,9 +498,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeRdp(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_RDP, t,
+    public static RespectOperationDefault makeRdp(final LogicTuple t,
+                                                  final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_RDP, t,
                 l);
     }
 
@@ -512,9 +512,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeRdpS(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_RDP_S,
+    public static RespectOperationDefault makeRdpS(final LogicTuple t,
+                                                   final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_RDP_S,
                 t, l);
     }
 
@@ -526,9 +526,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeRdS(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_RD_S,
+    public static RespectOperationDefault makeRdS(final LogicTuple t,
+                                                  final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_RD_S,
                 t, l);
     }
 
@@ -540,10 +540,10 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeSet(final LogicTuple t,
-            final OperationCompletionListener l) {
+    public static RespectOperationDefault makeSet(final LogicTuple t,
+                                                  final OperationCompletionListener l) {
         if ("[]".equals(t.toString())) {
-            return new RespectOperation(
+            return new RespectOperationDefault(
                     AbstractTupleCentreOperation.OPTYPE_SET,
                     new LinkedList<Tuple>(), l);
         }
@@ -572,7 +572,7 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
                 }
             }
         }
-        final RespectOperation temp = new RespectOperation(
+        final RespectOperationDefault temp = new RespectOperationDefault(
                 AbstractTupleCentreOperation.OPTYPE_SET, list, l);
         return temp;
     }
@@ -585,10 +585,10 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeSetEnv(final LogicTuple t,
-            final OperationCompletionListener l) {
-        final RespectOperation temp = new RespectOperation(
-                RespectOperation.OPTYPE_SET_ENV, t, l);
+    public static RespectOperationDefault makeSetEnv(final LogicTuple t,
+                                                     final OperationCompletionListener l) {
+        final RespectOperationDefault temp = new RespectOperationDefault(
+                RespectOperationDefault.OPTYPE_SET_ENV, t, l);
         temp.setTupleResult(t);
         return temp;
     }
@@ -601,10 +601,10 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeSetS(final LogicTuple t,
-            final OperationCompletionListener l) {
+    public static RespectOperationDefault makeSetS(final LogicTuple t,
+                                                   final OperationCompletionListener l) {
         if ("[]".equals(t.toString())) {
-            return new RespectOperation(
+            return new RespectOperationDefault(
                     AbstractTupleCentreOperation.OPTYPE_SET_S,
                     new LinkedList<Tuple>(), l);
         }
@@ -633,7 +633,7 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
                 }
             }
         }
-        final RespectOperation temp = new RespectOperation(
+        final RespectOperationDefault temp = new RespectOperationDefault(
                 AbstractTupleCentreOperation.OPTYPE_SET_S, list, l);
         return temp;
     }
@@ -644,8 +644,8 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeSetS(final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_SET_S,
+    public static RespectOperationDefault makeSetS(final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_SET_S,
                 new LogicTuple(), l);
     }
 
@@ -657,11 +657,11 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeSetS(final RespectSpecification spec,
-            final OperationCompletionListener l) {
-        RespectOperation temp = null;
+    public static RespectOperationDefault makeSetS(final RespectSpecification spec,
+                                                   final OperationCompletionListener l) {
+        RespectOperationDefault temp = null;
         try {
-            temp = new RespectOperation(
+            temp = new RespectOperationDefault(
                     AbstractTupleCentreOperation.OPTYPE_SET_S,
                     (Tuple) LogicTuple.parse(spec.toString()), l);
         } catch (final InvalidLogicTupleException e) {
@@ -678,9 +678,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeSpawn(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_SPAWN,
+    public static RespectOperationDefault makeSpawn(final LogicTuple t,
+                                                    final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_SPAWN,
                 (Tuple) t, l);
     }
 
@@ -692,9 +692,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeTime(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(RespectOperation.OPTYPE_TIME, t, l);
+    public static RespectOperationDefault makeTime(final LogicTuple t,
+                                                   final OperationCompletionListener l) {
+        return new RespectOperationDefault(RespectOperationDefault.OPTYPE_TIME, t, l);
     }
     
     /**
@@ -705,10 +705,10 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeTo(final LogicTuple t,
-            final OperationCompletionListener l) {
-        final RespectOperation temp = new RespectOperation(
-                RespectOperation.OPTYPE_TO, t, l);
+    public static RespectOperationDefault makeTo(final LogicTuple t,
+                                                 final OperationCompletionListener l) {
+        final RespectOperationDefault temp = new RespectOperationDefault(
+                RespectOperationDefault.OPTYPE_TO, t, l);
         temp.setTupleResult(t);
         return temp;
     }
@@ -721,9 +721,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeUin(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_UIN, t,
+    public static RespectOperationDefault makeUin(final LogicTuple t,
+                                                  final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_UIN, t,
                 l);
     }
 
@@ -735,9 +735,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeUinp(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_UINP,
+    public static RespectOperationDefault makeUinp(final LogicTuple t,
+                                                   final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_UINP,
                 t, l);
     }
 
@@ -749,9 +749,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeUno(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_UNO, t,
+    public static RespectOperationDefault makeUno(final LogicTuple t,
+                                                  final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_UNO, t,
                 l);
     }
 
@@ -763,9 +763,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeUnop(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_UNOP,
+    public static RespectOperationDefault makeUnop(final LogicTuple t,
+                                                   final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_UNOP,
                 t, l);
     }
 
@@ -777,9 +777,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeUrd(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_URD, t,
+    public static RespectOperationDefault makeUrd(final LogicTuple t,
+                                                  final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_URD, t,
                 l);
     }
 
@@ -791,9 +791,9 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      *            the listener for operation completion
      * @return the ReSpecT operation built
      */
-    public static RespectOperation makeUrdp(final LogicTuple t,
-            final OperationCompletionListener l) {
-        return new RespectOperation(AbstractTupleCentreOperation.OPTYPE_URDP,
+    public static RespectOperationDefault makeUrdp(final LogicTuple t,
+                                                   final OperationCompletionListener l) {
+        return new RespectOperationDefault(AbstractTupleCentreOperation.OPTYPE_URDP,
                 t, l);
     }
 
@@ -805,8 +805,8 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      * @param l
      *            the listener for operation completion
      */
-    protected RespectOperation(final int type, final List<Tuple> tupleList,
-            final OperationCompletionListener l) {
+    protected RespectOperationDefault(final int type, final List<Tuple> tupleList,
+                                      final OperationCompletionListener l) {
         super(type, tupleList, l);
     }
 
@@ -819,8 +819,8 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      * @param l
      *            the listener for operation completion
      */
-    protected RespectOperation(final int type, final Tuple t,
-            final OperationCompletionListener l) {
+    protected RespectOperationDefault(final int type, final Tuple t,
+                                      final OperationCompletionListener l) {
         super(type, t, l);
     }
 
@@ -833,8 +833,8 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
      * @param l
      *            the listener for operation completion
      */
-    protected RespectOperation(final int type, final TupleTemplate t,
-            final OperationCompletionListener l) {
+    protected RespectOperationDefault(final int type, final TupleTemplate t,
+                                      final OperationCompletionListener l) {
         super(type, t, l);
     }
 
@@ -866,22 +866,22 @@ public class RespectOperation extends AbstractTupleCentreOperation implements
 
     @Override
     public boolean isEnv() {
-        return this.getType() == RespectOperation.OPTYPE_ENV;
+        return this.getType() == RespectOperationDefault.OPTYPE_ENV;
     }
 
     @Override
     public boolean isGetEnv() {
-        return this.getType() == RespectOperation.OPTYPE_GET_ENV;
+        return this.getType() == RespectOperationDefault.OPTYPE_GET_ENV;
     }
 
     @Override
     public boolean isSetEnv() {
-        return this.getType() == RespectOperation.OPTYPE_SET_ENV;
+        return this.getType() == RespectOperationDefault.OPTYPE_SET_ENV;
     }
 
     @Override
     public boolean isTime() {
-        return this.getType() == RespectOperation.OPTYPE_TIME;
+        return this.getType() == RespectOperationDefault.OPTYPE_TIME;
     }
 
     @Override

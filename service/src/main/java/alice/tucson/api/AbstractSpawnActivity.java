@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.respect.core.RespectOperation;
+import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.acc.BulkSyncACC;
 import alice.tucson.api.acc.OrdinarySyncACC;
 import alice.tucson.api.acc.UniformSyncACC;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.service.TucsonIdWrapper;
-import alice.tucson.service.TucsonOperation;
+import alice.tucson.service.TucsonOperationDefault;
 import alice.tucson.service.TupleCentreContainer;
 import alice.tuplecentre.core.InputEvent;
 
@@ -134,15 +134,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.inCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.inCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.inCode(), this.aid, this.target, tuple);
+                // TucsonOperationDefault.inCode(), this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
             } catch (final TucsonOperationNotPossibleException e) {
@@ -153,15 +153,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.inCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.inCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.inCode(),
+                // .doBlockingOperation(TucsonOperationDefault.inCode(),
                 // this.tcid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -184,15 +184,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.inAllCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.inAllCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (List<LogicTuple>) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (List<LogicTuple>) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.inAllCode(),
+                // .doBlockingOperation(TucsonOperationDefault.inAllCode(),
                 // this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -204,15 +204,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.inAllCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.inAllCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (List<LogicTuple>) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (List<LogicTuple>) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.inAllCode(),
+                // .doBlockingOperation(TucsonOperationDefault.inAllCode(),
                 // this.tcid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -235,15 +235,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.inpCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.inpCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.inpCode(),
+                // .doBlockingOperation(TucsonOperationDefault.inpCode(),
                 // this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -255,15 +255,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.inpCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.inpCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.inpCode(), this.tcid, this.target,
+                // TucsonOperationDefault.inpCode(), this.tcid, this.target,
                 // tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -302,15 +302,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.noCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.noCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.noCode(), this.aid, this.target, tuple);
+                // TucsonOperationDefault.noCode(), this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
             } catch (final TucsonOperationNotPossibleException e) {
@@ -321,15 +321,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.noCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.noCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.noCode(),
+                // .doBlockingOperation(TucsonOperationDefault.noCode(),
                 // this.tcid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -352,15 +352,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.noAllCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.noAllCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (List<LogicTuple>) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (List<LogicTuple>) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.noAllCode(),
+                // .doBlockingOperation(TucsonOperationDefault.noAllCode(),
                 // this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -372,15 +372,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.noAllCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.noAllCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (List<LogicTuple>) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (List<LogicTuple>) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.noAllCode(),
+                // .doBlockingOperation(TucsonOperationDefault.noAllCode(),
                 // this.tcid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -403,15 +403,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.nopCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.nopCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.nopCode(),
+                // .doBlockingOperation(TucsonOperationDefault.nopCode(),
                 // this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -423,15 +423,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.nopCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.nopCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.nopCode(), this.tcid, this.target,
+                // TucsonOperationDefault.nopCode(), this.tcid, this.target,
                 // tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -454,15 +454,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.outCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.outCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.outCode(),
+                // .doBlockingOperation(TucsonOperationDefault.outCode(),
                 // this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -474,15 +474,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.outCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.outCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.outCode(), this.tcid, this.target,
+                // TucsonOperationDefault.outCode(), this.tcid, this.target,
                 // tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -505,15 +505,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.outAllCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.outAllCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (List<LogicTuple>) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (List<LogicTuple>) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.outAllCode(),
+                // .doBlockingOperation(TucsonOperationDefault.outAllCode(),
                 // this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -525,15 +525,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.outAllCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.outAllCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (List<LogicTuple>) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (List<LogicTuple>) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.outAllCode(),
+                // .doBlockingOperation(TucsonOperationDefault.outAllCode(),
                 // this.tcid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -556,15 +556,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.rdCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.rdCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.rdCode(), this.aid, this.target, tuple);
+                // TucsonOperationDefault.rdCode(), this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
             } catch (final TucsonOperationNotPossibleException e) {
@@ -575,15 +575,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.rdCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.rdCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.rdCode(),
+                // .doBlockingOperation(TucsonOperationDefault.rdCode(),
                 // this.tcid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -606,15 +606,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.rdAllCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.rdAllCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (List<LogicTuple>) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (List<LogicTuple>) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.rdAllCode(),
+                // .doBlockingOperation(TucsonOperationDefault.rdAllCode(),
                 // this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -626,15 +626,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.rdAllCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.rdAllCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (List<LogicTuple>) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (List<LogicTuple>) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.rdAllCode(),
+                // .doBlockingOperation(TucsonOperationDefault.rdAllCode(),
                 // this.tcid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -657,15 +657,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.rdpCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.rdpCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.rdpCode(),
+                // .doBlockingOperation(TucsonOperationDefault.rdpCode(),
                 // this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -677,15 +677,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.rdpCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.rdpCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.rdpCode(), this.tcid, this.target,
+                // TucsonOperationDefault.rdpCode(), this.tcid, this.target,
                 // tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -708,15 +708,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.uinCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.uinCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.uinCode(),
+                // .doBlockingOperation(TucsonOperationDefault.uinCode(),
                 // this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -728,15 +728,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.uinCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.uinCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.uinCode(), this.tcid, this.target,
+                // TucsonOperationDefault.uinCode(), this.tcid, this.target,
                 // tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -759,15 +759,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.uinpCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.uinpCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.uinpCode(), this.aid, this.target,
+                // TucsonOperationDefault.uinpCode(), this.aid, this.target,
                 // tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -779,15 +779,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.uinpCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.uinpCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.uinpCode(), this.tcid, this.target,
+                // TucsonOperationDefault.uinpCode(), this.tcid, this.target,
                 // tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -810,15 +810,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.unoCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.unoCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.unoCode(),
+                // .doBlockingOperation(TucsonOperationDefault.unoCode(),
                 // this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -830,15 +830,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.unoCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.unoCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.unoCode(), this.tcid, this.target,
+                // TucsonOperationDefault.unoCode(), this.tcid, this.target,
                 // tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -861,15 +861,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.unopCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.unopCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.unopCode(), this.aid, this.target,
+                // TucsonOperationDefault.unopCode(), this.aid, this.target,
                 // tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -881,15 +881,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.unopCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.unopCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.unopCode(), this.tcid, this.target,
+                // TucsonOperationDefault.unopCode(), this.tcid, this.target,
                 // tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -912,15 +912,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.urdCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.urdCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer
-                // .doBlockingOperation(TucsonOperation.urdCode(),
+                // .doBlockingOperation(TucsonOperationDefault.urdCode(),
                 // this.aid, this.target, tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -932,15 +932,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.urdCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.urdCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.urdCode(), this.tcid, this.target,
+                // TucsonOperationDefault.urdCode(), this.tcid, this.target,
                 // tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -963,15 +963,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.urdpCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.urdpCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.urdpCode(), this.aid, this.target,
+                // TucsonOperationDefault.urdpCode(), this.aid, this.target,
                 // tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -983,15 +983,15 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.urdpCode(), tuple, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TucsonOperationDefault.urdpCode(), tuple, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 return (LogicTuple) TupleCentreContainer
                         .doBlockingOperation(ev);
                 // return (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.urdpCode(), this.tcid, this.target,
+                // TucsonOperationDefault.urdpCode(), this.tcid, this.target,
                 // tuple);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();

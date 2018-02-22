@@ -3,7 +3,7 @@
  */
 package helloWorld;
 
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonAgentId;
@@ -68,7 +68,7 @@ public final class HelloWorldJTuples {
              * 5) Perform the coordination operation using the preferred
              * coordination primitive.
              */
-            ITucsonOperation op = acc.out(tid, tuple, null);
+            TucsonOperation op = acc.out(tid, tuple, null);
             /*
              * 6) Check requested operation success.
              */

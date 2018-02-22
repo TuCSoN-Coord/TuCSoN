@@ -94,24 +94,24 @@ OperationCompletionListener {
                 final boolean ok = oEv.isAllowed();
                 if (ok) {
                     final int type = oEv.getOpType();
-                    if (type == TucsonOperation.noCode()
-                            || type == TucsonOperation.noSCode()
-                            || type == TucsonOperation.nopCode()
-                            || type == TucsonOperation.nopSCode()
-                            || type == TucsonOperation.inCode()
-                            || type == TucsonOperation.rdCode()
-                            || type == TucsonOperation.inpCode()
-                            || type == TucsonOperation.rdpCode()
-                            || type == TucsonOperation.uinCode()
-                            || type == TucsonOperation.urdCode()
-                            || type == TucsonOperation.uinpCode()
-                            || type == TucsonOperation.urdpCode()
-                            || type == TucsonOperation.unoCode()
-                            || type == TucsonOperation.unopCode()
-                            || type == TucsonOperation.inSCode()
-                            || type == TucsonOperation.rdSCode()
-                            || type == TucsonOperation.inpSCode()
-                            || type == TucsonOperation.rdpSCode()) {
+                    if (type == TucsonOperationDefault.noCode()
+                            || type == TucsonOperationDefault.noSCode()
+                            || type == TucsonOperationDefault.nopCode()
+                            || type == TucsonOperationDefault.nopSCode()
+                            || type == TucsonOperationDefault.inCode()
+                            || type == TucsonOperationDefault.rdCode()
+                            || type == TucsonOperationDefault.inpCode()
+                            || type == TucsonOperationDefault.rdpCode()
+                            || type == TucsonOperationDefault.uinCode()
+                            || type == TucsonOperationDefault.urdCode()
+                            || type == TucsonOperationDefault.uinpCode()
+                            || type == TucsonOperationDefault.urdpCode()
+                            || type == TucsonOperationDefault.unoCode()
+                            || type == TucsonOperationDefault.unopCode()
+                            || type == TucsonOperationDefault.inSCode()
+                            || type == TucsonOperationDefault.rdSCode()
+                            || type == TucsonOperationDefault.inpSCode()
+                            || type == TucsonOperationDefault.rdpSCode()) {
                         final boolean succeeded = oEv.isSuccess();
                         if (succeeded) {
                             final LogicTuple tupleReq = oEv.getTupleRequested();
@@ -125,25 +125,25 @@ OperationCompletionListener {
                             ev = new TucsonOpCompletionEvent(new TucsonOpId(
                                     oEv.getOpId()), ok, false, oEv.isResultSuccess());
                         }
-                    } else if (type == TucsonOperation.setCode()
-                            || type == TucsonOperation.setSCode()
-                            || type == TucsonOperation.outCode()
-                            || type == TucsonOperation.outSCode()
-                            || type == TucsonOperation.outAllCode()
-                            || type == TucsonOperation.spawnCode()) {
+                    } else if (type == TucsonOperationDefault.setCode()
+                            || type == TucsonOperationDefault.setSCode()
+                            || type == TucsonOperationDefault.outCode()
+                            || type == TucsonOperationDefault.outSCode()
+                            || type == TucsonOperationDefault.outAllCode()
+                            || type == TucsonOperationDefault.spawnCode()) {
                         ev = new TucsonOpCompletionEvent(new TucsonOpId(
                                 oEv.getOpId()), ok, oEv.isSuccess(), oEv.isResultSuccess());
-                    } else if (type == TucsonOperation.inAllCode()
-                            || type == TucsonOperation.rdAllCode()
-                            || type == TucsonOperation.noAllCode()
-                            || type == TucsonOperation.getCode()
-                            || type == TucsonOperation.getSCode()) {
+                    } else if (type == TucsonOperationDefault.inAllCode()
+                            || type == TucsonOperationDefault.rdAllCode()
+                            || type == TucsonOperationDefault.noAllCode()
+                            || type == TucsonOperationDefault.getCode()
+                            || type == TucsonOperationDefault.getSCode()) {
                         final List<LogicTuple> tupleSetRes = (List<LogicTuple>) oEv
                                 .getTupleResult();
                         ev = new TucsonOpCompletionEvent(new TucsonOpId(
                                 oEv.getOpId()), ok, oEv.isSuccess(), oEv.isResultSuccess(),
                                 tupleSetRes);
-                    } else if (type == TucsonOperation.exitCode()) {
+                    } else if (type == TucsonOperationDefault.exitCode()) {
                         this.setStop();
                         break;
                     }
@@ -298,12 +298,12 @@ OperationCompletionListener {
             this.operations.put(this.opId, op);
             final int type = op.getType();
             TucsonMsgRequest msg;
-            if (type == TucsonOperation.outCode()
-                    || type == TucsonOperation.outSCode()
-                    || type == TucsonOperation.setSCode()
-                    || type == TucsonOperation.setCode()
-                    || type == TucsonOperation.outAllCode()
-                    || type == TucsonOperation.spawnCode()) {
+            if (type == TucsonOperationDefault.outCode()
+                    || type == TucsonOperationDefault.outSCode()
+                    || type == TucsonOperationDefault.setSCode()
+                    || type == TucsonOperationDefault.setCode()
+                    || type == TucsonOperationDefault.outAllCode()
+                    || type == TucsonOperationDefault.spawnCode()) {
                 msg = new TucsonMsgRequest(new InputEventMsg(
                         this.aid.toString(), this.opId, type,
                         (LogicTuple) op.getTupleArgument(), tcid.toString(),

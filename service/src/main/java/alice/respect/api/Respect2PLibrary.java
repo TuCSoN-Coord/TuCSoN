@@ -37,7 +37,7 @@ import alice.respect.api.geolocation.service.AbstractGeolocationService;
 import alice.respect.api.geolocation.service.GeolocationServiceManager;
 import alice.respect.core.InternalEvent;
 import alice.respect.core.InternalOperation;
-import alice.respect.core.RespectOperation;
+import alice.respect.core.RespectOperationDefault;
 import alice.respect.core.RespectVMContext;
 import alice.respect.core.TransducersManager;
 import alice.respect.situatedness.TransducerId;
@@ -46,7 +46,7 @@ import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.NetworkUtils;
 import alice.tuplecentre.api.IId;
-import alice.tuplecentre.api.ITupleCentreOperation;
+import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractEvent;
@@ -488,7 +488,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean failure_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
-        final ITupleCentreOperation op = ev.getSimpleTCEvent();
+        final TupleCentreOperation op = ev.getSimpleTCEvent();
         return op.isResultFailure();
     }
 
@@ -576,7 +576,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote get triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeGet(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeGet(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -635,7 +635,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote get_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeGetS(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeGetS(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -810,7 +810,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote in triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeIn(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeIn(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -859,7 +859,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         LogicTuple resultArg = null;
         resultArg = LogicTuple.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeInAll(resultArg, null), tid,
+                RespectOperationDefault.makeInAll(resultArg, null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -928,7 +928,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote in_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeInS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeInS(new LogicTuple(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -988,7 +988,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote inp triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeInp(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeInp(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1056,7 +1056,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote inp_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeInpS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeInpS(new LogicTuple(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1280,7 +1280,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote no triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeNo(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeNo(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1329,7 +1329,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         LogicTuple resultArg = null;
         resultArg = LogicTuple.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeNoAll(resultArg, null), tid,
+                RespectOperationDefault.makeNoAll(resultArg, null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1396,7 +1396,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote no_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeNoS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeNoS(new LogicTuple(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1442,7 +1442,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote nop triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeNop(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeNop(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1509,7 +1509,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote nop_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeNopS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeNopS(new LogicTuple(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1577,7 +1577,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         // return false;
         // }
         // final InputEvent outEv =
-        // new InputEvent(ce.getReactingTC(), RespectOperation.makeOut(
+        // new InputEvent(ce.getReactingTC(), RespectOperationDefault.makeOut(
         // this.getProlog(), new LogicTuple(arg0.copyGoal(v, 0)),
         // null), newTid, this.vm.getCurrentTime());
         // outEv.setIsLinking(true);
@@ -1586,7 +1586,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         // return true;
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeOut(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeOut(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1629,7 +1629,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote out_all triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeOutAll(
+                RespectOperationDefault.makeOutAll(
                         new LogicTuple(arg0.copyGoal(v, 0)), null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
@@ -1693,7 +1693,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote out_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeOutS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeOutS(new LogicTuple(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1757,7 +1757,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote rd triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeRd(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeRd(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1806,7 +1806,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         LogicTuple resultArg = null;
         resultArg = LogicTuple.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeRdAll(resultArg, null), tid,
+                RespectOperationDefault.makeRdAll(resultArg, null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1875,7 +1875,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote rd_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeRdS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeRdS(new LogicTuple(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1923,7 +1923,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote rdp triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeRdp(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeRdp(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1995,7 +1995,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote rdp_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeRdpS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeRdpS(new LogicTuple(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2121,7 +2121,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote spawn triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeSpawn(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeSpawn(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2366,7 +2366,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean success_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
-        final ITupleCentreOperation op = ev.getSimpleTCEvent();
+        final TupleCentreOperation op = ev.getSimpleTCEvent();
         return op.isResultSuccess()
                 && !"ListeningState".equals(this.vm.getCurrentState());
     }
@@ -2446,7 +2446,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote uin triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeUin(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUin(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2494,7 +2494,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote uinp triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeUinp(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUinp(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2542,7 +2542,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote uno triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeUno(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUno(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2590,7 +2590,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote unop triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeUnop(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUnop(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2638,7 +2638,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote urd triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeUrd(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUrd(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2686,7 +2686,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote urdp triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperation.makeUrdp(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUrdp(new LogicTuple(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);

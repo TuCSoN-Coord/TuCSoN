@@ -11,7 +11,7 @@ import alice.tuplecentre.core.OperationCompletionListener;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
-public interface ITupleCentreOperation {
+public interface TupleCentreOperation {
 
     /**
      * Get operation identifier

@@ -28,8 +28,8 @@ import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
@@ -132,7 +132,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
                 .getTucsonAgentId());
         try {
             final EnhancedSyncACC acc = negAcc.playDefaultRole();
-            ITucsonOperation op;
+            TucsonOperation op;
             LogicTuple template;
             final LogicTuple dieTuple = new LogicTuple("stahp", new Value(
                     this.myName()));
@@ -231,10 +231,10 @@ public final class DicePlayer extends AbstractTucsonAgent {
      * (non-Javadoc)
      * @see
      * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tucson.
-     * api.ITucsonOperation)
+     * api.TucsonOperation)
      */
     @Override
-    public void operationCompleted(ITucsonOperation arg0) {
+    public void operationCompleted(TucsonOperation arg0) {
         /*
          * not used atm
          */

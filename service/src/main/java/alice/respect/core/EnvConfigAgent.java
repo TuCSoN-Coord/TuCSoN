@@ -11,7 +11,7 @@ import alice.respect.situatedness.ISimpleProbe;
 import alice.respect.situatedness.SensorId;
 import alice.respect.situatedness.TransducerId;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -231,7 +231,7 @@ public class EnvConfigAgent extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation op) {
+    public void operationCompleted(final TucsonOperation op) {
         /*
          * not used atm
          */

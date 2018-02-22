@@ -13,7 +13,7 @@
  */
 package alice.tucson.api.acc;
 
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.Tuple;
@@ -40,7 +40,7 @@ public interface BulkSyncACC extends RootACC {
      *                just unblocks the agent, but the request IS NOT REMOVED from
      *                TuCSoN node pending requests (will still be served at sometime
      *                in the future).
-     * @return the ITucsonOperation object storing the outcome of the execution.
+     * @return the TucsonOperation object storing the outcome of the execution.
      * Notice due to synchronous semantics, it is guaranteed to store
      * the result of the operation.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
@@ -49,10 +49,10 @@ public interface BulkSyncACC extends RootACC {
      *                                             completion
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    ITucsonOperation inAll(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation inAll(final TupleCentreId tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -70,7 +70,7 @@ public interface BulkSyncACC extends RootACC {
      *                just unblocks the agent, but the request IS NOT REMOVED from
      *                TuCSoN node pending requests (will still be served at sometime
      *                in the future).
-     * @return the ITucsonOperation object storing the outcome of the execution.
+     * @return the TucsonOperation object storing the outcome of the execution.
      * Notice due to synchronous semantics, it is guaranteed to store
      * the result of the operation.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
@@ -79,10 +79,10 @@ public interface BulkSyncACC extends RootACC {
      *                                             completion
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    ITucsonOperation noAll(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation noAll(final TupleCentreId tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -97,7 +97,7 @@ public interface BulkSyncACC extends RootACC {
      *                just unblocks the agent, but the request IS NOT REMOVED from
      *                TuCSoN node pending requests (will still be served at sometime
      *                in the future).
-     * @return the ITucsonOperation object storing the outcome of the execution.
+     * @return the TucsonOperation object storing the outcome of the execution.
      * Notice due to synchronous semantics, it is guaranteed to store
      * the result of the operation.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
@@ -106,10 +106,10 @@ public interface BulkSyncACC extends RootACC {
      *                                             completion
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    ITucsonOperation outAll(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation outAll(final TupleCentreId tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -125,7 +125,7 @@ public interface BulkSyncACC extends RootACC {
      *                just unblocks the agent, but the request IS NOT REMOVED from
      *                TuCSoN node pending requests (will still be served at sometime
      *                in the future).
-     * @return the ITucsonOperation object storing the outcome of the execution.
+     * @return the TucsonOperation object storing the outcome of the execution.
      * Notice due to synchronous semantics, it is guaranteed to store
      * the result of the operation.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
@@ -134,10 +134,10 @@ public interface BulkSyncACC extends RootACC {
      *                                             completion
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    ITucsonOperation rdAll(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation rdAll(final TupleCentreId tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 }

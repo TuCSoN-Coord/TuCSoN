@@ -5,8 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import alice.logictuple.LogicTuple;
-import alice.respect.core.RespectOperation;
-import alice.tucson.api.ITucsonOperation;
+import alice.respect.core.RespectOperationDefault;
+import alice.tucson.api.TucsonOperation;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.InvalidTupleException;
@@ -20,11 +20,11 @@ import alice.tuples.javatuples.impl.JTuplesEngine;
 /**
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- * @see alice.tucson.api.ITucsonOperation
+ * @see TucsonOperation
  */
 
 //TODO necessaria ulteriore rifattorizzazione della classe
-public class TucsonOperation extends AbstractTupleCentreOperation implements ITucsonOperation {
+public class TucsonOperationDefault extends AbstractTupleCentreOperation implements TucsonOperation {
 
     private static final int OPTYPE_EXIT = 310;
 
@@ -58,7 +58,7 @@ public class TucsonOperation extends AbstractTupleCentreOperation implements ITu
      * @return the type code for an environmental operation
      */
     public static int envCode() {
-        return RespectOperation.OPTYPE_ENV;
+        return RespectOperationDefault.OPTYPE_ENV;
     }
 
     /**
@@ -66,7 +66,7 @@ public class TucsonOperation extends AbstractTupleCentreOperation implements ITu
      * operation
      */
     public static int exitCode() {
-        return TucsonOperation.OPTYPE_EXIT;
+        return TucsonOperationDefault.OPTYPE_EXIT;
     }
 
     /**
@@ -82,7 +82,7 @@ public class TucsonOperation extends AbstractTupleCentreOperation implements ITu
      * operation
      */
     public static int getEnvCode() {
-        return RespectOperation.OPTYPE_GET_ENV;
+        return RespectOperationDefault.OPTYPE_GET_ENV;
     }
 
     public static int getInspectorsCode() {
@@ -342,7 +342,7 @@ public class TucsonOperation extends AbstractTupleCentreOperation implements ITu
      * operation
      */
     public static int setEnvCode() {
-        return RespectOperation.OPTYPE_SET_ENV;
+        return RespectOperationDefault.OPTYPE_SET_ENV;
     }
 
     /**
@@ -408,7 +408,7 @@ public class TucsonOperation extends AbstractTupleCentreOperation implements ITu
      * operation
      */
     public static int timeCode() {
-        return RespectOperation.OPTYPE_TIME;
+        return RespectOperationDefault.OPTYPE_TIME;
     }
 
     /**
@@ -467,8 +467,8 @@ public class TucsonOperation extends AbstractTupleCentreOperation implements ITu
      * @param l    the listener for operation completion
      * @param ctx  the ACC requesting the operation
      */
-    public TucsonOperation(final int type, final Tuple t,
-                           final OperationCompletionListener l, final OperationHandler ctx) {
+    public TucsonOperationDefault(final int type, final Tuple t,
+                                  final OperationCompletionListener l, final OperationHandler ctx) {
         super(type, t, l);
         this.context = ctx;
     }
@@ -479,15 +479,15 @@ public class TucsonOperation extends AbstractTupleCentreOperation implements ITu
      * @param l    the listener for operation completion
      * @param ctx  the ACC requesting the operation
      */
-    public TucsonOperation(final int type, final TupleTemplate t,
-                           final OperationCompletionListener l, final OperationHandler ctx) {
+    public TucsonOperationDefault(final int type, final TupleTemplate t,
+                                  final OperationCompletionListener l, final OperationHandler ctx) {
         super(type, t, l);
         this.context = ctx;
     }
 
     /*
      * (non-Javadoc)
-     * @see alice.tucson.api.ITucsonOperation#getJTupleArgument()
+     * @see alice.tucson.api.TucsonOperation#getJTupleArgument()
      */
     @Override
     public Tuple getJTupleArgument() {
@@ -505,7 +505,7 @@ public class TucsonOperation extends AbstractTupleCentreOperation implements ITu
 
     /*
      * (non-Javadoc)
-     * @see alice.tucson.api.ITucsonOperation#getJTupleListResult()
+     * @see alice.tucson.api.TucsonOperation#getJTupleListResult()
      */
     @Override
     public List<Tuple> getJTupleListResult() {
@@ -528,7 +528,7 @@ public class TucsonOperation extends AbstractTupleCentreOperation implements ITu
 
     /*
      * (non-Javadoc)
-     * @see alice.tucson.api.ITucsonOperation#getJTupleResult()
+     * @see alice.tucson.api.TucsonOperation#getJTupleResult()
      */
     @Override
     public Tuple getJTupleResult() {

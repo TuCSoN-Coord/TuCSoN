@@ -20,7 +20,7 @@ import java.util.Map;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.respect.core.RespectOperation;
+import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -34,7 +34,7 @@ import alice.tucson.network.AbstractTucsonProtocol;
 import alice.tucson.network.TucsonMsgReply;
 import alice.tucson.network.TucsonMsgRequest;
 import alice.tucson.network.exceptions.DialogException;
-import alice.tuplecentre.api.ITupleCentreOperation;
+import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -178,9 +178,9 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
             // final int msgType = msg.getType();
             final InputEventMsg evMsg = msg.getInputEventMsg();
             final int msgType = evMsg.getOpType();
-            if (msgType == TucsonOperation.exitCode()) {
+            if (msgType == TucsonOperationDefault.exitCode()) {
                 reply = new TucsonMsgReply(new OutputEventMsg(evMsg.getOpId(),
-                        TucsonOperation.exitCode(), true, true, true));
+                        TucsonOperationDefault.exitCode(), true, true, true));
                 try {
                     this.dialog.sendMsgReply(reply);
                     break;
@@ -204,7 +204,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
             // }
             
             // Operation Make
-            final RespectOperation opRequested = this.makeOperation(
+            final RespectOperationDefault opRequested = this.makeOperation(
                     evMsg.getOpType(), evMsg.getTuple());
             // InputEvent Creation
             InputEvent ev = null;
@@ -216,10 +216,10 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                         evMsg.getTime(), evMsg.getPlace());
             }
             final AbstractTupleCentreOperation evOp = ev.getSimpleTCEvent();
-            this.log("Serving TucsonOperation request < id=" + evOp.getId()
+            this.log("Serving TucsonOperationDefault request < id=" + evOp.getId()
                     + ", type=" + evOp.getType() + ", tuple="
                     + evMsg.getTuple() + " >...");
-            if (msgType == TucsonOperation.setSCode()) {
+            if (msgType == TucsonOperationDefault.setSCode()) {
                 this.node.resolveCore(tid.getName());
                 this.node.addTCAgent(this.agentId, tid);
                 try {
@@ -255,7 +255,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-            } else if (msgType == TucsonOperation.setCode()) {
+            } else if (msgType == TucsonOperationDefault.setCode()) {
                 this.node.resolveCore(tid.getName());
                 this.node.addTCAgent(this.agentId, tid);
                 try {
@@ -290,7 +290,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-            } else if (msgType == TucsonOperation.getCode()) {
+            } else if (msgType == TucsonOperationDefault.getCode()) {
                 this.node.resolveCore(tid.getName());
                 this.node.addTCAgent(this.agentId, tid);
                 try {
@@ -322,7 +322,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-            } else if (msgType == TucsonOperation.getSCode()) {
+            } else if (msgType == TucsonOperationDefault.getSCode()) {
                 this.node.resolveCore(tid.getName());
                 this.node.addTCAgent(this.agentId, tid);
                 try {
@@ -357,27 +357,27 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-            } else if (msgType == TucsonOperation.noCode()
-                    || msgType == TucsonOperation.nopCode()
-                    || msgType == TucsonOperation.outCode()
-                    || msgType == TucsonOperation.outAllCode()
-                    || msgType == TucsonOperation.inCode()
-                    || msgType == TucsonOperation.inpCode()
-                    || msgType == TucsonOperation.rdCode()
-                    || msgType == TucsonOperation.rdpCode()
-                    || msgType == TucsonOperation.uinCode()
-                    || msgType == TucsonOperation.uinpCode()
-                    || msgType == TucsonOperation.urdCode()
-                    || msgType == TucsonOperation.urdpCode()
-                    || msgType == TucsonOperation.unoCode()
-                    || msgType == TucsonOperation.unopCode()
-                    || msgType == TucsonOperation.inAllCode()
-                    || msgType == TucsonOperation.rdAllCode()
-                    || msgType == TucsonOperation.noAllCode()
-                    || msgType == TucsonOperation.spawnCode()) {
+            } else if (msgType == TucsonOperationDefault.noCode()
+                    || msgType == TucsonOperationDefault.nopCode()
+                    || msgType == TucsonOperationDefault.outCode()
+                    || msgType == TucsonOperationDefault.outAllCode()
+                    || msgType == TucsonOperationDefault.inCode()
+                    || msgType == TucsonOperationDefault.inpCode()
+                    || msgType == TucsonOperationDefault.rdCode()
+                    || msgType == TucsonOperationDefault.rdpCode()
+                    || msgType == TucsonOperationDefault.uinCode()
+                    || msgType == TucsonOperationDefault.uinpCode()
+                    || msgType == TucsonOperationDefault.urdCode()
+                    || msgType == TucsonOperationDefault.urdpCode()
+                    || msgType == TucsonOperationDefault.unoCode()
+                    || msgType == TucsonOperationDefault.unopCode()
+                    || msgType == TucsonOperationDefault.inAllCode()
+                    || msgType == TucsonOperationDefault.rdAllCode()
+                    || msgType == TucsonOperationDefault.noAllCode()
+                    || msgType == TucsonOperationDefault.spawnCode()) {
                 this.node.resolveCore(tid.getName());
                 this.node.addTCAgent(this.agentId, tid);
-                ITupleCentreOperation op;
+                TupleCentreOperation op;
                 synchronized (this.requests) {
                     try {
                         op = TupleCentreContainer.doNonBlockingOperation(ev);
@@ -407,16 +407,16 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     this.opVsReq.put(Long.valueOf(op.getId()),
                             Long.valueOf(evOp.getId()));
                 }
-            } else if (msgType == TucsonOperation.noSCode()
-                    || msgType == TucsonOperation.nopSCode()
-                    || msgType == TucsonOperation.outSCode()
-                    || msgType == TucsonOperation.inSCode()
-                    || msgType == TucsonOperation.inpSCode()
-                    || msgType == TucsonOperation.rdSCode()
-                    || msgType == TucsonOperation.rdpSCode()) {
+            } else if (msgType == TucsonOperationDefault.noSCode()
+                    || msgType == TucsonOperationDefault.nopSCode()
+                    || msgType == TucsonOperationDefault.outSCode()
+                    || msgType == TucsonOperationDefault.inSCode()
+                    || msgType == TucsonOperationDefault.inpSCode()
+                    || msgType == TucsonOperationDefault.rdSCode()
+                    || msgType == TucsonOperationDefault.rdpSCode()) {
                 this.node.resolveCore(tid.getName());
                 this.node.addTCAgent(this.agentId, tid);
-                ITupleCentreOperation op;
+                TupleCentreOperation op;
                 synchronized (this.requests) {
                     try {
                         op = TupleCentreContainer
@@ -447,11 +447,11 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     this.opVsReq.put(Long.valueOf(op.getId()),
                             Long.valueOf(evOp.getId()));
                 }
-            } else if (msgType == TucsonOperation.getEnvCode()
-                    || msgType == TucsonOperation.setEnvCode()) {
+            } else if (msgType == TucsonOperationDefault.getEnvCode()
+                    || msgType == TucsonOperationDefault.setEnvCode()) {
                 this.node.resolveCore(tid.getName());
                 this.node.addTCAgent(this.agentId, tid);
-                ITupleCentreOperation op = null;
+                TupleCentreOperation op = null;
                 synchronized (this.requests) {
                     try {
                         if (this.tcId == null) {
@@ -507,15 +507,15 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
      * @param tuple
      * @return
      */
-    private RespectOperation makeOperation(final int opType,
-            final LogicTuple tuple) {
-        RespectOperation op = null;
+    private RespectOperationDefault makeOperation(final int opType,
+                                                  final LogicTuple tuple) {
+        RespectOperationDefault op = null;
         try {
-            if (opType == TucsonOperation.getCode()
-                    || opType == TucsonOperation.getSCode()
-                    || opType == TucsonOperation.setCode()
-                    || opType == TucsonOperation.setSCode()) {
-                op = RespectOperation.make(opType, tuple, null); // blocking
+            if (opType == TucsonOperationDefault.getCode()
+                    || opType == TucsonOperationDefault.getSCode()
+                    || opType == TucsonOperationDefault.setCode()
+                    || opType == TucsonOperationDefault.setSCode()) {
+                op = RespectOperationDefault.make(opType, tuple, null); // blocking
                                                                        // operation,
                                                                        // no
                                                                        // need
@@ -524,7 +524,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                                                                        // completion
                                                                        // listener
             } else {
-                op = RespectOperation.make(opType, tuple, this); // non
+                op = RespectOperationDefault.make(opType, tuple, this); // non
                                                                        // blocking
                                                                        // operation,
                                                                        // need

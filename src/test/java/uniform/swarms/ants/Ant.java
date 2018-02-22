@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -129,7 +129,7 @@ public class Ant extends AbstractTucsonAgent {
     private boolean smellFood() {
         Logger.getAnonymousLogger().log(Level.INFO,
                 this.myName() + ") Smelling food...");
-        ITucsonOperation op = null;
+        TucsonOperation op = null;
         try {
             op = this.acc
                     .urdp(this.tcid, LogicTuple.parse("food"), Ant.TIMEOUT);
@@ -143,7 +143,7 @@ public class Ant extends AbstractTucsonAgent {
     }
 
     private void pickFood() {
-        ITucsonOperation op = null;
+        TucsonOperation op = null;
         try {
             op = this.acc
                     .uinp(this.tcid, LogicTuple.parse("food"), Ant.TIMEOUT);
@@ -159,7 +159,7 @@ public class Ant extends AbstractTucsonAgent {
     }
 
     private LogicTuple smellPheromone() {
-        ITucsonOperation op = null;
+        TucsonOperation op = null;
         try {
             op = this.acc.urdp(this.tcid, LogicTuple.parse("nbr(NBR)"),
                     Ant.TIMEOUT);
@@ -178,7 +178,7 @@ public class Ant extends AbstractTucsonAgent {
 
     private void move(final LogicTuple direction) {
 
-        ITucsonOperation op = null;
+        TucsonOperation op = null;
 
         try {
             op = this.acc
@@ -238,7 +238,7 @@ public class Ant extends AbstractTucsonAgent {
     }
 
     private void dropFood() {
-        ITucsonOperation op = null;
+        TucsonOperation op = null;
         try {
             op = this.acc.out(this.tcid, LogicTuple.parse("stored_food"),
                     Ant.TIMEOUT);
@@ -254,7 +254,7 @@ public class Ant extends AbstractTucsonAgent {
     }
 
     private LogicTuple smellAnthill() {
-        ITucsonOperation op = null;
+        TucsonOperation op = null;
         try {
             op = this.acc.urdp(this.tcid, LogicTuple.parse("anthill(NEXT)"),
                     Ant.TIMEOUT);
@@ -278,10 +278,10 @@ public class Ant extends AbstractTucsonAgent {
     /*
      * (non-Javadoc)
      * @see alice.tucson.api.TucsonAgent#operationCompleted(alice.tucson.api.
-     * ITucsonOperation)
+     * TucsonOperation)
      */
     @Override
-    public void operationCompleted(final ITucsonOperation op) {
+    public void operationCompleted(final TucsonOperation op) {
         // Not used atm
     }
 

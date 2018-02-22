@@ -451,9 +451,9 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 
 	@Override
 	public void fetchTimedReactions(final AbstractEvent ev) {
-		if (((RespectOperation) ev.getSimpleTCEvent()).getLogicTupleArgument() != null) {
+		if (((RespectOperationDefault) ev.getSimpleTCEvent()).getLogicTupleArgument() != null) {
 			try {
-				final Term timed = ((RespectOperation) ev.getSimpleTCEvent()).getLogicTupleArgument().toTerm();
+				final Term timed = ((RespectOperationDefault) ev.getSimpleTCEvent()).getLogicTupleArgument().toTerm();
 				final Struct tev = new Struct("reaction", timed, new alice.tuprolog.Var("G"),
 						new alice.tuprolog.Var("R"));
 				SolveInfo info = this.trigCore.solve(tev);
@@ -497,7 +497,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				if (ev.isInput()) {
 					final InputEvent ie = (InputEvent) ev;
 					this.log("INVOCATION phase: " + ie);
-					final RespectOperation op = (RespectOperation) ev.getSimpleTCEvent();
+					final RespectOperationDefault op = (RespectOperationDefault) ev.getSimpleTCEvent();
 					if (op.isSpawn()) {
 						this.currentReactionTerm = new Struct("spawn", op.getLogicTupleArgument().toTerm());
 					} else if (op.isOut()) {
@@ -583,7 +583,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 					}
 				} else if (ev.isOutput()) {
 					final alice.tuplecentre.core.OutputEvent oe = (alice.tuplecentre.core.OutputEvent) ev;
-					final RespectOperation op = (RespectOperation) ev.getSimpleTCEvent();
+					final RespectOperationDefault op = (RespectOperationDefault) ev.getSimpleTCEvent();
 					if (((OutputEvent) ev).isLinking()) {
 						this.log("linking event processing: " + oe);
 						if (op.isSpawn()) {
@@ -1076,19 +1076,19 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 		final ArrayList<WSetEvent> events = new ArrayList<WSetEvent>();
 		if (filter == null) {
 			for (final AbstractEvent e : ev) {
-				events.add(new WSetEvent(((RespectOperation) e.getSimpleTCEvent()).toTuple(), e.getSource(),
+				events.add(new WSetEvent(((RespectOperationDefault) e.getSimpleTCEvent()).toTuple(), e.getSource(),
 						e.getTarget()));
 			}
 			return events.toArray(new WSetEvent[events.size()]);
 		}
 		final LogicTuple[] tuples = new LogicTuple[this.wSet.size()];
 		for (int i = 0; i < tuples.length; i++) {
-			tuples[i] = ((RespectOperation) ev[i].getSimpleTCEvent()).toTuple();
+			tuples[i] = ((RespectOperationDefault) ev[i].getSimpleTCEvent()).toTuple();
 		}
 		int i = 0;
 		for (final LogicTuple tuple : tuples) {
 			if (filter.match(tuple)) {
-				events.add(new WSetEvent(((RespectOperation) ev[i].getSimpleTCEvent()).toTuple(), ev[i].getSource(),
+				events.add(new WSetEvent(((RespectOperationDefault) ev[i].getSimpleTCEvent()).toTuple(), ev[i].getSource(),
 						ev[i].getTarget()));
 			}
 			i++;
@@ -1542,7 +1542,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				LogicTuple logicTuple = null;
 				try {
 					logicTuple = LogicTuple.parse(tupla);
-					final RespectOperation op = RespectOperation.makeRd(logicTuple, null);
+					final RespectOperationDefault op = RespectOperationDefault.makeRd(logicTuple, null);
 					this.vm.doOperation(null, op);
 				} catch (final InvalidLogicTupleException e) {
 					e.printStackTrace();
@@ -1554,7 +1554,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				LogicTuple logicTuple = null;
 				try {
 					logicTuple = LogicTuple.parse(tupla);
-					final RespectOperation op = RespectOperation.makeIn(logicTuple, null);
+					final RespectOperationDefault op = RespectOperationDefault.makeIn(logicTuple, null);
 					this.vm.doOperation(null, op);
 				} catch (final InvalidLogicTupleException e) {
 					e.printStackTrace();
@@ -1801,7 +1801,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				}
 				currTimer.schedule(
 						new RespectTimerTask(this,
-								RespectOperation.makeTime(new LogicTuple("time", new TupleArgument(current)), null)),
+								RespectOperationDefault.makeTime(new LogicTuple("time", new TupleArgument(current)), null)),
 						delay);
 			}
 			/** SPATIAL EXTENSION - Interfacing with geolocation service **/
@@ -1901,7 +1901,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				}
 				currTimer.schedule(
 						new RespectTimerTask(this,
-								RespectOperation.makeTime(new LogicTuple("time", new TupleArgument(current)), null)),
+								RespectOperationDefault.makeTime(new LogicTuple("time", new TupleArgument(current)), null)),
 						delay);
 			}
 			/** SPATIAL EXTENSION - Interfacing with geolocation service **/

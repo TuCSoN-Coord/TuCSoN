@@ -22,9 +22,9 @@ package asynchAPI;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -130,7 +130,7 @@ public class PrimeCalculator extends AbstractTucsonAgent {
         }
 
         @Override
-        public void operationCompleted(final ITucsonOperation op) {
+        public void operationCompleted(final TucsonOperation op) {
             /*
              * Not used atm
              */
@@ -158,7 +158,7 @@ public class PrimeCalculator extends AbstractTucsonAgent {
         }
 
         @Override
-        public void operationCompleted(final ITucsonOperation op) {
+        public void operationCompleted(final TucsonOperation op) {
             /*
              * Not used atm
              */
@@ -196,7 +196,7 @@ public class PrimeCalculator extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation op) {
+    public void operationCompleted(final TucsonOperation op) {
         /*
          * Not used atm
          */

@@ -3,7 +3,7 @@ package messagePassing;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonAgentId;
@@ -38,7 +38,7 @@ public class ReceiverAgent extends AbstractTucsonAgent {
     }
 
     private SyncACC acc;
-    private ITucsonOperation op;
+    private TucsonOperation op;
     private TucsonAgentId sender;
 
     private TucsonTupleCentreId tid;
@@ -79,7 +79,7 @@ public class ReceiverAgent extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation arg0) {
+    public void operationCompleted(final TucsonOperation arg0) {
         /*
          * not used atm
          */

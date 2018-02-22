@@ -20,7 +20,7 @@ import alice.respect.api.ILinkContext;
 import alice.respect.api.IManagementContext;
 import alice.respect.api.IOrdinaryAsynchInterface;
 import alice.respect.api.IOrdinarySynchInterface;
-import alice.respect.api.IRespectOperation;
+import alice.respect.api.RespectOperation;
 import alice.respect.api.IRespectTC;
 import alice.respect.api.ISpatialContext;
 import alice.respect.api.ISpecificationAsynchInterface;
@@ -65,10 +65,10 @@ public class RespectTC implements IRespectTC {
     }
 
     @Override
-    public IRespectOperation get(final InputEvent ev)
+    public RespectOperation get(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     /**
@@ -129,10 +129,10 @@ public class RespectTC implements IRespectTC {
     }
 
     @Override
-    public IRespectOperation getS(final InputEvent ev)
+    public RespectOperation getS(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     /**
@@ -185,158 +185,158 @@ public class RespectTC implements IRespectTC {
     }
 
     @Override
-    public IRespectOperation in(final InputEvent ev)
+    public RespectOperation in(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation inAll(final InputEvent ev)
+    public RespectOperation inAll(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation inp(final InputEvent ev)
+    public RespectOperation inp(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation inpS(final InputEvent ev)
+    public RespectOperation inpS(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation inS(final InputEvent ev)
+    public RespectOperation inS(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation no(final InputEvent ev)
+    public RespectOperation no(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation noAll(final InputEvent ev)
+    public RespectOperation noAll(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation nop(final InputEvent ev)
+    public RespectOperation nop(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation nopS(final InputEvent ev)
+    public RespectOperation nopS(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation noS(final InputEvent ev)
+    public RespectOperation noS(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation out(final InputEvent ev)
+    public RespectOperation out(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation outAll(final InputEvent ev)
+    public RespectOperation outAll(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation outS(final InputEvent ev)
+    public RespectOperation outS(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation rd(final InputEvent ev)
+    public RespectOperation rd(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation rdAll(final InputEvent ev)
+    public RespectOperation rdAll(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation rdp(final InputEvent ev)
+    public RespectOperation rdp(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation rdpS(final InputEvent ev)
+    public RespectOperation rdpS(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation rdS(final InputEvent ev)
+    public RespectOperation rdS(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation set(final InputEvent ev)
+    public RespectOperation set(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation setS(final LogicTuple t, final InputEvent ev)
+    public RespectOperation setS(final LogicTuple t, final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation setSasynch(final InputEvent ev,
-            final RespectSpecification spec)
+    public RespectOperation setSasynch(final InputEvent ev,
+                                       final RespectSpecification spec)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation setSsynch(final InputEvent ev,
-            final RespectSpecification spec)
+    public RespectOperation setSsynch(final InputEvent ev,
+                                      final RespectSpecification spec)
             throws InvalidSpecificationException {
-        final RespectOperation op = (RespectOperation) ev.getSimpleTCEvent();
+        final RespectOperationDefault op = (RespectOperationDefault) ev.getSimpleTCEvent();
         final boolean accepted = this.vm.setReactionSpec(spec);
         if (!accepted) {
             throw new InvalidSpecificationException();
@@ -353,65 +353,65 @@ public class RespectTC implements IRespectTC {
     }
 
     @Override
-    public IRespectOperation spawn(final InputEvent ev)
+    public RespectOperation spawn(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation uin(final InputEvent ev)
+    public RespectOperation uin(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation uinp(final InputEvent ev)
+    public RespectOperation uinp(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation uno(final InputEvent ev)
+    public RespectOperation uno(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation unop(final InputEvent ev)
+    public RespectOperation unop(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation urd(final InputEvent ev)
+    public RespectOperation urd(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
     @Override
-    public IRespectOperation urdp(final InputEvent ev)
+    public RespectOperation urdp(final InputEvent ev)
             throws OperationNotPossibleException {
         this.vm.doOperation(ev);
-        return (IRespectOperation) ev.getSimpleTCEvent();
+        return (RespectOperation) ev.getSimpleTCEvent();
     }
 
 //	@Override
-//	public IRespectOperation getEnv(InputEvent ev)
+//	public RespectOperation getEnv(InputEvent ev)
 //			throws OperationNotPossibleException {
 //		this.vm.doOperation(ev);
-//        return (IRespectOperation) ev.getSimpleTCEvent();
+//        return (RespectOperation) ev.getSimpleTCEvent();
 //	}
 //
 //	@Override
-//	public IRespectOperation setEnv(InputEvent ev)
+//	public RespectOperation setEnv(InputEvent ev)
 //			throws OperationNotPossibleException {
 //		this.vm.doOperation(ev);
-//        return (IRespectOperation) ev.getSimpleTCEvent();
+//        return (RespectOperation) ev.getSimpleTCEvent();
 //	}
 }

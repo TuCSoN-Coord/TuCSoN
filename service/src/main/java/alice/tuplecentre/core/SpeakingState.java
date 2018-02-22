@@ -17,7 +17,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import alice.respect.core.RespectOperation;
+import alice.respect.core.RespectOperationDefault;
 import alice.respect.core.RespectVMContext;
 import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.Tuple;
@@ -330,18 +330,18 @@ public class SpeakingState extends AbstractTupleCentreVMState {
                         op.setOpResult(ITCCycleResult.Outcome.SUCCESS);
                         op.setTupleListResult(tupleList);
                         foundSatisfied = true;
-                    } else if (((RespectOperation) op).isTime()) {
+                    } else if (((RespectOperationDefault) op).isTime()) {
                         op.setOpResult(ITCCycleResult.Outcome.SUCCESS);
                         op.setTupleResult(op.getTemplateArgument());
                         foundSatisfied = true;
                         outEv = new OutputEvent(ev);
                         this.vm.fetchTimedReactions(outEv);
-                    } else if (((RespectOperation) op).isGetEnv()) {
+                    } else if (((RespectOperationDefault) op).isGetEnv()) {
                         tuple = op.getTupleArgument();
                         op.setOpResult(ITCCycleResult.Outcome.SUCCESS);
                         op.setTupleResult(tuple);
                         foundSatisfied = true;
-                    } else if (((RespectOperation) op).isSetEnv()) {
+                    } else if (((RespectOperationDefault) op).isSetEnv()) {
                         tuple = op.getTupleArgument();
                         op.setOpResult(ITCCycleResult.Outcome.SUCCESS);
                         op.setTupleResult(tuple);

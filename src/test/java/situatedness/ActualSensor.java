@@ -11,8 +11,8 @@ import alice.respect.situatedness.AbstractTransducer;
 import alice.respect.situatedness.ISimpleProbe;
 import alice.respect.situatedness.TransducerId;
 import alice.respect.situatedness.TransducerStandardInterface;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -100,7 +100,7 @@ public class ActualSensor implements ISimpleProbe {
         }
         try {
             final LogicTuple template = LogicTuple.parse("temp(_)");
-            final ITucsonOperation op = this.acc
+            final TucsonOperation op = this.acc
                     .rd(this.tempTc, template, null);
             if (op.isResultSuccess()) {
                 final int temp = op.getLogicTupleResult().getArg(0).intValue();

@@ -12,7 +12,7 @@
  */
 package alice.respect.api.exceptions;
 
-import alice.respect.api.IRespectOperation;
+import alice.respect.api.RespectOperation;
 
 /**
  * Exception thrown when the given timeout expires prior to operation completion
@@ -22,14 +22,14 @@ import alice.respect.api.IRespectOperation;
 public class OperationTimeOutException extends RespectException {
 
     private static final long serialVersionUID = 582402145982163993L;
-    private final IRespectOperation op;
+    private final RespectOperation op;
 
     /**
      *
      * @param rop
      *            the operation whose timeout expired
      */
-    public OperationTimeOutException(final IRespectOperation rop) {
+    public OperationTimeOutException(final RespectOperation rop) {
         super();
         this.op = rop;
     }
@@ -38,7 +38,7 @@ public class OperationTimeOutException extends RespectException {
      *
      * @return the operation whose timeout expired
      */
-    public IRespectOperation getOperation() {
+    public RespectOperation getOperation() {
         return this.op;
     }
 }
