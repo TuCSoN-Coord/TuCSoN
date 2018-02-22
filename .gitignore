@@ -148,6 +148,8 @@ modules.xml
 *.ipr
 
 
+# ADDED BY HAND: exclusion to full ".idea" folder because some files were not excluded (i.e. "compiler.xml" and "vcs.xml")
+.idea/
 
 
 
