@@ -337,7 +337,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     }
 
     @Override
-    public List<? extends Tuple> getTupleListResult() {
+    public List<Tuple> getTupleListResult() {
         return this.result.getTupleListResult();
     }
 

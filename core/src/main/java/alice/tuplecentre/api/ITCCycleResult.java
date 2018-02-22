@@ -32,7 +32,7 @@ public interface ITCCycleResult {
      *
      * @return the list of tuples result of the operation
      */
-    List<?extends Tuple> getTupleListResult();
+    List<Tuple> getTupleListResult();
 
     /**
      *

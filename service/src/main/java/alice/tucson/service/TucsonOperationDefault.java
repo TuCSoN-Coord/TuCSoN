@@ -30,6 +30,7 @@ public class TucsonOperationDefault extends AbstractTupleCentreOperation impleme
 
     //TODO tutte queste costanti intere che rappresentano tipi di operazioni sarebbero da mettere in delle Enumerazioni
     // anche solo nelle classi di origine....
+
     /**
      * @return the Integer representing the type code of
      * <code>abort_operation</code> operation

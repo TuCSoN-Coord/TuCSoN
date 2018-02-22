@@ -31,7 +31,9 @@ public interface TupleCentreOperation {
     TupleTemplate getTemplateArgument();
 
     /**
-     * @return the tuple argument of this operation
+     * Gets the tuple argument used in the operation.
+     *
+     * @return the tuple argument used in the operation.
      */
     Tuple getTupleArgument();
 
@@ -58,9 +60,12 @@ public interface TupleCentreOperation {
     void setTupleListResult(final List<? extends Tuple> t);
 
     /**
-     * @return the list of tuples result of this operation
+     * Gets the list of tuples returned as the result of the requested
+     * operation.
+     *
+     * @return the list of tuples result of the requested operation.
      */
-    List<? extends Tuple> getTupleListResult();
+    List<Tuple> getTupleListResult();
 
     /**
      * Sets the tuple as result for this operation
@@ -70,7 +75,9 @@ public interface TupleCentreOperation {
     void setTupleResult(final Tuple t);
 
     /**
-     * @return the tuple result of this operation
+     * Gets the tuple returned as the result of the requested operation.
+     *
+     * @return the tuple result of the requested operation.
      */
     Tuple getTupleResult();
 
