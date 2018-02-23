@@ -1,7 +1,6 @@
 package alice.tucson.service;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import alice.logictuple.LogicTuple;
@@ -460,7 +459,7 @@ public class TucsonOperationDefault extends AbstractTupleCentreOperation impleme
         return AbstractTupleCentreOperation.OPTYPE_URDP;
     }
 
-    private OperationHandler context = null;
+    private OperationHandler context;
 
     /**
      * @param type the type code of the operation
@@ -486,13 +485,24 @@ public class TucsonOperationDefault extends AbstractTupleCentreOperation impleme
         this.context = ctx;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see alice.tucson.api.TucsonOperation#getJTupleArgument()
-     */
+
     @Override
     public Tuple getJTupleArgument() {
-        final LogicTuple lt = this.getLogicTupleArgument();
+        return logicTupleToJavaTuple(this.getLogicTupleArgument());
+    }
+
+    @Override
+    public Tuple getJTupleResult() {
+        return logicTupleToJavaTuple(this.getLogicTupleArgument());
+    }
+
+    /**
+     * Transforms a LogicTuple to a JavaTuple
+     *
+     * @param lt logicTuple to transform
+     * @return the Tuple resulting from transformation
+     */
+    private Tuple logicTupleToJavaTuple(final LogicTuple lt) {
         try {
             if (JTuplesEngine.isTemplate(lt)) {
                 return JTuplesEngine.toJavaTupleTemplate(lt);
@@ -504,14 +514,10 @@ public class TucsonOperationDefault extends AbstractTupleCentreOperation impleme
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see alice.tucson.api.TucsonOperation#getJTupleListResult()
-     */
     @Override
     public List<Tuple> getJTupleListResult() {
         final List<LogicTuple> lts = this.getLogicTupleListResult();
-        final List<Tuple> jts = new ArrayList<Tuple>(lts.size());
+        final List<Tuple> jts = new ArrayList<>(lts.size());
         try {
             for (final LogicTuple t : lts) {
                 if (JTuplesEngine.isTemplate(t)) {
@@ -527,24 +533,6 @@ public class TucsonOperationDefault extends AbstractTupleCentreOperation impleme
         return jts;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see alice.tucson.api.TucsonOperation#getJTupleResult()
-     */
-    @Override
-    public Tuple getJTupleResult() {
-        final LogicTuple lt = this.getLogicTupleArgument();
-        try {
-            if (JTuplesEngine.isTemplate(lt)) {
-                return JTuplesEngine.toJavaTupleTemplate(lt);
-            }
-            return JTuplesEngine.toJavaTuple(lt);
-        } catch (final InvalidTupleException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
     /**
      * @return the listener for operation completion
      */
@@ -554,29 +542,14 @@ public class TucsonOperationDefault extends AbstractTupleCentreOperation impleme
 
     @Override
     public LogicTuple getLogicTupleArgument() {
+        // TODO cannot move all to AbstractTupleCentreOperation because condition changes from RespectOperationDefault
+        // check why it changes
         if (this.isOut() || this.isOutS() || this.isSetS() || this.isSet()
                 || this.isOutAll() || this.isSpawn()) {
             return (LogicTuple) this.getTupleArgument();
         }
         return (LogicTuple) this.getTemplateArgument();
     }
-
-    @Override
-    public List<LogicTuple> getLogicTupleListResult() {
-        final List<?extends Tuple> tl = this.getTupleListResult();
-        final List<LogicTuple> tll = new LinkedList<LogicTuple>();
-        for (final Tuple t : tl) {
-            tll.add((LogicTuple) t);
-        }
-        return tll;
-    }
-
-    @Override
-    public LogicTuple getLogicTupleResult() {
-        return (LogicTuple) this.getTupleResult();
-    }
-
-
 
     @Override
     public void waitForOperationCompletion(final long ms)

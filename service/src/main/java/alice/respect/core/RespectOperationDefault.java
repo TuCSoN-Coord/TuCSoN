@@ -46,7 +46,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static final int OPTYPE_ENV = 103;
     /**
-     * 
+     *
      */
     public static final int OPTYPE_FROM = 104;
     /**
@@ -62,13 +62,13 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static final int OPTYPE_TIME = 100;
     /**
-     * 
+     *
      */
     public static final int OPTYPE_TO = 105;
 
 
     /**
-     * 
+     *
      * @param opType
      *            the type of the operation
      * @param t
@@ -217,9 +217,9 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         }
         return null;
     }
-    
+
     /**
-     * 
+     *
      * @param t
      *            the tuple argument of the operation
      * @param l
@@ -233,7 +233,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         temp.setTupleResult(t);
         return temp;
     }
-    
+
     /**
      *
      * @param t
@@ -696,9 +696,9 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                                                    final OperationCompletionListener l) {
         return new RespectOperationDefault(RespectOperationDefault.OPTYPE_TIME, t, l);
     }
-    
+
     /**
-     * 
+     *
      * @param t
      *            the tuple argument of the operation
      * @param l
@@ -840,29 +840,14 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
 
     @Override
     public LogicTuple getLogicTupleArgument() {
+        // TODO cannot move all to AbstractTupleCentreOperation because condition changes from TucsonOperationDefault
+        // check why
         if (this.isOut() || this.isOutS() || this.isOutAll() || this.isSpawn()) {
             return (LogicTuple) this.getTupleArgument();
         }
         return (LogicTuple) this.getTemplateArgument();
     }
 
-    @Override
-    public List<LogicTuple> getLogicTupleListResult() {
-        final List<? extends Tuple> tl = this.getTupleListResult();
-        final List<LogicTuple> tll = new LinkedList<LogicTuple>();
-        if (tl == null) {
-            return new LinkedList<LogicTuple>();
-        }
-        for (final Tuple t : tl) {
-            tll.add((LogicTuple) t);
-        }
-        return tll;
-    }
-
-    @Override
-    public LogicTuple getLogicTupleResult() {
-        return (LogicTuple) this.getTupleResult();
-    }
 
     @Override
     public boolean isEnv() {

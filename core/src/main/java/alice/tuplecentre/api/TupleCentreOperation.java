@@ -2,6 +2,7 @@ package alice.tuplecentre.api;
 
 import java.util.List;
 
+import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.OperationCompletionListener;
 
@@ -87,6 +88,30 @@ public interface TupleCentreOperation {
      * @param o the outcome of the operation
      */
     void setOpResult(final ITCCycleResult.Outcome o);
+
+    /**
+     * Gets the tuple argument used in the operation.
+     *
+     * @return the tuple argument used in the operation.
+     */
+    LogicTuple getLogicTupleArgument();
+    //TODO if and when LogicTuple public methods will be moved to an upper Interface... 
+    // TODO here and in implementing methods, would be better to set return type to this interface
+
+    /**
+     * Gets the list of tuples returned as the result of the requested
+     * operation.
+     *
+     * @return the list of tuples result of the requested operation.
+     */
+    List<LogicTuple> getLogicTupleListResult();
+
+    /**
+     * Gets the tuple returned as the result of the requested operation.
+     *
+     * @return the tuple result of the requested operation.
+     */
+    LogicTuple getLogicTupleResult();
 
     /**
      * @return wether this operation is a <code>get</code> operation

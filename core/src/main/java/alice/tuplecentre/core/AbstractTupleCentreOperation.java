@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.core;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import alice.logictuple.LogicTuple;
@@ -351,6 +352,23 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
         return this.type;
     }
 
+    @Override
+    public LogicTuple getLogicTupleResult() {
+        return (LogicTuple) this.getTupleResult();
+    }
+
+    @Override
+    public List<LogicTuple> getLogicTupleListResult() {
+        final List<LogicTuple> toReturn = new LinkedList<>();
+
+        final List<Tuple> tupleList = this.getTupleListResult();
+        if (tupleList != null && !tupleList.isEmpty()) {
+            for (final Tuple t : tupleList) {
+                toReturn.add((LogicTuple) t);
+            }
+        }
+        return toReturn;
+    }
 
     /* TODO i metodi qui sotto potrebbero essere rimossi e sostituiti dove usati con un confronto ... */
 
