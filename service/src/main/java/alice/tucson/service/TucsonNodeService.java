@@ -410,7 +410,7 @@ public class TucsonNodeService {
      * @return wether the operation has been succesfully carried out or not
      */
     public synchronized boolean destroyCore(final String tcn) {
-        final StringBuffer tcName = new StringBuffer(tcn);
+        final StringBuilder tcName = new StringBuilder(tcn);
         if (tcn.indexOf('@') < 0) {
             tcName.append("@localhost");
         }
@@ -798,12 +798,12 @@ public class TucsonNodeService {
      *         centre they're using
      */
     public synchronized TucsonTCUsers resolveCore(final String tcn) {
-        final StringBuffer tcName = new StringBuffer(tcn);
+        final StringBuilder tcName = new StringBuilder(tcn);
         if (tcn.indexOf('@') < 0) {
             tcName.append("@localhost");
         }
         if (tcn.indexOf(':') < 0) {
-            tcName.append(":" + this.tcpPort);
+            tcName.append(":").append(this.tcpPort);
         }
         TucsonTupleCentreId tid;
         try {
@@ -928,12 +928,12 @@ public class TucsonNodeService {
      */
     private TucsonTCUsers bootTupleCentre(final String n)
             throws TucsonInvalidTupleCentreIdException {
-        final StringBuffer name = new StringBuffer(n);
+        final StringBuilder name = new StringBuilder(n);
         if (n.indexOf('@') < 0) {
             name.append("@localhost");
         }
         if (n.indexOf(':') < 0) {
-            name.append(':').append("'" + this.tcpPort + "'");
+            name.append(':').append("'").append(this.tcpPort).append("'");
         }
         final TucsonTupleCentreId id = new TucsonTupleCentreId(name.toString());
         try {

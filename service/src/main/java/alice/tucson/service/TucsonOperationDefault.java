@@ -14,13 +14,6 @@ import alice.tuplecentre.core.OperationCompletionListener;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuples.javatuples.impl.JTuplesEngine;
 
-import static alice.tuplecentre.core.TupleCentreOpType.OUT;
-import static alice.tuplecentre.core.TupleCentreOpType.OUT_ALL;
-import static alice.tuplecentre.core.TupleCentreOpType.OUT_S;
-import static alice.tuplecentre.core.TupleCentreOpType.SET;
-import static alice.tuplecentre.core.TupleCentreOpType.SET_S;
-import static alice.tuplecentre.core.TupleCentreOpType.SPAWN;
-
 /**
  * Class implementing a Default TucsonOperation
  *
@@ -102,17 +95,6 @@ public class TucsonOperationDefault extends AbstractTupleCentreOperation impleme
             return null;
         }
         return jts;
-    }
-
-    @Override
-    public LogicTuple getLogicTupleArgument() {
-        // TODO cannot move all to AbstractTupleCentreOperation because condition changes from RespectOperationDefault
-        // check why it changes
-        if (this.getType() == OUT || this.getType() == OUT_S || this.getType() == SET_S || this.getType() == SET
-                || this.getType() == OUT_ALL || this.getType() == SPAWN) {
-            return (LogicTuple) this.getTupleArgument();
-        }
-        return (LogicTuple) this.getTemplateArgument();
     }
 
     @Override

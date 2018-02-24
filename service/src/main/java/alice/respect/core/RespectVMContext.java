@@ -64,7 +64,6 @@ import alice.tuplecentre.core.ObservableEventReactionOK;
 import alice.tuplecentre.core.OperationCompletionListener;
 import alice.tuplecentre.core.OutputEvent;
 import alice.tuplecentre.core.TriggeredReaction;
-import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuprolog.InvalidLibraryException;
 import alice.tuprolog.InvalidTheoryException;
 import alice.tuprolog.MalformedGoalException;
@@ -500,299 +499,391 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 					final InputEvent ie = (InputEvent) ev;
 					this.log("INVOCATION phase: " + ie);
 					final RespectOperationDefault op = (RespectOperationDefault) ev.getSimpleTCEvent();
-					if (op.getType() == TupleCentreOpType.SPAWN) {
-						this.currentReactionTerm = new Struct("spawn", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.OUT) {
-						this.currentReactionTerm = new Struct("out", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.IN) {
-						this.currentReactionTerm = new Struct("in", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.RD) {
-						this.currentReactionTerm = new Struct("rd", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.INP) {
-						this.currentReactionTerm = new Struct("inp", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.RDP) {
-						this.currentReactionTerm = new Struct("rdp", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.NO) {
-						this.currentReactionTerm = new Struct("no", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.NOP) {
-						this.currentReactionTerm = new Struct("nop", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.OUT_S) {
-						this.currentReactionTerm = new Struct("out_s", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.RD_S) {
-						this.currentReactionTerm = new Struct("rd_s", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.IN_S) {
-						this.currentReactionTerm = new Struct("in_s", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.RDP_S) {
-						this.currentReactionTerm = new Struct("rdp_s", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.INP_S) {
-						this.currentReactionTerm = new Struct("inp_s", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.NO_S) {
-						this.currentReactionTerm = new Struct("no_s", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.NOP_S) {
-						this.currentReactionTerm = new Struct("nop_s", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.GET_ENV) {
-						this.currentReactionTerm = new Struct("getEnv", op.getLogicTupleArgument().getArg(0).toTerm(),
-								op.getLogicTupleArgument().getArg(1).toTerm());
-					} else if (op.getType() == TupleCentreOpType.SET_ENV) {
-						this.currentReactionTerm = new Struct("setEnv", op.getLogicTupleArgument().getArg(0).toTerm(),
-								op.getLogicTupleArgument().getArg(1).toTerm());
-					} else if (op.getType() == TupleCentreOpType.TIME) {
-						this.currentReactionTerm = new Struct("time", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.URD) {
-						this.currentReactionTerm = new Struct("urd", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.UNO) {
-						this.currentReactionTerm = new Struct("uno", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.UIN) {
-						this.currentReactionTerm = new Struct("uin", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.URDP) {
-						this.currentReactionTerm = new Struct("urdp", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.UNOP) {
-						this.currentReactionTerm = new Struct("unop", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.UINP) {
-						this.currentReactionTerm = new Struct("uinp", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.OUT_ALL) {
-						this.currentReactionTerm = new Struct("out_all", op.getLogicTupleArgument().toTerm());
-					} else if (op.getType() == TupleCentreOpType.IN_ALL) {
-						if (op.getLogicTupleListResult() == null) {
-							this.currentReactionTerm = new Struct("in_all",
-									op.getLogicTupleArgument().toTerm(),
-									new Struct());
-						} else {
-							this.currentReactionTerm = new Struct("in_all",
-									op.getLogicTupleArgument().toTerm(),
-									RespectVMContext.list2tuple(op.getLogicTupleListResult()));
-						}
-					} else if (op.getType() == TupleCentreOpType.RD_ALL) {
-						if (op.getLogicTupleListResult() == null) {
-							this.currentReactionTerm = new Struct("rd_all",
-									op.getLogicTupleArgument().toTerm(),
-									new Struct());
-						} else {
-							this.currentReactionTerm = new Struct("rd_all",
-									op.getLogicTupleArgument().toTerm(),
-									RespectVMContext.list2tuple(op.getLogicTupleListResult()));
-						}
-					} else if (op.getType() == TupleCentreOpType.NO_ALL) {
-						if (op.getLogicTupleListResult() == null) {
-							this.currentReactionTerm = new Struct("no_all",
-									op.getLogicTupleArgument().toTerm(),
-									new Struct());
-						} else {
-							this.currentReactionTerm = new Struct("no_all",
-									op.getLogicTupleArgument().toTerm(),
-									RespectVMContext.list2tuple(op.getLogicTupleListResult()));
-						}
+					switch (op.getType()) {
+						case SPAWN:
+							this.currentReactionTerm = new Struct("spawn", op.getLogicTupleArgument().toTerm());
+							break;
+						case OUT:
+							this.currentReactionTerm = new Struct("out", op.getLogicTupleArgument().toTerm());
+							break;
+						case IN:
+							this.currentReactionTerm = new Struct("in", op.getLogicTupleArgument().toTerm());
+							break;
+						case RD:
+							this.currentReactionTerm = new Struct("rd", op.getLogicTupleArgument().toTerm());
+							break;
+						case INP:
+							this.currentReactionTerm = new Struct("inp", op.getLogicTupleArgument().toTerm());
+							break;
+						case RDP:
+							this.currentReactionTerm = new Struct("rdp", op.getLogicTupleArgument().toTerm());
+							break;
+						case NO:
+							this.currentReactionTerm = new Struct("no", op.getLogicTupleArgument().toTerm());
+							break;
+						case NOP:
+							this.currentReactionTerm = new Struct("nop", op.getLogicTupleArgument().toTerm());
+							break;
+						case OUT_S:
+							this.currentReactionTerm = new Struct("out_s", op.getLogicTupleArgument().toTerm());
+							break;
+						case RD_S:
+							this.currentReactionTerm = new Struct("rd_s", op.getLogicTupleArgument().toTerm());
+							break;
+						case IN_S:
+							this.currentReactionTerm = new Struct("in_s", op.getLogicTupleArgument().toTerm());
+							break;
+						case RDP_S:
+							this.currentReactionTerm = new Struct("rdp_s", op.getLogicTupleArgument().toTerm());
+							break;
+						case INP_S:
+							this.currentReactionTerm = new Struct("inp_s", op.getLogicTupleArgument().toTerm());
+							break;
+						case NO_S:
+							this.currentReactionTerm = new Struct("no_s", op.getLogicTupleArgument().toTerm());
+							break;
+						case NOP_S:
+							this.currentReactionTerm = new Struct("nop_s", op.getLogicTupleArgument().toTerm());
+							break;
+						case GET_ENV:
+							this.currentReactionTerm = new Struct("getEnv", op.getLogicTupleArgument().getArg(0).toTerm(),
+									op.getLogicTupleArgument().getArg(1).toTerm());
+							break;
+						case SET_ENV:
+							this.currentReactionTerm = new Struct("setEnv", op.getLogicTupleArgument().getArg(0).toTerm(),
+									op.getLogicTupleArgument().getArg(1).toTerm());
+							break;
+						case TIME:
+							this.currentReactionTerm = new Struct("time", op.getLogicTupleArgument().toTerm());
+							break;
+						case URD:
+							this.currentReactionTerm = new Struct("urd", op.getLogicTupleArgument().toTerm());
+							break;
+						case UNO:
+							this.currentReactionTerm = new Struct("uno", op.getLogicTupleArgument().toTerm());
+							break;
+						case UIN:
+							this.currentReactionTerm = new Struct("uin", op.getLogicTupleArgument().toTerm());
+							break;
+						case URDP:
+							this.currentReactionTerm = new Struct("urdp", op.getLogicTupleArgument().toTerm());
+							break;
+						case UNOP:
+							this.currentReactionTerm = new Struct("unop", op.getLogicTupleArgument().toTerm());
+							break;
+						case UINP:
+							this.currentReactionTerm = new Struct("uinp", op.getLogicTupleArgument().toTerm());
+							break;
+						case OUT_ALL:
+							this.currentReactionTerm = new Struct("out_all", op.getLogicTupleArgument().toTerm());
+							break;
+						case IN_ALL:
+							if (op.getLogicTupleListResult() == null) {
+								this.currentReactionTerm = new Struct("in_all",
+										op.getLogicTupleArgument().toTerm(),
+										new Struct());
+							} else {
+								this.currentReactionTerm = new Struct("in_all",
+										op.getLogicTupleArgument().toTerm(),
+										RespectVMContext.list2tuple(op.getLogicTupleListResult()));
+							}
+							break;
+						case RD_ALL:
+							if (op.getLogicTupleListResult() == null) {
+								this.currentReactionTerm = new Struct("rd_all",
+										op.getLogicTupleArgument().toTerm(),
+										new Struct());
+							} else {
+								this.currentReactionTerm = new Struct("rd_all",
+										op.getLogicTupleArgument().toTerm(),
+										RespectVMContext.list2tuple(op.getLogicTupleListResult()));
+							}
+							break;
+						case NO_ALL:
+							if (op.getLogicTupleListResult() == null) {
+								this.currentReactionTerm = new Struct("no_all",
+										op.getLogicTupleArgument().toTerm(),
+										new Struct());
+							} else {
+								this.currentReactionTerm = new Struct("no_all",
+										op.getLogicTupleArgument().toTerm(),
+										RespectVMContext.list2tuple(op.getLogicTupleListResult()));
+							}
+							break;
 					}
 				} else if (ev.isOutput()) {
 					final alice.tuplecentre.core.OutputEvent oe = (alice.tuplecentre.core.OutputEvent) ev;
 					final RespectOperationDefault op = (RespectOperationDefault) ev.getSimpleTCEvent();
 					if (((OutputEvent) ev).isLinking()) {
 						this.log("linking event processing: " + oe);
-						if (op.getType() == TupleCentreOpType.SPAWN) {
-							this.currentReactionTerm = new Struct("spawn", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.OUT) {
-							this.currentReactionTerm = new Struct("out", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.IN) {
-							this.currentReactionTerm = new Struct("in", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.RD) {
-							this.currentReactionTerm = new Struct("rd", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.INP) {
-							this.currentReactionTerm = new Struct("inp", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.RDP) {
-							this.currentReactionTerm = new Struct("rdp", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.NO) {
-							this.currentReactionTerm = new Struct("no", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.NOP) {
-							this.currentReactionTerm = new Struct("nop", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.OUT_S) {
-							this.currentReactionTerm = new Struct("out_s", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.IN_S) {
-							this.currentReactionTerm = new Struct("in_s", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.RD_S) {
-							this.currentReactionTerm = new Struct("rd_s", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.INP_S) {
-							this.currentReactionTerm = new Struct("inp_s", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.RDP_S) {
-							this.currentReactionTerm = new Struct("rdp_s", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.NO_S) {
-							this.currentReactionTerm = new Struct("no_s", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.NOP_S) {
-							this.currentReactionTerm = new Struct("nop_s", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.URD) {
-							this.currentReactionTerm = new Struct("urd", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.UNO) {
-							this.currentReactionTerm = new Struct("uno", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.UIN) {
-							this.currentReactionTerm = new Struct("uin", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.URDP) {
-							this.currentReactionTerm = new Struct("urdp", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.UNOP) {
-							this.currentReactionTerm = new Struct("unop", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.UINP) {
-							this.currentReactionTerm = new Struct("uinp", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.OUT_ALL) {
-							this.currentReactionTerm = new Struct("out_all", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.IN_ALL) {
-							if (op.getLogicTupleListResult() == null) {
-								this.currentReactionTerm = new Struct("in_all",
-										op.getLogicTupleArgument().toTerm(),
-										new Struct());
-							} else {
-								this.currentReactionTerm = new Struct("in_all",
-										op.getLogicTupleArgument().toTerm(),
-										RespectVMContext.list2tuple(op.getLogicTupleListResult()));
-							}
-						} else if (op.getType() == TupleCentreOpType.RD_ALL) {
-							// TODO correct all
-							if (op.getLogicTupleListResult() == null) {
-								this.currentReactionTerm = new Struct("rd_all",
-										op.getLogicTupleArgument().toTerm(),
-										new Struct());
-							} else {
-								this.currentReactionTerm = new Struct("rd_all",
-										op.getLogicTupleArgument().toTerm(),
-										RespectVMContext.list2tuple(op.getLogicTupleListResult()));
-							}
-						} else if (op.getType() == TupleCentreOpType.NO_ALL) {
-							if (op.getLogicTupleListResult() == null) {
-								this.currentReactionTerm = new Struct("no_all",
-										op.getLogicTupleArgument().toTerm(),
-										new Struct());
-							} else {
-								this.currentReactionTerm = new Struct("no_all",
-										op.getLogicTupleArgument().toTerm(),
-										RespectVMContext.list2tuple(op.getLogicTupleListResult()));
-							}
+						switch (op.getType()) {
+							case SPAWN:
+								this.currentReactionTerm = new Struct("spawn", op.getLogicTupleArgument().toTerm());
+								break;
+							case OUT:
+								this.currentReactionTerm = new Struct("out", op.getLogicTupleArgument().toTerm());
+								break;
+							case IN:
+								this.currentReactionTerm = new Struct("in", op.getLogicTupleArgument().toTerm());
+								break;
+							case RD:
+								this.currentReactionTerm = new Struct("rd", op.getLogicTupleArgument().toTerm());
+								break;
+							case INP:
+								this.currentReactionTerm = new Struct("inp", op.getLogicTupleArgument().toTerm());
+								break;
+							case RDP:
+								this.currentReactionTerm = new Struct("rdp", op.getLogicTupleArgument().toTerm());
+								break;
+							case NO:
+								this.currentReactionTerm = new Struct("no", op.getLogicTupleArgument().toTerm());
+								break;
+							case NOP:
+								this.currentReactionTerm = new Struct("nop", op.getLogicTupleArgument().toTerm());
+								break;
+							case OUT_S:
+								this.currentReactionTerm = new Struct("out_s", op.getLogicTupleArgument().toTerm());
+								break;
+							case IN_S:
+								this.currentReactionTerm = new Struct("in_s", op.getLogicTupleArgument().toTerm());
+								break;
+							case RD_S:
+								this.currentReactionTerm = new Struct("rd_s", op.getLogicTupleArgument().toTerm());
+								break;
+							case INP_S:
+								this.currentReactionTerm = new Struct("inp_s", op.getLogicTupleArgument().toTerm());
+								break;
+							case RDP_S:
+								this.currentReactionTerm = new Struct("rdp_s", op.getLogicTupleArgument().toTerm());
+								break;
+							case NO_S:
+								this.currentReactionTerm = new Struct("no_s", op.getLogicTupleArgument().toTerm());
+								break;
+							case NOP_S:
+								this.currentReactionTerm = new Struct("nop_s", op.getLogicTupleArgument().toTerm());
+								break;
+							case URD:
+								this.currentReactionTerm = new Struct("urd", op.getLogicTupleArgument().toTerm());
+								break;
+							case UNO:
+								this.currentReactionTerm = new Struct("uno", op.getLogicTupleArgument().toTerm());
+								break;
+							case UIN:
+								this.currentReactionTerm = new Struct("uin", op.getLogicTupleArgument().toTerm());
+								break;
+							case URDP:
+								this.currentReactionTerm = new Struct("urdp", op.getLogicTupleArgument().toTerm());
+								break;
+							case UNOP:
+								this.currentReactionTerm = new Struct("unop", op.getLogicTupleArgument().toTerm());
+								break;
+							case UINP:
+								this.currentReactionTerm = new Struct("uinp", op.getLogicTupleArgument().toTerm());
+								break;
+							case OUT_ALL:
+								this.currentReactionTerm = new Struct("out_all", op.getLogicTupleArgument().toTerm());
+								break;
+							case IN_ALL:
+								if (op.getLogicTupleListResult() == null) {
+									this.currentReactionTerm = new Struct("in_all",
+											op.getLogicTupleArgument().toTerm(),
+											new Struct());
+								} else {
+									this.currentReactionTerm = new Struct("in_all",
+											op.getLogicTupleArgument().toTerm(),
+											RespectVMContext.list2tuple(op.getLogicTupleListResult()));
+								}
+								break;
+							case RD_ALL:
+								// TODO correct all
+								if (op.getLogicTupleListResult() == null) {
+									this.currentReactionTerm = new Struct("rd_all",
+											op.getLogicTupleArgument().toTerm(),
+											new Struct());
+								} else {
+									this.currentReactionTerm = new Struct("rd_all",
+											op.getLogicTupleArgument().toTerm(),
+											RespectVMContext.list2tuple(op.getLogicTupleListResult()));
+								}
+								break;
+							case NO_ALL:
+								if (op.getLogicTupleListResult() == null) {
+									this.currentReactionTerm = new Struct("no_all",
+											op.getLogicTupleArgument().toTerm(),
+											new Struct());
+								} else {
+									this.currentReactionTerm = new Struct("no_all",
+											op.getLogicTupleArgument().toTerm(),
+											RespectVMContext.list2tuple(op.getLogicTupleListResult()));
+								}
+								break;
 						}
 					} else {
 						this.log("COMPLETION phase: " + oe);
-						if (op.getType() == TupleCentreOpType.SPAWN) {
-							this.currentReactionTerm = new Struct("spawn", op.getLogicTupleResult().toTerm());
-						} else if (op.getType() == TupleCentreOpType.OUT) {
-							this.currentReactionTerm = new Struct("out", op.getLogicTupleResult().toTerm());
-						} else if (op.getType() == TupleCentreOpType.IN) {
-							this.currentReactionTerm = new Struct("in", op.getLogicTupleResult().toTerm());
-						} else if (op.getType() == TupleCentreOpType.RD) {
-							this.currentReactionTerm = new Struct("rd", op.getLogicTupleResult().toTerm());
-						} else if (op.getType() == TupleCentreOpType.INP) {
-							final LogicTuple result = op.getLogicTupleResult();
-							if (result != null) {
-								this.currentReactionTerm = new Struct("inp", result.toTerm());
-							} else {
-								this.currentReactionTerm = new Struct("inp", op.getLogicTupleArgument().toTerm());
+						switch (op.getType()) {
+							case SPAWN:
+								this.currentReactionTerm = new Struct("spawn", op.getLogicTupleResult().toTerm());
+								break;
+							case OUT:
+								this.currentReactionTerm = new Struct("out", op.getLogicTupleResult().toTerm());
+								break;
+							case IN:
+								this.currentReactionTerm = new Struct("in", op.getLogicTupleResult().toTerm());
+								break;
+							case RD:
+								this.currentReactionTerm = new Struct("rd", op.getLogicTupleResult().toTerm());
+								break;
+							case INP: {
+								final LogicTuple result = op.getLogicTupleResult();
+								if (result != null) {
+									this.currentReactionTerm = new Struct("inp", result.toTerm());
+								} else {
+									this.currentReactionTerm = new Struct("inp", op.getLogicTupleArgument().toTerm());
+								}
+								break;
 							}
-						} else if (op.getType() == TupleCentreOpType.RDP) {
-							final LogicTuple result = op.getLogicTupleResult();
-							if (result != null) {
-								this.currentReactionTerm = new Struct("rdp", result.toTerm());
-							} else {
-								this.currentReactionTerm = new Struct("rdp", op.getLogicTupleArgument().toTerm());
+							case RDP: {
+								final LogicTuple result = op.getLogicTupleResult();
+								if (result != null) {
+									this.currentReactionTerm = new Struct("rdp", result.toTerm());
+								} else {
+									this.currentReactionTerm = new Struct("rdp", op.getLogicTupleArgument().toTerm());
+								}
+								break;
 							}
-						} else if (op.getType() == TupleCentreOpType.NO) {
-							this.currentReactionTerm = new Struct("no", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.NOP) {
-							final LogicTuple result = op.getLogicTupleResult();
-							if (result != null) {
-								this.currentReactionTerm = new Struct("nop", result.toTerm());
-							} else {
-								this.currentReactionTerm = new Struct("nop", op.getLogicTupleArgument().toTerm());
+							case NO:
+								this.currentReactionTerm = new Struct("no", op.getLogicTupleArgument().toTerm());
+								break;
+							case NOP: {
+								final LogicTuple result = op.getLogicTupleResult();
+								if (result != null) {
+									this.currentReactionTerm = new Struct("nop", result.toTerm());
+								} else {
+									this.currentReactionTerm = new Struct("nop", op.getLogicTupleArgument().toTerm());
+								}
+								break;
 							}
-						} else if (op.getType() == TupleCentreOpType.OUT_S) {
-							this.currentReactionTerm = new Struct("out_s", op.getLogicTupleResult().toTerm());
-						} else if (op.getType() == TupleCentreOpType.IN_S) {
-							this.currentReactionTerm = new Struct("in_s", op.getLogicTupleResult().toTerm());
-						} else if (op.getType() == TupleCentreOpType.RD_S) {
-							this.currentReactionTerm = new Struct("rd_s", op.getLogicTupleResult().toTerm());
-						} else if (op.getType() == TupleCentreOpType.INP_S) {
-							final LogicTuple result = op.getLogicTupleResult();
-							if (result != null) {
-								this.currentReactionTerm = new Struct("inp_s", result.toTerm());
-							} else {
-								this.currentReactionTerm = new Struct("inp_s", op.getLogicTupleArgument().toTerm());
+							case OUT_S:
+								this.currentReactionTerm = new Struct("out_s", op.getLogicTupleResult().toTerm());
+								break;
+							case IN_S:
+								this.currentReactionTerm = new Struct("in_s", op.getLogicTupleResult().toTerm());
+								break;
+							case RD_S:
+								this.currentReactionTerm = new Struct("rd_s", op.getLogicTupleResult().toTerm());
+								break;
+							case INP_S: {
+								final LogicTuple result = op.getLogicTupleResult();
+								if (result != null) {
+									this.currentReactionTerm = new Struct("inp_s", result.toTerm());
+								} else {
+									this.currentReactionTerm = new Struct("inp_s", op.getLogicTupleArgument().toTerm());
+								}
+								break;
 							}
-						} else if (op.getType() == TupleCentreOpType.RDP_S) {
-							final LogicTuple result = op.getLogicTupleResult();
-							if (result != null) {
-								this.currentReactionTerm = new Struct("rdp_s", result.toTerm());
-							} else {
-								this.currentReactionTerm = new Struct("rdp_s", op.getLogicTupleArgument().toTerm());
+							case RDP_S: {
+								final LogicTuple result = op.getLogicTupleResult();
+								if (result != null) {
+									this.currentReactionTerm = new Struct("rdp_s", result.toTerm());
+								} else {
+									this.currentReactionTerm = new Struct("rdp_s", op.getLogicTupleArgument().toTerm());
+								}
+								break;
 							}
-						} else if (op.getType() == TupleCentreOpType.NO_S) {
-							this.currentReactionTerm = new Struct("no_s", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.NOP_S) {
-							final LogicTuple result = op.getLogicTupleResult();
-							if (result != null) {
-								this.currentReactionTerm = new Struct("nop_s", result.toTerm());
-							} else {
-								this.currentReactionTerm = new Struct("nop_s", op.getLogicTupleArgument().toTerm());
+							case NO_S:
+								this.currentReactionTerm = new Struct("no_s", op.getLogicTupleArgument().toTerm());
+								break;
+							case NOP_S: {
+								final LogicTuple result = op.getLogicTupleResult();
+								if (result != null) {
+									this.currentReactionTerm = new Struct("nop_s", result.toTerm());
+								} else {
+									this.currentReactionTerm = new Struct("nop_s", op.getLogicTupleArgument().toTerm());
+								}
+								break;
 							}
-						} else if (op.getType() == TupleCentreOpType.URD) {
-							this.currentReactionTerm = new Struct("urd", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.UNO) {
-							this.currentReactionTerm = new Struct("uno", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.UIN) {
-							this.currentReactionTerm = new Struct("uin", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.URDP) {
-							final LogicTuple result = op.getLogicTupleResult();
-							if (result != null) {
-								this.currentReactionTerm = new Struct("urdp", result.toTerm());
-							} else {
-								this.currentReactionTerm = new Struct("urdp", op.getLogicTupleArgument().toTerm());
+							case URD:
+								this.currentReactionTerm = new Struct("urd", op.getLogicTupleArgument().toTerm());
+								break;
+							case UNO:
+								this.currentReactionTerm = new Struct("uno", op.getLogicTupleArgument().toTerm());
+								break;
+							case UIN:
+								this.currentReactionTerm = new Struct("uin", op.getLogicTupleArgument().toTerm());
+								break;
+							case URDP: {
+								final LogicTuple result = op.getLogicTupleResult();
+								if (result != null) {
+									this.currentReactionTerm = new Struct("urdp", result.toTerm());
+								} else {
+									this.currentReactionTerm = new Struct("urdp", op.getLogicTupleArgument().toTerm());
+								}
+								break;
 							}
-						} else if (op.getType() == TupleCentreOpType.UNOP) {
-							final LogicTuple result = op.getLogicTupleResult();
-							if (result != null) {
-								this.currentReactionTerm = new Struct("unop", result.toTerm());
-							} else {
-								this.currentReactionTerm = new Struct("unop", op.getLogicTupleArgument().toTerm());
+							case UNOP: {
+								final LogicTuple result = op.getLogicTupleResult();
+								if (result != null) {
+									this.currentReactionTerm = new Struct("unop", result.toTerm());
+								} else {
+									this.currentReactionTerm = new Struct("unop", op.getLogicTupleArgument().toTerm());
+								}
+								break;
 							}
-						} else if (op.getType() == TupleCentreOpType.UINP) {
-							final LogicTuple result = op.getLogicTupleResult();
-							if (result != null) {
-								this.currentReactionTerm = new Struct("uinp", result.toTerm());
-							} else {
-								this.currentReactionTerm = new Struct("uinp", op.getLogicTupleArgument().toTerm());
+							case UINP: {
+								final LogicTuple result = op.getLogicTupleResult();
+								if (result != null) {
+									this.currentReactionTerm = new Struct("uinp", result.toTerm());
+								} else {
+									this.currentReactionTerm = new Struct("uinp", op.getLogicTupleArgument().toTerm());
+								}
+								break;
 							}
-						} else if (op.getType() == TupleCentreOpType.OUT_ALL) {
-							this.currentReactionTerm = new Struct("out_all", op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.IN_ALL) {
-							if (op.getLogicTupleListResult() == null) {
-								this.currentReactionTerm = new Struct("in_all",
+							case OUT_ALL:
+								this.currentReactionTerm = new Struct("out_all", op.getLogicTupleArgument().toTerm());
+								break;
+							case IN_ALL:
+								if (op.getLogicTupleListResult() == null) {
+									this.currentReactionTerm = new Struct("in_all",
+											op.getLogicTupleArgument().toTerm(),
+											new Struct());
+								} else {
+									this.currentReactionTerm = new Struct("in_all",
+											op.getLogicTupleArgument().toTerm(),
+											RespectVMContext.list2tuple(op.getLogicTupleListResult()));
+								}
+								break;
+							case RD_ALL:
+								if (op.getLogicTupleListResult() == null) {
+									this.currentReactionTerm = new Struct("rd_all",
+											op.getLogicTupleArgument().toTerm(),
+											new Struct());
+								} else {
+									this.currentReactionTerm = new Struct("rd_all",
+											op.getLogicTupleArgument().toTerm(),
+											RespectVMContext.list2tuple(op.getLogicTupleListResult()));
+								}
+								break;
+							case NO_ALL:
+								if (op.getLogicTupleListResult() == null) {
+									this.currentReactionTerm = new Struct("no_all",
+											op.getLogicTupleArgument().toTerm(),
+											new Struct());
+								} else {
+									this.currentReactionTerm = new Struct("no_all",
+											op.getLogicTupleArgument().toTerm(),
+											RespectVMContext.list2tuple(op.getLogicTupleListResult()));
+								}
+								break;
+							case GET_ENV:
+								this.currentReactionTerm = new Struct("getEnv",
 										op.getLogicTupleArgument().toTerm(),
-										new Struct());
-							} else {
-								this.currentReactionTerm = new Struct("in_all",
+										op.getLogicTupleArgument().toTerm());
+								break;
+							case SET_ENV:
+								this.currentReactionTerm = new Struct("setEnv",
 										op.getLogicTupleArgument().toTerm(),
-										RespectVMContext.list2tuple(op.getLogicTupleListResult()));
-							}
-						} else if (op.getType() == TupleCentreOpType.RD_ALL) {
-							if (op.getLogicTupleListResult() == null) {
-								this.currentReactionTerm = new Struct("rd_all",
-										op.getLogicTupleArgument().toTerm(),
-										new Struct());
-							} else {
-								this.currentReactionTerm = new Struct("rd_all",
-										op.getLogicTupleArgument().toTerm(),
-										RespectVMContext.list2tuple(op.getLogicTupleListResult()));
-							}
-						} else if (op.getType() == TupleCentreOpType.NO_ALL) {
-							if (op.getLogicTupleListResult() == null) {
-								this.currentReactionTerm = new Struct("no_all",
-										op.getLogicTupleArgument().toTerm(),
-										new Struct());
-							} else {
-								this.currentReactionTerm = new Struct("no_all",
-										op.getLogicTupleArgument().toTerm(),
-										RespectVMContext.list2tuple(op.getLogicTupleListResult()));
-							}
-						} else if (op.getType() == TupleCentreOpType.GET_ENV) {
-							this.currentReactionTerm = new Struct("getEnv",
-									op.getLogicTupleArgument().toTerm(),
-									op.getLogicTupleArgument().toTerm());
-						} else if (op.getType() == TupleCentreOpType.SET_ENV) {
-							this.currentReactionTerm = new Struct("setEnv",
-									op.getLogicTupleArgument().toTerm(),
-									op.getLogicTupleArgument().toTerm());
+										op.getLogicTupleArgument().toTerm());
+								break;
 						}
 					}
 				} else if (ev.isInternal()) {

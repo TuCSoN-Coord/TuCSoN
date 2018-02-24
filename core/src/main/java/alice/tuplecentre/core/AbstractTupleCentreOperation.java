@@ -19,12 +19,10 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.ITCCycleResult;
-import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-
-import static alice.tuplecentre.core.TupleCentreOpType.*;
 
 /**
  * This class represents an Operation on a tuple centre.
@@ -141,8 +139,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     public Tuple getPredicate() {
         final StringBuilder pred = new StringBuilder();
         try {
-            if (this.type == OUT || this.type == OUT_S || this.type == OUT_ALL
-                    || this.type == SPAWN || this.type == SET || this.type == SET_S) {
+            if (TupleCentreOpType.getProducerPrimitives().contains(this.type)) {
                 pred.append(this.getPrimitive().toString()).append('(')
                         .append(this.tupleArgument).append(')');
                 return LogicTuple.parse(pred.toString());
@@ -159,67 +156,14 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
 
     @Override
     public Tuple getPrimitive() {
-        switch (this.type) {
-            case OUT:
-                return new LogicTuple("out");
-            case IN:
-                return new LogicTuple("in");
-            case RD:
-                return new LogicTuple("rd");
-            case INP:
-                return new LogicTuple("inp");
-            case RDP:
-                return new LogicTuple("rdp");
-            case NO:
-                return new LogicTuple("no");
-            case NOP:
-                return new LogicTuple("nop");
-            case GET:
-                return new LogicTuple("get");
-            case SET:
-                return new LogicTuple("set");
-            case SPAWN:
-                return new LogicTuple("spawn");
-            case OUT_ALL:
-                return new LogicTuple("out_all");
-            case IN_ALL:
-                return new LogicTuple("in_all");
-            case RD_ALL:
-                return new LogicTuple("rd_all");
-            case NO_ALL:
-                return new LogicTuple("no_all");
-            case URD:
-                return new LogicTuple("urd");
-            case UIN:
-                return new LogicTuple("uin");
-            case UNO:
-                return new LogicTuple("uno");
-            case URDP:
-                return new LogicTuple("urdp");
-            case UINP:
-                return new LogicTuple("uinp");
-            case UNOP:
-                return new LogicTuple("unop");
-            case OUT_S:
-                return new LogicTuple("out_s");
-            case IN_S:
-                return new LogicTuple("in_s");
-            case RD_S:
-                return new LogicTuple("rd_s");
-            case INP_S:
-                return new LogicTuple("inp_s");
-            case RDP_S:
-                return new LogicTuple("rdp_s");
-            case NO_S:
-                return new LogicTuple("no_s");
-            case NOP_S:
-                return new LogicTuple("nop_s");
-            case SET_S:
-                return new LogicTuple("set_s");
-            case GET_S:
-                return new LogicTuple("get_s");
-            default:
-                return null;
+        if (TupleCentreOpType.getStandardOperationTypes().contains(this.type)) {
+
+            // TODO modificare LogicTuple in modo che accetti in ingresso direttamente il tipo dell'operazione
+            // TODO e che lo trasformi internamente in stringa (se necessario)
+
+            return new LogicTuple(this.type.name().toLowerCase());
+        } else {
+            return null;
         }
     }
 
@@ -253,11 +197,13 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
         return this.type;
     }
 
+    // TODO metodo inessenziale... favorisce i clienti della classe, perchè non devono fare "instanceof" e downcasting
     @Override
     public LogicTuple getLogicTupleResult() {
         return (LogicTuple) this.getTupleResult();
     }
 
+    // TODO metodo inessenziale... favorisce i clienti della classe, perchè non devono fare "instanceof" e downcasting
     @Override
     public List<LogicTuple> getLogicTupleListResult() {
         final List<LogicTuple> toReturn = new LinkedList<>();
@@ -339,6 +285,14 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
         } catch (final InterruptedException e) {
             // do nothing here, ususally happens when shutting down nodes
         }
+    }
+
+    @Override
+    public LogicTuple getLogicTupleArgument() {
+        if (TupleCentreOpType.getProducerPrimitives().contains(this.type)) {
+            return (LogicTuple) this.getTupleArgument();
+        }
+        return (LogicTuple) this.getTemplateArgument();
     }
 
     @Override

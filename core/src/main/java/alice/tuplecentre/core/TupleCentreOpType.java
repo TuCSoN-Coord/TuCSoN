@@ -188,4 +188,31 @@ public enum TupleCentreOpType {
     public static Collection<TupleCentreOpType> getSpecificationPrimitives() {
         return Arrays.asList(GET_S, INP_S, IN_S, NOP_S, NO_S, OUT_S, RDP_S, RD_S, SET_S);
     }
+
+    /**
+     * Returns a collection containing Producer primitives
+     * <p>
+     * OUT, SET, SPAWN, OUT_ALL, OUT_S, SET_S
+     *
+     * @return a collection of primiteves that "write" something
+     */
+    public static Collection<TupleCentreOpType> getProducerPrimitives() {
+        return Arrays.asList(OUT, SET, SPAWN,
+                OUT_ALL,
+                OUT_S, SET_S);
+    }
+
+    /**
+     * Returns a collection containing Accessor primitives
+     * <p>
+     * GET, IN, INP, NO, NOP, RD, RDP, UIN, UINP, UNO, UNOP, URD, URDP, IN_ALL, NO_ALL, RD_ALL, GET_S, INP_S, IN_S, NOP_S, NO_S, RDP_S, RD_S
+     *
+     * @return a collection of primitives that "read" something
+     */
+    public static Collection<TupleCentreOpType> getAccessorPrimitives() {
+        return Arrays.asList(GET, IN, INP, NO, NOP, RD, RDP,
+                UIN, UINP, UNO, UNOP, URD, URDP,
+                IN_ALL, NO_ALL, RD_ALL,
+                GET_S, INP_S, IN_S, NOP_S, NO_S, RDP_S, RD_S);
+    }
 }

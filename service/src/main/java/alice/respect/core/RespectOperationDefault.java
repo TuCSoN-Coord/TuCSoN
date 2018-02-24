@@ -66,126 +66,103 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 e.printStackTrace();
             }
         }
+
+        // TODO because of public specific makeXXX methods, this control is easily avoided using them
+        // TODO could be a good idea to delete those methods, and forse using this (maybe replacing this checked exception with an IllegalArgument)
         if (tuple == null) {
             throw new InvalidLogicTupleException();
         }
-        if (opType == SET) {
-            return RespectOperationDefault.makeSet(tuple, listener);
-        }
-        if (opType == SET_S) {
-            //try {
-            if ("spec".equals(tuple.getName())) {
-                return RespectOperationDefault.makeSetS(null);
-            }
-            return RespectOperationDefault.makeSetS(tuple, listener);
+
+        switch (opType) {
+            case SET:
+                return RespectOperationDefault.makeSet(tuple, listener);
+            case SET_S:
+                //try {
+                if ("spec".equals(tuple.getName())) {
+                    return RespectOperationDefault.makeSetS(null);
+                }
+                return RespectOperationDefault.makeSetS(tuple, listener);
             // } catch (final InvalidLogicTupleOperationException e) {
             //  e.printStackTrace();
             //  }
-        }
-        if (opType == IN) {
-            return RespectOperationDefault.makeIn(tuple, listener);
-        }
-        if (opType == IN_ALL) {
-            //  try {
-            if (",".equals(tuple.getName()) && tuple.getArity() == 2) {
-                return RespectOperationDefault.makeInAll(
-                        new LogicTuple(tuple.getArg(0)), listener);
-            }
-            return RespectOperationDefault.makeInAll(tuple, listener);
+            case IN:
+                return RespectOperationDefault.makeIn(tuple, listener);
+            case IN_ALL:
+                //  try {
+                if (",".equals(tuple.getName()) && tuple.getArity() == 2) {
+                    return RespectOperationDefault.makeInAll(
+                            new LogicTuple(tuple.getArg(0)), listener);
+                }
+                return RespectOperationDefault.makeInAll(tuple, listener);
             //    } catch (final InvalidLogicTupleOperationException e) {
             //      e.printStackTrace();
             //  }
-        }
-        if (opType == INP) {
-            return RespectOperationDefault.makeInp(tuple, listener);
-        }
-        if (opType == INP_S) {
-            return RespectOperationDefault.makeInpS(tuple, listener);
-        }
-        if (opType == IN_S) {
-            return RespectOperationDefault.makeInS(tuple, listener);
-        }
-        if (opType == OUT) {
-            return RespectOperationDefault.makeOut(tuple, listener);
-        }
-        if (opType == OUT_ALL) {
-            return RespectOperationDefault.makeOutAll(tuple, listener);
-        }
-        if (opType == OUT_S) {
-            return RespectOperationDefault.makeOutS(tuple, listener);
-        }
-        if (opType == RD) {
-            return RespectOperationDefault.makeRd(tuple, listener);
-        }
-        if (opType == RD_ALL) {
-            //  try {
-            if (",".equals(tuple.getName()) && tuple.getArity() == 2) {
-                return RespectOperationDefault.makeRdAll(
-                        new LogicTuple(tuple.getArg(0)), listener);
-            }
-            return RespectOperationDefault.makeRdAll(tuple, listener);
+            case INP:
+                return RespectOperationDefault.makeInp(tuple, listener);
+            case INP_S:
+                return RespectOperationDefault.makeInpS(tuple, listener);
+            case IN_S:
+                return RespectOperationDefault.makeInS(tuple, listener);
+            case OUT:
+                return RespectOperationDefault.makeOut(tuple, listener);
+            case OUT_ALL:
+                return RespectOperationDefault.makeOutAll(tuple, listener);
+            case OUT_S:
+                return RespectOperationDefault.makeOutS(tuple, listener);
+            case RD:
+                return RespectOperationDefault.makeRd(tuple, listener);
+            case RD_ALL:
+                //  try {
+                if (",".equals(tuple.getName()) && tuple.getArity() == 2) {
+                    return RespectOperationDefault.makeRdAll(
+                            new LogicTuple(tuple.getArg(0)), listener);
+                }
+                return RespectOperationDefault.makeRdAll(tuple, listener);
             //  } catch (final InvalidLogicTupleOperationException e) {
             //   e.printStackTrace();
             // }
-        }
-        if (opType == RDP) {
-            return RespectOperationDefault.makeRdp(tuple, listener);
-        }
-        if (opType == RDP_S) {
-            return RespectOperationDefault.makeRdpS(tuple, listener);
-        }
-        if (opType == RD_S) {
-            return RespectOperationDefault.makeRdS(tuple, listener);
-        }
-        if (opType == NO) {
-            return RespectOperationDefault.makeNo(tuple, listener);
-        }
-        if (opType == NO_ALL) {
-            //  try {
-            if (",".equals(tuple.getName()) && tuple.getArity() == 2) {
-                return RespectOperationDefault.makeNoAll(
-                        new LogicTuple(tuple.getArg(0)), listener);
-            }
-            return RespectOperationDefault.makeNoAll(tuple, listener);
+            case RDP:
+                return RespectOperationDefault.makeRdp(tuple, listener);
+            case RDP_S:
+                return RespectOperationDefault.makeRdpS(tuple, listener);
+            case RD_S:
+                return RespectOperationDefault.makeRdS(tuple, listener);
+            case NO:
+                return RespectOperationDefault.makeNo(tuple, listener);
+            case NO_ALL:
+                //  try {
+                if (",".equals(tuple.getName()) && tuple.getArity() == 2) {
+                    return RespectOperationDefault.makeNoAll(
+                            new LogicTuple(tuple.getArg(0)), listener);
+                }
+                return RespectOperationDefault.makeNoAll(tuple, listener);
             //  } catch (final InvalidLogicTupleOperationException e) {
             //     e.printStackTrace();
             //  }
-        }
-        if (opType == NOP) {
-            return RespectOperationDefault.makeNop(tuple, listener);
-        }
-        if (opType == NO_S) {
-            return RespectOperationDefault.makeNoS(tuple, listener);
-        }
-        if (opType == NOP_S) {
-            return RespectOperationDefault.makeNopS(tuple, listener);
-        }
-        if (opType == UIN) {
-            return RespectOperationDefault.makeUin(tuple, listener);
-        }
-        if (opType == URD) {
-            return RespectOperationDefault.makeUrd(tuple, listener);
-        }
-        if (opType == UNO) {
-            return RespectOperationDefault.makeUno(tuple, listener);
-        }
-        if (opType == UINP) {
-            return RespectOperationDefault.makeUinp(tuple, listener);
-        }
-        if (opType == URDP) {
-            return RespectOperationDefault.makeUrdp(tuple, listener);
-        }
-        if (opType == UNOP) {
-            return RespectOperationDefault.makeUnop(tuple, listener);
-        }
-        if (opType == SPAWN) {
-            return RespectOperationDefault.makeSpawn(tuple, listener);
-        }
-        if (opType == GET_ENV) {
-            return RespectOperationDefault.makeGetEnv(tuple, listener);
-        }
-        if (opType == SET_ENV) {
-            return RespectOperationDefault.makeSetEnv(tuple, listener);
+            case NOP:
+                return RespectOperationDefault.makeNop(tuple, listener);
+            case NO_S:
+                return RespectOperationDefault.makeNoS(tuple, listener);
+            case NOP_S:
+                return RespectOperationDefault.makeNopS(tuple, listener);
+            case UIN:
+                return RespectOperationDefault.makeUin(tuple, listener);
+            case URD:
+                return RespectOperationDefault.makeUrd(tuple, listener);
+            case UNO:
+                return RespectOperationDefault.makeUno(tuple, listener);
+            case UINP:
+                return RespectOperationDefault.makeUinp(tuple, listener);
+            case URDP:
+                return RespectOperationDefault.makeUrdp(tuple, listener);
+            case UNOP:
+                return RespectOperationDefault.makeUnop(tuple, listener);
+            case SPAWN:
+                return RespectOperationDefault.makeSpawn(tuple, listener);
+            case GET_ENV:
+                return RespectOperationDefault.makeGetEnv(tuple, listener);
+            case SET_ENV:
+                return RespectOperationDefault.makeSetEnv(tuple, listener);
         }
         return null;
     }
@@ -197,8 +174,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeFrom(final LogicTuple t,
                                                    final OperationCompletionListener l) {
-        final RespectOperationDefault temp = new RespectOperationDefault(
-                FROM, t, l);
+        final RespectOperationDefault temp = new RespectOperationDefault(FROM, t, l);
         temp.setTupleResult(t);
         return temp;
     }
@@ -210,9 +186,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeGet(final LogicTuple t,
                                                   final OperationCompletionListener l) {
-        final RespectOperationDefault temp = new RespectOperationDefault(
-                GET, (Tuple) t, l);
-        return temp;
+        return new RespectOperationDefault(GET, (Tuple) t, l);
     }
 
     /**
@@ -222,8 +196,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeGetEnv(final LogicTuple t,
                                                      final OperationCompletionListener l) {
-        final RespectOperationDefault temp = new RespectOperationDefault(
-                GET_ENV, t, l);
+        final RespectOperationDefault temp = new RespectOperationDefault(GET_ENV, t, l);
         temp.setTupleResult(t);
         return temp;
     }
@@ -235,9 +208,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeGetS(final LogicTuple t,
                                                    final OperationCompletionListener l) {
-        final RespectOperationDefault temp = new RespectOperationDefault(
-                GET_S, (Tuple) t, l);
-        return temp;
+        return new RespectOperationDefault(GET_S, (Tuple) t, l);
     }
 
     /**
@@ -247,8 +218,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeIn(final LogicTuple t,
                                                  final OperationCompletionListener l) {
-        return new RespectOperationDefault(IN, t,
-                l);
+        return new RespectOperationDefault(IN, t, l);
     }
 
     /**
@@ -258,8 +228,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeInAll(final LogicTuple t,
                                                     final OperationCompletionListener l) {
-        return new RespectOperationDefault(IN_ALL,
-                t, l);
+        return new RespectOperationDefault(IN_ALL, t, l);
     }
 
     /**
@@ -269,8 +238,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeInp(final LogicTuple t,
                                                   final OperationCompletionListener l) {
-        return new RespectOperationDefault(INP, t,
-                l);
+        return new RespectOperationDefault(INP, t, l);
     }
 
     /**
@@ -280,8 +248,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeInpS(final LogicTuple t,
                                                    final OperationCompletionListener l) {
-        return new RespectOperationDefault(INP_S,
-                t, l);
+        return new RespectOperationDefault(INP_S, t, l);
     }
 
     /**
@@ -291,8 +258,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeInS(final LogicTuple t,
                                                   final OperationCompletionListener l) {
-        return new RespectOperationDefault(IN_S,
-                t, l);
+        return new RespectOperationDefault(IN_S, t, l);
     }
 
     /**
@@ -302,8 +268,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeNo(final LogicTuple t,
                                                  final OperationCompletionListener l) {
-        return new RespectOperationDefault(NO, t,
-                l);
+        return new RespectOperationDefault(NO, t, l);
     }
 
     /**
@@ -313,8 +278,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeNoAll(final LogicTuple t,
                                                     final OperationCompletionListener l) {
-        return new RespectOperationDefault(NO_ALL,
-                t, l);
+        return new RespectOperationDefault(NO_ALL, t, l);
     }
 
     /**
@@ -324,8 +288,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeNop(final LogicTuple t,
                                                   final OperationCompletionListener l) {
-        return new RespectOperationDefault(NOP, t,
-                l);
+        return new RespectOperationDefault(NOP, t, l);
     }
 
     /**
@@ -335,8 +298,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeNopS(final LogicTuple t,
                                                    final OperationCompletionListener l) {
-        return new RespectOperationDefault(NOP_S,
-                t, l);
+        return new RespectOperationDefault(NOP_S, t, l);
     }
 
     /**
@@ -346,8 +308,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeNoS(final LogicTuple t,
                                                   final OperationCompletionListener l) {
-        return new RespectOperationDefault(NO_S,
-                t, l);
+        return new RespectOperationDefault(NO_S, t, l);
     }
 
     /**
@@ -357,8 +318,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeOut(final LogicTuple t,
                                                   final OperationCompletionListener l) {
-        return new RespectOperationDefault(OUT,
-                (Tuple) t, l);
+        return new RespectOperationDefault(OUT, (Tuple) t, l);
     }
 
     /**
@@ -368,8 +328,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeOutAll(final LogicTuple t,
                                                      final OperationCompletionListener l) {
-        return new RespectOperationDefault(
-                OUT_ALL, (Tuple) t, l);
+        return new RespectOperationDefault(OUT_ALL, (Tuple) t, l);
     }
 
     /**
@@ -379,8 +338,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeOutS(final LogicTuple t,
                                                    final OperationCompletionListener l) {
-        return new RespectOperationDefault(OUT_S,
-                (Tuple) t, l);
+        return new RespectOperationDefault(OUT_S, (Tuple) t, l);
     }
 
     /**
@@ -390,8 +348,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeRd(final LogicTuple t,
                                                  final OperationCompletionListener l) {
-        return new RespectOperationDefault(RD, t,
-                l);
+        return new RespectOperationDefault(RD, t, l);
     }
 
     /**
@@ -401,8 +358,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeRdAll(final LogicTuple t,
                                                     final OperationCompletionListener l) {
-        return new RespectOperationDefault(RD_ALL,
-                t, l);
+        return new RespectOperationDefault(RD_ALL, t, l);
     }
 
     /**
@@ -412,8 +368,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeRdp(final LogicTuple t,
                                                   final OperationCompletionListener l) {
-        return new RespectOperationDefault(RDP, t,
-                l);
+        return new RespectOperationDefault(RDP, t, l);
     }
 
     /**
@@ -423,8 +378,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeRdpS(final LogicTuple t,
                                                    final OperationCompletionListener l) {
-        return new RespectOperationDefault(RDP_S,
-                t, l);
+        return new RespectOperationDefault(RDP_S, t, l);
     }
 
     /**
@@ -434,8 +388,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeRdS(final LogicTuple t,
                                                   final OperationCompletionListener l) {
-        return new RespectOperationDefault(RD_S,
-                t, l);
+        return new RespectOperationDefault(RD_S, t, l);
     }
 
     /**
@@ -453,7 +406,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         final List<Tuple> list = new LinkedList<Tuple>();
         LogicTuple cpy = null;
         try {
-            cpy = LogicTuple.parse(t.toString());
+            cpy = LogicTuple.parse(t.toString()); //TODO add copy constructor to LogicTuple!!
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();
             return null;
@@ -487,8 +440,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeSetEnv(final LogicTuple t,
                                                      final OperationCompletionListener l) {
-        final RespectOperationDefault temp = new RespectOperationDefault(
-                SET_ENV, t, l);
+        final RespectOperationDefault temp = new RespectOperationDefault(SET_ENV, t, l);
         temp.setTupleResult(t);
         return temp;
     }
@@ -540,8 +492,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      * @return the ReSpecT operation built
      */
     public static RespectOperationDefault makeSetS(final OperationCompletionListener l) {
-        return new RespectOperationDefault(SET_S,
-                new LogicTuple(), l);
+        return new RespectOperationDefault(SET_S, new LogicTuple(), l);
     }
 
     /**
@@ -569,8 +520,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeSpawn(final LogicTuple t,
                                                     final OperationCompletionListener l) {
-        return new RespectOperationDefault(SPAWN,
-                (Tuple) t, l);
+        return new RespectOperationDefault(SPAWN, (Tuple) t, l);
     }
 
     /**
@@ -590,8 +540,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeTo(final LogicTuple t,
                                                  final OperationCompletionListener l) {
-        final RespectOperationDefault temp = new RespectOperationDefault(
-                TO, t, l);
+        final RespectOperationDefault temp = new RespectOperationDefault(TO, t, l);
         temp.setTupleResult(t);
         return temp;
     }
@@ -603,8 +552,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeUin(final LogicTuple t,
                                                   final OperationCompletionListener l) {
-        return new RespectOperationDefault(UIN, t,
-                l);
+        return new RespectOperationDefault(UIN, t, l);
     }
 
     /**
@@ -614,8 +562,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeUinp(final LogicTuple t,
                                                    final OperationCompletionListener l) {
-        return new RespectOperationDefault(UINP,
-                t, l);
+        return new RespectOperationDefault(UINP, t, l);
     }
 
     /**
@@ -625,8 +572,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeUno(final LogicTuple t,
                                                   final OperationCompletionListener l) {
-        return new RespectOperationDefault(UNO, t,
-                l);
+        return new RespectOperationDefault(UNO, t, l);
     }
 
     /**
@@ -636,8 +582,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeUnop(final LogicTuple t,
                                                    final OperationCompletionListener l) {
-        return new RespectOperationDefault(UNOP,
-                t, l);
+        return new RespectOperationDefault(UNOP, t, l);
     }
 
     /**
@@ -647,8 +592,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeUrd(final LogicTuple t,
                                                   final OperationCompletionListener l) {
-        return new RespectOperationDefault(URD, t,
-                l);
+        return new RespectOperationDefault(URD, t, l);
     }
 
     /**
@@ -658,8 +602,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeUrdp(final LogicTuple t,
                                                    final OperationCompletionListener l) {
-        return new RespectOperationDefault(URDP,
-                t, l);
+        return new RespectOperationDefault(URDP, t, l);
     }
 
     /**
@@ -693,20 +636,6 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     @Override
-    public LogicTuple getLogicTupleArgument() {
-        // TODO cannot move all to AbstractTupleCentreOperation because condition changes from TucsonOperationDefault
-        // check why
-        if (this.getType() == OUT
-                || this.getType() == OUT_S
-                || this.getType() == OUT_ALL
-                || this.getType() == SPAWN) {
-
-            return (LogicTuple) this.getTupleArgument();
-        }
-        return (LogicTuple) this.getTemplateArgument();
-    }
-
-    @Override
     public String toString() {
         return this.toTuple().toString();
     }
@@ -720,143 +649,127 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         } else {
             t = this.getLogicTupleArgument();
         }
-        String opName;
-        if (this.getType() == SPAWN) {
-            opName = "spawn";
-        } else if (this.getType() == OUT) {
-            opName = "out";
-        } else if (this.getType() == IN) {
-            opName = "in";
-        } else if (this.getType() == RD) {
-            opName = "rd";
-        } else if (this.getType() == INP) {
-            opName = "inp";
-        } else if (this.getType() == RDP) {
-            opName = "rdp";
-        } else if (this.getType() == NO) {
-            opName = "no";
-        } else if (this.getType() == NOP) {
-            opName = "nop";
-        } else if (this.getType() == OUT_ALL) {
-            opName = "out_all";
-            LogicTuple[] tupleL = new LogicTuple[]{};
-            tupleL = this.getLogicTupleListResult().toArray(tupleL);
-            tl = new Term[tupleL.length];
-            for (int i = 0; i < tupleL.length; i++) {
-                tl[i] = tupleL[i].toTerm();
+        String opName = this.getType().name().toLowerCase();
+        switch (this.getType()) {
+            case SPAWN:
+            case OUT:
+            case IN:
+            case INP:
+            case RD:
+            case RDP:
+            case NO:
+            case NOP:
+            case URD:
+            case UIN:
+            case UNO:
+            case URDP:
+            case UINP:
+            case UNOP:
+            case OUT_S:
+            case IN_S:
+            case RD_S:
+            case INP_S:
+            case RDP_S:
+            case NO_S:
+            case NOP_S:
+            case ENV:
+            case TIME:
+                break; //because opName was set at the beginning with the constant name toLowerCase
+
+            case OUT_ALL: {
+                LogicTuple[] tupleL = new LogicTuple[]{};
+                tupleL = this.getLogicTupleListResult().toArray(tupleL);
+                tl = new Term[tupleL.length];
+                for (int i = 0; i < tupleL.length; i++) {
+                    tl[i] = tupleL[i].toTerm();
+                }
+                LogicTuple lt = null;
+                lt = new LogicTuple(opName, new TupleArgument(this
+                        .getLogicTupleArgument().toTerm()),
+                        new TupleArgument(new Struct(tl)));
+                return lt;
             }
-            LogicTuple lt = null;
-            lt = new LogicTuple(opName, new TupleArgument(this
-                    .getLogicTupleArgument().toTerm()),
-                    new TupleArgument(new Struct(tl)));
-            return lt;
-        } else if (this.getType() == IN_ALL) {
-            opName = "in_all";
-            LogicTuple[] tupleL = new LogicTuple[]{};
-            tupleL = this.getLogicTupleListResult().toArray(tupleL);
-            tl = new Term[tupleL.length];
-            for (int i = 0; i < tupleL.length; i++) {
-                tl[i] = tupleL[i].toTerm();
+            case IN_ALL: {
+                LogicTuple[] tupleL = new LogicTuple[]{};
+                tupleL = this.getLogicTupleListResult().toArray(tupleL);
+                tl = new Term[tupleL.length];
+                for (int i = 0; i < tupleL.length; i++) {
+                    tl[i] = tupleL[i].toTerm();
+                }
+                LogicTuple lt = null;
+                lt = new LogicTuple(opName, new TupleArgument(this
+                        .getLogicTupleArgument().toTerm()),
+                        new TupleArgument(new Struct(tl)));
+                return lt;
             }
-            LogicTuple lt = null;
-            lt = new LogicTuple(opName, new TupleArgument(this
-                    .getLogicTupleArgument().toTerm()),
-                    new TupleArgument(new Struct(tl)));
-            return lt;
-        } else if (this.getType() == RD_ALL) {
-            opName = "rd_all";
-            LogicTuple[] tupleL = new LogicTuple[]{};
-            tupleL = this.getLogicTupleListResult().toArray(tupleL);
-            tl = new Term[tupleL.length];
-            for (int i = 0; i < tupleL.length; i++) {
-                tl[i] = tupleL[i].toTerm();
+            case RD_ALL: {
+                LogicTuple[] tupleL = new LogicTuple[]{};
+                tupleL = this.getLogicTupleListResult().toArray(tupleL);
+                tl = new Term[tupleL.length];
+                for (int i = 0; i < tupleL.length; i++) {
+                    tl[i] = tupleL[i].toTerm();
+                }
+                LogicTuple lt = null;
+                lt = new LogicTuple(opName, new TupleArgument(this
+                        .getLogicTupleArgument().toTerm()),
+                        new TupleArgument(new Struct(tl)));
+                return lt;
             }
-            LogicTuple lt = null;
-            lt = new LogicTuple(opName, new TupleArgument(this
-                    .getLogicTupleArgument().toTerm()),
-                    new TupleArgument(new Struct(tl)));
-            return lt;
-        } else if (this.getType() == NO_ALL) {
-            opName = "no_all";
-            LogicTuple[] tupleL = new LogicTuple[]{};
-            tupleL = this.getLogicTupleListResult().toArray(tupleL);
-            tl = new Term[tupleL.length];
-            for (int i = 0; i < tupleL.length; i++) {
-                tl[i] = tupleL[i].toTerm();
+            case NO_ALL: {
+                LogicTuple[] tupleL = new LogicTuple[]{};
+                tupleL = this.getLogicTupleListResult().toArray(tupleL);
+                tl = new Term[tupleL.length];
+                for (int i = 0; i < tupleL.length; i++) {
+                    tl[i] = tupleL[i].toTerm();
+                }
+                LogicTuple lt = null;
+                lt = new LogicTuple(opName, new TupleArgument(this
+                        .getLogicTupleArgument().toTerm()),
+                        new TupleArgument(new Struct(tl)));
+                return lt;
             }
-            LogicTuple lt = null;
-            lt = new LogicTuple(opName, new TupleArgument(this
-                    .getLogicTupleArgument().toTerm()),
-                    new TupleArgument(new Struct(tl)));
-            return lt;
-        } else if (this.getType() == URD) {
-            opName = "urd";
-        } else if (this.getType() == UIN) {
-            opName = "uin";
-        } else if (this.getType() == UNO) {
-            opName = "uno";
-        } else if (this.getType() == URDP) {
-            opName = "urdp";
-        } else if (this.getType() == UINP) {
-            opName = "uinp";
-        } else if (this.getType() == UNOP) {
-            opName = "unop";
-        } else if (this.getType() == GET) {
-            opName = "get";
-            LogicTuple[] tupleL = new LogicTuple[]{};
-            tupleL = this.getLogicTupleListResult().toArray(tupleL);
-            tl = new Term[tupleL.length];
-            for (int i = 0; i < tupleL.length; i++) {
-                tl[i] = tupleL[i].toTerm();
+            case GET: {
+                LogicTuple[] tupleL = new LogicTuple[]{};
+                tupleL = this.getLogicTupleListResult().toArray(tupleL);
+                tl = new Term[tupleL.length];
+                for (int i = 0; i < tupleL.length; i++) {
+                    tl[i] = tupleL[i].toTerm();
+                }
+                break;
             }
-        } else if (this.getType() == SET) {
-            opName = "set";
-            LogicTuple[] tupleL = new LogicTuple[]{};
-            tupleL = this.getTupleListArgument().toArray(tupleL);
-            tl = new Term[tupleL.length];
-            for (int i = 0; i < tupleL.length; i++) {
-                tl[i] = tupleL[i].toTerm();
+            case SET: {
+                LogicTuple[] tupleL = new LogicTuple[]{};
+                tupleL = this.getTupleListArgument().toArray(tupleL);
+                tl = new Term[tupleL.length];
+                for (int i = 0; i < tupleL.length; i++) {
+                    tl[i] = tupleL[i].toTerm();
+                }
+                break;
             }
-        } else if (this.getType() == OUT_S) {
-            opName = "out_s";
-        } else if (this.getType() == IN_S) {
-            opName = "in_s";
-        } else if (this.getType() == RD_S) {
-            opName = "rd_s";
-        } else if (this.getType() == INP_S) {
-            opName = "inp_s";
-        } else if (this.getType() == RDP_S) {
-            opName = "rdp_s";
-        } else if (this.getType() == NO_S) {
-            opName = "no_s";
-        } else if (this.getType() == NOP_S) {
-            opName = "nop_s";
-        } else if (this.getType() == GET_S) {
-            opName = "get_s";
-            LogicTuple[] tupleL = new LogicTuple[]{};
-            tupleL = this.getLogicTupleListResult().toArray(tupleL);
-            tl = new Term[tupleL.length];
-            for (int i = 0; i < tupleL.length; i++) {
-                tl[i] = tupleL[i].toTerm();
+            case GET_S: {
+                LogicTuple[] tupleL = new LogicTuple[]{};
+                tupleL = this.getLogicTupleListResult().toArray(tupleL);
+                tl = new Term[tupleL.length];
+                for (int i = 0; i < tupleL.length; i++) {
+                    tl[i] = tupleL[i].toTerm();
+                }
+                break;
             }
-        } else if (this.getType() == SET_S) {
-            opName = "set_s";
-            LogicTuple[] tupleL = new LogicTuple[]{};
-            tupleL = this.getTupleListArgument().toArray(tupleL);
-            tl = new Term[tupleL.length];
-            for (int i = 0; i < tupleL.length; i++) {
-                tl[i] = tupleL[i].toTerm();
+            case SET_S: {
+                LogicTuple[] tupleL = new LogicTuple[]{};
+                tupleL = this.getTupleListArgument().toArray(tupleL);
+                tl = new Term[tupleL.length];
+                for (int i = 0; i < tupleL.length; i++) {
+                    tl[i] = tupleL[i].toTerm();
+                }
+                break;
             }
-        } else if (this.getType() == GET_ENV) {
-            return t;
-        } else if (this.getType() == ENV) {
-            opName = "env";
-        } else if (this.getType() == SET_ENV) {
-            return t;
-        } else if (this.getType() == TIME) {
-            opName = "time";
-        } else {
-            opName = "unknownOp";
+            case GET_ENV:
+            case SET_ENV:
+                return t;
+            default:
+                opName = "unknownOp";
+                break;
         }
         return new LogicTuple(opName, new TupleArgument(
                 tl != null ? new Struct(tl) : t.toTerm()));
