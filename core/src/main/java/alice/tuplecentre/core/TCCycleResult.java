@@ -1,14 +1,14 @@
 package alice.tuplecentre.core;
 
+import java.util.ArrayList;
 import java.util.List;
+
 import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.Tuple;
 
 /**
- *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 public class TCCycleResult implements ITCCycleResult {
 
@@ -16,7 +16,7 @@ public class TCCycleResult implements ITCCycleResult {
     private long endTime;
     private Outcome opResult;
     private final long startTime;
-    private List<Tuple> tupleListResult;
+    private List<? extends Tuple> tupleListResult;
     private Tuple tupleResult;
 
     /**
@@ -25,7 +25,7 @@ public class TCCycleResult implements ITCCycleResult {
     public TCCycleResult() {
         this.opResult = Outcome.UNDEFINED;
         this.tupleResult = null;
-        this.tupleListResult = null;
+        this.tupleListResult = new ArrayList<>();
         this.startTime = System.currentTimeMillis();
     }
 
@@ -46,7 +46,7 @@ public class TCCycleResult implements ITCCycleResult {
 
     @Override
     public List<Tuple> getTupleListResult() {
-        return this.tupleListResult;
+        return new ArrayList<>(this.tupleListResult);
     }
 
     @Override
@@ -80,7 +80,7 @@ public class TCCycleResult implements ITCCycleResult {
     }
 
     @Override
-    public void setTupleListResult(final List<Tuple> res) {
+    public void setTupleListResult(final List<? extends Tuple> res) {
         this.tupleListResult = res;
     }
 

@@ -4,7 +4,7 @@ import java.util.Random;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonMetaACC;
@@ -63,7 +63,7 @@ public class Master extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation arg0) {
+    public void operationCompleted(final TucsonOperation arg0) {
         /*
          * not used atm
          */
@@ -130,7 +130,7 @@ public class Master extends AbstractTucsonAgent {
             final LogicTuple resTempl = LogicTuple.parse("result(Res,"
                     + Master.ITERs + ")");
             this.say("Waiting for result...");
-            final ITucsonOperation resOp = acc.in(ttcid, resTempl, null);
+            final TucsonOperation resOp = acc.in(ttcid, resTempl, null);
             final LogicTuple res = resOp.getLogicTupleResult();
             this.say("Result is: " + res.getArg(0));
             this.say("Average is: " + res.getArg(0).floatValue()

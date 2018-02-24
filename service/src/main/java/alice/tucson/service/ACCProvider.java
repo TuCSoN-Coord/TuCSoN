@@ -16,6 +16,7 @@ package alice.tucson.service;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.Value;
@@ -23,7 +24,7 @@ import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.logictuple.exceptions.LogicTupleException;
-import alice.respect.core.RespectOperation;
+import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonGenericException;
@@ -37,6 +38,7 @@ import alice.tucson.network.AbstractTucsonProtocol;
 import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.core.InputEvent;
+import alice.tuplecentre.core.TupleCentreOpType;
 import alice.util.Tools;
 
 /**
@@ -123,8 +125,8 @@ public class ACCProvider {
              * Value( agentName), new Var("CtxId"));
              */
             // Operation Make
-            final RespectOperation opRequested = RespectOperation.make(
-                    TucsonOperation.inpCode(), req, null);
+            final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                    TupleCentreOpType.INP, req, null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.aid, opRequested,
                     this.config, System.currentTimeMillis(), null);
@@ -132,7 +134,7 @@ public class ACCProvider {
                     .doBlockingOperation(ev);
             // final LogicTuple result =
             // (LogicTuple) TupleCentreContainer.doBlockingOperation(
-            // TucsonOperation.inpCode(), this.aid, this.config,
+            // TupleCentreOpType.INP, this.aid, this.config,
             // req);
             if (result == null) {
                 profile.setProperty("failure", "context not available");
@@ -238,15 +240,15 @@ public class ACCProvider {
         LogicTuple result;
         try {
             // Operation Make
-            final RespectOperation opRequested = RespectOperation.make(
-                    TucsonOperation.inpCode(), req, null);
+            final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                    TupleCentreOpType.INP, req, null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.aid, opRequested,
                     this.config, System.currentTimeMillis(), null);
             result = (LogicTuple) TupleCentreContainer.doBlockingOperation(ev);
             // result =
             // (LogicTuple) TupleCentreContainer.doBlockingOperation(
-            // TucsonOperation.inpCode(), this.aid, this.config,
+            // TupleCentreOpType.INP, this.aid, this.config,
             // req);
         } catch (final TucsonInvalidLogicTupleException e) {
             e.printStackTrace();

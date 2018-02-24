@@ -2,7 +2,7 @@ package alice.respect.core;
 
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.respect.api.IOrdinaryAsynchInterface;
-import alice.respect.api.IRespectOperation;
+import alice.respect.api.RespectOperation;
 import alice.respect.api.IRespectTC;
 import alice.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -27,13 +27,13 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation get(final InputEvent ev)
+    public RespectOperation get(final InputEvent ev)
             throws OperationNotPossibleException {
         return this.getCore().get(ev);
     }
 
     @Override
-    public IRespectOperation in(final InputEvent ev)
+    public RespectOperation in(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -43,7 +43,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation inAll(final InputEvent ev)
+    public RespectOperation inAll(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -53,7 +53,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation inp(final InputEvent ev)
+    public RespectOperation inp(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -63,7 +63,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation no(final InputEvent ev)
+    public RespectOperation no(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -73,7 +73,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation noAll(final InputEvent ev)
+    public RespectOperation noAll(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -83,7 +83,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation nop(final InputEvent ev)
+    public RespectOperation nop(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -93,7 +93,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation out(final InputEvent ev)
+    public RespectOperation out(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         if (ev.getTuple() == null) {
             throw new InvalidLogicTupleException();
@@ -102,7 +102,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation outAll(final InputEvent ev)
+    public RespectOperation outAll(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         if (ev.getTuple() == null) {
             throw new InvalidLogicTupleException();
@@ -111,7 +111,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation rd(final InputEvent ev)
+    public RespectOperation rd(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -121,7 +121,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation rdAll(final InputEvent ev)
+    public RespectOperation rdAll(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -131,7 +131,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation rdp(final InputEvent ev)
+    public RespectOperation rdp(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -141,7 +141,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation set(final InputEvent ev)
+    public RespectOperation set(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTupleListArgument() == null) {
@@ -151,7 +151,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation spawn(final InputEvent ev)
+    public RespectOperation spawn(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         if (ev.getTuple() == null) {
             throw new InvalidLogicTupleException();
@@ -160,7 +160,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation uin(final InputEvent ev)
+    public RespectOperation uin(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -170,7 +170,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation uinp(final InputEvent ev)
+    public RespectOperation uinp(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -180,7 +180,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation uno(final InputEvent ev)
+    public RespectOperation uno(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -190,7 +190,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation unop(final InputEvent ev)
+    public RespectOperation unop(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -200,7 +200,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation urd(final InputEvent ev)
+    public RespectOperation urd(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -210,7 +210,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
     @Override
-    public IRespectOperation urdp(final InputEvent ev)
+    public RespectOperation urdp(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -220,7 +220,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
     }
 
 //	@Override
-//	public IRespectOperation getEnv(InputEvent ev)
+//	public RespectOperation getEnv(InputEvent ev)
 //			throws InvalidLogicTupleException, OperationNotPossibleException {
 //		final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
 //        if (op.getTemplateArgument() == null) {
@@ -230,7 +230,7 @@ public class OrdinaryAsynchInterface extends RootInterface implements
 //	}
 //
 //	@Override
-//	public IRespectOperation setEnv(InputEvent ev)
+//	public RespectOperation setEnv(InputEvent ev)
 //			throws InvalidLogicTupleException, OperationNotPossibleException {
 //		final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
 //        if (op.getTemplateArgument() == null) {

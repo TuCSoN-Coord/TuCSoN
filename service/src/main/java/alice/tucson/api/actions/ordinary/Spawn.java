@@ -22,7 +22,7 @@ package alice.tucson.api.actions.ordinary;
 import alice.logictuple.LogicTuple;
 import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.OrdinaryAsyncACC;
@@ -58,16 +58,16 @@ public class Spawn extends AbstractTucsonOrdinaryAction {
     }
 
     @Override
-    public ITucsonOperation executeAsynch(final EnhancedAsyncACC acc,
-            final TucsonOperationCompletionListener listener)
+    public TucsonOperation executeAsynch(final EnhancedAsyncACC acc,
+                                         final TucsonOperationCompletionListener listener)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
         return acc.spawn(this.tcid, this.tuple, listener);
     }
 
     @Override
-    public ITucsonOperation executeSynch(final EnhancedSyncACC acc,
-            final Long timeout) throws TucsonOperationNotPossibleException,
+    public TucsonOperation executeSynch(final EnhancedSyncACC acc,
+                                        final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return acc.spawn(this.tcid, this.tuple, timeout);
     }

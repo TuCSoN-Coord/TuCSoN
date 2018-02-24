@@ -13,7 +13,7 @@
  */
 package alice.tuplecentre.core;
 
-import alice.respect.core.RespectOperation;
+import alice.respect.core.RespectOperationDefault;
 
 /**
  * This is the listening state of the TCVM
@@ -42,7 +42,7 @@ public class ListeningState extends AbstractTupleCentreVMState {
         }
         this.vm.fetchPendingEvent();
         final InputEvent ev = this.vm.getCurrentEvent();
-        if (ev.getSimpleTCEvent().getType() != RespectOperation.OPTYPE_TIME) {
+        if (ev.getSimpleTCEvent().getType() != TupleCentreOpType.TIME) {
             this.vm.addPendingQueryEvent(ev);
             this.vm.fetchTriggeredReactions(ev);
         } else {

@@ -24,7 +24,7 @@ public interface ISpecificationAsynchInterface {
      * @throws OperationNotPossibleException
      *             if the operation requested cannot be carried out
      */
-    IRespectOperation getS(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation getS(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -37,7 +37,7 @@ public interface ISpecificationAsynchInterface {
      * @throws OperationNotPossibleException
      *             if the operation requested cannot be carried out
      */
-    IRespectOperation inpS(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation inpS(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -50,7 +50,7 @@ public interface ISpecificationAsynchInterface {
      * @throws OperationNotPossibleException
      *             if the operation requested cannot be carried out
      */
-    IRespectOperation inS(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation inS(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -63,7 +63,7 @@ public interface ISpecificationAsynchInterface {
      * @throws OperationNotPossibleException
      *             if the operation requested cannot be carried out
      */
-    IRespectOperation nopS(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation nopS(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -76,7 +76,7 @@ public interface ISpecificationAsynchInterface {
      * @throws OperationNotPossibleException
      *             if the operation requested cannot be carried out
      */
-    IRespectOperation noS(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation noS(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -89,7 +89,7 @@ public interface ISpecificationAsynchInterface {
      * @throws OperationNotPossibleException
      *             if the operation requested cannot be carried out
      */
-    IRespectOperation outS(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation outS(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -102,7 +102,7 @@ public interface ISpecificationAsynchInterface {
      * @throws OperationNotPossibleException
      *             if the operation requested cannot be carried out
      */
-    IRespectOperation rdpS(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation rdpS(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -115,7 +115,7 @@ public interface ISpecificationAsynchInterface {
      * @throws OperationNotPossibleException
      *             if the operation requested cannot be carried out
      */
-    IRespectOperation rdS(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation rdS(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -130,6 +130,6 @@ public interface ISpecificationAsynchInterface {
      * @throws OperationNotPossibleException
      *             if the operation requested cannot be carried out
      */
-    IRespectOperation setS(RespectSpecification spec, InputEvent ev)
+    RespectOperation setS(RespectSpecification spec, InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException;
 }

@@ -4,7 +4,7 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonMetaACC;
@@ -57,7 +57,7 @@ public class Worker extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation arg0) {
+    public void operationCompleted(final TucsonOperation arg0) {
         /*
          * not used atm
          */
@@ -89,7 +89,7 @@ public class Worker extends AbstractTucsonAgent {
             final TucsonTupleCentreId ttcid = new TucsonTupleCentreId(
                     "bagoftask", this.ip, this.port);
             LogicTuple taskTempl;
-            ITucsonOperation taskOp;
+            TucsonOperation taskOp;
             LogicTuple task;
             int s;
             LogicTuple res;

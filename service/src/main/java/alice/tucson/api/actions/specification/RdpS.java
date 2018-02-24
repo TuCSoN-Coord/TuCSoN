@@ -22,7 +22,7 @@ package alice.tucson.api.actions.specification;
 import alice.logictuple.LogicTuple;
 import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.SpecificationAsyncACC;
@@ -64,8 +64,8 @@ public class RdpS extends AbstractTucsonSpecificationAction {
     }
 
     @Override
-    public ITucsonOperation executeAsynch(final EnhancedAsyncACC acc,
-            final TucsonOperationCompletionListener listener)
+    public TucsonOperation executeAsynch(final EnhancedAsyncACC acc,
+                                         final TucsonOperationCompletionListener listener)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
         return acc.rdpS(this.tcid, this.event, this.guards, this.reaction,
@@ -73,8 +73,8 @@ public class RdpS extends AbstractTucsonSpecificationAction {
     }
 
     @Override
-    public ITucsonOperation executeSynch(final EnhancedSyncACC acc,
-            final Long timeout) throws TucsonOperationNotPossibleException,
+    public TucsonOperation executeSynch(final EnhancedSyncACC acc,
+                                        final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return acc.rdpS(this.tcid, this.event, this.guards, this.reaction,
                 timeout);

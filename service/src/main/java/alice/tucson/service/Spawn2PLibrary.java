@@ -5,14 +5,15 @@ import java.util.List;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.respect.core.RespectOperation;
+import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tuplecentre.api.ITupleCentreOperation;
 import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.core.InputEvent;
+import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuprolog.Library;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
@@ -36,9 +37,9 @@ public class Spawn2PLibrary extends Library {
      *
      * @return the tuple list of tuples result of the conversion
      */
-    private static Term list2tuple(final List<Tuple> list) {
+    private static Term list2tuple(final List<?extends Tuple> list) {
         final Term[] termArray = new Term[list.size()];
-        final Iterator<Tuple> it = list.iterator();
+        final Iterator<?extends Tuple> it = list.iterator();
         int i = 0;
         while (it.hasNext()) {
             termArray[i] = ((LogicTuple) it.next()).toTerm();
@@ -93,13 +94,13 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean in_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.inCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.IN, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -117,8 +118,8 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
             	// Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.inCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.IN, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -151,13 +152,13 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean in_all_2(final Term arg0, final Term arg1) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.inAllCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.IN_ALL, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -175,8 +176,8 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
             	// Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.inAllCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.IN_ALL, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -207,13 +208,13 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean inp_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.inpCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.INP, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -231,8 +232,8 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
             	// Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.inpCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.INP, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -263,13 +264,13 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean no_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.noCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.NO, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -287,8 +288,8 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
             	// Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.noCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.NO, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -322,13 +323,13 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean no_all_2(final Term arg0, final Term arg1) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.noAllCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.NO_ALL, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -346,8 +347,8 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
             	// Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.noAllCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.NO_ALL, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -378,13 +379,13 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean nop_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.nopCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.NOP, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -402,8 +403,8 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
             	// Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.nopCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.NOP, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -435,13 +436,13 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean out_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.outCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.OUT, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -458,8 +459,8 @@ public class Spawn2PLibrary extends Library {
 			}
         } else {
             try {
-            	final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.outCode(), arg, null);
+            	final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.OUT, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
@@ -486,20 +487,20 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean out_all_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.outAllCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.OUT_ALL, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.outAllCode(), this.aid,
+                // TupleCentreOpType.OUT_ALL, this.aid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -514,15 +515,15 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.outAllCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.OUT_ALL, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.outAllCode(), this.tcid,
+                // TupleCentreOpType.OUT_ALL, this.tcid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -546,20 +547,20 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean rd_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.rdCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.RD, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.rdCode(), this.aid,
+                // TupleCentreOpType.RD, this.aid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -574,15 +575,15 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.rdCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.RD, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.rdCode(), this.tcid,
+                // TupleCentreOpType.RD, this.tcid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -612,20 +613,20 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean rd_all_2(final Term arg0, final Term arg1) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.rdAllCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.RD_ALL, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.rdAllCode(), this.aid,
+                // TupleCentreOpType.RD_ALL, this.aid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -640,15 +641,15 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.rdAllCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.RD_ALL, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.rdAllCode(), this.tcid,
+                // TupleCentreOpType.RD_ALL, this.tcid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -676,20 +677,20 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean rdp_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.rdpCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.RDP, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.rdpCode(), this.aid,
+                // TupleCentreOpType.RDP, this.aid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -704,15 +705,15 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.rdpCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.RDP, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.rdpCode(), this.tcid,
+                // TupleCentreOpType.RDP, this.tcid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -770,20 +771,20 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean uin_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.uinCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.UIN, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.uinCode(), this.aid,
+                // TupleCentreOpType.UIN, this.aid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -798,15 +799,15 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.uinCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.UIN, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.uinCode(), this.tcid,
+                // TupleCentreOpType.UIN, this.tcid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -834,20 +835,20 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean uinp_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.uinpCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.UINP, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.uinpCode(), this.aid,
+                // TupleCentreOpType.UINP, this.aid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -862,15 +863,15 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.uinpCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.UINP, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.uinpCode(), this.tcid,
+                // TupleCentreOpType.UINP, this.tcid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -898,20 +899,20 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean uno_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.unoCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.UNO, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.unoCode(), this.aid,
+                // TupleCentreOpType.UNO, this.aid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -926,15 +927,15 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.unoCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.UNO, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.unoCode(), this.tcid,
+                // TupleCentreOpType.UNO, this.tcid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -963,20 +964,20 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean unop_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.unopCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.UNOP, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.unopCode(), this.aid,
+                // TupleCentreOpType.UNOP, this.aid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -991,15 +992,15 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.unopCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.UNOP, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.unopCode(), this.tcid,
+                // TupleCentreOpType.UNOP, this.tcid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -1028,20 +1029,20 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean urd_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.urdCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.URD, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.urdCode(), this.aid,
+                // TupleCentreOpType.URD, this.aid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -1056,15 +1057,15 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.urdCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.URD, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.urdCode(), this.tcid,
+                // TupleCentreOpType.URD, this.tcid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -1092,20 +1093,20 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean urdp_1(final Term arg0) {
-        ITupleCentreOperation op = null;
+        TupleCentreOperation op = null;
         final LogicTuple arg = new LogicTuple(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.urdpCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.URDP, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.urdpCode(), this.aid,
+                // TupleCentreOpType.URDP, this.aid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();
@@ -1120,15 +1121,15 @@ public class Spawn2PLibrary extends Library {
         } else {
             try {
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.urdpCode(), arg, null);
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.URDP, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
                 // op =
                 // TupleCentreContainer.doNonBlockingOperation(
-                // TucsonOperation.urdpCode(), this.tcid,
+                // TupleCentreOpType.URDP, this.tcid,
                 // this.target, arg, null);
             } catch (final TucsonInvalidLogicTupleException e) {
                 e.printStackTrace();

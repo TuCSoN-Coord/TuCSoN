@@ -10,7 +10,7 @@ import alice.tuplecentre.core.InputEvent;
  */
 public class RespectTimerTask extends TimerTask {
 
-    private final RespectOperation op;
+    private final RespectOperationDefault op;
     private final RespectVMContext vm;
 
     /**
@@ -21,7 +21,7 @@ public class RespectTimerTask extends TimerTask {
      *            the scheduled operation
      */
     public RespectTimerTask(final RespectVMContext rvm,
-            final RespectOperation rop) {
+            final RespectOperationDefault rop) {
         super();
         this.vm = rvm;
         this.op = rop;

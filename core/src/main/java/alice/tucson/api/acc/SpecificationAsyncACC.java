@@ -16,7 +16,7 @@ package alice.tucson.api.acc;
 import java.util.List;
 
 import alice.logictuple.LogicTuple;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -57,9 +57,9 @@ public interface SpecificationAsyncACC extends RootACC {
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation getS(final TupleCentreId tid, final TucsonOperationCompletionListener l)
+    TucsonOperation getS(final TupleCentreId tid, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -85,11 +85,11 @@ public interface SpecificationAsyncACC extends RootACC {
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation inpS(final TupleCentreId tid, final LogicTuple event,
-                          final LogicTuple guards, final LogicTuple reactionBody,
-                          final TucsonOperationCompletionListener l)
+    TucsonOperation inpS(final TupleCentreId tid, final LogicTuple event,
+                         final LogicTuple guards, final LogicTuple reactionBody,
+                         final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -117,11 +117,11 @@ public interface SpecificationAsyncACC extends RootACC {
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation inS(final TupleCentreId tid, final LogicTuple event,
-                         final LogicTuple guards, final LogicTuple reactionBody,
-                         final TucsonOperationCompletionListener l)
+    TucsonOperation inS(final TupleCentreId tid, final LogicTuple event,
+                        final LogicTuple guards, final LogicTuple reactionBody,
+                        final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -147,11 +147,11 @@ public interface SpecificationAsyncACC extends RootACC {
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation nopS(final TupleCentreId tid, final LogicTuple event,
-                          final LogicTuple guards, final LogicTuple reactionBody,
-                          final TucsonOperationCompletionListener l)
+    TucsonOperation nopS(final TupleCentreId tid, final LogicTuple event,
+                         final LogicTuple guards, final LogicTuple reactionBody,
+                         final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -179,11 +179,11 @@ public interface SpecificationAsyncACC extends RootACC {
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation noS(final TupleCentreId tid, final LogicTuple event,
-                         final LogicTuple guards, final LogicTuple reactionBody,
-                         final TucsonOperationCompletionListener l)
+    TucsonOperation noS(final TupleCentreId tid, final LogicTuple event,
+                        final LogicTuple guards, final LogicTuple reactionBody,
+                        final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -208,11 +208,11 @@ public interface SpecificationAsyncACC extends RootACC {
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation outS(final TupleCentreId tid, final LogicTuple event,
-                          final LogicTuple guards, final LogicTuple reactionBody,
-                          final TucsonOperationCompletionListener l)
+    TucsonOperation outS(final TupleCentreId tid, final LogicTuple event,
+                         final LogicTuple guards, final LogicTuple reactionBody,
+                         final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -239,11 +239,11 @@ public interface SpecificationAsyncACC extends RootACC {
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation rdpS(final TupleCentreId tid, final LogicTuple event,
-                          final LogicTuple guards, final LogicTuple reactionBody,
-                          final TucsonOperationCompletionListener l)
+    TucsonOperation rdpS(final TupleCentreId tid, final LogicTuple event,
+                         final LogicTuple guards, final LogicTuple reactionBody,
+                         final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -272,11 +272,11 @@ public interface SpecificationAsyncACC extends RootACC {
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation rdS(final TupleCentreId tid, final LogicTuple event,
-                         final LogicTuple guards, final LogicTuple reactionBody,
-                         final TucsonOperationCompletionListener l)
+    TucsonOperation rdS(final TupleCentreId tid, final LogicTuple event,
+                        final LogicTuple guards, final LogicTuple reactionBody,
+                        final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -296,10 +296,10 @@ public interface SpecificationAsyncACC extends RootACC {
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation setS(final TupleCentreId tid, final LogicTuple spec,
-                          final TucsonOperationCompletionListener l)
+    TucsonOperation setS(final TupleCentreId tid, final LogicTuple spec,
+                         final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -319,10 +319,10 @@ public interface SpecificationAsyncACC extends RootACC {
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Theory Theory
      */
-    ITucsonOperation setS(final TupleCentreId tid, final String spec,
-                          final TucsonOperationCompletionListener l)
+    TucsonOperation setS(final TupleCentreId tid, final String spec,
+                         final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 }

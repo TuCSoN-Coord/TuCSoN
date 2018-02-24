@@ -2,6 +2,7 @@ package alice.respect.api.geolocation.service;
 
 import alice.respect.api.place.IPlace;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
  * Generic geolocation service listener interface.
@@ -53,5 +54,5 @@ public interface IGeolocationServiceListener {
      * @param place
      *            the start/end position
      */
-    void moving(final int type, final String space, final IPlace place);
+    void moving(final TupleCentreOpType type, final String space, final IPlace place);
 }

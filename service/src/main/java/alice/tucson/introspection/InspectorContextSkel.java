@@ -17,10 +17,11 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.respect.core.LogicReaction;
-import alice.respect.core.RespectOperation;
+import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonGenericException;
@@ -36,7 +37,6 @@ import alice.tucson.service.ACCDescription;
 import alice.tucson.service.ACCProvider;
 import alice.tucson.service.AbstractACCProxyNodeSide;
 import alice.tucson.service.TucsonNodeService;
-import alice.tucson.service.TucsonOperation;
 import alice.tucson.service.TucsonTCUsers;
 import alice.tucson.service.TupleCentreContainer;
 import alice.tuplecentre.api.InspectableEventListener;
@@ -47,6 +47,7 @@ import alice.tuplecentre.core.ObservableEventExt;
 import alice.tuplecentre.core.ObservableEventReactionFail;
 import alice.tuplecentre.core.ObservableEventReactionOK;
 import alice.tuplecentre.core.TriggeredReaction;
+import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
  *
@@ -132,7 +133,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
             msg.setTuples(new LinkedList<LogicTuple>());
             LogicTuple[] tSet = null;
             tSet = (LogicTuple[]) TupleCentreContainer.doManagementOperation(
-                    TucsonOperation.getTSetCode(), this.tcId,
+                    TupleCentreOpType.GET_TSET, this.tcId,
                     this.protocol.getTsetFilter());
             if (tSet != null) {
                 for (final LogicTuple lt : tSet) {
@@ -142,7 +143,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         } else if (m.getWhat() == GetSnapshotMsg.WSET) {
             WSetEvent[] ltSet = null;
             ltSet = (WSetEvent[]) TupleCentreContainer.doManagementOperation(
-                    TucsonOperation.getWSetCode(), this.tcId,
+                    TupleCentreOpType.GET_WSET, this.tcId,
                     this.protocol.getWsetFilter());
             msg.setWnEvents(new LinkedList<WSetEvent>());
             if (ltSet != null) {
@@ -166,7 +167,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      */
     public void isStepMode(final IsActiveStepModeMsg m) {
         final boolean isActive = (Boolean) TupleCentreContainer
-                .doManagementOperation(TucsonOperation.isStepModeCode(),
+                .doManagementOperation(TupleCentreOpType.IS_STEP_MODE,
                         this.tcId, null);
         final InspectorContextEvent msg = new InspectorContextEvent();
         msg.setStepMode(isActive);
@@ -185,7 +186,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      */
     public void nextStep(final NextStepMsg m) {
         TupleCentreContainer.doManagementOperation(
-                TucsonOperation.nextStepCode(), this.tcId, null);
+                TupleCentreOpType.NEXT_STEP, this.tcId, null);
     }
 
     @Override
@@ -203,7 +204,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                 if (this.protocol.getTsetObservType() == InspectorProtocol.PROACTIVE_OBSERVATION) {
                     final LogicTuple[] ltSet = (LogicTuple[]) TupleCentreContainer
                             .doManagementOperation(
-                                    TucsonOperation.getTSetCode(), this.tcId,
+                                    TupleCentreOpType.GET_TSET, this.tcId,
                                     this.protocol.getTsetFilter());
                     msg.setTuples(new LinkedList<LogicTuple>());
                     if (ltSet != null) {
@@ -215,7 +216,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                 if (this.protocol.getPendingQueryObservType() == InspectorProtocol.PROACTIVE_OBSERVATION) {
                     final WSetEvent[] ltSet = (WSetEvent[]) TupleCentreContainer
                             .doManagementOperation(
-                                    TucsonOperation.getWSetCode(), this.tcId,
+                                    TupleCentreOpType.GET_WSET, this.tcId,
                                     this.protocol.getWsetFilter());
                     msg.setWnEvents(new LinkedList<WSetEvent>());
                     if (ltSet != null) {
@@ -231,7 +232,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                 if (this.protocol.getTsetObservType() == InspectorProtocol.PROACTIVE_OBSERVATION) {
                     final LogicTuple[] ltSet = (LogicTuple[]) TupleCentreContainer
                             .doManagementOperation(
-                                    TucsonOperation.getTSetCode(), this.tcId,
+                                    TupleCentreOpType.GET_TSET, this.tcId,
                                     this.protocol.getTsetFilter());
                     msg.setTuples(new LinkedList<LogicTuple>());
                     if (ltSet != null) {
@@ -243,7 +244,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                 if (this.protocol.getPendingQueryObservType() == InspectorProtocol.PROACTIVE_OBSERVATION) {
                     final WSetEvent[] ltSet = (WSetEvent[]) TupleCentreContainer
                             .doManagementOperation(
-                                    TucsonOperation.getWSetCode(), this.tcId,
+                                    TupleCentreOpType.GET_WSET, this.tcId,
                                     this.protocol.getWsetFilter());
                     msg.setWnEvents(new LinkedList<WSetEvent>());
                     if (ltSet != null) {
@@ -291,7 +292,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      * reset the tuple centre VM
      */
     public synchronized void reset() {
-        TupleCentreContainer.doManagementOperation(TucsonOperation.reset(),
+        TupleCentreContainer.doManagementOperation(TupleCentreOpType.RESET,
                 this.tcId, null);
     }
 
@@ -299,7 +300,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
     public void run() {
         try {
             TupleCentreContainer.doManagementOperation(
-                    TucsonOperation.addInspCode(), this.tcId, this);
+                    TupleCentreOpType.ADD_INSP, this.tcId, this);
             while (!this.shutdown) {
                 final NodeMsg msg = this.dialog.receiveNodeMsg();
                 final Class<?> cl = msg.getClass();
@@ -309,7 +310,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
             }
             this.dialog.end();
             TupleCentreContainer.doManagementOperation(
-                    TucsonOperation.rmvInspCode(), this.tcId, this);
+                    TupleCentreOpType.RMV_INSP, this.tcId, this);
         } catch (final NoSuchMethodException e) {
             e.printStackTrace();
         } catch (final SecurityException e) {
@@ -334,7 +335,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      */
     public synchronized void setEventSet(final SetEventSetMsg m) {
         TupleCentreContainer.doManagementOperation(
-                TucsonOperation.setWSetCode(), this.tcId, m.getEventWnSet());
+                TupleCentreOpType.SET_WSET, this.tcId, m.getEventWnSet());
     }
 
     /**
@@ -364,14 +365,14 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
     public synchronized void setTupleSet(final SetTupleSetMsg m) {
         try {
             // Operation Make
-            final RespectOperation opRequested = RespectOperation.make(
-                    TucsonOperation.setSCode(), (LogicTuple) m.getTupleSet(),
+            final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                    TupleCentreOpType.SET_S, (LogicTuple) m.getTupleSet(),
                     null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.agentId, opRequested,
                     this.tcId, System.currentTimeMillis(), null);
             TupleCentreContainer.doBlockingOperation(ev);
-            // TupleCentreContainer.doBlockingOperation(TucsonOperation.setCode(),
+            // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.SET,
             // this.agentId, this.tcId, m.getTupleSet());
         } catch (final TucsonInvalidLogicTupleException e) {
             e.printStackTrace();
@@ -390,9 +391,9 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      */
     public void stepMode(final StepModeMsg m) {
         TupleCentreContainer.doManagementOperation(
-                TucsonOperation.stepModeCode(), this.tcId, null);
+                TupleCentreOpType.STEP_MODE, this.tcId, null);
         final ArrayList<InspectableEventListener> inspectors = (ArrayList<InspectableEventListener>) TupleCentreContainer
-                .doManagementOperation(TucsonOperation.getInspectorsCode(),
+                .doManagementOperation(TupleCentreOpType.GET_INSPS,
                         this.tcId, null);
         for (final InspectableEventListener insp : inspectors) {
             final InspectorContextSkel skel = (InspectorContextSkel) insp;

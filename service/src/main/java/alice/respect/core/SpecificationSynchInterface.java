@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.respect.api.IRespectOperation;
+import alice.respect.api.RespectOperation;
 import alice.respect.api.IRespectTC;
 import alice.respect.api.ISpecificationSynchInterface;
 import alice.respect.api.RespectSpecification;
@@ -49,7 +49,7 @@ public class SpecificationSynchInterface extends RootInterface implements
     @Override
     public List<LogicTuple> getS(final InputEvent ev)
             throws OperationNotPossibleException {
-        final IRespectOperation op = this.getCore().getS(ev);
+        final RespectOperation op = this.getCore().getS(ev);
         op.waitForOperationCompletion();
         return op.getLogicTupleListResult();
     }
@@ -62,7 +62,7 @@ public class SpecificationSynchInterface extends RootInterface implements
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().inpS(ev);
+        final RespectOperation op = this.getCore().inpS(ev);
         op.waitForOperationCompletion();
         return this.unify(t, op.getLogicTupleResult());
     }
@@ -75,7 +75,7 @@ public class SpecificationSynchInterface extends RootInterface implements
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().inS(ev);
+        final RespectOperation op = this.getCore().inS(ev);
         op.waitForOperationCompletion();
         return this.unify(t, op.getLogicTupleResult());
     }
@@ -88,7 +88,7 @@ public class SpecificationSynchInterface extends RootInterface implements
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().nopS(ev);
+        final RespectOperation op = this.getCore().nopS(ev);
         op.waitForOperationCompletion();
         return this.unify(t, op.getLogicTupleResult());
     }
@@ -101,7 +101,7 @@ public class SpecificationSynchInterface extends RootInterface implements
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().noS(ev);
+        final RespectOperation op = this.getCore().noS(ev);
         op.waitForOperationCompletion();
         return this.unify(t, op.getLogicTupleResult());
     }
@@ -113,7 +113,7 @@ public class SpecificationSynchInterface extends RootInterface implements
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().outS(ev);
+        final RespectOperation op = this.getCore().outS(ev);
         op.waitForOperationCompletion();
     }
 
@@ -125,7 +125,7 @@ public class SpecificationSynchInterface extends RootInterface implements
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().rdpS(ev);
+        final RespectOperation op = this.getCore().rdpS(ev);
         op.waitForOperationCompletion();
         return this.unify(t, op.getLogicTupleResult());
     }
@@ -138,7 +138,7 @@ public class SpecificationSynchInterface extends RootInterface implements
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
-        final IRespectOperation op = this.getCore().rdS(ev);
+        final RespectOperation op = this.getCore().rdS(ev);
         op.waitForOperationCompletion();
         return this.unify(t, op.getLogicTupleResult());
     }
@@ -146,7 +146,7 @@ public class SpecificationSynchInterface extends RootInterface implements
     @Override
     public List<LogicTuple> setS(final LogicTuple t, final InputEvent ev)
             throws OperationNotPossibleException {
-        final IRespectOperation op = this.getCore().setS(t, ev);
+        final RespectOperation op = this.getCore().setS(t, ev);
         op.waitForOperationCompletion();
         return op.getLogicTupleListResult();
     }
@@ -155,7 +155,7 @@ public class SpecificationSynchInterface extends RootInterface implements
     public List<LogicTuple> setS(final RespectSpecification spec,
             final InputEvent ev) throws OperationNotPossibleException,
             InvalidSpecificationException {
-        final IRespectOperation op = this.getCore().setSsynch(ev, spec);
+        final RespectOperation op = this.getCore().setSsynch(ev, spec);
         if ("'$TucsonNodeService-Agent'".equals(ev.getSource().toString())
                 || ev.getSource().toString().startsWith("'$Inspector-'")) {
             return new LinkedList<LogicTuple>();

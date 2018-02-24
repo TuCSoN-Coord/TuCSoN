@@ -19,8 +19,8 @@ import java.io.InputStreamReader;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.LogicTupleOpManager;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.EnhancedACC;
-import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -146,7 +146,7 @@ public class CLIAgent extends alice.util.Automaton {
                 if ("spawn".equals(methodName)) {
                     final LogicTuple t = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.spawn(tid, t,
+                    final TucsonOperation op = this.context.spawn(tid, t,
                             Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success");
@@ -156,7 +156,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("out".equals(methodName)) {
                     final LogicTuple t = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.out(tid, t,
+                    final TucsonOperation op = this.context.out(tid, t,
                             Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
@@ -166,7 +166,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("in".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.in(tid, templ,
+                    final TucsonOperation op = this.context.in(tid, templ,
                             Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
@@ -176,7 +176,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("rd".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.rd(tid, templ,
+                    final TucsonOperation op = this.context.rd(tid, templ,
                             Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
@@ -186,7 +186,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("inp".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.inp(tid, templ,
+                    final TucsonOperation op = this.context.inp(tid, templ,
                             Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
@@ -196,7 +196,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("rdp".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.rdp(tid, templ,
+                    final TucsonOperation op = this.context.rdp(tid, templ,
                             Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
@@ -206,7 +206,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("no".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.no(tid, templ,
+                    final TucsonOperation op = this.context.no(tid, templ,
                             Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
@@ -216,7 +216,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("nop".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.nop(tid, templ,
+                    final TucsonOperation op = this.context.nop(tid, templ,
                             Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
@@ -226,7 +226,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("set".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.set(tid, templ,
+                    final TucsonOperation op = this.context.set(tid, templ,
                             Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: "
@@ -237,7 +237,7 @@ public class CLIAgent extends alice.util.Automaton {
                     }
                 } else if ("get".equals(methodName)) {
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.get(tid,
+                    final TucsonOperation op = this.context.get(tid,
                             Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: "
@@ -249,7 +249,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("out_all".equals(methodName)) {
                     final LogicTuple t = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.outAll(tid, t,
+                    final TucsonOperation op = this.context.outAll(tid, t,
                             Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: "
@@ -261,7 +261,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("rd_all".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.rdAll(tid, templ,
+                    final TucsonOperation op = this.context.rdAll(tid, templ,
                             (Long) null);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: "
@@ -273,7 +273,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("no_all".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.noAll(tid, templ,
+                    final TucsonOperation op = this.context.noAll(tid, templ,
                             (Long) null);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: "
@@ -285,7 +285,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("in_all".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.inAll(tid, templ,
+                    final TucsonOperation op = this.context.inAll(tid, templ,
                             (Long) null);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: "
@@ -297,7 +297,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("urd".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.urd(tid, templ,
+                    final TucsonOperation op = this.context.urd(tid, templ,
                             (Long) null);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
@@ -307,7 +307,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("uno".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.uno(tid, templ,
+                    final TucsonOperation op = this.context.uno(tid, templ,
                             (Long) null);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
@@ -317,7 +317,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("urdp".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.urdp(tid, templ,
+                    final TucsonOperation op = this.context.urdp(tid, templ,
                             (Long) null);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
@@ -327,7 +327,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("unop".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.unop(tid, templ,
+                    final TucsonOperation op = this.context.unop(tid, templ,
                             (Long) null);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
@@ -337,7 +337,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("uin".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.uin(tid, templ,
+                    final TucsonOperation op = this.context.uin(tid, templ,
                             (Long) null);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
@@ -347,7 +347,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else if ("uinp".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.parse(tuple);
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.uinp(tid, templ,
+                    final TucsonOperation op = this.context.uinp(tid, templ,
                             (Long) null);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
@@ -359,7 +359,7 @@ public class CLIAgent extends alice.util.Automaton {
                             "reaction(" + tuple + ")",
                             new LogicTupleOpManager()));
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.outS(tid,
+                    final TucsonOperation op = this.context.outS(tid,
                             new LogicTuple(t.getArg(0)),
                             new LogicTuple(t.getArg(1)),
                             new LogicTuple(t.getArg(2)), Long.MAX_VALUE);
@@ -373,7 +373,7 @@ public class CLIAgent extends alice.util.Automaton {
                             Parser.parseSingleTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.inS(tid,
+                    final TucsonOperation op = this.context.inS(tid,
                             new LogicTuple(templ.getArg(0)), new LogicTuple(
                                     templ.getArg(1)),
                             new LogicTuple(templ.getArg(2)), Long.MAX_VALUE);
@@ -387,7 +387,7 @@ public class CLIAgent extends alice.util.Automaton {
                             Parser.parseSingleTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.rdS(tid,
+                    final TucsonOperation op = this.context.rdS(tid,
                             new LogicTuple(templ.getArg(0)), new LogicTuple(
                                     templ.getArg(1)),
                             new LogicTuple(templ.getArg(2)), Long.MAX_VALUE);
@@ -401,7 +401,7 @@ public class CLIAgent extends alice.util.Automaton {
                             Parser.parseSingleTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.inpS(tid,
+                    final TucsonOperation op = this.context.inpS(tid,
                             new LogicTuple(templ.getArg(0)), new LogicTuple(
                                     templ.getArg(1)),
                             new LogicTuple(templ.getArg(2)), Long.MAX_VALUE);
@@ -415,7 +415,7 @@ public class CLIAgent extends alice.util.Automaton {
                             Parser.parseSingleTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.rdpS(tid,
+                    final TucsonOperation op = this.context.rdpS(tid,
                             new LogicTuple(templ.getArg(0)), new LogicTuple(
                                     templ.getArg(1)),
                             new LogicTuple(templ.getArg(2)), Long.MAX_VALUE);
@@ -429,7 +429,7 @@ public class CLIAgent extends alice.util.Automaton {
                             Parser.parseSingleTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.noS(tid,
+                    final TucsonOperation op = this.context.noS(tid,
                             new LogicTuple(templ.getArg(0)), new LogicTuple(
                                     templ.getArg(1)),
                             new LogicTuple(templ.getArg(2)), Long.MAX_VALUE);
@@ -443,7 +443,7 @@ public class CLIAgent extends alice.util.Automaton {
                             Parser.parseSingleTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.nopS(tid,
+                    final TucsonOperation op = this.context.nopS(tid,
                             new LogicTuple(templ.getArg(0)), new LogicTuple(
                                     templ.getArg(1)),
                             new LogicTuple(templ.getArg(2)), Long.MAX_VALUE);
@@ -457,7 +457,7 @@ public class CLIAgent extends alice.util.Automaton {
                             Parser.parseSingleTerm(tuple,
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.setS(tid, templ,
+                    final TucsonOperation op = this.context.setS(tid, templ,
                             Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: "
@@ -468,7 +468,7 @@ public class CLIAgent extends alice.util.Automaton {
                     }
                 } else if ("get_s".equals(methodName)) {
                     CLIAgent.busy();
-                    final ITucsonOperation op = this.context.getS(tid,
+                    final TucsonOperation op = this.context.getS(tid,
                             Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: "

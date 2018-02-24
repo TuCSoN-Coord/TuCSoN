@@ -3,7 +3,7 @@ package rpc;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.SyncACC;
 import alice.tucson.api.TucsonMetaACC;
@@ -71,7 +71,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation arg0) {
+    public void operationCompleted(final TucsonOperation arg0) {
         /*
          * not used atm
          */
@@ -91,7 +91,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
                 .getTucsonAgentId());
         try {
             this.acc = negAcc.playDefaultRole();
-            ITucsonOperation op;
+            TucsonOperation op;
             LogicTuple req;
             int arg;
             Long result;

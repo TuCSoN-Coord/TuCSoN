@@ -15,7 +15,7 @@ package alice.tucson.api.acc;
 
 import java.util.List;
 
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -54,9 +54,9 @@ public interface OrdinaryAsyncACC extends RootACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation get(final TupleCentreId tid, final TucsonOperationCompletionListener l)
+    TucsonOperation get(final TupleCentreId tid, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -78,9 +78,9 @@ public interface OrdinaryAsyncACC extends RootACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation in(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
+    TucsonOperation in(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -100,9 +100,9 @@ public interface OrdinaryAsyncACC extends RootACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation inp(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
+    TucsonOperation inp(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -125,9 +125,9 @@ public interface OrdinaryAsyncACC extends RootACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation no(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
+    TucsonOperation no(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -148,9 +148,9 @@ public interface OrdinaryAsyncACC extends RootACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation nop(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
+    TucsonOperation nop(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -170,9 +170,9 @@ public interface OrdinaryAsyncACC extends RootACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation out(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
+    TucsonOperation out(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -194,9 +194,9 @@ public interface OrdinaryAsyncACC extends RootACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation rd(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
+    TucsonOperation rd(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -216,9 +216,9 @@ public interface OrdinaryAsyncACC extends RootACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation rdp(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
+    TucsonOperation rdp(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -235,9 +235,9 @@ public interface OrdinaryAsyncACC extends RootACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      */
-    ITucsonOperation set(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
+    TucsonOperation set(final TupleCentreId tid, final Tuple tuple, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -264,10 +264,10 @@ public interface OrdinaryAsyncACC extends RootACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
-     * @see alice.tucson.api.ITucsonOperation ITucsonOperation
+     * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Theory Theory
      * @see alice.tuprolog.Term Term
      */
-    ITucsonOperation spawn(final TupleCentreId tid, final Tuple toSpawn, final TucsonOperationCompletionListener l)
+    TucsonOperation spawn(final TupleCentreId tid, final Tuple toSpawn, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 }

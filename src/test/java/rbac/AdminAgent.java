@@ -29,8 +29,8 @@ import java.util.logging.Logger;
 
 import alice.respect.api.exceptions.OperationNotAllowedException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.AdminACC;
-import alice.tucson.api.ITucsonOperation;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -90,10 +90,10 @@ public final class AdminAgent extends AbstractTucsonAgent {
      * (non-Javadoc)
      * @see
      * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tucson.
-     * api.ITucsonOperation)
+     * api.TucsonOperation)
      */
     @Override
-    public void operationCompleted(final ITucsonOperation op) {
+    public void operationCompleted(final TucsonOperation op) {
         /*
          * Not used atm
          */
