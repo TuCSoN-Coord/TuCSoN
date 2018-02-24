@@ -15,6 +15,7 @@ package alice.respect.core;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.respect.api.IRespectTC;
 import alice.respect.api.TupleCentreId;
@@ -29,6 +30,7 @@ import alice.tuplecentre.core.AbstractBehaviourSpecification;
 import alice.tuplecentre.core.AbstractEvent;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.InspectableEvent;
+import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
  * RespecT Tuple Centre Virtual Machine.
@@ -332,7 +334,7 @@ public class RespectVM implements Runnable {
         final int size = this.observers.size();
         final InputEvent e = (InputEvent) ev;
         if (ev.isInput()) {
-            if (e.getSimpleTCEvent().isIn()) {
+            if (e.getSimpleTCEvent().getType() == TupleCentreOpType.IN) {
                 for (int i = 0; i < size; i++) {
                     this.observers.get(i).inRequested(
                             this.getId(),
@@ -340,7 +342,7 @@ public class RespectVM implements Runnable {
                             ((RespectOperationDefault) ev.getSimpleTCEvent())
                                     .getLogicTupleArgument());
                 }
-            } else if (e.getSimpleTCEvent().isInp()) {
+            } else if (e.getSimpleTCEvent().getType() == TupleCentreOpType.INP) {
                 for (int i = 0; i < size; i++) {
                     this.observers.get(i).inpRequested(
                             this.getId(),
@@ -348,7 +350,7 @@ public class RespectVM implements Runnable {
                             ((RespectOperationDefault) ev.getSimpleTCEvent())
                                     .getLogicTupleArgument());
                 }
-            } else if (e.getSimpleTCEvent().isRd()) {
+            } else if (e.getSimpleTCEvent().getType() == TupleCentreOpType.RD) {
                 for (int i = 0; i < size; i++) {
                     this.observers.get(i).rdRequested(
                             this.getId(),
@@ -356,7 +358,7 @@ public class RespectVM implements Runnable {
                             ((RespectOperationDefault) ev.getSimpleTCEvent())
                                     .getLogicTupleArgument());
                 }
-            } else if (e.getSimpleTCEvent().isRdp()) {
+            } else if (e.getSimpleTCEvent().getType() == TupleCentreOpType.RDP) {
                 for (int i = 0; i < size; i++) {
                     this.observers.get(i).rdpRequested(
                             this.getId(),
@@ -364,7 +366,7 @@ public class RespectVM implements Runnable {
                             ((RespectOperationDefault) ev.getSimpleTCEvent())
                                     .getLogicTupleArgument());
                 }
-            } else if (e.getSimpleTCEvent().isOut()) {
+            } else if (e.getSimpleTCEvent().getType() == TupleCentreOpType.OUT) {
                 for (int i = 0; i < size; i++) {
                     this.observers.get(i).outRequested(
                             this.getId(),
@@ -372,7 +374,7 @@ public class RespectVM implements Runnable {
                             ((RespectOperationDefault) ev.getSimpleTCEvent())
                                     .getLogicTupleArgument());
                 }
-            } else if (e.getSimpleTCEvent().isSetS()) {
+            } else if (e.getSimpleTCEvent().getType() == TupleCentreOpType.SET_S) {
                 for (int i = 0; i < size; i++) {
                     this.observers.get(i).setSpecRequested(
                             this.getId(),
@@ -380,14 +382,14 @@ public class RespectVM implements Runnable {
                             ((Tuple) ((RespectOperationDefault) ev.getSimpleTCEvent())
                                     .getLogicTupleArgument()).toString());
                 }
-            } else if (e.getSimpleTCEvent().isGetS()) {
+            } else if (e.getSimpleTCEvent().getType() == TupleCentreOpType.GET_S) {
                 for (int i = 0; i < size; i++) {
                     this.observers.get(i).getSpecRequested(this.getId(),
                             ev.getSource());
                 }
             }
         } else {
-            if (e.getSimpleTCEvent().isIn()) {
+            if (e.getSimpleTCEvent().getType() == TupleCentreOpType.IN) {
                 for (int i = 0; i < size; i++) {
                     this.observers.get(i).inCompleted(
                             this.getId(),
@@ -395,7 +397,7 @@ public class RespectVM implements Runnable {
                             ((RespectOperationDefault) ev.getSimpleTCEvent())
                                     .getLogicTupleArgument());
                 }
-            } else if (e.getSimpleTCEvent().isInp()) {
+            } else if (e.getSimpleTCEvent().getType() == TupleCentreOpType.INP) {
                 for (int i = 0; i < size; i++) {
                     this.observers.get(i).inpCompleted(
                             this.getId(),
@@ -403,7 +405,7 @@ public class RespectVM implements Runnable {
                             ((RespectOperationDefault) ev.getSimpleTCEvent())
                                     .getLogicTupleArgument());
                 }
-            } else if (e.getSimpleTCEvent().isRd()) {
+            } else if (e.getSimpleTCEvent().getType() == TupleCentreOpType.RD) {
                 for (int i = 0; i < size; i++) {
                     this.observers.get(i).rdCompleted(
                             this.getId(),
@@ -411,7 +413,7 @@ public class RespectVM implements Runnable {
                             ((RespectOperationDefault) ev.getSimpleTCEvent())
                                     .getLogicTupleArgument());
                 }
-            } else if (e.getSimpleTCEvent().isRdp()) {
+            } else if (e.getSimpleTCEvent().getType() == TupleCentreOpType.RDP) {
                 for (int i = 0; i < size; i++) {
                     this.observers.get(i).rdpCompleted(
                             this.getId(),
@@ -419,12 +421,12 @@ public class RespectVM implements Runnable {
                             ((RespectOperationDefault) ev.getSimpleTCEvent())
                                     .getLogicTupleArgument());
                 }
-            } else if (e.getSimpleTCEvent().isSetS()) {
+            } else if (e.getSimpleTCEvent().getType() == TupleCentreOpType.SET_S) {
                 for (int i = 0; i < size; i++) {
                     this.observers.get(i).setSpecCompleted(this.getId(),
                             ev.getSource());
                 }
-            } else if (e.getSimpleTCEvent().isGetS()) {
+            } else if (e.getSimpleTCEvent().getType() == TupleCentreOpType.GET_S) {
                 for (int i = 0; i < size; i++) {
                     this.observers.get(i).getSpecCompleted(
                             this.getId(),

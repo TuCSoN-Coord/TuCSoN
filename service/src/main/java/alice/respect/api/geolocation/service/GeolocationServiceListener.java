@@ -8,6 +8,7 @@ import alice.respect.core.RespectOperationDefault;
 import alice.respect.core.RespectTCContainer;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.core.InputEvent;
+import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
  * This class represent the listener that listens for geolocation service
@@ -66,18 +67,18 @@ public class GeolocationServiceListener implements IGeolocationServiceListener {
     }
 
     @Override
-    public void moving(final int type, final String space, final IPlace place) {
+    public void moving(final TupleCentreOpType type, final String space, final IPlace place) {
         try {
             final ISpatialContext context = RespectTCContainer
                     .getRespectTCContainer().getSpatialContext(
                             this.tcId.getInternalTupleCentreId());
             LogicTuple tuple = null;
             RespectOperationDefault op = null;
-            if (type == RespectOperationDefault.OPTYPE_FROM) {
+            if (type == TupleCentreOpType.FROM) {
                 tuple = LogicTuple.parse("from(" + space + "," + place.toTerm()
                         + ")");
                 op = RespectOperationDefault.makeFrom(tuple, null);
-            } else if (type == RespectOperationDefault.OPTYPE_TO) {
+            } else if (type == TupleCentreOpType.TO) {
                 tuple = LogicTuple.parse("to(" + space + "," + place.toTerm()
                         + ")");
                 op = RespectOperationDefault.makeTo(tuple, null);

@@ -1,79 +1,64 @@
 package alice.tucson.service;
 
 import java.io.Serializable;
+
 import alice.logictuple.LogicTuple;
+import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
- * 
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
- * 
  */
 public class OutputEventMsg implements Serializable {
     private static final long serialVersionUID = 6617714748018050950L;
     private final boolean allowed;
     private final long opId;
-    private final int opType;
+    private final TupleCentreOpType opType;
     private final LogicTuple reqTuple;
     private final Object resTuple;
     private final boolean resultSuccess;
     private final boolean success;
 
     /**
-     * 
-     * @param i
-     *            the operation id
-     * @param t
-     *            the operation type code
-     * @param a
-     *            wether the operation is allowed
-     * @param s
-     *            wether the operation completed
-     * @param ok
-     *            wether the operation succeeded
+     * @param opId      the operation id
+     * @param opType    the operation type code
+     * @param allowed   wether the operation is allowed
+     * @param completed wether the operation completed
+     * @param succeeded wether the operation succeeded
      */
-    public OutputEventMsg(final long i, final int t, final boolean a,
-            final boolean s, final boolean ok) {
-        this.opId = i;
-        this.opType = t;
-        this.allowed = a;
-        this.success = s;
+    public OutputEventMsg(final long opId, final TupleCentreOpType opType, final boolean allowed,
+                          final boolean completed, final boolean succeeded) {
+        this.opId = opId;
+        this.opType = opType;
+        this.allowed = allowed;
+        this.success = completed;
         this.reqTuple = null;
         this.resTuple = null;
-        this.resultSuccess = ok;
+        this.resultSuccess = succeeded;
     }
 
     /**
-     * 
-     * @param i
-     *            the operation id
-     * @param t
-     *            the operation type code
-     * @param a
-     *            wether the operation is allowed
-     * @param s
-     *            wether the operation completed
-     * @param ok
-     *            wether the operation succeeded
-     * @param req
-     *            the tuple argument of the operation
-     * @param res
-     *            the object result of the operation (can be a tuple or a list
-     *            of tuples)
+     * @param opId      the operation id
+     * @param opType    the operation type code
+     * @param allowed   wether the operation is allowed
+     * @param completed wether the operation completed
+     * @param succeeded wether the operation succeeded
+     * @param req       the tuple argument of the operation
+     * @param res       the object result of the operation (can be a tuple or a list
+     *                  of tuples)
      */
-    public OutputEventMsg(final long i, final int t, final boolean a,
-            final boolean s, final boolean ok, final LogicTuple req,
-            final Object res) {
-        this.opId = i;
-        this.opType = t;
-        this.success = s;
-        this.allowed = a;
+    public OutputEventMsg(final long opId, final TupleCentreOpType opType, final boolean allowed,
+                          final boolean completed, final boolean succeeded, final LogicTuple req,
+                          final Object res) {
+        this.opId = opId;
+        this.opType = opType;
+        this.success = completed;
+        this.allowed = allowed;
         this.reqTuple = req;
         this.resTuple = res;
-        this.resultSuccess = ok;
+        this.resultSuccess = succeeded;
     }
 
     /**
-     * 
      * @return the id of the operation which caused the event
      */
     public long getOpId() {
@@ -81,15 +66,13 @@ public class OutputEventMsg implements Serializable {
     }
 
     /**
-     * 
      * @return the type code of the operation which caused the event
      */
-    public int getOpType() {
+    public TupleCentreOpType getOpType() {
         return this.opType;
     }
 
     /**
-     * 
      * @return the logic tuple argument of the operation which caused the event
      */
     public LogicTuple getTupleRequested() {
@@ -97,7 +80,6 @@ public class OutputEventMsg implements Serializable {
     }
 
     /**
-     * 
      * @return the effect of the event
      */
     public Object getTupleResult() {
@@ -105,7 +87,6 @@ public class OutputEventMsg implements Serializable {
     }
 
     /**
-     * 
      * @return wether the event was allowed
      */
     public boolean isAllowed() {
@@ -113,7 +94,6 @@ public class OutputEventMsg implements Serializable {
     }
 
     /**
-     * 
      * @return wether the effect has been applied succesfully
      */
     public boolean isResultSuccess() {
@@ -121,7 +101,6 @@ public class OutputEventMsg implements Serializable {
     }
 
     /**
-     * 
      * @return wether the event has been handled succesfully
      */
     public boolean isSuccess() {

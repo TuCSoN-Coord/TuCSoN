@@ -18,9 +18,9 @@ import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.service.TucsonNodeService;
-import alice.tucson.service.TucsonOperationDefault;
 import alice.tucson.service.TupleCentreContainer;
 import alice.tuplecentre.core.InputEvent;
+import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuprolog.InvalidTermException;
 
 /**
@@ -72,7 +72,7 @@ public class GeolocationConfigAgent extends Thread {
             while (true) {
                 Object cmd;
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                        TucsonOperationDefault.inCode(), new LogicTuple("cmd",
+                        TupleCentreOpType.IN, new LogicTuple("cmd",
                                 new Var("X")), null);
                 final InputEvent ev = new InputEvent(this.nodeManAid,
                         opRequested, this.config, System.currentTimeMillis(),
@@ -147,7 +147,7 @@ public class GeolocationConfigAgent extends Thread {
         if (GeolocationConfigAgent.CREATE_GEOLOCATION_SERVICE.equals(name)) {
             t = LogicTuple.parse("createGeolocationService(Sid,Sclass,Stcid)");
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                    TucsonOperationDefault.inCode(), t, null);
+                    TupleCentreOpType.IN, t, null);
             final InputEvent ev = new InputEvent(this.nodeManAid, opRequested,
                     this.config, System.currentTimeMillis(), null);
             t = (LogicTuple) TupleCentreContainer.doBlockingOperation(ev);
@@ -174,7 +174,7 @@ public class GeolocationConfigAgent extends Thread {
                 .equals(name)) {
             t = LogicTuple.parse("destroyGeolocationService(Sid)");
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                    TucsonOperationDefault.inCode(), t, null);
+                    TupleCentreOpType.IN, t, null);
             final InputEvent ev = new InputEvent(this.nodeManAid, opRequested,
                     this.config, System.currentTimeMillis(), null);
             t = (LogicTuple) TupleCentreContainer.doBlockingOperation(ev);

@@ -1,5 +1,6 @@
 package alice.respect.api;
 
+import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.TupleCentreOperation;
 
 /**
@@ -8,26 +9,10 @@ import alice.tuplecentre.api.TupleCentreOperation;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
-public interface RespectOperation extends
-        TupleCentreOperation {
+public interface RespectOperation extends TupleCentreOperation {
 
     /**
-     * @return <code>true</code> if this is an env operation
+     * @return the logic tuple representation of this operation
      */
-    boolean isEnv();
-
-    /**
-     * @return <code>true</code> if this is a getEnv operation
-     */
-    boolean isGetEnv();
-
-    /**
-     * @return <code>true</code> if this is a setEnv operation
-     */
-    boolean isSetEnv();
-
-    /**
-     * @return <code>true</code> if this is a time operation
-     */
-    boolean isTime();
+    LogicTuple toTuple();
 }

@@ -3,6 +3,7 @@ package alice.tucson.service;
 import java.io.Serializable;
 import alice.logictuple.LogicTuple;
 import alice.respect.api.geolocation.Position;
+import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
  * 
@@ -12,7 +13,7 @@ import alice.respect.api.geolocation.Position;
 public class InputEventMsg implements Serializable {
     private static final long serialVersionUID = 6617714748018050950L;
     private final long opId;
-    private final int opType;
+    private final TupleCentreOpType opType;
     private final Position place;
     private final String reactingTC;
     private final String source;
@@ -38,7 +39,7 @@ public class InputEventMsg implements Serializable {
      * @param p
      *            the place where this event was generated
      */
-    public InputEventMsg(final String s, final long oid, final int opt,
+    public InputEventMsg(final String s, final long oid, final TupleCentreOpType opt,
             final LogicTuple lt, final String trg, final long t,
             final Position p) {
         this.source = s;
@@ -63,7 +64,7 @@ public class InputEventMsg implements Serializable {
      * 
      * @return the type code of the operation which caused this event
      */
-    public int getOpType() {
+    public TupleCentreOpType getOpType() {
         return this.opType;
     }
 

@@ -38,6 +38,7 @@ import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.OperationCompletionListener;
+import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.lib.InvalidObjectIdException;
 
@@ -93,25 +94,25 @@ OperationCompletionListener {
                 final OutputEventMsg oEv = msg.getOutputEvent();
                 final boolean ok = oEv.isAllowed();
                 if (ok) {
-                    final int type = oEv.getOpType();
-                    if (type == TucsonOperationDefault.noCode()
-                            || type == TucsonOperationDefault.noSCode()
-                            || type == TucsonOperationDefault.nopCode()
-                            || type == TucsonOperationDefault.nopSCode()
-                            || type == TucsonOperationDefault.inCode()
-                            || type == TucsonOperationDefault.rdCode()
-                            || type == TucsonOperationDefault.inpCode()
-                            || type == TucsonOperationDefault.rdpCode()
-                            || type == TucsonOperationDefault.uinCode()
-                            || type == TucsonOperationDefault.urdCode()
-                            || type == TucsonOperationDefault.uinpCode()
-                            || type == TucsonOperationDefault.urdpCode()
-                            || type == TucsonOperationDefault.unoCode()
-                            || type == TucsonOperationDefault.unopCode()
-                            || type == TucsonOperationDefault.inSCode()
-                            || type == TucsonOperationDefault.rdSCode()
-                            || type == TucsonOperationDefault.inpSCode()
-                            || type == TucsonOperationDefault.rdpSCode()) {
+                    final TupleCentreOpType type = oEv.getOpType();
+                    if (type == TupleCentreOpType.NO
+                            || type == TupleCentreOpType.NO_S
+                            || type == TupleCentreOpType.NOP
+                            || type == TupleCentreOpType.NOP_S
+                            || type == TupleCentreOpType.IN
+                            || type == TupleCentreOpType.RD
+                            || type == TupleCentreOpType.INP
+                            || type == TupleCentreOpType.RDP
+                            || type == TupleCentreOpType.UIN
+                            || type == TupleCentreOpType.URD
+                            || type == TupleCentreOpType.UINP
+                            || type == TupleCentreOpType.URDP
+                            || type == TupleCentreOpType.UNO
+                            || type == TupleCentreOpType.UNOP
+                            || type == TupleCentreOpType.IN_S
+                            || type == TupleCentreOpType.RD_S
+                            || type == TupleCentreOpType.INP_S
+                            || type == TupleCentreOpType.RDP_S) {
                         final boolean succeeded = oEv.isSuccess();
                         if (succeeded) {
                             final LogicTuple tupleReq = oEv.getTupleRequested();
@@ -125,25 +126,25 @@ OperationCompletionListener {
                             ev = new TucsonOpCompletionEvent(new TucsonOpId(
                                     oEv.getOpId()), ok, false, oEv.isResultSuccess());
                         }
-                    } else if (type == TucsonOperationDefault.setCode()
-                            || type == TucsonOperationDefault.setSCode()
-                            || type == TucsonOperationDefault.outCode()
-                            || type == TucsonOperationDefault.outSCode()
-                            || type == TucsonOperationDefault.outAllCode()
-                            || type == TucsonOperationDefault.spawnCode()) {
+                    } else if (type == TupleCentreOpType.SET
+                            || type == TupleCentreOpType.SET_S
+                            || type == TupleCentreOpType.OUT
+                            || type == TupleCentreOpType.OUT_S
+                            || type == TupleCentreOpType.OUT_ALL
+                            || type == TupleCentreOpType.SPAWN) {
                         ev = new TucsonOpCompletionEvent(new TucsonOpId(
                                 oEv.getOpId()), ok, oEv.isSuccess(), oEv.isResultSuccess());
-                    } else if (type == TucsonOperationDefault.inAllCode()
-                            || type == TucsonOperationDefault.rdAllCode()
-                            || type == TucsonOperationDefault.noAllCode()
-                            || type == TucsonOperationDefault.getCode()
-                            || type == TucsonOperationDefault.getSCode()) {
+                    } else if (type == TupleCentreOpType.IN_ALL
+                            || type == TupleCentreOpType.RD_ALL
+                            || type == TupleCentreOpType.NO_ALL
+                            || type == TupleCentreOpType.GET
+                            || type == TupleCentreOpType.GET_S) {
                         final List<LogicTuple> tupleSetRes = (List<LogicTuple>) oEv
                                 .getTupleResult();
                         ev = new TucsonOpCompletionEvent(new TucsonOpId(
                                 oEv.getOpId()), ok, oEv.isSuccess(), oEv.isResultSuccess(),
                                 tupleSetRes);
-                    } else if (type == TucsonOperationDefault.exitCode()) {
+                    } else if (type == TupleCentreOpType.EXIT) {
                         this.setStop();
                         break;
                     }
@@ -153,9 +154,9 @@ OperationCompletionListener {
                 }
                 final AbstractTupleCentreOperation op = InterTupleCentreACCProxy.this.operations
                         .remove(oEv.getOpId());
-                if (op.isNoAll() || op.isInAll() || op.isRdAll() || op.isGet()
-                        || op.isSet() || op.isGetS() || op.isSetS()
-                        || op.isOutAll()) {
+                if (op.getType() == TupleCentreOpType.NO_ALL || op.getType() == TupleCentreOpType.IN_ALL || op.getType() == TupleCentreOpType.RD_ALL || op.getType() == TupleCentreOpType.GET
+                        || op.getType() == TupleCentreOpType.SET || op.getType() == TupleCentreOpType.GET_S || op.getType() == TupleCentreOpType.SET_S
+                        || op.getType() == TupleCentreOpType.OUT_ALL) {
                     InterTupleCentreACCProxy.log("received completion msg "
                             + oEv.getOpId() + ", op " + op.getType() + ", "
                             + op.getTupleListResult());
@@ -296,14 +297,14 @@ OperationCompletionListener {
 				e.printStackTrace();
 			}
             this.operations.put(this.opId, op);
-            final int type = op.getType();
+            final TupleCentreOpType type = op.getType();
             TucsonMsgRequest msg;
-            if (type == TucsonOperationDefault.outCode()
-                    || type == TucsonOperationDefault.outSCode()
-                    || type == TucsonOperationDefault.setSCode()
-                    || type == TucsonOperationDefault.setCode()
-                    || type == TucsonOperationDefault.outAllCode()
-                    || type == TucsonOperationDefault.spawnCode()) {
+            if (type == TupleCentreOpType.OUT
+                    || type == TupleCentreOpType.OUT_S
+                    || type == TupleCentreOpType.SET_S
+                    || type == TupleCentreOpType.SET
+                    || type == TupleCentreOpType.OUT_ALL
+                    || type == TupleCentreOpType.SPAWN) {
                 msg = new TucsonMsgRequest(new InputEventMsg(
                         this.aid.toString(), this.opId, type,
                         (LogicTuple) op.getTupleArgument(), tcid.toString(),

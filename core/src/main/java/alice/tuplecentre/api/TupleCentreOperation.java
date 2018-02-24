@@ -5,6 +5,7 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.OperationCompletionListener;
+import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
  * Basic interface for tuple centre operations.
@@ -24,7 +25,7 @@ public interface TupleCentreOperation {
     /**
      * @return the type code of the operation
      */
-    int getType(); //TODO modificare il tipo di ritorno in modo che sia l'enumerazione (da creare) che rappresenti i tipi di operazioni
+    TupleCentreOpType getType();
 
     /**
      * @return the tuple template argument of this operation
@@ -95,8 +96,8 @@ public interface TupleCentreOperation {
      * @return the tuple argument used in the operation.
      */
     LogicTuple getLogicTupleArgument();
-    //TODO if and when LogicTuple public methods will be moved to an upper Interface... 
-    // TODO here and in implementing methods, would be better to set return type to this interface
+    //TODO if and when LogicTuple public methods will be moved to an upper Interface...
+    // TODO here and in implementing methods, would be better to set return type to such interface
 
     /**
      * Gets the list of tuples returned as the result of the requested
@@ -112,151 +113,6 @@ public interface TupleCentreOperation {
      * @return the tuple result of the requested operation.
      */
     LogicTuple getLogicTupleResult();
-
-    /**
-     * @return wether this operation is a <code>get</code> operation
-     */
-    boolean isGet();
-
-    /**
-     * @return wether this operation is a <code>get_s</code> operation
-     */
-    boolean isGetS();
-
-    /**
-     * @return wether this operation is a <code>in</code> operation
-     */
-    boolean isIn();
-
-    /**
-     * @return wether this operation is a <code>in_all</code> operation
-     */
-    boolean isInAll();
-
-    /**
-     * @return wether this operation is a <code>inp</code> operation
-     */
-    boolean isInp();
-
-    /**
-     * @return wether this operation is a <code>inp_s</code>
-     */
-    boolean isInpS();
-
-    /**
-     * @return wether this operation is a <code>in_s</code>
-     */
-    boolean isInS();
-
-    /**
-     * @return wether this operation is a <code>no</code> operation
-     */
-    boolean isNo();
-
-    /**
-     * @return wether this operation is a <code>no_all</code>
-     */
-    boolean isNoAll();
-
-    /**
-     * @return wether this operation is a <code>nop</code> operation
-     */
-    boolean isNop();
-
-    /**
-     * @return wether this operation is a <code>nop_s</code>
-     */
-    boolean isNopS();
-
-    /**
-     * @return wether this operation is a <code>no_s</code>
-     */
-    boolean isNoS();
-
-    /**
-     * @return wether this operation is a <code>out</code> operation
-     */
-    boolean isOut();
-
-    /**
-     * @return wether this operation is a <code>out_all</code> operation
-     */
-    boolean isOutAll();
-
-    /**
-     * @return wether this operation is a <code>out_s</code>
-     */
-    boolean isOutS();
-
-    /**
-     * @return wether this operation is a <code>rd</code> operation
-     */
-    boolean isRd();
-
-    /**
-     * @return wether this operation is a <code>rd_all</code> operation
-     */
-    boolean isRdAll();
-
-    /**
-     * @return wether this operation is a <code>rdp</code> operation
-     */
-    boolean isRdp();
-
-    /**
-     * @return wether this operation is a <code>rdp_s</code>
-     */
-    boolean isRdpS();
-
-    /**
-     * @return wether this operation is a <code>rd_s</code>
-     */
-    boolean isRdS();
-
-    /**
-     * @return wether this operation is a <code>set</code> operation
-     */
-    boolean isSet();
-
-    /**
-     * @return wether this operation is a <code>set_s</code> operation
-     */
-    boolean isSetS();
-
-    /**
-     * @return wether this operation is a <code>spawn</code>
-     */
-    boolean isSpawn();
-
-    /**
-     * @return wether this operation is a <code>uin</code> operation
-     */
-    boolean isUin();
-
-    /**
-     * @return wether this operation is a <code>uinp</code> operation
-     */
-    boolean isUinp();
-
-    /**
-     * @return wether this operation is a <code>uno</code> operation
-     */
-    boolean isUno();
-
-    /**
-     * @return wether this operation is a <code>unop</code> operation
-     */
-    boolean isUnop();
-
-    /**
-     * @return wether this operation is a <code>urd</code> operation
-     */
-    boolean isUrd();
-
-    /**
-     * @return wether this operation is a <code>urdp</code> operation
-     */
-    boolean isUrdp();
 
     /**
      * Tests if the result is defined
@@ -279,11 +135,18 @@ public interface TupleCentreOperation {
     boolean isResultSuccess();
 
     /**
-     * Adds listener for completion Event
+     * Adds listener for completion Events
      *
      * @param lis the listener for operation completion to add
      */
     void setCompletionListener(final OperationCompletionListener lis);
+
+    /**
+     * Gets the listener for completion Events
+     *
+     * @return the listener for operation completion
+     */
+    OperationCompletionListener getCompletionListener();
 
     /**
      * Removes listener for completion Event

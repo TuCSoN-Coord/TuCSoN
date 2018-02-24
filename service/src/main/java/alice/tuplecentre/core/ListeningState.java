@@ -42,7 +42,7 @@ public class ListeningState extends AbstractTupleCentreVMState {
         }
         this.vm.fetchPendingEvent();
         final InputEvent ev = this.vm.getCurrentEvent();
-        if (ev.getSimpleTCEvent().getType() != RespectOperationDefault.OPTYPE_TIME) {
+        if (ev.getSimpleTCEvent().getType() != TupleCentreOpType.TIME) {
             this.vm.addPendingQueryEvent(ev);
             this.vm.fetchTriggeredReactions(ev);
         } else {

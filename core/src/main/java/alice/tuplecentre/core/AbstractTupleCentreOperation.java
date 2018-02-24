@@ -24,6 +24,8 @@ import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
+import static alice.tuplecentre.core.TupleCentreOpType.*;
+
 /**
  * This class represents an Operation on a tuple centre.
  *
@@ -33,201 +35,100 @@ import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 public abstract class AbstractTupleCentreOperation implements TupleCentreOperation {
 
     /**
-     * shared id counter
+     * Shared id counter
      */
     private static long idCounter = 0;
-    /**  */
-    public static final int OPTYPE_IS_STEP_MODE = 57;
-    /**  */
-    protected static final int OPTYPE_ABORT_OP = 58;
-    /**  */
-    protected static final int OPTYPE_ADD_INSP = 70;
-    /**  */
-    protected static final int OPTYPE_ADD_OBS = 67;
-    /**  */
-    protected static final int OPTYPE_GET = 8;
-    /**  */
-    protected static final int OPTYPE_GET_INSPS = 29;
-    /**  */
-    protected static final int OPTYPE_GET_S = 28;
-    /**  */
-    protected static final int OPTYPE_GET_TRSET = 66;
-    /**  */
-    protected static final int OPTYPE_GET_TSET = 64;
-    /**  */
-    protected static final int OPTYPE_GET_WSET = 65;
-    /**  */
-    protected static final int OPTYPE_GO_CMD = 61;
-    /**  */
-    protected static final int OPTYPE_HAS_INSP = 72;
-    /**  */
-    protected static final int OPTYPE_HAS_OBS = 69;
-    /**  */
-    protected static final int OPTYPE_IN = 2;
-    /**  */
-    protected static final int OPTYPE_IN_ALL = 11;
-    /**  */
-    protected static final int OPTYPE_IN_S = 21;
-    /**  */
-    protected static final int OPTYPE_INP = 4;
-    /**  */
-    protected static final int OPTYPE_INP_S = 23;
-    /**  */
-    protected static final int OPTYPE_NEXT_STEP = 62;
-    /**  */
-    protected static final int OPTYPE_NO = 6;
-    /**  */
-    protected static final int OPTYPE_NO_ALL = 13;
-    /**  */
-    protected static final int OPTYPE_NO_S = 25;
-    /**  */
-    protected static final int OPTYPE_NOP = 7;
-    /**  */
-    protected static final int OPTYPE_NOP_S = 26;
-    /**  */
-    protected static final int OPTYPE_OUT = 1;
-    /**  */
-    protected static final int OPTYPE_OUT_ALL = 10;
-    /**  */
-    protected static final int OPTYPE_OUT_S = 20;
-    /**  */
-    protected static final int OPTYPE_RD = 3;
-    /**  */
-    protected static final int OPTYPE_RD_ALL = 12;
-    /**  */
-    protected static final int OPTYPE_RD_S = 22;
-    /**  */
-    protected static final int OPTYPE_RDP = 5;
-    /**  */
-    protected static final int OPTYPE_RDP_S = 24;
-    /**  */
-    protected static final int OPTYPE_RMV_INSP = 71;
-    /**  */
-    protected static final int OPTYPE_RMV_OBS = 68;
-    /**  */
-    protected static final int OPTYPE_SET = 9;
-
-    // TODO must be delete.. protected static final int OPTYPE_SET_MNG_MODE =
-    // 59;
-    /**  */
-    protected static final int OPTYPE_SET_S = 27;
-    /**  */
-    protected static final int OPTYPE_SET_SPY = 63;
-    /**  */
-    protected static final int OPTYPE_SET_WSET = 73;
-    /**  */
-    protected static final int OPTYPE_SPAWN = 666;
-    /**  */
-    protected static final int OPTYPE_STEP_MODE = 59;
-    /**  */
-    protected static final int OPTYPE_STOP_CMD = 60;
-    /**  */
-    protected static final int OPTYPE_UIN = 15;
-    /**  */
-    protected static final int OPTYPE_UINP = 18;
-    /**  */
-    protected static final int OPTYPE_UNO = 16;
-    /**  */
-    protected static final int OPTYPE_UNOP = 19;
-    /**  */
-    protected static final int OPTYPE_URD = 14;
-    /**  */
-    protected static final int OPTYPE_URDP = 17;
-    /**  */
-    protected static final int RESET = 74;
 
     /**
      * internal identifier of the operation
      */
     private final long id;
+
     private final TCCycleResult result;
     private TupleTemplate templateArgument;
     private Tuple tupleArgument;
     private List<Tuple> tupleListArgument;
-    private final int type;
+    private final TupleCentreOpType type;
+
+    private OperationCompletionListener listener;
+
+    private boolean operationCompleted;
+
     /**
-     *
-     */
-    protected OperationCompletionListener listener;
-    /**
-     *
-     */
-    protected boolean operationCompleted;
-    /**
-     * used for possible synchronisation
+     * Used for possible synchronisation
      */
     protected final Object token; //TODO controllare se è usato bene per la sincronizzazione
 
-    private AbstractTupleCentreOperation(final int ty) {
+    private AbstractTupleCentreOperation(final TupleCentreOpType opType) {
         this.operationCompleted = false;
         this.result = new TCCycleResult();
-        this.type = ty;
+        this.type = opType;
         this.token = new Object();
         this.id = AbstractTupleCentreOperation.idCounter;
         AbstractTupleCentreOperation.idCounter++;
     }
 
     /**
-     * @param t         the type code of the operation
+     * @param opType    the type code of the operation
      * @param tupleList the list of tuples argument of the operation
      */
-    protected AbstractTupleCentreOperation(final int t,
+    protected AbstractTupleCentreOperation(final TupleCentreOpType opType,
                                            final List<Tuple> tupleList) {
-        this(t);
+        this(opType);
         this.listener = null;
         this.tupleListArgument = tupleList;
     }
 
     /**
-     * @param t         the type code of the operation
+     * @param opType    the type code of the operation
      * @param tupleList the list of tuples argument of the operation
      * @param l         the listener for operation completion
      */
-    protected AbstractTupleCentreOperation(final int t,
+    protected AbstractTupleCentreOperation(final TupleCentreOpType opType,
                                            final List<Tuple> tupleList, final OperationCompletionListener l) {
-        this(t, tupleList);
+        this(opType, tupleList);
         this.listener = l;
     }
 
     /**
-     * @param ty the type code of the operation
-     * @param t  the tuple argument of the operation
+     * @param opType the type code of the operation
+     * @param t      the tuple argument of the operation
      */
-    protected AbstractTupleCentreOperation(final int ty, final Tuple t) {
-        this(ty);
+    protected AbstractTupleCentreOperation(final TupleCentreOpType opType, final Tuple t) {
+        this(opType);
         this.listener = null;
         this.tupleArgument = t;
     }
 
     /**
-     * @param ty the type code of the operation
-     * @param t  the tuple argument of the operation
-     * @param l  the listener for operation completion
+     * @param opType the type code of the operation
+     * @param t      the tuple argument of the operation
+     * @param l      the listener for operation completion
      */
-    protected AbstractTupleCentreOperation(final int ty, final Tuple t,
+    protected AbstractTupleCentreOperation(final TupleCentreOpType opType, final Tuple t,
                                            final OperationCompletionListener l) {
-        this(ty, t);
+        this(opType, t);
         this.listener = l;
     }
 
     /**
-     * @param ty the type code of the operation
-     * @param t  the tuple template argument of the operation
+     * @param opType the type code of the operation
+     * @param t      the tuple template argument of the operation
      */
-    protected AbstractTupleCentreOperation(final int ty, final TupleTemplate t) {
-        this(ty);
+    protected AbstractTupleCentreOperation(final TupleCentreOpType opType, final TupleTemplate t) {
+        this(opType);
         this.listener = null;
         this.templateArgument = t;
     }
 
     /**
-     * @param ty the type code of the operation
-     * @param t  the tuple template argument of the operation
-     * @param l  the listener for operation completion
+     * @param opType the type code of the operation
+     * @param t      the tuple template argument of the operation
+     * @param l      the listener for operation completion
      */
-    protected AbstractTupleCentreOperation(final int ty, final TupleTemplate t,
+    protected AbstractTupleCentreOperation(final TupleCentreOpType opType, final TupleTemplate t,
                                            final OperationCompletionListener l) {
-        this(ty, t);
+        this(opType, t);
         this.listener = l;
     }
 
@@ -240,8 +141,8 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     public Tuple getPredicate() {
         final StringBuilder pred = new StringBuilder();
         try {
-            if (this.isOut() || this.isOutS() || this.isOutAll()
-                    || this.isSpawn() || this.isSet() || this.isSetS()) {
+            if (this.type == OUT || this.type == OUT_S || this.type == OUT_ALL
+                    || this.type == SPAWN || this.type == SET || this.type == SET_S) {
                 pred.append(this.getPrimitive().toString()).append('(')
                         .append(this.tupleArgument).append(')');
                 return LogicTuple.parse(pred.toString());
@@ -259,63 +160,63 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     @Override
     public Tuple getPrimitive() {
         switch (this.type) {
-            case OPTYPE_OUT:
+            case OUT:
                 return new LogicTuple("out");
-            case OPTYPE_IN:
+            case IN:
                 return new LogicTuple("in");
-            case OPTYPE_RD:
+            case RD:
                 return new LogicTuple("rd");
-            case OPTYPE_INP:
+            case INP:
                 return new LogicTuple("inp");
-            case OPTYPE_RDP:
+            case RDP:
                 return new LogicTuple("rdp");
-            case OPTYPE_NO:
+            case NO:
                 return new LogicTuple("no");
-            case OPTYPE_NOP:
+            case NOP:
                 return new LogicTuple("nop");
-            case OPTYPE_GET:
+            case GET:
                 return new LogicTuple("get");
-            case OPTYPE_SET:
+            case SET:
                 return new LogicTuple("set");
-            case OPTYPE_SPAWN:
+            case SPAWN:
                 return new LogicTuple("spawn");
-            case OPTYPE_OUT_ALL:
+            case OUT_ALL:
                 return new LogicTuple("out_all");
-            case OPTYPE_IN_ALL:
+            case IN_ALL:
                 return new LogicTuple("in_all");
-            case OPTYPE_RD_ALL:
+            case RD_ALL:
                 return new LogicTuple("rd_all");
-            case OPTYPE_NO_ALL:
+            case NO_ALL:
                 return new LogicTuple("no_all");
-            case OPTYPE_URD:
+            case URD:
                 return new LogicTuple("urd");
-            case OPTYPE_UIN:
+            case UIN:
                 return new LogicTuple("uin");
-            case OPTYPE_UNO:
+            case UNO:
                 return new LogicTuple("uno");
-            case OPTYPE_URDP:
+            case URDP:
                 return new LogicTuple("urdp");
-            case OPTYPE_UINP:
+            case UINP:
                 return new LogicTuple("uinp");
-            case OPTYPE_UNOP:
+            case UNOP:
                 return new LogicTuple("unop");
-            case OPTYPE_OUT_S:
+            case OUT_S:
                 return new LogicTuple("out_s");
-            case OPTYPE_IN_S:
+            case IN_S:
                 return new LogicTuple("in_s");
-            case OPTYPE_RD_S:
+            case RD_S:
                 return new LogicTuple("rd_s");
-            case OPTYPE_INP_S:
+            case INP_S:
                 return new LogicTuple("inp_s");
-            case OPTYPE_RDP_S:
+            case RDP_S:
                 return new LogicTuple("rdp_s");
-            case OPTYPE_NO_S:
+            case NO_S:
                 return new LogicTuple("no_s");
-            case OPTYPE_NOP_S:
+            case NOP_S:
                 return new LogicTuple("nop_s");
-            case OPTYPE_SET_S:
+            case SET_S:
                 return new LogicTuple("set_s");
-            case OPTYPE_GET_S:
+            case GET_S:
                 return new LogicTuple("get_s");
             default:
                 return null;
@@ -348,7 +249,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     }
 
     @Override
-    public int getType() {
+    public TupleCentreOpType getType() {
         return this.type;
     }
 
@@ -370,155 +271,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
         return toReturn;
     }
 
-    /* TODO i metodi qui sotto potrebbero essere rimossi e sostituiti dove usati con un confronto ... */
 
-    @Override
-    public boolean isGet() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_GET;
-    }
-
-    @Override
-    public boolean isGetS() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_GET_S;
-    }
-
-    @Override
-    public boolean isIn() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_IN;
-    }
-
-    @Override
-    public boolean isInAll() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_IN_ALL;
-    }
-
-    @Override
-    public boolean isInp() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_INP;
-    }
-
-    @Override
-    public boolean isInpS() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_INP_S;
-    }
-
-    @Override
-    public boolean isInS() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_IN_S;
-    }
-
-    @Override
-    public boolean isNo() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_NO;
-    }
-
-    @Override
-    public boolean isNoAll() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_NO_ALL;
-    }
-
-    @Override
-    public boolean isNop() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_NOP;
-    }
-
-    @Override
-    public boolean isNopS() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_NOP_S;
-    }
-
-    @Override
-    public boolean isNoS() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_NO_S;
-    }
-
-    @Override
-    public boolean isOut() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_OUT;
-    }
-
-    @Override
-    public boolean isOutAll() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_OUT_ALL;
-    }
-
-    @Override
-    public boolean isOutS() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_OUT_S;
-    }
-
-    @Override
-    public boolean isRd() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_RD;
-    }
-
-    @Override
-    public boolean isRdAll() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_RD_ALL;
-    }
-
-    @Override
-    public boolean isRdp() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_RDP;
-    }
-
-    @Override
-    public boolean isRdpS() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_RDP_S;
-    }
-
-    @Override
-    public boolean isRdS() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_RD_S;
-    }
-
-    @Override
-    public boolean isSet() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_SET;
-    }
-
-    @Override
-    public boolean isSetS() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_SET_S;
-    }
-
-    @Override
-    public boolean isUin() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_UIN;
-    }
-
-    @Override
-    public boolean isUinp() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_UINP;
-    }
-
-    @Override
-    public boolean isUno() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_UNO;
-    }
-
-    @Override
-    public boolean isUnop() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_UNOP;
-    }
-
-    @Override
-    public boolean isUrd() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_URD;
-    }
-
-    @Override
-    public boolean isUrdp() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_URDP;
-    }
-
-    @Override
-    public boolean isSpawn() {
-        return this.type == AbstractTupleCentreOperation.OPTYPE_SPAWN;
-    }
-
-
-    /* TODO fino qui */
     @Override
     public boolean isResultDefined() {
         return this.result.isResultDefined();
@@ -537,6 +290,11 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     @Override
     public void setCompletionListener(final OperationCompletionListener lis) {
         this.listener = lis;
+    }
+
+    @Override
+    public OperationCompletionListener getCompletionListener() {
+        return listener;
     }
 
     @Override

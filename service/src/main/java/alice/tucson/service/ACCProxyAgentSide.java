@@ -30,12 +30,12 @@ import alice.respect.api.geolocation.service.AbstractGeolocationService;
 import alice.respect.api.geolocation.service.GeoServiceId;
 import alice.respect.api.geolocation.service.GeolocationServiceManager;
 import alice.respect.api.place.IPlace;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.DefaultACC;
+import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -48,6 +48,7 @@ import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
+import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuprolog.Parser;
 
 /**
@@ -260,10 +261,10 @@ public class ACCProxyAgentSide implements EnhancedACC {
             info = cs.getSession();
             contr = cs.getController();
             contr.setStop();
-            /*op = new TucsonOperationDefault(TucsonOperationDefault.exitCode(),
+            /*op = new TucsonOperationDefault(TupleCentreOpType.EXIT,
                     (TupleTemplate) null, null, this);
             this.operations.put(op.getId(), op);*/
-            op = new TucsonOperationDefault(TucsonOperationDefault.exitCode(),
+            op = new TucsonOperationDefault(TupleCentreOpType.EXIT,
                     (TupleTemplate) null, null, this.executor /* this */);
             this.executor.addOperation(op.getId(), op);
             final InputEventMsg ev = new InputEventMsg(this.aid.toString(),
@@ -283,7 +284,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.getCode(), tid, null, timeout, this.getPosition());
+                TupleCentreOpType.GET, tid, null, timeout, this.getPosition());
     }
 
     @Override
@@ -292,7 +293,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.getCode(), tid, null, l, this.getPosition());
+                TupleCentreOpType.GET, tid, null, l, this.getPosition());
     }
 
     @Override
@@ -330,7 +331,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             e.printStackTrace();
         }
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.getSCode(), tid, spec, timeout, this.getPosition());
+                TupleCentreOpType.GET_S, tid, spec, timeout, this.getPosition());
     }
 
     @Override
@@ -340,7 +341,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     UnreachableNodeException {
         final LogicTuple spec = new LogicTuple("spec");
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.getSCode(), tid, spec, l, this.getPosition());
+                TupleCentreOpType.GET_S, tid, spec, l, this.getPosition());
     }
 
     @Override
@@ -358,7 +359,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                               final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.inCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.IN, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -367,7 +368,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.inCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.IN, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -375,7 +376,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                  final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.inAllCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.IN_ALL, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -384,7 +385,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.inAllCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.IN_ALL, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -392,7 +393,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.inpCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.INP, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -401,7 +402,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.inpCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.INP, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -414,7 +415,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.inpSCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.INP_S, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -428,7 +429,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.inpSCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.INP_S, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -441,7 +442,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.inSCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.IN_S, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -455,7 +456,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.inSCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.IN_S, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -468,7 +469,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                               final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.noCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.NO, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -477,7 +478,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.noCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.NO, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -485,7 +486,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                  final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.noAllCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.NO_ALL, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -494,7 +495,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.noAllCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.NO_ALL, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -502,7 +503,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.nopCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.NOP, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -511,7 +512,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.nopCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.NOP, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -524,7 +525,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.nopSCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.NOP_S, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -538,7 +539,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.nopSCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.NOP_S, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -551,7 +552,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.noSCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.NO_S, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -565,7 +566,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.noSCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.NO_S, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -573,7 +574,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.outCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.OUT, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -582,7 +583,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.outCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.OUT, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -590,7 +591,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                   final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.outAllCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.OUT_ALL, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -599,7 +600,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.outAllCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.OUT_ALL, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -612,7 +613,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.outSCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.OUT_S, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -626,7 +627,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.outSCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.OUT_S, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -634,7 +635,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                               final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.rdCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.RD, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -643,7 +644,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.rdCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.RD, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -651,7 +652,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                  final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.rdAllCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.RD_ALL, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -660,7 +661,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.rdAllCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.RD_ALL, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -668,7 +669,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.rdpCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.RDP, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -677,7 +678,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.rdpCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.RDP, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -690,7 +691,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.rdpSCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.RDP_S, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -704,7 +705,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.rdpSCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.RDP_S, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -717,7 +718,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.rdSCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.RD_S, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -731,7 +732,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.rdSCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.RD_S, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -739,7 +740,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.setCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.SET, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -748,7 +749,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.setCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.SET, tid, tuple, l, this.getPosition());
     }
     
     /**
@@ -775,7 +776,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.setSCode(), tid, spec, timeout, this.getPosition());
+                TupleCentreOpType.SET_S, tid, spec, timeout, this.getPosition());
     }
 
     @Override
@@ -784,7 +785,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.setSCode(), tid, spec, l, this.getPosition());
+                TupleCentreOpType.SET_S, tid, spec, l, this.getPosition());
     }
 
     @Override
@@ -796,7 +797,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
         }
         final LogicTuple specT = new LogicTuple("spec", new Value(spec));
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.setSCode(), tid, specT, timeout, this.getPosition());
+                TupleCentreOpType.SET_S, tid, specT, timeout, this.getPosition());
     }
 
     @Override
@@ -806,7 +807,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     UnreachableNodeException {
         final LogicTuple specT = new LogicTuple("spec", new Value(spec));
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.setSCode(), tid, specT, l, this.getPosition());
+                TupleCentreOpType.SET_S, tid, specT, l, this.getPosition());
     }
 
     @Override
@@ -814,7 +815,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                  final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.spawnCode(), tid, toSpawn, timeout, this.getPosition());
+                TupleCentreOpType.SPAWN, tid, toSpawn, timeout, this.getPosition());
     }
 
     @Override
@@ -823,7 +824,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.spawnCode(), tid, toSpawn, l, this.getPosition());
+                TupleCentreOpType.SPAWN, tid, toSpawn, l, this.getPosition());
     }
 
     @Override
@@ -831,7 +832,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.uinCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.UIN, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -840,7 +841,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.uinCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.UIN, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -848,7 +849,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                 final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.uinpCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.UINP, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -857,7 +858,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.uinpCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.UINP, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -865,7 +866,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.unoCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.UNO, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -874,7 +875,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.unoCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.UNO, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -882,7 +883,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                 final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.unopCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.UNOP, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -891,7 +892,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.unopCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.UNOP, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -899,7 +900,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.urdCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.URD, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -908,7 +909,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.urdCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.URD, tid, tuple, l, this.getPosition());
     }
 
     @Override
@@ -916,7 +917,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                 final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return this.executor.doBlockingOperation(this.aid,
-                TucsonOperationDefault.urdpCode(), tid, tuple, timeout, this.getPosition());
+                TupleCentreOpType.URDP, tid, tuple, timeout, this.getPosition());
     }
 
     @Override
@@ -925,7 +926,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         return this.executor.doNonBlockingOperation(this.aid,
-                TucsonOperationDefault.urdpCode(), tid, tuple, l, this.getPosition());
+                TupleCentreOpType.URDP, tid, tuple, l, this.getPosition());
     }
     
     private void createGeolocationService(final TucsonTupleCentreId tcId,
