@@ -26,7 +26,7 @@ import alice.tuplecentre.api.exceptions.OperationTimeOutException;
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public interface BulkSyncACC extends RootACC {
+public interface BulkSyncACC extends SyncACC {
 
     /**
      * Withdraws from the space all the tuples matching the given template in

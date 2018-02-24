@@ -14,14 +14,12 @@
 package alice.tucson.api.acc;
 
 /**
- * Synchronous ACC. Can act both on the ordinary tuple space and on the
- * specification tuple space. Bulk and uniform primitives are NOT included.
+ * Base class for Synchronous ACC.
  *
- * @author ste (mailto: s.mariani@unibo.it)
- * @see OrdinaryAsyncACC OrdinarySyncACC
- * @see SpecificationAsyncACC SpecificationSyncACC
+ * @author Enrico Siboni
+ * @see RootACC
  */
-public interface SyncACC extends OrdinarySyncACC, SpecificationSyncACC {
+public interface SyncACC extends RootACC {
     /*
      * Convenience interface
      */

@@ -6,7 +6,7 @@ import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.acc.SyncACC;
+import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -43,7 +43,7 @@ public final class HelloWorld {
              */
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(aid);
-            final SyncACC acc = negAcc.playDefaultRole();
+            final OrdinaryAndSpecificationSyncACC acc = negAcc.playDefaultRole();
             /*
              * 3) Define the tuplecentre target of your coordination operations.
              */

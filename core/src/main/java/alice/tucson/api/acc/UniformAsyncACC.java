@@ -26,7 +26,7 @@ import alice.tuplecentre.api.TupleCentreId;
 /**
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public interface UniformAsyncACC extends RootACC {
+public interface UniformAsyncACC extends AsyncACC {
 
     /**
      * @return the List of the events regarding TuCSoN operations completion

@@ -29,7 +29,7 @@ import alice.tuplecentre.api.exceptions.OperationTimeOutException;
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public interface SpecificationSyncACC extends RootACC {
+public interface SpecificationSyncACC extends SyncACC {
 
     /**
      * <code>get_s</code> specification primitive, reads (w/o removing) all the

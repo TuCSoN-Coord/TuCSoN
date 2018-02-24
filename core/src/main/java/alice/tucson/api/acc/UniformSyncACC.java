@@ -23,7 +23,7 @@ import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 /**
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public interface UniformSyncACC extends RootACC {
+public interface UniformSyncACC extends SyncACC {
 
     /**
      * <code>uin</code> TuCSoN primitive, retrieves the specified tuple from the

@@ -19,10 +19,10 @@ package alice.tucson.api.acc;
  * and uniform primitives are NOT included.
  *
  * @author ste (mailto: s.mariani@unibo.it)
- * @see SyncACC SyncACC
- * @see AsyncACC AsyncACC
+ * @see OrdinaryAndSpecificationSyncACC OrdinaryAndSpecificationSyncACC
+ * @see OrdinaryAndSpecificationAsyncACC OrdinaryAndSpecificationAsyncACC
  */
-public interface DefaultACC extends SyncACC, AsyncACC {
+public interface DefaultACC extends OrdinaryAndSpecificationSyncACC, OrdinaryAndSpecificationAsyncACC {
     /*
      * Convenience interface
      */

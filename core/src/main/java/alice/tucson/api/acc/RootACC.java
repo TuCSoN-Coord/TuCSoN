@@ -13,10 +13,8 @@
  */
 package alice.tucson.api.acc;
 
-import java.util.Map;
 import java.util.UUID;
 
-import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -81,12 +79,4 @@ public interface RootACC {
      * @return the assigned UUID
      */
     UUID getUUID();
-
-    /**
-     * Gets the set of pending operations, that is, those TuCSoN operations
-     * invoked asynchronously for which no reply has been received yet.
-     *
-     * @return the Map associating operation ids with the actual TuCSoN operation
-     */
-    Map<Long, TucsonOperation> getPendingOperationsMap();
 }

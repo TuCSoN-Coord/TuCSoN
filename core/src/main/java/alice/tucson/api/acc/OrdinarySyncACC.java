@@ -29,7 +29,7 @@ import alice.tuplecentre.api.exceptions.OperationTimeOutException;
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public interface OrdinarySyncACC extends RootACC {
+public interface OrdinarySyncACC extends SyncACC {
 
     /**
      * <code>get</code> TuCSoN primitive, reads (w/o removing) all the tuples in

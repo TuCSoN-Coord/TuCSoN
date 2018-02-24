@@ -32,7 +32,7 @@ import alice.tuplecentre.api.TupleCentreId;
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public interface OrdinaryAsyncACC extends RootACC {
+public interface OrdinaryAsyncACC extends AsyncACC {
     /**
      * @return the List of the events regarding TuCSoN operations completion
      */

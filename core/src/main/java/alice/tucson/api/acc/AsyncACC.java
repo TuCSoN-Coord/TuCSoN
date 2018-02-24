@@ -13,16 +13,23 @@
  */
 package alice.tucson.api.acc;
 
+import java.util.Map;
+
+import alice.tucson.api.TucsonOperation;
+
 /**
- * Asynchronous ACC. Can act both on the ordinary tuple space and on the
- * specification tuple space. Bulk and uniform primitives are NOT included.
+ * Base class for Asynchronous ACC.
  *
- * @author ste (mailto: s.mariani@unibo.it)
- * @see OrdinaryAsyncACC OrdinaryAsyncACC
- * @see SpecificationAsyncACC SpecificationAsyncACC
+ * @author Enrico Siboni
+ * @see RootACC
  */
-public interface AsyncACC extends OrdinaryAsyncACC, SpecificationAsyncACC {
-    /*
-     * Convenience interface
+public interface AsyncACC extends RootACC {
+
+    /**
+     * Gets the set of pending operations, that is, those TuCSoN operations
+     * invoked asynchronously for which no reply has been received yet.
+     *
+     * @return the Map associating operation ids with the actual TuCSoN operation
      */
+    Map<Long, TucsonOperation> getPendingOperationsMap();
 }
