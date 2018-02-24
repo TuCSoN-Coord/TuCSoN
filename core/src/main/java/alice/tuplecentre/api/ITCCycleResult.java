@@ -77,7 +77,7 @@ public interface ITCCycleResult {
      * @param resList
      *            the list of tuples result of the operation
      */
-    void setTupleListResult(List<?extends Tuple> resList);
+    void setTupleListResult(List<? extends Tuple> resList);
 
     /**
      *

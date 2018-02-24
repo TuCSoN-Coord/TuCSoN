@@ -25,7 +25,7 @@ public class TCCycleResult implements ITCCycleResult {
     public TCCycleResult() {
         this.opResult = Outcome.UNDEFINED;
         this.tupleResult = null;
-        this.tupleListResult = null;
+        this.tupleListResult = new ArrayList<>();
         this.startTime = System.currentTimeMillis();
     }
 
