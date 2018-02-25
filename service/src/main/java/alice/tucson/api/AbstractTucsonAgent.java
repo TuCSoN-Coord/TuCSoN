@@ -25,12 +25,11 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
  * Base class to extend to implement TuCSoN Agents. Once created, the method
  * {@link alice.tucson.api.AbstractTucsonAgent#go go()} gets TuCSoN Default ACC
  * (the most comprehensive at the moment) and trigger Agent's main execution
- * cyle, that is the method {@link alice.tucson.api.AbstractTucsonAgent#main
+ * cycle, that is the method {@link alice.tucson.api.AbstractTucsonAgent#main
  * main}.
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 public abstract class AbstractTucsonAgent implements
         TucsonOperationCompletionListener {
@@ -79,12 +78,9 @@ public abstract class AbstractTucsonAgent implements
      * Same as before, this time using the passed String to create the
      * TucsonAgentId from scratch
      *
-     * @param id
-     *            The String to use to build the TucsonAgentIdentifier
-     *
-     * @throws TucsonInvalidAgentIdException
-     *             if the String given is not a valid representation of a TuCSoN
-     *             agent identifier
+     * @param id The String to use to build the TucsonAgentIdentifier
+     * @throws TucsonInvalidAgentIdException if the String given is not a valid representation of a TuCSoN
+     *                                       agent identifier
      */
     public AbstractTucsonAgent(final String id)
             throws TucsonInvalidAgentIdException {
@@ -96,14 +92,10 @@ public abstract class AbstractTucsonAgent implements
      * Again we assume default port (which is 20504), so we skip that parameter
      * (String aid version).
      *
-     * @param id
-     *            The String to use to build the TucsonAgentIdentifier
-     * @param netid
-     *            The ip address of the TuCSoN Node to contact
-     *
-     * @throws TucsonInvalidAgentIdException
-     *             if the String given is not a valid representation of a TuCSoN
-     *             agent identifier
+     * @param id    The String to use to build the TucsonAgentIdentifier
+     * @param netid The ip address of the TuCSoN Node to contact
+     * @throws TucsonInvalidAgentIdException if the String given is not a valid representation of a TuCSoN
+     *                                       agent identifier
      */
     public AbstractTucsonAgent(final String id, final String netid)
             throws TucsonInvalidAgentIdException {
@@ -114,16 +106,11 @@ public abstract class AbstractTucsonAgent implements
      * Same as first one, but takes a String in place of a TucsonAgentId that is
      * created from scratch using such string.
      *
-     * @param id
-     *            The String to use to build the TucsonAgentIdentifier
-     * @param netid
-     *            The ip address of the TuCSoN Node to contact
-     * @param p
-     *            The listening port of the TuCSoN Node to contact
-     *
-     * @throws TucsonInvalidAgentIdException
-     *             if the String given is not a valid representation of a TuCSoN
-     *             agent identifier
+     * @param id    The String to use to build the TucsonAgentIdentifier
+     * @param netid The ip address of the TuCSoN Node to contact
+     * @param p     The listening port of the TuCSoN Node to contact
+     * @throws TucsonInvalidAgentIdException if the String given is not a valid representation of a TuCSoN
+     *                                       agent identifier
      */
     public AbstractTucsonAgent(final String id, final String netid, final int p)
             throws TucsonInvalidAgentIdException {
@@ -134,15 +121,12 @@ public abstract class AbstractTucsonAgent implements
      * Most complete constructor, allows to specify the ip address where the
      * TuCSoN node to whom ask for an ACC resides and its listening port.
      *
-     * @param id
-     *            The TucsonAgent Identifier
-     * @param netid
-     *            The ip address of the TuCSoN Node to contact
-     * @param p
-     *            The listening port of the TuCSoN Node to contact
+     * @param id    The TucsonAgent Identifier
+     * @param netid The ip address of the TuCSoN Node to contact
+     * @param p     The listening port of the TuCSoN Node to contact
      */
     private AbstractTucsonAgent(final TucsonAgentId id, final String netid,
-            final int p) {
+                                final int p) {
         this.aid = id;
         this.node = netid;
         this.port = p;
@@ -218,8 +202,7 @@ public abstract class AbstractTucsonAgent implements
     /**
      * Utility method to print on standard output the user agent activity.
      *
-     * @param msg
-     *            The message to print
+     * @param msg The message to print
      */
     protected void say(final String msg) {
         System.out.println("[" + this.getTucsonAgentId().getAgentName() + "]: "
@@ -230,8 +213,7 @@ public abstract class AbstractTucsonAgent implements
      * Setter for the ACC. Takes the most comprehensive one, hence even a
      * less-powerful can be passed.
      *
-     * @param ctx
-     *            The ACC to use
+     * @param ctx The ACC to use
      */
     protected void setContext(final EnhancedACC ctx) {
         this.context = ctx;

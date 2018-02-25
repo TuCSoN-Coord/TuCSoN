@@ -68,7 +68,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         }
 
         // TODO because of public specific makeXXX methods, this control is easily avoided using them
-        // TODO could be a good idea to delete those methods, and forse using this (maybe replacing this checked exception with an IllegalArgument)
+        // TODO could be a good idea to delete them, using this "make" (maybe replacing this checked exception with an IllegalArgument)
         if (tuple == null) {
             throw new InvalidLogicTupleException();
         }
@@ -406,7 +406,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         final List<Tuple> list = new LinkedList<Tuple>();
         LogicTuple cpy = null;
         try {
-            cpy = LogicTuple.parse(t.toString()); //TODO add copy constructor to LogicTuple!!
+            cpy = LogicTuple.parse(t.toString());
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();
             return null;
