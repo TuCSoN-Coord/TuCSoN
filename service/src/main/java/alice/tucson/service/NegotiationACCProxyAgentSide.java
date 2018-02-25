@@ -8,9 +8,9 @@ import alice.logictuple.TupleArgument;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidVarNameException;
-import alice.tucson.api.EnhancedACC;
-import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
+import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.acc.EnhancedACC;
+import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.*;
 import alice.tucson.rbac.Policy;
@@ -103,10 +103,10 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
 
     // TODO: Lista dei ruoli!!!
     @Override
-    public List<Role> listPlayableRoles()
+    public List<Role> getListOfPlayableRoles()
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
-        ITucsonOperation op = null;
+        TucsonOperation op = null;
         try {
             op = this.internalACC.inp(this.tid, new LogicTuple(
                     "roles_list_request", new Value(this.agentClass), new Var(
@@ -147,7 +147,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         LogicTuple loginTuple = null;
-        ITucsonOperation op = null;
+        TucsonOperation op = null;
         try {
             loginTuple = new LogicTuple("login_request", new Value(username
                     + ":" + TucsonACCTool.encrypt(password)), new Var("Result"));
@@ -257,7 +257,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
         } catch (final InvalidVarNameException e) {
             e.printStackTrace();
         }
-        final ITucsonOperation op = this.internalACC.rd(tcid, rbacInstalled,
+        final TucsonOperation op = this.internalACC.rd(tcid, rbacInstalled,
                 (Long) null);
         if (op.isResultSuccess()) {
             final LogicTuple res = op.getLogicTupleResult();
@@ -276,7 +276,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
         try {
             final LogicTuple baseClassTuple = new LogicTuple(
                     "get_basic_agent_class", new Var("Response"));
-            final ITucsonOperation op = this.internalACC.inp(this.tid,
+            final TucsonOperation op = this.internalACC.inp(this.tid,
                     baseClassTuple, (Long) null);
             if (op.isResultSuccess()) {
                 final String baseClass = op.getLogicTupleResult().getArg(0)

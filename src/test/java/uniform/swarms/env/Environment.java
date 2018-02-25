@@ -3,8 +3,8 @@ package uniform.swarms.env;
 import java.io.IOException;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.EnhancedSynchACC;
-import alice.tucson.api.NegotiationACC;
+import alice.tucson.api.acc.EnhancedSyncACC;
+import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -25,7 +25,7 @@ public final class Environment {
 
     private static TucsonAgentId me;
     private static NegotiationACC negAcc;
-    private static EnhancedSynchACC acc;
+    private static EnhancedSyncACC acc;
 
     /**
      *

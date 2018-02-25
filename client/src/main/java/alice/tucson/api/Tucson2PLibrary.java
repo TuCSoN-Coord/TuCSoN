@@ -15,6 +15,15 @@ package alice.tucson.api;
 import java.util.Iterator;
 import java.util.List;
 import alice.logictuple.LogicTuple;
+import alice.tucson.api.acc.BulkAsyncACC;
+import alice.tucson.api.acc.BulkSyncACC;
+import alice.tucson.api.acc.EnhancedACC;
+import alice.tucson.api.acc.OrdinaryAsyncACC;
+import alice.tucson.api.acc.OrdinarySyncACC;
+import alice.tucson.api.acc.SpecificationAsyncACC;
+import alice.tucson.api.acc.SpecificationSyncACC;
+import alice.tucson.api.acc.UniformAsyncACC;
+import alice.tucson.api.acc.UniformSyncACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -76,7 +85,7 @@ public class Tucson2PLibrary extends Library {
      *             if the given Term does not represent a valid TuCSoN
      *             identifier
      *
-     * @see alice.tucson.api.EnhancedACC EnhancedACC
+     * @see EnhancedACC EnhancedACC
      * @see alice.tucson.api.TucsonAgentId TucsonAgentId
      */
     public boolean acquire_acc_3(final Term id, final Term nodeHost, final Term portTerm)
@@ -145,8 +154,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean get_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -157,7 +166,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.get(tid, (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0,
@@ -187,8 +196,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean get_s_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -199,7 +208,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.getS(tid, (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0,
@@ -308,8 +317,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean in_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -320,7 +329,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.in(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
@@ -351,8 +360,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.BulkAsynchACC BulkAsynchACC
-     * @see alice.tucson.api.BulkSynchACC BulkSynchACC
+     * @see BulkAsyncACC BulkAsyncACC
+     * @see BulkSyncACC BulkSyncACC
      */
     public boolean in_all_3(final Term arg0, final Term arg1, final Term arg2)
             throws TucsonInvalidTupleCentreIdException,
@@ -363,7 +372,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg2.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.inAll(tid, new LogicTuple(arg0.getTerm()),
                 (Long) null);
         if (op.isResultSuccess()) {
@@ -401,8 +410,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean in_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -414,7 +423,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg3.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.inS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
                 new LogicTuple(reactionBody.getTerm()), (Long) null);
@@ -445,8 +454,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean inp_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -457,7 +466,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.inp(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
@@ -493,8 +502,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean inp_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -506,7 +515,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg3.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.inpS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
                 new LogicTuple(reactionBody.getTerm()), (Long) null);
@@ -537,8 +546,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean no_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -549,7 +558,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.no(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (!op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
@@ -580,8 +589,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.BulkAsynchACC BulkAsynchACC
-     * @see alice.tucson.api.BulkSynchACC BulkSynchACC
+     * @see BulkAsyncACC BulkAsyncACC
+     * @see BulkSyncACC BulkSyncACC
      */
     public boolean no_all_3(final Term arg0, final Term arg1, final Term arg2)
             throws TucsonInvalidTupleCentreIdException,
@@ -592,7 +601,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg2.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.noAll(tid, new LogicTuple(arg0.getTerm()),
                 (Long) null);
         if (op.isResultSuccess()) {
@@ -630,8 +639,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean no_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -643,7 +652,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg3.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.noS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
                 new LogicTuple(reactionBody.getTerm()), (Long) null);
@@ -674,8 +683,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean nop_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -686,7 +695,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.nop(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (!op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
@@ -722,8 +731,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean nop_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -735,7 +744,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg3.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.nopS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
                 new LogicTuple(reactionBody.getTerm()), (Long) null);
@@ -766,8 +775,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean out_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -778,7 +787,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.out(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         return op.isResultSuccess();
     }
@@ -804,8 +813,8 @@ public class Tucson2PLibrary extends Library {
      * @throws OperationTimeOutException
      *             if the operation timeout expired prior to operation
      *             completion
-     * @see alice.tucson.api.BulkAsynchACC BulkAsynchACC
-     * @see alice.tucson.api.BulkSynchACC BulkSynchACC
+     * @see BulkAsyncACC BulkAsyncACC
+     * @see BulkSyncACC BulkSyncACC
      */
     public boolean out_all_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -816,7 +825,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.outAll(tid, new LogicTuple(arg0.getTerm()),
                 (Long) null);
         return op.isResultSuccess();
@@ -850,8 +859,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean out_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -863,7 +872,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg3.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.outS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
                 new LogicTuple(reactionBody.getTerm()), (Long) null);
@@ -890,8 +899,8 @@ public class Tucson2PLibrary extends Library {
      * @throws OperationTimeOutException
      *             if the operation timeout expired prior to operation
      *             completion
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean rd_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -902,7 +911,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.rd(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
@@ -933,8 +942,8 @@ public class Tucson2PLibrary extends Library {
      * @throws OperationTimeOutException
      *             if the operation timeout expired prior to operation
      *             completion
-     * @see alice.tucson.api.BulkAsynchACC BulkAsynchACC
-     * @see alice.tucson.api.BulkSynchACC BulkSynchACC
+     * @see BulkAsyncACC BulkAsyncACC
+     * @see BulkSyncACC BulkSyncACC
      */
     public boolean rd_all_3(final Term arg0, final Term arg1, final Term arg2)
             throws TucsonInvalidTupleCentreIdException,
@@ -945,7 +954,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg2.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.rdAll(tid, new LogicTuple(arg0.getTerm()),
                 (Long) null);
         if (op.isResultSuccess()) {
@@ -984,8 +993,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean rd_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -997,7 +1006,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg3.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.rdS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
                 new LogicTuple(reactionBody.getTerm()), (Long) null);
@@ -1029,8 +1038,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean rdp_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1041,7 +1050,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.rdp(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
@@ -1078,8 +1087,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean rdp_s_4(final Term event, final Term guards,
             final Term reactionBody, final Term arg3)
@@ -1091,7 +1100,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg3.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.rdpS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
                 new LogicTuple(reactionBody.getTerm()), (Long) null);
@@ -1166,8 +1175,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean set_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1178,7 +1187,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.set(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         return op.isResultSuccess();
     }
@@ -1206,8 +1215,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
-     * @see alice.tucson.api.SpecificationSynchACC SpecificationSynchACC
+     * @see SpecificationAsyncACC SpecificationAsyncACC
+     * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean set_s_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1218,7 +1227,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context
                 .setS(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         return op.isResultSuccess();
@@ -1246,8 +1255,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
-     * @see alice.tucson.api.OrdinarySynchACC OrdinarySynchACC
+     * @see OrdinaryAsyncACC OrdinaryAsyncACC
+     * @see OrdinarySyncACC OrdinarySyncACC
      */
     public boolean spawn_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1258,7 +1267,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.spawn(tid, new LogicTuple(arg0.getTerm()),
                 (Long) null);
         return op.isResultSuccess();
@@ -1286,8 +1295,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.UniformAsynchACC UniformAsynchACC
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformAsyncACC UniformAsyncACC
+     * @see UniformSyncACC UniformSyncACC
      */
     public boolean uin_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1298,7 +1307,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.uin(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
@@ -1328,8 +1337,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.UniformAsynchACC UniformAsynchACC
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformAsyncACC UniformAsyncACC
+     * @see UniformSyncACC UniformSyncACC
      */
     public boolean uinp_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1340,7 +1349,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context
                 .uinp(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
@@ -1371,8 +1380,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.UniformAsynchACC UniformAsynchACC
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformAsyncACC UniformAsyncACC
+     * @see UniformSyncACC UniformSyncACC
      */
     public boolean uno_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1383,7 +1392,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.uno(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (!op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
@@ -1413,8 +1422,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.UniformAsynchACC UniformAsynchACC
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformAsyncACC UniformAsyncACC
+     * @see UniformSyncACC UniformSyncACC
      */
     public boolean unop_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1425,7 +1434,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context
                 .unop(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (!op.isResultSuccess()) {
@@ -1456,8 +1465,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.UniformAsynchACC UniformAsynchACC
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformAsyncACC UniformAsyncACC
+     * @see UniformSyncACC UniformSyncACC
      */
     public boolean urd_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1468,7 +1477,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context.urd(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
@@ -1498,8 +1507,8 @@ public class Tucson2PLibrary extends Library {
      *             if the operation timeout expired prior to operation
      *             completion
      *
-     * @see alice.tucson.api.UniformAsynchACC UniformAsynchACC
-     * @see alice.tucson.api.UniformSynchACC UniformSynchACC
+     * @see UniformAsyncACC UniformAsyncACC
+     * @see UniformSyncACC UniformSyncACC
      */
     public boolean urdp_2(final Term arg0, final Term arg1)
             throws TucsonInvalidTupleCentreIdException,
@@ -1510,7 +1519,7 @@ public class Tucson2PLibrary extends Library {
         }
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreId(arg1.getTerm().toString());
-        ITucsonOperation op;
+        TucsonOperation op;
         op = this.context
                 .urdp(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {

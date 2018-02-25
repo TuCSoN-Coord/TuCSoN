@@ -6,7 +6,7 @@ package situatedness;
 import alice.respect.situatedness.AbstractTransducer;
 import alice.respect.situatedness.ISimpleProbe;
 import alice.respect.situatedness.TransducerId;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
@@ -57,10 +57,10 @@ public class ActuatorTransducer extends AbstractTransducer {
      * (non-Javadoc)
      * @see
      * alice.tucson.api.TucsonOperationCompletionListener#operationCompleted
-     * (ITucsonOperation)
+     * (TucsonOperation)
      */
     @Override
-    public void operationCompleted(final ITucsonOperation op) {
+    public void operationCompleted(final TucsonOperation op) {
         /* not used */
     }
 

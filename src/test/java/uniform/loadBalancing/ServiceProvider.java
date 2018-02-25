@@ -5,9 +5,9 @@ import java.util.concurrent.TimeUnit;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
+import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -33,7 +33,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
         @Override
         public void run() {
             LogicTuple res;
-            ITucsonOperation op;
+            TucsonOperation op;
             this.say("Waiting for requests...");
             try {
                 final LogicTuple templ = LogicTuple.parse("req("
@@ -94,7 +94,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
         }
     }
 
-    private SynchACC acc;
+    private OrdinaryAndSpecificationSyncACC acc;
     private boolean die;
     private final LinkedBlockingQueue<LogicTuple> inputQueue;
 
@@ -148,7 +148,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation op) {
+    public void operationCompleted(final TucsonOperation op) {
         /*
          * not used atm
          */
@@ -161,7 +161,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
                     .getNegotiationContext(this.getTucsonAgentId());
             this.acc = negAcc.playDefaultRole();
             new Receiver().start();
-            ITucsonOperation op;
+            TucsonOperation op;
             LogicTuple req;
             final LogicTuple dieTuple = LogicTuple.parse("die(" + this.myName()
                     + ")");

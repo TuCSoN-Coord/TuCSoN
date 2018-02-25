@@ -11,8 +11,8 @@ import alice.respect.situatedness.ISimpleProbe;
 import alice.respect.situatedness.SensorId;
 import alice.respect.situatedness.TransducerId;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.SynchACC;
+import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -74,7 +74,7 @@ public class EnvConfigAgent extends AbstractTucsonAgent {
 
     @Override
     public void main() {
-        final SynchACC acc = this.getContext();
+        final OrdinaryAndSpecificationSyncACC acc = this.getContext();
         while (this.iteraction) {
             try {
                 // Gets the command from the tuple space
@@ -231,7 +231,7 @@ public class EnvConfigAgent extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation op) {
+    public void operationCompleted(final TucsonOperation op) {
         /*
          * not used atm
          */

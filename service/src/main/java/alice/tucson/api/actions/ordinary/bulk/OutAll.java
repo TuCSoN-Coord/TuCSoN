@@ -20,9 +20,10 @@
 package alice.tucson.api.actions.ordinary.bulk;
 
 import alice.logictuple.LogicTuple;
-import alice.tucson.api.EnhancedAsynchACC;
-import alice.tucson.api.EnhancedSynchACC;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.acc.BulkAsyncACC;
+import alice.tucson.api.acc.EnhancedAsyncACC;
+import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -33,7 +34,7 @@ import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 /**
  * <code>out_all</code> TuCSoN primitive.
  * 
- * @see alice.tucson.api.BulkAsynchACC
+ * @see BulkAsyncACC
  *
  * @author Luca Sangiorgi (mailto: luca.sangiorgi6@studio.unibo.it)
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
@@ -56,16 +57,16 @@ public class OutAll extends AbstractTucsonOrdinaryAction {
     }
 
     @Override
-    public ITucsonOperation executeAsynch(final EnhancedAsynchACC acc,
-            final TucsonOperationCompletionListener listener)
+    public TucsonOperation executeAsynch(final EnhancedAsyncACC acc,
+                                         final TucsonOperationCompletionListener listener)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
         return acc.outAll(this.tcid, this.tuple, listener);
     }
 
     @Override
-    public ITucsonOperation executeSynch(final EnhancedSynchACC acc,
-            final Long timeout) throws TucsonOperationNotPossibleException,
+    public TucsonOperation executeSynch(final EnhancedSyncACC acc,
+                                        final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         return acc.outAll(this.tcid, this.tuple, timeout);
     }

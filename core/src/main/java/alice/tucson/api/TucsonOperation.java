@@ -14,20 +14,19 @@
 package alice.tucson.api;
 
 import java.util.List;
-import alice.logictuple.LogicTuple;
-import alice.tuplecentre.api.ITupleCentreOperation;
+
 import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleCentreOperation;
 
 /**
  * TucsonOperation interface, to access the data about TuCSoN operations
  * outcome.
  *
- * @see alice.tucson.service.TucsonOperation TucsonOperation
- * @see alice.tuplecentre.api.ITupleCentreOperation ITupleCentreOperation
+ * @see TupleCentreOperation TupleCentreOperation
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public interface ITucsonOperation extends ITupleCentreOperation {
+public interface TucsonOperation extends TupleCentreOperation {
 
     /**
      *
@@ -46,35 +45,4 @@ public interface ITucsonOperation extends ITupleCentreOperation {
      * @return the JTuple result of this TuCSoN operation
      */
     Tuple getJTupleResult();
-
-    /**
-     * Gets the tuple argument used in the operation.
-     *
-     * @return the tuple argument used in the operation.
-     */
-    LogicTuple getLogicTupleArgument();
-
-    /**
-     * Gets the list of tuples returned as the result of the requested
-     * operation.
-     *
-     * @return the list of tuples result of the requested operation.
-     */
-    List<LogicTuple> getLogicTupleListResult();
-
-    /**
-     * Gets the tuple returned as the result of the requested operation.
-     *
-     * @return the tuple result of the requested operation.
-     */
-    LogicTuple getLogicTupleResult();
-
-    /**
-     * Checks success of operation execution.
-     *
-     * @return <code>true</code> if the operation succeeded, <code>false</code>
-     *         otherwise (failure or undefined)
-     */
-    @Override
-    boolean isResultSuccess();
 }

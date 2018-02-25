@@ -26,7 +26,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation get(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation get(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -41,7 +41,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation in(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation in(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -56,7 +56,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation inAll(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation inAll(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -71,7 +71,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation inp(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation inp(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -86,7 +86,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation no(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation no(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -101,7 +101,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation noAll(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation noAll(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -116,7 +116,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation nop(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation nop(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -131,7 +131,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation out(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation out(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -146,7 +146,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation outAll(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation outAll(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -161,7 +161,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation rd(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation rd(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -176,7 +176,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation rdAll(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation rdAll(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -191,7 +191,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation rdp(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation rdp(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -206,7 +206,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation set(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation set(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -221,7 +221,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation spawn(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation spawn(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -236,7 +236,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation uin(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation uin(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -251,7 +251,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation uinp(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation uinp(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -266,7 +266,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation uno(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation uno(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -281,7 +281,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation unop(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation unop(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -296,7 +296,7 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation urd(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation urd(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
@@ -311,6 +311,6 @@ public interface IOrdinaryAsynchInterface {
      *             if the operation requested cannot be carried out if the
      *             operation requested cannot be carried out
      */
-    IRespectOperation urdp(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation urdp(InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 }

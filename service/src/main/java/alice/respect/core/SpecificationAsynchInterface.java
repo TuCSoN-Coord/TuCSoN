@@ -2,7 +2,7 @@ package alice.respect.core;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.respect.api.IRespectOperation;
+import alice.respect.api.RespectOperation;
 import alice.respect.api.IRespectTC;
 import alice.respect.api.ISpecificationAsynchInterface;
 import alice.respect.api.RespectSpecification;
@@ -31,13 +31,13 @@ public class SpecificationAsynchInterface implements
     }
 
     @Override
-    public IRespectOperation getS(final InputEvent ev)
+    public RespectOperation getS(final InputEvent ev)
             throws OperationNotPossibleException {
         return this.core.get(ev);
     }
 
     @Override
-    public IRespectOperation inpS(final InputEvent ev)
+    public RespectOperation inpS(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -47,7 +47,7 @@ public class SpecificationAsynchInterface implements
     }
 
     @Override
-    public IRespectOperation inS(final InputEvent ev)
+    public RespectOperation inS(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -57,7 +57,7 @@ public class SpecificationAsynchInterface implements
     }
 
     @Override
-    public IRespectOperation nopS(final InputEvent ev)
+    public RespectOperation nopS(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -67,7 +67,7 @@ public class SpecificationAsynchInterface implements
     }
 
     @Override
-    public IRespectOperation noS(final InputEvent ev)
+    public RespectOperation noS(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -77,7 +77,7 @@ public class SpecificationAsynchInterface implements
     }
 
     @Override
-    public IRespectOperation outS(final InputEvent ev)
+    public RespectOperation outS(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final LogicTuple t = (LogicTuple) ev.getTuple();
         if (t == null) {
@@ -87,7 +87,7 @@ public class SpecificationAsynchInterface implements
     }
 
     @Override
-    public IRespectOperation rdpS(final InputEvent ev)
+    public RespectOperation rdpS(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -97,7 +97,7 @@ public class SpecificationAsynchInterface implements
     }
 
     @Override
-    public IRespectOperation rdS(final InputEvent ev)
+    public RespectOperation rdS(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
         final AbstractTupleCentreOperation op = ev.getSimpleTCEvent();
         if (op.getTemplateArgument() == null) {
@@ -107,8 +107,8 @@ public class SpecificationAsynchInterface implements
     }
 
     @Override
-    public IRespectOperation setS(final RespectSpecification spec,
-            final InputEvent ev) throws InvalidLogicTupleException,
+    public RespectOperation setS(final RespectSpecification spec,
+                                 final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException {
         if (spec == null) {
             throw new InvalidLogicTupleException();

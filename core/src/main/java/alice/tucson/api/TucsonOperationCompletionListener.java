@@ -28,5 +28,5 @@ public interface TucsonOperationCompletionListener extends
      * @param op
      *            the TuCSoN operation just completed
      */
-    void operationCompleted(ITucsonOperation op);
+    void operationCompleted(TucsonOperation op);
 }

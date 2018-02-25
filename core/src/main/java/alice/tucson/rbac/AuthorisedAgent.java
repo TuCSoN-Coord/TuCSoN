@@ -4,11 +4,10 @@ import java.io.Serializable;
 
 /**
  * Interface representing an agent authorised by TuCSoN to partecipate the
- * system, according to the installed RBAC structure.
+ * system, according to the installed RBAC (Role-Based Access Control) structure.
  *
  * @author Emanuele Buccelli
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public interface AuthorisedAgent extends Serializable {
 

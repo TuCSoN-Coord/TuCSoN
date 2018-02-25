@@ -3,6 +3,7 @@ package alice.respect.api.geolocation.service;
 import alice.respect.api.place.IPlace;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.service.ACCProxyAgentSide;
+import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
  * This class represent the listener that listens for geolocation service
@@ -75,7 +76,7 @@ public class AgentGeolocationServiceListener implements
     }
 
     @Override
-    public void moving(final int type, final String space, final IPlace place) {
+    public void moving(final TupleCentreOpType type, final String space, final IPlace place) {
         /*
          * For future usage.
          */

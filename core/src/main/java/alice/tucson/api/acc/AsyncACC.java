@@ -11,20 +11,25 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tucson.api;
+package alice.tucson.api.acc;
+
+import java.util.Map;
+
+import alice.tucson.api.TucsonOperation;
 
 /**
- * Enhanced TuCSoN ACC. Can act both synchronously and asynchronously. Can act
- * both on the ordinary tuple space and on the specification tuple space. Bulk
- * and uniform primitives are included.
+ * Base class for Asynchronous ACC.
  *
- * @see alice.tucson.api.EnhancedSynchACC EnhancedSynchACC
- * @see alice.tucson.api.EnhancedAsynchACC EnhancedAsynchACC
- *
- * @author ste (mailto: s.mariani@unibo.it)
+ * @author Enrico Siboni
+ * @see RootACC
  */
-public interface EnhancedACC extends EnhancedSynchACC, EnhancedAsynchACC {
-    /*
-     * Convenience interface
+public interface AsyncACC extends RootACC {
+
+    /**
+     * Gets the set of pending operations, that is, those TuCSoN operations
+     * invoked asynchronously for which no reply has been received yet.
+     *
+     * @return the Map associating operation ids with the actual TuCSoN operation
      */
+    Map<Long, TucsonOperation> getPendingOperationsMap();
 }

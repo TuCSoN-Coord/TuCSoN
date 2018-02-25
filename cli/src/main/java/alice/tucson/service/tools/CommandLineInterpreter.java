@@ -14,7 +14,7 @@
 package alice.tucson.service.tools;
 
 import java.util.Date;
-import alice.tucson.api.EnhancedACC;
+import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;

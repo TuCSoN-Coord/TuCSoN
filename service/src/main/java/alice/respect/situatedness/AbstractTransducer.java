@@ -8,7 +8,6 @@ import java.util.UUID;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
 import alice.respect.core.InternalEvent;
-import alice.respect.core.RespectOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -17,9 +16,10 @@ import alice.tucson.network.TucsonMsgRequest;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.service.InputEventMsg;
 import alice.tucson.service.OperationHandler;
-import alice.tucson.service.TucsonOperation;
+import alice.tucson.service.TucsonOperationDefault;
 import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.api.TupleTemplate;
+import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
  * This class implements some common behavior of transducers and defines some
@@ -88,14 +88,14 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
         OperationHandler.ControllerSession cs;
         AbstractTucsonProtocol info;
         OperationHandler.Controller contr;
-        TucsonOperation op;
+        TucsonOperationDefault op;
         TucsonMsgRequest exit;
         while (it.hasNext()) {
             cs = it.next();
             info = cs.getSession();
             contr = cs.getController();
             contr.setStop();
-            op = new TucsonOperation(TucsonOperation.exitCode(),
+            op = new TucsonOperationDefault(TupleCentreOpType.EXIT,
                     (TupleTemplate) null, null, this.executor);
             this.executor.addOperation(op.getId(), op);
             final InputEventMsg ev = new InputEventMsg(this.id.toString(),
@@ -179,12 +179,12 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
             final LogicTuple tupla = new LogicTuple("getEnv", new Value(key),
                     new Value(value));
             this.executor.doNonBlockingOperation(this.id,
-                    RespectOperation.OPTYPE_GET_ENV, this.tcId, tupla, this, null);
+                    TupleCentreOpType.GET_ENV, this.tcId, tupla, this, null);
         } else if (mod == AbstractTransducer.SET_MODE) {
             final LogicTuple tupla = new LogicTuple("setEnv", new Value(key),
                     new Value(value));
             this.executor.doNonBlockingOperation(this.id,
-                    RespectOperation.OPTYPE_SET_ENV, this.tcId, tupla, this, null);
+                    TupleCentreOpType.SET_ENV, this.tcId, tupla, this, null);
         }
     }
 

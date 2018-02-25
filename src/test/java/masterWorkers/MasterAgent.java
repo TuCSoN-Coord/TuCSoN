@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
+import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -42,7 +42,7 @@ public class MasterAgent extends AbstractTucsonAgent {
         }
     }
 
-    private SynchACC acc;
+    private OrdinaryAndSpecificationSyncACC acc;
     private boolean die;
     private final int ITERs;
     private final int MAX_FACT;
@@ -98,7 +98,7 @@ public class MasterAgent extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation op) {
+    public void operationCompleted(final TucsonOperation op) {
         /*
          * not used atm
          */
@@ -115,7 +115,7 @@ public class MasterAgent extends AbstractTucsonAgent {
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());
             this.acc = negAcc.playDefaultRole();
-            ITucsonOperation op;
+            TucsonOperation op;
             TucsonTupleCentreId next;
             LogicTuple job;
             LogicTuple templ;

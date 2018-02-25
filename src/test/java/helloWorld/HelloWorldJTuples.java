@@ -3,9 +3,9 @@
  */
 package helloWorld;
 
-import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
+import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -52,7 +52,7 @@ public final class HelloWorldJTuples {
              */
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(aid);
-            final SynchACC acc = negAcc.playDefaultRole();
+            final OrdinaryAndSpecificationSyncACC acc = negAcc.playDefaultRole();
 
             /*
              * 3) Define the tuplecentre target of your coordination operations.
@@ -68,7 +68,7 @@ public final class HelloWorldJTuples {
              * 5) Perform the coordination operation using the preferred
              * coordination primitive.
              */
-            ITucsonOperation op = acc.out(tid, tuple, null);
+            TucsonOperation op = acc.out(tid, tuple, null);
             /*
              * 6) Check requested operation success.
              */

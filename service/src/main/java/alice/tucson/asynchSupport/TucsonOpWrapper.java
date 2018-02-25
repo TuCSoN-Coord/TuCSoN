@@ -19,8 +19,8 @@
  */
 package alice.tucson.asynchSupport;
 
-import alice.tucson.api.EnhancedAsynchACC;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.acc.EnhancedAsyncACC;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -37,7 +37,7 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
  */
 public class TucsonOpWrapper {
 
-    private final EnhancedAsynchACC acc;
+    private final EnhancedAsyncACC acc;
     private final AbstractTucsonAction action;
     private boolean hasBeenRemoved = false;
     private final TucsonOperationCompletionListener listener;
@@ -53,7 +53,7 @@ public class TucsonOpWrapper {
      * @param l
      *            the TuCSoN listener handling operation completion
      */
-    public TucsonOpWrapper(final EnhancedAsynchACC eaacc,
+    public TucsonOpWrapper(final EnhancedAsyncACC eaacc,
             final AbstractTucsonAction a,
             final TucsonOperationCompletionListener l) {
         this.action = a;
@@ -74,7 +74,7 @@ public class TucsonOpWrapper {
      *            the maximum waiting time for operation completion (not used
      *            atm)
      */
-    public TucsonOpWrapper(final EnhancedAsynchACC eaacc,
+    public TucsonOpWrapper(final EnhancedAsyncACC eaacc,
             final AbstractTucsonAction a,
             final TucsonOperationCompletionListener l, final long timeout) {
         this.action = a;
@@ -85,14 +85,14 @@ public class TucsonOpWrapper {
     /**
      * Executes the operation.
      *
-     * @return ITucsonOperation the TuCSoN operation executed
+     * @return TucsonOperation the TuCSoN operation executed
      * @throws TucsonOperationNotPossibleException
      *             if the requested operation cannot be performed
      * @throws UnreachableNodeException
      *             if the TuCSoN node target of the operation is not
      *             network-reachable
      */
-    public final ITucsonOperation execute()
+    public final TucsonOperation execute()
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
         return this.action.executeAsynch(this.acc, this.listener);

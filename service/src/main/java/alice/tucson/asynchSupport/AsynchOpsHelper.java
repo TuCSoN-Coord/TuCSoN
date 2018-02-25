@@ -22,8 +22,8 @@ package alice.tucson.asynchSupport;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.EnhancedAsynchACC;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -50,7 +50,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent {
         System.out.println("....[AsynchOpsHelper (" + aid + ")]: " + msg);
     }
 
-    private EnhancedAsynchACC acc;
+    private EnhancedAsyncACC acc;
     private final CompletedOpsQueue completedOpsQueue;
     private boolean isHardStopped = false;
     private boolean isSoftStopped = false;
@@ -174,7 +174,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation op) {
+    public void operationCompleted(final TucsonOperation op) {
         /*
          * Not used atm
          */

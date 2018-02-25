@@ -11,18 +11,17 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tucson.api;
+package alice.tucson.api.acc;
 
 /**
  * Asynchronous ACC. Can act both on the ordinary tuple space and on the
  * specification tuple space. Bulk and uniform primitives are NOT included.
  *
- * @see alice.tucson.api.OrdinaryAsynchACC OrdinaryAsynchACC
- * @see alice.tucson.api.SpecificationAsynchACC SpecificationAsynchACC
- *
  * @author ste (mailto: s.mariani@unibo.it)
+ * @see OrdinaryAsyncACC OrdinaryAsyncACC
+ * @see SpecificationAsyncACC SpecificationAsyncACC
  */
-public interface AsynchACC extends OrdinaryAsynchACC, SpecificationAsynchACC {
+public interface OrdinaryAndSpecificationAsyncACC extends OrdinaryAsyncACC, SpecificationAsyncACC {
     /*
      * Convenience interface
      */

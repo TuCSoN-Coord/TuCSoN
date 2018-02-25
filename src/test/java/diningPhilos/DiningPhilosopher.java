@@ -3,9 +3,9 @@ package diningPhilos;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
+import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -23,7 +23,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
 
     private static final int EATING_TIME = 5000;
     private static final int THINKING_TIME = 5000;
-    private SynchACC acc;
+    private OrdinaryAndSpecificationSyncACC acc;
     private final int chop1, chop2;
     private final TucsonTupleCentreId myTable;
 
@@ -60,14 +60,14 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation arg0) {
+    public void operationCompleted(final TucsonOperation arg0) {
         /*
          * not used atm
          */
     }
 
     private boolean acquireChops() {
-        ITucsonOperation op = null;
+        TucsonOperation op = null;
         try {
             /*
              * NB: The 2 needed chopsticks are "perceived" as a single item by

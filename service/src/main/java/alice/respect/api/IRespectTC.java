@@ -37,7 +37,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation get(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation get(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * Gets the tuple centre id
@@ -54,7 +54,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation getS(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation getS(InputEvent ev) throws OperationNotPossibleException;
     
     /**
      * 
@@ -70,7 +70,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation in(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation in(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -80,7 +80,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation inAll(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation inAll(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -90,7 +90,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation inp(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation inp(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -100,7 +100,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation inpS(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation inpS(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -110,7 +110,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation inS(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation inS(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -120,7 +120,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation no(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation no(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -130,7 +130,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation noAll(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation noAll(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -140,7 +140,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation nop(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation nop(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -150,7 +150,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation nopS(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation nopS(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -160,7 +160,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation noS(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation noS(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -170,7 +170,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation out(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation out(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -180,7 +180,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation outAll(InputEvent ev)
+    RespectOperation outAll(InputEvent ev)
             throws OperationNotPossibleException;
 
     /**
@@ -191,7 +191,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation outS(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation outS(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -201,7 +201,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation rd(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation rd(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * Retrieves all tuples in the tuple centre matching the template without
@@ -213,7 +213,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation rdAll(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation rdAll(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -223,7 +223,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation rdp(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation rdp(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -233,7 +233,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation rdpS(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation rdpS(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -243,7 +243,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation rdS(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation rdS(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -255,7 +255,7 @@ public interface IRespectTC {
      * @throws InvalidLogicTupleException
      *             if the given argument is not a valid Prolog tuple
      */
-    IRespectOperation set(InputEvent ev) throws OperationNotPossibleException,
+    RespectOperation set(InputEvent ev) throws OperationNotPossibleException,
             InvalidLogicTupleException;
 
     /**
@@ -267,7 +267,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation setS(final LogicTuple t, final InputEvent ev)
+    RespectOperation setS(final LogicTuple t, final InputEvent ev)
             throws OperationNotPossibleException;
 
     /**
@@ -280,8 +280,8 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation setSasynch(final InputEvent ev,
-            final RespectSpecification spec)
+    RespectOperation setSasynch(final InputEvent ev,
+                                final RespectSpecification spec)
             throws OperationNotPossibleException;
 
     /**
@@ -296,8 +296,8 @@ public interface IRespectTC {
      * @throws InvalidSpecificationException
      *             if the given ReSpecT specification has syntactical errors
      */
-    IRespectOperation setSsynch(final InputEvent ev,
-            final RespectSpecification spec)
+    RespectOperation setSsynch(final InputEvent ev,
+                               final RespectSpecification spec)
             throws OperationNotPossibleException, InvalidSpecificationException;
 
     /**
@@ -308,7 +308,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation spawn(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation spawn(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * Retrieves all tuples in the tuple centre matching the template
@@ -319,7 +319,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation uin(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation uin(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * Retrieves all tuples in the tuple centre matching the template
@@ -330,7 +330,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation uinp(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation uinp(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -340,7 +340,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation uno(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation uno(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * 
@@ -350,18 +350,7 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation unop(InputEvent ev) throws OperationNotPossibleException;
-
-    /**
-     * Retrieves all tuples in the tuple centre matching the template
-     * 
-     * @param ev
-     *            the event to handle
-     * @return the operation requested
-     * @throws OperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     */
-    IRespectOperation urd(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation unop(InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * Retrieves all tuples in the tuple centre matching the template
@@ -372,5 +361,16 @@ public interface IRespectTC {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    IRespectOperation urdp(InputEvent ev) throws OperationNotPossibleException;
+    RespectOperation urd(InputEvent ev) throws OperationNotPossibleException;
+
+    /**
+     * Retrieves all tuples in the tuple centre matching the template
+     * 
+     * @param ev
+     *            the event to handle
+     * @return the operation requested
+     * @throws OperationNotPossibleException
+     *             if the requested operation cannot be carried out
+     */
+    RespectOperation urdp(InputEvent ev) throws OperationNotPossibleException;
 }

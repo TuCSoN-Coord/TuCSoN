@@ -12,13 +12,14 @@ import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.logictuple.exceptions.InvalidLogicTupleOperationException;
 import alice.logictuple.exceptions.InvalidVarNameException;
-import alice.respect.core.RespectOperation;
+import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.core.InputEvent;
+import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuprolog.InvalidTermException;
 
 /**
@@ -69,8 +70,8 @@ public class NodeManagementAgent extends Thread {
             while (true) {
                 LogicTuple cmd;
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.inCode(), new LogicTuple("cmd",
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.IN, new LogicTuple("cmd",
                                 new Var("X")), null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.nodeManAid,
@@ -79,7 +80,7 @@ public class NodeManagementAgent extends Thread {
                 cmd = (LogicTuple) TupleCentreContainer.doBlockingOperation(ev);
                 // cmd =
                 // (LogicTuple) TupleCentreContainer.doBlockingOperation(
-                // TucsonOperation.inCode(), this.nodeManAid,
+                // TupleCentreOpType.IN, this.nodeManAid,
                 // this.config,
                 // new LogicTuple("cmd", new Var("X")));
                 if (cmd != null) {
@@ -125,8 +126,8 @@ public class NodeManagementAgent extends Thread {
             if (result) {
                 try {
                     // Operation Make
-                    final RespectOperation opRequested = RespectOperation.make(
-                            TucsonOperation.outCode(), new LogicTuple(
+                    final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                            TupleCentreOpType.OUT, new LogicTuple(
                                     "cmd_result", new Value("destroy"),
                                     new Value("ok")), null);
                     // InputEvent Creation
@@ -137,15 +138,15 @@ public class NodeManagementAgent extends Thread {
                 } catch (final InvalidLogicTupleException e) {
                     e.printStackTrace();
                 }
-                // TupleCentreContainer.doBlockingOperation(TucsonOperation
+                // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                 // .outCode(), this.nodeManAid, this.config,
                 // new LogicTuple("cmd_result", new Value("destroy"),
                 // new Value("ok")));
             } else {
                 try {
                     // Operation Make
-                    final RespectOperation opRequested = RespectOperation.make(
-                            TucsonOperation.outCode(), new LogicTuple(
+                    final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                            TupleCentreOpType.OUT, new LogicTuple(
                                     "cmd_result", new Value("destroy"),
                                     new Value("failed")), null);
                     // InputEvent Creation
@@ -156,7 +157,7 @@ public class NodeManagementAgent extends Thread {
                 } catch (final InvalidLogicTupleException e) {
                     e.printStackTrace();
                 }
-                // TupleCentreContainer.doBlockingOperation(TucsonOperation
+                // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                 // .outCode(), this.nodeManAid, this.config,
                 // new LogicTuple("cmd_result", new Value("destroy"),
                 // new Value("failed")));
@@ -166,8 +167,8 @@ public class NodeManagementAgent extends Thread {
             	NodeManagementAgent.log("Enabling persistency...");
             	this.node.enablePersistency(new LogicTuple(cmd.getArg(0)));
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.outCode(), new LogicTuple(
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.OUT, new LogicTuple(
                                 "cmd_result", cmd, new Value("ok")), null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.nodeManAid,
@@ -178,7 +179,7 @@ public class NodeManagementAgent extends Thread {
             } catch (final InvalidLogicTupleException e) {
                 e.printStackTrace();
             }
-            // TupleCentreContainer.doBlockingOperation(TucsonOperation.outCode(),
+            // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.OUT,
             // this.nodeManAid, this.config, new LogicTuple("cmd_result",
             // cmd, new Value("ok")));
         } else if ("disable_persistency".equals(name)) {
@@ -186,8 +187,8 @@ public class NodeManagementAgent extends Thread {
             	NodeManagementAgent.log("Disabling persistency...");
                 this.node.disablePersistency(new LogicTuple(cmd.getArg(0)));
                 // Operation Make
-                final RespectOperation opRequested = RespectOperation.make(
-                        TucsonOperation.outCode(), new LogicTuple(
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                        TupleCentreOpType.OUT, new LogicTuple(
                                 "cmd_result", new Value("disable_persistency"),
                                 new Value("ok")), null);
                 // InputEvent Creation
@@ -199,7 +200,7 @@ public class NodeManagementAgent extends Thread {
             } catch (final InvalidLogicTupleException e) {
                 e.printStackTrace();
             }
-            // TupleCentreContainer.doBlockingOperation(TucsonOperation.outCode(),
+            // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.OUT,
             // this.nodeManAid, this.config, new LogicTuple("cmd_result",
             // new Value("disable_persistency"), new Value("ok")));
         } else if ("enable_observability".equals(name)) {

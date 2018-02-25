@@ -4,10 +4,11 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.respect.api.ISpatialContext;
 import alice.respect.api.place.IPlace;
-import alice.respect.core.RespectOperation;
+import alice.respect.core.RespectOperationDefault;
 import alice.respect.core.RespectTCContainer;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.core.InputEvent;
+import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
  * This class represent the listener that listens for geolocation service
@@ -66,21 +67,21 @@ public class GeolocationServiceListener implements IGeolocationServiceListener {
     }
 
     @Override
-    public void moving(final int type, final String space, final IPlace place) {
+    public void moving(final TupleCentreOpType type, final String space, final IPlace place) {
         try {
             final ISpatialContext context = RespectTCContainer
                     .getRespectTCContainer().getSpatialContext(
                             this.tcId.getInternalTupleCentreId());
             LogicTuple tuple = null;
-            RespectOperation op = null;
-            if (type == RespectOperation.OPTYPE_FROM) {
+            RespectOperationDefault op = null;
+            if (type == TupleCentreOpType.FROM) {
                 tuple = LogicTuple.parse("from(" + space + "," + place.toTerm()
                         + ")");
-                op = RespectOperation.makeFrom(tuple, null);
-            } else if (type == RespectOperation.OPTYPE_TO) {
+                op = RespectOperationDefault.makeFrom(tuple, null);
+            } else if (type == TupleCentreOpType.TO) {
                 tuple = LogicTuple.parse("to(" + space + "," + place.toTerm()
                         + ")");
-                op = RespectOperation.makeTo(tuple, null);
+                op = RespectOperationDefault.makeTo(tuple, null);
             }
             final InputEvent ev = new InputEvent(this.service.getServiceId(),
                     op, this.tcId, context.getCurrentTime(),

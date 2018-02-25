@@ -19,7 +19,7 @@
  */
 package alice.tucson.asynchSupport;
 
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
@@ -101,7 +101,7 @@ public class TucsonListenerWrapper implements TucsonOperationCompletionListener 
     }
 
     @Override
-    public void operationCompleted(final ITucsonOperation top) {
+    public void operationCompleted(final TucsonOperation top) {
         /*
          * Not used atm
          */

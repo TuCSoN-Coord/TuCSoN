@@ -11,8 +11,8 @@ import alice.respect.situatedness.AbstractTransducer;
 import alice.respect.situatedness.ISimpleProbe;
 import alice.respect.situatedness.TransducerId;
 import alice.respect.situatedness.TransducerStandardInterface;
-import alice.tucson.api.EnhancedSynchACC;
-import alice.tucson.api.ITucsonOperation;
+import alice.tucson.api.acc.EnhancedSyncACC;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -34,7 +34,7 @@ public class ActualActuator implements ISimpleProbe {
 
     private static final String DEFAULT_HOST = "localhost";
     private static final String DEFAULT_PORT = "20504";
-    private EnhancedSynchACC acc;
+    private EnhancedSyncACC acc;
     private final AbstractProbeId pid;
     private TucsonTupleCentreId tempTc;
     private TransducerId tid;
@@ -122,7 +122,7 @@ public class ActualActuator implements ISimpleProbe {
         }
         try {
             final LogicTuple template = LogicTuple.parse("temp(_)");
-            final ITucsonOperation op = this.acc.inAll(this.tempTc, template,
+            final TucsonOperation op = this.acc.inAll(this.tempTc, template,
                     null);
             if (op.isResultSuccess()) {
                 final LogicTuple tempTuple = LogicTuple.parse("temp(" + value
