@@ -34,7 +34,6 @@ import alice.tucson.service.NegotiationACCProxyAgentSide;
 public final class TucsonMetaACC {
 
     private static final int DEFAULT_PORT = 20504;
-    private static final String VERSION = "TuCSoN-1.13.0.0301-beta";
 
     // TODO: Controllo password
     /**
@@ -201,14 +200,6 @@ public final class TucsonMetaACC {
             final String netid, final int portno) {
         return TucsonMetaACC.getNegotiationContext(aid.toString(), netid,
                 portno);
-    }
-
-    /**
-     *
-     * @return the current version of the TuCSoN Coordination Infrastructure
-     */
-    public static String getVersion() {
-        return TucsonMetaACC.VERSION;
     }
 
     private TucsonMetaACC() {

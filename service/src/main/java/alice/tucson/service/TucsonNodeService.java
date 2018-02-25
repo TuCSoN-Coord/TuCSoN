@@ -46,7 +46,6 @@ import alice.respect.core.EnvConfigAgent;
 import alice.respect.core.RespectOperationDefault;
 import alice.respect.core.RespectTC;
 import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.InvalidConfigException;
 import alice.tucson.api.exceptions.TucsonGenericException;
@@ -105,7 +104,7 @@ public class TucsonNodeService {
      * @return the String representation of the TuCSoN version
      */
     public static String getVersion() {
-        return TucsonMetaACC.getVersion();
+        return TucsonInfo.getVersion();
     }
 
     public static boolean isInstalled(final int timeout)

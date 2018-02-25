@@ -14,7 +14,7 @@ package alice.tucson.network;
 
 import java.io.IOException;
 import java.util.Properties;
-import alice.tucson.api.TucsonMetaACC;
+
 import alice.tucson.introspection.InspectorContextEvent;
 import alice.tucson.introspection.NewInspectorMsg;
 import alice.tucson.introspection.NodeMsg;
@@ -23,6 +23,7 @@ import alice.tucson.network.exceptions.DialogCloseException;
 import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
 import alice.tucson.service.ACCDescription;
+import alice.tucson.service.TucsonInfo;
 
 /**
  *
@@ -321,7 +322,7 @@ public abstract class AbstractTucsonProtocol implements java.io.Serializable {
      */
     public void sendNodeActiveReply() throws DialogSendException {
         try {
-            this.send(TucsonMetaACC.getVersion());
+            this.send(TucsonInfo.getVersion());
             this.flush();
         } catch (final IOException e) {
             throw new DialogSendException(e);
