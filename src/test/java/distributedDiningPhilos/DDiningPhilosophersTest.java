@@ -1,28 +1,29 @@
 package distributedDiningPhilos;
 
 import java.io.IOException;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tucson.api.acc.RootACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.utilities.Utils;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
 /**
  *
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public class DDiningPhilosophersTest extends AbstractTucsonAgent {
+public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
 
     private static final int DEF_PORT = 20504;
     private static final int N_PHILOSOPHERS = 10;
@@ -59,17 +60,8 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation arg0) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     @Override

@@ -21,6 +21,7 @@ import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.service.ACCProxyAgentSide;
 import alice.tucson.service.AdminACCProxyAgentSide;
 import alice.tucson.service.NegotiationACCProxyAgentSide;
+import alice.tucson.service.TucsonInfo;
 
 /**
  * TuCSoN Meta Agent Coordination Context. It is exploited by TuCSoN agents to
@@ -32,8 +33,6 @@ import alice.tucson.service.NegotiationACCProxyAgentSide;
  *
  */
 public final class TucsonMetaACC {
-
-    private static final int DEFAULT_PORT = 20504;
 
     // TODO: Controllo password
     /**
@@ -97,7 +96,7 @@ public final class TucsonMetaACC {
      */
     public static EnhancedACC getContext(final TucsonAgentId aid) {
         return TucsonMetaACC.getContext(aid, "localhost",
-                TucsonMetaACC.DEFAULT_PORT);
+                TucsonInfo.getDefaultPortNumber());
     }
 
     /**
@@ -138,7 +137,7 @@ public final class TucsonMetaACC {
      */
     public static NegotiationACC getNegotiationContext(final String aid) {
         return TucsonMetaACC.getNegotiationContext(aid, "localhost",
-                TucsonMetaACC.DEFAULT_PORT);
+                TucsonInfo.getDefaultPortNumber());
     }
 
     /**

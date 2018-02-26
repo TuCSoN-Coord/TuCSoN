@@ -1,21 +1,23 @@
 package masterWorkers;
 
 import java.math.BigInteger;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.RootACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
 /**
  * Worker thread of a master-worker architecture. Given a TuCSoN Node (hopefully
@@ -67,24 +69,9 @@ public class WorkerAgent extends AbstractTucsonAgent {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation arg0) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation op) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     private BigInteger computeFactorial(final TupleArgument varValue) {
@@ -115,7 +102,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
             while (!this.die) {
                 this.say("Checking termination...");
                 op = this.acc.inp(this.tid,
-                        LogicTuple.parse("die(" + this.myName() + ")"), null);
+                        LogicTuple.parse("die(" + this.getTucsonAgentId().getAgentName() + ")"), null);
                 /*
                  * Only upon success the searched tuple was found.
                  */

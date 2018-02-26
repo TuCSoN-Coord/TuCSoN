@@ -1,21 +1,22 @@
 package timedDiningPhilos;
 
 import java.io.IOException;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tucson.api.acc.RootACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.utilities.Utils;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
 /**
  * Classic Dining Philosophers coordination problem tackled by adopting a clear
@@ -24,7 +25,7 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public class TDiningPhilosophersTest extends AbstractTucsonAgent {
+public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
 
     private static final int EATING_STEP = 1000;
     /*
@@ -74,17 +75,8 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation arg0) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     @Override

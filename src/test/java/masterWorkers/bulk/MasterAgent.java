@@ -3,20 +3,22 @@ package masterWorkers.bulk;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.RootACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
 /**
  * Master thread of a master-worker architecture. Given a list of TuCSoN Nodes
@@ -25,7 +27,7 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
  *
  * @author s.mariani@unibo.it
  */
-public class MasterAgent extends AbstractTucsonAgent {
+public class MasterAgent extends AbstractTucsonAgent<RootACC> {
 
     /**
      * @param args
@@ -85,24 +87,9 @@ public class MasterAgent extends AbstractTucsonAgent {
         this.pendings = new HashMap<Integer, Integer>();
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation arg0) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation op) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     private int drawRandomInt() {
@@ -126,7 +113,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                 this.say("Checking termination...");
                 for (int i = 0; i < this.tids.size(); i++) {
                     op = this.acc.inp(this.tids.get(i),
-                            LogicTuple.parse("die(" + this.myName() + ")"),
+                            LogicTuple.parse("die(" + this.getTucsonAgentId().getAgentName() + ")"),
                             (Long) null);
                     /*
                      * Only upon success the searched tuple was found. NB: we do
@@ -155,7 +142,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                          */
                         num = this.drawRandomInt();
                         job = LogicTuple.parse("fact(" + "master("
-                                + this.myName() + ")," + "num(" + num + "),"
+                                + this.getTucsonAgentId().getAgentName() + ")," + "num(" + num + "),"
                                 + "reqID(" + this.reqID + ")" + ")");
                         this.say("Putting job: " + job.toString());
                         /*
@@ -185,7 +172,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                          * ...this time to retrieve factorial results.
                          */
                         templ = LogicTuple.parse("res(" + "master("
-                                + this.myName() + ")," + "fact(F),"
+                                + this.getTucsonAgentId().getAgentName() + ")," + "fact(F),"
                                 + "reqID(N)" + ")");
                         /*
                          * No longer a suspensive primitive. We need to keep

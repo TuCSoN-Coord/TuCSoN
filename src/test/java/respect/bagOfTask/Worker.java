@@ -4,17 +4,19 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.RootACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tucson.service.TucsonInfo;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
 /**
  * Worker thread of a bag-of-task architecture. Given a TuCSoN Node (optional)
@@ -25,42 +27,27 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
  *
  * @author s.mariani@unibo.it
  */
-public class Worker extends AbstractTucsonAgent {
+public class Worker extends AbstractTucsonAgent<RootACC> {
 
     private final String ip;
-    private final String port;
+    private final int port;
 
     public Worker(final String aid) throws TucsonInvalidAgentIdException {
         super(aid);
         this.ip = "localhost";
-        this.port = "20504";
+        this.port = TucsonInfo.getDefaultPortNumber();
     }
 
     public Worker(final String aid, final String ip, final int port)
             throws TucsonInvalidAgentIdException {
         super(aid, ip, port);
         this.ip = ip;
-        this.port = "" + port;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
-    @Override
-    public void operationCompleted(final AbstractTupleCentreOperation arg0) {
-        /*
-         * not used atm
-         */
+        this.port = port;
     }
 
     @Override
-    public void operationCompleted(final TucsonOperation arg0) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     private int sub(final TupleArgument arg, final TupleArgument arg2) {
@@ -87,7 +74,7 @@ public class Worker extends AbstractTucsonAgent {
                     .getNegotiationContext(this.getTucsonAgentId());
             acc = negAcc.playDefaultRole();
             final TucsonTupleCentreId ttcid = new TucsonTupleCentreId(
-                    "bagoftask", this.ip, this.port);
+                    "bagoftask", this.ip, String.valueOf(this.port));
             LogicTuple taskTempl;
             TucsonOperation taskOp;
             LogicTuple task;

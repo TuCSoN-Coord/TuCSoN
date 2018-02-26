@@ -3,23 +3,24 @@ package diningPhilos;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.RootACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
 /**
  * A Dining Philosopher: thinks and eats in an endless loop.
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public class DiningPhilosopher extends AbstractTucsonAgent {
+public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
 
     private static final int EATING_TIME = 5000;
     private static final int THINKING_TIME = 5000;
@@ -50,20 +51,6 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
         this.myTable = table;
         this.chop1 = left;
         this.chop2 = right;
-    }
-
-    @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation arg0) {
-        /*
-         * not used atm
-         */
     }
 
     private boolean acquireChops() {
@@ -129,6 +116,11 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
     }
 
     @Override
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
+    }
+
+    @Override
     protected void main() {
         try {
             final NegotiationACC negAcc = TucsonMetaACC
@@ -143,7 +135,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
         } catch (final UnreachableNodeException e) {
             e.printStackTrace();
         }
-        // this.acc = this.getContext();
+        // this.acc = this.getACC();
         // Ugly but effective, pardon me...
         while (true) {
             this.say("Now thinking...");

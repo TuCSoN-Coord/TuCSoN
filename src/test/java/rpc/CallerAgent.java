@@ -4,24 +4,25 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.RootACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
 /**
  * Caller agent in a RPC scenario.
  *
  * @author s.mariani@unibo.it
  */
-public class CallerAgent extends AbstractTucsonAgent {
+public class CallerAgent extends AbstractTucsonAgent<RootACC> {
 
     /**
      * @param args
@@ -59,24 +60,9 @@ public class CallerAgent extends AbstractTucsonAgent {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation arg0) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation arg0) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     private int drawRandomInt() {
@@ -104,14 +90,14 @@ public class CallerAgent extends AbstractTucsonAgent {
                 this.say("Calling factorial computation for " + arg + "...");
                 this.acc.out(
                         this.tid,
-                        LogicTuple.parse("factorial(caller(" + this.myName()
+                        LogicTuple.parse("factorial(caller(" + this.getTucsonAgentId().getAgentName()
                                 + ")," + "arg(" + arg + "))"), null);
                 /*
                  * Completion phase (not TuCSoN completion!).
                  */
                 op = this.acc.in(
                         this.tid,
-                        LogicTuple.parse("result(caller(" + this.myName()
+                        LogicTuple.parse("result(caller(" + this.getTucsonAgentId().getAgentName()
                                 + ")," + "res(R))"), null);
                 reply = op.getLogicTupleResult();
                 final TupleArgument res = reply.getArg("res").getArg(0);

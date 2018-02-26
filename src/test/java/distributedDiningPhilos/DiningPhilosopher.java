@@ -3,23 +3,24 @@ package distributedDiningPhilos;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.RootACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
 /**
  *
  * @author ste (mailto: s.mariani@unibo.it)
  *
  */
-public class DiningPhilosopher extends AbstractTucsonAgent {
+public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
 
     private static final int EATING_TIME = 5000;
     private static final int THINKING_TIME = 5000;
@@ -44,17 +45,8 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation arg0) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     private void eating() {
@@ -91,7 +83,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
-        // final OrdinaryAndSpecificationSyncACC acc = this.getContext();
+        // final OrdinaryAndSpecificationSyncACC acc = this.getACC();
         TucsonOperation op;
         // Ugly but effective, pardon me...
         while (true) {

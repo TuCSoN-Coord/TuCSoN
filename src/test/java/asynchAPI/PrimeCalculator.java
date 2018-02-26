@@ -22,7 +22,10 @@ package asynchAPI;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonOperationCompletionListener;
@@ -49,7 +52,7 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  *
  */
-public class PrimeCalculator extends AbstractTucsonAgent {
+public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
 
     /**
      * 
@@ -189,24 +192,15 @@ public class PrimeCalculator extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        /*
-         * Not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation op) {
-        /*
-         * Not used atm
-         */
+    protected EnhancedACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return TucsonMetaACC.getContext(aid, networkAddress, portNumber);
     }
 
     @Override
     protected void main() {
         try {
             super.say("Started");
-            final EnhancedAsyncACC acc = this.getContext();
+            final EnhancedAsyncACC acc = this.getACC();
             final TucsonTupleCentreId tid = new TucsonTupleCentreId("default",
                     "localhost", "20504");
             final AsynchOpsHelper helper = new AsynchOpsHelper("'helper4"
@@ -214,7 +208,7 @@ public class PrimeCalculator extends AbstractTucsonAgent {
             final LogicTuple tuple = LogicTuple.parse("calcprime(X)");
             final Inp inp = new Inp(tid, tuple);
             helper.enqueue(inp, new InpHandler(acc, tid, helper));
-            final EnhancedSyncACC accSynch = this.getContext();
+            final EnhancedSyncACC accSynch = this.getACC();
             final LogicTuple stopTuple = LogicTuple.parse("stop(primecalc)");
             final In inStop = new In(tid, stopTuple);
             inStop.executeSynch(accSynch, null);

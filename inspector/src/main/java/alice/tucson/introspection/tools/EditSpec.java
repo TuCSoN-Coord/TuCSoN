@@ -19,18 +19,19 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
-import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tucson.service.ACCProxyAgentSide;
 
 /**
  *
@@ -96,7 +97,10 @@ public class EditSpec extends javax.swing.JFrame {
         this.pack();
         this.tid = t;
         try {
-            this.context = TucsonMetaACC.getContext(new TucsonAgentId(
+            // TODO how to gain ACC????
+
+            // TODO Temporary solution!!! ACCProxyAgentSide will be moved soon to "client" sub-project
+            this.context = new ACCProxyAgentSide(new TucsonAgentId(
                     "'$Inspector-" + System.currentTimeMillis() + "'"));
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
