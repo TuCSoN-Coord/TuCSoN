@@ -43,6 +43,7 @@ import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.AbstractTucsonProtocol;
 import alice.tucson.network.TucsonMsgRequest;
 import alice.tucson.network.exceptions.DialogException;
+import alice.tucson.service.tools.EncryptionTools;
 import alice.tucson.service.tools.TucsonACCTool;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
@@ -235,7 +236,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
         if (this.username != null && !this.username.equalsIgnoreCase("")
                 && this.password != null && !this.password.equalsIgnoreCase("")) {
             this.profile.setProperty("credentials", "'" + this.username + ":"
-                    + TucsonACCTool.encrypt(this.password) + "'");
+                    + EncryptionTools.encrypt(this.password) + "'");
         }
         final TucsonTupleCentreId tid = new TucsonTupleCentreId(
                 ACCProxyAgentSide.TC_ORG, this.node, "" + this.port);
