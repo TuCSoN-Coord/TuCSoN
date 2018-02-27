@@ -1,6 +1,7 @@
 package alice.tucson.network;
 
 import alice.tucson.network.exceptions.IllegalPortNumberException;
+import alice.tucson.service.TucsonInfo;
 
 /**
  * <p>
@@ -17,7 +18,6 @@ import alice.tucson.network.exceptions.IllegalPortNumberException;
 public final class TPConfig {
 
     // TCP configuration ----------------------------------
-    private static final int DEFAULT_TCP_PORT = 20504;
     private static final int MAX_UNBOUND_PORT = 64000;
 
     /**
@@ -26,7 +26,7 @@ public final class TPConfig {
      * @return a valid TCP port number
      */
     public static int getDefaultTcpPort() {
-        return TPConfig.DEFAULT_TCP_PORT;
+        return TucsonInfo.getDefaultPortNumber();
     }
 
     // Generic configuration ------------------------------
@@ -49,7 +49,7 @@ public final class TPConfig {
      */
     public int getNodeTcpPort() {
         if (this.tcpPort < 0) {
-            return TPConfig.DEFAULT_TCP_PORT;
+            return TucsonInfo.getDefaultPortNumber();
         }
         return this.tcpPort;
     }

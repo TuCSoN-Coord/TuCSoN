@@ -11,6 +11,7 @@ import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.introspection.Inspector;
 import alice.tucson.introspection.InspectorContextEvent;
 import alice.tucson.introspection.InspectorProtocol;
+import alice.tucson.introspection.InspectorProtocolDefault;
 import alice.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.core.Reaction;
@@ -38,9 +39,9 @@ public class Inspector4Gui extends Inspector {
 	public Inspector4Gui(final TucsonTupleCentreId arg1) throws Exception {
 		super(new TucsonAgentId("inspector4gui_" + System.currentTimeMillis()), arg1, true);	
 		this.observers = new ArrayList<>();
-		protocol = new InspectorProtocol();
-		protocol.setTsetObservType(InspectorProtocol.PROACTIVE_OBSERVATION);
-		protocol.setReactionsObservType(InspectorProtocol.PROACTIVE_OBSERVATION);
+		protocol = new InspectorProtocolDefault();
+		protocol.setTsetObservType(InspectorProtocol.ObsType.PROACTIVE);
+		protocol.setReactionsObservType(InspectorProtocol.ObsType.PROACTIVE);
 		getContext().setProtocol(protocol);
 	}
 	

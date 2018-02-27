@@ -2,6 +2,9 @@ package alice.tucson.network;
 
 import java.io.Serializable;
 
+import alice.tucson.introspection.InspectorContextEvent;
+import alice.tucson.introspection.NewInspectorMsg;
+import alice.tucson.introspection.NodeMsg;
 import alice.tucson.network.exceptions.DialogAcceptException;
 import alice.tucson.network.exceptions.DialogCloseException;
 import alice.tucson.network.exceptions.DialogReceiveException;

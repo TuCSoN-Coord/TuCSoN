@@ -150,7 +150,7 @@ public class InspectorContextStub implements InspectorContext {
     @Override
     public void setProtocol(final InspectorProtocol p)
             throws DialogSendException {
-        final InspectorProtocol newp = new InspectorProtocol();
+        final InspectorProtocol newp = new InspectorProtocolDefault();
         newp.setTsetObservType(p.getTsetObservType());
         newp.setTsetFilter(p.getTsetFilter());
         newp.setWsetFilter(p.getWsetFilter());
@@ -187,7 +187,7 @@ public class InspectorContextStub implements InspectorContext {
             this.dialog.sendEnterRequest(this.profile);
             this.dialog.receiveEnterRequestAnswer();
             if (this.dialog.isEnterRequestAccepted()) {
-                this.protocol = new InspectorProtocol();
+                this.protocol = new InspectorProtocolDefault();
                 final NewInspectorMsg msg = new NewInspectorMsg(this.id,
                         tc.toString(), this.protocol);
                 this.dialog.sendInspectorMsg(msg);

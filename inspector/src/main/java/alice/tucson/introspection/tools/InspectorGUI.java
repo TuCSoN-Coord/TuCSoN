@@ -31,6 +31,7 @@ import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.introspection.InspectorContext;
 import alice.tucson.introspection.InspectorProtocol;
+import alice.tucson.introspection.InspectorProtocolDefault;
 import alice.tucson.network.exceptions.DialogSendException;
 
 /**
@@ -141,7 +142,7 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Package-visible reference to the Inspector session.
      */
-    protected InspectorProtocol protocol = new InspectorProtocol();
+    protected InspectorProtocol protocol = new InspectorProtocolDefault();
     /**
      * Package-visible reference to the inspected tuplecentre.
      */
@@ -190,7 +191,7 @@ public class InspectorGUI extends javax.swing.JFrame {
      */
     public void showTupleCenter() {
         this.protocol
-                .setTsetObservType(InspectorProtocol.PROACTIVE_OBSERVATION);
+                .setTsetObservType(InspectorProtocol.ObsType.PROACTIVE);
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {
@@ -223,7 +224,7 @@ public class InspectorGUI extends javax.swing.JFrame {
 
     public void onEventViewerExit() {
         this.protocol
-                .setPendingQueryObservType(InspectorProtocol.NO_OBSERVATION);
+                .setPendingQueryObservType(InspectorProtocol.ObsType.DISABLED);
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {
@@ -708,7 +709,7 @@ public class InspectorGUI extends javax.swing.JFrame {
      */
     private void pendingBtnActionPerformed() {
         this.protocol
-                .setPendingQueryObservType(InspectorProtocol.PROACTIVE_OBSERVATION);
+                .setPendingQueryObservType(InspectorProtocol.ObsType.PROACTIVE);
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {
@@ -734,7 +735,7 @@ public class InspectorGUI extends javax.swing.JFrame {
     private void stepObModeActionPerformed(final ActionEvent evt) {
         if (evt.getActionCommand().equals("Inspect Like The Tuple Space")) {
             this.protocol
-                    .setStepModeObservType(InspectorProtocol.STEPMODE_TUPLESPACE_OBSERVATION);
+                    .setStepModeObservType(InspectorProtocol.ObsType.STEP_MODE_TUPLE_SPACE);
             try {
                 this.agent.getContext().setProtocol(this.protocol);
             } catch (final DialogSendException e) {
@@ -742,7 +743,7 @@ public class InspectorGUI extends javax.swing.JFrame {
             }
         } else {
             this.protocol
-                    .setStepModeObservType(InspectorProtocol.STEPMODE_AGENT_OBSERVATION);
+                    .setStepModeObservType(InspectorProtocol.ObsType.STEP_MODE_AGENT);
             try {
                 this.agent.getContext().setProtocol(this.protocol);
             } catch (final DialogSendException e) {
@@ -757,7 +758,7 @@ public class InspectorGUI extends javax.swing.JFrame {
      */
     private void trigReactsBtnActionPerformed() {
         this.protocol
-                .setReactionsObservType(InspectorProtocol.PROACTIVE_OBSERVATION);
+                .setReactionsObservType(InspectorProtocol.ObsType.PROACTIVE);
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {
@@ -772,7 +773,7 @@ public class InspectorGUI extends javax.swing.JFrame {
      */
     private void tuplesBtnActionPerformed() {
         this.protocol
-                .setTsetObservType(InspectorProtocol.PROACTIVE_OBSERVATION);
+                .setTsetObservType(InspectorProtocol.ObsType.PROACTIVE);
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {
@@ -809,7 +810,7 @@ public class InspectorGUI extends javax.swing.JFrame {
     }
 
     protected void onReactionViewerExit() {
-        this.protocol.setReactionsObservType(InspectorProtocol.NO_OBSERVATION);
+        this.protocol.setReactionsObservType(InspectorProtocol.ObsType.DISABLED);
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {
@@ -821,7 +822,7 @@ public class InspectorGUI extends javax.swing.JFrame {
      * 'On-exit' callbacks.
      */
     protected void onTupleViewerExit() {
-        this.protocol.setTsetObservType(InspectorProtocol.NO_OBSERVATION);
+        this.protocol.setTsetObservType(InspectorProtocol.ObsType.DISABLED);
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {

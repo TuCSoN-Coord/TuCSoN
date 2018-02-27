@@ -24,6 +24,7 @@ import alice.respect.api.TupleCentreId;
 import alice.respect.situatedness.TransducerId;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.introspection.InspectorContextEvent;
 import alice.tucson.introspection.WSetEvent;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.core.TriggeredReaction;
@@ -141,7 +142,7 @@ public class InspectorCore extends alice.tucson.introspection.Inspector {
 
     @Override
     public void onContextEvent(
-            final alice.tucson.introspection.InspectorContextEvent msg) {
+            final InspectorContextEvent msg) {
         if (msg.getTuples() != null) {
             final TupleViewer viewer = this.form.getTupleForm();
             final StringBuffer st = new StringBuffer();

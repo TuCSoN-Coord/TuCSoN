@@ -3,9 +3,12 @@ package alice.tucson.introspection4gui;
 import java.util.Set;
 
 import alice.logictuple.LogicTuple;
-import alice.tucson.introspection.InspectorContextEvent;
+import alice.tucson.introspection.InspectorContextEventDefault;
 
-public class Inspector4GuiContextEvent extends InspectorContextEvent {
+/**
+ * TODO add documentation
+ */
+public class Inspector4GuiContextEvent extends InspectorContextEventDefault {
 
 	private static final long serialVersionUID = 6050813675205357521L;
 	

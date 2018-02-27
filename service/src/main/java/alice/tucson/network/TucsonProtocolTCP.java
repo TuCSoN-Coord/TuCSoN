@@ -278,7 +278,7 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * (non-Javadoc)
      * @see
      * alice.tucson.network.AbstractTucsonProtocol#sendInspectorEvent(alice.
-     * tucson.introspection.InspectorContextEvent)
+     * tucson.introspection.InspectorContextEventDefault)
      */
     @Override
     public void sendInspectorEvent(final InspectorContextEvent msg)
