@@ -23,7 +23,7 @@ public class AgentGeolocationServiceListener implements
     /**
      * Listener identifier
      */
-    private final AbstractGeolocationService service;
+    private final IGeolocationService service;
     /**
      * Identifier of the associated tuple centre
      */
@@ -41,7 +41,7 @@ public class AgentGeolocationServiceListener implements
      */
     public AgentGeolocationServiceListener(
             final ACCProxyAgentSide accProxyAgentSide,
-            final AbstractGeolocationService s, final TucsonTupleCentreId ttci) {
+            final IGeolocationService s, final TucsonTupleCentreId ttci) {
         this.acc = accProxyAgentSide;
         this.service = s;
         this.tcId = ttci;
@@ -56,7 +56,7 @@ public class AgentGeolocationServiceListener implements
     }
 
     @Override
-    public AbstractGeolocationService getService() {
+    public IGeolocationService getService() {
         return this.service;
     }
 

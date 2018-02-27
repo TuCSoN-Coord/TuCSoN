@@ -23,7 +23,7 @@ public class GeolocationServiceListener implements IGeolocationServiceListener {
     /**
      * Listener identifier
      */
-    private final AbstractGeolocationService service;
+    private final IGeolocationService service;
     /**
      * Identifier of the associated tuple centre
      */
@@ -37,14 +37,14 @@ public class GeolocationServiceListener implements IGeolocationServiceListener {
      * @param ttci
      *            the associated tuple centre identifier
      */
-    public GeolocationServiceListener(final AbstractGeolocationService s,
+    public GeolocationServiceListener(final IGeolocationService s,
             final TucsonTupleCentreId ttci) {
         this.service = s;
         this.tcId = ttci;
     }
 
     @Override
-    public AbstractGeolocationService getService() {
+    public IGeolocationService getService() {
         return this.service;
     }
 

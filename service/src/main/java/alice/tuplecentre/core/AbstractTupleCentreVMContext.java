@@ -22,8 +22,8 @@ import java.util.Map;
 import alice.respect.api.IRespectTC;
 import alice.respect.api.geolocation.PlatformUtils;
 import alice.respect.api.geolocation.Position;
-import alice.respect.api.geolocation.service.AbstractGeolocationService;
 import alice.respect.api.geolocation.service.GeolocationServiceManager;
+import alice.respect.api.geolocation.service.IGeolocationService;
 import alice.respect.core.RespectVM;
 import alice.respect.core.StepMonitor;
 import alice.tuplecentre.api.AgentId;
@@ -689,7 +689,7 @@ public abstract class AbstractTupleCentreVMContext implements
                 .getGeolocationManager();
         if (geolocationManager.getServices().size() > 0) {
             final int platform = PlatformUtils.getPlatform();
-            final AbstractGeolocationService geoService = GeolocationServiceManager
+            final IGeolocationService geoService = GeolocationServiceManager
                     .getGeolocationManager().getAppositeService(platform);
             if (geoService != null && !geoService.isRunning()) {
                 geoService.start();

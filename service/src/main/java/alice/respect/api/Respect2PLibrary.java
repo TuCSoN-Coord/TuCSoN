@@ -33,8 +33,8 @@ import alice.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.respect.api.geolocation.GeoUtils;
 import alice.respect.api.geolocation.PlatformUtils;
 import alice.respect.api.geolocation.Position;
-import alice.respect.api.geolocation.service.AbstractGeolocationService;
 import alice.respect.api.geolocation.service.GeolocationServiceManager;
+import alice.respect.api.geolocation.service.IGeolocationService;
 import alice.respect.core.InternalEvent;
 import alice.respect.core.InternalOperation;
 import alice.respect.core.RespectOperationDefault;
@@ -1184,7 +1184,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                     .getGeolocationManager();
             if (geolocationManager.getServices().size() > 0) {
                 final int platform = PlatformUtils.getPlatform();
-                final AbstractGeolocationService geoService = GeolocationServiceManager
+                final IGeolocationService geoService = GeolocationServiceManager
                         .getGeolocationManager().getAppositeService(platform);
                 if (geoService != null) {
                     final Term centerCoords = geoService.geocode(Tools

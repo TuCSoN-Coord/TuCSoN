@@ -16,7 +16,7 @@ public interface IGeolocationServiceListener {
      * 
      * @return the associated geolocation service
      */
-    AbstractGeolocationService getService();
+    IGeolocationService getService();
 
     /**
      * Gets the associated geolocation service identifier
