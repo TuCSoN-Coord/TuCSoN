@@ -2,19 +2,19 @@ package respect.bagOfTask;
 
 import java.util.Random;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
@@ -91,10 +91,9 @@ public class Master extends AbstractTucsonAgent {
              */
             acc.outS(
                     ttcid,
-                    LogicTupleDefault.parse("out(res(R))"),
-                    LogicTupleDefault.parse("(completion,success)"),
-                    LogicTupleDefault
-                    .parse("(no(result(Res,Count)), in(res(R)), out(result(R,1)))"),
+                    LogicTuples.parse("out(res(R))"),
+                    LogicTuples.parse("(completion,success)"),
+                    LogicTuples.parse("(no(result(Res,Count)), in(res(R)), out(result(R,1)))"),
                     null);
             /*
              * Second ReSpecT specification tuple: whenever a res(...) is
@@ -102,22 +101,21 @@ public class Master extends AbstractTucsonAgent {
              */
             acc.outS(
                     ttcid,
-                    LogicTupleDefault.parse("out(res(R))"),
-                    LogicTupleDefault.parse("(completion,success)"),
-                    LogicTupleDefault
-                    .parse("(in(result(Res,Count)), in(res(R)),"
+                    LogicTuples.parse("out(res(R))"),
+                    LogicTuples.parse("(completion,success)"),
+                    LogicTuples.parse("(in(result(Res,Count)), in(res(R)),"
                             + "NR is Res+R, NC is Count+1, out(result(NR,NC)))"),
-                            null);
+                    null);
             /*
              * Start tasks submission cycle...
              */
             for (int i = 0; i < Master.ITERs; i++) {
                 if (this.r.nextBoolean()) {
-                    task = LogicTupleDefault.parse("task(" + "sum("
+                    task = LogicTuples.parse("task(" + "sum("
                             + this.r.nextInt(Master.ITERs) + ","
                             + this.r.nextInt(Master.ITERs) + "))");
                 } else {
-                    task = LogicTupleDefault.parse("task(" + "sub("
+                    task = LogicTuples.parse("task(" + "sub("
                             + this.r.nextInt(Master.ITERs) + ","
                             + this.r.nextInt(Master.ITERs) + "))");
                 }
@@ -129,7 +127,7 @@ public class Master extends AbstractTucsonAgent {
              * ...then wait the result to be computed by ReSpecT reaction
              * chaining.
              */
-            final LogicTuple resTempl = LogicTupleDefault.parse("result(Res,"
+            final LogicTuple resTempl = LogicTuples.parse("result(Res,"
                     + Master.ITERs + ")");
             this.say("Waiting for result...");
             final TucsonOperation resOp = acc.in(ttcid, resTempl, null);

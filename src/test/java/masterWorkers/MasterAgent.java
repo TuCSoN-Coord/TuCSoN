@@ -3,19 +3,19 @@ package masterWorkers;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
@@ -127,7 +127,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                 this.say("Checking termination...");
                 for (int i = 0; i < this.tids.size(); i++) {
                     op = this.acc.inp(this.tids.get(i),
-                            LogicTupleDefault.parse("die(" + this.myName() + ")"),
+                            LogicTuples.parse("die(" + this.myName() + ")"),
                             null);
                     /*
                      * Only upon success the searched tuple was found. NB: we do
@@ -155,7 +155,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                          * ...to put in each <ITERs> jobs.
                          */
                         num = this.drawRandomInt();
-                        job = LogicTupleDefault.parse("fact(" + "master("
+                        job = LogicTuples.parse("fact(" + "master("
                                 + this.myName() + ")," + "num(" + num + "),"
                                 + "reqID(" + this.reqID + ")" + ")");
                         this.say("Putting job: " + job.toString());
@@ -184,7 +184,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                         /*
                          * ...this time to retrieve factorial results.
                          */
-                        templ = LogicTupleDefault.parse("res(" + "master("
+                        templ = LogicTuples.parse("res(" + "master("
                                 + this.myName() + ")," + "fact(F),"
                                 + "reqID(N)" + ")");
                         /*

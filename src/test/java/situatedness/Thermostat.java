@@ -5,22 +5,23 @@ package situatedness;
 
 import java.io.IOException;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.TupleArgumentDefault;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.EnhancedSyncACC;
+import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.utilities.Utils;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgumentDefault;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
@@ -139,7 +140,7 @@ public final class Thermostat {
             for (int i = 0; i < Thermostat.ITERS; i++) {
                 Thread.sleep(3000);
                 /* Perception */
-                template = LogicTupleDefault.parse("sense(temp(_))");
+                template = LogicTuples.parse("sense(temp(_))");
                 op = acc.in(sensorTc, template, null);
                 if (op.isResultSuccess()) {
                     temp = op.getLogicTupleResult().getArg(0).getArg(0)
@@ -152,10 +153,10 @@ public final class Thermostat {
                         continue;
                     } else if (temp < Thermostat.LOW) {
                         Thermostat.log(aid.toString(), "...heating up");
-                        action = LogicTupleDefault.parse("act(temp(" + ++temp + "))");
+                        action = LogicTuples.parse("act(temp(" + ++temp + "))");
                     } else if (temp > Thermostat.HIGH) {
                         Thermostat.log(aid.toString(), "...cooling down");
-                        action = LogicTupleDefault.parse("act(temp(" + --temp + "))");
+                        action = LogicTuples.parse("act(temp(" + --temp + "))");
                     }
                     /* Action */
                     acc.out(actuatorTc, action, null);

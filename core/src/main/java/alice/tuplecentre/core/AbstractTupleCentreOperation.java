@@ -16,13 +16,14 @@ package alice.tuplecentre.core;
 import java.util.LinkedList;
 import java.util.List;
 
+import alice.tuple.Tuple;
+import alice.tuple.TupleTemplate;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
+import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.ITCCycleResult;
-import alice.tuple.Tuple;
 import alice.tuplecentre.api.TupleCentreOperation;
-import alice.tuple.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
 /**
@@ -143,11 +144,11 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
             if (TupleCentreOpType.getProducerPrimitives().contains(this.type)) {
                 pred.append(this.getPrimitive().toString()).append('(')
                         .append(this.tupleArgument).append(')');
-                return LogicTupleDefault.parse(pred.toString());
+                return LogicTuples.parse(pred.toString());
             }
             pred.append(this.getPrimitive().toString()).append('(')
                     .append(this.templateArgument).append(')');
-            return LogicTupleDefault.parse(pred.toString());
+            return LogicTuples.parse(pred.toString());
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();
             return null;

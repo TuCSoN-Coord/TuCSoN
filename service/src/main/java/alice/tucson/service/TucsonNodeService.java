@@ -34,14 +34,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import alice.tuple.logic.LogicMatchingEngine;
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArgumentDefault;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
-import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
 import alice.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.respect.api.geolocation.GeolocationConfigAgent;
 import alice.respect.core.EnvConfigAgent;
@@ -65,6 +57,15 @@ import alice.tucson.network.exceptions.DialogInitializationException;
 import alice.tucson.service.tools.TucsonACCTool;
 import alice.tucson.utilities.Utils;
 import alice.tuple.Tuple;
+import alice.tuple.logic.LogicMatchingEngine;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.TupleArgumentDefault;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuprolog.InvalidTheoryException;
@@ -207,7 +208,7 @@ public class TucsonNodeService {
             Tuple template = null;
             if (persistencyInfo != null) {
                 try {
-                    template = LogicTupleDefault.parse(persistencyInfo);
+                    template = LogicTuples.parse(persistencyInfo);
                 } catch (final InvalidLogicTupleException e) {
                     System.err.println("Invalid persistency template");
                     System.exit(-1);
@@ -528,7 +529,7 @@ public class TucsonNodeService {
                 try {
                     final TucsonTupleCentreId ttcid = tc
                             .getTucsonTupleCentreId();
-                    final Tuple tid = LogicTupleDefault.parse(ttcid.getName());
+                    final Tuple tid = LogicTuples.parse(ttcid.getName());
                     TucsonNodeService.log(">>> Found tid: " + tid);
                     if (LogicMatchingEngine.match((LogicTuple) template,
                             (LogicTuple) tid)) {
@@ -622,7 +623,7 @@ public class TucsonNodeService {
             final TucsonTCUsers tc = it.next();
             try {
                 final TucsonTupleCentreId ttcid = tc.getTucsonTupleCentreId();
-                final Tuple tid = LogicTupleDefault.parse(ttcid.getName());
+                final Tuple tid = LogicTuples.parse(ttcid.getName());
                 TucsonNodeService.log(">>> Found tid: " + tid);
                 if (LogicMatchingEngine.match((LogicTuple) template,
                         (LogicTuple) tid)) {

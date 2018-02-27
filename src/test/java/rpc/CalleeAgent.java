@@ -1,18 +1,18 @@
 package rpc;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
@@ -24,8 +24,7 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
 public class CalleeAgent extends AbstractTucsonAgent {
 
     /**
-     * @param args
-     *            no args expected.
+     * @param args no args expected.
      */
     public static void main(final String[] args) {
         try {
@@ -40,13 +39,9 @@ public class CalleeAgent extends AbstractTucsonAgent {
     private TucsonTupleCentreId tid;
 
     /**
-     * @param aid
-     *            the name of the callee agent.
-     * @param node
-     *            the node used for RPC synchronization.
-     *
-     * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     * @param aid  the name of the callee agent.
+     * @param node the node used for RPC synchronization.
+     * @throws TucsonInvalidAgentIdException if the chosen ID is not a valid TuCSoN agent ID
      */
     public CalleeAgent(final String aid, final String node)
             throws TucsonInvalidAgentIdException {
@@ -104,8 +99,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
                  * Invocation phase (not TuCSoN invocation!).
                  */
                 this.say("Waiting for remote calls...");
-                op = this.acc.in(this.tid, LogicTupleDefault
-                        .parse("factorial(caller(Who)," + "arg(N))"), null);
+                op = this.acc.in(this.tid, LogicTuples.parse("factorial(caller(Who)," + "arg(N))"), null);
                 req = op.getLogicTupleResult();
                 this.say("Call received from " + req.getArg("caller").getArg(0));
                 arg = req.getArg("arg").getArg(0).intValue();
@@ -120,7 +114,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
                 this.say("Call returns to " + req.getArg("caller").getArg(0));
                 this.acc.out(
                         this.tid,
-                        LogicTupleDefault.parse("result(" + "caller("
+                        LogicTuples.parse("result(" + "caller("
                                 + req.getArg("caller").getArg(0) + "),"
                                 + "res(" + result + "))"), null);
             }

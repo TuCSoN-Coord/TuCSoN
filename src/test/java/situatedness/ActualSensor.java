@@ -3,24 +3,24 @@
  */
 package situatedness;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.core.TransducersManager;
 import alice.respect.situatedness.AbstractProbeId;
 import alice.respect.situatedness.AbstractTransducer;
 import alice.respect.situatedness.ISimpleProbe;
 import alice.respect.situatedness.TransducerId;
 import alice.respect.situatedness.TransducerStandardInterface;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
@@ -100,7 +100,7 @@ public class ActualSensor implements ISimpleProbe {
             }
         }
         try {
-            final LogicTuple template = LogicTupleDefault.parse("temp(_)");
+            final LogicTuple template = LogicTuples.parse("temp(_)");
             final TucsonOperation op = this.acc
                     .rd(this.tempTc, template, null);
             if (op.isResultSuccess()) {

@@ -17,6 +17,7 @@ import java.util.List;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
+import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.TupleArgumentDefault;
 import alice.tuple.logic.VarArgument;
@@ -407,12 +408,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         }
         final List<Tuple> list = new LinkedList<Tuple>();
         LogicTuple cpy = null;
-        try {
-            cpy = LogicTupleDefault.parse(t.toString());
-        } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
-            return null;
-        }
+        cpy = LogicTuples.newInstance(t);
         TupleArgument arg;
         arg = cpy.getArg(0);
         while (arg != null) {
@@ -461,12 +457,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         }
         final List<Tuple> list = new LinkedList<Tuple>();
         LogicTuple cpy = null;
-        try {
-            cpy = LogicTupleDefault.parse(t.toString());
-        } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
-            return null;
-        }
+        cpy = LogicTuples.newInstance(t);
         TupleArgument arg;
         arg = cpy.getArg(0);
         while (arg != null) {
@@ -508,7 +499,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         try {
             temp = new RespectOperationDefault(
                     SET_S,
-                    (Tuple) LogicTupleDefault.parse(spec.toString()), l);
+                    (Tuple) LogicTuples.parse(spec.toString()), l);
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();
         }

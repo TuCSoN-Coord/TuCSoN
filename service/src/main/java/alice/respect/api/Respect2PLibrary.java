@@ -23,14 +23,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import alice.tuple.logic.LogicMatchingEngine;
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.LogicTupleOpManager;
-import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArgumentDefault;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
-import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
 import alice.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.respect.api.geolocation.GeoUtils;
 import alice.respect.api.geolocation.PlatformUtils;
@@ -47,8 +39,17 @@ import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.NetworkUtils;
-import alice.tuplecentre.api.IId;
 import alice.tuple.Tuple;
+import alice.tuple.logic.LogicMatchingEngine;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
+import alice.tuple.logic.LogicTupleOpManager;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.TupleArgumentDefault;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
+import alice.tuplecentre.api.IId;
 import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractEvent;
@@ -859,7 +860,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final InputEvent ce = this.vm.getCurrentEvent();
         final String tuple = arg0.getTerm().toString() + "," + arg1;
         LogicTuple resultArg = null;
-        resultArg = LogicTupleDefault.parse(tuple);
+        resultArg = LogicTuples.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeInAll(resultArg, null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
@@ -1329,7 +1330,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final InputEvent ce = this.vm.getCurrentEvent();
         final String tuple = arg0.getTerm().toString() + "," + arg1;
         LogicTuple resultArg = null;
-        resultArg = LogicTupleDefault.parse(tuple);
+        resultArg = LogicTuples.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeNoAll(resultArg, null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
@@ -1806,7 +1807,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final InputEvent ce = this.vm.getCurrentEvent();
         final String tuple = arg0.getTerm().toString() + "," + arg1;
         LogicTuple resultArg = null;
-        resultArg = LogicTupleDefault.parse(tuple);
+        resultArg = LogicTuples.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeRdAll(resultArg, null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());

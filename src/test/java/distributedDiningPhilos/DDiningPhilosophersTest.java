@@ -1,19 +1,20 @@
 package distributedDiningPhilos;
 
 import java.io.IOException;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
+
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.utilities.Utils;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
@@ -89,7 +90,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent {
                         seats[i],
                         Utils.fileToString("alice/tucson/examples/distributedDiningPhilos/seat.rsp"),
                         null);
-                acc.out(seats[i], LogicTupleDefault.parse("philosopher(thinking)"),
+                acc.out(seats[i], LogicTuples.parse("philosopher(thinking)"),
                         null);
             }
             /* MOD: begin */
@@ -103,7 +104,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent {
                     Utils.fileToString("alice/tucson/examples/distributedDiningPhilos/table.rsp"),
                     null);
             for (int i = 0; i < DDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
-                acc.out(table, LogicTupleDefault.parse("chop(" + i + ")"), null);
+                acc.out(table, LogicTuples.parse("chop(" + i + ")"), null);
             }
             for (int i = 0; i < DDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
                 new DiningPhilosopher("'philo-" + i + "'", seats[i]).go();

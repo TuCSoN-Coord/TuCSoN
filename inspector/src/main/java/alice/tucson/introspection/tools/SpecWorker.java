@@ -17,13 +17,13 @@ import java.util.List;
 
 import javax.swing.JTextArea;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 //import alice.util.jedit.JEditTextArea;
@@ -108,7 +108,7 @@ public class SpecWorker extends Thread {
             final String spec = this.inputSpec.getText();
             try {
                 if (spec.isEmpty()) {
-                    this.context.setS(this.tid, LogicTupleDefault.parse("[]"),
+                    this.context.setS(this.tid, LogicTuples.parse("[]"),
                             (Long) null);
                 } else {
                     this.context.setS(this.tid, spec, (Long) null);

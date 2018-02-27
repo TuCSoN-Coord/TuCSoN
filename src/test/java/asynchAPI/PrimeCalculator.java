@@ -19,23 +19,23 @@
  */
 package asynchAPI;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.EnhancedAsyncACC;
-import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.EnhancedAsyncACC;
+import alice.tucson.api.acc.EnhancedSyncACC;
+import alice.tucson.api.actions.ordinary.In;
+import alice.tucson.api.actions.ordinary.Inp;
+import alice.tucson.api.actions.ordinary.Out;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.asynchSupport.AsynchOpsHelper;
-import alice.tucson.api.actions.ordinary.In;
-import alice.tucson.api.actions.ordinary.Inp;
-import alice.tucson.api.actions.ordinary.Out;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -94,12 +94,12 @@ public class PrimeCalculator extends AbstractTucsonAgent {
                             .getPrimeNumbers(upperBound);
                     this.info("Prime numbers up to " + upperBound + " are "
                             + primeNumbers);
-                    tupleRes = LogicTupleDefault.parse("prime(" + upperBound + ","
+                    tupleRes = LogicTuples.parse("prime(" + upperBound + ","
                             + primeNumbers + ")");
                     final Out out = new Out(this.ttcid, tupleRes);
                     this.help.enqueue(out, null);
                     if (!PrimeCalculator.this.stop) {
-                        final LogicTuple tuple = LogicTupleDefault
+                        final LogicTuple tuple = LogicTuples
                                 .parse("calcprime(X)");
                         final Inp inp = new Inp(this.ttcid, tuple);
                         this.help.enqueue(inp, new InpHandler(this.eaacc,
@@ -116,7 +116,7 @@ public class PrimeCalculator extends AbstractTucsonAgent {
                 try {
                     Thread.sleep(PrimeCalculator.SLEEP);
                     if (!PrimeCalculator.this.stop) {
-                        final LogicTuple tuple = LogicTupleDefault
+                        final LogicTuple tuple = LogicTuples
                                 .parse("calcprime(X)");
                         final Inp inp = new Inp(this.ttcid, tuple);
                         this.help.enqueue(inp, new InpHandler(this.eaacc,
@@ -212,11 +212,11 @@ public class PrimeCalculator extends AbstractTucsonAgent {
                     "localhost", "20504");
             final AsynchOpsHelper helper = new AsynchOpsHelper("'helper4"
                     + this.getTucsonAgentId() + "'");
-            final LogicTuple tuple = LogicTupleDefault.parse("calcprime(X)");
+            final LogicTuple tuple = LogicTuples.parse("calcprime(X)");
             final Inp inp = new Inp(tid, tuple);
             helper.enqueue(inp, new InpHandler(acc, tid, helper));
             final EnhancedSyncACC accSynch = this.getContext();
-            final LogicTuple stopTuple = LogicTupleDefault.parse("stop(primecalc)");
+            final LogicTuple stopTuple = LogicTuples.parse("stop(primecalc)");
             final In inStop = new In(tid, stopTuple);
             inStop.executeSynch(accSynch, null);
             this.stop = true;

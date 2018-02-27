@@ -1,16 +1,16 @@
 package timedDiningPhilos;
 
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
@@ -82,7 +82,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
              */
             op = this.acc.in(
                     this.myTable,
-                    LogicTupleDefault.parse("chops(" + this.chop1 + "," + this.chop2
+                    LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();
@@ -107,7 +107,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
                 Thread.sleep(this.step);
                 op = this.acc.rdp(
                         this.myTable,
-                        LogicTupleDefault.parse("used(" + this.chop1 + ","
+                        LogicTuples.parse("used(" + this.chop1 + ","
                                 + this.chop2 + ",_)"), null);
                 if (!op.isResultSuccess()) {
                     break;
@@ -134,7 +134,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
         try {
             this.acc.out(
                     this.myTable,
-                    LogicTupleDefault.parse("chops(" + this.chop1 + "," + this.chop2
+                    LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();

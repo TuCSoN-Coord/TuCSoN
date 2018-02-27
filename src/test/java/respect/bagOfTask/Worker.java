@@ -1,19 +1,19 @@
 package respect.bagOfTask;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
@@ -95,7 +95,7 @@ public class Worker extends AbstractTucsonAgent {
             int s;
             LogicTuple res;
             while (true) {
-                taskTempl = LogicTupleDefault.parse("task(OP)");
+                taskTempl = LogicTuples.parse("task(OP)");
                 this.say("Waiting for task...");
                 /*
                  * Usage of timeouts: be careful that timeout extinction DOES
@@ -119,7 +119,7 @@ public class Worker extends AbstractTucsonAgent {
                 /*
                  * Put back result.
                  */
-                res = LogicTupleDefault.parse("res(" + s + ")");
+                res = LogicTuples.parse("res(" + s + ")");
                 this.say("Injecting result: " + res + "...");
                 acc.out(ttcid, res, null);
                 // Thread.sleep(1000);

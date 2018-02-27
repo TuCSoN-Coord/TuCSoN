@@ -4,15 +4,12 @@
 package persistency;
 
 import java.io.IOException;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.acc.EnhancedACC;
-import alice.tucson.api.acc.NegotiationACC;
+
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.EnhancedACC;
+import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -20,17 +17,20 @@ import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.exceptions.DialogInitializationException;
 import alice.tucson.service.TucsonNodeService;
 import alice.tucson.utilities.Utils;
+import alice.tuple.logic.LogicTupleDefault;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
 /**
  * @author ste
- *
  */
 public final class PersistencyTester {
 
     /**
-     * @param args
-     *            not used atm
+     * @param args not used atm
      */
     public static void main(final String[] args) {
         try {
@@ -65,7 +65,7 @@ public final class PersistencyTester {
             }
             // snapshot test
             acc.out(ttcidOrg, new LogicTupleDefault("cmd", new ValueArgument(
-                    "enable_persistency", new ValueArgument("def", new ValueArgument(1)))),
+                            "enable_persistency", new ValueArgument("def", new ValueArgument(1)))),
                     Long.MAX_VALUE);
             // spec addition
             spec = Utils
@@ -84,12 +84,11 @@ public final class PersistencyTester {
                     new LogicTupleDefault("out", new ValueArgument("repulse",
                             new ValueArgument("INFO"))),
                     new LogicTupleDefault("completion"),
-                    LogicTupleDefault
-                            .parse("(rd_all(neighbour(_), NBRS),multiread(NBRS, repulse(INFO)))"),
+                    LogicTuples.parse("(rd_all(neighbour(_), NBRS),multiread(NBRS, repulse(INFO)))"),
                     Long.MAX_VALUE);
             // disable persistency test
             acc.out(ttcidOrg, new LogicTupleDefault("cmd", new ValueArgument(
-                    "disable_persistency", new ValueArgument("def", new ValueArgument(1)))),
+                            "disable_persistency", new ValueArgument("def", new ValueArgument(1)))),
                     Long.MAX_VALUE);
             // tuples addition
             for (; i < 2000; i++) {
@@ -98,7 +97,7 @@ public final class PersistencyTester {
             }
             // snapshot test n. 2
             acc.out(ttcidOrg, new LogicTupleDefault("cmd", new ValueArgument(
-                    "enable_persistency", new ValueArgument("def", new VarArgument()))),
+                            "enable_persistency", new ValueArgument("def", new VarArgument()))),
                     Long.MAX_VALUE);
             // tuples addition
             for (; i < 3000; i++) {

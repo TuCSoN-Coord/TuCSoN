@@ -17,8 +17,6 @@ import java.io.Serializable;
 
 import alice.tuple.Tuple;
 import alice.tuple.TupleTemplate;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
-import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Term;
 
 /**
@@ -39,26 +37,6 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Static method to get a LogicTuple from a textual representation
-     *
-     * @param st the text representing the tuple
-     * @return the logic tuple interpreted from the text
-     * @throws InvalidLogicTupleException if the text does not represent a valid logic tuple
-     */
-    public static LogicTuple parse(final String st)
-            throws InvalidLogicTupleException {
-        try {
-            final Term t = alice.tuprolog.Term.createTerm(st,
-                    new LogicTupleOpManager());
-            return new LogicTupleDefault(new TupleArgumentDefault(t));
-        } catch (final InvalidTermException ex) {
-            throw new InvalidLogicTupleException(
-                    "Exception occurred while parsing the string: \"" + st
-                            + "\"", ex);
-        }
-    }
-
-    /**
      * the information content of logic tuple
      */
     private TupleArgument info;
@@ -67,6 +45,7 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
      *
      */
     public LogicTupleDefault() {
+        //TODO because of this constructor would be a good idea to check for filed "info" to be not-null in all methods
     }
 
     /**

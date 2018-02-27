@@ -1,19 +1,19 @@
 package rpc;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
@@ -105,14 +105,14 @@ public class CallerAgent extends AbstractTucsonAgent {
                 this.say("Calling factorial computation for " + arg + "...");
                 this.acc.out(
                         this.tid,
-                        LogicTupleDefault.parse("factorial(caller(" + this.myName()
+                        LogicTuples.parse("factorial(caller(" + this.myName()
                                 + ")," + "arg(" + arg + "))"), null);
                 /*
                  * Completion phase (not TuCSoN completion!).
                  */
                 op = this.acc.in(
                         this.tid,
-                        LogicTupleDefault.parse("result(caller(" + this.myName()
+                        LogicTuples.parse("result(caller(" + this.myName()
                                 + ")," + "res(R))"), null);
                 reply = op.getLogicTupleResult();
                 final TupleArgument res = reply.getArg("res").getArg(0);
