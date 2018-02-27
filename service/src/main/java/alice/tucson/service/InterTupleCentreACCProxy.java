@@ -27,9 +27,9 @@ import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.network.AbstractTucsonProtocol;
 import alice.tucson.network.TucsonMsgReply;
 import alice.tucson.network.TucsonMsgRequest;
+import alice.tucson.network.TucsonProtocol;
 import alice.tucson.network.TucsonProtocolTCP;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogInitializationException;
@@ -55,7 +55,7 @@ OperationCompletionListener {
      */
     class Controller extends Thread {
 
-        private final AbstractTucsonProtocol dialog;
+        private final TucsonProtocol dialog;
         private final Prolog p = new Prolog();
         private boolean stop;
 
@@ -63,7 +63,7 @@ OperationCompletionListener {
          *
          * @param d
          */
-        Controller(final AbstractTucsonProtocol d) {
+        Controller(final TucsonProtocol d) {
             super();
             this.dialog = d;
             this.stop = false;
@@ -197,9 +197,9 @@ OperationCompletionListener {
     class ControllerSession {
 
         private final Controller controller;
-        private final AbstractTucsonProtocol session;
+        private final TucsonProtocol session;
 
-        ControllerSession(final Controller c, final AbstractTucsonProtocol s) {
+        ControllerSession(final Controller c, final TucsonProtocol s) {
             this.controller = c;
             this.session = s;
         }
@@ -208,7 +208,7 @@ OperationCompletionListener {
             return this.controller;
         }
 
-        public AbstractTucsonProtocol getSession() {
+        public TucsonProtocol getSession() {
             return this.session;
         }
     }
@@ -286,7 +286,7 @@ OperationCompletionListener {
             this.opId++;
             nTry++;
             exception = false;
-            AbstractTucsonProtocol session = null;
+            TucsonProtocol session = null;
             try {
                 session = this.getSession(tcid);
             } catch (final UnreachableNodeException ex2) {
@@ -305,14 +305,14 @@ OperationCompletionListener {
                     || type == TupleCentreOpType.SET
                     || type == TupleCentreOpType.OUT_ALL
                     || type == TupleCentreOpType.SPAWN) {
-                msg = new TucsonMsgRequest(new InputEventMsg(
+                msg = new TucsonMsgRequest(new InputEventMsgDefault(
                         this.aid.toString(), this.opId, type,
                         (LogicTuple) op.getTupleArgument(), tcid.toString(),
                         System.currentTimeMillis(), this.getPosition()));
                 // new TucsonMsgRequest(this.opId, type, tcid.toString(),
                 // (LogicTuple) op.getTupleArgument());
             } else {
-                msg = new TucsonMsgRequest(new InputEventMsg(
+                msg = new TucsonMsgRequest(new InputEventMsgDefault(
                         this.aid.toString(), this.opId, type,
                         (LogicTuple) op.getTemplateArgument(), tcid.toString(),
                         System.currentTimeMillis(), this.getPosition()));
@@ -403,7 +403,7 @@ OperationCompletionListener {
         return null;
     }
 
-    private AbstractTucsonProtocol getSession(final TucsonTupleCentreId tid)
+    private TucsonProtocol getSession(final TucsonTupleCentreId tid)
             throws UnreachableNodeException, DialogInitializationException {
         final String opNode = alice.util.Tools.removeApices(tid.getNode());
         final int port = tid.getPort();
@@ -435,7 +435,7 @@ OperationCompletionListener {
         }
         this.profile.setProperty("tc-identity", this.aid.toString());
         this.profile.setProperty("agent-role", "user");
-        AbstractTucsonProtocol dialog = null;
+        TucsonProtocol dialog = null;
         boolean isEnterReqAcpt = false;
         dialog = new TucsonProtocolTCP(opNode, port);
         try {

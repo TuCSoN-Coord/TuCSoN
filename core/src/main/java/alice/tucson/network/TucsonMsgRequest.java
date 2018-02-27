@@ -1,6 +1,7 @@
 package alice.tucson.network;
 
 import java.io.Serializable;
+
 import alice.tucson.service.InputEventMsg;
 
 /**
@@ -45,7 +46,7 @@ public class TucsonMsgRequest implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuffer s = new StringBuffer(45);
+        final StringBuilder s = new StringBuilder(45);
         final InputEventMsg iEv = this.getInputEventMsg();
         s.append("ID: ");
         s.append(iEv.getOpId());

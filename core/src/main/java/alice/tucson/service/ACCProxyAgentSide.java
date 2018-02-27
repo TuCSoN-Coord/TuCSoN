@@ -40,8 +40,8 @@ import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.network.AbstractTucsonProtocol;
 import alice.tucson.network.TucsonMsgRequest;
+import alice.tucson.network.TucsonProtocol;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.service.tools.EncryptionTools;
 import alice.tucson.service.tools.TucsonACCTool;
@@ -236,7 +236,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
         if (this.username != null && !this.username.equalsIgnoreCase("")
                 && this.password != null && !this.password.equalsIgnoreCase("")) {
             this.profile.setProperty("credentials", "'" + this.username + ":"
-                    + EncryptionTools.encrypt(this.password) + "'");
+                    + TucsonACCTool.encrypt(this.password) + "'");
         }
         final TucsonTupleCentreId tid = new TucsonTupleCentreId(
                 ACCProxyAgentSide.TC_ORG, this.node, "" + this.port);
@@ -253,7 +253,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
         final Iterator<OperationHandler.ControllerSession> it = this.executor
                 .getControllerSessions().values().iterator();
         OperationHandler.ControllerSession cs;
-        AbstractTucsonProtocol info;
+        TucsonProtocol info;
         OperationHandler.Controller contr;
         TucsonOperationDefault op;
         TucsonMsgRequest exit;
@@ -268,7 +268,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             op = new TucsonOperationDefault(TupleCentreOpType.EXIT,
                     (TupleTemplate) null, null, this.executor /* this */);
             this.executor.addOperation(op.getId(), op);
-            final InputEventMsg ev = new InputEventMsg(this.aid.toString(),
+            final InputEventMsg ev = new InputEventMsgDefault(this.aid.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(), null,
                     System.currentTimeMillis(), this.getPosition());
             exit = new TucsonMsgRequest(ev);

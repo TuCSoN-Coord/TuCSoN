@@ -11,10 +11,11 @@ import alice.respect.core.InternalEvent;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.network.AbstractTucsonProtocol;
 import alice.tucson.network.TucsonMsgRequest;
+import alice.tucson.network.TucsonProtocol;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.service.InputEventMsg;
+import alice.tucson.service.InputEventMsgDefault;
 import alice.tucson.service.OperationHandler;
 import alice.tucson.service.TucsonOperationDefault;
 import alice.tuplecentre.api.TupleCentreId;
@@ -86,7 +87,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
         final Iterator<OperationHandler.ControllerSession> it = this.executor
                 .getControllerSessions().values().iterator();
         OperationHandler.ControllerSession cs;
-        AbstractTucsonProtocol info;
+        TucsonProtocol info;
         OperationHandler.Controller contr;
         TucsonOperationDefault op;
         TucsonMsgRequest exit;
@@ -98,7 +99,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
             op = new TucsonOperationDefault(TupleCentreOpType.EXIT,
                     (TupleTemplate) null, null, this.executor);
             this.executor.addOperation(op.getId(), op);
-            final InputEventMsg ev = new InputEventMsg(this.id.toString(),
+            final InputEventMsg ev = new InputEventMsgDefault(this.id.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(), null,
                     System.currentTimeMillis(), null);
             exit = new TucsonMsgRequest(ev);

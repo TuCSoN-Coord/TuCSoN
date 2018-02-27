@@ -15,8 +15,8 @@ package alice.tucson.service;
 
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.network.AbstractTucsonProtocol;
 import alice.tucson.network.TPFactory;
+import alice.tucson.network.TucsonProtocol;
 import alice.tucson.network.exceptions.DialogAcceptException;
 import alice.tucson.network.exceptions.DialogCloseException;
 import alice.tucson.network.exceptions.DialogInitializationException;
@@ -38,7 +38,7 @@ public class WelcomeAgent extends Thread {
     }
 
     private final ACCProvider contextManager;
-    private AbstractTucsonProtocol mainDialog;
+    private TucsonProtocol mainDialog;
     private final TucsonNodeService node;
     private boolean shut;
 
@@ -75,7 +75,7 @@ public class WelcomeAgent extends Thread {
             // Cannot happen
             e.printStackTrace();
         }
-        AbstractTucsonProtocol dialog = null;
+        TucsonProtocol dialog = null;
         try {
             while (!this.isShutdown()) {
                 WelcomeAgent.log("Listening to incoming connections...");

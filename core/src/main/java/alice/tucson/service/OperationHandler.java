@@ -18,10 +18,10 @@ import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.network.AbstractTucsonProtocol;
 import alice.tucson.network.TPFactory;
 import alice.tucson.network.TucsonMsgReply;
 import alice.tucson.network.TucsonMsgRequest;
+import alice.tucson.network.TucsonProtocol;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
@@ -48,7 +48,7 @@ public class OperationHandler {
      */
     public class Controller extends Thread {
 
-        private final AbstractTucsonProtocol dialog;
+        private final TucsonProtocol dialog;
         private final Prolog p = new Prolog();
         private boolean stop;
 
@@ -56,7 +56,7 @@ public class OperationHandler {
          *
          * @param d
          */
-        Controller(final AbstractTucsonProtocol d) {
+        Controller(final TucsonProtocol d) {
             super();
             this.dialog = d;
             this.stop = false;
@@ -232,14 +232,14 @@ public class OperationHandler {
     public class ControllerSession {
 
         private final Controller controller;
-        private final AbstractTucsonProtocol session;
+        private final TucsonProtocol session;
 
         /**
          *
          * @param c
          * @param s
          */
-        ControllerSession(final Controller c, final AbstractTucsonProtocol s) {
+        ControllerSession(final Controller c, final TucsonProtocol s) {
             this.controller = c;
             this.session = s;
         }
@@ -257,7 +257,7 @@ public class OperationHandler {
          * @return the (generic) connection protocol used by this operation
          *         handler
          */
-        public AbstractTucsonProtocol getSession() {
+        public TucsonProtocol getSession() {
             return this.session;
         }
     }
@@ -554,7 +554,7 @@ public class OperationHandler {
         do {
             nTry++;
             exception = false;
-            AbstractTucsonProtocol session = null;
+            TucsonProtocol session = null;
             try {
                 session = this.getSession(tcid, aid);
             } catch (final UnreachableNodeException ex2) {
@@ -579,7 +579,7 @@ public class OperationHandler {
             }
 
             this.addOperation(op.getId(), op);
-            final InputEventMsg ev = new InputEventMsg(aid.toString(),
+            final InputEventMsg ev = new InputEventMsgDefault(aid.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(),
                     tcid.toString(), System.currentTimeMillis(), position);
 
@@ -636,8 +636,8 @@ public class OperationHandler {
      * @see alice.tucson.network.AbstractTucsonProtocol TucsonProtocol
      * @see alice.tucson.service.ACCProxyNodeSide ACCProxyNodeSide
      */
-    public AbstractTucsonProtocol getSession(final TucsonTupleCentreId tid,
-                                             final TucsonAgentId aid) throws UnreachableNodeException {
+    public TucsonProtocol getSession(final TucsonTupleCentreId tid,
+                                     final TucsonAgentId aid) throws UnreachableNodeException {
         final String opNode = alice.util.Tools.removeApices(tid.getNode());
         final int p = tid.getPort();
         ControllerSession tc = this.controllerSessions.get(opNode + ":" + p);
@@ -668,7 +668,7 @@ public class OperationHandler {
         this.profile.setProperty("agent-role", "user");
         this.profile.setProperty("agent-uuid", this.agentUUID.toString());
         // this.profile.setProperty("agent-class", value);
-        AbstractTucsonProtocol dialog = null;
+        TucsonProtocol dialog = null;
         boolean isEnterReqAcpt = false;
         try {
             dialog = TPFactory.getDialogAgentSide(tid);

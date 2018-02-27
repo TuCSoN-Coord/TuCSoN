@@ -1,16 +1,17 @@
 package alice.tucson.service;
 
-import java.io.Serializable;
 import alice.logictuple.LogicTuple;
 import alice.respect.api.geolocation.Position;
 import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
- * 
+ *
+ * //TODO add description
+ *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  * 
  */
-public class InputEventMsg implements Serializable {
+public class InputEventMsgDefault implements InputEventMsg {
     private static final long serialVersionUID = 6617714748018050950L;
     private final long opId;
     private final TupleCentreOpType opType;
@@ -39,9 +40,9 @@ public class InputEventMsg implements Serializable {
      * @param p
      *            the place where this event was generated
      */
-    public InputEventMsg(final String s, final long oid, final TupleCentreOpType opt,
-            final LogicTuple lt, final String trg, final long t,
-            final Position p) {
+    public InputEventMsgDefault(final String s, final long oid, final TupleCentreOpType opt,
+                                final LogicTuple lt, final String trg, final long t,
+                                final Position p) {
         this.source = s;
         this.opId = oid;
         this.opType = opt;
@@ -52,67 +53,42 @@ public class InputEventMsg implements Serializable {
         this.place = p;
     }
 
-    /**
-     * 
-     * @return the id of the operation which caused this event
-     */
+    @Override
     public long getOpId() {
         return this.opId;
     }
 
-    /**
-     * 
-     * @return the type code of the operation which caused this event
-     */
+    @Override
     public TupleCentreOpType getOpType() {
         return this.opType;
     }
 
-    /**
-     * 
-     * @return the Position where this event was generated
-     */
+    @Override
     public Position getPlace() {
         return this.place;
     }
 
-    /**
-     * 
-     * @return the String representation of the tuple centre currently handling
-     *         this event
-     */
+    @Override
     public String getReactingTC() {
         return this.reactingTC;
     }
 
-    /**
-     * 
-     * @return the String representation of the source of this event
-     */
+    @Override
     public String getSource() {
         return this.source;
     }
 
-    /**
-     * 
-     * @return the String representation of the target of this event
-     */
+    @Override
     public String getTarget() {
         return this.target;
     }
 
-    /**
-     * 
-     * @return the time at which this event was generated
-     */
+    @Override
     public long getTime() {
         return this.time;
     }
 
-    /**
-     * 
-     * @return the logic tuple argument of the operation which caused this event
-     */
+    @Override
     public LogicTuple getTuple() {
         return this.tuple;
     }

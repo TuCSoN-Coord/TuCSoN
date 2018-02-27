@@ -29,7 +29,7 @@ import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.network.AbstractTucsonProtocol;
+import alice.tucson.network.TucsonProtocol;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
@@ -62,7 +62,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
 
     private final TucsonAgentId agentId;
     private final int ctxId;
-    protected final AbstractTucsonProtocol dialog;
+    protected final TucsonProtocol dialog;
     private final ACCProvider manager;
     private boolean nStep;
     /** current observation protocol */
@@ -92,8 +92,8 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      *             if something goes wrong in the underlying network
      */
     public InspectorContextSkel(final ACCProvider man,
-            final AbstractTucsonProtocol d, final TucsonNodeService node,
-            final ACCDescription p) throws TucsonGenericException,
+                                final TucsonProtocol d, final TucsonNodeService node,
+                                final ACCDescription p) throws TucsonGenericException,
             TucsonInvalidAgentIdException, DialogReceiveException,
             TucsonInvalidTupleCentreIdException {
         super();
@@ -414,7 +414,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      *
      * @return InspectorContextSke dialog
      */
-    private AbstractTucsonProtocol getDialog() {
+    private TucsonProtocol getDialog() {
         return this.dialog;
     }
 

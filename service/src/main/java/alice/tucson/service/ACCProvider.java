@@ -34,7 +34,7 @@ import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.introspection.InspectorContextSkel;
 import alice.tucson.introspection4gui.Inspector4GuiContextSkel;
-import alice.tucson.network.AbstractTucsonProtocol;
+import alice.tucson.network.TucsonProtocol;
 import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.core.InputEvent;
@@ -102,7 +102,7 @@ public class ACCProvider {
      */
     // exception handling is a mess, need to review it...
     public synchronized boolean processContextRequest(
-            final ACCDescription profile, final AbstractTucsonProtocol dialog)
+            final ACCDescription profile, final TucsonProtocol dialog)
             throws DialogReceiveException, TucsonInvalidAgentIdException,
             TucsonInvalidTupleCentreIdException {
         ACCProvider.log("Processing ACC request...");

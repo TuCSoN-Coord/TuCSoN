@@ -149,7 +149,7 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
     }
 
     @Override
-    public AbstractTucsonProtocol acceptNewDialog()
+    public TucsonProtocol acceptNewDialog()
             throws DialogAcceptException {
         try {
             return new TucsonProtocolTCP(this.mainSocket.accept());

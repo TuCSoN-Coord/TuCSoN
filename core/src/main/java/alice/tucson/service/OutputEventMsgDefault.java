@@ -1,15 +1,15 @@
 package alice.tucson.service;
 
-import java.io.Serializable;
-
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
+ * // TODO add documentation
+ *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  */
-public class OutputEventMsg implements Serializable {
-    private static final long serialVersionUID = 6617714748018050950L;
+public class OutputEventMsgDefault implements OutputEventMsg {
+
     private final boolean allowed;
     private final long opId;
     private final TupleCentreOpType opType;
@@ -25,8 +25,8 @@ public class OutputEventMsg implements Serializable {
      * @param completed wether the operation completed
      * @param succeeded wether the operation succeeded
      */
-    public OutputEventMsg(final long opId, final TupleCentreOpType opType, final boolean allowed,
-                          final boolean completed, final boolean succeeded) {
+    public OutputEventMsgDefault(final long opId, final TupleCentreOpType opType, final boolean allowed,
+                                 final boolean completed, final boolean succeeded) {
         this.opId = opId;
         this.opType = opType;
         this.allowed = allowed;
@@ -46,9 +46,9 @@ public class OutputEventMsg implements Serializable {
      * @param res       the object result of the operation (can be a tuple or a list
      *                  of tuples)
      */
-    public OutputEventMsg(final long opId, final TupleCentreOpType opType, final boolean allowed,
-                          final boolean completed, final boolean succeeded, final LogicTuple req,
-                          final Object res) {
+    public OutputEventMsgDefault(final long opId, final TupleCentreOpType opType, final boolean allowed,
+                                 final boolean completed, final boolean succeeded, final LogicTuple req,
+                                 final Object res) {
         this.opId = opId;
         this.opType = opType;
         this.success = completed;
@@ -58,51 +58,37 @@ public class OutputEventMsg implements Serializable {
         this.resultSuccess = succeeded;
     }
 
-    /**
-     * @return the id of the operation which caused the event
-     */
+    @Override
     public long getOpId() {
         return this.opId;
     }
 
-    /**
-     * @return the type code of the operation which caused the event
-     */
+    @Override
     public TupleCentreOpType getOpType() {
         return this.opType;
     }
 
-    /**
-     * @return the logic tuple argument of the operation which caused the event
-     */
+    @Override
     public LogicTuple getTupleRequested() {
         return this.reqTuple;
     }
 
-    /**
-     * @return the effect of the event
-     */
+    @Override
     public Object getTupleResult() {
         return this.resTuple;
     }
 
-    /**
-     * @return wether the event was allowed
-     */
+    @Override
     public boolean isAllowed() {
         return this.allowed;
     }
 
-    /**
-     * @return wether the effect has been applied succesfully
-     */
+    @Override
     public boolean isResultSuccess() {
         return this.resultSuccess;
     }
 
-    /**
-     * @return wether the event has been handled succesfully
-     */
+    @Override
     public boolean isSuccess() {
         return this.success;
     }

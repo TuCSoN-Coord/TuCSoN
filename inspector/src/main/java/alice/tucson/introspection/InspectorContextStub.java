@@ -21,7 +21,7 @@ import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.OperationNotAllowedException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.network.AbstractTucsonProtocol;
+import alice.tucson.network.TucsonProtocol;
 import alice.tucson.network.TucsonProtocolTCP;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogSendException;
@@ -38,7 +38,7 @@ public class InspectorContextStub implements InspectorContext {
 
     /** listeners registrated for virtual machine output events */
     private final List<InspectorContextListener> contextListeners = new ArrayList<InspectorContextListener>();
-    private AbstractTucsonProtocol dialog;
+    private TucsonProtocol dialog;
     private boolean exitFlag;
     /** user id */
     private final TucsonAgentId id;
@@ -177,7 +177,7 @@ public class InspectorContextStub implements InspectorContext {
      * daemon providing the tuple centre otherwise return the already
      * established connection
      */
-    private AbstractTucsonProtocol getTupleCentreInfo(
+    private TucsonProtocol getTupleCentreInfo(
             final TucsonTupleCentreId tc) throws UnreachableNodeException,
             OperationNotAllowedException {
         try {

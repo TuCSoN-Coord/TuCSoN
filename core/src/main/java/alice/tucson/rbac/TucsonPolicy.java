@@ -2,6 +2,7 @@ package alice.tucson.rbac;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import alice.logictuple.*;
 
 /**
@@ -9,7 +10,6 @@ import alice.logictuple.*;
  *
  * @author Emanuele Buccelli
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public class TucsonPolicy implements Policy {
 
@@ -21,14 +21,12 @@ public class TucsonPolicy implements Policy {
     /**
      * Builds a policy given its name and the set of permissions
      *
-     * @param policyName
-     *            the name of this policy
-     * @param permissions
-     *            the set of permissions
+     * @param policyName  the name of this policy
+     * @param permissions the set of permissions
      * @return the policy just built
      */
     public static Policy createPolicy(final String policyName,
-            final TupleArgument[] permissions) {
+                                      final TupleArgument[] permissions) {
         final Policy policy = new TucsonPolicy(policyName);
         for (final TupleArgument p : permissions) {
             policy.addPermission(new TucsonPermission(p.getName()));
@@ -42,10 +40,8 @@ public class TucsonPolicy implements Policy {
     /**
      * Builds a policy given its name and the set of permissions
      *
-     * @param polName
-     *            the name of this policy
-     * @param perms
-     *            the set of permissions
+     * @param polName the name of this policy
+     * @param perms   the set of permissions
      */
     public TucsonPolicy(final String polName, final List<Permission> perms) {
         this.policyName = polName;
