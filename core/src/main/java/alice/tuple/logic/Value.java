@@ -17,12 +17,12 @@ package alice.tuple.logic;
  * Class representing a concrete tuple argument value (integer, real, string,
  * structure).
  *
- * @see TupleArgument
+ * @see TupleArgumentDefault
  * @see Var
  *
  * @author Alessandro Ricci
  */
-public class Value extends TupleArgument {
+public class Value extends TupleArgumentDefault {
 
     /**
      *
@@ -129,7 +129,7 @@ public class Value extends TupleArgument {
      *            the third argument of the structure
      */
     public Value(final String f, final TupleArgument at0,
-            final TupleArgument at1, final TupleArgument at2) {
+                 final TupleArgument at1, final TupleArgument at2) {
         super();
         this.value = new alice.tuprolog.Struct(f, at0.toTerm(), at1.toTerm(),
                 at2.toTerm());
@@ -151,8 +151,8 @@ public class Value extends TupleArgument {
      *            the fourth argument of the structure
      */
     public Value(final String f, final TupleArgument at0,
-            final TupleArgument at1, final TupleArgument at2,
-            final TupleArgument at3) {
+                 final TupleArgument at1, final TupleArgument at2,
+                 final TupleArgument at3) {
         super();
         this.value = new alice.tuprolog.Struct(f, at0.toTerm(), at1.toTerm(),
                 at2.toTerm(), at3.toTerm());
@@ -176,8 +176,8 @@ public class Value extends TupleArgument {
      *            the fifth argument of the structure
      */
     public Value(final String f, final TupleArgument at0,
-            final TupleArgument at1, final TupleArgument at2,
-            final TupleArgument at3, final TupleArgument at4) {
+                 final TupleArgument at1, final TupleArgument at2,
+                 final TupleArgument at3, final TupleArgument at4) {
         super();
         this.value = new alice.tuprolog.Struct(f, at0.toTerm(), at1.toTerm(),
                 at2.toTerm(), at3.toTerm(), at4.toTerm());
@@ -203,9 +203,9 @@ public class Value extends TupleArgument {
      *            the sixth argument of the structure
      */
     public Value(final String f, final TupleArgument at0,
-            final TupleArgument at1, final TupleArgument at2,
-            final TupleArgument at3, final TupleArgument at4,
-            final TupleArgument at5) {
+                 final TupleArgument at1, final TupleArgument at2,
+                 final TupleArgument at3, final TupleArgument at4,
+                 final TupleArgument at5) {
         super();
         this.value = new alice.tuprolog.Struct(f, at0.toTerm(), at1.toTerm(),
                 at2.toTerm(), at3.toTerm(), at4.toTerm(), at5.toTerm());
@@ -233,9 +233,9 @@ public class Value extends TupleArgument {
      *            the seventh argument of the structure
      */
     public Value(final String f, final TupleArgument at0,
-            final TupleArgument at1, final TupleArgument at2,
-            final TupleArgument at3, final TupleArgument at4,
-            final TupleArgument at5, final TupleArgument at6) {
+                 final TupleArgument at1, final TupleArgument at2,
+                 final TupleArgument at3, final TupleArgument at4,
+                 final TupleArgument at5, final TupleArgument at6) {
         super();
         this.value = new alice.tuprolog.Struct(f, at0.toTerm(), at1.toTerm(),
                 at2.toTerm(), at3.toTerm(), at4.toTerm(), at5.toTerm(),

@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.TupleArgumentDefault;
 import alice.tuple.logic.Value;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.TucsonOperation;
@@ -99,7 +99,7 @@ public final class Thermostat {
             }
             final LogicTuple sensorTuple = new LogicTupleDefault(
                     "createTransducerSensor",
-                    new TupleArgument(sensorTc.toTerm()),
+                    new TupleArgumentDefault(sensorTc.toTerm()),
                     new Value(
                             "alice.tucson.examples.situatedness.SensorTransducer"),
                             new Value("sensorTransducer"), new Value(
@@ -121,7 +121,7 @@ public final class Thermostat {
             }
             final LogicTuple actuatorTuple = new LogicTupleDefault(
                     "createTransducerActuator",
-                    new TupleArgument(actuatorTc.toTerm()),
+                    new TupleArgumentDefault(actuatorTc.toTerm()),
                     new Value(
                             "alice.tucson.examples.situatedness.ActuatorTransducer"),
                             new Value("actuatorTransducer"),

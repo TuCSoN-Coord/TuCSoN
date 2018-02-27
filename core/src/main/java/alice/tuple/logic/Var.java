@@ -18,12 +18,12 @@ import alice.tuple.logic.exceptions.InvalidVarNameException;
 /**
  * Class representing tuple argument variables.
  *
- * @see TupleArgument
+ * @see TupleArgumentDefault
  * @see Value
  *
  * @author Alessandro Ricci
  */
-public class Var extends TupleArgument {
+public class Var extends TupleArgumentDefault {
 
     /**
      *

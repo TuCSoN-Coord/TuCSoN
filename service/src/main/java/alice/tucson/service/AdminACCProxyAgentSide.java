@@ -5,7 +5,7 @@ import java.net.UnknownHostException;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.TupleArgumentDefault;
 import alice.tuple.logic.Value;
 import alice.tuple.logic.Var;
 import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
@@ -378,7 +378,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
         TucsonOperation op = null;
         try {
             policyTuple = new LogicTupleDefault("policy", new Value(
-                    policy.getPolicyName()), TupleArgument.parse(permissions));
+                    policy.getPolicyName()), TupleArgumentDefault.parse(permissions));
             op = this.out(this.tid, policyTuple, l);
         } catch (final InvalidTupleArgumentException e) {
             // TODO Auto-generated catch block

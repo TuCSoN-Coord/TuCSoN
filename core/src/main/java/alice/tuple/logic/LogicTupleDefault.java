@@ -27,7 +27,7 @@ import alice.tuprolog.Term;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Saverio Cicora
- * @see TupleArgument
+ * @see TupleArgumentDefault
  * @see Tuple
  * @see TupleTemplate
  */
@@ -50,7 +50,7 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
         try {
             final Term t = alice.tuprolog.Term.createTerm(st,
                     new LogicTupleOpManager());
-            return new LogicTupleDefault(new TupleArgument(t));
+            return new LogicTupleDefault(new TupleArgumentDefault(t));
         } catch (final InvalidTermException ex) {
             throw new InvalidLogicTupleException(
                     "Exception occurred while parsing the string: \"" + st
@@ -197,7 +197,7 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
      * @param t the tuprolog term
      */
     public LogicTupleDefault(final Term t) {
-        this.info = new TupleArgument(t);
+        this.info = new TupleArgumentDefault(t);
     }
 
     /**

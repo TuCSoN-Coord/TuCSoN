@@ -38,6 +38,7 @@ import alice.tuple.logic.LogicMatchingEngine;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.TupleArgumentDefault;
 import alice.tuple.logic.Value;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
@@ -436,7 +437,7 @@ public class TucsonNodeService {
                 this.obsService.tcDestroyed(tid);
             }
             try {
-                final TupleArgument tcArg = TupleArgument.parse(realName);
+                final TupleArgument tcArg = TupleArgumentDefault.parse(realName);
                 // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.INP, new LogicTupleDefault(

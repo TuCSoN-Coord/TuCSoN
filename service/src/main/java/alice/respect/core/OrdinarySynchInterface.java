@@ -18,6 +18,7 @@ import java.util.List;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.TupleArgumentDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.IOrdinarySynchInterface;
 import alice.respect.api.RespectOperation;
@@ -100,7 +101,7 @@ public class OrdinarySynchInterface extends RootInterface implements
         if (",".equals(t.getName()) && t.getArity() == 2) {
             arg = ((LogicTuple) ev.getTuple()).getArg(1);
             this.unify(
-                    new LogicTupleDefault(new TupleArgument(arg.toTerm())),
+                    new LogicTupleDefault(new TupleArgumentDefault(arg.toTerm())),
                     new LogicTupleDefault(OrdinarySynchInterface.list2tuple(op
                             .getLogicTupleListResult())));
             return op.getLogicTupleListResult();
@@ -153,7 +154,7 @@ public class OrdinarySynchInterface extends RootInterface implements
         if (",".equals(t.getName()) && t.getArity() == 2) {
             arg = t.getArg(1);
             this.unify(
-                    new LogicTupleDefault(new TupleArgument(arg.toTerm())),
+                    new LogicTupleDefault(new TupleArgumentDefault(arg.toTerm())),
                     new LogicTupleDefault(OrdinarySynchInterface.list2tuple(op
                             .getLogicTupleListResult())));
             return op.getLogicTupleListResult();
@@ -229,7 +230,7 @@ public class OrdinarySynchInterface extends RootInterface implements
         if (",".equals(t.getName()) && t.getArity() == 2) {
             arg = t.getArg(1);
             this.unify(
-                    new LogicTupleDefault(new TupleArgument(arg.toTerm())),
+                    new LogicTupleDefault(new TupleArgumentDefault(arg.toTerm())),
                     new LogicTupleDefault(OrdinarySynchInterface.list2tuple(op
                             .getLogicTupleListResult())));
             return op.getLogicTupleListResult();

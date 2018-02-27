@@ -28,7 +28,7 @@ import java.util.Timer;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.LogicTupleOpManager;
-import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.TupleArgumentDefault;
 import alice.tuple.logic.Value;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.ILinkContext;
@@ -1895,7 +1895,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				}
 				currTimer.schedule(
 						new RespectTimerTask(this,
-								RespectOperationDefault.makeTime(new LogicTupleDefault("time", new TupleArgument(current)), null)),
+								RespectOperationDefault.makeTime(new LogicTupleDefault("time", new TupleArgumentDefault(current)), null)),
 						delay);
 			}
 			/** SPATIAL EXTENSION - Interfacing with geolocation service **/
@@ -1995,7 +1995,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				}
 				currTimer.schedule(
 						new RespectTimerTask(this,
-								RespectOperationDefault.makeTime(new LogicTupleDefault("time", new TupleArgument(current)), null)),
+								RespectOperationDefault.makeTime(new LogicTupleDefault("time", new TupleArgumentDefault(current)), null)),
 						delay);
 			}
 			/** SPATIAL EXTENSION - Interfacing with geolocation service **/
