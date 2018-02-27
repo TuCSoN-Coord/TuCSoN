@@ -3,5 +3,5 @@ apply plugin: 'java'
 apply plugin: 'java-library'
 
 dependencies {
-    api project(":service")
+    api project(":service") //TODO move to :core ASAP
 }
