@@ -34,7 +34,7 @@ import alice.respect.api.geolocation.GeoUtils;
 import alice.respect.api.geolocation.PlatformUtils;
 import alice.respect.api.geolocation.Position;
 import alice.respect.api.geolocation.service.GeolocationServiceManager;
-import alice.respect.api.geolocation.service.IGeolocationService;
+import alice.respect.api.geolocation.service.GeoLocationService;
 import alice.respect.core.InternalEvent;
 import alice.respect.core.InternalOperation;
 import alice.respect.core.RespectOperationDefault;
@@ -1184,10 +1184,10 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                     .getGeolocationManager();
             if (geolocationManager.getServices().size() > 0) {
                 final int platform = PlatformUtils.getPlatform();
-                final IGeolocationService geoService = GeolocationServiceManager
+                final GeoLocationService geoService = GeolocationServiceManager
                         .getGeolocationManager().getAppositeService(platform);
                 if (geoService != null) {
-                    final Term centerCoords = geoService.geocode(Tools
+                    final Term centerCoords = geoService.geoCode(Tools
                             .removeApices(center.toString()));
                     return this.near_3(Term.createTerm("ph"), centerCoords,
                             radius);

@@ -37,7 +37,7 @@ import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.OperationNotPossibleException;
 import alice.respect.api.geolocation.PlatformUtils;
 import alice.respect.api.geolocation.service.GeolocationServiceManager;
-import alice.respect.api.geolocation.service.IGeolocationService;
+import alice.respect.api.geolocation.service.GeoLocationService;
 import alice.respect.core.tupleset.ITupleSet;
 import alice.respect.core.tupleset.TupleSetCoord;
 import alice.respect.core.tupleset.TupleSetSpec;
@@ -1901,7 +1901,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 			final GeolocationServiceManager geolocationManager = GeolocationServiceManager.getGeolocationManager();
 			if (geolocationManager.getServices().size() > 0) {
 				final int platform = PlatformUtils.getPlatform();
-				final IGeolocationService geoService = GeolocationServiceManager.getGeolocationManager()
+				final GeoLocationService geoService = GeolocationServiceManager.getGeolocationManager()
 						.getAppositeService(platform);
 				if (geoService != null) {
 					final Iterator<Term> fit = this.findFromReactions();
@@ -2001,7 +2001,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 			final GeolocationServiceManager geolocationManager = GeolocationServiceManager.getGeolocationManager();
 			if (geolocationManager.getServices().size() > 0) {
 				final int platform = PlatformUtils.getPlatform();
-				final IGeolocationService geoService = GeolocationServiceManager.getGeolocationManager()
+				final GeoLocationService geoService = GeolocationServiceManager.getGeolocationManager()
 						.getAppositeService(platform);
 				if (geoService != null) {
 					final Iterator<Term> fit = this.findFromReactions();

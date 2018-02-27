@@ -27,6 +27,7 @@ import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.respect.api.geolocation.PlatformUtils;
 import alice.respect.api.geolocation.Position;
 import alice.respect.api.geolocation.service.AbstractGeolocationService;
+import alice.respect.api.geolocation.service.GeoLocationService;
 import alice.respect.api.geolocation.service.GeoServiceId;
 import alice.respect.api.geolocation.service.GeolocationServiceManager;
 import alice.respect.api.place.IPlace;
@@ -88,7 +89,6 @@ import alice.tuprolog.Parser;
  */
 public class ACCProxyAgentSide implements EnhancedACC {
 
-    private static final int DEFAULT_PORT = 20504;
     /**
      * The tuple centre ID where RBAC structure is managed
      */
@@ -128,7 +128,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
     /**
      * Current geolocation service
      */
-    private AbstractGeolocationService myGeolocationService;
+    private GeoLocationService myGeolocationService;
 
     /**
      * Default constructor: exploits the default port (20504) in the "localhost"
@@ -143,7 +143,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
      */
     public ACCProxyAgentSide(final Object agId)
             throws TucsonInvalidAgentIdException {
-        this(agId, "localhost", ACCProxyAgentSide.DEFAULT_PORT);
+        this(agId, "localhost", TucsonInfo.getDefaultPortNumber());
     }
 
     /**
@@ -203,7 +203,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
         final GeolocationServiceManager geolocationManager = GeolocationServiceManager
                 .getGeolocationManager();
         if (geolocationManager.getServices().size() > 0) {
-            final AbstractGeolocationService geoService = geolocationManager
+            final GeoLocationService geoService = geolocationManager
                     .getServiceByName(this.aid.getAgentName() + "_GeoService");
             if (geoService != null) {
                 this.myGeolocationService = geoService;

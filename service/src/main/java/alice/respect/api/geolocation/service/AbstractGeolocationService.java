@@ -17,7 +17,7 @@ import alice.tuplecentre.core.TupleCentreOpType;
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  * 
  */
-public abstract class AbstractGeolocationService implements IGeolocationService {
+public abstract class AbstractGeolocationService implements GeoLocationService {
     /**
      * Service execution platform
      */
@@ -30,7 +30,7 @@ public abstract class AbstractGeolocationService implements IGeolocationService 
     /**
      * List of listeners associated to the service
      */
-    protected List<IGeolocationServiceListener> listeners;
+    protected List<GeoLocationServiceListener> listeners;
     /**
      * Represent the running status of the service
      */
@@ -59,11 +59,11 @@ public abstract class AbstractGeolocationService implements IGeolocationService 
         this.platform = p;
         this.serviceId = sid;
         this.tcId = ttci;
-        this.listeners = new ArrayList<IGeolocationServiceListener>();
+        this.listeners = new ArrayList<GeoLocationServiceListener>();
     }
 
     @Override
-    public void addListener(final IGeolocationServiceListener l) {
+    public void addListener(final GeoLocationServiceListener l) {
         this.listeners.add(l);
     }
 
@@ -94,14 +94,14 @@ public abstract class AbstractGeolocationService implements IGeolocationService 
 
     @Override
     public void notifyLocationChanged(final double lat, final double lng) {
-        for (final IGeolocationServiceListener l : this.listeners) {
+        for (final GeoLocationServiceListener l : this.listeners) {
             l.locationChanged(new PhPlace("coords(" + lat + "," + lng + ")"));
         }
     }
 
     @Override
     public void notifyLocationChanged(final IPlace place) {
-        for (final IGeolocationServiceListener l : this.listeners) {
+        for (final GeoLocationServiceListener l : this.listeners) {
             l.locationChanged(place);
         }
     }
@@ -109,14 +109,14 @@ public abstract class AbstractGeolocationService implements IGeolocationService 
     @Override
     public void notifyStartMovement(final double lat, final double lng) {
         final IPlace place = new PhPlace("coords(" + lat + "," + lng + ")");
-        for (final IGeolocationServiceListener l : this.listeners) {
+        for (final GeoLocationServiceListener l : this.listeners) {
             l.moving(TupleCentreOpType.FROM, Position.PH, place);
         }
     }
 
     @Override
     public void notifyStartMovement(final String space, final IPlace place) {
-        for (final IGeolocationServiceListener l : this.listeners) {
+        for (final GeoLocationServiceListener l : this.listeners) {
             l.moving(TupleCentreOpType.FROM, space, place);
         }
     }
@@ -124,14 +124,14 @@ public abstract class AbstractGeolocationService implements IGeolocationService 
     @Override
     public void notifyStopMovement(final double lat, final double lng) {
         final IPlace place = new PhPlace("coords(" + lat + "," + lng + ")");
-        for (final IGeolocationServiceListener l : this.listeners) {
+        for (final GeoLocationServiceListener l : this.listeners) {
             l.moving(TupleCentreOpType.TO, Position.PH, place);
         }
     }
 
     @Override
     public void notifyStopMovement(final String space, final IPlace place) {
-        for (final IGeolocationServiceListener l : this.listeners) {
+        for (final GeoLocationServiceListener l : this.listeners) {
             l.moving(TupleCentreOpType.TO, space, place);
         }
     }
