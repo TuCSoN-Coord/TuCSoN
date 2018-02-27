@@ -23,7 +23,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.Value;
 import alice.tuple.logic.Var;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
@@ -68,7 +70,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
             final EnhancedSyncACC acc = negAcc.playDefaultRole();
             acc.outAll(
                     new TucsonTupleCentreId("dice", "localhost", "20504"),
-                    LogicTuple
+                    LogicTupleDefault
                             .parse("[face(1),face(2),face(3),face(4),face(5),face(6)]"),
                     Long.MAX_VALUE);
             Logger.getAnonymousLogger().log(Level.INFO,
@@ -134,7 +136,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
             final EnhancedSyncACC acc = negAcc.playDefaultRole();
             TucsonOperation op;
             LogicTuple template;
-            final LogicTuple dieTuple = new LogicTuple("stahp", new Value(
+            final LogicTuple dieTuple = new LogicTupleDefault("stahp", new Value(
                     this.myName()));
             int face;
             Integer nTimes = 1;
@@ -146,7 +148,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
                     continue;
                 }
                 this.say("Rolling dice...");
-                template = new LogicTuple("face", new Var());
+                template = new LogicTupleDefault("face", new Var());
                 // op = acc.rd(this.tcid, template, Long.MAX_VALUE);
                 op = acc.urd(this.tcid, template, Long.MAX_VALUE);
                 if (op.isResultSuccess()) {

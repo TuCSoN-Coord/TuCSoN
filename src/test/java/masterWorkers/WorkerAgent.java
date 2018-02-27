@@ -1,7 +1,9 @@
 package masterWorkers;
 
 import java.math.BigInteger;
+
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
@@ -115,7 +117,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
             while (!this.die) {
                 this.say("Checking termination...");
                 op = this.acc.inp(this.tid,
-                        LogicTuple.parse("die(" + this.myName() + ")"), null);
+                        LogicTupleDefault.parse("die(" + this.myName() + ")"), null);
                 /*
                  * Only upon success the searched tuple was found.
                  */
@@ -126,7 +128,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
                 /*
                  * Jobs collection phase.
                  */
-                templ = LogicTuple.parse("fact(master(M),num(N),reqID(R))");
+                templ = LogicTupleDefault.parse("fact(master(M),num(N),reqID(R))");
                 this.say("Waiting for jobs...");
                 /*
                  * Watch out: it's a suspensive primitive! If no jobs are
@@ -143,7 +145,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
                 /*
                  * Result submission phase.
                  */
-                res = LogicTuple.parse("res(" + "master("
+                res = LogicTupleDefault.parse("res(" + "master("
                         + job.getArg("master").getArg(0) + ")," + "fact("
                         + bigNum.toString() + ")," + "reqID("
                         + job.getArg("reqID").getArg(0) + ")" + ")");

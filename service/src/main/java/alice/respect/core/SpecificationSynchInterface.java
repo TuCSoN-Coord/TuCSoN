@@ -14,14 +14,15 @@ package alice.respect.core;
 
 import java.util.LinkedList;
 import java.util.List;
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
-import alice.respect.api.RespectOperation;
+
 import alice.respect.api.IRespectTC;
 import alice.respect.api.ISpecificationSynchInterface;
+import alice.respect.api.RespectOperation;
 import alice.respect.api.RespectSpecification;
 import alice.respect.api.exceptions.InvalidSpecificationException;
 import alice.respect.api.exceptions.OperationNotPossibleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.InputEvent;
 
@@ -153,7 +154,7 @@ public class SpecificationSynchInterface extends RootInterface implements
 
     @Override
     public List<LogicTuple> setS(final RespectSpecification spec,
-            final InputEvent ev) throws OperationNotPossibleException,
+                                 final InputEvent ev) throws OperationNotPossibleException,
             InvalidSpecificationException {
         final RespectOperation op = this.getCore().setSsynch(ev, spec);
         if ("'$TucsonNodeService-Agent'".equals(ev.getSource().toString())

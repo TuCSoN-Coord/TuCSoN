@@ -19,7 +19,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.introspection.GetSnapshotMsg;
 import alice.tucson.introspection.InspectorProtocol;
@@ -119,7 +121,7 @@ public class TupleViewer extends javax.swing.JFrame {
         final String st = this.inputFilterLog.getText();
         LogicTuple t = null;
         try {
-            t = LogicTuple.parse(st);
+            t = LogicTupleDefault.parse(st);
         } catch (final InvalidLogicTupleException e) {
             this.outputState
                     .setText("Please input an admissible tuple template...");
@@ -136,7 +138,7 @@ public class TupleViewer extends javax.swing.JFrame {
     private void buttonAcceptPatternActionPerformed() {
         try {
             final String st = this.inputFilterView.getText();
-            final LogicTuple t = LogicTuple.parse(st);
+            final LogicTuple t = LogicTupleDefault.parse(st);
             if (t == null) {
                 this.outputState
                         .setText("Given template is not an admissible Prolog term.");

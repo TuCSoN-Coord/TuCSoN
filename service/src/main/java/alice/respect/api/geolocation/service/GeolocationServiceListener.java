@@ -1,6 +1,7 @@
 package alice.respect.api.geolocation.service;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.ISpatialContext;
 import alice.respect.api.place.IPlace;
@@ -75,11 +76,11 @@ public class GeolocationServiceListener implements IGeolocationServiceListener {
             LogicTuple tuple = null;
             RespectOperationDefault op = null;
             if (type == TupleCentreOpType.FROM) {
-                tuple = LogicTuple.parse("from(" + space + "," + place.toTerm()
+                tuple = LogicTupleDefault.parse("from(" + space + "," + place.toTerm()
                         + ")");
                 op = RespectOperationDefault.makeFrom(tuple, null);
             } else if (type == TupleCentreOpType.TO) {
-                tuple = LogicTuple.parse("to(" + space + "," + place.toTerm()
+                tuple = LogicTupleDefault.parse("to(" + space + "," + place.toTerm()
                         + ")");
                 op = RespectOperationDefault.makeTo(tuple, null);
             }

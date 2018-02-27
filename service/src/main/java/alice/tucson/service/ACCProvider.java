@@ -18,6 +18,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.Value;
 import alice.tuple.logic.Var;
@@ -117,7 +118,7 @@ public class ACCProvider {
             if (agentClass == null) {
                 agentClass = "basic";
             }
-            final LogicTuple req = new LogicTuple("context_request", new Value(
+            final LogicTuple req = new LogicTupleDefault("context_request", new Value(
                     Tools.removeApices(agentName)), new Var("CtxId"),
                     new Value(agentClass), new Value(agentUUID));
             /*
@@ -232,7 +233,7 @@ public class ACCProvider {
             final TucsonAgentId id) {
         LogicTuple req = null;
         try {
-            req = new LogicTuple("context_shutdown", new Value(ctxId),
+            req = new LogicTupleDefault("context_shutdown", new Value(ctxId),
                     new Value(id.toString()), new Var("CtxId"));
         } catch (InvalidVarNameException e1) {
             e1.printStackTrace();

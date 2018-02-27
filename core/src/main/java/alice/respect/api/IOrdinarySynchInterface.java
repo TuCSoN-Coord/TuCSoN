@@ -1,6 +1,7 @@
 package alice.respect.api;
 
 import java.util.List;
+
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.exceptions.OperationNotPossibleException;

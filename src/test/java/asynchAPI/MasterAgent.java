@@ -20,6 +20,7 @@
 package asynchAPI;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.acc.EnhancedSyncACC;
@@ -138,7 +139,7 @@ public class MasterAgent extends AbstractTucsonAgent {
         public void operationCompleted(final AbstractTupleCentreOperation op) {
             LogicTuple tuple;
             try {
-                tuple = LogicTuple.parse("firstloop");
+                tuple = LogicTupleDefault.parse("firstloop");
                 final Out out = new Out(this.ttcid, tuple);
                 this.help.enqueue(out, null);
                 this.info("First loop done");
@@ -236,7 +237,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                     "localhost", "20504");
             int number = MasterAgent.SEED;
             for (int i = 0; i < MasterAgent.REQUESTS; i++) {
-                tuple = LogicTuple.parse("calcprime(" + number + ")");
+                tuple = LogicTupleDefault.parse("calcprime(" + number + ")");
                 super.say("Enqueuing prime numbers calculation up to " + number);
                 /*
                  * 2 - Build the TuCSoN action whose asynchronous invocation
@@ -254,7 +255,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                     + " requests to Prime Calculator agent, now registering handlers...");
             Inp inp;
             for (int i = 0; i < MasterAgent.REQUESTS; i++) {
-                tuple = LogicTuple.parse("prime(X,Y)");
+                tuple = LogicTupleDefault.parse("prime(X,Y)");
                 inp = new Inp(tid, tuple);
                 if (i == MasterAgent.REQUESTS - 1) {
                     final LastCompletionHandler lch = new LastCompletionHandler(
@@ -267,7 +268,7 @@ public class MasterAgent extends AbstractTucsonAgent {
             }
             super.say("Handlers registered, now I suspend myself until first loop completes...");
             final EnhancedSyncACC accSynch = this.getContext();
-            final LogicTuple firstLoopTuple = LogicTuple.parse("firstloop");
+            final LogicTuple firstLoopTuple = LogicTupleDefault.parse("firstloop");
             final In firstLoopIn = new In(tid, firstLoopTuple);
             /*
              * - You can also directly execute synchronous invocation the usual
@@ -291,7 +292,7 @@ public class MasterAgent extends AbstractTucsonAgent {
              */
             this.helper.getCompletedOps().removeSuccessfulOps();
             for (int i = 0; i < MasterAgent.REQUESTS - this.nInpSucceeded; i++) {
-                tuple = LogicTuple.parse("prime(X,Y)");
+                tuple = LogicTupleDefault.parse("prime(X,Y)");
                 in = new In(tid, tuple);
                 final CompletionHandler ch = new CompletionHandler();
                 this.helper.enqueue(in, ch);
@@ -321,7 +322,7 @@ public class MasterAgent extends AbstractTucsonAgent {
             }
             super.say("Stopping Prime Calculator agent");
             for (int i = 0; i < this.nPrimeCalc; i++) {
-                tuple = LogicTuple.parse("stop(primecalc)");
+                tuple = LogicTupleDefault.parse("stop(primecalc)");
                 out = new Out(tid, tuple);
                 this.helper.enqueue(out, null);
             }

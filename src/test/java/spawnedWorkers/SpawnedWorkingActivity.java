@@ -1,7 +1,9 @@
 package spawnedWorkers;
 
 import java.math.BigInteger;
+
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractSpawnActivity;
@@ -25,7 +27,7 @@ public class SpawnedWorkingActivity extends AbstractSpawnActivity {
             /*
              * Jobs collection phase.
              */
-            final LogicTuple templ = LogicTuple
+            final LogicTuple templ = LogicTupleDefault
                     .parse("fact(master(M),num(N),reqID(R))");
             this.log("Waiting for jobs...");
             /*
@@ -42,7 +44,7 @@ public class SpawnedWorkingActivity extends AbstractSpawnActivity {
             /*
              * Result submission phase.
              */
-            final LogicTuple res = LogicTuple.parse("res(" + "master("
+            final LogicTuple res = LogicTupleDefault.parse("res(" + "master("
                     + job.getArg("master").getArg(0) + ")," + "fact("
                     + bigNum.toString() + ")," + "reqID("
                     + job.getArg("reqID").getArg(0) + ")" + ")");

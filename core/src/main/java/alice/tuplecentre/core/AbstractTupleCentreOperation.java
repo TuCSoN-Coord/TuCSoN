@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuple.Tuple;
@@ -142,11 +143,11 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
             if (TupleCentreOpType.getProducerPrimitives().contains(this.type)) {
                 pred.append(this.getPrimitive().toString()).append('(')
                         .append(this.tupleArgument).append(')');
-                return LogicTuple.parse(pred.toString());
+                return LogicTupleDefault.parse(pred.toString());
             }
             pred.append(this.getPrimitive().toString()).append('(')
                     .append(this.templateArgument).append(')');
-            return LogicTuple.parse(pred.toString());
+            return LogicTupleDefault.parse(pred.toString());
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();
             return null;
@@ -161,7 +162,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
             // TODO modificare LogicTuple in modo che accetti in ingresso direttamente il tipo dell'operazione
             // TODO e che lo trasformi internamente in stringa (se necessario)
 
-            return new LogicTuple(this.type.name().toLowerCase());
+            return new LogicTupleDefault(this.type.name().toLowerCase());
         } else {
             return null;
         }

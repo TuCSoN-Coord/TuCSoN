@@ -14,6 +14,7 @@ package alice.respect.api;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import alice.tuple.logic.LogicTuple;
 import alice.respect.api.exceptions.InvalidSpecificationException;
 import alice.respect.api.exceptions.OperationNotPossibleException;

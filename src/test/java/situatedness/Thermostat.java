@@ -4,7 +4,9 @@
 package situatedness;
 
 import java.io.IOException;
+
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.Value;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
@@ -80,7 +82,7 @@ public final class Thermostat {
                 // 10 < bootT < LOW || HIGH < bootT < 30
                 bootT = Math.round((float) (Math.random() * 20)) + 10;
             } while (bootT >= Thermostat.LOW && bootT <= Thermostat.HIGH);
-            final LogicTuple bootTemp = new LogicTuple("temp", new Value(bootT));
+            final LogicTuple bootTemp = new LogicTupleDefault("temp", new Value(bootT));
             acc.out(tempTc, bootTemp, null);
             /* Set up sensor */
             Thermostat.log(aid.toString(), "Set up sensor...");
@@ -95,7 +97,7 @@ public final class Thermostat {
             } catch (final IOException e) {
                 e.printStackTrace();
             }
-            final LogicTuple sensorTuple = new LogicTuple(
+            final LogicTuple sensorTuple = new LogicTupleDefault(
                     "createTransducerSensor",
                     new TupleArgument(sensorTc.toTerm()),
                     new Value(
@@ -117,7 +119,7 @@ public final class Thermostat {
             } catch (final IOException e) {
                 e.printStackTrace();
             }
-            final LogicTuple actuatorTuple = new LogicTuple(
+            final LogicTuple actuatorTuple = new LogicTupleDefault(
                     "createTransducerActuator",
                     new TupleArgument(actuatorTc.toTerm()),
                     new Value(
@@ -137,7 +139,7 @@ public final class Thermostat {
             for (int i = 0; i < Thermostat.ITERS; i++) {
                 Thread.sleep(3000);
                 /* Perception */
-                template = LogicTuple.parse("sense(temp(_))");
+                template = LogicTupleDefault.parse("sense(temp(_))");
                 op = acc.in(sensorTc, template, null);
                 if (op.isResultSuccess()) {
                     temp = op.getLogicTupleResult().getArg(0).getArg(0)
@@ -150,10 +152,10 @@ public final class Thermostat {
                         continue;
                     } else if (temp < Thermostat.LOW) {
                         Thermostat.log(aid.toString(), "...heating up");
-                        action = LogicTuple.parse("act(temp(" + ++temp + "))");
+                        action = LogicTupleDefault.parse("act(temp(" + ++temp + "))");
                     } else if (temp > Thermostat.HIGH) {
                         Thermostat.log(aid.toString(), "...cooling down");
-                        action = LogicTuple.parse("act(temp(" + --temp + "))");
+                        action = LogicTupleDefault.parse("act(temp(" + --temp + "))");
                     }
                     /* Action */
                     acc.out(actuatorTc, action, null);

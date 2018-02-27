@@ -1,6 +1,7 @@
 package rpc;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
@@ -104,14 +105,14 @@ public class CallerAgent extends AbstractTucsonAgent {
                 this.say("Calling factorial computation for " + arg + "...");
                 this.acc.out(
                         this.tid,
-                        LogicTuple.parse("factorial(caller(" + this.myName()
+                        LogicTupleDefault.parse("factorial(caller(" + this.myName()
                                 + ")," + "arg(" + arg + "))"), null);
                 /*
                  * Completion phase (not TuCSoN completion!).
                  */
                 op = this.acc.in(
                         this.tid,
-                        LogicTuple.parse("result(caller(" + this.myName()
+                        LogicTupleDefault.parse("result(caller(" + this.myName()
                                 + ")," + "res(R))"), null);
                 reply = op.getLogicTupleResult();
                 final TupleArgument res = reply.getArg("res").getArg(0);

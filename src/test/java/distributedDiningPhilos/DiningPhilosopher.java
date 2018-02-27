@@ -1,6 +1,6 @@
 package distributedDiningPhilos;
 
-import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
@@ -97,7 +97,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
         while (true) {
             try {
                 op = acc.rd(this.mySeat,
-                        LogicTuple.parse("philosopher(thinking)"), null);
+                        LogicTupleDefault.parse("philosopher(thinking)"), null);
                 if (op.isResultSuccess()) {
                     this.say("Now thinking...");
                     this.think();
@@ -105,13 +105,13 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
                     this.say("I'm exploding!");
                 }
                 this.say("I'm hungry, let's try to eat something...");
-                acc.out(this.mySeat, LogicTuple.parse("wanna_eat"), null);
+                acc.out(this.mySeat, LogicTupleDefault.parse("wanna_eat"), null);
                 op = acc.rd(this.mySeat,
-                        LogicTuple.parse("philosopher(eating)"), null);
+                        LogicTupleDefault.parse("philosopher(eating)"), null);
                 if (op.isResultSuccess()) {
                     this.eating();
                     this.say("I'm done, wonderful meal :)");
-                    acc.out(this.mySeat, LogicTuple.parse("wanna_think"), null);
+                    acc.out(this.mySeat, LogicTupleDefault.parse("wanna_think"), null);
                 } else {
                     this.say("I'm starving!");
                 }

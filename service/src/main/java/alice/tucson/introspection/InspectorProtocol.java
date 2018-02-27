@@ -14,6 +14,7 @@
 package alice.tucson.introspection;
 
 import java.io.Serializable;
+
 import alice.tuple.logic.LogicTuple;
 
 /**

@@ -3,7 +3,9 @@ package alice.tucson.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.Value;
 import alice.tuple.logic.Var;
@@ -108,7 +110,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
             UnreachableNodeException, OperationTimeOutException {
         TucsonOperation op = null;
         try {
-            op = this.internalACC.inp(this.tid, new LogicTuple(
+            op = this.internalACC.inp(this.tid, new LogicTupleDefault(
                     "roles_list_request", new Value(this.agentClass), new Var(
                             "Result")), (Long) null);
         } catch (final InvalidVarNameException e) {
@@ -149,7 +151,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
         LogicTuple loginTuple = null;
         TucsonOperation op = null;
         try {
-            loginTuple = new LogicTuple("login_request", new Value(username
+            loginTuple = new LogicTupleDefault("login_request", new Value(username
                     + ":" + TucsonACCTool.encrypt(password)), new Var("Result"));
             op = this.internalACC.inp(this.tid, loginTuple, (Long) null);
         } catch (final InvalidVarNameException e) {
@@ -253,7 +255,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
             UnreachableNodeException, OperationTimeOutException {
         LogicTuple rbacInstalled = null;
         try {
-            rbacInstalled = new LogicTuple("is_rbac_installed", new Var("Result"));
+            rbacInstalled = new LogicTupleDefault("is_rbac_installed", new Var("Result"));
         } catch (final InvalidVarNameException e) {
             e.printStackTrace();
         }
@@ -274,7 +276,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
 
     private void setBasicAgentClass() {
         try {
-            final LogicTuple baseClassTuple = new LogicTuple(
+            final LogicTuple baseClassTuple = new LogicTupleDefault(
                     "get_basic_agent_class", new Var("Response"));
             final TucsonOperation op = this.internalACC.inp(this.tid,
                     baseClassTuple, (Long) null);

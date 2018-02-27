@@ -3,6 +3,7 @@ package alice.tucson.service;
 import java.util.HashMap;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.IEnvironmentContext;
 import alice.respect.api.IManagementContext;
@@ -354,7 +355,7 @@ public final class TupleCentreContainer {
                     return false;
                 }
             case GET_S:
-                return new LogicTuple(context.getSpec().toString());
+                return new LogicTupleDefault(context.getSpec().toString());
             case GET_TRSET:
                 return context.getTRSet((LogicTuple) obj);
             case GET_TSET:

@@ -1,7 +1,7 @@
 package distributedDiningPhilos;
 
 import java.io.IOException;
-import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
@@ -89,7 +89,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent {
                         seats[i],
                         Utils.fileToString("alice/tucson/examples/distributedDiningPhilos/seat.rsp"),
                         null);
-                acc.out(seats[i], LogicTuple.parse("philosopher(thinking)"),
+                acc.out(seats[i], LogicTupleDefault.parse("philosopher(thinking)"),
                         null);
             }
             /* MOD: begin */
@@ -103,7 +103,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent {
                     Utils.fileToString("alice/tucson/examples/distributedDiningPhilos/table.rsp"),
                     null);
             for (int i = 0; i < DDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
-                acc.out(table, LogicTuple.parse("chop(" + i + ")"), null);
+                acc.out(table, LogicTupleDefault.parse("chop(" + i + ")"), null);
             }
             for (int i = 0; i < DDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
                 new DiningPhilosopher("'philo-" + i + "'", seats[i]).go();

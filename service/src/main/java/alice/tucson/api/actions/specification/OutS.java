@@ -59,7 +59,7 @@ public class OutS extends AbstractTucsonSpecificationAction {
      *            specification tuple
      */
     public OutS(final TucsonTupleCentreId tc, final LogicTuple e,
-            final LogicTuple g, final LogicTuple r) {
+                final LogicTuple g, final LogicTuple r) {
         super(tc, e, g, r);
     }
 

@@ -1,6 +1,7 @@
 package alice.respect.core.tupleset;
 
 import java.util.Iterator;
+
 import alice.tuple.logic.LogicTuple;
 
 /**

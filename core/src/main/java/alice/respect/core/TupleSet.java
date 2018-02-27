@@ -18,7 +18,9 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
+
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuprolog.Var;
 
 /**
@@ -130,7 +132,7 @@ public class TupleSet {
                     this.tRemoved.add(tu);
                 }
                 final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
-                return new LogicTuple(tu.toTerm().copyGoal(v, 0));
+                return new LogicTupleDefault(tu.toTerm().copyGoal(v, 0));
             }
         }
         return null;
@@ -175,7 +177,7 @@ public class TupleSet {
             final LogicTuple tu = l.next();
             if (templ.match(tu)) {
                 final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
-                return new LogicTuple(tu.toTerm().copyGoal(v, 0));
+                return new LogicTupleDefault(tu.toTerm().copyGoal(v, 0));
             }
         }
         return null;

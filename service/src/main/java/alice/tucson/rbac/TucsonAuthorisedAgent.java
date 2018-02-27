@@ -2,6 +2,7 @@ package alice.tucson.rbac;
 
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.Value;
 import alice.tucson.service.tools.TucsonACCTool;
 
@@ -21,7 +22,7 @@ public class TucsonAuthorisedAgent implements AuthorisedAgent {
     private static final long serialVersionUID = 1L;
 
     public static LogicTuple asLogicTuple(final AuthorisedAgent agent) {
-        return new LogicTuple("authorised_agent", new Value(agent.getUsername()
+        return new LogicTupleDefault("authorised_agent", new Value(agent.getUsername()
                 + ":" + TucsonACCTool.encrypt(agent.getPassword())), new Value(
                         agent.getAgentClass()));
     }

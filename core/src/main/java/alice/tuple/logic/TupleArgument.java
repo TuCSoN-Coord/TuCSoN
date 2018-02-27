@@ -28,7 +28,7 @@ import alice.tuprolog.Term;
 /**
  * Base class for tuple argument classes.
  *
- * @see LogicTuple
+ * @see LogicTupleDefault
  * @see Value
  * @see Var
  *

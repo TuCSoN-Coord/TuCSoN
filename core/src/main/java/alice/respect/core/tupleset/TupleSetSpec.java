@@ -13,9 +13,10 @@
 package alice.respect.core.tupleset;
 
 import java.util.LinkedList;
+
+import alice.respect.core.collection.DoubleKeyMVMap;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.TupleArgument;
-import alice.respect.core.collection.DoubleKeyMVMap;
 
 /**
  * Class representing a Tuple Set.

@@ -1,6 +1,7 @@
 package alice.tucson.service;
 
 import java.util.List;
+
 import alice.tuple.logic.LogicTuple;
 import alice.tucson.api.TucsonOpId;
 

@@ -59,7 +59,7 @@ public class NoS extends AbstractTucsonSpecificationAction {
      *            specification tuple
      */
     public NoS(final TucsonTupleCentreId tc, final LogicTuple e,
-            final LogicTuple g, final LogicTuple r) {
+               final LogicTuple g, final LogicTuple r) {
         super(tc, e, g, r);
     }
 

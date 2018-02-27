@@ -56,7 +56,7 @@ public abstract class AbstractTucsonSpecificationAction extends
      *            specification tuple
      */
     public AbstractTucsonSpecificationAction(final TucsonTupleCentreId t,
-            final LogicTuple e, final LogicTuple g, final LogicTuple r) {
+                                             final LogicTuple e, final LogicTuple g, final LogicTuple r) {
         super(t);
         this.event = e;
         this.guards = g;

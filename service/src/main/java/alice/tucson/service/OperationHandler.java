@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.geolocation.Position;
 import alice.tucson.api.TucsonAgentId;
@@ -541,7 +542,7 @@ public class OperationHandler {
             throws UnreachableNodeException {
         // this.log("t = " + t);
         Tuple tupl = null;
-        if (t instanceof LogicTuple) {
+        if (t instanceof LogicTupleDefault) {
             tupl = t;
         } else if (t instanceof JTuple) {
             tupl = JTuplesEngine.toLogicTuple((JTuple) t);

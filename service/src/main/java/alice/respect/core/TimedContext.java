@@ -15,6 +15,7 @@ package alice.respect.core;
 import java.util.List;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.RespectOperation;
@@ -94,7 +95,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
 		}
 		if (",".equals(t.getName()) && t.getArity() == 2) {
 		    arg = t.getArg(1);
-		    return this.unify(new LogicTuple(
+		    return this.unify(new LogicTupleDefault(
 		            new TupleArgument(arg.toTerm())), op
 		            .getLogicTupleResult());
 		}
@@ -156,7 +157,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
 		}
 		if (",".equals(t.getName()) && t.getArity() == 2) {
 		    arg = t.getArg(1);
-		    return this.unify(new LogicTuple(
+		    return this.unify(new LogicTupleDefault(
 		            new TupleArgument(arg.toTerm())), op
 		            .getLogicTupleResult());
 		}
@@ -252,7 +253,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
 		}
 		if (",".equals(t.getName()) && t.getArity() == 2) {
 		    arg = t.getArg(1);
-		    return this.unify(new LogicTuple(
+		    return this.unify(new LogicTupleDefault(
 		            new TupleArgument(arg.toTerm())), op
 		            .getLogicTupleResult());
 		}

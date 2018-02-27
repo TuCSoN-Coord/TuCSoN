@@ -1,6 +1,7 @@
 package rpc;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
@@ -103,7 +104,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
                  * Invocation phase (not TuCSoN invocation!).
                  */
                 this.say("Waiting for remote calls...");
-                op = this.acc.in(this.tid, LogicTuple
+                op = this.acc.in(this.tid, LogicTupleDefault
                         .parse("factorial(caller(Who)," + "arg(N))"), null);
                 req = op.getLogicTupleResult();
                 this.say("Call received from " + req.getArg("caller").getArg(0));
@@ -119,7 +120,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
                 this.say("Call returns to " + req.getArg("caller").getArg(0));
                 this.acc.out(
                         this.tid,
-                        LogicTuple.parse("result(" + "caller("
+                        LogicTupleDefault.parse("result(" + "caller("
                                 + req.getArg("caller").getArg(0) + "),"
                                 + "res(" + result + "))"), null);
             }

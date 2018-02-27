@@ -5,6 +5,7 @@
 package alice.tucson.service;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.Value;
 import alice.tuple.logic.Var;
@@ -53,7 +54,7 @@ public class ObservationService implements NodeServiceListener {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    new LogicTuple("node_event", new Var(), new Value(
+                    new LogicTupleDefault("node_event", new Var(), new Value(
                             "new_agent", new Value(aid.toString()))), null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.obsAid, opRequested,
@@ -78,7 +79,7 @@ public class ObservationService implements NodeServiceListener {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    new LogicTuple("node_event", new Var(), new Value(
+                    new LogicTupleDefault("node_event", new Var(), new Value(
                             "exit_agent", new Value(aid.toString()))), null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.obsAid, opRequested,
@@ -104,7 +105,7 @@ public class ObservationService implements NodeServiceListener {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    new LogicTuple("node_event", new Var(), new Value(
+                    new LogicTupleDefault("node_event", new Var(), new Value(
                             "completed_getSpec", new TupleArgument(
                                     ((TucsonTupleCentreId) tid).toTerm()),
                             new Value(((TucsonAgentId) id).toString()),
@@ -135,7 +136,7 @@ public class ObservationService implements NodeServiceListener {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    new LogicTuple("node_event", new Var(), new Value(
+                    new LogicTupleDefault("node_event", new Var(), new Value(
                             "requested_getSpec", new TupleArgument(
                                     ((TucsonTupleCentreId) tid).toTerm()),
                             new Value(((TucsonAgentId) id).toString()))), null);
@@ -164,7 +165,7 @@ public class ObservationService implements NodeServiceListener {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    new LogicTuple("node_event", new Var(), new Value(
+                    new LogicTupleDefault("node_event", new Var(), new Value(
                             "completed_in", new TupleArgument(
                                     ((TucsonTupleCentreId) tid).toTerm()),
                             new Value(((TucsonAgentId) id).toString()),
@@ -198,7 +199,7 @@ public class ObservationService implements NodeServiceListener {
             RespectOperationDefault opRequested = null;
             if (t != null) {
                 opRequested = RespectOperationDefault.make(
-TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
+TupleCentreOpType.OUT, new LogicTupleDefault("node_event", new Var(),
                         new Value("completed_inp", new TupleArgument(
                                 ((TucsonTupleCentreId) tid).toTerm()),
                                 new Value(((TucsonAgentId) id).toString()),
@@ -214,7 +215,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
                 // ((LogicTuple) t).toTerm())))));
             } else {
                 opRequested = RespectOperationDefault.make(
-TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
+TupleCentreOpType.OUT, new LogicTupleDefault("node_event", new Var(),
                         new Value("completed_inp", new TupleArgument(
                                 ((TucsonTupleCentreId) tid).toTerm()),
                                 new Value(((TucsonAgentId) id).toString()),
@@ -247,7 +248,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    new LogicTuple("node_event", new Var(), new Value(
+                    new LogicTupleDefault("node_event", new Var(), new Value(
                             "requested_inp", new TupleArgument(
                                     ((TucsonTupleCentreId) tid).toTerm()),
                             new Value(((TucsonAgentId) id).toString()),
@@ -280,7 +281,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    new LogicTuple("node_event", new Var(), new Value(
+                    new LogicTupleDefault("node_event", new Var(), new Value(
                             "requested_in", new TupleArgument(
                                     ((TucsonTupleCentreId) tid).toTerm()),
                             new Value(((TucsonAgentId) id).toString()),
@@ -313,7 +314,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    new LogicTuple("node_event", new Var(), new Value(
+                    new LogicTupleDefault("node_event", new Var(), new Value(
                             "done_out", new TupleArgument(
                                     ((TucsonTupleCentreId) tid).toTerm()),
                             new Value(((TucsonAgentId) id).toString()),
@@ -345,7 +346,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    new LogicTuple("node_event", new Var(), new Value(
+                    new LogicTupleDefault("node_event", new Var(), new Value(
                             "completed_rd", new TupleArgument(
                                     ((TucsonTupleCentreId) tid).toTerm()),
                             new Value(((TucsonAgentId) id).toString()),
@@ -379,7 +380,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
             RespectOperationDefault opRequested = null;
             if (t != null) {
                 opRequested = RespectOperationDefault.make(
-TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
+TupleCentreOpType.OUT, new LogicTupleDefault("node_event", new Var(),
                         new Value("completed_rdp", new TupleArgument(
                                 ((TucsonTupleCentreId) tid).toTerm()),
                                 new Value(((TucsonAgentId) id).toString()),
@@ -395,7 +396,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
                 // ((LogicTuple) t).toTerm())))));
             } else {
                 opRequested = RespectOperationDefault.make(
-TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
+TupleCentreOpType.OUT, new LogicTupleDefault("node_event", new Var(),
                         new Value("completed_rdp", new TupleArgument(
                                 ((TucsonTupleCentreId) tid).toTerm()),
                                 new Value(((TucsonAgentId) id).toString()),
@@ -428,7 +429,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    new LogicTuple("node_event", new Var(), new Value(
+                    new LogicTupleDefault("node_event", new Var(), new Value(
                             "requested_rdp", new TupleArgument(
                                     ((TucsonTupleCentreId) tid).toTerm()),
                             new Value(((TucsonAgentId) id).toString()),
@@ -461,7 +462,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    new LogicTuple("node_event", new Var(), new Value(
+                    new LogicTupleDefault("node_event", new Var(), new Value(
                             "requested_rd", new TupleArgument(
                                     ((TucsonTupleCentreId) tid).toTerm()),
                             new Value(((TucsonAgentId) id).toString()),
@@ -493,7 +494,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    new LogicTuple("node_event", new Var(), new Value(
+                    new LogicTupleDefault("node_event", new Var(), new Value(
                             "completed_setSpec", new TupleArgument(
                                     ((TucsonTupleCentreId) tid).toTerm()),
                             new Value(((TucsonAgentId) id).toString()))), null);
@@ -523,7 +524,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    new LogicTuple("node_event", new Var(), new Value(
+                    new LogicTupleDefault("node_event", new Var(), new Value(
                             "requested_setSpec", new TupleArgument(
                                     ((TucsonTupleCentreId) tid).toTerm()),
                             new Value(((TucsonAgentId) id).toString()),
@@ -553,7 +554,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
         try {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                    TupleCentreOpType.OUT, new LogicTuple("node_event",
+                    TupleCentreOpType.OUT, new LogicTupleDefault("node_event",
                             new Var(), new Value("new_tc", new TupleArgument(
                                     tid.toTerm()))), null);
             // InputEvent Creation
@@ -578,7 +579,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
         try {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                    TupleCentreOpType.OUT, new LogicTuple("node_event",
+                    TupleCentreOpType.OUT, new LogicTupleDefault("node_event",
                             new Var(), new Value("destoyed_tc",
                                     new TupleArgument(tid.toTerm()))), null);
             // InputEvent Creation

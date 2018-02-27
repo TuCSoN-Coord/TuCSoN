@@ -4,6 +4,7 @@
 package situatedness;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.core.TransducersManager;
 import alice.respect.situatedness.AbstractProbeId;
@@ -99,7 +100,7 @@ public class ActualSensor implements ISimpleProbe {
             }
         }
         try {
-            final LogicTuple template = LogicTuple.parse("temp(_)");
+            final LogicTuple template = LogicTupleDefault.parse("temp(_)");
             final TucsonOperation op = this.acc
                     .rd(this.tempTc, template, null);
             if (op.isResultSuccess()) {

@@ -5,7 +5,9 @@ package uniform.swarms.ants;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
@@ -118,7 +120,7 @@ public class Ant extends AbstractTucsonAgent {
     private void init() {
         try {
             this.acc.out(this.tcid,
-                    LogicTuple.parse("ant(" + this.myName() + ")"), null);
+                    LogicTupleDefault.parse("ant(" + this.myName() + ")"), null);
         } catch (InvalidLogicTupleException
                 | TucsonOperationNotPossibleException
                 | UnreachableNodeException | OperationTimeOutException e1) {
@@ -132,7 +134,7 @@ public class Ant extends AbstractTucsonAgent {
         TucsonOperation op = null;
         try {
             op = this.acc
-                    .urdp(this.tcid, LogicTuple.parse("food"), Ant.TIMEOUT);
+                    .urdp(this.tcid, LogicTupleDefault.parse("food"), Ant.TIMEOUT);
         } catch (InvalidLogicTupleException
                 | TucsonOperationNotPossibleException
                 | UnreachableNodeException | OperationTimeOutException e) {
@@ -146,7 +148,7 @@ public class Ant extends AbstractTucsonAgent {
         TucsonOperation op = null;
         try {
             op = this.acc
-                    .uinp(this.tcid, LogicTuple.parse("food"), Ant.TIMEOUT);
+                    .uinp(this.tcid, LogicTupleDefault.parse("food"), Ant.TIMEOUT);
         } catch (InvalidLogicTupleException
                 | TucsonOperationNotPossibleException
                 | UnreachableNodeException | OperationTimeOutException e) {
@@ -161,7 +163,7 @@ public class Ant extends AbstractTucsonAgent {
     private LogicTuple smellPheromone() {
         TucsonOperation op = null;
         try {
-            op = this.acc.urdp(this.tcid, LogicTuple.parse("nbr(NBR)"),
+            op = this.acc.urdp(this.tcid, LogicTupleDefault.parse("nbr(NBR)"),
                     Ant.TIMEOUT);
         } catch (InvalidLogicTupleException
                 | TucsonOperationNotPossibleException
@@ -183,7 +185,7 @@ public class Ant extends AbstractTucsonAgent {
         try {
             op = this.acc
                     .uinp(this.tcid,
-                            LogicTuple.parse("ant(" + this.myName() + ")"),
+                            LogicTupleDefault.parse("ant(" + this.myName() + ")"),
                             Ant.TIMEOUT);
         } catch (InvalidLogicTupleException
                 | TucsonOperationNotPossibleException
@@ -211,13 +213,13 @@ public class Ant extends AbstractTucsonAgent {
 
             try {
                 this.acc.out(this.tcid,
-                        LogicTuple.parse("ant(" + this.myName() + ")"),
+                        LogicTupleDefault.parse("ant(" + this.myName() + ")"),
                         Ant.TIMEOUT);
                 if (this.carryingFood) {
                     Logger.getAnonymousLogger().log(Level.INFO,
                             this.myName() + ") Leaving pheromone...");
                     this.acc.out(this.tcid,
-                            LogicTuple.parse("nbr(" + oldTcid + ")"),
+                            LogicTupleDefault.parse("nbr(" + oldTcid + ")"),
                             Ant.TIMEOUT);
                 }
             } catch (InvalidLogicTupleException
@@ -240,7 +242,7 @@ public class Ant extends AbstractTucsonAgent {
     private void dropFood() {
         TucsonOperation op = null;
         try {
-            op = this.acc.out(this.tcid, LogicTuple.parse("stored_food"),
+            op = this.acc.out(this.tcid, LogicTupleDefault.parse("stored_food"),
                     Ant.TIMEOUT);
         } catch (InvalidLogicTupleException
                 | TucsonOperationNotPossibleException
@@ -256,7 +258,7 @@ public class Ant extends AbstractTucsonAgent {
     private LogicTuple smellAnthill() {
         TucsonOperation op = null;
         try {
-            op = this.acc.urdp(this.tcid, LogicTuple.parse("anthill(NEXT)"),
+            op = this.acc.urdp(this.tcid, LogicTupleDefault.parse("anthill(NEXT)"),
                     Ant.TIMEOUT);
         } catch (InvalidLogicTupleException
                 | TucsonOperationNotPossibleException

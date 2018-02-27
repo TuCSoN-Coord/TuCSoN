@@ -13,6 +13,7 @@
 package alice.respect.core;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
 
 /**
@@ -542,6 +543,6 @@ public final class InternalOperation {
         } else {
             opName = "unknownOp";
         }
-        return new LogicTuple(opName, new TupleArgument(t.toTerm()));
+        return new LogicTupleDefault(opName, new TupleArgument(t.toTerm()));
     }
 }

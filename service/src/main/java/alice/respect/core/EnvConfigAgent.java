@@ -1,7 +1,9 @@
 package alice.respect.core;
 
 import java.lang.reflect.InvocationTargetException;
+
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.InvalidTupleCentreIdException;
@@ -78,11 +80,11 @@ public class EnvConfigAgent extends AbstractTucsonAgent {
         while (this.iteraction) {
             try {
                 // Gets the command from the tuple space
-                LogicTuple t = LogicTuple.parse("cmd(Type)");
+                LogicTuple t = LogicTupleDefault.parse("cmd(Type)");
                 t = acc.in(this.idEnvTC, t, null).getLogicTupleResult();
                 if (EnvConfigAgent.CREATE_TRANSDUCER_SENSOR.equals(t.getArg(0)
                         .toString())) {
-                    t = LogicTuple
+                    t = LogicTupleDefault
                             .parse("createTransducerSensor(Tcid,Tclass,Tid,Pclass,Pid)");
                     t = acc.in(this.idEnvTC, t, null).getLogicTupleResult();
                     // Obtaining transducer
@@ -111,7 +113,7 @@ public class EnvConfigAgent extends AbstractTucsonAgent {
                     tm.createTransducer(t.getArg(1).toString(), tId, tcId, pId);
                 } else if (EnvConfigAgent.CREATE_TRANSDUCER_ACTUATOR.equals(t
                         .getArg(0).toString())) {
-                    t = LogicTuple
+                    t = LogicTupleDefault
                             .parse("createTransducerActuator(Tcid,Tclass,Tid,Pclass,Pid)");
                     t = acc.in(this.idEnvTC, t, null).getLogicTupleResult();
                     // Obtaining transducer
@@ -141,7 +143,7 @@ public class EnvConfigAgent extends AbstractTucsonAgent {
                     tm.createTransducer(t.getArg(1).toString(), tId, tcId, pId);
                 } else if (EnvConfigAgent.ADD_SENSOR.equals(t.getArg(0)
                         .toString())) {
-                    t = LogicTuple.parse("addSensor(Class,Pid,Tid)");
+                    t = LogicTupleDefault.parse("addSensor(Class,Pid,Tid)");
                     t = acc.in(this.idEnvTC, t, null).getLogicTupleResult();
                     // Creating resource
                     final AbstractProbeId pId = new SensorId(t.getArg(1)
@@ -157,7 +159,7 @@ public class EnvConfigAgent extends AbstractTucsonAgent {
                     tm.addProbe(probe.getIdentifier(), tId, probe);
                 } else if (EnvConfigAgent.ADD_ACTUATOR.equals(t.getArg(0)
                         .toString())) {
-                    t = LogicTuple.parse("addActuator(Class,Pid,Tid)");
+                    t = LogicTupleDefault.parse("addActuator(Class,Pid,Tid)");
                     t = acc.in(this.idEnvTC, t, null).getLogicTupleResult();
                     // Creating resource
                     final AbstractProbeId pId = new ActuatorId(t.getArg(1)
@@ -175,7 +177,7 @@ public class EnvConfigAgent extends AbstractTucsonAgent {
                         .toString())) {
                     this.speak("Serving 'removeResource' request < ProbeId="
                             + t.getArg(0).getName() + " >...");
-                    t = LogicTuple.parse("removeResource(Pid)");
+                    t = LogicTupleDefault.parse("removeResource(Pid)");
                     t = acc.in(this.idEnvTC, t, null).getLogicTupleResult();
                     final ProbesManager rm = ProbesManager.INSTANCE;
                     final ISimpleProbe probe = rm.getProbeByName(t.getArg(0)
@@ -183,7 +185,7 @@ public class EnvConfigAgent extends AbstractTucsonAgent {
                     rm.removeProbe(probe.getIdentifier());
                 } else if (EnvConfigAgent.CHANGE_TRANSDUCER.equals(t.getArg(0)
                         .toString())) {
-                    t = LogicTuple.parse("changeTransducer(Pid,Tid)");
+                    t = LogicTupleDefault.parse("changeTransducer(Pid,Tid)");
                     t = acc.in(this.idEnvTC, t, null).getLogicTupleResult();
                     final ProbesManager rm = ProbesManager.INSTANCE;
                     final AbstractProbeId pId = rm.getProbeByName(

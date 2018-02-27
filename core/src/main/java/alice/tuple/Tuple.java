@@ -14,14 +14,11 @@
 package alice.tuple;
 
 /**
- *
  * Flag interface representing tuples.
  *
- * @see TupleTemplate
  * @author Alessandro Ricci
+ * @see TupleTemplate
  */
 public interface Tuple {
-    /*
-     *
-     */
+
 }

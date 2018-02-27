@@ -59,7 +59,7 @@ public class RdpS extends AbstractTucsonSpecificationAction {
      *            specification tuple
      */
     public RdpS(final TucsonTupleCentreId tc, final LogicTuple e,
-            final LogicTuple g, final LogicTuple r) {
+                final LogicTuple g, final LogicTuple r) {
         super(tc, e, g, r);
     }
 

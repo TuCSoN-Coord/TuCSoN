@@ -3,6 +3,7 @@ package alice.respect.api.geolocation;
 import java.lang.reflect.InvocationTargetException;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.Var;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
@@ -72,7 +73,7 @@ public class GeolocationConfigAgent extends Thread {
             while (true) {
                 Object cmd;
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                        TupleCentreOpType.IN, new LogicTuple("cmd",
+                        TupleCentreOpType.IN, new LogicTupleDefault("cmd",
                                 new Var("X")), null);
                 final InputEvent ev = new InputEvent(this.nodeManAid,
                         opRequested, this.config, System.currentTimeMillis(),
@@ -145,7 +146,7 @@ public class GeolocationConfigAgent extends Thread {
         GeolocationConfigAgent.log("Executing command " + name);
         LogicTuple t = null;
         if (GeolocationConfigAgent.CREATE_GEOLOCATION_SERVICE.equals(name)) {
-            t = LogicTuple.parse("createGeolocationService(Sid,Sclass,Stcid)");
+            t = LogicTupleDefault.parse("createGeolocationService(Sid,Sclass,Stcid)");
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.IN, t, null);
             final InputEvent ev = new InputEvent(this.nodeManAid, opRequested,
@@ -172,7 +173,7 @@ public class GeolocationConfigAgent extends Thread {
                             tcId);
         } else if (GeolocationConfigAgent.DESTROY_GEOLOCATION_SERVICE
                 .equals(name)) {
-            t = LogicTuple.parse("destroyGeolocationService(Sid)");
+            t = LogicTupleDefault.parse("destroyGeolocationService(Sid)");
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.IN, t, null);
             final InputEvent ev = new InputEvent(this.nodeManAid, opRequested,

@@ -4,7 +4,7 @@
 package persistency;
 
 import java.io.IOException;
-import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.Value;
 import alice.tuple.logic.Var;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
@@ -60,11 +60,11 @@ public final class PersistencyTester {
             // tuples addition
             int i = 0;
             for (; i < 1000; i++) {
-                acc.out(ttcid, new LogicTuple("t", new Value(i)),
+                acc.out(ttcid, new LogicTupleDefault("t", new Value(i)),
                         Long.MAX_VALUE);
             }
             // snapshot test
-            acc.out(ttcidOrg, new LogicTuple("cmd", new Value(
+            acc.out(ttcidOrg, new LogicTupleDefault("cmd", new Value(
                     "enable_persistency", new Value("def", new Value(1)))),
                     Long.MAX_VALUE);
             // spec addition
@@ -73,36 +73,36 @@ public final class PersistencyTester {
             acc.setS(ttcid, spec, Long.MAX_VALUE);
             // tuples addition
             for (; i < 2000; i++) {
-                acc.out(ttcid, new LogicTuple("t", new Value(i)),
+                acc.out(ttcid, new LogicTupleDefault("t", new Value(i)),
                         Long.MAX_VALUE);
             }
             // tuples deletion
             for (i--; i > 1500; i--) {
-                acc.in(ttcid, new LogicTuple("t", new Value(i)), Long.MAX_VALUE);
+                acc.in(ttcid, new LogicTupleDefault("t", new Value(i)), Long.MAX_VALUE);
             }
             acc.inS(ttcid,
-                    new LogicTuple("out", new Value("repulse",
+                    new LogicTupleDefault("out", new Value("repulse",
                             new Value("INFO"))),
-                    new LogicTuple("completion"),
-                    LogicTuple
+                    new LogicTupleDefault("completion"),
+                    LogicTupleDefault
                             .parse("(rd_all(neighbour(_), NBRS),multiread(NBRS, repulse(INFO)))"),
                     Long.MAX_VALUE);
             // disable persistency test
-            acc.out(ttcidOrg, new LogicTuple("cmd", new Value(
+            acc.out(ttcidOrg, new LogicTupleDefault("cmd", new Value(
                     "disable_persistency", new Value("def", new Value(1)))),
                     Long.MAX_VALUE);
             // tuples addition
             for (; i < 2000; i++) {
-                acc.out(ttcid, new LogicTuple("ttt", new Value(i)),
+                acc.out(ttcid, new LogicTupleDefault("ttt", new Value(i)),
                         Long.MAX_VALUE);
             }
             // snapshot test n. 2
-            acc.out(ttcidOrg, new LogicTuple("cmd", new Value(
+            acc.out(ttcidOrg, new LogicTupleDefault("cmd", new Value(
                     "enable_persistency", new Value("def", new Var()))),
                     Long.MAX_VALUE);
             // tuples addition
             for (; i < 3000; i++) {
-                acc.out(ttcid, new LogicTuple("ttt", new Value(i)),
+                acc.out(ttcid, new LogicTupleDefault("ttt", new Value(i)),
                         Long.MAX_VALUE);
             }
             acc.exit();

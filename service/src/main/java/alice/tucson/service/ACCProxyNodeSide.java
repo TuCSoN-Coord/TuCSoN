@@ -18,8 +18,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -35,6 +33,8 @@ import alice.tucson.network.TucsonMsgReply;
 import alice.tucson.network.TucsonMsgRequest;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tuple.Tuple;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;

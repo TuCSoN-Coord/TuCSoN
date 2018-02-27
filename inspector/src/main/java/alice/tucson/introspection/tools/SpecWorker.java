@@ -18,6 +18,7 @@ import java.util.List;
 import javax.swing.JTextArea;
 
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -107,7 +108,7 @@ public class SpecWorker extends Thread {
             final String spec = this.inputSpec.getText();
             try {
                 if (spec.isEmpty()) {
-                    this.context.setS(this.tid, LogicTuple.parse("[]"),
+                    this.context.setS(this.tid, LogicTupleDefault.parse("[]"),
                             (Long) null);
                 } else {
                     this.context.setS(this.tid, spec, (Long) null);

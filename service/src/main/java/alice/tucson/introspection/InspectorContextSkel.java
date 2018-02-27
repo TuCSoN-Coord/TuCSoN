@@ -18,8 +18,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.core.LogicReaction;
 import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentId;
@@ -39,6 +37,8 @@ import alice.tucson.service.AbstractACCProxyNodeSide;
 import alice.tucson.service.TucsonNodeService;
 import alice.tucson.service.TucsonTCUsers;
 import alice.tucson.service.TupleCentreContainer;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.InputEvent;

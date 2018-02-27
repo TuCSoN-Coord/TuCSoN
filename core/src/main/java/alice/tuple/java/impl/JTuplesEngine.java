@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import alice.tuple.logic.LogicMatchingEngine;
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.Value;
 import alice.tuple.logic.Var;
@@ -255,7 +256,7 @@ public final class JTuplesEngine {
             }
             i++;
         }
-        return new LogicTuple("javat", tas);
+        return new LogicTupleDefault("javat", tas);
     }
 
     /**
@@ -315,7 +316,7 @@ public final class JTuplesEngine {
             }
             i++;
         }
-        return new LogicTuple("javat", tas);
+        return new LogicTupleDefault("javat", tas);
     }
 
     private JTuplesEngine() {

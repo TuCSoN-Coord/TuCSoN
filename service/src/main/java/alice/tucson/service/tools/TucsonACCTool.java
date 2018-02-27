@@ -5,7 +5,9 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+
 import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.Value;
 import alice.tuple.logic.Var;
@@ -51,7 +53,7 @@ public final class TucsonACCTool {
             final UUID agentUUID, final String agentClass,
             final TupleCentreId tid, final EnhancedACC acc) {
         try {
-            final LogicTuple template = new LogicTuple("context_request",
+            final LogicTuple template = new LogicTupleDefault("context_request",
                     new Value(agentAid), new Var("Result"), new Value(
                             agentClass), new Value(agentUUID.toString()));
             final TucsonOperation op = acc.inp(tid, template, (Long) null);
@@ -108,7 +110,7 @@ public final class TucsonACCTool {
         }
         Role newRole = null;
         try {
-            final LogicTuple template = new LogicTuple(
+            final LogicTuple template = new LogicTupleDefault(
                     "role_activation_request", new Value(agentAid.toString()),
                     new Value(accUUID.toString()), new Value(roleName),
                     new Var("Result"));
@@ -168,14 +170,14 @@ public final class TucsonACCTool {
         }
         Role newRole = null;
         try {
-            final LogicTuple rolePolicyTemplate = new LogicTuple(
+            final LogicTuple rolePolicyTemplate = new LogicTupleDefault(
                     "policy_role_request", new Value(policy.getPolicyName()),
                     new Var("Result"));
             TucsonOperation op = acc.inp(tid, rolePolicyTemplate, (Long) null);
             if (op.isResultSuccess()) {
                 LogicTuple res = op.getLogicTupleResult();
                 final String roleName = res.getArg(1).toString();
-                final LogicTuple template = new LogicTuple(
+                final LogicTuple template = new LogicTupleDefault(
                         "role_activation_request", new Value(
                                 agentAid.toString()), new Value(
                                         accUUID.toString()), new Value(roleName),
@@ -247,7 +249,7 @@ public final class TucsonACCTool {
             final TupleCentreId tid, final EnhancedACC acc) {
         final List<Policy> policies = new ArrayList<Policy>();
         try {
-            final LogicTuple policyListTuple = new LogicTuple(
+            final LogicTuple policyListTuple = new LogicTupleDefault(
                     "policies_list_request", new Value(agentClass), new Var(
                             "Result"));
             final TucsonOperation op = acc.inp(tid, policyListTuple,
