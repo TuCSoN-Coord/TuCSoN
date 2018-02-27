@@ -22,8 +22,8 @@ import java.util.UUID;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.LogicTupleOpManager;
-import alice.tuple.logic.Value;
-import alice.tuple.logic.Var;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.respect.api.geolocation.PlatformUtils;
 import alice.respect.api.geolocation.Position;
@@ -326,7 +326,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             UnreachableNodeException, OperationTimeOutException {
         LogicTuple spec = null;
         try {
-            spec = new LogicTupleDefault("spec", new Var("S"));
+            spec = new LogicTupleDefault("spec", new VarArgument("S"));
         } catch (final InvalidVarNameException e) {
             // Cannot happen, the var name it's specified here
             e.printStackTrace();
@@ -796,7 +796,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
         if ("".equals(spec) || "''".equals(spec) || "'.'".equals(spec)) {
             throw new TucsonOperationNotPossibleException();
         }
-        final LogicTuple specT = new LogicTupleDefault("spec", new Value(spec));
+        final LogicTuple specT = new LogicTupleDefault("spec", new ValueArgument(spec));
         return this.executor.doBlockingOperation(this.aid,
                 TupleCentreOpType.SET_S, tid, specT, timeout, this.getPosition());
     }
@@ -806,7 +806,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                 final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
-        final LogicTuple specT = new LogicTupleDefault("spec", new Value(spec));
+        final LogicTuple specT = new LogicTupleDefault("spec", new ValueArgument(spec));
         return this.executor.doNonBlockingOperation(this.aid,
                 TupleCentreOpType.SET_S, tid, specT, l, this.getPosition());
     }

@@ -11,8 +11,8 @@ import alice.tuple.logic.LogicMatchingEngine;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.Value;
-import alice.tuple.logic.Var;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
 import alice.tuplecentre.api.exceptions.InvalidTupleException;
 import alice.tuple.java.api.IJArg;
 import alice.tuple.java.api.IJTuple;
@@ -244,15 +244,15 @@ public final class JTuplesEngine {
         int i = 0;
         for (final IJVal val : jt) {
             if (val.isDouble()) {
-                tas[i] = new Value("double", new Value(val.toDouble()));
+                tas[i] = new ValueArgument("double", new ValueArgument(val.toDouble()));
             } else if (val.isFloat()) {
-                tas[i] = new Value("float", new Value(val.toFloat()));
+                tas[i] = new ValueArgument("float", new ValueArgument(val.toFloat()));
             } else if (val.isInt()) {
-                tas[i] = new Value("int", new Value(val.toInt()));
+                tas[i] = new ValueArgument("int", new ValueArgument(val.toInt()));
             } else if (val.isLiteral()) {
-                tas[i] = new Value("literal", new Value(val.toLiteral()));
+                tas[i] = new ValueArgument("literal", new ValueArgument(val.toLiteral()));
             } else if (val.isLong()) {
-                tas[i] = new Value("long", new Value(val.toLong()));
+                tas[i] = new ValueArgument("long", new ValueArgument(val.toLong()));
             }
             i++;
         }
@@ -273,15 +273,15 @@ public final class JTuplesEngine {
             if (arg.isVal()) {
                 final IJVal val = (IJVal) arg;
                 if (val.isDouble()) {
-                    tas[i] = new Value("double", new Value(val.toDouble()));
+                    tas[i] = new ValueArgument("double", new ValueArgument(val.toDouble()));
                 } else if (val.isFloat()) {
-                    tas[i] = new Value("float", new Value(val.toFloat()));
+                    tas[i] = new ValueArgument("float", new ValueArgument(val.toFloat()));
                 } else if (val.isInt()) {
-                    tas[i] = new Value("int", new Value(val.toInt()));
+                    tas[i] = new ValueArgument("int", new ValueArgument(val.toInt()));
                 } else if (val.isLiteral()) {
-                    tas[i] = new Value("literal", new Value(val.toLiteral()));
+                    tas[i] = new ValueArgument("literal", new ValueArgument(val.toLiteral()));
                 } else if (val.isLong()) {
-                    tas[i] = new Value("long", new Value(val.toLong()));
+                    tas[i] = new ValueArgument("long", new ValueArgument(val.toLong()));
                 } else {
                     Logger.getLogger("JTuplesEngine").log(Level.FINEST,
                             "Error: Invalid JVal type");
@@ -290,22 +290,22 @@ public final class JTuplesEngine {
                 final IJVar var = (IJVar) arg;
                 switch (var.getType()) {
                     case ANY:
-                        tas[i] = new Var();
+                        tas[i] = new VarArgument();
                         break;
                     case DOUBLE:
-                        tas[i] = new Value("double", new Var());
+                        tas[i] = new ValueArgument("double", new VarArgument());
                         break;
                     case FLOAT:
-                        tas[i] = new Value("float", new Var());
+                        tas[i] = new ValueArgument("float", new VarArgument());
                         break;
                     case INT:
-                        tas[i] = new Value("int", new Var());
+                        tas[i] = new ValueArgument("int", new VarArgument());
                         break;
                     case LITERAL:
-                        tas[i] = new Value("literal", new Var());
+                        tas[i] = new ValueArgument("literal", new VarArgument());
                         break;
                     case LONG:
-                        tas[i] = new Value("long", new Var());
+                        tas[i] = new ValueArgument("long", new VarArgument());
                         break;
                     default:
                         // cannot happen

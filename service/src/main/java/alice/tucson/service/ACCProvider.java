@@ -20,8 +20,8 @@ import java.util.concurrent.TimeUnit;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.Value;
-import alice.tuple.logic.Var;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuple.logic.exceptions.LogicTupleException;
@@ -118,12 +118,12 @@ public class ACCProvider {
             if (agentClass == null) {
                 agentClass = "basic";
             }
-            final LogicTuple req = new LogicTupleDefault("context_request", new Value(
-                    Tools.removeApices(agentName)), new Var("CtxId"),
-                    new Value(agentClass), new Value(agentUUID));
+            final LogicTuple req = new LogicTupleDefault("context_request", new ValueArgument(
+                    Tools.removeApices(agentName)), new VarArgument("CtxId"),
+                    new ValueArgument(agentClass), new ValueArgument(agentUUID));
             /*
              * final LogicTuple req = new LogicTuple("context_request", new
-             * Value( agentName), new Var("CtxId"));
+             * Value( agentName), new VarArgument("CtxId"));
              */
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
@@ -233,8 +233,8 @@ public class ACCProvider {
             final TucsonAgentId id) {
         LogicTuple req = null;
         try {
-            req = new LogicTupleDefault("context_shutdown", new Value(ctxId),
-                    new Value(id.toString()), new Var("CtxId"));
+            req = new LogicTupleDefault("context_shutdown", new ValueArgument(ctxId),
+                    new ValueArgument(id.toString()), new VarArgument("CtxId"));
         } catch (InvalidVarNameException e1) {
             e1.printStackTrace();
         }

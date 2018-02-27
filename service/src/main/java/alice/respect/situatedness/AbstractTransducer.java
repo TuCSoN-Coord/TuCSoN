@@ -7,7 +7,7 @@ import java.util.UUID;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.Value;
+import alice.tuple.logic.ValueArgument;
 import alice.respect.core.InternalEvent;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -177,13 +177,13 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
         if (mod == AbstractTransducer.GET_MODE) {
-            final LogicTuple tupla = new LogicTupleDefault("getEnv", new Value(key),
-                    new Value(value));
+            final LogicTuple tupla = new LogicTupleDefault("getEnv", new ValueArgument(key),
+                    new ValueArgument(value));
             this.executor.doNonBlockingOperation(this.id,
                     TupleCentreOpType.GET_ENV, this.tcId, tupla, this, null);
         } else if (mod == AbstractTransducer.SET_MODE) {
-            final LogicTuple tupla = new LogicTupleDefault("setEnv", new Value(key),
-                    new Value(value));
+            final LogicTuple tupla = new LogicTupleDefault("setEnv", new ValueArgument(key),
+                    new ValueArgument(value));
             this.executor.doNonBlockingOperation(this.id,
                     TupleCentreOpType.SET_ENV, this.tcId, tupla, this, null);
         }

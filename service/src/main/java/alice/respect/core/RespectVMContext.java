@@ -29,7 +29,8 @@ import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.LogicTupleOpManager;
 import alice.tuple.logic.TupleArgumentDefault;
-import alice.tuple.logic.Value;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.ILinkContext;
 import alice.respect.api.IRespectTC;
@@ -150,13 +151,13 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				core.setTheory(thspec);
 			} else {
 				core = null;
-				return new LogicTupleDefault("invalid", new alice.tuple.logic.Var());
+				return new LogicTupleDefault("invalid", new VarArgument());
 			}
 			core = null;
 			return new LogicTupleDefault("valid");
 		} catch (final alice.tuprolog.InvalidTheoryException ex) {
 			core = null;
-			return new LogicTupleDefault("invalid", new Value(ex.line));
+			return new LogicTupleDefault("invalid", new ValueArgument(ex.line));
 		}
 	}
 

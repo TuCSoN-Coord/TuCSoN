@@ -5,9 +5,9 @@ import alice.tuprolog.OperatorManager;
 import alice.tuprolog.Prolog;
 
 /**
+ * Manages Operators used with logic tuples in TuCSoN and ReSpecT
  *
  * @author ste (mailto: s.mariani@unibo.it)
- *
  */
 public class LogicTupleOpManager extends OperatorManager {
 

@@ -9,8 +9,8 @@ import java.util.UUID;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.Value;
-import alice.tuple.logic.Var;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.EnhancedACC;
@@ -54,8 +54,8 @@ public final class TucsonACCTool {
             final TupleCentreId tid, final EnhancedACC acc) {
         try {
             final LogicTuple template = new LogicTupleDefault("context_request",
-                    new Value(agentAid), new Var("Result"), new Value(
-                            agentClass), new Value(agentUUID.toString()));
+                    new ValueArgument(agentAid), new VarArgument("Result"), new ValueArgument(
+                            agentClass), new ValueArgument(agentUUID.toString()));
             final TucsonOperation op = acc.inp(tid, template, (Long) null);
             if (op.isResultSuccess()) {
                 final LogicTuple res = op.getLogicTupleResult();
@@ -111,9 +111,9 @@ public final class TucsonACCTool {
         Role newRole = null;
         try {
             final LogicTuple template = new LogicTupleDefault(
-                    "role_activation_request", new Value(agentAid.toString()),
-                    new Value(accUUID.toString()), new Value(roleName),
-                    new Var("Result"));
+                    "role_activation_request", new ValueArgument(agentAid.toString()),
+                    new ValueArgument(accUUID.toString()), new ValueArgument(roleName),
+                    new VarArgument("Result"));
             final TucsonOperation op = acc.inp(tid, template, (Long) null);
             if (op.isResultSuccess()) {
                 final LogicTuple res = op.getLogicTupleResult();
@@ -171,17 +171,17 @@ public final class TucsonACCTool {
         Role newRole = null;
         try {
             final LogicTuple rolePolicyTemplate = new LogicTupleDefault(
-                    "policy_role_request", new Value(policy.getPolicyName()),
-                    new Var("Result"));
+                    "policy_role_request", new ValueArgument(policy.getPolicyName()),
+                    new VarArgument("Result"));
             TucsonOperation op = acc.inp(tid, rolePolicyTemplate, (Long) null);
             if (op.isResultSuccess()) {
                 LogicTuple res = op.getLogicTupleResult();
                 final String roleName = res.getArg(1).toString();
                 final LogicTuple template = new LogicTupleDefault(
-                        "role_activation_request", new Value(
-                                agentAid.toString()), new Value(
-                                        accUUID.toString()), new Value(roleName),
-                                        new Var("Result"));
+                        "role_activation_request", new ValueArgument(
+                                agentAid.toString()), new ValueArgument(
+                                        accUUID.toString()), new ValueArgument(roleName),
+                                        new VarArgument("Result"));
                 op = acc.inp(tid, template, (Long) null);
                 if (op.isResultSuccess()) {
                     res = op.getLogicTupleResult();
@@ -250,7 +250,7 @@ public final class TucsonACCTool {
         final List<Policy> policies = new ArrayList<Policy>();
         try {
             final LogicTuple policyListTuple = new LogicTupleDefault(
-                    "policies_list_request", new Value(agentClass), new Var(
+                    "policies_list_request", new ValueArgument(agentClass), new VarArgument(
                             "Result"));
             final TucsonOperation op = acc.inp(tid, policyListTuple,
                     (Long) null);

@@ -19,7 +19,7 @@ import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.TupleArgumentDefault;
-import alice.tuple.logic.Var;
+import alice.tuple.logic.VarArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.respect.api.RespectOperation;
@@ -61,7 +61,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         }
         if (opType == GET_S) {
             try {
-                return RespectOperationDefault.makeGetS(new LogicTupleDefault("spec", new Var(
+                return RespectOperationDefault.makeGetS(new LogicTupleDefault("spec", new VarArgument(
                         "S")), listener);
             } catch (InvalidVarNameException e) {
                 // TODO Auto-generated catch block

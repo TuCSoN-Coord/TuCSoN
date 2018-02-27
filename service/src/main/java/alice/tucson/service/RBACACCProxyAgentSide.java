@@ -8,8 +8,8 @@ import java.util.UUID;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.LogicTupleOpManager;
-import alice.tuple.logic.Value;
-import alice.tuple.logic.Var;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
@@ -116,7 +116,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
         this.checkPermission("getS");
         LogicTuple spec = null;
         try {
-            spec = new LogicTupleDefault("spec", new Var("S"));
+            spec = new LogicTupleDefault("spec", new VarArgument("S"));
         } catch (final InvalidVarNameException e) {
             /*
              * Cannot happen
@@ -592,7 +592,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
         if ("".equals(spec) || "''".equals(spec) || "'.'".equals(spec)) {
             throw new TucsonOperationNotPossibleException();
         }
-        final LogicTuple specT = new LogicTupleDefault("spec", new Value(spec));
+        final LogicTuple specT = new LogicTupleDefault("spec", new ValueArgument(spec));
         return this.executor.doBlockingOperation(this.aid,
                 TupleCentreOpType.SET_S, tid, specT, timeout, this.getPosition());
     }
@@ -603,7 +603,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         this.checkPermission("setS");
-        final LogicTuple specT = new LogicTupleDefault("spec", new Value(spec));
+        final LogicTuple specT = new LogicTupleDefault("spec", new ValueArgument(spec));
         return this.executor.doNonBlockingOperation(this.aid,
                 TupleCentreOpType.SET_S, tid, specT, l, this.getPosition());
     }

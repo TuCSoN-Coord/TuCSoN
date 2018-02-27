@@ -34,8 +34,8 @@ import alice.tuprolog.Term;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Saverio Cicora
  * @see LogicTupleDefault
- * @see Value
- * @see Var
+ * @see ValueArgument
+ * @see VarArgument
  */
 public class TupleArgumentDefault implements Serializable, TupleArgument {
 

@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.Var;
+import alice.tuple.logic.VarArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuple.logic.exceptions.InvalidLogicTupleOperationException;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
@@ -74,7 +74,7 @@ public class GeolocationConfigAgent extends Thread {
                 Object cmd;
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.IN, new LogicTupleDefault("cmd",
-                                new Var("X")), null);
+                                new VarArgument("X")), null);
                 final InputEvent ev = new InputEvent(this.nodeManAid,
                         opRequested, this.config, System.currentTimeMillis(),
                         null);

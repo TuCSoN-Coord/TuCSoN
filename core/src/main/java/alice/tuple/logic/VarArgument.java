@@ -18,20 +18,21 @@ import alice.tuple.logic.exceptions.InvalidVarNameException;
 /**
  * Class representing tuple argument variables.
  *
- * @see TupleArgumentDefault
- * @see Value
- *
  * @author Alessandro Ricci
+ * @see TupleArgumentDefault
+ * @see ValueArgument
  */
-public class Var extends TupleArgumentDefault {
+public class VarArgument extends TupleArgumentDefault {
 
     /**
      *
      */
     private static final long serialVersionUID = 1L;
 
-    /** Constructs an anonymous variable tuple argument */
-    public Var() {
+    /**
+     * Constructs an anonymous variable tuple argument
+     */
+    public VarArgument() {
         super();
         this.value = new alice.tuprolog.Var();
     }
@@ -39,19 +40,17 @@ public class Var extends TupleArgumentDefault {
     /**
      * Construct a variable tuple argument identified with a name
      *
-     * @param n
-     *            the name of the variable, which must start with an upper case
-     *            letter or the underscore
-     * @throws InvalidVarNameException
-     *             if the text does not represent a valid Var name
+     * @param name the name of the variable, which must start with an upper case
+     *          letter or the underscore
+     * @throws InvalidVarNameException if the text does not represent a valid Var name
      */
-    public Var(final String n) throws InvalidVarNameException {
+    public VarArgument(final String name) throws InvalidVarNameException {
         super();
         try {
-            this.value = new alice.tuprolog.Var(n);
+            this.value = new alice.tuprolog.Var(name);
         } catch (final alice.tuprolog.InvalidTermException ex) {
             throw new InvalidVarNameException(
-                    "Invalid Var name: \"" + n + "\"", ex);
+                    "Invalid Var name: \"" + name + "\"", ex);
         }
     }
 }

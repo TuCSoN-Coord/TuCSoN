@@ -75,7 +75,7 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
      * @param name the name of the tuple (the functor)
      */
     public LogicTupleDefault(final String name) {
-        this.info = new Value(name);
+        this.info = new ValueArgument(name);
     }
 
     /**
@@ -85,7 +85,7 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
      * @param t1   the tuple argument
      */
     public LogicTupleDefault(final String name, final TupleArgument t1) {
-        this.info = new Value(name, t1);
+        this.info = new ValueArgument(name, t1);
     }
 
     /**
@@ -97,7 +97,7 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
      */
     public LogicTupleDefault(final String name, final TupleArgument t1,
                              final TupleArgument t2) {
-        this.info = new Value(name, t1, t2);
+        this.info = new ValueArgument(name, t1, t2);
     }
 
     /**
@@ -110,7 +110,7 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
      */
     public LogicTupleDefault(final String name, final TupleArgument t1,
                              final TupleArgument t2, final TupleArgument t3) {
-        this.info = new Value(name, t1, t2, t3);
+        this.info = new ValueArgument(name, t1, t2, t3);
     }
 
     /**
@@ -125,7 +125,7 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
     public LogicTupleDefault(final String name, final TupleArgument t1,
                              final TupleArgument t2, final TupleArgument t3,
                              final TupleArgument t4) {
-        this.info = new Value(name, t1, t2, t3, t4);
+        this.info = new ValueArgument(name, t1, t2, t3, t4);
     }
 
     /**
@@ -141,7 +141,7 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
     public LogicTupleDefault(final String name, final TupleArgument t1,
                              final TupleArgument t2, final TupleArgument t3,
                              final TupleArgument t4, final TupleArgument t5) {
-        this.info = new Value(name, t1, t2, t3, t4, t5);
+        this.info = new ValueArgument(name, t1, t2, t3, t4, t5);
     }
 
     /**
@@ -159,7 +159,7 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
                              final TupleArgument t2, final TupleArgument t3,
                              final TupleArgument t4, final TupleArgument t5,
                              final TupleArgument t6) {
-        this.info = new Value(name, t1, t2, t3, t4, t5, t6);
+        this.info = new ValueArgument(name, t1, t2, t3, t4, t5, t6);
     }
 
     /**
@@ -178,7 +178,7 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
                              final TupleArgument t2, final TupleArgument t3,
                              final TupleArgument t4, final TupleArgument t5,
                              final TupleArgument t6, final TupleArgument t7) {
-        this.info = new Value(name, t1, t2, t3, t4, t5, t6, t7);
+        this.info = new ValueArgument(name, t1, t2, t3, t4, t5, t6, t7);
     }
 
     /**
@@ -188,7 +188,7 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
      * @param list the list of tuple argument
      */
     public LogicTupleDefault(final String name, final TupleArgument[] list) {
-        this.info = new Value(name, list);
+        this.info = new ValueArgument(name, list);
     }
 
     /**

@@ -2,8 +2,8 @@ package helloWorld;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.Value;
-import alice.tuple.logic.Var;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
@@ -53,7 +53,7 @@ public final class HelloWorld {
             /*
              * 4) Build the tuple using the communication language.
              */
-            final LogicTuple tuple = new LogicTupleDefault("hello", new Value("world"));
+            final LogicTuple tuple = new LogicTupleDefault("hello", new ValueArgument("world"));
             /*
              * 5) Perform the coordination operation using the preferred
              * coordination primitive.
@@ -79,7 +79,7 @@ public final class HelloWorld {
             /*
              * Another success test to be sure.
              */
-            final LogicTuple template = new LogicTupleDefault("hello", new Var("Who"));
+            final LogicTuple template = new LogicTupleDefault("hello", new VarArgument("Who"));
             op = acc.rdp(tid, template, null);
             if (op.isResultSuccess()) {
                 res = op.getLogicTupleResult();
