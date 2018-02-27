@@ -4,7 +4,7 @@ import java.util.AbstractMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.respect.core.collection.DoubleKeyMVMap;
 import alice.respect.core.collection.MVMap;
 import alice.tuprolog.Var;

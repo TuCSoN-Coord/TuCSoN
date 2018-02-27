@@ -15,7 +15,7 @@ package alice.tucson.introspection;
 
 import java.util.List;
 import alice.tucson.api.TucsonAgentId;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 
 /**
  *

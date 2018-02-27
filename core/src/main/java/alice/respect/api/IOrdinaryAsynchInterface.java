@@ -1,6 +1,6 @@
 package alice.respect.api;
 
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.core.InputEvent;
 

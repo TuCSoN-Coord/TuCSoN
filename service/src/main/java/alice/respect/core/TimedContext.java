@@ -14,9 +14,9 @@ package alice.respect.core;
 
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.RespectOperation;
 import alice.respect.api.IRespectTC;
 import alice.respect.api.ITimedContext;

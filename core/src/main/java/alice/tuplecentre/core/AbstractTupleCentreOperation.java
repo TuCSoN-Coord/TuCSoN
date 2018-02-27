@@ -16,12 +16,12 @@ package alice.tuplecentre.core;
 import java.util.LinkedList;
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.ITCCycleResult;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.api.TupleCentreOperation;
-import alice.tuplecentre.api.TupleTemplate;
+import alice.tuple.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
 /**

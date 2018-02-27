@@ -18,7 +18,7 @@ import java.util.List;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogSendException;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 
 /**
  * Defines the basic context for TuCSoN Inspector

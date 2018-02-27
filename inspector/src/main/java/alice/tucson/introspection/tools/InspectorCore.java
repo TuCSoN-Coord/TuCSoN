@@ -18,14 +18,14 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Iterator;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.respect.api.AgentId;
 import alice.respect.api.TupleCentreId;
 import alice.respect.situatedness.TransducerId;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.introspection.WSetEvent;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.core.TriggeredReaction;
 
 /**

@@ -19,7 +19,7 @@
  */
 package alice.tucson.api.actions.ordinary.bulk;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tucson.api.acc.BulkAsyncACC;
 import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;

@@ -14,7 +14,7 @@ package alice.tucson.api;
 
 import java.util.Iterator;
 import java.util.List;
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tucson.api.acc.BulkAsyncACC;
 import alice.tucson.api.acc.BulkSyncACC;
 import alice.tucson.api.acc.EnhancedACC;

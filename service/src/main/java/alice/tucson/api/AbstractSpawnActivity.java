@@ -3,8 +3,8 @@ package alice.tucson.api;
 import java.io.Serializable;
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.acc.BulkSyncACC;
 import alice.tucson.api.acc.OrdinarySyncACC;

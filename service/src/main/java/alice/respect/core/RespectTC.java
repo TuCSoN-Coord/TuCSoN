@@ -14,7 +14,7 @@ package alice.respect.core;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.respect.api.IEnvironmentContext;
 import alice.respect.api.ILinkContext;
 import alice.respect.api.IManagementContext;
@@ -31,7 +31,7 @@ import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.InvalidSpecificationException;
 import alice.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.api.ITCCycleResult;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuprolog.Prolog;
 

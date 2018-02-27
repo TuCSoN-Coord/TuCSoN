@@ -1,8 +1,8 @@
 package alice.tucson.rbac;
 
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.Value;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.Value;
 import alice.tucson.service.tools.TucsonACCTool;
 
 /**

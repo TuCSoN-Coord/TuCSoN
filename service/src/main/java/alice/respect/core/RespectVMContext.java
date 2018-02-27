@@ -25,11 +25,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.LogicTupleOpManager;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.Value;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleOpManager;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.Value;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.ILinkContext;
 import alice.respect.api.IRespectTC;
 import alice.respect.api.RespectSpecification;
@@ -53,8 +53,8 @@ import alice.tucson.service.Spawn2PLibrary;
 import alice.tucson.service.Spawn2PSolver;
 import alice.tuplecentre.api.AgentId;
 import alice.tuplecentre.api.IId;
-import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleTemplate;
+import alice.tuple.Tuple;
+import alice.tuple.TupleTemplate;
 import alice.tuplecentre.core.AbstractBehaviourSpecification;
 import alice.tuplecentre.core.AbstractEvent;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -149,7 +149,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				core.setTheory(thspec);
 			} else {
 				core = null;
-				return new LogicTuple("invalid", new alice.logictuple.Var());
+				return new LogicTuple("invalid", new alice.tuple.logic.Var());
 			}
 			core = null;
 			return new LogicTuple("valid");
@@ -1273,12 +1273,12 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 
 	@Override
 	public Tuple readMatchingSpecTuple(final TupleTemplate t) {
-		return this.tSpecSet.readMatchingTuple((alice.logictuple.LogicTuple) t);
+		return this.tSpecSet.readMatchingTuple((LogicTuple) t);
 	}
 
 	@Override
 	public Tuple readMatchingTuple(final TupleTemplate t) {
-		return this.tSet.readMatchingTuple((alice.logictuple.LogicTuple) t);
+		return this.tSet.readMatchingTuple((LogicTuple) t);
 	}
 
 	@Override

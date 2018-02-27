@@ -1,7 +1,7 @@
 package alice.tucson.introspection;
 
 import java.io.Serializable;
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.IId;
 
 /**

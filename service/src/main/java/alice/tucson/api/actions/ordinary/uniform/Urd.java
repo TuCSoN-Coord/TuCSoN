@@ -19,7 +19,7 @@
  */
 package alice.tucson.api.actions.ordinary.uniform;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;

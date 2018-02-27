@@ -14,7 +14,7 @@
 package alice.tucson.introspection;
 
 import java.util.List;
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.core.TriggeredReaction;
 
 /**

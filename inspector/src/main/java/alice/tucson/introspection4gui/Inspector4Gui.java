@@ -3,7 +3,7 @@ package alice.tucson.introspection4gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.respect.core.LogicReaction;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -12,7 +12,7 @@ import alice.tucson.introspection.Inspector;
 import alice.tucson.introspection.InspectorContextEvent;
 import alice.tucson.introspection.InspectorProtocol;
 import alice.tucson.network.exceptions.DialogSendException;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.core.Reaction;
 import alice.tuprolog.Struct;
 

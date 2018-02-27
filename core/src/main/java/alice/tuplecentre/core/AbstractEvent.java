@@ -18,7 +18,7 @@ import java.util.Map;
 
 import alice.respect.api.geolocation.Position;
 import alice.tuplecentre.api.IId;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
 
 /**

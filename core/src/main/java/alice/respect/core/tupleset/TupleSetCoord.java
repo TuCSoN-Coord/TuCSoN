@@ -13,8 +13,8 @@
 package alice.respect.core.tupleset;
 
 import java.util.LinkedList;
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.TupleArgument;
 import alice.respect.core.collection.DoubleKeyMVMap;
 
 /**

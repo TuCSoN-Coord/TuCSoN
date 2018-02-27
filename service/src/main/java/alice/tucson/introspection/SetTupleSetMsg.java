@@ -14,7 +14,7 @@
 package alice.tucson.introspection;
 
 import alice.tucson.api.TucsonAgentId;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 
 /**
  *

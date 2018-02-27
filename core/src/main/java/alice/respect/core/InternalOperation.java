@@ -12,8 +12,8 @@
  */
 package alice.respect.core;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.TupleArgument;
 
 /**
  * Represents an internal operation of a ReSpecT virtual machine.

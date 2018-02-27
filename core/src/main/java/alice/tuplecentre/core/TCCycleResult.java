@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import alice.tuplecentre.api.ITCCycleResult;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 
 /**
  * @author Alessandro Ricci

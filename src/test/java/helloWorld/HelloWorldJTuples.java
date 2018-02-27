@@ -13,18 +13,18 @@ import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.api.exceptions.InvalidTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuples.javatuples.api.IJTuple;
-import alice.tuples.javatuples.api.IJTupleTemplate;
-import alice.tuples.javatuples.api.JArgType;
-import alice.tuples.javatuples.exceptions.InvalidJValException;
-import alice.tuples.javatuples.exceptions.InvalidJVarException;
-import alice.tuples.javatuples.impl.JTuple;
-import alice.tuples.javatuples.impl.JTupleTemplate;
-import alice.tuples.javatuples.impl.JVal;
-import alice.tuples.javatuples.impl.JVar;
+import alice.tuple.java.api.IJTuple;
+import alice.tuple.java.api.IJTupleTemplate;
+import alice.tuple.java.api.JArgType;
+import alice.tuple.java.exceptions.InvalidJValException;
+import alice.tuple.java.exceptions.InvalidJVarException;
+import alice.tuple.java.impl.JTuple;
+import alice.tuple.java.impl.JTupleTemplate;
+import alice.tuple.java.impl.JVal;
+import alice.tuple.java.impl.JVar;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 24/feb/2014

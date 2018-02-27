@@ -1,8 +1,8 @@
 package alice.respect.core;
 
 import java.lang.reflect.InvocationTargetException;
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.respect.situatedness.AbstractProbeId;

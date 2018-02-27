@@ -2,7 +2,7 @@ package alice.respect.core;
 
 import java.util.ArrayList;
 import java.util.List;
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.respect.api.IManagementContext;
 import alice.respect.api.RespectSpecification;
 import alice.respect.api.exceptions.InvalidSpecificationException;

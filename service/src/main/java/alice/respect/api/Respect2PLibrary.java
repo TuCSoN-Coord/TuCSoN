@@ -23,12 +23,12 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import alice.logictuple.LogicMatchingEngine;
-import alice.logictuple.LogicTuple;
-import alice.logictuple.LogicTupleOpManager;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.logictuple.exceptions.InvalidTupleArgumentException;
+import alice.tuple.logic.LogicMatchingEngine;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleOpManager;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
 import alice.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.respect.api.geolocation.GeoUtils;
 import alice.respect.api.geolocation.PlatformUtils;
@@ -46,7 +46,7 @@ import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.NetworkUtils;
 import alice.tuplecentre.api.IId;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractEvent;
@@ -557,7 +557,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 array[i++] = new TupleArgument(
                         ((LogicTuple) list.remove(0)).toTerm());
             }
-            final alice.tuplecentre.api.Tuple tuple = new LogicTuple("get",
+            final Tuple tuple = new LogicTuple("get",
                     array);
             if (((LogicTuple) tuple).getArg(0) != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
@@ -616,7 +616,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 array[i++] = new TupleArgument(
                         ((LogicTuple) list.remove(0)).toTerm());
             }
-            final alice.tuplecentre.api.Tuple tuple = new LogicTuple("get_s",
+            final Tuple tuple = new LogicTuple("get_s",
                     array);
             if (((LogicTuple) tuple).getArg(0) != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
@@ -791,7 +791,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local in triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .removeMatchingTuple(tuArg, true);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
@@ -844,7 +844,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local in_all triggered...");
-            final List<alice.tuplecentre.api.Tuple> tuples = this.vm
+            final List<Tuple> tuples = this.vm
                     .inAllTuples(tuArg);
             if (tuples != null) {
                 final Term term = Respect2PLibrary.list2tuple(tuples);
@@ -909,7 +909,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             Respect2PLibrary.log("Local in_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
             final LogicTuple tuArg = new LogicTuple(newArg);
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .removeMatchingSpecTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
@@ -969,7 +969,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local inp triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .removeMatchingTuple(tuArg, true);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
@@ -1037,7 +1037,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             Respect2PLibrary.log("Local inp_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
             final LogicTuple tuArg = new LogicTuple(newArg);
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .removeMatchingSpecTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
@@ -1263,7 +1263,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local no triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readMatchingTuple(tuArg);
             if (tuple == null) {
                 final InputEvent ce = this.vm.getCurrentEvent();
@@ -1314,7 +1314,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local no_all triggered...");
-            final List<alice.tuplecentre.api.Tuple> tuples = this.vm
+            final List<Tuple> tuples = this.vm
                     .readAllTuples(tuArg);
             if (tuples == null) {
                 final Term term = Respect2PLibrary.list2tuple(tuples);
@@ -1379,7 +1379,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             Respect2PLibrary.log("Local no_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
             final LogicTuple tuArg = new LogicTuple(newArg);
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readMatchingSpecTuple(tuArg);
             if (tuple == null) {
                 final InputEvent ce = this.vm.getCurrentEvent();
@@ -1425,7 +1425,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local nop triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readMatchingTuple(tuArg);
             if (tuple == null) {
                 final InputEvent ce = this.vm.getCurrentEvent();
@@ -1492,7 +1492,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             Respect2PLibrary.log("Local nop_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
             final LogicTuple tuArg = new LogicTuple(newArg);
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readMatchingSpecTuple(tuArg);
             if (tuple == null) {
                 final InputEvent ce = this.vm.getCurrentEvent();
@@ -1738,7 +1738,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rd triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readMatchingTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
@@ -1791,7 +1791,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rd_all triggered...");
-            final List<alice.tuplecentre.api.Tuple> tuples = this.vm
+            final List<Tuple> tuples = this.vm
                     .readAllTuples(tuArg);
             if (tuples != null) {
                 final Term term = Respect2PLibrary.list2tuple(tuples);
@@ -1856,7 +1856,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             Respect2PLibrary.log("Local rd_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
             final LogicTuple tuArg = new LogicTuple(newArg);
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readMatchingSpecTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
@@ -1904,7 +1904,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rdp triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readMatchingTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
@@ -1976,7 +1976,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             Respect2PLibrary.log("Local rdp_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
             final LogicTuple tuArg = new LogicTuple(newArg);
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readMatchingSpecTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
@@ -2427,7 +2427,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local uin triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .removeUniformTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
@@ -2475,7 +2475,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local uinp triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .removeUniformTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
@@ -2523,7 +2523,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local uno triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readUniformTuple(tuArg);
             if (tuple == null) {
                 Respect2PLibrary.log("uno success");
@@ -2571,7 +2571,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local unop triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readUniformTuple(tuArg);
             if (tuple == null) {
                 Respect2PLibrary.log("unop success");
@@ -2619,7 +2619,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local urd triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readUniformTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
@@ -2667,7 +2667,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local urdp triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readUniformTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();

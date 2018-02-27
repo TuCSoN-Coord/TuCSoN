@@ -18,8 +18,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.core.LogicReaction;
 import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentId;

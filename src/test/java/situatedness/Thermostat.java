@@ -4,10 +4,10 @@
 package situatedness;
 
 import java.io.IOException;
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.Value;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.Value;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.acc.NegotiationACC;

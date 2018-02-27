@@ -3,12 +3,12 @@ package alice.tucson.service;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.Value;
-import alice.logictuple.Var;
-import alice.logictuple.exceptions.InvalidTupleArgumentException;
-import alice.logictuple.exceptions.InvalidVarNameException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.Value;
+import alice.tuple.logic.Var;
+import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
+import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.respect.api.exceptions.OperationNotAllowedException;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.AdminACC;

@@ -12,6 +12,9 @@
  */
 package alice.tuplecentre.api;
 
+import alice.tuple.Tuple;
+import alice.tuple.TupleTemplate;
+
 /**
  *
  * @author Alessandro Ricci

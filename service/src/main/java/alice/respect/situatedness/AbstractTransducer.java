@@ -5,8 +5,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.Value;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.Value;
 import alice.respect.core.InternalEvent;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -18,7 +18,7 @@ import alice.tucson.service.InputEventMsg;
 import alice.tucson.service.OperationHandler;
 import alice.tucson.service.TucsonOperationDefault;
 import alice.tuplecentre.api.TupleCentreId;
-import alice.tuplecentre.api.TupleTemplate;
+import alice.tuple.TupleTemplate;
 import alice.tuplecentre.core.TupleCentreOpType;
 
 /**

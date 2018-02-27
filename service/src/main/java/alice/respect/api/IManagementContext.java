@@ -14,7 +14,7 @@ package alice.respect.api;
 
 import java.util.ArrayList;
 import java.util.List;
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.respect.api.exceptions.InvalidSpecificationException;
 import alice.respect.api.exceptions.OperationNotPossibleException;
 import alice.tucson.api.TucsonTupleCentreId;

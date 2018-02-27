@@ -26,7 +26,7 @@ import alice.tucson.network.TucsonProtocolTCP;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogSendException;
 import alice.tucson.service.ACCDescription;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 
 /**
  *

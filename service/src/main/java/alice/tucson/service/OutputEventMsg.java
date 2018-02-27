@@ -2,7 +2,7 @@ package alice.tucson.service;
 
 import java.io.Serializable;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.core.TupleCentreOpType;
 
 /**

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.geolocation.Position;
 import alice.tucson.api.TucsonAgentId;
@@ -26,13 +26,13 @@ import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.api.ITCCycleResult;
-import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleTemplate;
+import alice.tuple.Tuple;
+import alice.tuple.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.TupleCentreOpType;
-import alice.tuples.javatuples.impl.JTuple;
-import alice.tuples.javatuples.impl.JTupleTemplate;
-import alice.tuples.javatuples.impl.JTuplesEngine;
+import alice.tuple.java.impl.JTuple;
+import alice.tuple.java.impl.JTupleTemplate;
+import alice.tuple.java.impl.JTuplesEngine;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.lib.InvalidObjectIdException;
 

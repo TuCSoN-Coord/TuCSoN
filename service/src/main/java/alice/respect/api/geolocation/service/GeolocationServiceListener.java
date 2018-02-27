@@ -1,7 +1,7 @@
 package alice.respect.api.geolocation.service;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.ISpatialContext;
 import alice.respect.api.place.IPlace;
 import alice.respect.core.RespectOperationDefault;
