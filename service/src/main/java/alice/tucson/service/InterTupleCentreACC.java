@@ -17,6 +17,7 @@ import alice.tucson.api.TucsonOpId;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.api.TupleOperationID;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
 /**
@@ -45,7 +46,7 @@ public interface InterTupleCentreACC {
      *             if the given Object is not a valid identifier of a tuple
      *             centre
      */
-    TucsonOpId doOperation(Object tid, AbstractTupleCentreOperation op)
+    TupleOperationID doOperation(Object tid, AbstractTupleCentreOperation op)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, TucsonInvalidTupleCentreIdException;
 

@@ -46,6 +46,7 @@ import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.service.tools.TucsonACCTool;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleOperationID;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -307,7 +308,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
     }
 
     @Override
-    public Map<Long, TucsonOperation> getPendingOperationsMap() {
+    public Map<TupleOperationID, TucsonOperation> getPendingOperationsMap() {
         return this.executor.operations;
     }
     

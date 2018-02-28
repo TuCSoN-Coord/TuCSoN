@@ -14,6 +14,7 @@
 package alice.logictuple;
 
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Term;
 import alice.tuplecentre.api.TupleTemplate;
@@ -82,6 +83,17 @@ public class LogicTuple implements TupleTemplate,
      */
     public LogicTuple(final String name) {
         this.info = new Value(name);
+    }
+
+    /**
+     * Constructs the logic tuple providing the tuple operation type
+     * It gets the tuple name and converts it to lower case.
+     *
+     * @param opType
+     *            the type of the tuple operation (the functor)
+     */
+    public LogicTuple(final TupleCentreOpType opType){
+        this(opType.name().toLowerCase());
     }
 
     /**

@@ -51,10 +51,7 @@ import alice.tucson.persistency.PersistencyData;
 import alice.tucson.persistency.PersistencyXML;
 import alice.tucson.service.Spawn2PLibrary;
 import alice.tucson.service.Spawn2PSolver;
-import alice.tuplecentre.api.AgentId;
-import alice.tuplecentre.api.IId;
-import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleTemplate;
+import alice.tuplecentre.api.*;
 import alice.tuplecentre.core.AbstractBehaviourSpecification;
 import alice.tuplecentre.core.AbstractEvent;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -1449,7 +1446,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	 *            identifier of the operation
 	 * @return wether the event has been successfully removed or not
 	 */
-	public boolean removePendingQueryEvent(final long operationId) {
+	public boolean removePendingQueryEvent(final TupleOperationID operationId) {
 		return this.wSet.removeEventOfOperation(operationId);
 	}
 

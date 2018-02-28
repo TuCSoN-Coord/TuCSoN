@@ -18,10 +18,8 @@ import java.util.List;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tuplecentre.api.ITCCycleResult;
-import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreOperation;
-import alice.tuplecentre.api.TupleTemplate;
+import alice.tucson.api.TucsonOpId;
+import alice.tuplecentre.api.*;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
 /**
@@ -40,7 +38,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     /**
      * internal identifier of the operation
      */
-    private final long id;
+    private final TupleOperationID id;
 
     private final TCCycleResult result;
     private TupleTemplate templateArgument;
@@ -62,7 +60,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
         this.result = new TCCycleResult();
         this.type = opType;
         this.token = new Object();
-        this.id = AbstractTupleCentreOperation.idCounter;
+        this.id = new TucsonOpId(AbstractTupleCentreOperation.idCounter);
         AbstractTupleCentreOperation.idCounter++;
     }
 
@@ -131,7 +129,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     }
 
     @Override
-    public long getId() {
+    public TupleOperationID getId() {
         return this.id;
     }
 
@@ -157,11 +155,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     @Override
     public Tuple getPrimitive() {
         if (TupleCentreOpType.getStandardOperationTypes().contains(this.type)) {
-
-            // TODO modificare LogicTuple in modo che accetti in ingresso direttamente il tipo dell'operazione
-            // TODO e che lo trasformi internamente in stringa (se necessario)
-
-            return new LogicTuple(this.type.name().toLowerCase());
+            return new LogicTuple(this.type);
         } else {
             return null;
         }

@@ -3,6 +3,7 @@ package alice.tucson.service;
 import java.io.Serializable;
 
 import alice.logictuple.LogicTuple;
+import alice.tuplecentre.api.TupleOperationID;
 import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
@@ -11,7 +12,7 @@ import alice.tuplecentre.core.TupleCentreOpType;
 public class OutputEventMsg implements Serializable {
     private static final long serialVersionUID = 6617714748018050950L;
     private final boolean allowed;
-    private final long opId;
+    private final TupleOperationID opId;
     private final TupleCentreOpType opType;
     private final LogicTuple reqTuple;
     private final Object resTuple;
@@ -25,7 +26,7 @@ public class OutputEventMsg implements Serializable {
      * @param completed wether the operation completed
      * @param succeeded wether the operation succeeded
      */
-    public OutputEventMsg(final long opId, final TupleCentreOpType opType, final boolean allowed,
+    public OutputEventMsg(final TupleOperationID opId, final TupleCentreOpType opType, final boolean allowed,
                           final boolean completed, final boolean succeeded) {
         this.opId = opId;
         this.opType = opType;
@@ -46,7 +47,7 @@ public class OutputEventMsg implements Serializable {
      * @param res       the object result of the operation (can be a tuple or a list
      *                  of tuples)
      */
-    public OutputEventMsg(final long opId, final TupleCentreOpType opType, final boolean allowed,
+    public OutputEventMsg(final TupleOperationID opId, final TupleCentreOpType opType, final boolean allowed,
                           final boolean completed, final boolean succeeded, final LogicTuple req,
                           final Object res) {
         this.opId = opId;
@@ -61,7 +62,7 @@ public class OutputEventMsg implements Serializable {
     /**
      * @return the id of the operation which caused the event
      */
-    public long getOpId() {
+    public TupleOperationID getOpId() {
         return this.opId;
     }
 

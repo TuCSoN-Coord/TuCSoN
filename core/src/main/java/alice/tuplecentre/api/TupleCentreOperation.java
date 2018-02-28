@@ -20,7 +20,7 @@ public interface TupleCentreOperation {
      *
      * @return Operation identifier
      */
-    long getId(); //TODO replace return type with TupleOperationID (to be created) (will be implemented by TucsonOpId class)
+    TupleOperationID getId(); //TODO replace return type with TupleOperationID (to be created) (will be implemented by TucsonOpId class)
 
     /**
      * @return the type code of the operation

@@ -27,6 +27,7 @@ import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleOperationID;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -82,7 +83,7 @@ public class OperationHandler {
                  * dal thr controller e dal addOperation usato in doOperation?
                  */
                 synchronized (OperationHandler.this.operations) {
-                    for (final Long operation : OperationHandler.this.operationExpired) {
+                    for (final TupleOperationID operation : OperationHandler.this.operationExpired) {
                         OperationHandler.this.operations.remove(operation);
                     }
                 }
@@ -127,12 +128,12 @@ public class OperationHandler {
                             // log("tupleReq="+tupleReq+", tupleRes="+tupleRes);
                             final LogicTuple res = this.unify(tupleReq,
                                     tupleRes);
-                            ev = new TucsonOpCompletionEvent(new TucsonOpId(msg
-                                    .getOutputEvent().getOpId()), ok, true, msg
+                            ev = new TucsonOpCompletionEvent(msg
+                                    .getOutputEvent().getOpId(), ok, true, msg
                                     .getOutputEvent().isResultSuccess(), res);
                         } else {
-                            ev = new TucsonOpCompletionEvent(new TucsonOpId(msg
-                                    .getOutputEvent().getOpId()), ok, false,
+                            ev = new TucsonOpCompletionEvent(msg
+                                    .getOutputEvent().getOpId(), ok, false,
                                     msg.getOutputEvent().isResultSuccess());
                         }
                     } else if (type == TupleCentreOpType.OUT
@@ -143,8 +144,8 @@ public class OperationHandler {
                             || type == TupleCentreOpType.SET_S
                             || type == TupleCentreOpType.GET_ENV
                             || type == TupleCentreOpType.SET_ENV) {
-                        ev = new TucsonOpCompletionEvent(new TucsonOpId(msg
-                                .getOutputEvent().getOpId()), ok, msg
+                        ev = new TucsonOpCompletionEvent(msg
+                                .getOutputEvent().getOpId(), ok, msg
                                 .getOutputEvent().isSuccess(), msg
                                 .getOutputEvent().isResultSuccess());
                     } else if (type == TupleCentreOpType.IN_ALL
@@ -154,8 +155,8 @@ public class OperationHandler {
                             || type == TupleCentreOpType.GET_S) {
                         final List<LogicTuple> tupleSetRes = (List<LogicTuple>) msg
                                 .getOutputEvent().getTupleResult();
-                        ev = new TucsonOpCompletionEvent(new TucsonOpId(msg
-                                .getOutputEvent().getOpId()), ok, msg
+                        ev = new TucsonOpCompletionEvent(msg
+                                .getOutputEvent().getOpId(), ok, msg
                                 .getOutputEvent().isSuccess(), msg
                                 .getOutputEvent().isResultSuccess(),
                                 tupleSetRes);
@@ -164,8 +165,8 @@ public class OperationHandler {
                         break;
                     }
                 } else {
-                    ev = new TucsonOpCompletionEvent(new TucsonOpId(msg
-                            .getOutputEvent().getOpId()), false, false, msg
+                    ev = new TucsonOpCompletionEvent(msg
+                            .getOutputEvent().getOpId(), false, false, msg
                             .getOutputEvent().isResultSuccess());
                 }
                 final TucsonOperation op;
@@ -278,11 +279,11 @@ public class OperationHandler {
     /**
      * Expired TuCSoN operations
      */
-    protected List<Long> operationExpired;
+    protected List<TupleOperationID> operationExpired;
     /**
      * Requested TuCSoN operations
      */
-    public Map<Long, TucsonOperation> operations;
+    public Map<TupleOperationID, TucsonOperation> operations;
 
     /**
      * Current ACC session description
@@ -297,10 +298,10 @@ public class OperationHandler {
     public OperationHandler(final UUID uuid) {
         this.agentUUID = uuid;
         this.profile = new ACCDescription();
-        this.events = new LinkedList<TucsonOpCompletionEvent>();
-        this.controllerSessions = new HashMap<String, OperationHandler.ControllerSession>();
-        this.operations = new HashMap<Long, TucsonOperation>();
-        this.operationExpired = new ArrayList<Long>();
+        this.events = new LinkedList<>();
+        this.controllerSessions = new HashMap<>();
+        this.operations = new HashMap<>();
+        this.operationExpired = new ArrayList<>();
     }
 
     /**
@@ -310,7 +311,7 @@ public class OperationHandler {
      * @param op
      *            the TuCSoN operation waiting to be served
      */
-    public void addOperation(final Long id, final TucsonOperation op) {
+    public void addOperation(final TupleOperationID id, final TucsonOperation op) {
         this.operations.put(id, op);
     }
 
@@ -321,7 +322,7 @@ public class OperationHandler {
      * @param id
      *            Unique Identifier of the expired operation
      */
-    public void addOperationExpired(final long id) {
+    public void addOperationExpired(final TupleOperationID id) {
         this.operationExpired.add(id);
     }
 

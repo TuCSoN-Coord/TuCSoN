@@ -11,6 +11,7 @@ import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.introspection.WSetEvent;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
+import alice.tuplecentre.api.TupleOperationID;
 
 /**
  *
@@ -31,7 +32,7 @@ public class ManagementContext implements IManagementContext {
     }
 
     @Override
-    public boolean abortOperation(final long opId) {
+    public boolean abortOperation(final TupleOperationID opId) {
         return this.vm.abortOperation(opId);
     }
 

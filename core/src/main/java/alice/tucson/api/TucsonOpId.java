@@ -13,14 +13,16 @@
  */
 package alice.tucson.api;
 
+import alice.tuplecentre.api.TupleOperationID;
+
 /**
  *
  * @author ste (mailto: s.mariani@unibo.it)
  *
  */
-public class TucsonOpId {
+public class TucsonOpId implements TupleOperationID{
 
-    private final long id;
+    private long id;
 
     /**
      *
@@ -77,5 +79,10 @@ public class TucsonOpId {
     @Override
     public String toString() {
         return String.valueOf(this.id);
+    }
+
+    @Override
+    public void increase() {
+        this.id ++;
     }
 }

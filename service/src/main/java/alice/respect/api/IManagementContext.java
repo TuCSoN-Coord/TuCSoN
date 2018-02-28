@@ -21,6 +21,7 @@ import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.introspection.WSetEvent;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
+import alice.tuplecentre.api.TupleOperationID;
 
 /**
  * Basic Management Interface for a RespecT Tuple Centre.
@@ -38,7 +39,7 @@ public interface IManagementContext {
      *            the operation identifier
      * @return true if the operation has been aborted
      */
-    boolean abortOperation(long opId);
+    boolean abortOperation(TupleOperationID opId);
 
     /**
      *

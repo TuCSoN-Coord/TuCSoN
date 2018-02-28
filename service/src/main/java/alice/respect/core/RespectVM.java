@@ -22,10 +22,7 @@ import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.OperationNotPossibleException;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.introspection.WSetEvent;
-import alice.tuplecentre.api.IId;
-import alice.tuplecentre.api.InspectableEventListener;
-import alice.tuplecentre.api.ObservableEventListener;
-import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.*;
 import alice.tuplecentre.core.AbstractBehaviourSpecification;
 import alice.tuplecentre.core.AbstractEvent;
 import alice.tuplecentre.core.InputEvent;
@@ -87,7 +84,7 @@ public class RespectVM implements Runnable {
      *            operation
      * @return wether the operation has been succefully aborted
      */
-    public boolean abortOperation(final long opId) {
+    public boolean abortOperation(final TupleOperationID opId) {
         boolean res;
         synchronized (this.idle) {
             res = this.context.removePendingQueryEvent(opId);

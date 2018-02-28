@@ -8,6 +8,8 @@ package alice.respect.core;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+import alice.tuplecentre.api.TupleOperationID;
 import alice.tuplecentre.core.AbstractEvent;
 
 /**
@@ -135,11 +137,11 @@ public class PendingQuerySet {
      *            operation events have to be removed
      * @return wether the events have been succesfully removed
      */
-    public boolean removeEventOfOperation(final long opId) {
+    public boolean removeEventOfOperation(final TupleOperationID opId) {
         final Iterator<? extends AbstractEvent> it = this.events.listIterator();
         while (it.hasNext()) {
             final alice.tuplecentre.core.AbstractEvent ev = it.next();
-            if (ev.getSimpleTCEvent().getId() == opId) {
+            if (ev.getSimpleTCEvent().getId().equals(opId)) {
                 it.remove();
                 return true;
             }

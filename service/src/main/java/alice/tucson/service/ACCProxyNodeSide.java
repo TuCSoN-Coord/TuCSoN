@@ -36,6 +36,7 @@ import alice.tucson.network.TucsonMsgRequest;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreOperation;
+import alice.tuplecentre.api.TupleOperationID;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.InputEvent;
@@ -58,8 +59,8 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     private boolean ex = false;
     private final ACCProvider manager;
     private final TucsonNodeService node;
-    private final Map<Long, Long> opVsReq;
-    private final Map<Long, TucsonMsgRequest> requests;
+    private final Map<TupleOperationID, TupleOperationID> opVsReq;
+    private final Map<TupleOperationID, TucsonMsgRequest> requests;
     private TucsonTupleCentreId tcId;
 
     /**
@@ -99,8 +100,8 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
         }
         this.agentName = name;
         this.dialog = d;
-        this.requests = new HashMap<Long, TucsonMsgRequest>();
-        this.opVsReq = new HashMap<Long, Long>();
+        this.requests = new HashMap<>();
+        this.opVsReq = new HashMap<>();
         this.node = n;
         this.manager = man;
     }
@@ -118,10 +119,10 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
      */
     @Override
     public void operationCompleted(final AbstractTupleCentreOperation op) {
-        Long reqId;
+        TupleOperationID reqId;
         TucsonMsgRequest msg;
         synchronized (this.requests) {
-            reqId = this.opVsReq.remove(Long.valueOf(op.getId()));
+            reqId = this.opVsReq.remove(op.getId());
             msg = this.requests.remove(reqId);
         }
         final InputEventMsg evMsg = msg.getInputEventMsg();
@@ -404,9 +405,9 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                         e.printStackTrace();
                         break;
                     }
-                    this.requests.put(Long.valueOf(evOp.getId()), msg);
-                    this.opVsReq.put(Long.valueOf(op.getId()),
-                            Long.valueOf(evOp.getId()));
+                    this.requests.put(evOp.getId(), msg);
+                    this.opVsReq.put(op.getId(),
+                            evOp.getId());
                 }
             } else if (msgType == TupleCentreOpType.NO_S
                     || msgType == TupleCentreOpType.NOP_S
@@ -444,9 +445,8 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                         e.printStackTrace();
                         break;
                     }
-                    this.requests.put(Long.valueOf(evOp.getId()), msg);
-                    this.opVsReq.put(Long.valueOf(op.getId()),
-                            Long.valueOf(evOp.getId()));
+                    this.requests.put(evOp.getId(), msg);
+                    this.opVsReq.put(op.getId(), evOp.getId());
                 }
             } else if (msgType == TupleCentreOpType.GET_ENV
                     || msgType == TupleCentreOpType.SET_ENV) {
@@ -475,9 +475,8 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                         break;
                     }
                 }
-                this.requests.put(Long.valueOf(msg.getInputEventMsg().getOpId()), msg);
-                this.opVsReq.put(Long.valueOf(op.getId()),
-                        Long.valueOf(msg.getInputEventMsg().getOpId()));
+                this.requests.put(msg.getInputEventMsg().getOpId(), msg);
+                this.opVsReq.put(op.getId(), msg.getInputEventMsg().getOpId());
             }
         }
         try {

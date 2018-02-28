@@ -33,6 +33,7 @@ import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.api.TupleCentreOperation;
+import alice.tuplecentre.api.TupleOperationID;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.InputEvent;
@@ -340,7 +341,7 @@ public final class TupleCentreContainer {
                 .getManagementContext(tid.getInternalTupleCentreId());
         switch (type) {
             case ABORT:
-                return context.abortOperation((Long) obj);
+                return context.abortOperation((TupleOperationID) obj);
             case SET_S:
                 try {
                     context.setSpec(new RespectSpecification(((LogicTuple) obj)
