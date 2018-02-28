@@ -1,9 +1,6 @@
 package alice.tucson.service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.LogicTupleOpManager;
@@ -19,7 +16,6 @@ import alice.tucson.rbac.Permission;
 import alice.tucson.rbac.Role;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
-import alice.tuplecentre.api.TupleOperationID;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuprolog.Parser;
@@ -105,7 +101,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public Map<TupleOperationID, TucsonOperation> getPendingOperationsMap() {
+    public Set<TucsonOperation> getPendingOperationsMap() {
         return this.executor.operations;
     }
 

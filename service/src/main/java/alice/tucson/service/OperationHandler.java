@@ -1,17 +1,11 @@
 package alice.tucson.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import alice.logictuple.LogicTuple;
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.geolocation.Position;
 import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonOpId;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -42,7 +36,7 @@ import alice.tuprolog.lib.InvalidObjectIdException;
  * @author ste (mailto: s.mariani@unibo.it) on 11/ago/2013
  *
  */
-public class OperationHandler {
+public class OperationHandler extends OperationDoer{
 
     /**
      *
@@ -172,8 +166,10 @@ public class OperationHandler {
                 final TucsonOperation op;
                 // removing completed op from pending list
                 synchronized (OperationHandler.this.operations) {
-                    op = OperationHandler.this.operations.remove(msg
-                            .getOutputEvent().getOpId());
+                    TupleOperationID opID = msg
+                            .getOutputEvent().getOpId();
+                    op = (TucsonOperation) findOpById(opID);
+                    OperationHandler.this.operations.remove(opID);
                 }
                 if (op.getType() == TupleCentreOpType.NO_ALL || op.getType() == TupleCentreOpType.IN_ALL || op.getType() == TupleCentreOpType.RD_ALL || op.getType() == TupleCentreOpType.GET
                         || op.getType() == TupleCentreOpType.SET || op.getType() == TupleCentreOpType.GET_S || op.getType() == TupleCentreOpType.SET_S
@@ -280,10 +276,6 @@ public class OperationHandler {
      * Expired TuCSoN operations
      */
     protected List<TupleOperationID> operationExpired;
-    /**
-     * Requested TuCSoN operations
-     */
-    public Map<TupleOperationID, TucsonOperation> operations;
 
     /**
      * Current ACC session description
@@ -300,19 +292,16 @@ public class OperationHandler {
         this.profile = new ACCDescription();
         this.events = new LinkedList<>();
         this.controllerSessions = new HashMap<>();
-        this.operations = new HashMap<>();
         this.operationExpired = new ArrayList<>();
     }
 
     /**
      *
-     * @param id
-     *            the Long identifier of the pending operation just requested
      * @param op
      *            the TuCSoN operation waiting to be served
      */
-    public void addOperation(final TupleOperationID id, final TucsonOperation op) {
-        this.operations.put(id, op);
+    public void addOperation(final TucsonOperation op) {
+        this.operations.add(op);
     }
 
     /**
@@ -576,10 +565,10 @@ public class OperationHandler {
             }
             // put invoked ops in pending list
             synchronized (this.operations) {
-                this.operations.put(op.getId(), op);
+                this.operations.add(op);
             }
 
-            this.addOperation(op.getId(), op);
+            this.addOperation(op);
             final InputEventMsg ev = new InputEventMsg(aid.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(),
                     tcid.toString(), System.currentTimeMillis(), position);

@@ -14,10 +14,7 @@
 package alice.tucson.service;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.LogicTupleOpManager;
@@ -46,7 +43,6 @@ import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.service.tools.TucsonACCTool;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
-import alice.tuplecentre.api.TupleOperationID;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -267,7 +263,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             this.operations.put(op.getId(), op);*/
             op = new TucsonOperationDefault(TupleCentreOpType.EXIT,
                     (TupleTemplate) null, null, this.executor /* this */);
-            this.executor.addOperation(op.getId(), op);
+            this.executor.addOperation(op);
             final InputEventMsg ev = new InputEventMsg(this.aid.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(), null,
                     System.currentTimeMillis(), this.getPosition());
@@ -308,7 +304,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
     }
 
     @Override
-    public Map<TupleOperationID, TucsonOperation> getPendingOperationsMap() {
+    public Set<TucsonOperation> getPendingOperationsMap() {
         return this.executor.operations;
     }
     

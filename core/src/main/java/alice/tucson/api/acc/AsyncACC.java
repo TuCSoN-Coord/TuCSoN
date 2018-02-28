@@ -13,10 +13,9 @@
  */
 package alice.tucson.api.acc;
 
-import java.util.Map;
-
 import alice.tucson.api.TucsonOperation;
-import alice.tuplecentre.api.TupleOperationID;
+
+import java.util.Set;
 
 /**
  * Base class for Asynchronous ACC.
@@ -32,5 +31,5 @@ public interface AsyncACC extends RootACC {
      *
      * @return the Map associating operation ids with the actual TuCSoN operation
      */
-    Map<TupleOperationID, TucsonOperation> getPendingOperationsMap();
+    Set<TucsonOperation> getPendingOperationsMap();
 }
