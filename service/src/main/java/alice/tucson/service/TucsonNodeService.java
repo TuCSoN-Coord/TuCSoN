@@ -99,14 +99,6 @@ public class TucsonNodeService {
         return TucsonNodeService.NODES.get(port);
     }
 
-    /**
-     *
-     * @return the String representation of the TuCSoN version
-     */
-    public static String getVersion() {
-        return TucsonInfo.getVersion();
-    }
-
     public static boolean isInstalled(final int timeout)
             throws DialogInitializationException {
         try {
@@ -719,7 +711,7 @@ public class TucsonNodeService {
         TucsonNodeService
                 .log("--------------------------------------------------------------------------------");
         TucsonNodeService.log("Welcome to the TuCSoN infrastructure :)");
-        TucsonNodeService.log("  Version " + TucsonNodeService.getVersion());
+        TucsonNodeService.log("  Version " + TucsonInfo.getVersion());
         TucsonNodeService
                 .log("--------------------------------------------------------------------------------");
         TucsonNodeService.log(new Date().toString());
