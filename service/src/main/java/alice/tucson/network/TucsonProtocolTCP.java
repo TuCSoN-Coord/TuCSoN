@@ -24,13 +24,16 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.introspection.InspectorContextEvent;
-import alice.tucson.introspection.NewInspectorMsg;
-import alice.tucson.introspection.NodeMsg;
+import alice.tucson.network.messages.inspection.NewInspectorMsg;
+import alice.tucson.network.messages.inspection.NodeMsg;
 import alice.tucson.network.exceptions.DialogAcceptException;
 import alice.tucson.network.exceptions.DialogCloseException;
 import alice.tucson.network.exceptions.DialogInitializationException;
 import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
+import alice.tucson.network.messages.TucsonMsgGeneric;
+import alice.tucson.network.messages.TucsonMsgReply;
+import alice.tucson.network.messages.TucsonMsgRequest;
 
 /*
  * TODO CICORA: e' necessario separare la classe usata server side e la classe
@@ -219,10 +222,10 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
     }
 
     @Override
-    public TucsonMsg receiveMsg() throws DialogReceiveException {
-        TucsonMsg msg;
+    public TucsonMsgGeneric receiveMsg() throws DialogReceiveException {
+        TucsonMsgGeneric msg;
         try {
-            msg = (TucsonMsg) this.inStream.readObject();
+            msg = (TucsonMsgGeneric) this.inStream.readObject();
         } catch (final IOException e) {
             throw new DialogReceiveException(e);
         } catch (final ClassNotFoundException e) {
@@ -309,7 +312,7 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
     }
 
     @Override
-    public void sendMsg(final TucsonMsg msg) throws DialogSendException {
+    public void sendMsg(final TucsonMsgGeneric msg) throws DialogSendException {
         try {
             this.outStream.writeObject(msg);
             this.outStream.flush();

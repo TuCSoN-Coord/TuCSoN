@@ -88,7 +88,7 @@ public interface IGeolocationService {
     void notifyLocationChanged(final IPlace place);
 
     /**
-     * Notifies to listeners that the movement is started (from event)
+     * Notifies to listeners that the movement is started (from events)
      * 
      * @param lat
      *            latitude coordinate
@@ -98,7 +98,7 @@ public interface IGeolocationService {
     void notifyStartMovement(final double lat, final double lng);
 
     /**
-     * Notifies to listeners that the movement is started (from event)
+     * Notifies to listeners that the movement is started (from events)
      * 
      * @param space
      *            type of node position. It can be specified as either its
@@ -111,7 +111,7 @@ public interface IGeolocationService {
     void notifyStartMovement(final String space, final IPlace place);
 
     /**
-     * Notifies to listeners that the movement is terminated (to event)
+     * Notifies to listeners that the movement is terminated (to events)
      * 
      * @param lat
      *            latitude coordinate
@@ -121,7 +121,7 @@ public interface IGeolocationService {
     void notifyStopMovement(final double lat, final double lng);
 
     /**
-     * Notifies to listeners that the movement is terminated (to event)
+     * Notifies to listeners that the movement is terminated (to events)
      * 
      * @param space
      *            type of node position. It can be specified as either its

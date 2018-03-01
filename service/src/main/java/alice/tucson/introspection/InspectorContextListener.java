@@ -26,7 +26,7 @@ public interface InspectorContextListener extends EventListener {
     /**
      *
      * @param msg
-     *            the inspection event generated
+     *            the inspection events generated
      */
     void onContextEvent(InspectorContextEvent msg);
 }

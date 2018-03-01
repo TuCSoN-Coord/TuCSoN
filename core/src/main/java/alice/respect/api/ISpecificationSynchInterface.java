@@ -20,7 +20,7 @@ public interface ISpecificationSynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws OperationNotPossibleException
      *             if the operation requested cannot be carried out
@@ -31,7 +31,7 @@ public interface ISpecificationSynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -44,7 +44,7 @@ public interface ISpecificationSynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -57,7 +57,7 @@ public interface ISpecificationSynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -70,7 +70,7 @@ public interface ISpecificationSynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -83,7 +83,7 @@ public interface ISpecificationSynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException
@@ -95,7 +95,7 @@ public interface ISpecificationSynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -108,7 +108,7 @@ public interface ISpecificationSynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -122,7 +122,7 @@ public interface ISpecificationSynchInterface {
      * @param t
      *            the logic tuple representing the ReSpecT specification to set
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws OperationNotPossibleException
      *             if the operation requested cannot be carried out
@@ -135,7 +135,7 @@ public interface ISpecificationSynchInterface {
      * @param spec
      *            the String representation of the ReSpecT specification to set
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws OperationNotPossibleException
      *             if the operation requested cannot be carried out

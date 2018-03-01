@@ -50,7 +50,7 @@ public class LogicReaction implements alice.tuplecentre.core.Reaction,
 
     /**
      *
-     * @return the Prolog term representing the trigger event
+     * @return the Prolog term representing the trigger events
      */
     public Term getReactionTerm() {
         return this.reaction.getArg(0);

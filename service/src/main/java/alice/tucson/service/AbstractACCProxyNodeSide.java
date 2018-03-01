@@ -13,7 +13,7 @@
  */
 package alice.tucson.service;
 
-import alice.tucson.introspection.ShutdownMsg;
+import alice.tucson.network.messages.inspection.ShutdownMsg;
 import alice.tuplecentre.core.OperationCompletionListener;
 
 /**

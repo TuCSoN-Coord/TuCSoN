@@ -16,12 +16,15 @@ import java.io.IOException;
 import java.util.Properties;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.introspection.InspectorContextEvent;
-import alice.tucson.introspection.NewInspectorMsg;
-import alice.tucson.introspection.NodeMsg;
+import alice.tucson.network.messages.inspection.NewInspectorMsg;
+import alice.tucson.network.messages.inspection.NodeMsg;
 import alice.tucson.network.exceptions.DialogAcceptException;
 import alice.tucson.network.exceptions.DialogCloseException;
 import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
+import alice.tucson.network.messages.TucsonMsgGeneric;
+import alice.tucson.network.messages.TucsonMsgReply;
+import alice.tucson.network.messages.TucsonMsgRequest;
 import alice.tucson.service.ACCDescription;
 
 /**
@@ -148,7 +151,7 @@ public abstract class AbstractTucsonProtocol implements java.io.Serializable {
 
     /**
      *
-     * @return the Inspector event received over the network
+     * @return the Inspector events received over the network
      * @throws DialogReceiveException
      *             if something goes wrong in the underlying network
      */
@@ -170,11 +173,11 @@ public abstract class AbstractTucsonProtocol implements java.io.Serializable {
      * @throws DialogReceiveException
      *             if something goes wrong in the underlying network
      */
-    public abstract TucsonMsg receiveMsg() throws DialogReceiveException;
+    public abstract TucsonMsgGeneric receiveMsg() throws DialogReceiveException;
 
     /**
      *
-     * @return the TuCSoN message reply event received over the network
+     * @return the TuCSoN message reply events received over the network
      * @throws DialogReceiveException
      *             if something goes wrong in the underlying network
      */
@@ -293,7 +296,7 @@ public abstract class AbstractTucsonProtocol implements java.io.Serializable {
      * @throws DialogSendException
      *             if something goes wrong in the underlying network
      */
-    public abstract void sendMsg(TucsonMsg msg) throws DialogSendException;
+    public abstract void sendMsg(TucsonMsgGeneric msg) throws DialogSendException;
 
     /**
      *

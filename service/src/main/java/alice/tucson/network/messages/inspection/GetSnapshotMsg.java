@@ -11,28 +11,52 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tucson.introspection;
+package alice.tucson.network.messages.inspection;
 
 import alice.tucson.api.TucsonAgentId;
 
 /**
- * @author Roberto D'Elia
- * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
+ *
+ * @author Unknown...
  *
  */
-public class IsActiveStepModeMsg extends NodeMsg {
+public class GetSnapshotMsg extends NodeMsg {
 
     /**
      *
      */
-    private static final long serialVersionUID = -13483265125297485L;
+    public static final byte TSET = 1;
+    /**
+     *
+     */
+    public static final byte WSET = 2;
+    private static final long serialVersionUID = -7715943663646624722L;
+    private byte what;
 
     /**
      *
      * @param id
-     *            the agent id of the sender
+     *            the agent identifier
+     * @param w
+     *            the set to retrieve
      */
-    public IsActiveStepModeMsg(final TucsonAgentId id) {
-        super(id, "isStepMode");
+    public GetSnapshotMsg(final TucsonAgentId id, final byte w) {
+        super(id, "getSnapshot");
+        this.what = w;
+    }
+
+    /**
+     * @return the what
+     */
+    public byte getWhat() {
+        return this.what;
+    }
+
+    /**
+     * @param w
+     *            the what to set
+     */
+    public void setWhat(final byte w) {
+        this.what = w;
     }
 }

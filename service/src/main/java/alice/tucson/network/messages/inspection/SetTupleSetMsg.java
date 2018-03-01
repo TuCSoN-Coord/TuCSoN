@@ -11,44 +11,46 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tucson.introspection;
+package alice.tucson.network.messages.inspection;
 
 import alice.tucson.api.TucsonAgentId;
+import alice.tuplecentre.api.Tuple;
 
 /**
  *
  * @author Unknown...
  *
  */
-public class SetProtocolMsg extends NodeMsg {
+public class SetTupleSetMsg extends NodeMsg {
 
-    private static final long serialVersionUID = 7284025970406889712L;
-    private InspectorProtocol info;
+    private static final long serialVersionUID = 3683932175338169242L;
+    private java.util.List<? extends Tuple> tupleSet;
 
     /**
      *
      * @param id
      *            the agent id of the sender
-     * @param p
-     *            the inspection protocol to be used
+     * @param ts
+     *            the list of tuples to overwrite the tuple set with
      */
-    public SetProtocolMsg(final TucsonAgentId id, final InspectorProtocol p) {
-        super(id, "setProtocol");
-        this.info = p;
+    public SetTupleSetMsg(final TucsonAgentId id,
+            final java.util.List<? extends Tuple> ts) {
+        super(id, "setTupleSet");
+        this.tupleSet = ts;
     }
 
     /**
-     * @return the info
+     * @return the tupleSet
      */
-    public InspectorProtocol getInfo() {
-        return this.info;
+    public java.util.List<? extends Tuple> getTupleSet() {
+        return this.tupleSet;
     }
 
     /**
-     * @param i
-     *            the info to set
+     * @param set
+     *            the tupleSet to set
      */
-    public void setInfo(final InspectorProtocol i) {
-        this.info = i;
+    public void setTupleSet(final java.util.List<? extends Tuple> set) {
+        this.tupleSet = set;
     }
 }

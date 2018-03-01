@@ -49,7 +49,7 @@ public class InpS extends AbstractTucsonSpecificationAction {
      *            the ID of the TuCSoN tuple centre target of this coordination
      *            operation
      * @param e
-     *            the logic tuple representing the triggering event of the
+     *            the logic tuple representing the triggering events of the
      *            ReSpecT specification tuple
      * @param g
      *            the logic tuple representing the guards of the ReSpecT

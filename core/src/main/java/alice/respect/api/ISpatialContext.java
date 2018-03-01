@@ -26,10 +26,10 @@ public interface ISpatialContext {
     Position getPosition();
 
     /**
-     * Notifies a new input environment (spatial) event
+     * Notifies a new input environment (spatial) events
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      */
     void notifyInputEnvEvent(InputEvent ev);
 

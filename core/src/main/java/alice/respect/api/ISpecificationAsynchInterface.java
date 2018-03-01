@@ -17,7 +17,7 @@ public interface ISpecificationAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -30,7 +30,7 @@ public interface ISpecificationAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -43,7 +43,7 @@ public interface ISpecificationAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -56,7 +56,7 @@ public interface ISpecificationAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -69,7 +69,7 @@ public interface ISpecificationAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -82,7 +82,7 @@ public interface ISpecificationAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -95,7 +95,7 @@ public interface ISpecificationAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -108,7 +108,7 @@ public interface ISpecificationAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -123,7 +123,7 @@ public interface ISpecificationAsynchInterface {
      * @param spec
      *            the ReSpecT specification given as argument
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple

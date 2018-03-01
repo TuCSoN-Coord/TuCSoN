@@ -48,10 +48,10 @@ public class SpatialContext implements ISpatialContext {
     }
 
     /**
-     * Notifies a new input environment (spatial) event
+     * Notifies a new input environment (spatial) events
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      */
     @Override
     public void notifyInputEnvEvent(final InputEvent ev) {

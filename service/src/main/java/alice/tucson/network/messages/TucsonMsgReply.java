@@ -1,7 +1,6 @@
-package alice.tucson.network;
+package alice.tucson.network.messages;
 
-import java.io.Serializable;
-import alice.tucson.service.OutputEventMsg;
+import alice.tucson.network.messages.events.OutputEventMsg;
 
 /**
  * 
@@ -12,41 +11,33 @@ import alice.tucson.service.OutputEventMsg;
  *         michele.bombardi@studio.unibo.it)
  * 
  */
-public class TucsonMsgReply implements Serializable {
+public class TucsonMsgReply extends TucsonMsgGeneric {
     /** serialVersionUID **/
     private static final long serialVersionUID = 1L;
-    private OutputEventMsg outputEvent;
 
     /**
      * 
      * @param ev
-     *            the event to transmit
+     *            the events to transmit
      */
     public TucsonMsgReply(final OutputEventMsg ev) {
-        this.outputEvent = ev;
+        this.event = ev;
     }
 
     /**
      * 
      */
-    protected TucsonMsgReply() {
-        /*
-         * 
-         */
-    }
+    public TucsonMsgReply() {}
 
-    /**
-     * 
-     * @return the OutputEvent this message veichles
-     */
-    public OutputEventMsg getOutputEvent() {
-        return this.outputEvent;
+    @Override
+    public OutputEventMsg getEventMsg() {
+        return (OutputEventMsg) event;
     }
 
     @Override
     public String toString() {
         final StringBuffer s = new StringBuffer(87);
-        final OutputEventMsg oEv = this.getOutputEvent();
+        final OutputEventMsg oEv = this.getEventMsg();
         s.append("ID: ");
         s.append(oEv.getOpId());
         s.append("; Type: ");

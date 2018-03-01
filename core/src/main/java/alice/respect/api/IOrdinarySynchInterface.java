@@ -18,7 +18,7 @@ import alice.tuplecentre.core.InputEvent;
 public interface IOrdinarySynchInterface {
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws OperationNotPossibleException
      *             if the operation requested cannot be carried out
@@ -27,7 +27,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -39,7 +39,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -51,7 +51,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -63,7 +63,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -75,7 +75,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -87,7 +87,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -99,7 +99,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException
@@ -110,7 +110,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -122,7 +122,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -134,7 +134,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -146,7 +146,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -158,7 +158,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -170,7 +170,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -182,7 +182,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -194,7 +194,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -206,7 +206,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -218,7 +218,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -230,7 +230,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple
@@ -242,7 +242,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the result of the operation
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple

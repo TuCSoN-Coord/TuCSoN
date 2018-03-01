@@ -41,8 +41,10 @@ import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.AbstractTucsonProtocol;
-import alice.tucson.network.TucsonMsgRequest;
+import alice.tucson.network.messages.events.InputEventMsg;
+import alice.tucson.network.messages.TucsonMsgRequest;
 import alice.tucson.network.exceptions.DialogException;
+import alice.tucson.network.messages.TucsonMsgReply;
 import alice.tucson.service.tools.TucsonACCTool;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
@@ -60,8 +62,8 @@ import alice.tuprolog.Parser;
  * . Essentially, it implements every method exposed in the Default ACC
  * Interface {@link DefaultACC default} offered to the agent,
  * maps each of them into TuCSoN Request Messages
- * {@link alice.tucson.network.TucsonMsgRequest req}, then waits for TuCSoN Node
- * Services replies {@link alice.tucson.network.TucsonMsgReply reply} forwarding
+ * {@link TucsonMsgRequest req}, then waits for TuCSoN Node
+ * Services replies {@link TucsonMsgReply reply} forwarding
  * them to the agent.
  *
  * It also is in charge of establishing the first connection toward the TuCSoN
@@ -78,8 +80,8 @@ import alice.tuprolog.Parser;
  * @see alice.tucson.api.AbstractTucsonAgent TucsonAgent
  * @see alice.tucson.service.TucsonNodeService TucsonNodeService
  * @see DefaultACC DefaultACC
- * @see alice.tucson.network.TucsonMsgRequest TucsonMsgRequest
- * @see alice.tucson.network.TucsonMsgReply TucsonMsgReply
+ * @see TucsonMsgRequest TucsonMsgRequest
+ * @see TucsonMsgReply TucsonMsgReply
  * @see alice.tucson.api.TucsonMetaACC TucsonMetaACC
  *
  * @author Alessandro Ricci

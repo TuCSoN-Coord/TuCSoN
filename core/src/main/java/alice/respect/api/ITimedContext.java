@@ -19,7 +19,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -34,7 +34,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -51,7 +51,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -68,7 +68,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -85,7 +85,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -102,7 +102,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -119,7 +119,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -136,7 +136,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @throws InvalidLogicTupleException
@@ -152,7 +152,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @throws InvalidLogicTupleException
@@ -168,7 +168,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -185,7 +185,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -202,7 +202,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -219,7 +219,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -237,7 +237,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -254,7 +254,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -271,7 +271,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -288,7 +288,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -305,7 +305,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -322,7 +322,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation
@@ -339,7 +339,7 @@ public interface ITimedContext {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param ms
      *            the timeout for operation completion
      * @return the result of the operation

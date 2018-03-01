@@ -1,6 +1,5 @@
-package alice.tucson.service;
+package alice.tucson.network.messages.events;
 
-import java.io.Serializable;
 import alice.logictuple.LogicTuple;
 import alice.respect.api.geolocation.Position;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -10,7 +9,7 @@ import alice.tuplecentre.core.TupleCentreOpType;
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  * 
  */
-public class InputEventMsg implements Serializable {
+public class InputEventMsg implements EventMsg {
     private static final long serialVersionUID = 6617714748018050950L;
     private final long opId;
     private final TupleCentreOpType opType;
@@ -24,20 +23,20 @@ public class InputEventMsg implements Serializable {
     /**
      * 
      * @param s
-     *            the source of the event
+     *            the source of the events
      * @param oid
-     *            the id of the operation causing this event
+     *            the id of the operation causing this events
      * @param opt
-     *            the type code of the operation causing this event
+     *            the type code of the operation causing this events
      * @param lt
-     *            the logic tuple argument of the operation causing this event
+     *            the logic tuple argument of the operation causing this events
      * @param trg
      *            the id of the tuple centre target of the operation causing
-     *            this event
+     *            this events
      * @param t
-     *            the time at which this event was generated
+     *            the time at which this events was generated
      * @param p
-     *            the place where this event was generated
+     *            the place where this events was generated
      */
     public InputEventMsg(final String s, final long oid, final TupleCentreOpType opt,
             final LogicTuple lt, final String trg, final long t,
@@ -54,7 +53,7 @@ public class InputEventMsg implements Serializable {
 
     /**
      * 
-     * @return the id of the operation which caused this event
+     * @return the id of the operation which caused this events
      */
     public long getOpId() {
         return this.opId;
@@ -62,7 +61,7 @@ public class InputEventMsg implements Serializable {
 
     /**
      * 
-     * @return the type code of the operation which caused this event
+     * @return the type code of the operation which caused this events
      */
     public TupleCentreOpType getOpType() {
         return this.opType;
@@ -70,7 +69,7 @@ public class InputEventMsg implements Serializable {
 
     /**
      * 
-     * @return the Position where this event was generated
+     * @return the Position where this events was generated
      */
     public Position getPlace() {
         return this.place;
@@ -79,7 +78,7 @@ public class InputEventMsg implements Serializable {
     /**
      * 
      * @return the String representation of the tuple centre currently handling
-     *         this event
+     *         this events
      */
     public String getReactingTC() {
         return this.reactingTC;
@@ -87,7 +86,7 @@ public class InputEventMsg implements Serializable {
 
     /**
      * 
-     * @return the String representation of the source of this event
+     * @return the String representation of the source of this events
      */
     public String getSource() {
         return this.source;
@@ -95,7 +94,7 @@ public class InputEventMsg implements Serializable {
 
     /**
      * 
-     * @return the String representation of the target of this event
+     * @return the String representation of the target of this events
      */
     public String getTarget() {
         return this.target;
@@ -103,7 +102,7 @@ public class InputEventMsg implements Serializable {
 
     /**
      * 
-     * @return the time at which this event was generated
+     * @return the time at which this events was generated
      */
     public long getTime() {
         return this.time;
@@ -111,7 +110,7 @@ public class InputEventMsg implements Serializable {
 
     /**
      * 
-     * @return the logic tuple argument of the operation which caused this event
+     * @return the logic tuple argument of the operation which caused this events
      */
     public LogicTuple getTuple() {
         return this.tuple;

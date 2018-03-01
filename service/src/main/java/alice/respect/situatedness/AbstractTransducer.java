@@ -12,9 +12,9 @@ import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.AbstractTucsonProtocol;
-import alice.tucson.network.TucsonMsgRequest;
+import alice.tucson.network.messages.TucsonMsgRequest;
 import alice.tucson.network.exceptions.DialogException;
-import alice.tucson.service.InputEventMsg;
+import alice.tucson.network.messages.events.InputEventMsg;
 import alice.tucson.service.OperationHandler;
 import alice.tucson.service.TucsonOperationDefault;
 import alice.tuplecentre.api.TupleCentreId;
@@ -157,14 +157,14 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
 
     /**
      *
-     * Notifies an event from a probe to the tuple centre.
+     * Notifies an events from a probe to the tuple centre.
      *
      * @param key
      *            the name of the value
      * @param value
      *            the value to communicate.
      * @param mod
-     *            wether the environmental event is about an action operation or
+     *            wether the environmental events is about an action operation or
      *            a sensing operation
      * @throws UnreachableNodeException
      *             if the target TuCSoN node cannot be reached over the network
@@ -189,14 +189,14 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
     }
 
     /**
-     * Notifies an event from the tuple centre.
+     * Notifies an events from the tuple centre.
      *
      * Events to the transducer should be only getEnv or setEnv ones. The
-     * response to each event is specified in getEnv and setEnv methods of the
+     * response to each events is specified in getEnv and setEnv methods of the
      * transducer.
      *
      * @param ev
-     *            internal event from the tuple centre
+     *            internal events from the tuple centre
      * @return true if the operation required is getEnv or setEnv and it's been
      *         successfully executed.
      */

@@ -28,8 +28,10 @@ import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.AbstractTucsonProtocol;
-import alice.tucson.network.TucsonMsgReply;
-import alice.tucson.network.TucsonMsgRequest;
+import alice.tucson.network.messages.events.InputEventMsg;
+import alice.tucson.network.messages.events.OutputEventMsg;
+import alice.tucson.network.messages.TucsonMsgReply;
+import alice.tucson.network.messages.TucsonMsgRequest;
 import alice.tucson.network.TucsonProtocolTCP;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogInitializationException;
@@ -91,7 +93,7 @@ OperationCompletionListener {
                     this.setStop();
                     break;
                 }
-                final OutputEventMsg oEv = msg.getOutputEvent();
+                final OutputEventMsg oEv = msg.getEventMsg();
                 final boolean ok = oEv.isAllowed();
                 if (ok) {
                     final TupleCentreOpType type = oEv.getOpType();
@@ -245,9 +247,9 @@ OperationCompletionListener {
             throw new TucsonInvalidTupleCentreIdException();
         }
         this.profile = new ACCDescription();
-        this.events = new LinkedList<TucsonOpCompletionEvent>();
-        this.controllerSessions = new HashMap<String, ControllerSession>();
-        this.operations = new HashMap<Long, AbstractTupleCentreOperation>();
+        this.events = new LinkedList<>();
+        this.controllerSessions = new HashMap<>();
+        this.operations = new HashMap<>();
         this.opId = -1;
         this.setPosition();
     }
@@ -293,7 +295,6 @@ OperationCompletionListener {
                 exception = true;
                 throw new UnreachableNodeException();
             } catch (DialogInitializationException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
             this.operations.put(this.opId, op);
@@ -320,10 +321,10 @@ OperationCompletionListener {
                 // (LogicTuple) op.getTemplateArgument());
             }
             InterTupleCentreACCProxy.log("sending msg "
-                    + msg.getInputEventMsg().getOpId() + ", op = "
-                    + msg.getInputEventMsg().getOpType() + ", "
-                    + msg.getInputEventMsg().getTuple() + ", "
-                    + msg.getInputEventMsg().getTarget());
+                    + msg.getEventMsg().getOpId() + ", op = "
+                    + msg.getEventMsg().getOpType() + ", "
+                    + msg.getEventMsg().getTuple() + ", "
+                    + msg.getEventMsg().getTarget());
             try {
                 session.sendMsgRequest(msg);
             } catch (final DialogException e) {

@@ -26,9 +26,9 @@ public class RespectOutputEvent extends OutputEvent {
     /**
      *
      * @param ev
-     *            the input event which caused this output event
+     *            the input events which caused this output events
      * @param op
-     *            the internal operation which triggered this output event
+     *            the internal operation which triggered this output events
      */
     public RespectOutputEvent(final InputEvent ev, final InternalOperation op) {
         super(ev);
@@ -37,7 +37,7 @@ public class RespectOutputEvent extends OutputEvent {
 
     /**
      *
-     * @return the internal operation which triggered this output event
+     * @return the internal operation which triggered this output events
      */
     public InternalOperation getRespectOperation() {
         return this.operation;

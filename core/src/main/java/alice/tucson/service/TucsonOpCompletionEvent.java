@@ -5,7 +5,7 @@ import alice.logictuple.LogicTuple;
 import alice.tucson.api.TucsonOpId;
 
 /**
- * Completion of a TuCSoN operation: such event stores the corresponding
+ * Completion of a TuCSoN operation: such events stores the corresponding
  * operation ID, its success state, its result and other useful info.
  *
  * @author Alessandro Ricci

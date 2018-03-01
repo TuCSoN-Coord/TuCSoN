@@ -20,8 +20,9 @@ import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.AbstractTucsonProtocol;
 import alice.tucson.network.TPFactory;
-import alice.tucson.network.TucsonMsgReply;
-import alice.tucson.network.TucsonMsgRequest;
+import alice.tucson.network.messages.events.InputEventMsg;
+import alice.tucson.network.messages.TucsonMsgReply;
+import alice.tucson.network.messages.TucsonMsgRequest;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
@@ -96,9 +97,9 @@ public class OperationHandler {
                     this.setStop();
                     break;
                 }
-                final boolean ok = msg.getOutputEvent().isAllowed();
+                final boolean ok = msg.getEventMsg().isAllowed();
                 if (ok) {
-                    final TupleCentreOpType type = msg.getOutputEvent().getOpType();
+                    final TupleCentreOpType type = msg.getEventMsg().getOpType();
                     if (type == TupleCentreOpType.UIN
                             || type == TupleCentreOpType.UINP
                             || type == TupleCentreOpType.URD
@@ -117,23 +118,23 @@ public class OperationHandler {
                             || type == TupleCentreOpType.RD_S
                             || type == TupleCentreOpType.INP_S
                             || type == TupleCentreOpType.RDP_S) {
-                        final boolean succeeded = msg.getOutputEvent()
+                        final boolean succeeded = msg.getEventMsg()
                                 .isSuccess();
                         if (succeeded) {
-                            final LogicTuple tupleReq = msg.getOutputEvent()
+                            final LogicTuple tupleReq = msg.getEventMsg()
                                     .getTupleRequested();
                             final LogicTuple tupleRes = (LogicTuple) msg
-                                    .getOutputEvent().getTupleResult();
+                                    .getEventMsg().getTupleResult();
                             // log("tupleReq="+tupleReq+", tupleRes="+tupleRes);
                             final LogicTuple res = this.unify(tupleReq,
                                     tupleRes);
                             ev = new TucsonOpCompletionEvent(new TucsonOpId(msg
-                                    .getOutputEvent().getOpId()), ok, true, msg
-                                    .getOutputEvent().isResultSuccess(), res);
+                                    .getEventMsg().getOpId()), ok, true, msg
+                                    .getEventMsg().isResultSuccess(), res);
                         } else {
                             ev = new TucsonOpCompletionEvent(new TucsonOpId(msg
-                                    .getOutputEvent().getOpId()), ok, false,
-                                    msg.getOutputEvent().isResultSuccess());
+                                    .getEventMsg().getOpId()), ok, false,
+                                    msg.getEventMsg().isResultSuccess());
                         }
                     } else if (type == TupleCentreOpType.OUT
                             || type == TupleCentreOpType.OUT_ALL
@@ -144,20 +145,20 @@ public class OperationHandler {
                             || type == TupleCentreOpType.GET_ENV
                             || type == TupleCentreOpType.SET_ENV) {
                         ev = new TucsonOpCompletionEvent(new TucsonOpId(msg
-                                .getOutputEvent().getOpId()), ok, msg
-                                .getOutputEvent().isSuccess(), msg
-                                .getOutputEvent().isResultSuccess());
+                                .getEventMsg().getOpId()), ok, msg
+                                .getEventMsg().isSuccess(), msg
+                                .getEventMsg().isResultSuccess());
                     } else if (type == TupleCentreOpType.IN_ALL
                             || type == TupleCentreOpType.RD_ALL
                             || type == TupleCentreOpType.NO_ALL
                             || type == TupleCentreOpType.GET
                             || type == TupleCentreOpType.GET_S) {
                         final List<LogicTuple> tupleSetRes = (List<LogicTuple>) msg
-                                .getOutputEvent().getTupleResult();
+                                .getEventMsg().getTupleResult();
                         ev = new TucsonOpCompletionEvent(new TucsonOpId(msg
-                                .getOutputEvent().getOpId()), ok, msg
-                                .getOutputEvent().isSuccess(), msg
-                                .getOutputEvent().isResultSuccess(),
+                                .getEventMsg().getOpId()), ok, msg
+                                .getEventMsg().isSuccess(), msg
+                                .getEventMsg().isResultSuccess(),
                                 tupleSetRes);
                     } else if (type == TupleCentreOpType.EXIT) {
                         this.setStop();
@@ -165,25 +166,25 @@ public class OperationHandler {
                     }
                 } else {
                     ev = new TucsonOpCompletionEvent(new TucsonOpId(msg
-                            .getOutputEvent().getOpId()), false, false, msg
-                            .getOutputEvent().isResultSuccess());
+                            .getEventMsg().getOpId()), false, false, msg
+                            .getEventMsg().isResultSuccess());
                 }
                 final TucsonOperation op;
                 // removing completed op from pending list
                 synchronized (OperationHandler.this.operations) {
                     op = OperationHandler.this.operations.remove(msg
-                            .getOutputEvent().getOpId());
+                            .getEventMsg().getOpId());
                 }
                 if (op.getType() == TupleCentreOpType.NO_ALL || op.getType() == TupleCentreOpType.IN_ALL || op.getType() == TupleCentreOpType.RD_ALL || op.getType() == TupleCentreOpType.GET
                         || op.getType() == TupleCentreOpType.SET || op.getType() == TupleCentreOpType.GET_S || op.getType() == TupleCentreOpType.SET_S
                         || op.getType() == TupleCentreOpType.OUT_ALL) {
                     op.setTupleListResult((List<LogicTuple>) msg
-                            .getOutputEvent().getTupleResult());
+                            .getEventMsg().getTupleResult());
                 } else {
-                    op.setTupleResult((LogicTuple) msg.getOutputEvent()
+                    op.setTupleResult((LogicTuple) msg.getEventMsg()
                             .getTupleResult());
                 }
-                if (msg.getOutputEvent().isResultSuccess()) {
+                if (msg.getEventMsg().isResultSuccess()) {
                     op.setOpResult(ITCCycleResult.Outcome.SUCCESS);
                 } else {
                     op.setOpResult(ITCCycleResult.Outcome.FAILURE);
@@ -497,7 +498,7 @@ public class OperationHandler {
      * Then, a Tucson Operation {@link TucsonOperationDefault op}
      * storing any useful information about the TuCSoN primitive invocation is
      * created and packed into a Tucson Message Request
-     * {@link alice.tucson.network.TucsonMsgRequest} to be possibly sent over
+     * {@link TucsonMsgRequest} to be possibly sent over
      * the wire toward the target tuplecentre.
      *
      * Notice that a listener is needed, who is the proxy itself, wichever was
@@ -589,9 +590,9 @@ public class OperationHandler {
              * final TucsonMsgRequest msg = new TucsonMsgRequest(op.getId(),
              * op.getType(), tcid.toString(), op.getLogicTupleArgument());
              */
-            this.log("requesting op " + msg.getInputEventMsg().getOpType()
-                    + ", " + msg.getInputEventMsg().getTuple() + ", "
-                    + msg.getInputEventMsg().getTarget());
+            this.log("requesting op " + msg.getEventMsg().getOpType()
+                    + ", " + msg.getEventMsg().getTuple() + ", "
+                    + msg.getEventMsg().getTarget());
             try {
                 session.sendMsgRequest(msg);
             } catch (final DialogSendException ex) {
@@ -692,8 +693,8 @@ public class OperationHandler {
 
     /**
      * Method to add a TuCSoN Operation Completion Event
-     * {@link alice.tucson.service.TucsonOpCompletionEvent event} to the
-     * internal queue of pending completion event to process
+     * {@link alice.tucson.service.TucsonOpCompletionEvent events} to the
+     * internal queue of pending completion events to process
      *
      * @param ev
      *            Completion Event to be added to pending queue

@@ -1,6 +1,4 @@
-package alice.tucson.service;
-
-import java.io.Serializable;
+package alice.tucson.network.messages.events;
 
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -8,7 +6,7 @@ import alice.tuplecentre.core.TupleCentreOpType;
 /**
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  */
-public class OutputEventMsg implements Serializable {
+public class OutputEventMsg implements EventMsg {
     private static final long serialVersionUID = 6617714748018050950L;
     private final boolean allowed;
     private final long opId;
@@ -59,35 +57,35 @@ public class OutputEventMsg implements Serializable {
     }
 
     /**
-     * @return the id of the operation which caused the event
+     * @return the id of the operation which caused the events
      */
     public long getOpId() {
         return this.opId;
     }
 
     /**
-     * @return the type code of the operation which caused the event
+     * @return the type code of the operation which caused the events
      */
     public TupleCentreOpType getOpType() {
         return this.opType;
     }
 
     /**
-     * @return the logic tuple argument of the operation which caused the event
+     * @return the logic tuple argument of the operation which caused the events
      */
     public LogicTuple getTupleRequested() {
         return this.reqTuple;
     }
 
     /**
-     * @return the effect of the event
+     * @return the effect of the events
      */
     public Object getTupleResult() {
         return this.resTuple;
     }
 
     /**
-     * @return wether the event was allowed
+     * @return wether the events was allowed
      */
     public boolean isAllowed() {
         return this.allowed;
@@ -101,7 +99,7 @@ public class OutputEventMsg implements Serializable {
     }
 
     /**
-     * @return wether the event has been handled succesfully
+     * @return wether the events has been handled succesfully
      */
     public boolean isSuccess() {
         return this.success;

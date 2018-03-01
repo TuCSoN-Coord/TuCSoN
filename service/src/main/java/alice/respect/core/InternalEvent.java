@@ -15,7 +15,7 @@ package alice.respect.core;
 import alice.tuplecentre.core.InputEvent;
 
 /**
- * Represents an internal event of the ReSpecT VM (stores the "connected"
+ * Represents an internal events of the ReSpecT VM (stores the "connected"
  * InputEvent)
  *
  * @author Alessandro Ricci
@@ -32,9 +32,9 @@ public class InternalEvent extends alice.tuplecentre.core.AbstractEvent {
     /**
      *
      * @param ev
-     *            the input event direct cause of this internal event
+     *            the input events direct cause of this internal events
      * @param op
-     *            the ReSpecT operation generating this internal event
+     *            the ReSpecT operation generating this internal events
      */
     public InternalEvent(final InputEvent ev, final InternalOperation op) {
         super(ev.getSource(), ev.getSimpleTCEvent(), ev.getReactingTC(), ev
@@ -45,7 +45,7 @@ public class InternalEvent extends alice.tuplecentre.core.AbstractEvent {
 
     /**
      *
-     * @return the input event direct cause of this internal event
+     * @return the input events direct cause of this internal events
      */
     public InputEvent getInputEvent() {
         return this.inputEvent;
@@ -53,7 +53,7 @@ public class InternalEvent extends alice.tuplecentre.core.AbstractEvent {
 
     /**
      *
-     * @return the ReSpecT operation generating this internal event
+     * @return the ReSpecT operation generating this internal events
      */
     public InternalOperation getInternalOperation() {
         return this.internalOperation;

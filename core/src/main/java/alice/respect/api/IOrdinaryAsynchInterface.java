@@ -17,7 +17,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -32,7 +32,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -47,7 +47,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -62,7 +62,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -77,7 +77,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -92,7 +92,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -107,7 +107,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -122,7 +122,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -137,7 +137,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -152,7 +152,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -167,7 +167,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -182,7 +182,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -197,7 +197,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -212,7 +212,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -227,7 +227,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -242,7 +242,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -257,7 +257,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -272,7 +272,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -287,7 +287,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if
@@ -302,7 +302,7 @@ public interface IOrdinaryAsynchInterface {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws InvalidLogicTupleException
      *             if the tuple given as argument is not a valid Prolog tuple if

@@ -27,10 +27,10 @@ public interface InspectableEventListener extends EventListener {
 
     /**
      * Method triggered by the tuple centre virtual machine when an observable
-     * event is observed inside the VM
+     * events is observed inside the VM
      *
      * @param e
-     *            the observed event
+     *            the observed events
      */
     void onInspectableEvent(InspectableEvent e);
 }

@@ -21,7 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.introspection.GetSnapshotMsg;
+import alice.tucson.network.messages.inspection.GetSnapshotMsg;
 import alice.tucson.introspection.InspectorProtocol;
 import alice.tucson.network.exceptions.DialogSendException;
 

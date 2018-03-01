@@ -11,52 +11,45 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tucson.introspection;
+package alice.tucson.network.messages.inspection;
 
 import alice.tucson.api.TucsonAgentId;
+import alice.tucson.introspection.InspectorProtocol;
 
 /**
  *
  * @author Unknown...
  *
  */
-public class GetSnapshotMsg extends NodeMsg {
+public class SetProtocolMsg extends NodeMsg {
 
-    /**
-     *
-     */
-    public static final byte TSET = 1;
-    /**
-     *
-     */
-    public static final byte WSET = 2;
-    private static final long serialVersionUID = -7715943663646624722L;
-    private byte what;
+    private static final long serialVersionUID = 7284025970406889712L;
+    private InspectorProtocol info;
 
     /**
      *
      * @param id
-     *            the agent identifier
-     * @param w
-     *            the set to retrieve
+     *            the agent id of the sender
+     * @param p
+     *            the inspection protocol to be used
      */
-    public GetSnapshotMsg(final TucsonAgentId id, final byte w) {
-        super(id, "getSnapshot");
-        this.what = w;
+    public SetProtocolMsg(final TucsonAgentId id, final InspectorProtocol p) {
+        super(id, "setProtocol");
+        this.info = p;
     }
 
     /**
-     * @return the what
+     * @return the info
      */
-    public byte getWhat() {
-        return this.what;
+    public InspectorProtocol getInfo() {
+        return this.info;
     }
 
     /**
-     * @param w
-     *            the what to set
+     * @param i
+     *            the info to set
      */
-    public void setWhat(final byte w) {
-        this.what = w;
+    public void setInfo(final InspectorProtocol i) {
+        this.info = i;
     }
 }

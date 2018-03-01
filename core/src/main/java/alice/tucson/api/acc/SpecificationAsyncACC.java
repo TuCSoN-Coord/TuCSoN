@@ -77,7 +77,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      *                     satisfaction so to actually trigger the body of the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
@@ -109,7 +109,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      *                     satisfaction so to actually trigger the body of the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
@@ -139,7 +139,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      *                     satisfaction so to actually trigger the body of the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
@@ -171,7 +171,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      *                     satisfaction so to actually trigger the body of the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
@@ -200,7 +200,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * @param guards       the guard predicates to be checked for satisfaction so to
      *                     actually trigger the body of the ReSpecT reaction
      * @param reactionBody the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
@@ -231,7 +231,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      *                     satisfaction so to actually trigger the body of the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
@@ -264,7 +264,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      *                     satisfaction so to actually trigger the body of the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out

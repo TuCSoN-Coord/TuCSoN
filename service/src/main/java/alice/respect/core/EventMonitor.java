@@ -43,7 +43,7 @@ public class EventMonitor {
 
     /**
      *
-     * @return wether at least an event has been signaled
+     * @return wether at least an events has been signaled
      */
     public boolean hasEvent() {
         this.lock.lock();

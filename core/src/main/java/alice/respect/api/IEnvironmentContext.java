@@ -18,14 +18,14 @@ public interface IEnvironmentContext {
     /**
      *
      * @param ev
-     *            the input environment event to notify
+     *            the input environment events to notify
      */
     void notifyInputEnvEvent(InputEvent ev);
 
     /**
      *
      * @param ev
-     *            the input event to notify
+     *            the input events to notify
      */
     void notifyInputEvent(InputEvent ev);
 }

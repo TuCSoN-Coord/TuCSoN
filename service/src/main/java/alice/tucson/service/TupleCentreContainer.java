@@ -238,7 +238,7 @@ public final class TupleCentreContainer {
         } else if (opType == SET_ENV) {
             op = RespectOperationDefault.makeSetEnv(t, l);
         }
-        // Preparing the input event for the tuple centre.
+        // Preparing the input events for the tuple centre.
         final HashMap<String, String> eventMap = new HashMap<String, String>();
         eventMap.put("id", aid.toString());
         InputEvent event = null;
@@ -246,12 +246,12 @@ public final class TupleCentreContainer {
         TransducerStandardInterface transducer = tm.getTransducer(aid
                 .getAgentName());
         if (t != null) {
-            // It's an event performed by a transducer. In other words, it's an
-            // environment event
+            // It's an events performed by a transducer. In other words, it's an
+            // environment events
             event = new InputEvent(transducer.getIdentifier(), op,
                     tid.getInternalTupleCentreId(), context.getCurrentTime(), null,
                     eventMap);
-            // Sending the event
+            // Sending the events
             event.setSource(transducer.getIdentifier());
             event.setTarget(tid.getInternalTupleCentreId());
             context.notifyInputEnvEvent(event);
@@ -262,7 +262,7 @@ public final class TupleCentreContainer {
             final InternalEvent internalEv = new InternalEvent(event,
                     InternalOperation.makeGetEnv(t));
             internalEv.setSource(tid.getInternalTupleCentreId()); // Set
-            // the source of the event
+            // the source of the events
             final TransducerId[] tIds = tm.getTransducerIds(tid
                     .getInternalTupleCentreId());
             for (final TransducerId tId2 : tIds) {
@@ -302,7 +302,7 @@ public final class TupleCentreContainer {
         } else if (type == SET_ENV) {
             op = RespectOperationDefault.makeSetEnv(t, l);
         }
-        // Preparing the input event for the tuple centre.
+        // Preparing the input events for the tuple centre.
         final HashMap<String, String> eventMap = new HashMap<String, String>();
         eventMap.put("id", aid.toString());
         InputEvent event = new InputEvent(aid, op,
@@ -315,7 +315,7 @@ public final class TupleCentreContainer {
                 InternalOperation.makeGetEnv(t));
         internalEv.setSource(tid.getInternalTupleCentreId()); // Set
         final TransducersManager tm = TransducersManager.INSTANCE;
-        // the source of the event
+        // the source of the events
         final TransducerId[] tIds = tm.getTransducerIds(tid
                 .getInternalTupleCentreId());
         for (final TransducerId tId2 : tIds) {

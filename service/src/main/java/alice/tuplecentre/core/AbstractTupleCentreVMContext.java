@@ -79,7 +79,7 @@ public abstract class AbstractTupleCentreVMContext implements
      * @param id
      *            is the tuple centre identifier
      * @param ieSize
-     *            is the size of the input event queue
+     *            is the size of the input events queue
      * @param rtc
      *            the ReSpecT tuple centre this VM refers to
      */
@@ -121,7 +121,7 @@ public abstract class AbstractTupleCentreVMContext implements
     /**
      *
      * @param in
-     *            the input envirnomental event to add to the environmental
+     *            the input envirnomental events to add to the environmental
      *            queue
      */
     public void addEnvInputEvent(final InputEvent in) {
@@ -133,7 +133,7 @@ public abstract class AbstractTupleCentreVMContext implements
     /**
      *
      * @param in
-     *            the input event to add to the input queue
+     *            the input events to add to the input queue
      */
     public void addInputEvent(final InputEvent in) {
         synchronized (this.inputEvents) {
@@ -183,7 +183,7 @@ public abstract class AbstractTupleCentreVMContext implements
         synchronized (this.inputEvents) {
             if (this.inputEvents.size() > this.maxPendingInputEventNumber) {
                 throw new OperationNotPossibleException(
-                        "Max pending input event limit reached");
+                        "Max pending input events limit reached");
             }
             this.inputEvents.add(ev);
         }
@@ -250,9 +250,9 @@ public abstract class AbstractTupleCentreVMContext implements
     }
 
     /**
-     * Fetches a new pending input event.
+     * Fetches a new pending input events.
      *
-     * The first pending input event is fetched from the queue as current event
+     * The first pending input events is fetched from the queue as current events
      * subject of VM process.
      *
      */
@@ -266,15 +266,15 @@ public abstract class AbstractTupleCentreVMContext implements
      * Collects the time-triggered reactions
      *
      * @param ev
-     *            the event triggering reactions
+     *            the events triggering reactions
      */
     public abstract void fetchTimedReactions(AbstractEvent ev);
 
     /**
-     * Collects the reactions that are triggered by an event
+     * Collects the reactions that are triggered by an events
      *
      * @param ev
-     *            the event triggering reactions
+     *            the events triggering reactions
      */
     public abstract void fetchTriggeredReactions(AbstractEvent ev);
 
@@ -298,9 +298,9 @@ public abstract class AbstractTupleCentreVMContext implements
     }
 
     /**
-     * Gets the event currently processed by the virtual machine
+     * Gets the events currently processed by the virtual machine
      *
-     * @return the input event currently under process
+     * @return the input events currently under process
      */
     public InputEvent getCurrentEvent() {
         return this.currentEvent;
@@ -424,7 +424,7 @@ public abstract class AbstractTupleCentreVMContext implements
     /**
      *
      * @param out
-     *            the output event generated due to a linking operation
+     *            the output events generated due to a linking operation
      */
     public abstract void linkOperation(OutputEvent out);
 
@@ -469,7 +469,7 @@ public abstract class AbstractTupleCentreVMContext implements
      * Tests if there are pending input events
      *
      * The method tests in there are input events to be processed (or rather if
-     * the input event queue is not empty)
+     * the input events queue is not empty)
      *
      * @return wether there are input events still to process (at least one)
      */
@@ -643,10 +643,10 @@ public abstract class AbstractTupleCentreVMContext implements
     public abstract void updateSpecAfterTimedReaction(TriggeredReaction tr);
 
     /**
-     * Specifies how to notify an output event.
+     * Specifies how to notify an output events.
      *
      * @param ev
-     *            the output event to notify
+     *            the output events to notify
      */
     protected void notifyOutputEvent(final OutputEvent ev) {
         ev.getSimpleTCEvent().notifyCompletion();

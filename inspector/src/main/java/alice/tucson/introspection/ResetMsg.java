@@ -14,6 +14,7 @@
 package alice.tucson.introspection;
 
 import alice.tucson.api.TucsonAgentId;
+import alice.tucson.network.messages.inspection.NodeMsg;
 
 /**
  *

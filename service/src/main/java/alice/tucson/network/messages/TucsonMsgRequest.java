@@ -1,7 +1,6 @@
-package alice.tucson.network;
+package alice.tucson.network.messages;
 
-import java.io.Serializable;
-import alice.tucson.service.InputEventMsg;
+import alice.tucson.network.messages.events.InputEventMsg;
 
 /**
  * 
@@ -10,43 +9,36 @@ import alice.tucson.service.InputEventMsg;
  * @author (contributor) Saverio Cicora
  * @author (contributor) Michele Bombardi (mailto:
  *         michele.bombardi@studio.unibo.it)
+ * @author (contributor) Piscaglia Nicola
  * 
  */
-public class TucsonMsgRequest implements Serializable {
+public class TucsonMsgRequest extends TucsonMsgGeneric {
     /** serialVersionUID **/
     private static final long serialVersionUID = 1L;
-    private InputEventMsg inputEvent;
 
     /**
      * 
      * @param ev
-     *            the event to transmit
+     *            the events to transmit
      */
     public TucsonMsgRequest(final InputEventMsg ev) {
-        this.inputEvent = ev;
+        this.event = ev;
     }
 
     /**
      * 
      */
-    protected TucsonMsgRequest() {
-        /*
-         * 
-         */
-    }
+    public TucsonMsgRequest() {}
 
-    /**
-     * 
-     * @return The InputEvent this message veichles
-     */
-    public InputEventMsg getInputEventMsg() {
-        return this.inputEvent;
+    @Override
+    public InputEventMsg getEventMsg() {
+        return (InputEventMsg) event;
     }
 
     @Override
     public String toString() {
         final StringBuffer s = new StringBuffer(45);
-        final InputEventMsg iEv = this.getInputEventMsg();
+        final InputEventMsg iEv = this.getEventMsg();
         s.append("ID: ");
         s.append(iEv.getOpId());
         s.append("; Type: ");

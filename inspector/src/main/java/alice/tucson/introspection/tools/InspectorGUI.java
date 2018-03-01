@@ -729,7 +729,7 @@ public class InspectorGUI extends javax.swing.JFrame {
      * Handles 'type stepMode inspection' radioButton.
      *
      * @param evt
-     *            'pending' button pushing event.
+     *            'pending' button pushing events.
      */
     private void stepObModeActionPerformed(final ActionEvent evt) {
         if (evt.getActionCommand().equals("Inspect Like The Tuple Space")) {

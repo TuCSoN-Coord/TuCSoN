@@ -36,7 +36,7 @@ public class PendingQuerySet {
     /**
      *
      * @param t
-     *            the tuple centre event to add to the InQ
+     *            the tuple centre events to add to the InQ
      */
     public void add(final alice.tuplecentre.core.AbstractEvent t) {
         this.events.add(t);
@@ -90,7 +90,7 @@ public class PendingQuerySet {
 
     /**
      *
-     * @return the tuple centre event head of the InQ
+     * @return the tuple centre events head of the InQ
      */
     public alice.tuplecentre.core.AbstractEvent get() {
         final alice.tuplecentre.core.AbstractEvent ev = this.events.remove(0);
@@ -119,7 +119,7 @@ public class PendingQuerySet {
     /**
      *
      * @param t
-     *            the event to remove from the InQ
+     *            the events to remove from the InQ
      */
     public void remove(final alice.tuplecentre.core.AbstractEvent t) {
         this.events.remove(t);

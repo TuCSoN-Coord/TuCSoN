@@ -33,6 +33,7 @@ import alice.tucson.network.AbstractTucsonProtocol;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
+import alice.tucson.network.messages.inspection.*;
 import alice.tucson.service.ACCDescription;
 import alice.tucson.service.ACCProvider;
 import alice.tucson.service.AbstractACCProxyNodeSide;

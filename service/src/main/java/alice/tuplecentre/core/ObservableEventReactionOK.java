@@ -25,7 +25,7 @@ public class ObservableEventReactionOK extends ObservableEventExt {
     /**
      *
      * @param src
-     *            the source of the event
+     *            the source of the events
      * @param tr
      *            the triggered reaction
      */

@@ -393,7 +393,7 @@ public class Tucson2PLibrary extends Library {
      *            reaction
      * @param reactionBody
      *            the template for the computation to be done in response to the
-     *            <code>event</code>
+     *            <code>events</code>
      * @param arg3
      *            the tuplecentre target
      *
@@ -485,7 +485,7 @@ public class Tucson2PLibrary extends Library {
      *            reaction
      * @param reactionBody
      *            the template for the computation to be done in response to the
-     *            <code>event</code>
+     *            <code>events</code>
      * @param arg3
      *            the tuplecentre target
      *
@@ -622,7 +622,7 @@ public class Tucson2PLibrary extends Library {
      *            reaction
      * @param reactionBody
      *            the template for the computation to be done in response to the
-     *            <code>event</code>
+     *            <code>events</code>
      * @param arg3
      *            the tuplecentre target
      *
@@ -714,7 +714,7 @@ public class Tucson2PLibrary extends Library {
      *            reaction
      * @param reactionBody
      *            the template for the computation to be done in response to the
-     *            <code>event</code>
+     *            <code>events</code>
      * @param arg3
      *            the tuplecentre target
      *
@@ -841,7 +841,7 @@ public class Tucson2PLibrary extends Library {
      *            actually trigger the body of the ReSpecT reaction
      * @param reactionBody
      *            the computation to be done in response to the
-     *            <code>event</code>
+     *            <code>events</code>
      * @param arg3
      *            the tuplecentre target
      *
@@ -975,7 +975,7 @@ public class Tucson2PLibrary extends Library {
      *            reaction
      * @param reactionBody
      *            the template for the computation to be done in response to the
-     *            <code>event</code>
+     *            <code>events</code>
      * @param arg3
      *            the tuplecentre target
      *
@@ -1069,7 +1069,7 @@ public class Tucson2PLibrary extends Library {
      *            reaction
      * @param reactionBody
      *            the template for the computation to be done in response to the
-     *            <code>event</code>
+     *            <code>events</code>
      * @param arg3
      *            the tuplecentre target
      *

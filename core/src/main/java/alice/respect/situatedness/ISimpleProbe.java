@@ -26,7 +26,7 @@ public interface ISimpleProbe {
     TransducerId getTransducer();
 
     /**
-     * Reads the probe's value. A read request should force an event from the
+     * Reads the probe's value. A read request should force an events from the
      * device
      *
      * @param key

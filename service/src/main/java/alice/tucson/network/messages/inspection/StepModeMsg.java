@@ -11,46 +11,23 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tucson.introspection;
+package alice.tucson.network.messages.inspection;
 
 import alice.tucson.api.TucsonAgentId;
-import alice.tuplecentre.api.Tuple;
 
 /**
- *
- * @author Unknown...
+ * @author Roberto D'Elia
  *
  */
-public class SetTupleSetMsg extends NodeMsg {
+public class StepModeMsg extends NodeMsg {
 
-    private static final long serialVersionUID = 3683932175338169242L;
-    private java.util.List<? extends Tuple> tupleSet;
+    private static final long serialVersionUID = -6748034977696183466L;
 
     /**
-     *
      * @param id
      *            the agent id of the sender
-     * @param ts
-     *            the list of tuples to overwrite the tuple set with
      */
-    public SetTupleSetMsg(final TucsonAgentId id,
-            final java.util.List<? extends Tuple> ts) {
-        super(id, "setTupleSet");
-        this.tupleSet = ts;
-    }
-
-    /**
-     * @return the tupleSet
-     */
-    public java.util.List<? extends Tuple> getTupleSet() {
-        return this.tupleSet;
-    }
-
-    /**
-     * @param set
-     *            the tupleSet to set
-     */
-    public void setTupleSet(final java.util.List<? extends Tuple> set) {
-        this.tupleSet = set;
+    public StepModeMsg(final TucsonAgentId id) {
+        super(id, "stepMode");
     }
 }

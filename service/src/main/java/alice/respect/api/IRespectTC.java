@@ -32,7 +32,7 @@ public interface IRespectTC {
      * Gets the whole tuple set
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -49,7 +49,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -65,7 +65,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -75,7 +75,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -85,7 +85,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -95,7 +95,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -105,7 +105,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -115,7 +115,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -125,7 +125,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -135,7 +135,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -145,7 +145,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -155,7 +155,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -165,7 +165,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -175,7 +175,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -186,7 +186,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -196,7 +196,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -208,7 +208,7 @@ public interface IRespectTC {
      * remove them
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -218,7 +218,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -228,7 +228,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -238,7 +238,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -248,7 +248,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -262,7 +262,7 @@ public interface IRespectTC {
      * @param t
      *            the logic tuple representing the ReSpecT specification to set
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -273,7 +273,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param spec
      *            the ReSpecT specification to set
      * @return the operation requested
@@ -287,7 +287,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @param spec
      *            the ReSpecT specification to set
      * @return the operation requested
@@ -303,7 +303,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -314,7 +314,7 @@ public interface IRespectTC {
      * Retrieves all tuples in the tuple centre matching the template
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -325,7 +325,7 @@ public interface IRespectTC {
      * Retrieves all tuples in the tuple centre matching the template
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -335,7 +335,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -345,7 +345,7 @@ public interface IRespectTC {
     /**
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -356,7 +356,7 @@ public interface IRespectTC {
      * Retrieves all tuples in the tuple centre matching the template
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
@@ -367,7 +367,7 @@ public interface IRespectTC {
      * Retrieves all tuples in the tuple centre matching the template
      * 
      * @param ev
-     *            the event to handle
+     *            the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out

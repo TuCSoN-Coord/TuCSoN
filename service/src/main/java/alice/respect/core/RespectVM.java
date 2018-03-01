@@ -147,9 +147,9 @@ public class RespectVM implements Runnable {
     /**
      * 
      * @param ev
-     *            the event whose operation should be executed
+     *            the events whose operation should be executed
      * @throws OperationNotPossibleException
-     *             if the operation which caused the event cannot be executed
+     *             if the operation which caused the events cannot be executed
      */
     public void doOperation(final InputEvent ev)
             throws OperationNotPossibleException {
@@ -307,7 +307,7 @@ public class RespectVM implements Runnable {
     /**
      *
      * @param e
-     *            the inpsectable event to notify to listeners
+     *            the inpsectable events to notify to listeners
      */
     public void notifyInspectableEvent(final InspectableEvent e) {
         final Iterator<? extends InspectableEventListener> it = this.inspectors
@@ -327,7 +327,7 @@ public class RespectVM implements Runnable {
     /**
      *
      * @param ev
-     *            the observable event to notify to listeners
+     *            the observable events to notify to listeners
      */
     public void notifyObservableEvent(final AbstractEvent ev) {
         final int size = this.observers.size();

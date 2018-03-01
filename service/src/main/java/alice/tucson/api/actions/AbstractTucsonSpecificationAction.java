@@ -34,7 +34,7 @@ public abstract class AbstractTucsonSpecificationAction extends
         AbstractTucsonAction {
 
     /**
-     * The tuples representing, respectively, the event, guards and body of a
+     * The tuples representing, respectively, the events, guards and body of a
      * ReSpecT specification tuple
      */
     protected LogicTuple event, guards, reaction;
@@ -46,7 +46,7 @@ public abstract class AbstractTucsonSpecificationAction extends
      * @param t
      *            the ID of the TuCSoN tuple centre target of the operation
      * @param e
-     *            the logic tuple representing the triggering event of the
+     *            the logic tuple representing the triggering events of the
      *            ReSpecT specification tuple
      * @param g
      *            the logic tuple representing the guards of the ReSpecT

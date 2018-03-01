@@ -32,9 +32,9 @@ public class ObservableEventExt extends InspectableEvent {
     /**
      *
      * @param src
-     *            the source of the event
+     *            the source of the events
      * @param code
-     *            the type code of the event
+     *            the type code of the events
      */
     public ObservableEventExt(final Object src, final int code) {
         super(src, code);

@@ -36,15 +36,15 @@ public class InputEvent extends AbstractEvent {
     /**
      *
      * @param source
-     *            the identifier of the source of this event
+     *            the identifier of the source of this events
      * @param op
-     *            the operation which caused this event
+     *            the operation which caused this events
      * @param tc
-     *            the tuple centre target of this event
+     *            the tuple centre target of this events
      * @param time
-     *            the time at which this event occurred
+     *            the time at which this events occurred
       * @param place
-     *            the place (wichever sort of) where the event was generated
+     *            the place (wichever sort of) where the events was generated
      */
     public InputEvent(final IId source, final AbstractTupleCentreOperation op,
             final TupleCentreId tc, final long time, final Position place) {
@@ -55,17 +55,17 @@ public class InputEvent extends AbstractEvent {
     /**
      *
      * @param source
-     *            the identifier of the source of this event
+     *            the identifier of the source of this events
      * @param op
-     *            the operation which caused this event
+     *            the operation which caused this events
      * @param tc
-     *            the tuple centre target of this event
+     *            the tuple centre target of this events
      * @param time
-     *            the time at which this event occurred
+     *            the time at which this events occurred
      * @param prop
-     *            some properties related to the event
+     *            some properties related to the events
      * @param place
-     *            the place (wichever sort of) where the event was generated
+     *            the place (wichever sort of) where the events was generated
      */
     public InputEvent(final IId source, final AbstractTupleCentreOperation op,
             final TupleCentreId tc, final long time, final Position place,
@@ -86,7 +86,7 @@ public class InputEvent extends AbstractEvent {
 
     /**
      *
-     * @return wether this event is a linking event
+     * @return wether this events is a linking events
      */
     public boolean isLinking() {
         return this.isLnk;
@@ -100,7 +100,7 @@ public class InputEvent extends AbstractEvent {
     /**
      *
      * @param flag
-     *            wether this event is a linking event
+     *            wether this events is a linking events
      */
     public void setIsLinking(final boolean flag) {
         this.isLnk = flag;

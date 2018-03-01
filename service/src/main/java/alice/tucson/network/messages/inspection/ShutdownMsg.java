@@ -11,47 +11,32 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tucson.introspection;
+package alice.tucson.network.messages.inspection;
 
-import java.util.List;
 import alice.tucson.api.TucsonAgentId;
-import alice.tuplecentre.api.Tuple;
 
 /**
  *
  * @author Unknown...
  *
  */
-public class SetEventSetMsg extends NodeMsg {
+public class ShutdownMsg extends NodeMsg {
 
-    private static final long serialVersionUID = -3946179149619833984L;
-    private java.util.List<? extends Tuple> eventWnSet;
+    private static final long serialVersionUID = -745435883778999790L;
 
     /**
      *
      * @param id
      *            the agent id of the sender
-     * @param ts
-     *            the list of tuples representing events to overwrite the InQ
-     *            with
      */
-    public SetEventSetMsg(final TucsonAgentId id, final List<? extends Tuple> ts) {
-        super(id, "setEventSet");
-        this.eventWnSet = ts;
+    public ShutdownMsg(final TucsonAgentId id) {
+        super(id, "exit");
     }
 
     /**
-     * @return the eventWnSet
+     *
      */
-    public java.util.List<? extends Tuple> getEventWnSet() {
-        return this.eventWnSet;
-    }
-
-    /**
-     * @param set
-     *            the eventWnSet to set
-     */
-    public void setEventWnSet(final java.util.List<? extends Tuple> set) {
-        this.eventWnSet = set;
+    protected ShutdownMsg() {
+        super();
     }
 }

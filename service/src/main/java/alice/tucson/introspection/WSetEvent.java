@@ -23,11 +23,11 @@ public class WSetEvent implements Serializable {
     /**
      *
      * @param lt
-     *            the tuple representing the event
+     *            the tuple representing the events
      * @param s
-     *            the identifier of the event source
+     *            the identifier of the events source
      * @param t
-     *            the identifier of the event target
+     *            the identifier of the events target
      */
     public WSetEvent(final LogicTuple lt, final IId s, final IId t) {
         this.op = lt;

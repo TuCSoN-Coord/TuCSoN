@@ -73,7 +73,7 @@ public interface SpecificationSyncACC extends SyncACC {
      *                     satisfaction so to actually trigger the body of the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param timeout      the maximum waiting time for completion tolerated by the
      *                     TuCSoN agent behind this ACC. Notice that reaching the timeout
      *                     just unblocks the agent, but the request IS NOT REMOVED from
@@ -108,7 +108,7 @@ public interface SpecificationSyncACC extends SyncACC {
      *                     satisfaction so to actually trigger the body of the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param timeout      the maximum waiting time for completion tolerated by the
      *                     TuCSoN agent behind this ACC. Notice that reaching the timeout
      *                     just unblocks the agent, but the request IS NOT REMOVED from
@@ -142,7 +142,7 @@ public interface SpecificationSyncACC extends SyncACC {
      *                     satisfaction so to actually trigger the body of the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param timeout      the maximum waiting time for completion tolerated by the
      *                     TuCSoN agent behind this ACC. Notice that reaching the timeout
      *                     just unblocks the agent, but the request IS NOT REMOVED from
@@ -177,7 +177,7 @@ public interface SpecificationSyncACC extends SyncACC {
      *                     satisfaction so to actually trigger the body of the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param timeout      the maximum waiting time for completion tolerated by the
      *                     TuCSoN agent behind this ACC. Notice that reaching the timeout
      *                     just unblocks the agent, but the request IS NOT REMOVED from
@@ -210,7 +210,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * @param guards       the guard predicates to be checked for satisfaction so to
      *                     actually trigger the body of the ReSpecT reaction
      * @param reactionBody the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param timeout      the maximum waiting time for completion tolerated by the
      *                     TuCSoN agent behind this ACC. Notice that reaching the timeout
      *                     just unblocks the agent, but the request IS NOT REMOVED from
@@ -245,7 +245,7 @@ public interface SpecificationSyncACC extends SyncACC {
      *                     satisfaction so to actually trigger the body of the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param timeout      the maximum waiting time for completion tolerated by the
      *                     TuCSoN agent behind this ACC. Notice that reaching the timeout
      *                     just unblocks the agent, but the request IS NOT REMOVED from
@@ -281,7 +281,7 @@ public interface SpecificationSyncACC extends SyncACC {
      *                     satisfaction so to actually trigger the body of the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
-     *                     <code>event</code>
+     *                     <code>events</code>
      * @param timeout      the maximum waiting time for completion tolerated by the
      *                     TuCSoN agent behind this ACC. Notice that reaching the timeout
      *                     just unblocks the agent, but the request IS NOT REMOVED from

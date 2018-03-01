@@ -112,7 +112,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 		public void operationCompleted(final AbstractTupleCentreOperation arg0) {
 			arg0.removeCompletionListener();
 			// oe.getTarget() == oeTarget by construction (loc 1201)!
-			// 3rd arg is the target of the event,
+			// 3rd arg is the target of the events,
 			RespectVMContext.this.log("Completion op = " + arg0 + ", from = " + this.oe.getSource() + ", to = "
 					+ this.oe.getTarget() + ", arg = " + arg0.getTupleResult() + " / " + arg0.getTupleListResult());
 			final InputEvent res = new InputEvent(this.oe.getSource(), arg0, (TupleCentreId) this.oe.getTarget(),
@@ -186,7 +186,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	private RespectSpecification reactionSpec;
 	private final Object semaphore;
 	/**
-	 * list of temporary output event caused by linkability operation: they are
+	 * list of temporary output events caused by linkability operation: they are
 	 * added to the output queue (outputEventList only when the related reaction is
 	 * successfully executed
 	 */
@@ -302,7 +302,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	/**
 	 *
 	 * @param out
-	 *            the out-link event to be remembered
+	 *            the out-link events to be remembered
 	 */
 	public void addTemporaryOutputEvent(final InputEvent out) {
 		synchronized (this.temporaryOutputEventList) {
@@ -615,7 +615,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 					final alice.tuplecentre.core.OutputEvent oe = (alice.tuplecentre.core.OutputEvent) ev;
 					final RespectOperationDefault op = (RespectOperationDefault) ev.getSimpleTCEvent();
 					if (((OutputEvent) ev).isLinking()) {
-						this.log("linking event processing: " + oe);
+						this.log("linking events processing: " + oe);
 						switch (op.getType()) {
 							case SPAWN:
 								this.currentReactionTerm = new Struct("spawn", op.getLogicTupleArgument().toTerm());
@@ -888,7 +888,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 					}
 				} else if (ev.isInternal()) {
 					final InternalEvent ev1 = (InternalEvent) ev;
-					this.log("internal event processing: " + ev1);
+					this.log("internal events processing: " + ev1);
 					final InternalOperation rop = ev1.getInternalOperation();
 					if (rop.isSpawnR()) {
 						this.currentReactionTerm = new Struct("spawn", rop.getArgument().toTerm());
@@ -1059,7 +1059,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 
 	/**
 	 *
-	 * @return the event currently under processing
+	 * @return the events currently under processing
 	 */
 	public AbstractEvent getCurrentReactionEvent() {
 		return this.currentReactionEvent;
@@ -1081,7 +1081,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	/**
 	 *
 	 * @return the tuProlog engine responsible for matching triggering events with
-	 *         event templates
+	 *         events templates
 	 */
 	public Prolog getPrologCore() {
 		return this.matcher;
@@ -1229,7 +1229,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	/**
 	 *
 	 * @param in
-	 *            the environmental input event to notify
+	 *            the environmental input events to notify
 	 */
 	public void notifyInputEnvEvent(final InputEvent in) {
 		this.addEnvInputEvent(in);
@@ -1239,7 +1239,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	/**
 	 *
 	 * @param in
-	 *            the input event to notify
+	 *            the input events to notify
 	 */
 	public void notifyInputEvent(final InputEvent in) {
 		this.addInputEvent(in);
@@ -1443,11 +1443,11 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	}
 
 	/**
-	 * Removes the event related to a specific executed operation
+	 * Removes the events related to a specific executed operation
 	 *
 	 * @param operationId
 	 *            identifier of the operation
-	 * @return wether the event has been successfully removed or not
+	 * @return wether the events has been successfully removed or not
 	 */
 	public boolean removePendingQueryEvent(final long operationId) {
 		return this.wSet.removeEventOfOperation(operationId);

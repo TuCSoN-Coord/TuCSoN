@@ -11,77 +11,65 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tucson.introspection;
+package alice.tucson.network.messages.inspection;
 
-import java.io.Serializable;
 import alice.tucson.api.TucsonAgentId;
+import alice.tucson.introspection.InspectorProtocol;
 
 /**
  *
  * @author Unknown...
  *
  */
-public class NodeMsg implements Serializable {
+public class NewInspectorMsg extends NodeMsg {
 
-    private static final long serialVersionUID = -3499870079832457223L;
-    private String action;
-    private TucsonAgentId aid;
-
-    /**
-     *
-     * @param id
-     *            the agent id of the sender
-     */
-    public NodeMsg(final TucsonAgentId id) {
-        this.aid = id;
-    }
+    private static final long serialVersionUID = -8887997708884852194L;
+    private InspectorProtocol info;
+    private String tcName;
 
     /**
      *
      * @param id
      *            the agent id of the sender
-     * @param act
-     *            the action to perform
+     * @param tcn
+     *            the identifier of the tuple centre under inspection
+     * @param i
+     *            the inspection protocol used
      */
-    public NodeMsg(final TucsonAgentId id, final String act) {
-        this.aid = id;
-        this.action = act;
+    public NewInspectorMsg(final TucsonAgentId id, final String tcn,
+            final InspectorProtocol i) {
+        super(id, "newInspector");
+        this.tcName = tcn;
+        this.info = i;
     }
 
     /**
-     *
+     * @return the info
      */
-    protected NodeMsg() {
-        super();
+    public InspectorProtocol getInfo() {
+        return this.info;
     }
 
     /**
-     * @return the action
+     * @return the tcName
      */
-    public String getAction() {
-        return this.action;
+    public String getTcName() {
+        return this.tcName;
     }
 
     /**
-     * @return the aid
+     * @param i
+     *            the info to set
      */
-    public TucsonAgentId getAid() {
-        return this.aid;
+    public void setInfo(final InspectorProtocol i) {
+        this.info = i;
     }
 
     /**
-     * @param a
-     *            the action to set
+     * @param tcn
+     *            the tcName to set
      */
-    public void setAction(final String a) {
-        this.action = a;
-    }
-
-    /**
-     * @param id
-     *            the aid to set
-     */
-    public void setAid(final TucsonAgentId id) {
-        this.aid = id;
+    public void setTcName(final String tcn) {
+        this.tcName = tcn;
     }
 }
