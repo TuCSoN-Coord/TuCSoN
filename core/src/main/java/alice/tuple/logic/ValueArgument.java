@@ -14,18 +14,14 @@
 package alice.tuple.logic;
 
 /**
- * Class representing a concrete tuple argument value (integer, real, string,
- * structure).
+ * Class representing a concrete tuple argument value (integer, real, string, structure).
  *
  * @author Alessandro Ricci
  * @see TupleArgumentDefault
  * @see VarArgument
  */
-public class ValueArgument extends TupleArgumentDefault {
+class ValueArgument extends TupleArgumentDefault {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     /**
@@ -33,9 +29,8 @@ public class ValueArgument extends TupleArgumentDefault {
      *
      * @param v the double value to initialize this argument
      */
-    public ValueArgument(final double v) {
-        super();
-        this.value = new alice.tuprolog.Double(v);
+    ValueArgument(final double v) {
+        super(new alice.tuprolog.Double(v));
     }
 
     /**
@@ -43,9 +38,8 @@ public class ValueArgument extends TupleArgumentDefault {
      *
      * @param v the float value to initialize this argument
      */
-    public ValueArgument(final float v) {
-        super();
-        this.value = new alice.tuprolog.Float(v);
+    ValueArgument(final float v) {
+        super(new alice.tuprolog.Float(v));
     }
 
     /**
@@ -53,9 +47,8 @@ public class ValueArgument extends TupleArgumentDefault {
      *
      * @param v the int value to initialize this argument
      */
-    public ValueArgument(final int v) {
-        super();
-        this.value = new alice.tuprolog.Int(v);
+    ValueArgument(final int v) {
+        super(new alice.tuprolog.Int(v));
     }
 
     /**
@@ -63,142 +56,17 @@ public class ValueArgument extends TupleArgumentDefault {
      *
      * @param v the long value to initialize this argument
      */
-    public ValueArgument(final long v) {
-        super();
-        this.value = new alice.tuprolog.Long(v);
+    ValueArgument(final long v) {
+        super(new alice.tuprolog.Long(v));
     }
 
     /**
-     * Constructs a simple string tuple argument
+     * Constructs a simple String tuple argument
      *
-     * @param f the string value to initialize this argument
+     * @param v the String value to initialize this argument
      */
-    public ValueArgument(final String f) {
-        super();
-        this.value = new alice.tuprolog.Struct(f);
-    }
-
-    /**
-     * Constructs a structured (compound) argument, made of a string as a name
-     * (functor) and one argument
-     *
-     * @param f   the name of the structure
-     * @param at0 the argument of the structure
-     */
-    public ValueArgument(final String f, final TupleArgument at0) {
-        super();
-        this.value = new alice.tuprolog.Struct(f, at0.toTerm());
-    }
-
-    /**
-     * Constructs a structured (compound) argument, made of a string as a name
-     * (functor) and two arguments
-     *
-     * @param f   the name of the structure
-     * @param at0 the first argument of the structure
-     * @param at1 the second argument of the structure
-     */
-    public ValueArgument(final String f, final TupleArgument at0,
-                         final TupleArgument at1) {
-        super();
-        this.value = new alice.tuprolog.Struct(f, at0.toTerm(), at1.toTerm());
-    }
-
-    /**
-     * Constructs a structured (compound) argument, made of a string as a name
-     * (functor) and three arguments
-     *
-     * @param f   the name of the structure
-     * @param at0 the first argument of the structure
-     * @param at1 the second argument of the structure
-     * @param at2 the third argument of the structure
-     */
-    public ValueArgument(final String f, final TupleArgument at0,
-                         final TupleArgument at1, final TupleArgument at2) {
-        super();
-        this.value = new alice.tuprolog.Struct(f, at0.toTerm(), at1.toTerm(),
-                at2.toTerm());
-    }
-
-    /**
-     * Constructs a structured (compound) argument, made of a string as a name
-     * (functor) and four arguments
-     *
-     * @param f   the name of the structure
-     * @param at0 the first argument of the structure
-     * @param at1 the second argument of the structure
-     * @param at2 the third argument of the structure
-     * @param at3 the fourth argument of the structure
-     */
-    public ValueArgument(final String f, final TupleArgument at0,
-                         final TupleArgument at1, final TupleArgument at2,
-                         final TupleArgument at3) {
-        super();
-        this.value = new alice.tuprolog.Struct(f, at0.toTerm(), at1.toTerm(),
-                at2.toTerm(), at3.toTerm());
-    }
-
-    /**
-     * Constructs a structured (compound) argument, made of a string as a name
-     * (functor) and five arguments
-     *
-     * @param f   the name of the structure
-     * @param at0 the first argument of the structure
-     * @param at1 the second argument of the structure
-     * @param at2 the third argument of the structure
-     * @param at3 the fourth argument of the structure
-     * @param at4 the fifth argument of the structure
-     */
-    public ValueArgument(final String f, final TupleArgument at0,
-                         final TupleArgument at1, final TupleArgument at2,
-                         final TupleArgument at3, final TupleArgument at4) {
-        super();
-        this.value = new alice.tuprolog.Struct(f, at0.toTerm(), at1.toTerm(),
-                at2.toTerm(), at3.toTerm(), at4.toTerm());
-    }
-
-    /**
-     * Constructs a structured (compound) argument, made of a string as a name
-     * (functor) and six arguments
-     *
-     * @param f   the name of the structure
-     * @param at0 the first argument of the structure
-     * @param at1 the second argument of the structure
-     * @param at2 the third argument of the structure
-     * @param at3 the fourth argument of the structure
-     * @param at4 the fifth argument of the structure
-     * @param at5 the sixth argument of the structure
-     */
-    public ValueArgument(final String f, final TupleArgument at0,
-                         final TupleArgument at1, final TupleArgument at2,
-                         final TupleArgument at3, final TupleArgument at4,
-                         final TupleArgument at5) {
-        super();
-        this.value = new alice.tuprolog.Struct(f, at0.toTerm(), at1.toTerm(),
-                at2.toTerm(), at3.toTerm(), at4.toTerm(), at5.toTerm());
-    }
-
-    /**
-     * Constructs a structured (compound) argument, made of a string as a name
-     * (functor) and seven arguments
-     *
-     * @param f   the name of the structure
-     * @param at0 the first argument of the structure
-     * @param at1 the second argument of the structure
-     * @param at2 the third argument of the structure
-     * @param at3 the fourth argument of the structure
-     * @param at4 the fifth argument of the structure
-     * @param at5 the sixth argument of the structure
-     * @param at6 the seventh argument of the structure
-     */
-    public ValueArgument(final String f, final TupleArgument at0,
-                         final TupleArgument at1, final TupleArgument at2,
-                         final TupleArgument at3, final TupleArgument at4,
-                         final TupleArgument at5, final TupleArgument at6) {
-        super();
-        this.value = new alice.tuprolog.Struct(f, at0.toTerm(), at1.toTerm(),
-                at2.toTerm(), at3.toTerm(), at4.toTerm(), at5.toTerm(),
-                at6.toTerm());
+    ValueArgument(final String v){
+        super(new alice.tuprolog.Struct(v));
     }
 
     /**
@@ -206,9 +74,9 @@ public class ValueArgument extends TupleArgumentDefault {
      * (functor) and list of arguments
      *
      * @param f       the name of the structure
-     * @param argList the list of the arguments
+     * @param argList the list of the arguments (or nothing for a simple String argument)
      */
-    public ValueArgument(final String f, final TupleArgument[] argList) {
+    ValueArgument(final String f, final TupleArgument[] argList) {
         super();
         final alice.tuprolog.Term[] list = new alice.tuprolog.Term[argList.length];
         for (int i = 0; i < list.length; i++) {
@@ -222,7 +90,7 @@ public class ValueArgument extends TupleArgumentDefault {
      *
      * @param argList the list of the arguments
      */
-    public ValueArgument(final TupleArgument[] argList) {
+    ValueArgument(final TupleArgument[] argList) {
         super();
         final alice.tuprolog.Term[] list = new alice.tuprolog.Term[argList.length];
         for (int i = 0; i < list.length; i++) {

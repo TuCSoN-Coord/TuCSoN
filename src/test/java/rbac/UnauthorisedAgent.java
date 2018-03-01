@@ -41,8 +41,7 @@ import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -128,7 +127,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
             Logger.getLogger("UnauthorisedAgent").info("Trying 'rd' operation");
             TucsonOperation op = acc.rd(new TucsonTupleCentreId("default",
                     this.myNode(), String.valueOf(this.myport())),
-                    LogicTuples.newInstance("test", new VarArgument("Greet")), (Long) null);
+                    LogicTuples.newInstance("test", TupleArguments.newVarArgument("Greet")), (Long) null);
             if (op.isResultSuccess()) {
                 Logger.getLogger("UnauthorisedAgent").info(
                         "'rd' operation successful, got: "
@@ -139,7 +138,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
             try {
                 acc.out(new TucsonTupleCentreId("default", this.myNode(),
                         String.valueOf(this.myport())), LogicTuples.newInstance("test",
-                        new ValueArgument("hi")), (Long) null);
+                        TupleArguments.newValueArgument("hi")), (Long) null);
             } catch (TucsonOperationNotPossibleException e) {
                 Logger.getLogger("UnauthorisedAgent").info("Operation failed!");
             }

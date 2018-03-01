@@ -4,7 +4,7 @@ package alice.tucson.rbac;
 import alice.tucson.service.tools.TucsonACCTool;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.TupleArguments;
 
 /**
  * The class implementing a TuCSoN agent authorised by the RBAC structure
@@ -22,8 +22,8 @@ public class TucsonAuthorisedAgent implements AuthorisedAgent {
     private static final long serialVersionUID = 1L;
 
     public static LogicTuple asLogicTuple(final AuthorisedAgent agent) {
-        return LogicTuples.newInstance("authorised_agent", new ValueArgument(agent.getUsername()
-                + ":" + TucsonACCTool.encrypt(agent.getPassword())), new ValueArgument(
+        return LogicTuples.newInstance("authorised_agent", TupleArguments.newValueArgument(agent.getUsername()
+                + ":" + TucsonACCTool.encrypt(agent.getPassword())), TupleArguments.newValueArgument(
                         agent.getAgentClass()));
     }
 

@@ -22,7 +22,7 @@ import alice.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArgumentDefault;
+import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.InputEvent;
@@ -101,7 +101,7 @@ public class OrdinarySynchInterface extends RootInterface implements
         if (",".equals(t.getName()) && t.getArity() == 2) {
             arg = ((LogicTuple) ev.getTuple()).getArg(1);
             this.unify(
-                    LogicTuples.newInstance(new TupleArgumentDefault(arg.toTerm())),
+                    LogicTuples.newInstance(TupleArguments.newInstance(arg.toTerm())),
                     LogicTuples.newInstance(OrdinarySynchInterface.list2tuple(op
                             .getLogicTupleListResult())));
             return op.getLogicTupleListResult();
@@ -154,7 +154,7 @@ public class OrdinarySynchInterface extends RootInterface implements
         if (",".equals(t.getName()) && t.getArity() == 2) {
             arg = t.getArg(1);
             this.unify(
-                    LogicTuples.newInstance(new TupleArgumentDefault(arg.toTerm())),
+                    LogicTuples.newInstance(TupleArguments.newInstance(arg.toTerm())),
                     LogicTuples.newInstance(OrdinarySynchInterface.list2tuple(op
                             .getLogicTupleListResult())));
             return op.getLogicTupleListResult();
@@ -230,7 +230,7 @@ public class OrdinarySynchInterface extends RootInterface implements
         if (",".equals(t.getName()) && t.getArity() == 2) {
             arg = t.getArg(1);
             this.unify(
-                    LogicTuples.newInstance(new TupleArgumentDefault(arg.toTerm())),
+                    LogicTuples.newInstance(TupleArguments.newInstance(arg.toTerm())),
                     LogicTuples.newInstance(OrdinarySynchInterface.list2tuple(op
                             .getLogicTupleListResult())));
             return op.getLogicTupleListResult();

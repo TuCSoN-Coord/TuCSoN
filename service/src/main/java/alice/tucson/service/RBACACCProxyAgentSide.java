@@ -16,8 +16,7 @@ import alice.tuple.Tuple;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleOpManager;
 import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -116,7 +115,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
         this.checkPermission("getS");
         LogicTuple spec = null;
         try {
-            spec = LogicTuples.newInstance("spec", new VarArgument("S"));
+            spec = LogicTuples.newInstance("spec", TupleArguments.newVarArgument("S"));
         } catch (final InvalidVarNameException e) {
             /*
              * Cannot happen
@@ -592,7 +591,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
         if ("".equals(spec) || "''".equals(spec) || "'.'".equals(spec)) {
             throw new TucsonOperationNotPossibleException();
         }
-        final LogicTuple specT = LogicTuples.newInstance("spec", new ValueArgument(spec));
+        final LogicTuple specT = LogicTuples.newInstance("spec", TupleArguments.newValueArgument(spec));
         return this.executor.doBlockingOperation(this.aid,
                 TupleCentreOpType.SET_S, tid, specT, timeout, this.getPosition());
     }
@@ -603,7 +602,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         this.checkPermission("setS");
-        final LogicTuple specT = LogicTuples.newInstance("spec", new ValueArgument(spec));
+        final LogicTuple specT = LogicTuples.newInstance("spec", TupleArguments.newValueArgument(spec));
         return this.executor.doNonBlockingOperation(this.aid,
                 TupleCentreOpType.SET_S, tid, specT, l, this.getPosition());
     }

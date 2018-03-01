@@ -27,7 +27,7 @@ public final class LogicTuples {
         try {
             final Term t = alice.tuprolog.Term.createTerm(tupleString,
                     new LogicTupleOpManager());
-            return LogicTuples.newInstance(new TupleArgumentDefault(t));
+            return LogicTuples.newInstance(TupleArguments.newInstance(t));
         } catch (final InvalidTermException ex) {
             throw new InvalidLogicTupleException(
                     "Exception occurred while parsing the string: \"" + tupleString
@@ -94,6 +94,4 @@ public final class LogicTuples {
     public static LogicTuple newInstance(final TupleArgument tupleArg) {
         return new LogicTupleDefault(tupleArg);
     }
-
-    //TODO add other LogicTuple managing methods
 }

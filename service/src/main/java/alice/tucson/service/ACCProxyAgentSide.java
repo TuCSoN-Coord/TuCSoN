@@ -44,8 +44,7 @@ import alice.tuple.TupleTemplate;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleOpManager;
 import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -326,7 +325,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             UnreachableNodeException, OperationTimeOutException {
         LogicTuple spec = null;
         try {
-            spec = LogicTuples.newInstance("spec", new VarArgument("S"));
+            spec = LogicTuples.newInstance("spec", TupleArguments.newVarArgument("S"));
         } catch (final InvalidVarNameException e) {
             // Cannot happen, the var name it's specified here
             e.printStackTrace();
@@ -796,7 +795,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
         if ("".equals(spec) || "''".equals(spec) || "'.'".equals(spec)) {
             throw new TucsonOperationNotPossibleException();
         }
-        final LogicTuple specT = LogicTuples.newInstance("spec", new ValueArgument(spec));
+        final LogicTuple specT = LogicTuples.newInstance("spec", TupleArguments.newValueArgument(spec));
         return this.executor.doBlockingOperation(this.aid,
                 TupleCentreOpType.SET_S, tid, specT, timeout, this.getPosition());
     }
@@ -806,7 +805,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                                 final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
-        final LogicTuple specT = LogicTuples.newInstance("spec", new ValueArgument(spec));
+        final LogicTuple specT = LogicTuples.newInstance("spec", TupleArguments.newValueArgument(spec));
         return this.executor.doNonBlockingOperation(this.aid,
                 TupleCentreOpType.SET_S, tid, specT, l, this.getPosition());
     }

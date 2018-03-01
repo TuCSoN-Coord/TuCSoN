@@ -12,8 +12,7 @@ import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
@@ -53,7 +52,7 @@ public final class HelloWorld {
             /*
              * 4) Build the tuple using the communication language.
              */
-            final LogicTuple tuple = LogicTuples.newInstance("hello", new ValueArgument("world"));
+            final LogicTuple tuple = LogicTuples.newInstance("hello", TupleArguments.newValueArgument("world"));
             /*
              * 5) Perform the coordination operation using the preferred
              * coordination primitive.
@@ -79,7 +78,7 @@ public final class HelloWorld {
             /*
              * Another success test to be sure.
              */
-            final LogicTuple template = LogicTuples.newInstance("hello", new VarArgument("Who"));
+            final LogicTuple template = LogicTuples.newInstance("hello", TupleArguments.newVarArgument("Who"));
             op = acc.rdp(tid, template, null);
             if (op.isResultSuccess()) {
                 res = op.getLogicTupleResult();

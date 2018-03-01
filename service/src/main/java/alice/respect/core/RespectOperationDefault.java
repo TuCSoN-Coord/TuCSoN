@@ -22,8 +22,7 @@ import alice.tuple.TupleTemplate;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArgumentDefault;
-import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -94,7 +93,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         }
         if (opType == GET_S) {
             try {
-                return RespectOperationDefault.makeGetS(LogicTuples.newInstance("spec", new VarArgument(
+                return RespectOperationDefault.makeGetS(LogicTuples.newInstance("spec", TupleArguments.newVarArgument(
                         "S")), listener);
             } catch (InvalidVarNameException e) {
                 // TODO Auto-generated catch block
@@ -711,9 +710,9 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                     tl[i] = tupleL[i].toTerm();
                 }
                 LogicTuple lt = null;
-                lt = LogicTuples.newInstance(opName, new TupleArgumentDefault(this
+                lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
                         .getLogicTupleArgument().toTerm()),
-                        new TupleArgumentDefault(new Struct(tl)));
+                        TupleArguments.newInstance(new Struct(tl)));
                 return lt;
             }
             case IN_ALL: {
@@ -724,9 +723,9 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                     tl[i] = tupleL[i].toTerm();
                 }
                 LogicTuple lt = null;
-                lt = LogicTuples.newInstance(opName, new TupleArgumentDefault(this
+                lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
                         .getLogicTupleArgument().toTerm()),
-                        new TupleArgumentDefault(new Struct(tl)));
+                        TupleArguments.newInstance(new Struct(tl)));
                 return lt;
             }
             case RD_ALL: {
@@ -737,9 +736,9 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                     tl[i] = tupleL[i].toTerm();
                 }
                 LogicTuple lt = null;
-                lt = LogicTuples.newInstance(opName, new TupleArgumentDefault(this
+                lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
                         .getLogicTupleArgument().toTerm()),
-                        new TupleArgumentDefault(new Struct(tl)));
+                        TupleArguments.newInstance(new Struct(tl)));
                 return lt;
             }
             case NO_ALL: {
@@ -750,9 +749,9 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                     tl[i] = tupleL[i].toTerm();
                 }
                 LogicTuple lt = null;
-                lt = LogicTuples.newInstance(opName, new TupleArgumentDefault(this
+                lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
                         .getLogicTupleArgument().toTerm()),
-                        new TupleArgumentDefault(new Struct(tl)));
+                        TupleArguments.newInstance(new Struct(tl)));
                 return lt;
             }
             case GET: {
@@ -798,7 +797,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 opName = "unknownOp";
                 break;
         }
-        return LogicTuples.newInstance(opName, new TupleArgumentDefault(
+        return LogicTuples.newInstance(opName, TupleArguments.newInstance(
                 tl != null ? new Struct(tl) : t.toTerm()));
     }
 }

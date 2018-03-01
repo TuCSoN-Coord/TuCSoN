@@ -51,9 +51,7 @@ import alice.tuple.TupleTemplate;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleOpManager;
 import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.TupleArgumentDefault;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.AgentId;
 import alice.tuplecentre.api.IId;
@@ -151,13 +149,13 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				core.setTheory(thspec);
 			} else {
 				core = null;
-				return LogicTuples.newInstance("invalid", new VarArgument());
+				return LogicTuples.newInstance("invalid", TupleArguments.newVarArgument());
 			}
 			core = null;
 			return LogicTuples.newInstance("valid");
 		} catch (final alice.tuprolog.InvalidTheoryException ex) {
 			core = null;
-			return LogicTuples.newInstance("invalid", new ValueArgument(ex.line));
+			return LogicTuples.newInstance("invalid", TupleArguments.newValueArgument(ex.line));
 		}
 	}
 
@@ -1896,7 +1894,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				}
 				currTimer.schedule(
 						new RespectTimerTask(this,
-								RespectOperationDefault.makeTime(LogicTuples.newInstance("time", new TupleArgumentDefault(current)), null)),
+								RespectOperationDefault.makeTime(LogicTuples.newInstance("time", TupleArguments.newInstance(current)), null)),
 						delay);
 			}
 			/** SPATIAL EXTENSION - Interfacing with geolocation service **/
@@ -1996,7 +1994,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				}
 				currTimer.schedule(
 						new RespectTimerTask(this,
-								RespectOperationDefault.makeTime(LogicTuples.newInstance("time", new TupleArgumentDefault(current)), null)),
+								RespectOperationDefault.makeTime(LogicTuples.newInstance("time", TupleArguments.newInstance(current)), null)),
 						delay);
 			}
 			/** SPATIAL EXTENSION - Interfacing with geolocation service **/

@@ -14,8 +14,7 @@ import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuple.logic.exceptions.InvalidLogicTupleOperationException;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
@@ -73,7 +72,7 @@ public class NodeManagementAgent extends Thread {
                 // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.IN, LogicTuples.newInstance("cmd",
-                                new VarArgument("X")), null);
+                                TupleArguments.newVarArgument("X")), null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.nodeManAid,
                         opRequested, this.config, System.currentTimeMillis(),
@@ -83,7 +82,7 @@ public class NodeManagementAgent extends Thread {
                 // (LogicTuple) TupleCentreContainer.doBlockingOperation(
                 // TupleCentreOpType.IN, this.nodeManAid,
                 // this.config,
-                // new LogicTuple("cmd", new VarArgument("X")));
+                // new LogicTuple("cmd", TupleArguments.newVarArgument("X")));
                 if (cmd != null) {
                     this.execCmd(cmd.getArg(0));
                 } else {
@@ -129,8 +128,8 @@ public class NodeManagementAgent extends Thread {
                     // Operation Make
                     final RespectOperationDefault opRequested = RespectOperationDefault.make(
                             TupleCentreOpType.OUT, LogicTuples.newInstance(
-                                    "cmd_result", new ValueArgument("destroy"),
-                                    new ValueArgument("ok")), null);
+                                    "cmd_result", TupleArguments.newValueArgument("destroy"),
+                                    TupleArguments.newValueArgument("ok")), null);
                     // InputEvent Creation
                     final InputEvent ev = new InputEvent(this.nodeManAid,
                             opRequested, this.config,
@@ -148,8 +147,8 @@ public class NodeManagementAgent extends Thread {
                     // Operation Make
                     final RespectOperationDefault opRequested = RespectOperationDefault.make(
                             TupleCentreOpType.OUT, LogicTuples.newInstance(
-                                    "cmd_result", new ValueArgument("destroy"),
-                                    new ValueArgument("failed")), null);
+                                    "cmd_result", TupleArguments.newValueArgument("destroy"),
+                                    TupleArguments.newValueArgument("failed")), null);
                     // InputEvent Creation
                     final InputEvent ev = new InputEvent(this.nodeManAid,
                             opRequested, this.config,
@@ -170,7 +169,7 @@ public class NodeManagementAgent extends Thread {
                 // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.OUT, LogicTuples.newInstance(
-                                "cmd_result", cmd, new ValueArgument("ok")), null);
+                                "cmd_result", cmd, TupleArguments.newValueArgument("ok")), null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.nodeManAid,
                         opRequested, this.config, System.currentTimeMillis(),
@@ -190,8 +189,8 @@ public class NodeManagementAgent extends Thread {
                 // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.OUT, LogicTuples.newInstance(
-                                "cmd_result", new ValueArgument("disable_persistency"),
-                                new ValueArgument("ok")), null);
+                                "cmd_result", TupleArguments.newValueArgument("disable_persistency"),
+                                TupleArguments.newValueArgument("ok")), null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.nodeManAid,
                         opRequested, this.config, System.currentTimeMillis(),

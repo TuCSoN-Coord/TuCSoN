@@ -19,9 +19,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
-import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Number;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.Struct;
@@ -37,44 +35,16 @@ import alice.tuprolog.Term;
  * @see ValueArgument
  * @see VarArgument
  */
-public class TupleArgumentDefault implements Serializable, TupleArgument {
+class TupleArgumentDefault implements Serializable, TupleArgument {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
-
-    /**
-     * Static service to get a Tuple Argument from a textual representation
-     *
-     * @param st the text representing the tuple argument
-     * @return the tuple argument interpreted from the text
-     * @throws InvalidTupleArgumentException if the text does not represent a valid tuple argument
-     */
-    public static TupleArgument parse(final String st)
-            throws InvalidTupleArgumentException {
-        try {
-            final Term t = alice.tuprolog.Term.createTerm(st);
-            return new TupleArgumentDefault(t);
-        } catch (final InvalidTermException ex) {
-            throw new InvalidTupleArgumentException(
-                    "Exception occurred while parsing the string:\"" + st
-                            + "\"", ex);
-        }
-    }
 
     /**
      * the internal representation of the argument is a (tu)Prolog term
      */
     protected Term value;
 
-    /**
-     *
-     */
-    public TupleArgumentDefault() {
-        /*
-         *
-         */
+    TupleArgumentDefault() {
     }
 
     /**
@@ -82,7 +52,7 @@ public class TupleArgumentDefault implements Serializable, TupleArgument {
      *
      * @param t the Prolog term whose content is used to build the argument
      */
-    public TupleArgumentDefault(final Term t) {
+    TupleArgumentDefault(final Term t) {
         this.value = t;
     }
 

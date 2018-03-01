@@ -45,7 +45,7 @@ import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleOpManager;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArgumentDefault;
+import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
 import alice.tuplecentre.api.IId;
@@ -556,7 +556,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             final TupleArgument[] array = new TupleArgument[list.size()];
             int i = 0;
             while (!list.isEmpty()) {
-                array[i++] = new TupleArgumentDefault(
+                array[i++] = TupleArguments.newInstance(
                         ((LogicTuple) list.remove(0)).toTerm());
             }
             final Tuple tuple = LogicTuples.newInstance("get",
@@ -615,7 +615,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             final TupleArgument[] array = new TupleArgument[list.size()];
             int i = 0;
             while (!list.isEmpty()) {
-                array[i++] = new TupleArgumentDefault(
+                array[i++] = TupleArguments.newInstance(
                         ((LogicTuple) list.remove(0)).toTerm());
             }
             final Tuple tuple = LogicTuples.newInstance("get_s",
@@ -669,8 +669,8 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         // Get engine's copy of key and val
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         final AbstractMap<Var, Var> v1 = new LinkedHashMap<Var, Var>();
-        final LogicTuple lt = LogicTuples.newInstance("getEnv", new TupleArgumentDefault(
-                key.copyGoal(v, 0)), new TupleArgumentDefault(val.copyGoal(v1, 0)));
+        final LogicTuple lt = LogicTuples.newInstance("getEnv", TupleArguments.newInstance(
+                key.copyGoal(v, 0)), TupleArguments.newInstance(val.copyGoal(v1, 0)));
         // Building internal event
         final InputEvent ev = this.vm.getCurrentEvent();
         // log("### DEBUG >>> ev = " + ev);
@@ -2064,8 +2064,8 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         // Get engine's copy of key and val
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         final AbstractMap<Var, Var> v1 = new LinkedHashMap<Var, Var>();
-        final LogicTuple lt = LogicTuples.newInstance("setEnv", new TupleArgumentDefault(
-                key.copyGoal(v, 0)), new TupleArgumentDefault(val.copyGoal(v1, 0)));
+        final LogicTuple lt = LogicTuples.newInstance("setEnv", TupleArguments.newInstance(
+                key.copyGoal(v, 0)), TupleArguments.newInstance(val.copyGoal(v1, 0)));
         // Building internal event
         final InputEvent ev = this.vm.getCurrentEvent();
         // log("### DEBUG >>> ev = " + ev);

@@ -39,8 +39,7 @@ import alice.tucson.network.exceptions.DialogInitializationException;
 import alice.tucson.service.TucsonNodeService;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -131,7 +130,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
             final EnhancedSyncACC acc = negAcc.playDefaultRole();
             TucsonOperation op;
             LogicTuple template;
-            final LogicTuple dieTuple = LogicTuples.newInstance("stahp", new ValueArgument(
+            final LogicTuple dieTuple = LogicTuples.newInstance("stahp", TupleArguments.newValueArgument(
                     this.myName()));
             int face;
             Integer nTimes = 1;
@@ -143,7 +142,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
                     continue;
                 }
                 this.say("Rolling dice...");
-                template = LogicTuples.newInstance("face", new VarArgument());
+                template = LogicTuples.newInstance("face", TupleArguments.newVarArgument());
                 // op = acc.rd(this.tcid, template, Long.MAX_VALUE);
                 op = acc.urd(this.tcid, template, Long.MAX_VALUE);
                 if (op.isResultSuccess()) {

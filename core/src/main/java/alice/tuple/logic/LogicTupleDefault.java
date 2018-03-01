@@ -48,7 +48,7 @@ class LogicTupleDefault implements LogicTuple, Serializable {
      * @param list the list of tuple argument
      */
     LogicTupleDefault(final String name, final TupleArgument[] list) {
-        this.info = new ValueArgument(name, list);
+        this.info = TupleArguments.newValueArgument(name, list);
     }
 
     /**
@@ -57,7 +57,7 @@ class LogicTupleDefault implements LogicTuple, Serializable {
      * @param term the tuprolog term
      */
     LogicTupleDefault(final Term term) {
-        this.info = new TupleArgumentDefault(term);
+        this.info = TupleArguments.newInstance(term);
     }
 
     /**

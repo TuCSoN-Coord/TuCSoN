@@ -18,8 +18,7 @@ import alice.tucson.rbac.TucsonRole;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -54,8 +53,8 @@ public final class TucsonACCTool {
             final TupleCentreId tid, final EnhancedACC acc) {
         try {
             final LogicTuple template = LogicTuples.newInstance("context_request",
-                    new ValueArgument(agentAid), new VarArgument("Result"), new ValueArgument(
-                            agentClass), new ValueArgument(agentUUID.toString()));
+                    TupleArguments.newValueArgument(agentAid), TupleArguments.newVarArgument("Result"), TupleArguments.newValueArgument(
+                            agentClass), TupleArguments.newValueArgument(agentUUID.toString()));
             final TucsonOperation op = acc.inp(tid, template, (Long) null);
             if (op.isResultSuccess()) {
                 final LogicTuple res = op.getLogicTupleResult();
@@ -111,9 +110,9 @@ public final class TucsonACCTool {
         Role newRole = null;
         try {
             final LogicTuple template = LogicTuples.newInstance(
-                    "role_activation_request", new ValueArgument(agentAid.toString()),
-                    new ValueArgument(accUUID.toString()), new ValueArgument(roleName),
-                    new VarArgument("Result"));
+                    "role_activation_request", TupleArguments.newValueArgument(agentAid.toString()),
+                    TupleArguments.newValueArgument(accUUID.toString()), TupleArguments.newValueArgument(roleName),
+                    TupleArguments.newVarArgument("Result"));
             final TucsonOperation op = acc.inp(tid, template, (Long) null);
             if (op.isResultSuccess()) {
                 final LogicTuple res = op.getLogicTupleResult();
@@ -171,17 +170,17 @@ public final class TucsonACCTool {
         Role newRole = null;
         try {
             final LogicTuple rolePolicyTemplate = LogicTuples.newInstance(
-                    "policy_role_request", new ValueArgument(policy.getPolicyName()),
-                    new VarArgument("Result"));
+                    "policy_role_request", TupleArguments.newValueArgument(policy.getPolicyName()),
+                    TupleArguments.newVarArgument("Result"));
             TucsonOperation op = acc.inp(tid, rolePolicyTemplate, (Long) null);
             if (op.isResultSuccess()) {
                 LogicTuple res = op.getLogicTupleResult();
                 final String roleName = res.getArg(1).toString();
                 final LogicTuple template = LogicTuples.newInstance(
-                        "role_activation_request", new ValueArgument(
-                                agentAid.toString()), new ValueArgument(
-                                        accUUID.toString()), new ValueArgument(roleName),
-                                        new VarArgument("Result"));
+                        "role_activation_request", TupleArguments.newValueArgument(
+                                agentAid.toString()), TupleArguments.newValueArgument(
+                                        accUUID.toString()), TupleArguments.newValueArgument(roleName),
+                                        TupleArguments.newVarArgument("Result"));
                 op = acc.inp(tid, template, (Long) null);
                 if (op.isResultSuccess()) {
                     res = op.getLogicTupleResult();
@@ -250,7 +249,7 @@ public final class TucsonACCTool {
         final List<Policy> policies = new ArrayList<Policy>();
         try {
             final LogicTuple policyListTuple = LogicTuples.newInstance(
-                    "policies_list_request", new ValueArgument(agentClass), new VarArgument(
+                    "policies_list_request", TupleArguments.newValueArgument(agentClass), TupleArguments.newVarArgument(
                             "Result"));
             final TucsonOperation op = acc.inp(tid, policyListTuple,
                     (Long) null);
