@@ -14,16 +14,16 @@ package alice.respect.core;
 
 import java.util.List;
 
+import alice.respect.api.IRespectTC;
+import alice.respect.api.ITimedContext;
+import alice.respect.api.RespectOperation;
+import alice.respect.api.exceptions.OperationNotPossibleException;
+import alice.respect.api.exceptions.OperationTimeOutException;
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
+import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.TupleArgumentDefault;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
-import alice.respect.api.RespectOperation;
-import alice.respect.api.IRespectTC;
-import alice.respect.api.ITimedContext;
-import alice.respect.api.exceptions.OperationNotPossibleException;
-import alice.respect.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.InputEvent;
 
@@ -96,7 +96,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
 		}
 		if (",".equals(t.getName()) && t.getArity() == 2) {
 		    arg = t.getArg(1);
-		    return this.unify(new LogicTupleDefault(
+		    return this.unify(LogicTuples.newInstance(
 		            new TupleArgumentDefault(arg.toTerm())), op
 		            .getLogicTupleResult());
 		}
@@ -158,7 +158,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
 		}
 		if (",".equals(t.getName()) && t.getArity() == 2) {
 		    arg = t.getArg(1);
-		    return this.unify(new LogicTupleDefault(
+		    return this.unify(LogicTuples.newInstance(
 		            new TupleArgumentDefault(arg.toTerm())), op
 		            .getLogicTupleResult());
 		}
@@ -254,7 +254,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
 		}
 		if (",".equals(t.getName()) && t.getArity() == 2) {
 		    arg = t.getArg(1);
-		    return this.unify(new LogicTupleDefault(
+		    return this.unify(LogicTuples.newInstance(
 		            new TupleArgumentDefault(arg.toTerm())), op
 		            .getLogicTupleResult());
 		}

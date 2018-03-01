@@ -17,14 +17,6 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
-import alice.tuple.logic.exceptions.InvalidVarNameException;
-import alice.tuple.logic.exceptions.LogicTupleException;
 import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -38,6 +30,14 @@ import alice.tucson.introspection4gui.Inspector4GuiContextSkel;
 import alice.tucson.network.AbstractTucsonProtocol;
 import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.exceptions.InvalidVarNameException;
+import alice.tuple.logic.exceptions.LogicTupleException;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.util.Tools;
@@ -118,7 +118,7 @@ public class ACCProvider {
             if (agentClass == null) {
                 agentClass = "basic";
             }
-            final LogicTuple req = new LogicTupleDefault("context_request", new ValueArgument(
+            final LogicTuple req = LogicTuples.newInstance("context_request", new ValueArgument(
                     Tools.removeApices(agentName)), new VarArgument("CtxId"),
                     new ValueArgument(agentClass), new ValueArgument(agentUUID));
             /*
@@ -233,7 +233,7 @@ public class ACCProvider {
             final TucsonAgentId id) {
         LogicTuple req = null;
         try {
-            req = new LogicTupleDefault("context_shutdown", new ValueArgument(ctxId),
+            req = LogicTuples.newInstance("context_shutdown", new ValueArgument(ctxId),
                     new ValueArgument(id.toString()), new VarArgument("CtxId"));
         } catch (InvalidVarNameException e1) {
             e1.printStackTrace();

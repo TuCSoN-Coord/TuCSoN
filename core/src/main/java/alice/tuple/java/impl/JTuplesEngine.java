@@ -7,13 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import alice.tuple.logic.LogicMatchingEngine;
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
-import alice.tuplecentre.api.exceptions.InvalidTupleException;
+
 import alice.tuple.java.api.IJArg;
 import alice.tuple.java.api.IJTuple;
 import alice.tuple.java.api.IJTupleTemplate;
@@ -22,6 +16,13 @@ import alice.tuple.java.api.IJVar;
 import alice.tuple.java.api.JArgType;
 import alice.tuple.java.exceptions.InvalidJValException;
 import alice.tuple.java.exceptions.InvalidJVarException;
+import alice.tuple.logic.LogicMatchingEngine;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
+import alice.tuplecentre.api.exceptions.InvalidTupleException;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014
@@ -256,7 +257,7 @@ public final class JTuplesEngine {
             }
             i++;
         }
-        return new LogicTupleDefault("javat", tas);
+        return LogicTuples.newInstance("javat", tas);
     }
 
     /**
@@ -316,7 +317,7 @@ public final class JTuplesEngine {
             }
             i++;
         }
-        return new LogicTupleDefault("javat", tas);
+        return LogicTuples.newInstance("javat", tas);
     }
 
     private JTuplesEngine() {

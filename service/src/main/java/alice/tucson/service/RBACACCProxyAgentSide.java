@@ -5,12 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.LogicTupleOpManager;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
-import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -19,6 +13,12 @@ import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.rbac.Permission;
 import alice.tucson.rbac.Role;
 import alice.tuple.Tuple;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleOpManager;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -116,7 +116,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
         this.checkPermission("getS");
         LogicTuple spec = null;
         try {
-            spec = new LogicTupleDefault("spec", new VarArgument("S"));
+            spec = LogicTuples.newInstance("spec", new VarArgument("S"));
         } catch (final InvalidVarNameException e) {
             /*
              * Cannot happen
@@ -133,7 +133,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         this.checkPermission("getS");
-        final LogicTuple spec = new LogicTupleDefault("spec");
+        final LogicTuple spec = LogicTuples.newInstance("spec");
         return this.executor.doNonBlockingOperation(this.aid,
                 TupleCentreOpType.GET_S, tid, spec, l, this.getPosition());
     }
@@ -203,7 +203,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("inpS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
@@ -218,7 +218,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         this.checkPermission("inpS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
@@ -232,7 +232,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("inS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
@@ -247,7 +247,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         this.checkPermission("inS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
@@ -318,7 +318,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("nopS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
@@ -333,7 +333,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         this.checkPermission("nopS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
@@ -347,7 +347,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("noS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
@@ -362,7 +362,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         this.checkPermission("noS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
@@ -412,7 +412,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("outS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
@@ -427,7 +427,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         this.checkPermission("outS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
@@ -494,7 +494,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("rdpS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
@@ -509,7 +509,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         this.checkPermission("rdpS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
@@ -523,7 +523,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("rdS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doBlockingOperation(this.aid,
@@ -538,7 +538,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         this.checkPermission("rdS");
-        final LogicTuple tuple = new LogicTupleDefault(Parser.parseSingleTerm(
+        final LogicTuple tuple = LogicTuples.newInstance(Parser.parseSingleTerm(
                 "reaction(" + event + "," + guards + "," + reactionBody + ")",
                 new LogicTupleOpManager()));
         return this.executor.doNonBlockingOperation(this.aid,
@@ -592,7 +592,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
         if ("".equals(spec) || "''".equals(spec) || "'.'".equals(spec)) {
             throw new TucsonOperationNotPossibleException();
         }
-        final LogicTuple specT = new LogicTupleDefault("spec", new ValueArgument(spec));
+        final LogicTuple specT = LogicTuples.newInstance("spec", new ValueArgument(spec));
         return this.executor.doBlockingOperation(this.aid,
                 TupleCentreOpType.SET_S, tid, specT, timeout, this.getPosition());
     }
@@ -603,7 +603,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
         this.checkPermission("setS");
-        final LogicTuple specT = new LogicTupleDefault("spec", new ValueArgument(spec));
+        final LogicTuple specT = LogicTuples.newInstance("spec", new ValueArgument(spec));
         return this.executor.doNonBlockingOperation(this.aid,
                 TupleCentreOpType.SET_S, tid, specT, l, this.getPosition());
     }

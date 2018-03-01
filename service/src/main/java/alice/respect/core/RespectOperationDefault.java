@@ -15,25 +15,57 @@ package alice.respect.core;
 import java.util.LinkedList;
 import java.util.List;
 
+import alice.respect.api.RespectOperation;
+import alice.respect.api.RespectSpecification;
+import alice.tuple.Tuple;
+import alice.tuple.TupleTemplate;
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.TupleArgumentDefault;
 import alice.tuple.logic.VarArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
-import alice.respect.api.RespectOperation;
-import alice.respect.api.RespectSpecification;
-import alice.tuple.Tuple;
-import alice.tuple.TupleTemplate;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.OperationCompletionListener;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 
-import static alice.tuplecentre.core.TupleCentreOpType.*;
+import static alice.tuplecentre.core.TupleCentreOpType.FROM;
+import static alice.tuplecentre.core.TupleCentreOpType.GET;
+import static alice.tuplecentre.core.TupleCentreOpType.GET_ENV;
+import static alice.tuplecentre.core.TupleCentreOpType.GET_S;
+import static alice.tuplecentre.core.TupleCentreOpType.IN;
+import static alice.tuplecentre.core.TupleCentreOpType.INP;
+import static alice.tuplecentre.core.TupleCentreOpType.INP_S;
+import static alice.tuplecentre.core.TupleCentreOpType.IN_ALL;
+import static alice.tuplecentre.core.TupleCentreOpType.IN_S;
+import static alice.tuplecentre.core.TupleCentreOpType.NO;
+import static alice.tuplecentre.core.TupleCentreOpType.NOP;
+import static alice.tuplecentre.core.TupleCentreOpType.NOP_S;
+import static alice.tuplecentre.core.TupleCentreOpType.NO_ALL;
+import static alice.tuplecentre.core.TupleCentreOpType.NO_S;
+import static alice.tuplecentre.core.TupleCentreOpType.OUT;
+import static alice.tuplecentre.core.TupleCentreOpType.OUT_ALL;
+import static alice.tuplecentre.core.TupleCentreOpType.OUT_S;
+import static alice.tuplecentre.core.TupleCentreOpType.RD;
+import static alice.tuplecentre.core.TupleCentreOpType.RDP;
+import static alice.tuplecentre.core.TupleCentreOpType.RDP_S;
+import static alice.tuplecentre.core.TupleCentreOpType.RD_ALL;
+import static alice.tuplecentre.core.TupleCentreOpType.RD_S;
+import static alice.tuplecentre.core.TupleCentreOpType.SET;
+import static alice.tuplecentre.core.TupleCentreOpType.SET_ENV;
+import static alice.tuplecentre.core.TupleCentreOpType.SET_S;
+import static alice.tuplecentre.core.TupleCentreOpType.SPAWN;
+import static alice.tuplecentre.core.TupleCentreOpType.TIME;
+import static alice.tuplecentre.core.TupleCentreOpType.TO;
+import static alice.tuplecentre.core.TupleCentreOpType.UIN;
+import static alice.tuplecentre.core.TupleCentreOpType.UINP;
+import static alice.tuplecentre.core.TupleCentreOpType.UNO;
+import static alice.tuplecentre.core.TupleCentreOpType.UNOP;
+import static alice.tuplecentre.core.TupleCentreOpType.URD;
+import static alice.tuplecentre.core.TupleCentreOpType.URDP;
 
 /**
  * This class represents a ReSpecT operation.
@@ -58,11 +90,11 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                                                final LogicTuple tuple, final OperationCompletionListener listener)
             throws InvalidLogicTupleException {
         if (opType == GET) {
-            return RespectOperationDefault.makeGet(new LogicTupleDefault("get"), listener);
+            return RespectOperationDefault.makeGet(LogicTuples.newInstance("get"), listener);
         }
         if (opType == GET_S) {
             try {
-                return RespectOperationDefault.makeGetS(new LogicTupleDefault("spec", new VarArgument(
+                return RespectOperationDefault.makeGetS(LogicTuples.newInstance("spec", new VarArgument(
                         "S")), listener);
             } catch (InvalidVarNameException e) {
                 // TODO Auto-generated catch block
@@ -94,7 +126,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 //  try {
                 if (",".equals(tuple.getName()) && tuple.getArity() == 2) {
                     return RespectOperationDefault.makeInAll(
-                            new LogicTupleDefault(tuple.getArg(0)), listener);
+                            LogicTuples.newInstance(tuple.getArg(0)), listener);
                 }
                 return RespectOperationDefault.makeInAll(tuple, listener);
             //    } catch (final InvalidLogicTupleOperationException e) {
@@ -118,7 +150,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 //  try {
                 if (",".equals(tuple.getName()) && tuple.getArity() == 2) {
                     return RespectOperationDefault.makeRdAll(
-                            new LogicTupleDefault(tuple.getArg(0)), listener);
+                            LogicTuples.newInstance(tuple.getArg(0)), listener);
                 }
                 return RespectOperationDefault.makeRdAll(tuple, listener);
             //  } catch (final InvalidLogicTupleOperationException e) {
@@ -136,7 +168,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 //  try {
                 if (",".equals(tuple.getName()) && tuple.getArity() == 2) {
                     return RespectOperationDefault.makeNoAll(
-                            new LogicTupleDefault(tuple.getArg(0)), listener);
+                            LogicTuples.newInstance(tuple.getArg(0)), listener);
                 }
                 return RespectOperationDefault.makeNoAll(tuple, listener);
             //  } catch (final InvalidLogicTupleOperationException e) {
@@ -413,11 +445,11 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         arg = cpy.getArg(0);
         while (arg != null) {
             if (!arg.isList()) {
-                final LogicTuple t1 = new LogicTupleDefault(arg);
+                final LogicTuple t1 = LogicTuples.newInstance(arg);
                 list.add(t1);
                 arg = cpy.getArg(1);
             } else {
-                final LogicTuple t2 = new LogicTupleDefault(arg);
+                final LogicTuple t2 = LogicTuples.newInstance(arg);
                 cpy = t2;
                 if (!"[]".equals(cpy.toString())) {
                     arg = cpy.getArg(0);
@@ -462,11 +494,11 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         arg = cpy.getArg(0);
         while (arg != null) {
             if (!arg.isList()) {
-                final LogicTuple t1 = new LogicTupleDefault(arg);
+                final LogicTuple t1 = LogicTuples.newInstance(arg);
                 list.add(t1);
                 arg = cpy.getArg(1);
             } else {
-                final LogicTuple t2 = new LogicTupleDefault(arg);
+                final LogicTuple t2 = LogicTuples.newInstance(arg);
                 cpy = t2;
                 if (!"[]".equals(cpy.toString())) {
                     arg = cpy.getArg(0);
@@ -485,7 +517,9 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      * @return the ReSpecT operation built
      */
     public static RespectOperationDefault makeSetS(final OperationCompletionListener l) {
-        return new RespectOperationDefault(SET_S, new LogicTupleDefault(), l);
+        return new RespectOperationDefault(SET_S, LogicTuples.newInstance("Check this line!"), l);
+        // FIXME: 01/03/2018 there was a creation of a LogicTupleDefault with no argument... with refactor this was no more possible...
+        // check where this method is used, and what kind of tuple should be created!!!
     }
 
     /**
@@ -677,7 +711,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                     tl[i] = tupleL[i].toTerm();
                 }
                 LogicTuple lt = null;
-                lt = new LogicTupleDefault(opName, new TupleArgumentDefault(this
+                lt = LogicTuples.newInstance(opName, new TupleArgumentDefault(this
                         .getLogicTupleArgument().toTerm()),
                         new TupleArgumentDefault(new Struct(tl)));
                 return lt;
@@ -690,7 +724,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                     tl[i] = tupleL[i].toTerm();
                 }
                 LogicTuple lt = null;
-                lt = new LogicTupleDefault(opName, new TupleArgumentDefault(this
+                lt = LogicTuples.newInstance(opName, new TupleArgumentDefault(this
                         .getLogicTupleArgument().toTerm()),
                         new TupleArgumentDefault(new Struct(tl)));
                 return lt;
@@ -703,7 +737,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                     tl[i] = tupleL[i].toTerm();
                 }
                 LogicTuple lt = null;
-                lt = new LogicTupleDefault(opName, new TupleArgumentDefault(this
+                lt = LogicTuples.newInstance(opName, new TupleArgumentDefault(this
                         .getLogicTupleArgument().toTerm()),
                         new TupleArgumentDefault(new Struct(tl)));
                 return lt;
@@ -716,7 +750,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                     tl[i] = tupleL[i].toTerm();
                 }
                 LogicTuple lt = null;
-                lt = new LogicTupleDefault(opName, new TupleArgumentDefault(this
+                lt = LogicTuples.newInstance(opName, new TupleArgumentDefault(this
                         .getLogicTupleArgument().toTerm()),
                         new TupleArgumentDefault(new Struct(tl)));
                 return lt;
@@ -764,7 +798,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 opName = "unknownOp";
                 break;
         }
-        return new LogicTupleDefault(opName, new TupleArgumentDefault(
+        return LogicTuples.newInstance(opName, new TupleArgumentDefault(
                 tl != null ? new Struct(tl) : t.toTerm()));
     }
 }

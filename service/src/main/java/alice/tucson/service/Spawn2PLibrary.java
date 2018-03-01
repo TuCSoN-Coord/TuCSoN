@@ -3,15 +3,15 @@ package alice.tucson.service;
 import java.util.Iterator;
 import java.util.List;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuple.Tuple;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -96,7 +96,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean in_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
@@ -154,7 +154,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean in_all_2(final Term arg0, final Term arg1) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
@@ -210,7 +210,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean inp_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
@@ -266,7 +266,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean no_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
@@ -325,7 +325,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean no_all_2(final Term arg0, final Term arg1) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
@@ -381,7 +381,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean nop_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
@@ -438,7 +438,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean out_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
             	// Operation Make
@@ -489,7 +489,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean out_all_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
@@ -549,7 +549,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean rd_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
@@ -615,7 +615,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean rd_all_2(final Term arg0, final Term arg1) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
@@ -679,7 +679,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean rdp_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
@@ -773,7 +773,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean uin_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
@@ -837,7 +837,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean uinp_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
@@ -901,7 +901,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean uno_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
@@ -966,7 +966,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean unop_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
@@ -1031,7 +1031,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean urd_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make
@@ -1095,7 +1095,7 @@ public class Spawn2PLibrary extends Library {
      */
     public boolean urdp_1(final Term arg0) {
         TupleCentreOperation op = null;
-        final LogicTuple arg = new LogicTupleDefault(arg0);
+        final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
                 // Operation Make

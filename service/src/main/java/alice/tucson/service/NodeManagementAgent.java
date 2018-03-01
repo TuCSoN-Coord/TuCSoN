@@ -5,20 +5,20 @@
  */
 package alice.tucson.service;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
-import alice.tuple.logic.exceptions.InvalidLogicTupleOperationException;
-import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.exceptions.InvalidLogicTupleOperationException;
+import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuprolog.InvalidTermException;
@@ -72,7 +72,7 @@ public class NodeManagementAgent extends Thread {
                 LogicTuple cmd;
                 // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                        TupleCentreOpType.IN, new LogicTupleDefault("cmd",
+                        TupleCentreOpType.IN, LogicTuples.newInstance("cmd",
                                 new VarArgument("X")), null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.nodeManAid,
@@ -128,7 +128,7 @@ public class NodeManagementAgent extends Thread {
                 try {
                     // Operation Make
                     final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                            TupleCentreOpType.OUT, new LogicTupleDefault(
+                            TupleCentreOpType.OUT, LogicTuples.newInstance(
                                     "cmd_result", new ValueArgument("destroy"),
                                     new ValueArgument("ok")), null);
                     // InputEvent Creation
@@ -147,7 +147,7 @@ public class NodeManagementAgent extends Thread {
                 try {
                     // Operation Make
                     final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                            TupleCentreOpType.OUT, new LogicTupleDefault(
+                            TupleCentreOpType.OUT, LogicTuples.newInstance(
                                     "cmd_result", new ValueArgument("destroy"),
                                     new ValueArgument("failed")), null);
                     // InputEvent Creation
@@ -166,10 +166,10 @@ public class NodeManagementAgent extends Thread {
         } else if ("enable_persistency".equals(name)) {
             try {
             	NodeManagementAgent.log("Enabling persistency...");
-            	this.node.enablePersistency(new LogicTupleDefault(cmd.getArg(0)));
+            	this.node.enablePersistency(LogicTuples.newInstance(cmd.getArg(0)));
                 // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                        TupleCentreOpType.OUT, new LogicTupleDefault(
+                        TupleCentreOpType.OUT, LogicTuples.newInstance(
                                 "cmd_result", cmd, new ValueArgument("ok")), null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.nodeManAid,
@@ -186,10 +186,10 @@ public class NodeManagementAgent extends Thread {
         } else if ("disable_persistency".equals(name)) {
             try {
             	NodeManagementAgent.log("Disabling persistency...");
-                this.node.disablePersistency(new LogicTupleDefault(cmd.getArg(0)));
+                this.node.disablePersistency(LogicTuples.newInstance(cmd.getArg(0)));
                 // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                        TupleCentreOpType.OUT, new LogicTupleDefault(
+                        TupleCentreOpType.OUT, LogicTuples.newInstance(
                                 "cmd_result", new ValueArgument("disable_persistency"),
                                 new ValueArgument("ok")), null);
                 // InputEvent Creation

@@ -14,7 +14,6 @@ import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.service.TucsonNodeService;
 import alice.tucson.service.TupleCentreContainer;
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.VarArgument;
@@ -74,7 +73,7 @@ public class GeolocationConfigAgent extends Thread {
             while (true) {
                 Object cmd;
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                        TupleCentreOpType.IN, new LogicTupleDefault("cmd",
+                        TupleCentreOpType.IN, LogicTuples.newInstance("cmd",
                                 new VarArgument("X")), null);
                 final InputEvent ev = new InputEvent(this.nodeManAid,
                         opRequested, this.config, System.currentTimeMillis(),

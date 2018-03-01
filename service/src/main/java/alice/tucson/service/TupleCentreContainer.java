@@ -2,9 +2,6 @@ package alice.tucson.service;
 
 import java.util.HashMap;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.respect.api.IEnvironmentContext;
 import alice.respect.api.IManagementContext;
 import alice.respect.api.IOrdinaryAsynchInterface;
@@ -31,6 +28,9 @@ import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonInvalidSpecificationException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.api.TupleCentreOperation;
@@ -40,7 +40,10 @@ import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.OperationCompletionListener;
 import alice.tuplecentre.core.TupleCentreOpType;
 
-import static alice.tuplecentre.core.TupleCentreOpType.*;
+import static alice.tuplecentre.core.TupleCentreOpType.GET_ENV;
+import static alice.tuplecentre.core.TupleCentreOpType.GET_S;
+import static alice.tuplecentre.core.TupleCentreOpType.SET_ENV;
+import static alice.tuplecentre.core.TupleCentreOpType.SET_S;
 
 /**
  * @author Alessandro Ricci
@@ -355,7 +358,7 @@ public final class TupleCentreContainer {
                     return false;
                 }
             case GET_S:
-                return new LogicTupleDefault(context.getSpec().toString());
+                return LogicTuples.newInstance(context.getSpec().toString());
             case GET_TRSET:
                 return context.getTRSet((LogicTuple) obj);
             case GET_TSET:

@@ -17,7 +17,6 @@ import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.utilities.Utils;
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgumentDefault;
 import alice.tuple.logic.ValueArgument;
@@ -83,7 +82,7 @@ public final class Thermostat {
                 // 10 < bootT < LOW || HIGH < bootT < 30
                 bootT = Math.round((float) (Math.random() * 20)) + 10;
             } while (bootT >= Thermostat.LOW && bootT <= Thermostat.HIGH);
-            final LogicTuple bootTemp = new LogicTupleDefault("temp", new ValueArgument(bootT));
+            final LogicTuple bootTemp = LogicTuples.newInstance("temp", new ValueArgument(bootT));
             acc.out(tempTc, bootTemp, null);
             /* Set up sensor */
             Thermostat.log(aid.toString(), "Set up sensor...");
@@ -98,7 +97,7 @@ public final class Thermostat {
             } catch (final IOException e) {
                 e.printStackTrace();
             }
-            final LogicTuple sensorTuple = new LogicTupleDefault(
+            final LogicTuple sensorTuple = LogicTuples.newInstance(
                     "createTransducerSensor",
                     new TupleArgumentDefault(sensorTc.toTerm()),
                     new ValueArgument(
@@ -120,7 +119,7 @@ public final class Thermostat {
             } catch (final IOException e) {
                 e.printStackTrace();
             }
-            final LogicTuple actuatorTuple = new LogicTupleDefault(
+            final LogicTuple actuatorTuple = LogicTuples.newInstance(
                     "createTransducerActuator",
                     new TupleArgumentDefault(actuatorTc.toTerm()),
                     new ValueArgument(

@@ -29,7 +29,7 @@ import alice.tuprolog.Term;
  * @see Tuple
  * @see TupleTemplate
  */
-public class LogicTupleDefault implements LogicTuple, Serializable {
+class LogicTupleDefault implements LogicTuple, Serializable {
 
     /**
      *
@@ -42,141 +42,22 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
     private TupleArgument info;
 
     /**
-     *
-     */
-    public LogicTupleDefault() {
-        //TODO because of this constructor would be a good idea to check for filed "info" to be not-null in all methods
-    }
-
-    /**
-     * Constructs the logic tuple providing the tuple name, without arguments
-     *
-     * @param name the name of the tuple (the functor)
-     */
-    public LogicTupleDefault(final String name) {
-        this.info = new ValueArgument(name);
-    }
-
-    /**
-     * Constructs the logic tuple providing the tuple name and one argument
-     *
-     * @param name the name of the tuple (the functor)
-     * @param t1   the tuple argument
-     */
-    public LogicTupleDefault(final String name, final TupleArgument t1) {
-        this.info = new ValueArgument(name, t1);
-    }
-
-    /**
-     * Constructs the logic tuple providing the tuple name and two arguments
-     *
-     * @param name the name of the tuple (the functor)
-     * @param t1   the first tuple argument
-     * @param t2   the second tuple argument
-     */
-    public LogicTupleDefault(final String name, final TupleArgument t1,
-                             final TupleArgument t2) {
-        this.info = new ValueArgument(name, t1, t2);
-    }
-
-    /**
-     * Constructs the logic tuple providing the tuple name and three arguments
-     *
-     * @param name the name of the tuple (the functor)
-     * @param t1   the first tuple argument
-     * @param t2   the second tuple argument
-     * @param t3   the third tuple argument
-     */
-    public LogicTupleDefault(final String name, final TupleArgument t1,
-                             final TupleArgument t2, final TupleArgument t3) {
-        this.info = new ValueArgument(name, t1, t2, t3);
-    }
-
-    /**
-     * Constructs the logic tuple providing the tuple name and four arguments
-     *
-     * @param name the name of the tuple (the functor)
-     * @param t1   the first tuple argument
-     * @param t2   the second tuple argument
-     * @param t3   the third tuple argument
-     * @param t4   the fourth tuple argument
-     */
-    public LogicTupleDefault(final String name, final TupleArgument t1,
-                             final TupleArgument t2, final TupleArgument t3,
-                             final TupleArgument t4) {
-        this.info = new ValueArgument(name, t1, t2, t3, t4);
-    }
-
-    /**
-     * Constructs the logic tuple providing the tuple name and five arguments
-     *
-     * @param name the name of the tuple (the functor)
-     * @param t1   the first tuple argument
-     * @param t2   the second tuple argument
-     * @param t3   the third tuple argument
-     * @param t4   the fourth tuple argument
-     * @param t5   the fifth tuple argument
-     */
-    public LogicTupleDefault(final String name, final TupleArgument t1,
-                             final TupleArgument t2, final TupleArgument t3,
-                             final TupleArgument t4, final TupleArgument t5) {
-        this.info = new ValueArgument(name, t1, t2, t3, t4, t5);
-    }
-
-    /**
-     * Constructs the logic tuple providing the tuple name and six arguments
-     *
-     * @param name the name of the tuple (the functor)
-     * @param t1   the first tuple argument
-     * @param t2   the second tuple argument
-     * @param t3   the third tuple argument
-     * @param t4   the fourth tuple argument
-     * @param t5   the fifth tuple argument
-     * @param t6   the sixth tuple argument
-     */
-    public LogicTupleDefault(final String name, final TupleArgument t1,
-                             final TupleArgument t2, final TupleArgument t3,
-                             final TupleArgument t4, final TupleArgument t5,
-                             final TupleArgument t6) {
-        this.info = new ValueArgument(name, t1, t2, t3, t4, t5, t6);
-    }
-
-    /**
-     * Constructs the logic tuple providing the tuple name and seven arguments
-     *
-     * @param name the name of the tuple (the functor)
-     * @param t1   the first tuple argument
-     * @param t2   the second tuple argument
-     * @param t3   the third tuple argument
-     * @param t4   the fourth tuple argument
-     * @param t5   the fifth tuple argument
-     * @param t6   the sixth tuple argument
-     * @param t7   the seventh tuple argument
-     */
-    public LogicTupleDefault(final String name, final TupleArgument t1,
-                             final TupleArgument t2, final TupleArgument t3,
-                             final TupleArgument t4, final TupleArgument t5,
-                             final TupleArgument t6, final TupleArgument t7) {
-        this.info = new ValueArgument(name, t1, t2, t3, t4, t5, t6, t7);
-    }
-
-    /**
      * Constructs a logic tuple providing the tuple name and argument list
      *
      * @param name the name of the tuple (the functor)
      * @param list the list of tuple argument
      */
-    public LogicTupleDefault(final String name, final TupleArgument[] list) {
+    LogicTupleDefault(final String name, final TupleArgument[] list) {
         this.info = new ValueArgument(name, list);
     }
 
     /**
      * Constructs the logic tuple from a tuprolog term
      *
-     * @param t the tuprolog term
+     * @param term the tuprolog term
      */
-    public LogicTupleDefault(final Term t) {
-        this.info = new TupleArgumentDefault(t);
+    LogicTupleDefault(final Term term) {
+        this.info = new TupleArgumentDefault(term);
     }
 
     /**
@@ -185,7 +66,7 @@ public class LogicTupleDefault implements LogicTuple, Serializable {
      *
      * @param t the tuple argument
      */
-    public LogicTupleDefault(final TupleArgument t) {
+    LogicTupleDefault(final TupleArgument t) {
         this.info = t;
     }
 

@@ -27,7 +27,7 @@ public final class LogicTuples {
         try {
             final Term t = alice.tuprolog.Term.createTerm(tupleString,
                     new LogicTupleOpManager());
-            return new LogicTupleDefault(new TupleArgumentDefault(t));
+            return LogicTuples.newInstance(new TupleArgumentDefault(t));
         } catch (final InvalidTermException ex) {
             throw new InvalidLogicTupleException(
                     "Exception occurred while parsing the string: \"" + tupleString
@@ -43,31 +43,19 @@ public final class LogicTuples {
      */
     public static LogicTuple newInstance(final LogicTuple logicTuple) {
         try {
-
             return parse(logicTuple.toString());
-
         } catch (final InvalidLogicTupleException e) {
 
             /* Never here, because the argument is a LogicTuple */
-
             e.printStackTrace();
         }
 
         /* Never here, because the argument is a LogicTuple */
-        throw new IllegalStateException("Someone modified LogicTupleDefault toString!! Cannot parse: " + logicTuple.toString());
+        throw new IllegalStateException("Due to modified LogicTupleDefault#toString !! Cannot parse: " + logicTuple.toString());
     }
 
     /**
-     * Constructs the logic tuple providing the tuple name, without arguments
-     *
-     * @param name the name of the tuple (the functor)
-     */
-    public static LogicTuple newInstance(final String name) {
-        return new LogicTupleDefault(name);
-    }
-
-    /**
-     * Constructs a logic tuple providing the tuple name and argument list
+     * Constructs a logic tuple providing the tuple name and argument list (or nothing for a tuple without arguments)
      *
      * @param name the name of the tuple (the functor)
      * @param args the list of tuple arguments

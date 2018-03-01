@@ -1,20 +1,20 @@
 package helloWorld;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
-import alice.tuple.logic.exceptions.InvalidVarNameException;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
+import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
 /**
@@ -53,7 +53,7 @@ public final class HelloWorld {
             /*
              * 4) Build the tuple using the communication language.
              */
-            final LogicTuple tuple = new LogicTupleDefault("hello", new ValueArgument("world"));
+            final LogicTuple tuple = LogicTuples.newInstance("hello", new ValueArgument("world"));
             /*
              * 5) Perform the coordination operation using the preferred
              * coordination primitive.
@@ -79,7 +79,7 @@ public final class HelloWorld {
             /*
              * Another success test to be sure.
              */
-            final LogicTuple template = new LogicTupleDefault("hello", new VarArgument("Who"));
+            final LogicTuple template = LogicTuples.newInstance("hello", new VarArgument("Who"));
             op = acc.rdp(tid, template, null);
             if (op.isResultSuccess()) {
                 res = op.getLogicTupleResult();

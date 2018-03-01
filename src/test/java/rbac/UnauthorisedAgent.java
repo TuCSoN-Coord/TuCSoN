@@ -28,21 +28,22 @@ package rbac;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import alice.tuple.logic.LogicTupleDefault;
-import alice.tuple.logic.ValueArgument;
-import alice.tuple.logic.VarArgument;
-import alice.tuple.logic.exceptions.InvalidVarNameException;
+
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.AgentNotAllowedException;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.ValueArgument;
+import alice.tuple.logic.VarArgument;
+import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
@@ -127,7 +128,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
             Logger.getLogger("UnauthorisedAgent").info("Trying 'rd' operation");
             TucsonOperation op = acc.rd(new TucsonTupleCentreId("default",
                     this.myNode(), String.valueOf(this.myport())),
-                    new LogicTupleDefault("test", new VarArgument("Greet")), (Long) null);
+                    LogicTuples.newInstance("test", new VarArgument("Greet")), (Long) null);
             if (op.isResultSuccess()) {
                 Logger.getLogger("UnauthorisedAgent").info(
                         "'rd' operation successful, got: "
@@ -137,7 +138,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
                     .info("Trying 'out' operation");
             try {
                 acc.out(new TucsonTupleCentreId("default", this.myNode(),
-                        String.valueOf(this.myport())), new LogicTupleDefault("test",
+                        String.valueOf(this.myport())), LogicTuples.newInstance("test",
                         new ValueArgument("hi")), (Long) null);
             } catch (TucsonOperationNotPossibleException e) {
                 Logger.getLogger("UnauthorisedAgent").info("Operation failed!");

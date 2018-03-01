@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.geolocation.Position;
 import alice.tucson.api.TucsonAgentId;
@@ -26,14 +24,15 @@ import alice.tucson.network.TucsonMsgRequest;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
-import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuple.Tuple;
 import alice.tuple.TupleTemplate;
-import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuple.java.impl.JTuple;
 import alice.tuple.java.impl.JTupleTemplate;
 import alice.tuple.java.impl.JTuplesEngine;
+import alice.tuple.logic.LogicTuple;
+import alice.tuplecentre.api.ITCCycleResult;
+import alice.tuplecentre.api.exceptions.OperationTimeOutException;
+import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.lib.InvalidObjectIdException;
 
@@ -542,7 +541,7 @@ public class OperationHandler {
             throws UnreachableNodeException {
         // this.log("t = " + t);
         Tuple tupl = null;
-        if (t instanceof LogicTupleDefault) {
+        if (t instanceof LogicTuple) {
             tupl = t;
         } else if (t instanceof JTuple) {
             tupl = JTuplesEngine.toLogicTuple((JTuple) t);

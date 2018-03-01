@@ -26,7 +26,6 @@ import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.parsing.TucsonOpParser;
 import alice.tucson.service.TucsonCmd;
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.LogicTupleOpManager;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
@@ -353,105 +352,105 @@ public class CLIAgent extends alice.util.Automaton {
                         CLIAgent.prompt("failure: " + op.getLogicTupleResult());
                     }
                 } else if ("out_s".equals(methodName)) {
-                    final LogicTuple t = new LogicTupleDefault(Parser.parseSingleTerm(
+                    final LogicTuple t = LogicTuples.newInstance(Parser.parseSingleTerm(
                             "reaction(" + tuple + ")",
                             new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.outS(tid,
-                            new LogicTupleDefault(t.getArg(0)),
-                            new LogicTupleDefault(t.getArg(1)),
-                            new LogicTupleDefault(t.getArg(2)), Long.MAX_VALUE);
+                            LogicTuples.newInstance(t.getArg(0)),
+                            LogicTuples.newInstance(t.getArg(1)),
+                            LogicTuples.newInstance(t.getArg(2)), Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
                     } else {
                         CLIAgent.prompt("failure: " + op.getLogicTupleResult());
                     }
                 } else if ("in_s".equals(methodName)) {
-                    final LogicTuple templ = new LogicTupleDefault(
+                    final LogicTuple templ = LogicTuples.newInstance(
                             Parser.parseSingleTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.inS(tid,
-                            new LogicTupleDefault(templ.getArg(0)), new LogicTupleDefault(
+                            LogicTuples.newInstance(templ.getArg(0)), LogicTuples.newInstance(
                                     templ.getArg(1)),
-                            new LogicTupleDefault(templ.getArg(2)), Long.MAX_VALUE);
+                            LogicTuples.newInstance(templ.getArg(2)), Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
                     } else {
                         CLIAgent.prompt("failure: " + op.getLogicTupleResult());
                     }
                 } else if ("rd_s".equals(methodName)) {
-                    final LogicTuple templ = new LogicTupleDefault(
+                    final LogicTuple templ = LogicTuples.newInstance(
                             Parser.parseSingleTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.rdS(tid,
-                            new LogicTupleDefault(templ.getArg(0)), new LogicTupleDefault(
+                            LogicTuples.newInstance(templ.getArg(0)), LogicTuples.newInstance(
                                     templ.getArg(1)),
-                            new LogicTupleDefault(templ.getArg(2)), Long.MAX_VALUE);
+                            LogicTuples.newInstance(templ.getArg(2)), Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
                     } else {
                         CLIAgent.prompt("failure: " + op.getLogicTupleResult());
                     }
                 } else if ("inp_s".equals(methodName)) {
-                    final LogicTuple templ = new LogicTupleDefault(
+                    final LogicTuple templ = LogicTuples.newInstance(
                             Parser.parseSingleTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.inpS(tid,
-                            new LogicTupleDefault(templ.getArg(0)), new LogicTupleDefault(
+                            LogicTuples.newInstance(templ.getArg(0)), LogicTuples.newInstance(
                                     templ.getArg(1)),
-                            new LogicTupleDefault(templ.getArg(2)), Long.MAX_VALUE);
+                            LogicTuples.newInstance(templ.getArg(2)), Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
                     } else {
                         CLIAgent.prompt("failure: " + op.getLogicTupleResult());
                     }
                 } else if ("rdp_s".equals(methodName)) {
-                    final LogicTuple templ = new LogicTupleDefault(
+                    final LogicTuple templ = LogicTuples.newInstance(
                             Parser.parseSingleTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.rdpS(tid,
-                            new LogicTupleDefault(templ.getArg(0)), new LogicTupleDefault(
+                            LogicTuples.newInstance(templ.getArg(0)), LogicTuples.newInstance(
                                     templ.getArg(1)),
-                            new LogicTupleDefault(templ.getArg(2)), Long.MAX_VALUE);
+                            LogicTuples.newInstance(templ.getArg(2)), Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
                     } else {
                         CLIAgent.prompt("failure: " + op.getLogicTupleResult());
                     }
                 } else if ("no_s".equals(methodName)) {
-                    final LogicTuple templ = new LogicTupleDefault(
+                    final LogicTuple templ = LogicTuples.newInstance(
                             Parser.parseSingleTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.noS(tid,
-                            new LogicTupleDefault(templ.getArg(0)), new LogicTupleDefault(
+                            LogicTuples.newInstance(templ.getArg(0)), LogicTuples.newInstance(
                                     templ.getArg(1)),
-                            new LogicTupleDefault(templ.getArg(2)), Long.MAX_VALUE);
+                            LogicTuples.newInstance(templ.getArg(2)), Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
                     } else {
                         CLIAgent.prompt("failure: " + op.getLogicTupleResult());
                     }
                 } else if ("nop_s".equals(methodName)) {
-                    final LogicTuple templ = new LogicTupleDefault(
+                    final LogicTuple templ = LogicTuples.newInstance(
                             Parser.parseSingleTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.nopS(tid,
-                            new LogicTupleDefault(templ.getArg(0)), new LogicTupleDefault(
+                            LogicTuples.newInstance(templ.getArg(0)), LogicTuples.newInstance(
                                     templ.getArg(1)),
-                            new LogicTupleDefault(templ.getArg(2)), Long.MAX_VALUE);
+                            LogicTuples.newInstance(templ.getArg(2)), Long.MAX_VALUE);
                     if (op.isResultSuccess()) {
                         CLIAgent.prompt("success: " + op.getLogicTupleResult());
                     } else {
                         CLIAgent.prompt("failure: " + op.getLogicTupleResult());
                     }
                 } else if ("set_s".equals(methodName)) {
-                    final LogicTuple templ = new LogicTupleDefault(
+                    final LogicTuple templ = LogicTuples.newInstance(
                             Parser.parseSingleTerm(tuple,
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();

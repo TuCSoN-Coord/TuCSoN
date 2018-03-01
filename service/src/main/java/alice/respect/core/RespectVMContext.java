@@ -49,7 +49,6 @@ import alice.tucson.service.Spawn2PSolver;
 import alice.tuple.Tuple;
 import alice.tuple.TupleTemplate;
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.LogicTupleOpManager;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgumentDefault;
@@ -152,13 +151,13 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				core.setTheory(thspec);
 			} else {
 				core = null;
-				return new LogicTupleDefault("invalid", new VarArgument());
+				return LogicTuples.newInstance("invalid", new VarArgument());
 			}
 			core = null;
-			return new LogicTupleDefault("valid");
+			return LogicTuples.newInstance("valid");
 		} catch (final alice.tuprolog.InvalidTheoryException ex) {
 			core = null;
-			return new LogicTupleDefault("invalid", new ValueArgument(ex.line));
+			return LogicTuples.newInstance("invalid", new ValueArgument(ex.line));
 		}
 	}
 
@@ -269,13 +268,13 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 		LogicTuple tuple = (LogicTuple) t;
 		LogicTuple toAdd;
 		while (!"[]".equals(tuple.toString())) {
-			toAdd = new LogicTupleDefault(tuple.getArg(0));
+			toAdd = LogicTuples.newInstance(tuple.getArg(0));
 			this.tSet.add(toAdd);
 			if (this.isPersistent) {
 				this.writePersistencyUpdate(toAdd, ModType.ADD_TUPLE);
 			}
-			list.add(new LogicTupleDefault(tuple.getArg(0)));
-			tuple = new LogicTupleDefault(tuple.getArg(1));
+			list.add(LogicTuples.newInstance(tuple.getArg(0)));
+			tuple = LogicTuples.newInstance(tuple.getArg(1));
 		}
 		return list;
 	}
@@ -289,7 +288,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	public void addSpecTuple(final Tuple t) {
 		Tuple tuple = null;
 		if (",".equals(((LogicTuple) t).getName())) {
-			tuple = new LogicTupleDefault("reaction", ((LogicTuple) t).getArg(0), ((LogicTuple) t).getArg(1).getArg(0),
+			tuple = LogicTuples.newInstance("reaction", ((LogicTuple) t).getArg(0), ((LogicTuple) t).getArg(1).getArg(0),
 					((LogicTuple) t).getArg(1).getArg(1));
 		} else {
 			tuple = t;
@@ -1131,7 +1130,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 		final LogicTuple[] tuples = new LogicTuple[trig.length];
 		for (int i = 0; i < tuples.length; i++) {
 			final Term term = ((LogicReaction) trig[i].getReaction()).getStructReaction().getTerm();
-			tuples[i] = new LogicTupleDefault(term);
+			tuples[i] = LogicTuples.newInstance(term);
 		}
 		return tuples;
 	}
@@ -1570,7 +1569,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 			while (term != null) {
 				engine.solve("assert(" + term + ").");
 				if (!term.match(Term.createTerm("reaction(E,G,R)"))) {
-					pp = new LogicTupleDefault(term);
+					pp = LogicTuples.newInstance(term);
 					this.prologPredicates.add(pp);
 					if (this.isPersistent) {
 						this.writePersistencyUpdate(pp, ModType.ADD_PRED);
@@ -1603,7 +1602,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				LogicTuple st;
 				while (true) {
 					final alice.tuprolog.Term solution = info.getSolution();
-					st = new LogicTupleDefault(solution);
+					st = LogicTuples.newInstance(solution);
 					this.tSpecSet.add(st);
 					if (this.isPersistent) {
 						this.writePersistencyUpdate(st, ModType.ADD_SPEC);
@@ -1815,7 +1814,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 		final LogicReaction lr = (LogicReaction) tr.getReaction();
 		final Struct rStruct = lr.getStructReaction();
 		final Struct rg = new Struct(rStruct.getName(), rStruct.getArg(0), new Var(), rStruct.getArg(1));
-		this.removeMatchingSpecTuple(new LogicTupleDefault(rg));
+		this.removeMatchingSpecTuple(LogicTuples.newInstance(rg));
 	}
 
 	private boolean evalGuard(final Term g) {
@@ -1897,7 +1896,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				}
 				currTimer.schedule(
 						new RespectTimerTask(this,
-								RespectOperationDefault.makeTime(new LogicTupleDefault("time", new TupleArgumentDefault(current)), null)),
+								RespectOperationDefault.makeTime(LogicTuples.newInstance("time", new TupleArgumentDefault(current)), null)),
 						delay);
 			}
 			/** SPATIAL EXTENSION - Interfacing with geolocation service **/
@@ -1997,7 +1996,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 				}
 				currTimer.schedule(
 						new RespectTimerTask(this,
-								RespectOperationDefault.makeTime(new LogicTupleDefault("time", new TupleArgumentDefault(current)), null)),
+								RespectOperationDefault.makeTime(LogicTuples.newInstance("time", new TupleArgumentDefault(current)), null)),
 						delay);
 			}
 			/** SPATIAL EXTENSION - Interfacing with geolocation service **/

@@ -19,7 +19,6 @@ import java.util.List;
 import alice.tuple.Tuple;
 import alice.tuple.TupleTemplate;
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleDefault;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.ITCCycleResult;
@@ -160,10 +159,8 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     public Tuple getPrimitive() {
         if (TupleCentreOpType.getStandardOperationTypes().contains(this.type)) {
 
-            // TODO modificare LogicTuple in modo che accetti in ingresso direttamente il tipo dell'operazione
-            // TODO e che lo trasformi internamente in stringa (se necessario)
+            return LogicTuples.newInstance(this.type.name().toLowerCase());
 
-            return new LogicTupleDefault(this.type.name().toLowerCase());
         } else {
             return null;
         }
