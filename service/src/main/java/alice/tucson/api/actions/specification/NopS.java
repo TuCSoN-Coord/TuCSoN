@@ -46,7 +46,7 @@ public class NopS extends AbstractTucsonSpecificationAction {
      * Builds the TuCSoN {@code nop_s} action given its target tuple centre
      * 
      * @param tc
-     *            the ID of the TuCSoN tuple centre target of this coordination
+     *            the Identifier of the TuCSoN tuple centre target of this coordination
      *            operation
      * @param e
      *            the logic tuple representing the triggering event of the

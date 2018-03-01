@@ -8,6 +8,8 @@ package alice.respect.core;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuplecentre.core.AbstractEvent;
 
 /**
@@ -153,7 +155,7 @@ public class PendingQuerySet {
      *            the identifier of the tuple centre agent whose events have to
      *            be removed
      */
-    public void removeEventsOf(final alice.tuplecentre.api.AgentId id) {
+    public void removeEventsOf(final AgentIdentifier id) {
         final Iterator<? extends AbstractEvent> it = this.events.listIterator();
         while (it.hasNext()) {
             final alice.tuplecentre.core.AbstractEvent ev = it.next();

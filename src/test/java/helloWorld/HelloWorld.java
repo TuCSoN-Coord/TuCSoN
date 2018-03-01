@@ -94,7 +94,7 @@ public final class HelloWorld {
             acc.exit();
         } catch (final TucsonInvalidAgentIdException e) {
             /*
-             * The chosen TuCSoN Agent ID is not admissible.
+             * The chosen TuCSoN Agent Identifier is not admissible.
              */
             e.printStackTrace();
         } catch (final TucsonInvalidTupleCentreIdException e) {

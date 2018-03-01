@@ -51,8 +51,8 @@ import alice.tucson.persistency.PersistencyData;
 import alice.tucson.persistency.PersistencyXML;
 import alice.tucson.service.Spawn2PLibrary;
 import alice.tucson.service.Spawn2PSolver;
-import alice.tuplecentre.api.AgentId;
-import alice.tuplecentre.api.IId;
+import alice.tuplecentre.api.AgentIdentifier;
+import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.AbstractBehaviourSpecification;
@@ -1460,7 +1460,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	 *            the identifier of the agent whose events must be removed
 	 */
 	@Override
-	public void removePendingQueryEventsOf(final alice.tuplecentre.api.AgentId id) {
+	public void removePendingQueryEventsOf(final AgentIdentifier id) {
 		this.wSet.removeEventsOf(id);
 	}
 
@@ -1659,7 +1659,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	}
 
 	@Override
-	public boolean spawnActivity(final Tuple tuple, final IId owner, final IId targetTC) {
+	public boolean spawnActivity(final Tuple tuple, final EmitterIdentifier owner, final EmitterIdentifier targetTC) {
 		try {
 			final ClassLoader cl = Thread.currentThread().getContextClassLoader();
 			// final URL[] urls = ((URLClassLoader) cl).getURLs();
@@ -1684,7 +1684,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 					final Prolog solver = new Prolog();
 					final Spawn2PLibrary s2pLib = new Spawn2PLibrary();
 					if (owner.isAgent()) {
-						final TucsonAgentId aid = new TucsonAgentId(((AgentId) owner).toString());
+						final TucsonAgentId aid = new TucsonAgentId(((AgentIdentifier) owner).toString());
 						this.log("spawnActivity.aid = " + aid);
 						s2pLib.setSpawnerId(aid);
 					} else {
@@ -1730,7 +1730,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 					if (AbstractSpawnActivity.class.isAssignableFrom(toSpawn)) {
 						final AbstractSpawnActivity instance = (AbstractSpawnActivity) toSpawn.newInstance();
 						if (owner.isAgent()) {
-							final TucsonAgentId aid = new TucsonAgentId(((AgentId) owner).toString());
+							final TucsonAgentId aid = new TucsonAgentId(((AgentIdentifier) owner).toString());
 							this.log("spawnActivity.aid = " + aid);
 							instance.setSpawnerId(aid);
 						} else {

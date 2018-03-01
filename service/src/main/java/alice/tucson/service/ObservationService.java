@@ -15,7 +15,7 @@ import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tuplecentre.api.IId;
+import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.api.TupleTemplate;
@@ -98,7 +98,7 @@ public class ObservationService implements NodeServiceListener {
     }
 
     @Override
-    public void getSpecCompleted(final TupleCentreId tid, final IId id,
+    public void getSpecCompleted(final TupleCentreId tid, final EmitterIdentifier id,
             final String spec) {
         try {
             // Operation Make
@@ -130,7 +130,7 @@ public class ObservationService implements NodeServiceListener {
     }
 
     @Override
-    public void getSpecRequested(final TupleCentreId tid, final IId id) {
+    public void getSpecRequested(final TupleCentreId tid, final EmitterIdentifier id) {
         try {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
@@ -159,7 +159,7 @@ public class ObservationService implements NodeServiceListener {
     }
 
     @Override
-    public void inCompleted(final TupleCentreId tid, final IId id, final Tuple t) {
+    public void inCompleted(final TupleCentreId tid, final EmitterIdentifier id, final Tuple t) {
         try {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
@@ -191,7 +191,7 @@ public class ObservationService implements NodeServiceListener {
     }
 
     @Override
-    public void inpCompleted(final TupleCentreId tid, final IId id,
+    public void inpCompleted(final TupleCentreId tid, final EmitterIdentifier id,
             final Tuple t) {
         try {
             // Operation Make
@@ -241,7 +241,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
     }
 
     @Override
-    public void inpRequested(final TupleCentreId tid, final IId id,
+    public void inpRequested(final TupleCentreId tid, final EmitterIdentifier id,
             final TupleTemplate t) {
         try {
             // Operation Make
@@ -274,7 +274,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
     }
 
     @Override
-    public void inRequested(final TupleCentreId tid, final IId id,
+    public void inRequested(final TupleCentreId tid, final EmitterIdentifier id,
             final TupleTemplate t) {
         try {
             // Operation Make
@@ -307,7 +307,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
     }
 
     @Override
-    public void outRequested(final TupleCentreId tid, final IId id,
+    public void outRequested(final TupleCentreId tid, final EmitterIdentifier id,
             final Tuple t) {
         try {
             // Operation Make
@@ -340,7 +340,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
     }
 
     @Override
-    public void rdCompleted(final TupleCentreId tid, final IId id, final Tuple t) {
+    public void rdCompleted(final TupleCentreId tid, final EmitterIdentifier id, final Tuple t) {
         try {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
@@ -372,7 +372,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
     }
 
     @Override
-    public void rdpCompleted(final TupleCentreId tid, final IId id,
+    public void rdpCompleted(final TupleCentreId tid, final EmitterIdentifier id,
             final Tuple t) {
         try {
             // Operation Make
@@ -422,7 +422,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
     }
 
     @Override
-    public void rdpRequested(final TupleCentreId tid, final IId id,
+    public void rdpRequested(final TupleCentreId tid, final EmitterIdentifier id,
             final TupleTemplate t) {
         try {
             // Operation Make
@@ -455,7 +455,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
     }
 
     @Override
-    public void rdRequested(final TupleCentreId tid, final IId id,
+    public void rdRequested(final TupleCentreId tid, final EmitterIdentifier id,
             final TupleTemplate t) {
         try {
             // Operation Make
@@ -488,7 +488,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
     }
 
     @Override
-    public void setSpecCompleted(final TupleCentreId tid, final IId id) {
+    public void setSpecCompleted(final TupleCentreId tid, final EmitterIdentifier id) {
         try {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
@@ -517,7 +517,7 @@ TupleCentreOpType.OUT, new LogicTuple("node_event", new Var(),
     }
 
     @Override
-    public void setSpecRequested(final TupleCentreId tid, final IId id,
+    public void setSpecRequested(final TupleCentreId tid, final EmitterIdentifier id,
             final String spec) {
         try {
             // Operation Make

@@ -23,7 +23,7 @@ import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 
 /**
- * Command Line Interpreter. Can be booted with a TuCSoN agent ID or using a
+ * Command Line Interpreter. Can be booted with a TuCSoN agent Identifier or using a
  * default assigned one (both passed to the CLIAgent). Gets a TuCSoN ACC from
  * TucsonMetaACC then spawns the CLIAgent who manages user input.
  *

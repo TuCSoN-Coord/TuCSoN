@@ -47,7 +47,7 @@ public class TucsonMsgReply implements Serializable {
     public String toString() {
         final StringBuffer s = new StringBuffer(87);
         final OutputEventMsg oEv = this.getOutputEvent();
-        s.append("ID: ");
+        s.append("Identifier: ");
         s.append(oEv.getOpId());
         s.append("; Type: ");
         s.append(oEv.getOpType());

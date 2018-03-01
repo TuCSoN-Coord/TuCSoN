@@ -26,13 +26,8 @@ import alice.respect.api.geolocation.service.AbstractGeolocationService;
 import alice.respect.api.geolocation.service.GeolocationServiceManager;
 import alice.respect.core.RespectVM;
 import alice.respect.core.StepMonitor;
-import alice.tuplecentre.api.AgentId;
-import alice.tuplecentre.api.IId;
-import alice.tuplecentre.api.ITupleCentre;
-import alice.tuplecentre.api.ITupleCentreManagement;
-import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreId;
-import alice.tuplecentre.api.TupleTemplate;
+import alice.tuplecentre.api.*;
+import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.exceptions.OperationNotPossibleException;
 import alice.tuprolog.Term;
 
@@ -176,7 +171,7 @@ public abstract class AbstractTupleCentreVMContext implements
     public abstract void addTuple(Tuple t, boolean u);
 
 
-    public void doOperation(final IId who, final AbstractTupleCentreOperation op)
+    public void doOperation(final EmitterIdentifier who, final AbstractTupleCentreOperation op)
             throws OperationNotPossibleException {
         final InputEvent ev = new InputEvent(who, op, this.tid,
                 this.getCurrentTime(), this.getPosition());
@@ -542,7 +537,7 @@ public abstract class AbstractTupleCentreVMContext implements
      * @param id
      *            is the agent identifies
      */
-    public abstract void removePendingQueryEventsOf(AgentId id);
+    public abstract void removePendingQueryEventsOf(AgentIdentifier id);
 
     /**
      * Removes a time-triggered reaction, previously fetched
@@ -603,7 +598,7 @@ public abstract class AbstractTupleCentreVMContext implements
      *            the identifier of the tuple centre target of the operation
      * @return wether the operation succeeded
      */
-    public abstract boolean spawnActivity(Tuple t, IId owner, IId targetTC);
+    public abstract boolean spawnActivity(Tuple t, EmitterIdentifier owner, EmitterIdentifier targetTC);
 
     @Override
     public void stopCommand() throws OperationNotPossibleException {

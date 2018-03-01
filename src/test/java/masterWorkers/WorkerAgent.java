@@ -53,7 +53,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
      *            node to contact for retrieving jobs
      *
      * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     *             if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public WorkerAgent(final String aid, final String node)
             throws TucsonInvalidAgentIdException {
@@ -168,7 +168,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
         } catch (final InterruptedException e) {
             this.say("ERROR: Sleep interrupted!");
         } catch (final TucsonInvalidAgentIdException e) {
-            this.say("ERROR: Given ID is not a valid TuCSoN agent ID!");
+            this.say("ERROR: Given Identifier is not a valid TuCSoN agent Identifier!");
         }
     }
 

@@ -62,7 +62,7 @@ public class MasterAgent extends AbstractTucsonAgent {
      *            max number for which to calculate factorial
      *
      * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     *             if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public MasterAgent(final String aid, final LinkedList<String> nodes,
             final int iters, final int maxFact)
@@ -225,7 +225,7 @@ public class MasterAgent extends AbstractTucsonAgent {
         } catch (final OperationTimeOutException e) {
             this.say("ERROR: Endless timeout expired!");
         } catch (final TucsonInvalidAgentIdException e) {
-            this.say("ERROR: Given ID is not a valid TuCSoN agent ID!");
+            this.say("ERROR: Given Identifier is not a valid TuCSoN agent Identifier!");
         }
     }
 

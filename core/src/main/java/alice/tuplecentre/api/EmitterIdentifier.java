@@ -7,7 +7,7 @@ package alice.tuplecentre.api;
  * @author Matteo Casadei
  *
  */
-public interface IId {
+public interface EmitterIdentifier {
 
     /**
      *

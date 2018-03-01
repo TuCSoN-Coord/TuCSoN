@@ -214,7 +214,7 @@ OperationCompletionListener {
     }
 
     private static final int TRIES = 3;
-    // aid is the source tuple centre ID
+    // aid is the source tuple centre Identifier
     private TucsonTupleCentreId aid;
     private final Map<String, ControllerSession> controllerSessions;
     private final List<TucsonOpCompletionEvent> events;

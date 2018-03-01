@@ -1,6 +1,5 @@
 package alice.respect.api.geolocation.service;
 
-import alice.tuplecentre.api.IId;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 
@@ -9,7 +8,7 @@ import alice.tuprolog.Term;
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  * 
  */
-public class GeoServiceId implements IId {
+public class GeoServiceId implements GeoServiceIdentifier {
     private final Struct id;
     private final String name;
 

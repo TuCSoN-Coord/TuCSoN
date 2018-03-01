@@ -18,6 +18,8 @@ import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 
+import java.io.Serializable;
+
 /**
  * Tuple centre identifier for ReSpecT tuple centres
  * 
@@ -26,16 +28,13 @@ import alice.tuprolog.Term;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
-public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId,
-        java.io.Serializable {
+public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId, Serializable {
 
     private static final int DEFAULT_PORT = 20504;
     private static TupleCentreIdOperatorManager opManager = new TupleCentreIdOperatorManager();
     private static final long serialVersionUID = 1L;
-    /**
-     * 
-     */
-    protected alice.tuprolog.Term id;
+
+    private Term id;
 
     /**
      * Constructs a tuple centre identifier from a string, which must represent
@@ -227,10 +226,10 @@ public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId,
 
     /**
      * Provides the logic term representation of the identifier
-     * 
+     *
      * @return the term representing the identifier
      */
-    public Term toTerm() {
-        return this.id;
+    public Term toTerm(){
+        return id;
     }
 }

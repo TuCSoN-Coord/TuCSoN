@@ -163,7 +163,7 @@ public class GeolocationConfigAgent extends Thread {
                     tcNodeAndPort[0], tcNodeAndPort[1]);
             final int platform = PlatformUtils.getPlatform();
             GeolocationConfigAgent
-                    .log("Serving create android geolocation service request. Id: "
+                    .log("Serving create android geolocation service request. EmitterIdentifier: "
                             + sId.getName()
                             + "; TC Associated: "
                             + t.getArg(2).toString());
@@ -180,7 +180,7 @@ public class GeolocationConfigAgent extends Thread {
             t = (LogicTuple) TupleCentreContainer.doBlockingOperation(ev);
             final GeoServiceId sId = new GeoServiceId(t.getArg(0).getName());
             GeolocationConfigAgent
-                    .log("Serving destroy android geolocation service request. Id: "
+                    .log("Serving destroy android geolocation service request. EmitterIdentifier: "
                             + sId.getName());
             GeolocationServiceManager.getGeolocationManager().destroyService(
                     sId);

@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import alice.respect.api.geolocation.Position;
-import alice.tuplecentre.api.IId;
+import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
 
@@ -42,9 +42,9 @@ public abstract class AbstractEvent implements java.io.Serializable {
     /** the operation (primitive + tuple) associated with this event **/
     private AbstractTupleCentreOperation simpleTCEvent;
     /** the entitiy executing the operation **/
-    private IId source;
+    private EmitterIdentifier source;
     /** represent the target entity that could be an agent or a TC **/
-    private IId target;
+    private EmitterIdentifier target;
     /** time at which this event occurs */
     private final long time;
 
@@ -61,8 +61,8 @@ public abstract class AbstractEvent implements java.io.Serializable {
      * @param p
      *            the position (wichever sort of) where the event was generated
      */
-    public AbstractEvent(final IId s, final AbstractTupleCentreOperation op,
-            final TupleCentreId tc, final long t, final Position p) {
+    public AbstractEvent(final EmitterIdentifier s, final AbstractTupleCentreOperation op,
+                         final TupleCentreId tc, final long t, final Position p) {
         this.source = s;
         this.simpleTCEvent = op;
         this.target = tc;
@@ -87,8 +87,8 @@ public abstract class AbstractEvent implements java.io.Serializable {
      * @param p
      *            the position (wichever sort of) where the event was generated
      */
-    public AbstractEvent(final IId s, final AbstractTupleCentreOperation op,
-            final TupleCentreId tc, final long t, final Position p, final Map<String, String> prop) {
+    public AbstractEvent(final EmitterIdentifier s, final AbstractTupleCentreOperation op,
+                         final TupleCentreId tc, final long t, final Position p, final Map<String, String> prop) {
         this(s, op, tc, t, p);
         this.evProp.putAll(prop);
     }
@@ -135,7 +135,7 @@ public abstract class AbstractEvent implements java.io.Serializable {
      *
      * @return the id of the executor
      */
-    public IId getSource() {
+    public EmitterIdentifier getSource() {
         return this.source;
     }
 
@@ -143,7 +143,7 @@ public abstract class AbstractEvent implements java.io.Serializable {
      *
      * @return the identifier of the target of the event
      */
-    public IId getTarget() {
+    public EmitterIdentifier getTarget() {
         return this.target;
     }
 
@@ -208,7 +208,7 @@ public abstract class AbstractEvent implements java.io.Serializable {
      * @param s
      *            the identifier of the source of the event
      */
-    public void setSource(final IId s) {
+    public void setSource(final EmitterIdentifier s) {
         this.source = s;
     }
 
@@ -217,7 +217,7 @@ public abstract class AbstractEvent implements java.io.Serializable {
      * @param t
      *            the identifier of the target of the event
      */
-    public void setTarget(final IId t) {
+    public void setTarget(final EmitterIdentifier t) {
         this.target = t;
     }
 

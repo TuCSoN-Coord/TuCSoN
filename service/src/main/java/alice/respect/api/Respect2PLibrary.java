@@ -45,7 +45,7 @@ import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.NetworkUtils;
-import alice.tuplecentre.api.IId;
+import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -75,7 +75,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     /**
      * @param source
      */
-    private static boolean checkIP(final IId source) {
+    private static boolean checkIP(final EmitterIdentifier source) {
         if (source instanceof TupleCentreId) {
             final TupleCentreId tcid = (TupleCentreId) source;
             if (alice.util.Tools.removeApices(tcid.getNode()).equals(
@@ -397,9 +397,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      *         given source
      */
     public boolean event_source_1(final Term source) {
-        final IId id = this.vm.getCurrentReactionEvent().getSource();
+        final EmitterIdentifier id = this.vm.getCurrentReactionEvent().getSource();
         if (id.isAgent()) {
-            // final Term aid = ((AgentId) id).toTerm();
+            // final Term aid = ((AgentIdentifier) id).toTerm();
             final Term aid = Term.createTerm(id.toString(),
                     new LogicTupleOpManager());
             return this.unify(source, aid);
@@ -421,9 +421,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      *         given target
      */
     public boolean event_target_1(final Term target) {
-        final IId id = this.vm.getCurrentReactionEvent().getTarget();
+        final EmitterIdentifier id = this.vm.getCurrentReactionEvent().getTarget();
         if (id.isAgent()) {
-            // final Term aid = ((AgentId) id).toTerm();
+            // final Term aid = ((AgentIdentifier) id).toTerm();
             final Term aid = Term.createTerm(id.toString(),
                     new LogicTupleOpManager());
             return this.unify(target, aid);
@@ -469,11 +469,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean exo_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
-        final IId source = ev.getSource();
+        final EmitterIdentifier source = ev.getSource();
         if (!source.isTC()) {
             return true;
         }
-        final IId currentTc = this.vm.getId();
+        final EmitterIdentifier currentTc = this.vm.getId();
         if (currentTc.toString().equals(source.toString())) {
             return false;
         }
@@ -498,7 +498,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean from_agent_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
-        final IId source = ev.getSource();
+        final EmitterIdentifier source = ev.getSource();
         if (source.isAgent()) {
             return true;
         }
@@ -523,7 +523,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean from_tc_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
-        final IId source = ev.getSource();
+        final EmitterIdentifier source = ev.getSource();
         if (source.isTC()) {
             return true;
         }
@@ -677,7 +677,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         // log("### DEBUG >>> iev = " + internalEv);
         final String normEnv = env.toString().substring(
                 env.toString().indexOf("(") + 1, env.toString().indexOf(","));
-        final EnvId envId = new EnvId(normEnv);
+        final EnvironmentId envId = new EnvironmentId(normEnv);
         internalEv.setTarget(envId); // Set target resource
         // log("### DEBUG >>> target = " + envId);
         internalEv.setSource(this.vm.getId()); // Set the source of the event
@@ -1089,11 +1089,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean intra_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
-        final IId target = ev.getTarget();
+        final EmitterIdentifier target = ev.getTarget();
         if (!target.isTC()) {
             return false;
         }
-        final IId currentTc = this.vm.getId();
+        final EmitterIdentifier currentTc = this.vm.getId();
         if (currentTc.toString().equals(target.toString())) {
             return true;
         }
@@ -2072,7 +2072,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         // log("### DEBUG >>> iev = " + internalEv);
         final String normEnv = env.toString().substring(
                 env.toString().indexOf("(") + 1, env.toString().indexOf(","));
-        final EnvId envId = new EnvId(normEnv);
+        final EnvironmentId envId = new EnvironmentId(normEnv);
         internalEv.setTarget(envId);
         // log("### DEBUG >>> target = " + envId);
         internalEv.setSource(this.vm.getId());
@@ -2206,9 +2206,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractEvent e = this.vm.getCurrentReactionEvent();
         if (e.isInternal()) {
             final InternalEvent ie = (InternalEvent) e;
-            final IId id = ie.getInputEvent().getSource();
+            final EmitterIdentifier id = ie.getInputEvent().getSource();
             if (id.isAgent()) {
-                // final Term aid = ((AgentId) id).toTerm();
+                // final Term aid = ((AgentIdentifier) id).toTerm();
                 final Term aid = Term.createTerm(id.toString(),
                         new LogicTupleOpManager());
                 return this.unify(source, aid);
@@ -2222,9 +2222,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             }
         } else if (e.isOutput()) {
             final OutputEvent oe = (OutputEvent) e;
-            final IId id = oe.getInputEvent().getSource();
+            final EmitterIdentifier id = oe.getInputEvent().getSource();
             if (id.isAgent()) {
-                // final Term aid = ((AgentId) id).toTerm();
+                // final Term aid = ((AgentIdentifier) id).toTerm();
                 final Term aid = Term.createTerm(id.toString(),
                         new LogicTupleOpManager());
                 return this.unify(source, aid);
@@ -2237,9 +2237,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 return false;
             }
         } else {
-            final IId id = e.getSource();
+            final EmitterIdentifier id = e.getSource();
             if (id.isAgent()) {
-                // final Term aid = ((AgentId) id).toTerm();
+                // final Term aid = ((AgentIdentifier) id).toTerm();
                 final Term aid = Term.createTerm(id.toString(),
                         new LogicTupleOpManager());
                 return this.unify(source, aid);
@@ -2265,9 +2265,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractEvent e = this.vm.getCurrentReactionEvent();
         if (e.isInternal()) {
             final InternalEvent ie = (InternalEvent) e;
-            final IId id = ie.getInputEvent().getTarget();
+            final EmitterIdentifier id = ie.getInputEvent().getTarget();
             if (id.isAgent()) {
-                // final Term aid = ((AgentId) id).toTerm();
+                // final Term aid = ((AgentIdentifier) id).toTerm();
                 final Term aid = Term.createTerm(id.toString(),
                         new LogicTupleOpManager());
                 return this.unify(target, aid);
@@ -2281,9 +2281,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             }
         } else if (e.isOutput()) {
             final OutputEvent oe = (OutputEvent) e;
-            final IId id = oe.getInputEvent().getTarget();
+            final EmitterIdentifier id = oe.getInputEvent().getTarget();
             if (id.isAgent()) {
-                // final Term aid = ((AgentId) id).toTerm();
+                // final Term aid = ((AgentIdentifier) id).toTerm();
                 final Term aid = Term.createTerm(id.toString(),
                         new LogicTupleOpManager());
                 return this.unify(target, aid);
@@ -2296,9 +2296,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 return false;
             }
         } else {
-            final IId id = e.getTarget();
+            final EmitterIdentifier id = e.getTarget();
             if (id.isAgent()) {
-                // final Term aid = ((AgentId) id).toTerm();
+                // final Term aid = ((AgentIdentifier) id).toTerm();
                 final Term aid = Term.createTerm(id.toString(),
                         new LogicTupleOpManager());
                 return this.unify(target, aid);
@@ -2377,7 +2377,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean to_agent_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
-        final IId target = ev.getTarget();
+        final EmitterIdentifier target = ev.getTarget();
         if (target.isAgent()) {
             return true;
         }
@@ -2399,7 +2399,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean to_tc_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
-        final IId target = ev.getTarget();
+        final EmitterIdentifier target = ev.getTarget();
         if (target.isTC()) {
             return true;
         }

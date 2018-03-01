@@ -13,14 +13,14 @@
  */
 package alice.tucson.api;
 
+import alice.tuplecentre.core.AbstractOperationId;
+
 /**
  *
  * @author ste (mailto: s.mariani@unibo.it)
  *
  */
-public class TucsonOpId {
-
-    private final long id;
+public class TucsonOpId extends AbstractOperationId{
 
     /**
      *
@@ -29,7 +29,7 @@ public class TucsonOpId {
      *            operations
      */
     public TucsonOpId(final long i) {
-        this.id = i;
+        super(i);
     }
 
     /*
@@ -54,14 +54,6 @@ public class TucsonOpId {
         return true;
     }
 
-    /**
-     *
-     * @return the progressive, unique identifier of TuCSoN operations
-     */
-    public long getId() {
-        return this.id;
-    }
-
     /*
      * (non-Javadoc)
      * @see java.lang.Object#hashCode()
@@ -74,8 +66,4 @@ public class TucsonOpId {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(this.id);
-    }
 }

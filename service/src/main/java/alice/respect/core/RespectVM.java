@@ -22,7 +22,7 @@ import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.OperationNotPossibleException;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.introspection.WSetEvent;
-import alice.tuplecentre.api.IId;
+import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.api.Tuple;
@@ -134,7 +134,7 @@ public class RespectVM implements Runnable {
      * @throws OperationNotPossibleException
      *             if the requested operation cannot be carried out
      */
-    public void doOperation(final IId id, final RespectOperationDefault op)
+    public void doOperation(final EmitterIdentifier id, final RespectOperationDefault op)
             throws OperationNotPossibleException {
         try {
             this.context.doOperation(id, op);

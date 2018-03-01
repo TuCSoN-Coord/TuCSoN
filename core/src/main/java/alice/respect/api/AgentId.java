@@ -15,9 +15,12 @@ package alice.respect.api;
 import alice.respect.api.exceptions.InvalidAgentIdException;
 import alice.respect.core.AgentIdOperatorManager;
 import alice.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
+
+import java.io.Serializable;
 
 /**
  * Agent identifier.
@@ -25,18 +28,16 @@ import alice.tuprolog.Term;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
-public class AgentId implements alice.tuplecentre.api.AgentId,
-        java.io.Serializable {
+public class AgentId implements AgentIdentifier,
+        Serializable {
+
+    private Term id;
 
     private static AgentIdOperatorManager opManager = new AgentIdOperatorManager();
     /**
      *
      */
     private static final long serialVersionUID = 1L;
-    /**
-     *
-     */
-    protected Term id;
 
     /**
      * Constructs an agent identifier
@@ -128,17 +129,17 @@ public class AgentId implements alice.tuplecentre.api.AgentId,
         return this.id.toString();
     }
 
+	@Override
+	public boolean isGeo() {
+		return false;
+	}
+
     /**
      * Provides the logic term representation of the identifier
      *
      * @return the term representing the identifier
      */
-    public Term toTerm() {
-        return this.id;
+    public Term toTerm(){
+        return id;
     }
-
-	@Override
-	public boolean isGeo() {
-		return false;
-	}
 }

@@ -50,7 +50,7 @@ public class ServiceRequestor extends AbstractTucsonAgent {
      *            node where to look for services
      *
      * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     *             if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public ServiceRequestor(final String aid, final String node)
             throws TucsonInvalidAgentIdException {
@@ -135,7 +135,7 @@ public class ServiceRequestor extends AbstractTucsonAgent {
         } catch (final OperationTimeOutException e) {
             this.say("ERROR: Endless timeout expired!");
         } catch (final TucsonInvalidAgentIdException e) {
-            this.say("ERROR: Given ID is not a valid TuCSoN agent ID!");
+            this.say("ERROR: Given Identifier is not a valid TuCSoN agent Identifier!");
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();

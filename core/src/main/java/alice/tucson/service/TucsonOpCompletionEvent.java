@@ -6,7 +6,7 @@ import alice.tucson.api.TucsonOpId;
 
 /**
  * Completion of a TuCSoN operation: such event stores the corresponding
- * operation ID, its success state, its result and other useful info.
+ * operation Identifier, its success state, its result and other useful info.
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)

@@ -37,17 +37,17 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     private Role role;
 
     /**
-     * Builds an RBAC ACC given the associated agent ID or name, its initial
+     * Builds an RBAC ACC given the associated agent Identifier or name, its initial
      * role and the assigned UUID.
      *
      * @param aid
-     *            the associated agent ID or name (String)
+     *            the associated agent Identifier or name (String)
      * @param r
      *            the initial role to play
      * @param agentUUID
      *            the UUID assigned
      * @throws TucsonInvalidAgentIdException
-     *             if the given agent ID is NOT valid
+     *             if the given agent Identifier is NOT valid
      */
     public RBACACCProxyAgentSide(final Object aid, final Role r,
             final UUID agentUUID) throws TucsonInvalidAgentIdException {
@@ -55,12 +55,12 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     /**
-     * Builds an RBAC ACC given the associated agent ID or name, the IP address
+     * Builds an RBAC ACC given the associated agent Identifier or name, the IP address
      * of the TuCSoN node it is willing to interact with, its TCP port also, as
      * well as the associated agent initial role and the assigned UUID.
      *
      * @param aid
-     *            the associated agent ID or name (String)
+     *            the associated agent Identifier or name (String)
      * @param n
      *            the IP address
      * @param p
@@ -70,7 +70,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
      * @param agentUUID
      *            the UUID assigned
      * @throws TucsonInvalidAgentIdException
-     *             if the given agent ID is NOT valid
+     *             if the given agent Identifier is NOT valid
      */
     public RBACACCProxyAgentSide(final Object aid, final String n, final int p,
             final Role r, final UUID agentUUID)

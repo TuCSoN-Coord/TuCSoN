@@ -1,15 +1,16 @@
 package alice.respect.api;
 
-import alice.tuplecentre.api.IId;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
+
+import java.io.Serializable;
 
 /**
  *
  * @author Unknown...
  *
  */
-public class EnvId implements IId, java.io.Serializable {
+public class EnvironmentId implements EnvironmentIdentifier, Serializable {
 
     /** serialVersionUID **/
     private static final long serialVersionUID = 1L;
@@ -21,7 +22,7 @@ public class EnvId implements IId, java.io.Serializable {
      * @param i
      *            the struct representing this environment identifier
      */
-    public EnvId(final String i) {
+    public EnvironmentId(final String i) {
         this.localName = i;
         this.id = new Struct(i);
     }

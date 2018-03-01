@@ -1,14 +1,14 @@
 package alice.respect.api;
 
+import alice.tuplecentre.core.AbstractOperationId;
+
 /**
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  *
  */
-public class RespectOpId {
-
-    private final long id;
+public class RespectOpId extends AbstractOperationId{
 
     /**
      *
@@ -16,7 +16,7 @@ public class RespectOpId {
      *            the progressive, unique per tuple centre, operation identifier
      */
     public RespectOpId(final long i) {
-        this.id = i;
+        super(i);
     }
 
     /*
@@ -41,14 +41,6 @@ public class RespectOpId {
         return true;
     }
 
-    /**
-     *
-     * @return the ReSpecT operation identifier
-     */
-    public long getId() {
-        return this.id;
-    }
-
     /*
      * (non-Javadoc)
      * @see java.lang.Object#hashCode()
@@ -61,8 +53,4 @@ public class RespectOpId {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(this.id);
-    }
 }

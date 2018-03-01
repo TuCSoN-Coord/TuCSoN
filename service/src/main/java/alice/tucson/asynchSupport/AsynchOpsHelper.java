@@ -59,10 +59,10 @@ public class AsynchOpsHelper extends AbstractTucsonAgent {
     private final Semaphore shutdownSynch;
 
     /**
-     * Builds an helper given the delegating agent ID
+     * Builds an helper given the delegating agent Identifier
      *
      * @param id
-     *            the ID of the agent delegating asynchronous invocation to this
+     *            the Identifier of the agent delegating asynchronous invocation to this
      *            helper
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent

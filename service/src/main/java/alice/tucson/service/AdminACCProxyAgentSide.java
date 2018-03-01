@@ -40,14 +40,14 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
     private final TupleCentreId tid;
 
     /**
-     * Builds an Administrator ACC given the associated agent ID or name
+     * Builds an Administrator ACC given the associated agent Identifier or name
      *
      * @param aid
-     *            the associated agent ID or name (String)
+     *            the associated agent Identifier or name (String)
      * @throws TucsonInvalidAgentIdException
-     *             if the given agent ID is NOT valid
+     *             if the given agent Identifier is NOT valid
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre ID is NOT valid
+     *             if the given tuple centre Identifier is NOT valid
      */
     public AdminACCProxyAgentSide(final Object aid)
             throws TucsonInvalidAgentIdException,
@@ -56,20 +56,20 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
     }
 
     /**
-     * Builds an Administrator ACC given the associated agent ID or name, the IP
+     * Builds an Administrator ACC given the associated agent Identifier or name, the IP
      * address of the TuCSoN node the agent is willing to interact with, and the
      * TCP port also.
      *
      * @param aid
-     *            the associated agent ID or name (String)
+     *            the associated agent Identifier or name (String)
      * @param node
      *            the IP address of the target TuCSoN node
      * @param port
      *            the TCP port of the target TuCSoN node
      * @throws TucsonInvalidAgentIdException
-     *             if the given agent ID is NOT valid
+     *             if the given agent Identifier is NOT valid
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre ID is NOT valid
+     *             if the given tuple centre Identifier is NOT valid
      */
     public AdminACCProxyAgentSide(final Object aid, final String node,
             final int port) throws TucsonInvalidAgentIdException,
@@ -78,12 +78,12 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
     }
 
     /**
-     * Builds an Administrator ACC given the associated agent ID or name, the IP
+     * Builds an Administrator ACC given the associated agent Identifier or name, the IP
      * address of the TuCSoN node the agent is willing to interact with, the TCP
      * port also, as well as the agent username and (encrypted) password.
      *
      * @param aid
-     *            the associated agent ID or name (String)
+     *            the associated agent Identifier or name (String)
      * @param node
      *            the IP address of the target TuCSoN node
      * @param port
@@ -93,9 +93,9 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
      * @param psw
      *            the associated agent (encrypted) password
      * @throws TucsonInvalidAgentIdException
-     *             if the given agent ID is NOT valid
+     *             if the given agent Identifier is NOT valid
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre ID is NOT valid
+     *             if the given tuple centre Identifier is NOT valid
      */
     public AdminACCProxyAgentSide(final Object aid, final String node,
             final int port, final String uname, final String psw)

@@ -57,14 +57,14 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
     private final TupleCentreId tid;
 
     /**
-     * Builds a Negotiation ACC given the associated agent ID or name
+     * Builds a Negotiation ACC given the associated agent Identifier or name
      *
      * @param aid
-     *            the associated agent ID or name (String)
+     *            the associated agent Identifier or name (String)
      * @throws TucsonInvalidAgentIdException
-     *             if the given agent ID is NOT valid
+     *             if the given agent Identifier is NOT valid
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre ID is NOT valid
+     *             if the given tuple centre Identifier is NOT valid
      */
     public NegotiationACCProxyAgentSide(final Object aid)
             throws TucsonInvalidAgentIdException,
@@ -73,20 +73,20 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
     }
 
     /**
-     * Builds a Negotiation ACC given the associated agent ID or name, the IP
+     * Builds a Negotiation ACC given the associated agent Identifier or name, the IP
      * address of the TuCSoN node the agent is willing to interact with, and the
      * TCP port also.
      *
      * @param aid
-     *            the associated agent ID or name (String)
+     *            the associated agent Identifier or name (String)
      * @param n
      *            the IP address of the target TuCSoN node
      * @param p
      *            the TCP port of the target TuCSoN node
      * @throws TucsonInvalidAgentIdException
-     *             if the given agent ID is NOT valid
+     *             if the given agent Identifier is NOT valid
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre ID is NOT valid
+     *             if the given tuple centre Identifier is NOT valid
      */
     public NegotiationACCProxyAgentSide(final Object aid, final String n,
             final int p) throws TucsonInvalidAgentIdException,

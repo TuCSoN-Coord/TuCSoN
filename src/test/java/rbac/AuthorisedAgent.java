@@ -55,7 +55,7 @@ public final class AuthorisedAgent extends AbstractTucsonAgent {
 
     /**
      * @param id
-     *            the ID of this TuCSoN agent
+     *            the Identifier of this TuCSoN agent
      * @param netid
      *            the IP address of the TuCSoN node it is willing to interact
      *            with
@@ -64,7 +64,7 @@ public final class AuthorisedAgent extends AbstractTucsonAgent {
      *            interact with
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent
-     *             ID
+     *             Identifier
      */
     public AuthorisedAgent(final String id, final String netid, final int p)
             throws TucsonInvalidAgentIdException {

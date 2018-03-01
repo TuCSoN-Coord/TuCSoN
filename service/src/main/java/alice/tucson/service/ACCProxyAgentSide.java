@@ -90,7 +90,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
 
     private static final int DEFAULT_PORT = 20504;
     /**
-     * The tuple centre ID where RBAC structure is managed
+     * The tuple centre Identifier where RBAC structure is managed
      */
     protected static final String TC_ORG = "'$ORG'"; // galassi
     private volatile boolean isACCEntered; // galassi

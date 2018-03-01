@@ -87,10 +87,10 @@ public class SearchableOpsQueue extends LinkedBlockingQueue<TucsonOpWrapper> {
     }
 
     /**
-     * Removes the operation identified by the given ID
+     * Removes the operation identified by the given Identifier
      *
      * @param id
-     *            the ID of the operation to remove
+     *            the Identifier of the operation to remove
      * @return {@code true} or {@code false} depending on whether removal was
      *         successful or not
      */

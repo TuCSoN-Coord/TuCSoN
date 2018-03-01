@@ -1,5 +1,7 @@
 package alice.tucson.service;
 
+import alice.tuplecentre.api.Identifier;
+
 /**
  *
  * @author ste (mailto: s.mariani@unibo.it)
@@ -7,7 +9,7 @@ package alice.tucson.service;
  * @param <I>
  *            the actual identifier Type
  */
-public class TucsonIdWrapper<I> {
+public class TucsonIdWrapper<I> implements Identifier{
 
     private final I id;
 

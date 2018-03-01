@@ -174,13 +174,13 @@ public class PrimeCalculator extends AbstractTucsonAgent {
     private boolean stop;
 
     /**
-     * Builds a Prime Calculator Agent given its TuCSoN agent ID
+     * Builds a Prime Calculator Agent given its TuCSoN agent Identifier
      *
      * @param id
-     *            the TuCSoN agent ID
+     *            the TuCSoN agent Identifier
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent
-     *             ID
+     *             Identifier
      */
     public PrimeCalculator(final String id)
             throws TucsonInvalidAgentIdException {

@@ -1,6 +1,6 @@
 package alice.respect.situatedness;
 
-import alice.respect.api.EnvId;
+import alice.respect.api.EnvironmentId;
 
 /**
  * A "probe" (aka environmental resource) identifier. Being part of the MAS
@@ -8,7 +8,7 @@ import alice.respect.api.EnvId;
  *
  * @author Steven Maraldi
  */
-public abstract class AbstractProbeId extends EnvId {
+public abstract class AbstractProbeId extends EnvironmentId {
 
     private static final long serialVersionUID = -7709792820397648780L;
 

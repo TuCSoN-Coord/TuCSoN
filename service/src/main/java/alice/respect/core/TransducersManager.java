@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import alice.respect.api.EnvId;
+import alice.respect.api.EnvironmentId;
 import alice.respect.situatedness.AbstractProbeId;
 import alice.respect.situatedness.AbstractTransducer;
 import alice.respect.situatedness.ISimpleProbe;
@@ -197,7 +197,7 @@ public enum TransducersManager {
      * @return the transducer identifier
      */
     // FIXME Check correctness (synchronization needed?)
-    public TransducerId getTransducerId(final EnvId probe) {
+    public TransducerId getTransducerId(final EnvironmentId probe) {
         final Set<TransducerId> set = this.probesToTransducersMap.keySet();
         final Object[] keySet = set.toArray();
         for (final Object element : keySet) {

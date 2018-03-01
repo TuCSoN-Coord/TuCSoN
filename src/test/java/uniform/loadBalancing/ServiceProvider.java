@@ -113,7 +113,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
      *            to simulate computational power
      *
      * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     *             if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public ServiceProvider(final String aid, final String node,
             final long cpuTime) throws TucsonInvalidAgentIdException {
@@ -215,7 +215,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
         } catch (final OperationTimeOutException e) {
             this.say("ERROR: Endless timeout expired!");
         } catch (final TucsonInvalidAgentIdException e1) {
-            this.say("ERROR: Given ID is not a valid agent ID!");
+            this.say("ERROR: Given Identifier is not a valid agent Identifier!");
         }
     }
 

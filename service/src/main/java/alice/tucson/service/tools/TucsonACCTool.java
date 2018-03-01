@@ -35,7 +35,7 @@ public final class TucsonACCTool {
      * Activates a coordination context for a given agent.
      *
      * @param agentAid
-     *            the ID of the agent
+     *            the Identifier of the agent
      * @param agentUUID
      *            the UUID assigned to the agent
      * @param agentClass
@@ -83,7 +83,7 @@ public final class TucsonACCTool {
      * Activates a given role for the given agent.
      *
      * @param agentAid
-     *            the ID of the agent
+     *            the Identifier of the agent
      * @param accUUID
      *            the UUID assigned to the agent
      * @param agentClass
@@ -146,7 +146,7 @@ public final class TucsonACCTool {
      * Activates a RBAC role given its policy for a given agent.
      *
      * @param agentAid
-     *            the ID of the agent
+     *            the Identifier of the agent
      * @param accUUID
      *            the UUID assigned to the agent
      * @param agentClass

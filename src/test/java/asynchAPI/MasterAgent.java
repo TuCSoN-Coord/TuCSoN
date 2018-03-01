@@ -189,16 +189,16 @@ public class MasterAgent extends AbstractTucsonAgent {
     private final int nPrimeCalc;
 
     /**
-     * Builds a Master Agent given its TuCSoN agent ID and the number of
+     * Builds a Master Agent given its TuCSoN agent Identifier and the number of
      * calculations to perform
      *
      * @param id
-     *            the TuCSoN agent ID
+     *            the TuCSoN agent Identifier
      * @param nCalcs
      *            the number of calculations to perform
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent
-     *             ID
+     *             Identifier
      */
     public MasterAgent(final String id, final int nCalcs)
             throws TucsonInvalidAgentIdException {
