@@ -1,5 +1,5 @@
 /**
- * IJTupleTemplate.java
+ * JTupleTemplate.java
  */
 package alice.tuple.java.api;
 
@@ -10,7 +10,7 @@ import alice.tuplecentre.api.exceptions.InvalidTupleException;
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014
  *
  */
-public interface IJTupleTemplate extends TupleTemplate {
+public interface JTupleTemplate extends TupleTemplate {
 
     /**
      *
@@ -19,7 +19,7 @@ public interface IJTupleTemplate extends TupleTemplate {
      * @throws InvalidTupleException
      *             if the given JArg is invalid (e.g. null)
      */
-    void addArg(IJArg arg) throws InvalidTupleException;
+    void addArg(JArg arg) throws InvalidTupleException;
 
     /**
      *
@@ -28,7 +28,7 @@ public interface IJTupleTemplate extends TupleTemplate {
      * @return the JArg retrieved
      *
      */
-    IJArg getArg(int i);
+    JArg getArg(int i);
 
     /**
      *

@@ -7,22 +7,22 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import alice.tuple.Tuple;
+import alice.tuple.java.api.JTupleTemplate;
+import alice.tuple.java.api.JVal;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.InvalidTupleException;
-import alice.tuple.java.api.IJArg;
-import alice.tuple.java.api.IJTuple;
-import alice.tuple.java.api.IJTupleTemplate;
-import alice.tuple.java.api.IJVal;
+import alice.tuple.java.api.JArg;
+import alice.tuple.java.api.JTuple;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014
  *
  */
-public class JTupleTemplate implements Iterable<IJArg>, IJTupleTemplate {
+public class JTupleTemplateDefault implements Iterable<JArg>, JTupleTemplate {
 
     private static final int AVG_CAP = 5;
     private static final int AVG_CHARS = 1;
-    private List<IJArg> args;
+    private List<JArg> args;
 
     /**
      *
@@ -31,9 +31,9 @@ public class JTupleTemplate implements Iterable<IJArg>, IJTupleTemplate {
      * @throws InvalidTupleException
      *             if the given JArg is invalid (e.g. null)
      */
-    public JTupleTemplate(final IJArg arg) throws InvalidTupleException {
+    public JTupleTemplateDefault(final JArg arg) throws InvalidTupleException {
         if (arg != null) {
-            this.args = new ArrayList<IJArg>(JTupleTemplate.AVG_CAP);
+            this.args = new ArrayList<JArg>(JTupleTemplateDefault.AVG_CAP);
             this.args.add(arg);
         } else {
             throw new InvalidTupleException("Null value");
@@ -43,11 +43,11 @@ public class JTupleTemplate implements Iterable<IJArg>, IJTupleTemplate {
     /*
      * (non-Javadoc)
      * @see
-     * alice.tuples.javatuples.IJTupleTemplate#addArg(alice.tuples.javatuples
+     * alice.tuples.javatuples.JTupleTemplate#addArg(alice.tuples.javatuples
      * .JVar)
      */
     @Override
-    public void addArg(final IJArg arg) throws InvalidTupleException {
+    public void addArg(final JArg arg) throws InvalidTupleException {
         if (arg != null) {
             this.args.add(arg);
         } else {
@@ -57,10 +57,10 @@ public class JTupleTemplate implements Iterable<IJArg>, IJTupleTemplate {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJTupleTemplate#getArg(int)
+     * @see alice.tuples.javatuples.JTupleTemplate#getArg(int)
      */
     @Override
-    public IJArg getArg(final int i) {
+    public JArg getArg(final int i) {
         if (i >= 0 && i < this.args.size()) {
             return this.args.get(i);
         }
@@ -70,7 +70,7 @@ public class JTupleTemplate implements Iterable<IJArg>, IJTupleTemplate {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJTupleTemplate#getNArgs()
+     * @see alice.tuples.javatuples.JTupleTemplate#getNArgs()
      */
     @Override
     public int getNArgs() {
@@ -82,7 +82,7 @@ public class JTupleTemplate implements Iterable<IJArg>, IJTupleTemplate {
      * @see java.lang.Iterable#iterator()
      */
     @Override
-    public Iterator<IJArg> iterator() {
+    public Iterator<JArg> iterator() {
         return this.args.iterator();
     }
 
@@ -93,8 +93,8 @@ public class JTupleTemplate implements Iterable<IJArg>, IJTupleTemplate {
      */
     @Override
     public boolean match(final Tuple t) {
-        if (t instanceof IJTuple) {
-            return JTuplesEngine.match(this, (IJTuple) t);
+        if (t instanceof JTuple) {
+            return JTuplesEngine.match(this, (JTuple) t);
         }
         return false;
     }
@@ -107,11 +107,11 @@ public class JTupleTemplate implements Iterable<IJArg>, IJTupleTemplate {
      */
     @Override
     public boolean propagate(final Tuple t) {
-        if (t instanceof JTuple) {
-            final JTuple jt = (JTuple) t;
+        if (t instanceof JTupleDefault) {
+            final JTupleDefault jt = (JTupleDefault) t;
             if (JTuplesEngine.propagate(this, jt)) {
                 this.args.clear();
-                for (final IJVal val : jt) {
+                for (final JVal val : jt) {
                     this.args.add(val);
                 }
                 return true;
@@ -122,10 +122,10 @@ public class JTupleTemplate implements Iterable<IJArg>, IJTupleTemplate {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer(JTupleTemplate.AVG_CAP
-                * JTupleTemplate.AVG_CHARS);
+        final StringBuffer sb = new StringBuffer(JTupleTemplateDefault.AVG_CAP
+                * JTupleTemplateDefault.AVG_CHARS);
         sb.append("< ");
-        for (final IJArg arg : this.args) {
+        for (final JArg arg : this.args) {
             sb.append(arg.toString());
             sb.append(", ");
         }

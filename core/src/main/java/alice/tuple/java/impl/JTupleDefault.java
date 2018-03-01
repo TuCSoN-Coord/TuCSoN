@@ -6,20 +6,21 @@ package alice.tuple.java.impl;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import alice.tuple.java.api.JTuple;
+import alice.tuple.java.api.JVal;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.InvalidTupleException;
-import alice.tuple.java.api.IJTuple;
-import alice.tuple.java.api.IJVal;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014
  *
  */
-public class JTuple implements Iterable<IJVal>, IJTuple {
+public class JTupleDefault implements Iterable<JVal>, JTuple {
 
     private static final int AVG_CAP = 5;
     private static final int AVG_CHARS = 15;
-    private List<IJVal> args;
+    private List<JVal> args;
 
     /**
      *
@@ -28,9 +29,9 @@ public class JTuple implements Iterable<IJVal>, IJTuple {
      * @throws InvalidTupleException
      *             if the given JVal is invalid (e.g. null)
      */
-    public JTuple(final IJVal arg) throws InvalidTupleException {
+    public JTupleDefault(final JVal arg) throws InvalidTupleException {
         if (arg != null) {
-            this.args = new ArrayList<IJVal>(JTuple.AVG_CAP);
+            this.args = new ArrayList<JVal>(JTupleDefault.AVG_CAP);
             this.args.add(arg);
         } else {
             throw new InvalidTupleException("Null value");
@@ -38,7 +39,7 @@ public class JTuple implements Iterable<IJVal>, IJTuple {
     }
 
     @Override
-    public void addArg(final IJVal arg) throws InvalidTupleException {
+    public void addArg(final JVal arg) throws InvalidTupleException {
         if (arg != null) {
             this.args.add(arg);
         } else {
@@ -47,7 +48,7 @@ public class JTuple implements Iterable<IJVal>, IJTuple {
     }
 
     @Override
-    public IJVal getArg(final int i) {
+    public JVal getArg(final int i) {
         if (i >= 0 && i < this.args.size()) {
             return this.args.get(i);
         }
@@ -57,7 +58,7 @@ public class JTuple implements Iterable<IJVal>, IJTuple {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJTuple#getNArgs()
+     * @see alice.tuples.javatuples.JTuple#getNArgs()
      */
     @Override
     public int getNArgs() {
@@ -69,7 +70,7 @@ public class JTuple implements Iterable<IJVal>, IJTuple {
      * @see java.lang.Iterable#iterator()
      */
     @Override
-    public Iterator<IJVal> iterator() {
+    public Iterator<JVal> iterator() {
         return this.args.iterator();
     }
 
@@ -79,10 +80,10 @@ public class JTuple implements Iterable<IJVal>, IJTuple {
      */
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer(JTuple.AVG_CAP
-                * JTuple.AVG_CHARS);
+        final StringBuffer sb = new StringBuffer(JTupleDefault.AVG_CAP
+                * JTupleDefault.AVG_CHARS);
         sb.append("< ");
-        for (final IJVal arg : this.args) {
+        for (final JVal arg : this.args) {
             sb.append(arg.toString());
             sb.append(", ");
         }

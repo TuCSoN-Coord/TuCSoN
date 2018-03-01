@@ -3,7 +3,7 @@
  */
 package alice.tuple.java.impl;
 
-import alice.tuple.java.api.IJVar;
+import alice.tuple.java.api.JVar;
 import alice.tuple.java.api.JArgType;
 import alice.tuple.java.exceptions.InvalidJVarException;
 
@@ -11,12 +11,12 @@ import alice.tuple.java.exceptions.InvalidJVarException;
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014
  *
  */
-public class JVar implements IJVar {
+public class JVarDefault implements JVar {
 
     // private final String arg;
     private final JArgType type;
 
-    // private IJVal val;
+    // private JVal val;
     /**
      *
      * @param t
@@ -24,7 +24,7 @@ public class JVar implements IJVar {
      * @throws InvalidJVarException
      *             if the given type or name are invalid (e.g. null)
      */
-    public JVar(final JArgType t) throws InvalidJVarException {
+    public JVarDefault(final JArgType t) throws InvalidJVarException {
         if (t != null) {
             this.type = t;
             // this.arg = name;
@@ -36,9 +36,9 @@ public class JVar implements IJVar {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVar#bind(alice.tuples.javatuples.IJVal)
+     * @see alice.tuples.javatuples.JVar#bind(alice.tuples.javatuples.JVal)
      */
-    // public IJVal bind(final IJVal v) throws BindingNullJValException {
+    // public JVal bind(final JVal v) throws BindingNullJValException {
     // if (v != null) {
     // this.val = v;
     // return this.val;
@@ -47,21 +47,21 @@ public class JVar implements IJVar {
     // }
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVar#getBoundVal()
+     * @see alice.tuples.javatuples.JVar#getBoundVal()
      */
-    // public IJVal getBoundVal() {
+    // public JVal getBoundVal() {
     // return this.val;
     // }
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVar#getName()
+     * @see alice.tuples.javatuples.JVar#getName()
      */
     // public String getName() {
     // return this.arg;
     // }
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVar#getType()
+     * @see alice.tuples.javatuples.JVar#getType()
      */
     @Override
     public JArgType getType() {
@@ -70,7 +70,7 @@ public class JVar implements IJVar {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJArg#isVal()
+     * @see alice.tuples.javatuples.JArg#isVal()
      */
     @Override
     public boolean isVal() {
@@ -79,7 +79,7 @@ public class JVar implements IJVar {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJArg#isVar()
+     * @see alice.tuples.javatuples.JArg#isVar()
      */
     @Override
     public boolean isVar() {

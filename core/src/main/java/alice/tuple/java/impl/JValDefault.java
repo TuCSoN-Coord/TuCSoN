@@ -3,8 +3,8 @@
  */
 package alice.tuple.java.impl;
 
+import alice.tuple.java.api.JVal;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
-import alice.tuple.java.api.IJVal;
 import alice.tuple.java.api.JArgType;
 import alice.tuple.java.exceptions.InvalidJValException;
 
@@ -12,7 +12,7 @@ import alice.tuple.java.exceptions.InvalidJValException;
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014
  *
  */
-public class JVal implements IJVal {
+public class JValDefault implements JVal {
 
     private final Object arg;
     private final JArgType type;
@@ -22,7 +22,7 @@ public class JVal implements IJVal {
      * @param v
      *            the double value of this JVal
      */
-    public JVal(final double v) {
+    public JValDefault(final double v) {
         this.type = JArgType.DOUBLE;
         this.arg = v;
     }
@@ -32,7 +32,7 @@ public class JVal implements IJVal {
      * @param v
      *            the float value of this JVal
      */
-    public JVal(final float v) {
+    public JValDefault(final float v) {
         this.type = JArgType.FLOAT;
         this.arg = v;
     }
@@ -42,7 +42,7 @@ public class JVal implements IJVal {
      * @param v
      *            the int value of this JVal
      */
-    public JVal(final int v) {
+    public JValDefault(final int v) {
         this.type = JArgType.INT;
         this.arg = v;
     }
@@ -52,7 +52,7 @@ public class JVal implements IJVal {
      * @param v
      *            the long value of this JVal
      */
-    public JVal(final long v) {
+    public JValDefault(final long v) {
         this.type = JArgType.LONG;
         this.arg = v;
     }
@@ -64,7 +64,7 @@ public class JVal implements IJVal {
      * @throws InvalidJValException
      *             if the given literal (Java String) is invalid (e.g. null)
      */
-    public JVal(final String v) throws InvalidJValException {
+    public JValDefault(final String v) throws InvalidJValException {
         if (v != null) {
             this.type = JArgType.LITERAL;
             this.arg = v;
@@ -75,7 +75,7 @@ public class JVal implements IJVal {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVal#isDouble()
+     * @see alice.tuples.javatuples.JVal#isDouble()
      */
     @Override
     public boolean isDouble() {
@@ -84,7 +84,7 @@ public class JVal implements IJVal {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVal#isFloat()
+     * @see alice.tuples.javatuples.JVal#isFloat()
      */
     @Override
     public boolean isFloat() {
@@ -93,7 +93,7 @@ public class JVal implements IJVal {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVal#isInt()
+     * @see alice.tuples.javatuples.JVal#isInt()
      */
     @Override
     public boolean isInt() {
@@ -102,7 +102,7 @@ public class JVal implements IJVal {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVal#isLiteral()
+     * @see alice.tuples.javatuples.JVal#isLiteral()
      */
     @Override
     public boolean isLiteral() {
@@ -111,7 +111,7 @@ public class JVal implements IJVal {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVal#isLong()
+     * @see alice.tuples.javatuples.JVal#isLong()
      */
     @Override
     public boolean isLong() {
@@ -120,7 +120,7 @@ public class JVal implements IJVal {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJArg#isVal()
+     * @see alice.tuples.javatuples.JArg#isVal()
      */
     @Override
     public boolean isVal() {
@@ -129,7 +129,7 @@ public class JVal implements IJVal {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJArg#isVar()
+     * @see alice.tuples.javatuples.JArg#isVar()
      */
     @Override
     public boolean isVar() {
@@ -138,7 +138,7 @@ public class JVal implements IJVal {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVal#toDouble()
+     * @see alice.tuples.javatuples.JVal#toDouble()
      */
     @Override
     public double toDouble() {
@@ -150,7 +150,7 @@ public class JVal implements IJVal {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVal#toFloat()
+     * @see alice.tuples.javatuples.JVal#toFloat()
      */
     @Override
     public float toFloat() {
@@ -162,7 +162,7 @@ public class JVal implements IJVal {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVal#toInt()
+     * @see alice.tuples.javatuples.JVal#toInt()
      */
     @Override
     public int toInt() {
@@ -174,7 +174,7 @@ public class JVal implements IJVal {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVal#toLiteral()
+     * @see alice.tuples.javatuples.JVal#toLiteral()
      */
     @Override
     public String toLiteral() {
@@ -186,7 +186,7 @@ public class JVal implements IJVal {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuples.javatuples.IJVal#toLong()
+     * @see alice.tuples.javatuples.JVal#toLong()
      */
     @Override
     public long toLong() {

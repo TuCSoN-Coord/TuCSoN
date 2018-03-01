@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import alice.tuple.java.api.IJArg;
-import alice.tuple.java.api.IJTuple;
-import alice.tuple.java.api.IJTupleTemplate;
-import alice.tuple.java.api.IJVal;
-import alice.tuple.java.api.IJVar;
+import alice.tuple.java.api.JArg;
+import alice.tuple.java.api.JTuple;
+import alice.tuple.java.api.JTupleTemplate;
+import alice.tuple.java.api.JVal;
+import alice.tuple.java.api.JVar;
 import alice.tuple.java.api.JArgType;
 import alice.tuple.java.exceptions.InvalidJValException;
 import alice.tuple.java.exceptions.InvalidJVarException;
@@ -76,8 +76,8 @@ public final class JTuplesEngine {
      * @return wether the given JTupleTemplate and the given JTuple match
      *         (according to tuProlog matching rules for LogicTuples)
      */
-    public static boolean match(final IJTupleTemplate template,
-            final IJTuple tuple) {
+    public static boolean match(final JTupleTemplate template,
+            final JTuple tuple) {
         return LogicMatchingEngine.match(JTuplesEngine.toLogicTuple(template),
                 JTuplesEngine.toLogicTuple(tuple));
     }
@@ -92,8 +92,8 @@ public final class JTuplesEngine {
      * @return wether the given JTupleTemplate and the given JTuple match
      *         (according to tuProlog matching rules for LogicTuples)
      */
-    public static boolean propagate(final IJTupleTemplate template,
-            final IJTuple tuple) {
+    public static boolean propagate(final JTupleTemplate template,
+            final JTuple tuple) {
         return LogicMatchingEngine.propagate(
                 JTuplesEngine.toLogicTuple(template),
                 JTuplesEngine.toLogicTuple(tuple));
@@ -108,28 +108,28 @@ public final class JTuplesEngine {
      *             if the given tuProlog LogicTuple is more expressive w.r.t.
      *             JTuple language, hence, not convertible
      */
-    public static IJTuple toJavaTuple(final LogicTuple tuple)
+    public static JTuple toJavaTuple(final LogicTuple tuple)
             throws InvalidTupleException {
         TupleArgument ta;
-        IJVal[] vals = null;
-        IJTuple jt;
+        JVal[] vals = null;
+        JTuple jt;
         try {
             if ("javat".equals(tuple.getName())) {
                 final int a = tuple.getArity();
-                vals = new JVal[a];
+                vals = new JValDefault[a];
                 for (int i = 0; i < a; i++) {
                     ta = tuple.getArg(i);
                     if (ta.getArity() == 1) {
                         if ("double".equals(ta.getName())) {
-                            vals[i] = new JVal(ta.getArg(0).doubleValue());
+                            vals[i] = new JValDefault(ta.getArg(0).doubleValue());
                         } else if ("float".equals(ta.getName())) {
-                            vals[i] = new JVal(ta.getArg(0).floatValue());
+                            vals[i] = new JValDefault(ta.getArg(0).floatValue());
                         } else if ("int".equals(ta.getName())) {
-                            vals[i] = new JVal(ta.getArg(0).intValue());
+                            vals[i] = new JValDefault(ta.getArg(0).intValue());
                         } else if ("literal".equals(ta.getName())) {
-                            vals[i] = new JVal(ta.getArg(0).toString());
+                            vals[i] = new JValDefault(ta.getArg(0).toString());
                         } else if ("long".equals(ta.getName())) {
-                            vals[i] = new JVal(ta.getArg(0).longValue());
+                            vals[i] = new JValDefault(ta.getArg(0).longValue());
                         }
                     } else {
                         throw new InvalidTupleException();
@@ -145,7 +145,7 @@ public final class JTuplesEngine {
             Logger.getLogger("JTuplesEngine").log(Level.FINEST,
                     "Error: InvalidJValException");
         }
-        jt = new JTuple(vals[0]);
+        jt = new JTupleDefault(vals[0]);
         for (int i = 1; i < vals.length; i++) {
             jt.addArg(vals[i]);
         }
@@ -162,21 +162,21 @@ public final class JTuplesEngine {
      *             if the given tuProlog LogicTuple template is more expressive
      *             w.r.t. JTupleTemplate language, hence, not convertible
      */
-    public static IJTupleTemplate toJavaTupleTemplate(final LogicTuple template)
+    public static JTupleTemplate toJavaTupleTemplate(final LogicTuple template)
             throws InvalidTupleException {
         TupleArgument ta;
         TupleArgument ta2;
-        List<IJArg> args = null;
-        IJTupleTemplate jtt;
+        List<JArg> args = null;
+        JTupleTemplate jtt;
         try {
             if ("javat".equals(template.getName())) {
                 final int a = template.getArity();
-                args = new ArrayList<IJArg>(a);
+                args = new ArrayList<JArg>(a);
                 for (int i = 0; i < a; i++) {
                     ta = template.getArg(i);
                     if (ta.getArity() == 0) {
                         if (ta.isVar()) {
-                            args.add(new JVar(JArgType.ANY));
+                            args.add(new JVarDefault(JArgType.ANY));
                         } else {
                             throw new InvalidTupleException();
                         }
@@ -184,27 +184,27 @@ public final class JTuplesEngine {
                         ta2 = ta.getArg(0);
                         if (ta2.isVar()) {
                             if ("double".equals(ta.getName())) {
-                                args.add(new JVar(JArgType.DOUBLE));
+                                args.add(new JVarDefault(JArgType.DOUBLE));
                             } else if ("float".equals(ta.getName())) {
-                                args.add(new JVar(JArgType.FLOAT));
+                                args.add(new JVarDefault(JArgType.FLOAT));
                             } else if ("int".equals(ta.getName())) {
-                                args.add(new JVar(JArgType.INT));
+                                args.add(new JVarDefault(JArgType.INT));
                             } else if ("literal".equals(ta.getName())) {
-                                args.add(new JVar(JArgType.LITERAL));
+                                args.add(new JVarDefault(JArgType.LITERAL));
                             } else if ("long".equals(ta.getName())) {
-                                args.add(new JVar(JArgType.LONG));
+                                args.add(new JVarDefault(JArgType.LONG));
                             }
                         } else {
                             if ("double".equals(ta.getName())) {
-                                args.add(new JVal(ta2.doubleValue()));
+                                args.add(new JValDefault(ta2.doubleValue()));
                             } else if ("float".equals(ta.getName())) {
-                                args.add(new JVal(ta2.floatValue()));
+                                args.add(new JValDefault(ta2.floatValue()));
                             } else if ("int".equals(ta.getName())) {
-                                args.add(new JVal(ta2.intValue()));
+                                args.add(new JValDefault(ta2.intValue()));
                             } else if ("literal".equals(ta.getName())) {
-                                args.add(new JVal(ta2.toString()));
+                                args.add(new JValDefault(ta2.toString()));
                             } else if ("long".equals(ta.getName())) {
-                                args.add(new JVal(ta2.longValue()));
+                                args.add(new JValDefault(ta2.longValue()));
                             }
                         }
                     } else {
@@ -225,7 +225,7 @@ public final class JTuplesEngine {
             Logger.getLogger("JTuplesEngine").log(Level.FINEST,
                     "Error: InvalidJVarException");
         }
-        jtt = new JTupleTemplate(args.get(0));
+        jtt = new JTupleTemplateDefault(args.get(0));
         for (int i = 1; i < args.size(); i++) {
             jtt.addArg(args.get(i));
         }
@@ -238,11 +238,11 @@ public final class JTuplesEngine {
      *            the JTuple to convert into a tuProlog LogicTuple
      * @return the obtained tuProlog LogicTuple
      */
-    public static LogicTuple toLogicTuple(final IJTuple tuple) {
-        final JTuple jt = (JTuple) tuple;
+    public static LogicTuple toLogicTuple(final JTuple tuple) {
+        final JTupleDefault jt = (JTupleDefault) tuple;
         final TupleArgument[] tas = new TupleArgument[jt.getNArgs()];
         int i = 0;
-        for (final IJVal val : jt) {
+        for (final JVal val : jt) {
             if (val.isDouble()) {
                 tas[i] = TupleArguments.newValueArgument("double", TupleArguments.newValueArgument(val.toDouble()));
             } else if (val.isFloat()) {
@@ -265,13 +265,13 @@ public final class JTuplesEngine {
      *            the JTupleTemplate to convert into a tuProlog LogicTuple
      * @return the obtained tuProlog LogicTuple
      */
-    public static LogicTuple toLogicTuple(final IJTupleTemplate template) {
-        final JTupleTemplate jt = (JTupleTemplate) template;
+    public static LogicTuple toLogicTuple(final JTupleTemplate template) {
+        final JTupleTemplateDefault jt = (JTupleTemplateDefault) template;
         final TupleArgument[] tas = new TupleArgument[jt.getNArgs()];
         int i = 0;
-        for (final IJArg arg : jt) {
+        for (final JArg arg : jt) {
             if (arg.isVal()) {
-                final IJVal val = (IJVal) arg;
+                final JVal val = (JVal) arg;
                 if (val.isDouble()) {
                     tas[i] = TupleArguments.newValueArgument("double", TupleArguments.newValueArgument(val.toDouble()));
                 } else if (val.isFloat()) {
@@ -287,7 +287,7 @@ public final class JTuplesEngine {
                             "Error: Invalid JVal type");
                 }
             } else if (arg.isVar()) {
-                final IJVar var = (IJVar) arg;
+                final JVar var = (JVar) arg;
                 switch (var.getType()) {
                     case ANY:
                         tas[i] = TupleArguments.newVarArgument();

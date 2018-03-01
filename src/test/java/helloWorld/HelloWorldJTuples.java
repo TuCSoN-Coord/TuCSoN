@@ -14,17 +14,17 @@ import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuple.Tuple;
+import alice.tuple.java.api.JTupleTemplate;
+import alice.tuple.java.impl.JValDefault;
+import alice.tuple.java.impl.JVarDefault;
 import alice.tuplecentre.api.exceptions.InvalidTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuple.java.api.IJTuple;
-import alice.tuple.java.api.IJTupleTemplate;
+import alice.tuple.java.api.JTuple;
 import alice.tuple.java.api.JArgType;
 import alice.tuple.java.exceptions.InvalidJValException;
 import alice.tuple.java.exceptions.InvalidJVarException;
-import alice.tuple.java.impl.JTuple;
-import alice.tuple.java.impl.JTupleTemplate;
-import alice.tuple.java.impl.JVal;
-import alice.tuple.java.impl.JVar;
+import alice.tuple.java.impl.JTupleDefault;
+import alice.tuple.java.impl.JTupleTemplateDefault;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 24/feb/2014
@@ -62,8 +62,8 @@ public final class HelloWorldJTuples {
             /*
              * 4) Build the tuple using the communication language.
              */
-            final IJTuple tuple = new JTuple(new JVal("hello"));
-            tuple.addArg(new JVal("world"));
+            final JTuple tuple = new JTupleDefault(new JValDefault("hello"));
+            tuple.addArg(new JValDefault("world"));
             /*
              * 5) Perform the coordination operation using the preferred
              * coordination primitive.
@@ -89,9 +89,9 @@ public final class HelloWorldJTuples {
             /*
              * Another success test to be sure.
              */
-            final IJTupleTemplate template = new JTupleTemplate(new JVal(
+            final JTupleTemplate template = new JTupleTemplateDefault(new JValDefault(
                     "hello"));
-            template.addArg(new JVar(JArgType.LITERAL));
+            template.addArg(new JVarDefault(JArgType.LITERAL));
             op = acc.rdp(tid, template, null);
             if (op.isResultSuccess()) {
                 res = op.getJTupleResult();

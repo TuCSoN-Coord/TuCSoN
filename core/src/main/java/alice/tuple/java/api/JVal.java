@@ -1,5 +1,5 @@
 /**
- * IJVal.java
+ * JVal.java
  */
 package alice.tuple.java.api;
 
@@ -7,7 +7,7 @@ package alice.tuple.java.api;
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014
  *
  */
-public interface IJVal extends IJArg {
+public interface JVal extends JArg {
 
     /**
      *

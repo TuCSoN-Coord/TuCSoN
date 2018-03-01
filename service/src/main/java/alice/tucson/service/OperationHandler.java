@@ -26,8 +26,8 @@ import alice.tucson.network.exceptions.DialogReceiveException;
 import alice.tucson.network.exceptions.DialogSendException;
 import alice.tuple.Tuple;
 import alice.tuple.TupleTemplate;
-import alice.tuple.java.impl.JTuple;
-import alice.tuple.java.impl.JTupleTemplate;
+import alice.tuple.java.impl.JTupleDefault;
+import alice.tuple.java.impl.JTupleTemplateDefault;
 import alice.tuple.java.impl.JTuplesEngine;
 import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.ITCCycleResult;
@@ -543,10 +543,10 @@ public class OperationHandler {
         Tuple tupl = null;
         if (t instanceof LogicTuple) {
             tupl = t;
-        } else if (t instanceof JTuple) {
-            tupl = JTuplesEngine.toLogicTuple((JTuple) t);
-        } else if (t instanceof JTupleTemplate) {
-            tupl = JTuplesEngine.toLogicTuple((JTupleTemplate) t);
+        } else if (t instanceof JTupleDefault) {
+            tupl = JTuplesEngine.toLogicTuple((JTupleDefault) t);
+        } else if (t instanceof JTupleTemplateDefault) {
+            tupl = JTuplesEngine.toLogicTuple((JTupleTemplateDefault) t);
         }
         // this.log("tupl = " + tupl);
         int nTry = 0;
