@@ -79,8 +79,8 @@ public class OperationHandler {
                  * dal thr controller e dal addOperation usato in doOperation?
                  */
                 synchronized (OperationHandler.this.operations) {
-                    for (final TupleCentreOpId operation : OperationHandler.this.operationExpired) {
-                        OperationHandler.this.operations.remove(operation);
+                    for (final TupleCentreOpId opId : OperationHandler.this.operationExpiredIds) {
+                        OperationHandler.this.operations.remove(opId);
                     }
                 }
                 TucsonMsgReply msg = null;
@@ -271,7 +271,7 @@ public class OperationHandler {
     /**
      * Expired TuCSoN operations
      */
-    protected List<TupleCentreOpId> operationExpired;
+    protected List<TupleCentreOpId> operationExpiredIds;
     /**
      * Requested TuCSoN operations
      */
@@ -291,15 +291,14 @@ public class OperationHandler {
         this.events = new LinkedList<>();
         this.controllerSessions = new HashMap<>();
         this.operations = new HashMap<>();
-        this.operationExpired = new ArrayList<>();
+        this.operationExpiredIds = new ArrayList<>();
     }
 
     /**
-     * @param id the Long identifier of the pending operation just requested
      * @param op the TuCSoN operation waiting to be served
      */
-    public void addOperation(final TupleCentreOpId id, final TucsonOperation op) {
-        this.operations.put(id, op);
+    public void addOperation(final TucsonOperation op) {
+        this.operations.put(op.getId(), op);
     }
 
     /**
@@ -309,7 +308,7 @@ public class OperationHandler {
      * @param id Unique Identifier of the expired operation
      */
     public void addOperationExpired(final TupleCentreOpId id) {
-        this.operationExpired.add(id);
+        this.operationExpiredIds.add(id);
     }
 
     /**
@@ -529,8 +528,9 @@ public class OperationHandler {
             synchronized (this.operations) {
                 this.operations.put(op.getId(), op);
             }
-
-            this.addOperation(op.getId(), op);
+            // TODO: 02/03/2018  isn't that operation added twice ????????
+            this.addOperation(op);
+            // TODO: 02/03/2018 CHECK
             final InputEventMsg ev = new InputEventMsg(aid.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(),
                     tcid.toString(), System.currentTimeMillis(), position);

@@ -267,7 +267,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             this.operations.put(op.getId(), op);*/
             op = new TucsonOperationDefault(TupleCentreOpType.EXIT,
                     (TupleTemplate) null, null, this.executor /* this */);
-            this.executor.addOperation(op.getId(), op);
+            this.executor.addOperation(op);
             final InputEventMsg ev = new InputEventMsg(this.aid.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(), null,
                     System.currentTimeMillis(), this.getPosition());
