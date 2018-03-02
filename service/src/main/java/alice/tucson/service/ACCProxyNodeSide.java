@@ -36,7 +36,7 @@ import alice.tucson.network.TucsonMsgRequest;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreOperation;
-import alice.tuplecentre.api.TupleOperationID;
+import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.InputEvent;
@@ -59,8 +59,8 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     private boolean ex = false;
     private final ACCProvider manager;
     private final TucsonNodeService node;
-    private final Map<TupleOperationID, TupleOperationID> opVsReq;
-    private final Map<TupleOperationID, TucsonMsgRequest> requests;
+    private final Map<TupleCentreOpId, TupleCentreOpId> opVsReq;
+    private final Map<TupleCentreOpId, TucsonMsgRequest> requests;
     private TucsonTupleCentreId tcId;
 
     /**
@@ -119,7 +119,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
      */
     @Override
     public void operationCompleted(final AbstractTupleCentreOperation op) {
-        TupleOperationID reqId;
+        TupleCentreOpId reqId;
         TucsonMsgRequest msg;
         synchronized (this.requests) {
             reqId = this.opVsReq.remove(op.getId());

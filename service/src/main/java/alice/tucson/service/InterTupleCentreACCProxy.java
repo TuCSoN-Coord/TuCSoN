@@ -35,7 +35,7 @@ import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogInitializationException;
 import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleOperationID;
+import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.OperationCompletionListener;
@@ -219,7 +219,7 @@ OperationCompletionListener {
     private TucsonTupleCentreId aid;
     private final Map<String, ControllerSession> controllerSessions;
     private final List<TucsonOpCompletionEvent> events;
-    private final Map<TupleOperationID, AbstractTupleCentreOperation> operations;
+    private final Map<TupleCentreOpId, AbstractTupleCentreOperation> operations;
     private long opId;
     private final ACCDescription profile;
     /**
@@ -254,8 +254,8 @@ OperationCompletionListener {
     }
 
     @Override
-    public synchronized TupleOperationID doOperation(final Object tid,
-                                                     final AbstractTupleCentreOperation op)
+    public synchronized TupleCentreOpId doOperation(final Object tid,
+                                                    final AbstractTupleCentreOperation op)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
         TucsonTupleCentreId tcid = null;
@@ -296,7 +296,7 @@ OperationCompletionListener {
             } catch (DialogInitializationException e) {
 				e.printStackTrace();
 			}
-            final TupleOperationID tucsonOpId = new TucsonOpId(this.opId);
+            final TupleCentreOpId tucsonOpId = new TucsonOpId(this.opId);
             this.operations.put(tucsonOpId, op);
             final TupleCentreOpType type = op.getType();
             TucsonMsgRequest msg;
@@ -352,7 +352,7 @@ OperationCompletionListener {
     }
 
     @Override
-    public TucsonOpCompletionEvent waitForCompletion(final TupleOperationID id) {
+    public TucsonOpCompletionEvent waitForCompletion(final TupleCentreOpId id) {
         try {
             synchronized (this.events) {
                 TucsonOpCompletionEvent ev = this.findEvent(id);
@@ -368,7 +368,7 @@ OperationCompletionListener {
     }
 
     @Override
-    public TucsonOpCompletionEvent waitForCompletion(final TupleOperationID id,
+    public TucsonOpCompletionEvent waitForCompletion(final TupleCentreOpId id,
             final int timeout) {
         try {
             final long startTime = System.currentTimeMillis();
@@ -392,7 +392,7 @@ OperationCompletionListener {
                 + this.profile.getProperty("tc-identity") + ")]: " + msg);
     }
 
-    private TucsonOpCompletionEvent findEvent(final TupleOperationID id) {
+    private TucsonOpCompletionEvent findEvent(final TupleCentreOpId id) {
         final Iterator<TucsonOpCompletionEvent> it = this.events.iterator();
         while (it.hasNext()) {
             final TucsonOpCompletionEvent ev = it.next();

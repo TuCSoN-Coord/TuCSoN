@@ -21,7 +21,7 @@ package alice.tucson.asynchSupport;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import alice.tucson.api.actions.AbstractTucsonAction;
-import alice.tuplecentre.api.TupleOperationID;
+import alice.tuplecentre.api.TupleCentreOpId;
 
 /**
  * Queue storing pending operations delegated to
@@ -95,7 +95,7 @@ public class SearchableOpsQueue extends LinkedBlockingQueue<TucsonOpWrapper> {
      * @return {@code true} or {@code false} depending on whether removal was
      *         successful or not
      */
-    public boolean removeOpById(final TupleOperationID id) {
+    public boolean removeOpById(final TupleCentreOpId id) {
         for (TucsonOpWrapper tow : this) {
             if (tow.getOp().getId().equals(id)) {
                 tow.setHasBeenRemoved(true);

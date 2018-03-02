@@ -38,7 +38,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     /**
      * internal identifier of the operation
      */
-    private final TupleOperationID id;
+    private final TupleCentreOpId id;
 
     private final TCCycleResult result;
     private TupleTemplate templateArgument;
@@ -129,7 +129,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     }
 
     @Override
-    public TupleOperationID getId() {
+    public TupleCentreOpId getId() {
         return this.id;
     }
 

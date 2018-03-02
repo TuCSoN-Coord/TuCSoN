@@ -1446,7 +1446,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	 *            identifier of the operation
 	 * @return wether the event has been successfully removed or not
 	 */
-	public boolean removePendingQueryEvent(final TupleOperationID operationId) {
+	public boolean removePendingQueryEvent(final TupleCentreOpId operationId) {
 		return this.wSet.removeEventOfOperation(operationId);
 	}
 

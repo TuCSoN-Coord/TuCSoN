@@ -84,7 +84,7 @@ public class RespectVM implements Runnable {
      *            operation
      * @return wether the operation has been succefully aborted
      */
-    public boolean abortOperation(final TupleOperationID opId) {
+    public boolean abortOperation(final TupleCentreOpId opId) {
         boolean res;
         synchronized (this.idle) {
             res = this.context.removePendingQueryEvent(opId);

@@ -20,7 +20,7 @@ public interface TupleCentreOperation {
      *
      * @return Operation identifier
      */
-    TupleOperationID getId();
+    TupleCentreOpId getId();
 
     /**
      * @return the type code of the operation
