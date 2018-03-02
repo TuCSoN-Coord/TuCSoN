@@ -97,7 +97,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
             contr.setStop();
             op = new TucsonOperationDefault(TupleCentreOpType.EXIT,
                     (TupleTemplate) null, null, this.executor);
-            this.executor.addOperation(op);
+            this.executor.addOperation(op.getId(), op);
             final InputEventMsg ev = new InputEventMsg(this.id.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(), null,
                     System.currentTimeMillis(), null);

@@ -13,7 +13,11 @@
  */
 package alice.tucson.service;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import alice.logictuple.LogicTuple;
 import alice.respect.api.TupleCentreId;
@@ -29,7 +33,10 @@ import alice.tucson.network.TucsonMsgRequest;
 import alice.tucson.network.TucsonProtocolTCP;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogInitializationException;
-import alice.tuplecentre.api.*;
+import alice.tuplecentre.api.ITCCycleResult;
+import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleOperationID;
+import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.OperationCompletionListener;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -41,7 +48,7 @@ import alice.tuprolog.lib.InvalidObjectIdException;
  * @author ste (mailto: s.mariani@unibo.it)
  *
  */
-public class InterTupleCentreACCProxy extends OperationDoer implements InterTupleCentreACC,
+public class InterTupleCentreACCProxy implements InterTupleCentreACC,
 OperationCompletionListener {
 
     /**
@@ -146,9 +153,8 @@ OperationCompletionListener {
                     ev = new TucsonOpCompletionEvent(
                             oEv.getOpId(), false, false, oEv.isResultSuccess());
                 }
-                final TupleOperationID operationID = oEv.getOpId();
-                final TupleCentreOperation op = findOpById(operationID);
-                InterTupleCentreACCProxy.this.operations.remove(operationID);
+                final AbstractTupleCentreOperation op = InterTupleCentreACCProxy.this.operations
+                        .remove(oEv.getOpId());
                 if (op.getType() == TupleCentreOpType.NO_ALL || op.getType() == TupleCentreOpType.IN_ALL || op.getType() == TupleCentreOpType.RD_ALL || op.getType() == TupleCentreOpType.GET
                         || op.getType() == TupleCentreOpType.SET || op.getType() == TupleCentreOpType.GET_S || op.getType() == TupleCentreOpType.SET_S
                         || op.getType() == TupleCentreOpType.OUT_ALL) {
@@ -213,7 +219,7 @@ OperationCompletionListener {
     private TucsonTupleCentreId aid;
     private final Map<String, ControllerSession> controllerSessions;
     private final List<TucsonOpCompletionEvent> events;
-    private final Set<TupleCentreOperation> operations;
+    private final Map<TupleOperationID, AbstractTupleCentreOperation> operations;
     private TupleOperationID opId;
     private final ACCDescription profile;
     /**
@@ -242,7 +248,7 @@ OperationCompletionListener {
         this.profile = new ACCDescription();
         this.events = new LinkedList<>();
         this.controllerSessions = new HashMap<>();
-        this.operations = new HashSet<>();
+        this.operations = new HashMap<>();
         this.opId = new TucsonOpId(-1);
         this.setPosition();
     }
@@ -290,7 +296,7 @@ OperationCompletionListener {
             } catch (DialogInitializationException e) {
 				e.printStackTrace();
 			}
-            this.operations.add(op);
+            this.operations.put(this.opId, op);
             final TupleCentreOpType type = op.getType();
             TucsonMsgRequest msg;
             if (type == TupleCentreOpType.OUT
