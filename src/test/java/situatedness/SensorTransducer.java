@@ -3,12 +3,12 @@
  */
 package situatedness;
 
-import alice.respect.situatedness.AbstractTransducer;
-import alice.respect.situatedness.ISimpleProbe;
-import alice.respect.situatedness.TransducerId;
-import alice.tucson.api.TucsonOperation;
 import alice.tuplecentre.api.TupleCentreId;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.respect.situatedness.AbstractTransducer;
+import alice.tuplecentre.respect.situatedness.ISimpleProbe;
+import alice.tuplecentre.respect.situatedness.TransducerId;
+import alice.tuplecentre.tucson.api.TucsonOperation;
 
 /**
  * The transducer mediating interactions to/from the sensor probe. As such, only
@@ -33,7 +33,7 @@ public class SensorTransducer extends AbstractTransducer {
     /*
      * (non-Javadoc)
      * @see
-     * alice.respect.situatedness.AbstractTransducer#getEnv(java.lang.String)
+     * alice.tuplecentre.respect.situatedness.AbstractTransducer#getEnv(java.lang.String)
      */
     @Override
     public boolean getEnv(final String key) {
@@ -68,7 +68,7 @@ public class SensorTransducer extends AbstractTransducer {
     /*
      * (non-Javadoc)
      * @see
-     * alice.tucson.api.TucsonOperationCompletionListener#operationCompleted
+     * alice.tuplecentre.tucson.api.TucsonOperationCompletionListener#operationCompleted
      * (TucsonOperation)
      */
     @Override
@@ -79,7 +79,7 @@ public class SensorTransducer extends AbstractTransducer {
     /*
      * (non-Javadoc)
      * @see
-     * alice.respect.situatedness.AbstractTransducer#setEnv(java.lang.String,
+     * alice.tuplecentre.respect.situatedness.AbstractTransducer#setEnv(java.lang.String,
      * int)
      */
     @Override

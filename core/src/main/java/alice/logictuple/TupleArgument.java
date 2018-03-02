@@ -13,17 +13,15 @@
  */
 package alice.logictuple;
 
+import alice.logictuple.exceptions.InvalidTupleArgumentException;
+import alice.tuplecentre.api.exceptions.InvalidOperationException;
+import alice.tuprolog.*;
+import alice.tuprolog.Number;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import alice.logictuple.exceptions.InvalidTupleArgumentException;
-import alice.tuplecentre.api.exceptions.InvalidOperationException;
-import alice.tuprolog.InvalidTermException;
-import alice.tuprolog.Number;
-import alice.tuprolog.Prolog;
-import alice.tuprolog.Struct;
-import alice.tuprolog.Term;
 
 /**
  * Base class for tuple argument classes.

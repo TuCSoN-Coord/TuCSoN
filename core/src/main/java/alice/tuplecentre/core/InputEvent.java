@@ -13,11 +13,11 @@
  */
 package alice.tuplecentre.core;
 
-import java.util.Map;
-
-import alice.respect.api.geolocation.Position;
 import alice.tuplecentre.api.IId;
 import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.respect.api.geolocation.Position;
+
+import java.util.Map;
 
 /**
  * Represents input events of the tuple centre virtual machine (only difference

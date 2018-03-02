@@ -42,7 +42,7 @@ project(":service") {
         description = "Starts a new TucsonNode with defaults"
 
         classpath = sourceSets.main.runtimeClasspath
-        main = "alice.tucson.service.TucsonNodeService"
+        main = "alice.tuplecentre.tucson.service.TucsonNodeService"
     }
 }
 
@@ -53,7 +53,7 @@ project(":cli") {
 
         standardInput = System.in
         classpath = sourceSets.main.runtimeClasspath
-        main = "alice.tucson.service.tools.CommandLineInterpreter"
+        main = "alice.tuplecentre.tucson.service.tools.CommandLineInterpreter"
     }
 }
 
@@ -63,6 +63,6 @@ project(":inspector") {
         description = "Starts a new InspectorGUI"
 
         classpath = sourceSets.main.runtimeClasspath
-        main = "alice.tucson.introspection.tools.InspectorGUI"
+        main = "alice.tuplecentre.tucson.introspection.tools.InspectorGUI"
     }
 }

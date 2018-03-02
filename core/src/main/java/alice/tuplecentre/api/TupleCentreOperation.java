@@ -1,11 +1,11 @@
 package alice.tuplecentre.api;
 
-import java.util.List;
-
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.OperationCompletionListener;
 import alice.tuplecentre.core.TupleCentreOpType;
+
+import java.util.List;
 
 /**
  * Basic interface for tuple centre operations.

@@ -13,13 +13,13 @@
  */
 package alice.tuplecentre.core;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import alice.respect.api.geolocation.Position;
 import alice.tuplecentre.api.IId;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.respect.api.geolocation.Position;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Represents events of the tuple centre virtual machine

@@ -21,23 +21,23 @@ package asynchAPI;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.EnhancedAsyncACC;
-import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.TucsonOperationCompletionListener;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.asynchSupport.AsynchOpsHelper;
-import alice.tucson.api.actions.ordinary.In;
-import alice.tucson.api.actions.ordinary.Inp;
-import alice.tucson.api.actions.ordinary.Out;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.acc.EnhancedAsyncACC;
+import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
+import alice.tuplecentre.tucson.api.actions.ordinary.In;
+import alice.tuplecentre.tucson.api.actions.ordinary.Inp;
+import alice.tuplecentre.tucson.api.actions.ordinary.Out;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.asynchSupport.AsynchOpsHelper;
 
 /**
  * Prime Calculation example worker agent. The Prime Calculator agent

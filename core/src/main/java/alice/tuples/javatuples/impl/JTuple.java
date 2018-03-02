@@ -3,13 +3,14 @@
  */
 package alice.tuples.javatuples.impl;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.InvalidTupleException;
 import alice.tuples.javatuples.api.IJTuple;
 import alice.tuples.javatuples.api.IJVal;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014

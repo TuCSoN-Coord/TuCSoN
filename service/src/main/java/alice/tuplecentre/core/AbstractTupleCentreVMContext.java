@@ -13,28 +13,18 @@
  */
 package alice.tuplecentre.core;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
-import alice.respect.api.IRespectTC;
-import alice.respect.api.geolocation.PlatformUtils;
-import alice.respect.api.geolocation.Position;
-import alice.respect.api.geolocation.service.AbstractGeolocationService;
-import alice.respect.api.geolocation.service.GeolocationServiceManager;
-import alice.respect.core.RespectVM;
-import alice.respect.core.StepMonitor;
-import alice.tuplecentre.api.AgentId;
-import alice.tuplecentre.api.IId;
-import alice.tuplecentre.api.ITupleCentre;
-import alice.tuplecentre.api.ITupleCentreManagement;
-import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreId;
-import alice.tuplecentre.api.TupleTemplate;
+import alice.tuplecentre.api.*;
 import alice.tuplecentre.api.exceptions.OperationNotPossibleException;
+import alice.tuplecentre.respect.api.IRespectTC;
+import alice.tuplecentre.respect.api.geolocation.PlatformUtils;
+import alice.tuplecentre.respect.api.geolocation.Position;
+import alice.tuplecentre.respect.api.geolocation.service.AbstractGeolocationService;
+import alice.tuplecentre.respect.api.geolocation.service.GeolocationServiceManager;
+import alice.tuplecentre.respect.core.RespectVM;
+import alice.tuplecentre.respect.core.StepMonitor;
 import alice.tuprolog.Term;
+
+import java.util.*;
 
 /**
  * Defines the build abstract behaviour of a tuple centre virtual machine.

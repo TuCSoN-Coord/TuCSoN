@@ -14,9 +14,9 @@
 package alice.logictuple;
 
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuplecentre.api.TupleTemplate;
 import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Term;
-import alice.tuplecentre.api.TupleTemplate;
 
 import java.io.Serializable;
 
