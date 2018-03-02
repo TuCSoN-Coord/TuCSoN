@@ -155,7 +155,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     @Override
     public Tuple getPrimitive() {
         if (TupleCentreOpType.getStandardOperationTypes().contains(this.type)) {
-            return new LogicTuple(this.type);
+            return new LogicTuple(this.type.name().toLowerCase());
         } else {
             return null;
         }

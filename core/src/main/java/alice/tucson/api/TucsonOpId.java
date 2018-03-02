@@ -16,28 +16,25 @@ package alice.tucson.api;
 import alice.tuplecentre.api.TupleOperationID;
 
 /**
- *
  * @author ste (mailto: s.mariani@unibo.it)
- *
  */
-public class TucsonOpId implements TupleOperationID{
+public class TucsonOpId implements TupleOperationID {
 
     private long id;
 
     /**
-     *
-     * @param i
-     *            the Java long progressively, uniquely identifying TuCSoN
-     *            operations
+     * @param i the Java long progressively, uniquely identifying TuCSoN
+     *          operations
      */
     public TucsonOpId(final long i) {
         this.id = i;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
+    @Override
+    public long getId() {
+        return this.id;
+    }
+
     @Override
     public boolean equals(final Object obj) {
         if (this == obj) {
@@ -56,18 +53,6 @@ public class TucsonOpId implements TupleOperationID{
         return true;
     }
 
-    /**
-     *
-     * @return the progressive, unique identifier of TuCSoN operations
-     */
-    public long getId() {
-        return this.id;
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -79,10 +64,5 @@ public class TucsonOpId implements TupleOperationID{
     @Override
     public String toString() {
         return String.valueOf(this.id);
-    }
-
-    @Override
-    public void increase() {
-        this.id ++;
     }
 }

@@ -220,7 +220,7 @@ OperationCompletionListener {
     private final Map<String, ControllerSession> controllerSessions;
     private final List<TucsonOpCompletionEvent> events;
     private final Map<TupleOperationID, AbstractTupleCentreOperation> operations;
-    private TupleOperationID opId;
+    private long opId;
     private final ACCDescription profile;
     /**
      * Current ACC position
@@ -249,7 +249,7 @@ OperationCompletionListener {
         this.events = new LinkedList<>();
         this.controllerSessions = new HashMap<>();
         this.operations = new HashMap<>();
-        this.opId = new TucsonOpId(-1);
+        this.opId = -1;
         this.setPosition();
     }
 
@@ -284,7 +284,7 @@ OperationCompletionListener {
         int nTry = 0;
         boolean exception;
         do {
-            this.opId.increase();
+            this.opId++;
             nTry++;
             exception = false;
             AbstractTucsonProtocol session = null;
@@ -296,7 +296,8 @@ OperationCompletionListener {
             } catch (DialogInitializationException e) {
 				e.printStackTrace();
 			}
-            this.operations.put(this.opId, op);
+            final TupleOperationID tucsonOpId = new TucsonOpId(this.opId);
+            this.operations.put(tucsonOpId, op);
             final TupleCentreOpType type = op.getType();
             TucsonMsgRequest msg;
             if (type == TupleCentreOpType.OUT
@@ -306,14 +307,14 @@ OperationCompletionListener {
                     || type == TupleCentreOpType.OUT_ALL
                     || type == TupleCentreOpType.SPAWN) {
                 msg = new TucsonMsgRequest(new InputEventMsg(
-                        this.aid.toString(), this.opId, type,
+                        this.aid.toString(), tucsonOpId, type,
                         (LogicTuple) op.getTupleArgument(), tcid.toString(),
                         System.currentTimeMillis(), this.getPosition()));
                 // new TucsonMsgRequest(this.opId, type, tcid.toString(),
                 // (LogicTuple) op.getTupleArgument());
             } else {
                 msg = new TucsonMsgRequest(new InputEventMsg(
-                        this.aid.toString(), this.opId, type,
+                        this.aid.toString(), tucsonOpId, type,
                         (LogicTuple) op.getTemplateArgument(), tcid.toString(),
                         System.currentTimeMillis(), this.getPosition()));
                 // new TucsonMsgRequest(this.opId, type, tcid.toString(),
@@ -331,7 +332,7 @@ OperationCompletionListener {
                 e.printStackTrace();
             }
             if (!exception) {
-                return this.opId;
+                return tucsonOpId;
             }
         } while (nTry < InterTupleCentreACCProxy.TRIES);
         throw new UnreachableNodeException();
@@ -351,7 +352,7 @@ OperationCompletionListener {
     }
 
     @Override
-    public TucsonOpCompletionEvent waitForCompletion(final TucsonOpId id) {
+    public TucsonOpCompletionEvent waitForCompletion(final TupleOperationID id) {
         try {
             synchronized (this.events) {
                 TucsonOpCompletionEvent ev = this.findEvent(id);
@@ -367,7 +368,7 @@ OperationCompletionListener {
     }
 
     @Override
-    public TucsonOpCompletionEvent waitForCompletion(final TucsonOpId id,
+    public TucsonOpCompletionEvent waitForCompletion(final TupleOperationID id,
             final int timeout) {
         try {
             final long startTime = System.currentTimeMillis();
@@ -391,7 +392,7 @@ OperationCompletionListener {
                 + this.profile.getProperty("tc-identity") + ")]: " + msg);
     }
 
-    private TucsonOpCompletionEvent findEvent(final TucsonOpId id) {
+    private TucsonOpCompletionEvent findEvent(final TupleOperationID id) {
         final Iterator<TucsonOpCompletionEvent> it = this.events.iterator();
         while (it.hasNext()) {
             final TucsonOpCompletionEvent ev = it.next();
