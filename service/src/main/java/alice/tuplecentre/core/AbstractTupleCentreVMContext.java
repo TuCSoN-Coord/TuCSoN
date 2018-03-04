@@ -64,7 +64,7 @@ public abstract class AbstractTupleCentreVMContext implements
     private final Map<String, AbstractTupleCentreVMState> states;
     private final StepMonitor step;
     private boolean stepMode;
-    private final TupleCentreId tid;
+    private final TupleCentreIdentifier tid;
 
     /**
      * Creates a new tuple centre virtual machine build
@@ -79,7 +79,7 @@ public abstract class AbstractTupleCentreVMContext implements
      *            the ReSpecT tuple centre this VM refers to
      */
     public AbstractTupleCentreVMContext(final RespectVM vm,
-            final TupleCentreId id, final int ieSize, final IRespectTC rtc) {
+                                        final TupleCentreIdentifier id, final int ieSize, final IRespectTC rtc) {
         this.rvm = vm;
         this.management = false;
         this.stepMode = false;
@@ -337,7 +337,7 @@ public abstract class AbstractTupleCentreVMContext implements
      * @return the identifier of the tuple centre managed by this tuple centre
      *         VM
      */
-    public TupleCentreId getId() {
+    public TupleCentreIdentifier getId() {
         return this.tid;
     }
 

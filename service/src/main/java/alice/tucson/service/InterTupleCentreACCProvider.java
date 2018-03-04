@@ -10,6 +10,7 @@ import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
 /**
@@ -26,9 +27,9 @@ public class InterTupleCentreACCProvider implements ILinkContext {
         private InterTupleCentreACC helper;
         private final Map<TupleCentreId, InterTupleCentreACC> helpers;
         private final AbstractTupleCentreOperation op;
-        private final alice.tuplecentre.api.TupleCentreId toId;
+        private final TupleCentreIdentifier toId;
 
-        public Executor(final alice.tuplecentre.api.TupleCentreId to,
+        public Executor(final TupleCentreIdentifier to,
                 final TupleCentreId from, final AbstractTupleCentreOperation o,
                 final Map<TupleCentreId, InterTupleCentreACC> helps) {
             super();
@@ -71,7 +72,7 @@ public class InterTupleCentreACCProvider implements ILinkContext {
     // FIXME How to fix this?
     private static ExecutorService exec;
     private static Map<TupleCentreId, InterTupleCentreACC> helpList;
-    private final alice.tuplecentre.api.TupleCentreId idTo;
+    private final TupleCentreIdentifier idTo;
 
     /**
      *
@@ -80,7 +81,7 @@ public class InterTupleCentreACCProvider implements ILinkContext {
      *            invocation
      */
     public InterTupleCentreACCProvider(
-            final alice.tuplecentre.api.TupleCentreId id) {
+            final TupleCentreIdentifier id) {
         this.idTo = id;
         synchronized (this) {
             if (InterTupleCentreACCProvider.helpList == null) {

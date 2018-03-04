@@ -19,7 +19,7 @@ import alice.tucson.rbac.Policy;
 import alice.tucson.rbac.Role;
 import alice.tucson.rbac.TucsonPolicy;
 import alice.tucson.rbac.TucsonRole;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
 /**
@@ -48,8 +48,8 @@ public final class TucsonACCTool {
      *         successful or not
      */
     public static boolean activateContext(final String agentAid,
-            final UUID agentUUID, final String agentClass,
-            final TupleCentreId tid, final EnhancedACC acc) {
+                                          final UUID agentUUID, final String agentClass,
+                                          final TupleCentreIdentifier tid, final EnhancedACC acc) {
         try {
             final LogicTuple template = new LogicTuple("context_request",
                     new Value(agentAid), new Var("Result"), new Value(
@@ -99,8 +99,8 @@ public final class TucsonACCTool {
      *             if the agent is not allowed to activate the given role
      */
     public static Role activateRole(final String agentAid, final UUID accUUID,
-            final String agentClass, final String roleName,
-            final TupleCentreId tid, final EnhancedACC acc)
+                                    final String agentClass, final String roleName,
+                                    final TupleCentreIdentifier tid, final EnhancedACC acc)
                     throws AgentNotAllowedException {
         if (!TucsonACCTool.activateContext(agentAid, accUUID, agentClass, tid,
                 acc)) {
@@ -160,8 +160,8 @@ public final class TucsonACCTool {
      * @return the RBAC role activated
      */
     public static Role activateRoleWithPolicy(final String agentAid,
-            final UUID accUUID, final String agentClass, final Policy policy,
-            final TupleCentreId tid, final EnhancedACC acc) {
+                                              final UUID accUUID, final String agentClass, final Policy policy,
+                                              final TupleCentreIdentifier tid, final EnhancedACC acc) {
         if (!TucsonACCTool.activateContext(agentAid, accUUID, agentClass, tid,
                 acc)) {
             return null;
@@ -244,7 +244,7 @@ public final class TucsonACCTool {
      * @return the list of policies available for the given RBAC agent class
      */
     public static List<Policy> getPoliciesList(final String agentClass,
-            final TupleCentreId tid, final EnhancedACC acc) {
+                                               final TupleCentreIdentifier tid, final EnhancedACC acc) {
         final List<Policy> policies = new ArrayList<Policy>();
         try {
             final LogicTuple policyListTuple = new LogicTuple(

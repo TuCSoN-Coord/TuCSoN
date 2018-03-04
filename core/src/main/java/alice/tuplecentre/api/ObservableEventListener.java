@@ -28,7 +28,7 @@ public interface ObservableEventListener {
      * @param spec
      *            the ReSpecT specification argument of the observed operation
      */
-    void getSpecCompleted(TupleCentreId tid, EmitterIdentifier id, String spec);
+    void getSpecCompleted(TupleCentreIdentifier tid, EmitterIdentifier id, String spec);
 
     /**
      *
@@ -37,18 +37,7 @@ public interface ObservableEventListener {
      * @param id
      *            the identifier of the requestor of the observed operaion
      */
-    void getSpecRequested(TupleCentreId tid, EmitterIdentifier id);
-
-    /**
-     *
-     * @param tid
-     *            the identifier of the tuple centre under observation
-     * @param id
-     *            the identifier of the requestor of the observed operaion
-     * @param t
-     *            the tuple argument of the observed operation
-     */
-    void inCompleted(TupleCentreId tid, EmitterIdentifier id, Tuple t);
+    void getSpecRequested(TupleCentreIdentifier tid, EmitterIdentifier id);
 
     /**
      *
@@ -59,7 +48,7 @@ public interface ObservableEventListener {
      * @param t
      *            the tuple argument of the observed operation
      */
-    void inpCompleted(TupleCentreId tid, EmitterIdentifier id, Tuple t);
+    void inCompleted(TupleCentreIdentifier tid, EmitterIdentifier id, Tuple t);
 
     /**
      *
@@ -70,7 +59,7 @@ public interface ObservableEventListener {
      * @param t
      *            the tuple argument of the observed operation
      */
-    void inpRequested(TupleCentreId tid, EmitterIdentifier id, TupleTemplate t);
+    void inpCompleted(TupleCentreIdentifier tid, EmitterIdentifier id, Tuple t);
 
     /**
      *
@@ -81,7 +70,7 @@ public interface ObservableEventListener {
      * @param t
      *            the tuple argument of the observed operation
      */
-    void inRequested(TupleCentreId tid, EmitterIdentifier id, TupleTemplate t);
+    void inpRequested(TupleCentreIdentifier tid, EmitterIdentifier id, TupleTemplate t);
 
     /**
      *
@@ -92,7 +81,7 @@ public interface ObservableEventListener {
      * @param t
      *            the tuple argument of the observed operation
      */
-    void outRequested(TupleCentreId tid, EmitterIdentifier id, Tuple t);
+    void inRequested(TupleCentreIdentifier tid, EmitterIdentifier id, TupleTemplate t);
 
     /**
      *
@@ -103,7 +92,7 @@ public interface ObservableEventListener {
      * @param t
      *            the tuple argument of the observed operation
      */
-    void rdCompleted(TupleCentreId tid, EmitterIdentifier id, Tuple t);
+    void outRequested(TupleCentreIdentifier tid, EmitterIdentifier id, Tuple t);
 
     /**
      *
@@ -114,7 +103,7 @@ public interface ObservableEventListener {
      * @param t
      *            the tuple argument of the observed operation
      */
-    void rdpCompleted(TupleCentreId tid, EmitterIdentifier id, Tuple t);
+    void rdCompleted(TupleCentreIdentifier tid, EmitterIdentifier id, Tuple t);
 
     /**
      *
@@ -125,7 +114,7 @@ public interface ObservableEventListener {
      * @param t
      *            the tuple argument of the observed operation
      */
-    void rdpRequested(TupleCentreId tid, EmitterIdentifier id, TupleTemplate t);
+    void rdpCompleted(TupleCentreIdentifier tid, EmitterIdentifier id, Tuple t);
 
     /**
      *
@@ -136,7 +125,18 @@ public interface ObservableEventListener {
      * @param t
      *            the tuple argument of the observed operation
      */
-    void rdRequested(TupleCentreId tid, EmitterIdentifier id, TupleTemplate t);
+    void rdpRequested(TupleCentreIdentifier tid, EmitterIdentifier id, TupleTemplate t);
+
+    /**
+     *
+     * @param tid
+     *            the identifier of the tuple centre under observation
+     * @param id
+     *            the identifier of the requestor of the observed operaion
+     * @param t
+     *            the tuple argument of the observed operation
+     */
+    void rdRequested(TupleCentreIdentifier tid, EmitterIdentifier id, TupleTemplate t);
 
     /**
      *
@@ -145,7 +145,7 @@ public interface ObservableEventListener {
      * @param id
      *            the identifier of the requestor of the observed operaion
      */
-    void setSpecCompleted(TupleCentreId tid, EmitterIdentifier id);
+    void setSpecCompleted(TupleCentreIdentifier tid, EmitterIdentifier id);
 
     /**
      *
@@ -156,5 +156,5 @@ public interface ObservableEventListener {
      * @param spec
      *            the ReSpecT specification argument of the observed operation
      */
-    void setSpecRequested(TupleCentreId tid, EmitterIdentifier id, String spec);
+    void setSpecRequested(TupleCentreIdentifier tid, EmitterIdentifier id, String spec);
 }

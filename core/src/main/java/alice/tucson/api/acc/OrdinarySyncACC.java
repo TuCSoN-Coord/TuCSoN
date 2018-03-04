@@ -17,7 +17,7 @@ import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
 /**
@@ -50,10 +50,10 @@ public interface OrdinarySyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation get(final TupleCentreId tid, final Long timeout)
+    TucsonOperation get(final TupleCentreIdentifier tid, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -79,10 +79,10 @@ public interface OrdinarySyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation in(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation in(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -107,10 +107,10 @@ public interface OrdinarySyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation inp(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation inp(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -137,10 +137,10 @@ public interface OrdinarySyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation no(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation no(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -166,10 +166,10 @@ public interface OrdinarySyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation nop(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation nop(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -194,10 +194,10 @@ public interface OrdinarySyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation out(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation out(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -223,10 +223,10 @@ public interface OrdinarySyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation rd(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation rd(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -251,10 +251,10 @@ public interface OrdinarySyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation rdp(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation rdp(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -276,10 +276,10 @@ public interface OrdinarySyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation set(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation set(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -313,10 +313,10 @@ public interface OrdinarySyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation spawn(final TupleCentreId tid, final Tuple toSpawn, final Long timeout)
+    TucsonOperation spawn(final TupleCentreIdentifier tid, final Tuple toSpawn, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 }

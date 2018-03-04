@@ -86,7 +86,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      *             if the ACCDescription's "agent-identity" property does not
      *             represent a valid TuCSoN identifier
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the TupleCentreId, contained into AbstractTucsonProtocol's
+     *             if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
      *             message, does not represent a valid TuCSoN identifier
      * @throws DialogReceiveException
      *             if something goes wrong in the underlying network

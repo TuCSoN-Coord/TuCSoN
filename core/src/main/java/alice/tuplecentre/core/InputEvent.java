@@ -17,7 +17,7 @@ import java.util.Map;
 
 import alice.respect.api.geolocation.Position;
 import alice.tuplecentre.api.EmitterIdentifier;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 
 /**
  * Represents input events of the tuple centre virtual machine (only difference
@@ -47,7 +47,7 @@ public class InputEvent extends AbstractEvent {
      *            the place (wichever sort of) where the event was generated
      */
     public InputEvent(final EmitterIdentifier source, final AbstractTupleCentreOperation op,
-                      final TupleCentreId tc, final long time, final Position place) {
+                      final TupleCentreIdentifier tc, final long time, final Position place) {
         super(source, op, tc, time, place);
         this.isLnk = false;
     }
@@ -68,7 +68,7 @@ public class InputEvent extends AbstractEvent {
      *            the place (wichever sort of) where the event was generated
      */
     public InputEvent(final EmitterIdentifier source, final AbstractTupleCentreOperation op,
-                      final TupleCentreId tc, final long time, final Position place,
+                      final TupleCentreIdentifier tc, final long time, final Position place,
                       final Map<String, String> prop) {
         super(source, op, tc, time, place, prop);
         this.isLnk = false;

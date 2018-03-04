@@ -12,13 +12,14 @@
  */
 package alice.respect.api;
 
+import java.io.Serializable;
+
 import alice.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.respect.core.TupleCentreIdOperatorManager;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
-
-import java.io.Serializable;
 
 /**
  * Tuple centre identifier for ReSpecT tuple centres
@@ -28,9 +29,9 @@ import java.io.Serializable;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
-public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId, Serializable {
+public class TupleCentreId implements TupleCentreIdentifier, Serializable {
 
-    private static final int DEFAULT_PORT = 20504;
+    private static final int DEFAULT_PORT = 20504; //TODO replace with a TucsonInfo.getDefaultPort() call
     private static TupleCentreIdOperatorManager opManager = new TupleCentreIdOperatorManager();
     private static final long serialVersionUID = 1L;
 

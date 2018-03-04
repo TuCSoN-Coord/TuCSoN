@@ -17,6 +17,7 @@ import java.io.Serializable;
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuprolog.Term;
 
 /**
@@ -26,7 +27,7 @@ import alice.tuprolog.Term;
  *
  */
 public class TucsonTupleCentreId implements
-        alice.tuplecentre.api.TupleCentreId, Serializable {
+        TupleCentreIdentifier, Serializable {
 
     private static final long serialVersionUID = -4503481713163088789L;
     private TupleCentreId tid;

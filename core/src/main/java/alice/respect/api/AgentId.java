@@ -12,6 +12,8 @@
  */
 package alice.respect.api;
 
+import java.io.Serializable;
+
 import alice.respect.api.exceptions.InvalidAgentIdException;
 import alice.respect.core.AgentIdOperatorManager;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -20,37 +22,30 @@ import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 
-import java.io.Serializable;
-
 /**
  * Agent identifier.
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
-public class AgentId implements AgentIdentifier,
-        Serializable {
+public class AgentId implements AgentIdentifier, Serializable {
 
     private Term id;
 
     private static AgentIdOperatorManager opManager = new AgentIdOperatorManager();
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 1L;
 
     /**
      * Constructs an agent identifier
-     *
+     * <p>
      * The Agent identifier must be a ground valid logic term
      *
-     * @param sid
-     *            is the string representation of the identifier
-     * @throws InvalidAgentIdException
-     *             if it is not a valid identifier
+     * @param sid is the string representation of the identifier
+     * @throws InvalidAgentIdException if it is not a valid identifier
      */
     public AgentId(final String sid) throws InvalidAgentIdException {
-        String newSid = null;
+        String newSid;
         if (sid.indexOf(':') != -1) {
             newSid = sid.substring(0, sid.indexOf(':'));
         } else {
@@ -70,11 +65,8 @@ public class AgentId implements AgentIdentifier,
     }
 
     /**
-     *
-     * @param name
-     *            the string representation of this identifier
-     * @param tcId
-     *            the tuple centre identifier this agent operates on
+     * @param name the string representation of this identifier
+     * @param tcId the tuple centre identifier this agent operates on
      */
     public AgentId(final String name, final TucsonTupleCentreId tcId) {
         this.id = new Struct(name, tcId.toTerm());
@@ -82,13 +74,11 @@ public class AgentId implements AgentIdentifier,
 
     /**
      * Constructs an agent identifier
-     *
+     * <p>
      * The Agent identifier must be a ground logic term
      *
-     * @param tid
-     *            the identifier as tuProlog term
-     * @throws InvalidAgentIdException
-     *             if it is not a valid identifier
+     * @param tid the identifier as tuProlog term
+     * @throws InvalidAgentIdException if it is not a valid identifier
      */
     public AgentId(final Term tid) throws InvalidAgentIdException {
         this.id = tid.getTerm();
@@ -98,10 +88,7 @@ public class AgentId implements AgentIdentifier,
         }
     }
 
-    /**
-     *
-     * @return the string representation of the local name
-     */
+    @Override
     public String getLocalName() {
         if (this.id.isCompound()) {
             return ((Struct) this.id).getArg(0).toString();
@@ -129,17 +116,13 @@ public class AgentId implements AgentIdentifier,
         return this.id.toString();
     }
 
-	@Override
-	public boolean isGeo() {
-		return false;
-	}
+    @Override
+    public boolean isGeo() {
+        return false;
+    }
 
-    /**
-     * Provides the logic term representation of the identifier
-     *
-     * @return the term representing the identifier
-     */
-    public Term toTerm(){
+    @Override
+    public Term toTerm() {
         return id;
     }
 }

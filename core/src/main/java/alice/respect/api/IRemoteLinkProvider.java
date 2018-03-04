@@ -1,6 +1,6 @@
 package alice.respect.api;
 
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 
 /**
  *
@@ -15,5 +15,5 @@ public interface IRemoteLinkProvider {
      *            the target tuple centre to link with
      * @return the linking context toward the target tuple centre
      */
-    ILinkContext getRemoteLinkContext(TupleCentreId id);
+    ILinkContext getRemoteLinkContext(TupleCentreIdentifier id);
 }

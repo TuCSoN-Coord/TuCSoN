@@ -19,4 +19,4 @@ package alice.tuplecentre.api;
  *
  * @author Alessandro Ricci
  */
-public interface TupleCentreId extends EmitterIdentifier {}
+public interface TupleCentreIdentifier extends EmitterIdentifier {}

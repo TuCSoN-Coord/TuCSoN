@@ -3,7 +3,7 @@ package alice.respect.situatedness;
 import alice.respect.core.InternalEvent;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
 /**
@@ -36,7 +36,7 @@ public interface TransducerStandardInterface {
      * @return the identifier of the TuCSoN tuple centre this transducer works
      *         with
      */
-    TupleCentreId getTCId();
+    TupleCentreIdentifier getTCId();
 
     /**
      *

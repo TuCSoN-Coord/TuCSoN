@@ -3,17 +3,13 @@ package alice.respect.api;
 import alice.tuplecentre.core.AbstractOperationId;
 
 /**
- *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
-public class RespectOpId extends AbstractOperationId{
+public class RespectOpId extends AbstractOperationId {
 
     /**
-     *
-     * @param i
-     *            the progressive, unique per tuple centre, operation identifier
+     * @param i the progressive, unique per tuple centre, operation identifier
      */
     public RespectOpId(final long i) {
         super(i);

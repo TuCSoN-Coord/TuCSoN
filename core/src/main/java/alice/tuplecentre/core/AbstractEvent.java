@@ -19,7 +19,7 @@ import java.util.Map;
 import alice.respect.api.geolocation.Position;
 import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 
 /**
  * Represents events of the tuple centre virtual machine
@@ -38,7 +38,7 @@ public abstract class AbstractEvent implements java.io.Serializable {
     /** place in where this event occurs */
     private final Position place;
     /** the current tuple centre (VM) where this event is managed **/
-    private TupleCentreId reactingTC;
+    private TupleCentreIdentifier reactingTC;
     /** the operation (primitive + tuple) associated with this event **/
     private AbstractTupleCentreOperation simpleTCEvent;
     /** the entitiy executing the operation **/
@@ -62,7 +62,7 @@ public abstract class AbstractEvent implements java.io.Serializable {
      *            the position (wichever sort of) where the event was generated
      */
     public AbstractEvent(final EmitterIdentifier s, final AbstractTupleCentreOperation op,
-                         final TupleCentreId tc, final long t, final Position p) {
+                         final TupleCentreIdentifier tc, final long t, final Position p) {
         this.source = s;
         this.simpleTCEvent = op;
         this.target = tc;
@@ -88,7 +88,7 @@ public abstract class AbstractEvent implements java.io.Serializable {
      *            the position (wichever sort of) where the event was generated
      */
     public AbstractEvent(final EmitterIdentifier s, final AbstractTupleCentreOperation op,
-                         final TupleCentreId tc, final long t, final Position p, final Map<String, String> prop) {
+                         final TupleCentreIdentifier tc, final long t, final Position p, final Map<String, String> prop) {
         this(s, op, tc, t, p);
         this.evProp.putAll(prop);
     }
@@ -117,7 +117,7 @@ public abstract class AbstractEvent implements java.io.Serializable {
      * @return the identifier of the tuple centre currently reacting to the
      *         event
      */
-    public TupleCentreId getReactingTC() {
+    public TupleCentreIdentifier getReactingTC() {
         return this.reactingTC;
     }
 
@@ -190,7 +190,7 @@ public abstract class AbstractEvent implements java.io.Serializable {
      *            the identifier of the tuple centre currently reacting to the
      *            event
      */
-    public void setReactingTC(final TupleCentreId tc) {
+    public void setReactingTC(final TupleCentreIdentifier tc) {
         this.reactingTC = tc;
     }
 

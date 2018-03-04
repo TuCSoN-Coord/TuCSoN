@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import alice.respect.api.ILinkContext;
 import alice.respect.api.IRemoteLinkProvider;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 
 /**
  *
@@ -17,7 +17,7 @@ public class RemoteLinkProvider implements IRemoteLinkProvider {
     private static Map<String, InterTupleCentreACCProvider> remoteRegistry = new HashMap<String, InterTupleCentreACCProvider>();
 
     @Override
-    public ILinkContext getRemoteLinkContext(final TupleCentreId id) {
+    public ILinkContext getRemoteLinkContext(final TupleCentreIdentifier id) {
         // id e' il tuplecentre target (nome completo xche' toString?)
         InterTupleCentreACCProvider helper = RemoteLinkProvider.remoteRegistry
                 .get(id.toString());

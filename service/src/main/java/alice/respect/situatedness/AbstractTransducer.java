@@ -17,7 +17,7 @@ import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.service.InputEventMsg;
 import alice.tucson.service.OperationHandler;
 import alice.tucson.service.TucsonOperationDefault;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.TupleCentreOpType;
 
@@ -46,7 +46,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
     /** List of probes associated to the transducer **/
     protected Map<AbstractProbeId, Object> probes;
     /** Identifier of the tuple centre associated **/
-    protected TupleCentreId tcId;
+    protected TupleCentreIdentifier tcId;
 
     /**
      * Constructs a transducer
@@ -56,7 +56,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
      * @param tc
      *            the associated tuple centre's identifier
      */
-    public AbstractTransducer(final TransducerId i, final TupleCentreId tc) {
+    public AbstractTransducer(final TransducerId i, final TupleCentreIdentifier tc) {
         this.id = i;
         this.tcId = tc;
         final UUID uuid = UUID.randomUUID(); // BUCCELLI
@@ -151,7 +151,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
      * @return the tuple centre identifier.
      */
     @Override
-    public TupleCentreId getTCId() {
+    public TupleCentreIdentifier getTCId() {
         return this.tcId;
     }
 

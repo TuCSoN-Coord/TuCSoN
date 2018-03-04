@@ -7,7 +7,7 @@ import alice.respect.situatedness.AbstractTransducer;
 import alice.respect.situatedness.ISimpleProbe;
 import alice.respect.situatedness.TransducerId;
 import alice.tucson.api.TucsonOperation;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 
 /**
@@ -26,7 +26,7 @@ public class ActuatorTransducer extends AbstractTransducer {
      * @param tc
      *            the tuple centre id
      */
-    public ActuatorTransducer(final TransducerId i, final TupleCentreId tc) {
+    public ActuatorTransducer(final TransducerId i, final TupleCentreIdentifier tc) {
         super(i, tc);
     }
 

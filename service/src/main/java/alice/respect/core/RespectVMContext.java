@@ -1213,7 +1213,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 			final AbstractTupleCentreOperation op = oe.getSimpleTCEvent();
 			op.setCompletionListener(new CompletionListener(oe));
 			final ILinkContext link = RespectTCContainer.getRespectTCContainer().getLinkContext(target);
-			// link.doOperation((TupleCentreId) oe.getSource(), op);
+			// link.doOperation((TupleCentreIdentifier) oe.getSource(), op);
 			TupleCentreId source;
 			if (oe.getSource() instanceof TucsonTupleCentreId) {
 				source = ((TucsonTupleCentreId) oe.getSource()).getInternalTupleCentreId();

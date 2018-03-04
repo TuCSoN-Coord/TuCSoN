@@ -22,7 +22,7 @@ import alice.tucson.rbac.Role;
 import alice.tucson.rbac.TucsonAuthorisedAgent;
 import alice.tucson.service.tools.TucsonACCTool;
 import alice.tucson.utilities.Utils;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
 /**
@@ -37,7 +37,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
 
     private static final int DEF_PORT = 20504;
     private boolean isAdminAuth;
-    private final TupleCentreId tid;
+    private final TupleCentreIdentifier tid;
 
     /**
      * Builds an Administrator ACC given the associated agent Identifier or name
@@ -427,7 +427,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
 
     }
 
-    private TupleCentreId getTid(final String n, final int p)
+    private TupleCentreIdentifier getTid(final String n, final int p)
             throws TucsonInvalidTupleCentreIdException {
 
         String tmpNode;

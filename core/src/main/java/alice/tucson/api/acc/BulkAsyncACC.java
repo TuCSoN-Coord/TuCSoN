@@ -21,7 +21,7 @@ import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.service.TucsonOpCompletionEvent;
 import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 
 /**
  * Bulk Asynchronous ACC. Can act on the ordinary tuple space. Only bulk
@@ -41,7 +41,7 @@ public interface BulkAsyncACC extends AsyncACC {
      * one shot (a single transition step). The empty list may be returned in
      * case no tuples match. Matching tuples are removed from the space.
      *
-     * @param tid   the TupleCentreId of the target tuple centre
+     * @param tid   the TupleCentreIdentifier of the target tuple centre
      * @param tuple the tuple template to be used to retrieve tuples
      * @param l     who to notify upon operation completion
      * @return the TucsonOperation object storing the outcome of the execution.
@@ -50,12 +50,12 @@ public interface BulkAsyncACC extends AsyncACC {
      * asynchronously notified.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see alice.tucson.api.TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    TucsonOperation inAll(final TupleCentreId tid, final Tuple tuple,
+    TucsonOperation inAll(final TupleCentreIdentifier tid, final Tuple tuple,
                           final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
@@ -67,7 +67,7 @@ public interface BulkAsyncACC extends AsyncACC {
      * all the tuples matching the template are returned (with <code> no </code>
      * only one non-deterministically selected is returned).
      *
-     * @param tid   the TupleCentreId of the target tuple centre
+     * @param tid   the TupleCentreIdentifier of the target tuple centre
      * @param tuple the tuple template to be used to check absence
      * @param l     who to notify upon operation completion
      * @return the TucsonOperation object storing the outcome of the execution.
@@ -76,12 +76,12 @@ public interface BulkAsyncACC extends AsyncACC {
      * asynchronously notified.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see alice.tucson.api.TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    TucsonOperation noAll(final TupleCentreId tid, final Tuple tuple,
+    TucsonOperation noAll(final TupleCentreIdentifier tid, final Tuple tuple,
                           final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
@@ -90,7 +90,7 @@ public interface BulkAsyncACC extends AsyncACC {
      * Inject in the space a list of tuples in one shot (a single transition
      * step).
      *
-     * @param tid   the TupleCentreId of the target tuple centre
+     * @param tid   the TupleCentreIdentifier of the target tuple centre
      * @param tuple the list of tuples to inject (must be a Prolog list)
      * @param l     who to notify upon operation completion
      * @return the TucsonOperation object storing the outcome of the execution.
@@ -99,12 +99,12 @@ public interface BulkAsyncACC extends AsyncACC {
      * asynchronously notified.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see alice.tucson.api.TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    TucsonOperation outAll(final TupleCentreId tid, final Tuple tuple,
+    TucsonOperation outAll(final TupleCentreIdentifier tid, final Tuple tuple,
                            final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
@@ -114,7 +114,7 @@ public interface BulkAsyncACC extends AsyncACC {
      * shot (a single transition step). The empty list may be returned in case
      * no tuples match. Matching tuples are NOT removed from the space.
      *
-     * @param tid   the TupleCentreId of the target tuple centre
+     * @param tid   the TupleCentreIdentifier of the target tuple centre
      * @param tuple the tuple template to be used to observe tuples
      * @param l     who to notify upon operation completion
      * @return the TucsonOperation object storing the outcome of the execution.
@@ -123,12 +123,12 @@ public interface BulkAsyncACC extends AsyncACC {
      * asynchronously notified.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see alice.tucson.api.TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    TucsonOperation rdAll(final TupleCentreId tid, final Tuple tuple,
+    TucsonOperation rdAll(final TupleCentreIdentifier tid, final Tuple tuple,
                           final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;

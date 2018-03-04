@@ -16,7 +16,7 @@ import alice.respect.situatedness.AbstractTransducer;
 import alice.respect.situatedness.ISimpleProbe;
 import alice.respect.situatedness.TransducerId;
 import alice.respect.situatedness.TransducerStandardInterface;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuprolog.Term;
 
 /**
@@ -46,12 +46,12 @@ public enum TransducersManager {
     /** List of all the transducers on a single node **/
     private Map<TransducerId, AbstractTransducer> transducersList;
     /** List of the associations tuple centre/transducers **/
-    private Map<TupleCentreId, List<TransducerId>> transducersToTupleCentresMap;
+    private Map<TupleCentreIdentifier, List<TransducerId>> transducersToTupleCentresMap;
 
     private TransducersManager() {
         this.transducersList = new HashMap<TransducerId, AbstractTransducer>();
         this.probesToTransducersMap = new HashMap<TransducerId, List<AbstractProbeId>>();
-        this.transducersToTupleCentresMap = new HashMap<TupleCentreId, List<TransducerId>>();
+        this.transducersToTupleCentresMap = new HashMap<TupleCentreIdentifier, List<TransducerId>>();
     }
 
     /**
@@ -112,7 +112,7 @@ public enum TransducersManager {
      *             if the callee cannot be found
      */
     public synchronized boolean createTransducer(final String className,
-            final TransducerId id, final TupleCentreId tcId,
+            final TransducerId id, final TupleCentreIdentifier tcId,
             final AbstractProbeId probeId) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException,
             NoSuchMethodException, InvocationTargetException {
@@ -135,7 +135,7 @@ public enum TransducersManager {
                 className.length() - 1);
         final Class<?> c = Class.forName(normClassName);
         final Constructor<?> ctor = c.getConstructor(new Class[] {
-                TransducerId.class, TupleCentreId.class });
+                TransducerId.class, TupleCentreIdentifier.class });
         final AbstractTransducer t = (AbstractTransducer) ctor
                 .newInstance(new Object[] { id, tcId });
         this.transducersList.put(id, t);
@@ -223,11 +223,11 @@ public enum TransducersManager {
      * @return list of transducer id associated to tcId
      */
     // FIXME Check correctness (synchronization needed?)
-    public TransducerId[] getTransducerIds(final TupleCentreId tcId) {
+    public TransducerId[] getTransducerIds(final TupleCentreIdentifier tcId) {
         final Object[] tcIds = this.transducersToTupleCentresMap.keySet()
                 .toArray();
         for (final Object tcId2 : tcIds) {
-            if (((TupleCentreId) tcId2).toString().equals(tcId.toString())) {
+            if (((TupleCentreIdentifier) tcId2).toString().equals(tcId.toString())) {
                 final Object[] values = this.transducersToTupleCentresMap.get(
                         tcId2).toArray();
                 final TransducerId[] transducerIds = new TransducerId[values.length];
@@ -252,8 +252,8 @@ public enum TransducersManager {
      * @return the tuple centre's identifier
      */
     // FIXME Check correctness (synchronization needed?)
-    public TupleCentreId getTupleCentreId(final TransducerId tId) {
-        for (final TupleCentreId t : this.transducersToTupleCentresMap.keySet()) {
+    public TupleCentreIdentifier getTupleCentreId(final TransducerId tId) {
+        for (final TupleCentreIdentifier t : this.transducersToTupleCentresMap.keySet()) {
             if (this.transducersToTupleCentresMap.get(t).contains(tId)) {
                 return t;
             }
@@ -313,7 +313,7 @@ public enum TransducersManager {
         }
         this.transducersList.remove(id);
         this.probesToTransducersMap.remove(id);
-        final TupleCentreId tcAssociated = this.getTupleCentreId(id);
+        final TupleCentreIdentifier tcAssociated = this.getTupleCentreId(id);
         this.transducersToTupleCentresMap.get(tcAssociated).remove(id);
         // If the tc doesn't have any transducer associated, it will be removed
         if (this.transducersToTupleCentresMap.get(tcAssociated).isEmpty()) {

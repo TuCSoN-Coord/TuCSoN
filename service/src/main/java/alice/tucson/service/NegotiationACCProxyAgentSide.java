@@ -18,7 +18,7 @@ import alice.tucson.rbac.Role;
 import alice.tucson.rbac.TucsonPolicy;
 import alice.tucson.rbac.TucsonRole;
 import alice.tucson.service.tools.TucsonACCTool;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 
 /**
@@ -54,7 +54,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
     private final EnhancedACC internalACC;
     private final String node;
     private final int port;
-    private final TupleCentreId tid;
+    private final TupleCentreIdentifier tid;
 
     /**
      * Builds a Negotiation ACC given the associated agent Identifier or name
@@ -248,7 +248,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
         return this.agentClass;
     }
 
-    private boolean isRBACInstalled(final TupleCentreId tcid)
+    private boolean isRBACInstalled(final TupleCentreIdentifier tcid)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         LogicTuple rbacInstalled = null;

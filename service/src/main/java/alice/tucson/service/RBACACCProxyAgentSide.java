@@ -18,7 +18,7 @@ import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.rbac.Permission;
 import alice.tucson.rbac.Role;
 import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuprolog.Parser;
@@ -80,7 +80,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation get(final TupleCentreId tid, final Long timeout)
+    public TucsonOperation get(final TupleCentreIdentifier tid, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("get");
@@ -89,7 +89,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation get(final TupleCentreId tid,
+    public TucsonOperation get(final TupleCentreIdentifier tid,
                                final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -109,7 +109,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation getS(final TupleCentreId tid, final Long timeout)
+    public TucsonOperation getS(final TupleCentreIdentifier tid, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("getS");
@@ -127,7 +127,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation getS(final TupleCentreId tid,
+    public TucsonOperation getS(final TupleCentreIdentifier tid,
                                 final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -143,7 +143,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation in(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation in(final TupleCentreIdentifier tid, final Tuple tuple,
                               final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("in");
@@ -151,7 +151,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation in(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation in(final TupleCentreIdentifier tid, final Tuple tuple,
                               final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -160,7 +160,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation inAll(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation inAll(final TupleCentreIdentifier tid, final Tuple tuple,
                                  final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("inAll");
@@ -169,7 +169,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation inAll(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation inAll(final TupleCentreIdentifier tid, final Tuple tuple,
                                  final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -179,7 +179,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation inp(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation inp(final TupleCentreIdentifier tid, final Tuple tuple,
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("inp");
@@ -187,7 +187,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation inp(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation inp(final TupleCentreIdentifier tid, final Tuple tuple,
                                final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -196,7 +196,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation inpS(final TupleCentreId tid,
+    public TucsonOperation inpS(final TupleCentreIdentifier tid,
                                 final LogicTuple event, final LogicTuple guards,
                                 final LogicTuple reactionBody, final Long timeout)
                     throws TucsonOperationNotPossibleException,
@@ -210,7 +210,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation inpS(final TupleCentreId tid,
+    public TucsonOperation inpS(final TupleCentreIdentifier tid,
                                 final LogicTuple event, final LogicTuple guards,
                                 final LogicTuple reactionBody,
                                 final TucsonOperationCompletionListener l)
@@ -225,7 +225,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation inS(final TupleCentreId tid,
+    public TucsonOperation inS(final TupleCentreIdentifier tid,
                                final LogicTuple event, final LogicTuple guards,
                                final LogicTuple reactionBody, final Long timeout)
                     throws TucsonOperationNotPossibleException,
@@ -239,7 +239,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation inS(final TupleCentreId tid,
+    public TucsonOperation inS(final TupleCentreIdentifier tid,
                                final LogicTuple event, final LogicTuple guards,
                                final LogicTuple reactionBody,
                                final TucsonOperationCompletionListener l)
@@ -254,7 +254,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation no(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation no(final TupleCentreIdentifier tid, final Tuple tuple,
                               final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("no");
@@ -263,7 +263,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation no(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation no(final TupleCentreIdentifier tid, final Tuple tuple,
                               final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -273,7 +273,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation noAll(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation noAll(final TupleCentreIdentifier tid, final Tuple tuple,
                                  final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("noAll");
@@ -282,7 +282,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation noAll(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation noAll(final TupleCentreIdentifier tid, final Tuple tuple,
                                  final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -292,7 +292,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation nop(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation nop(final TupleCentreIdentifier tid, final Tuple tuple,
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("nop");
@@ -301,7 +301,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation nop(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation nop(final TupleCentreIdentifier tid, final Tuple tuple,
                                final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -311,7 +311,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation nopS(final TupleCentreId tid,
+    public TucsonOperation nopS(final TupleCentreIdentifier tid,
                                 final LogicTuple event, final LogicTuple guards,
                                 final LogicTuple reactionBody, final Long timeout)
                     throws TucsonOperationNotPossibleException,
@@ -325,7 +325,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation nopS(final TupleCentreId tid,
+    public TucsonOperation nopS(final TupleCentreIdentifier tid,
                                 final LogicTuple event, final LogicTuple guards,
                                 final LogicTuple reactionBody,
                                 final TucsonOperationCompletionListener l)
@@ -340,7 +340,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation noS(final TupleCentreId tid,
+    public TucsonOperation noS(final TupleCentreIdentifier tid,
                                final LogicTuple event, final LogicTuple guards,
                                final LogicTuple reactionBody, final Long timeout)
                     throws TucsonOperationNotPossibleException,
@@ -354,7 +354,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation noS(final TupleCentreId tid,
+    public TucsonOperation noS(final TupleCentreIdentifier tid,
                                final LogicTuple event, final LogicTuple guards,
                                final LogicTuple reactionBody,
                                final TucsonOperationCompletionListener l)
@@ -369,7 +369,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation out(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation out(final TupleCentreIdentifier tid, final Tuple tuple,
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("out");
@@ -377,7 +377,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation out(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation out(final TupleCentreIdentifier tid, final Tuple tuple,
                                final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -386,7 +386,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation outAll(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation outAll(final TupleCentreIdentifier tid, final Tuple tuple,
                                   final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("outAll");
@@ -395,7 +395,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation outAll(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation outAll(final TupleCentreIdentifier tid, final Tuple tuple,
                                   final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -405,7 +405,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation outS(final TupleCentreId tid,
+    public TucsonOperation outS(final TupleCentreIdentifier tid,
                                 final LogicTuple event, final LogicTuple guards,
                                 final LogicTuple reactionBody, final Long timeout)
                     throws TucsonOperationNotPossibleException,
@@ -419,7 +419,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation outS(final TupleCentreId tid,
+    public TucsonOperation outS(final TupleCentreIdentifier tid,
                                 final LogicTuple event, final LogicTuple guards,
                                 final LogicTuple reactionBody,
                                 final TucsonOperationCompletionListener l)
@@ -434,7 +434,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation rd(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation rd(final TupleCentreIdentifier tid, final Tuple tuple,
                               final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("rd");
@@ -442,7 +442,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation rd(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation rd(final TupleCentreIdentifier tid, final Tuple tuple,
                               final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -451,7 +451,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation rdAll(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation rdAll(final TupleCentreIdentifier tid, final Tuple tuple,
                                  final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("rdAll");
@@ -460,7 +460,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation rdAll(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation rdAll(final TupleCentreIdentifier tid, final Tuple tuple,
                                  final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -470,7 +470,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation rdp(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation rdp(final TupleCentreIdentifier tid, final Tuple tuple,
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("rdp");
@@ -478,7 +478,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation rdp(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation rdp(final TupleCentreIdentifier tid, final Tuple tuple,
                                final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -487,7 +487,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation rdpS(final TupleCentreId tid,
+    public TucsonOperation rdpS(final TupleCentreIdentifier tid,
                                 final LogicTuple event, final LogicTuple guards,
                                 final LogicTuple reactionBody, final Long timeout)
                     throws TucsonOperationNotPossibleException,
@@ -501,7 +501,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation rdpS(final TupleCentreId tid,
+    public TucsonOperation rdpS(final TupleCentreIdentifier tid,
                                 final LogicTuple event, final LogicTuple guards,
                                 final LogicTuple reactionBody,
                                 final TucsonOperationCompletionListener l)
@@ -516,7 +516,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation rdS(final TupleCentreId tid,
+    public TucsonOperation rdS(final TupleCentreIdentifier tid,
                                final LogicTuple event, final LogicTuple guards,
                                final LogicTuple reactionBody, final Long timeout)
                     throws TucsonOperationNotPossibleException,
@@ -530,7 +530,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation rdS(final TupleCentreId tid,
+    public TucsonOperation rdS(final TupleCentreIdentifier tid,
                                final LogicTuple event, final LogicTuple guards,
                                final LogicTuple reactionBody,
                                final TucsonOperationCompletionListener l)
@@ -545,7 +545,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation set(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation set(final TupleCentreIdentifier tid, final Tuple tuple,
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("set");
@@ -554,7 +554,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation set(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation set(final TupleCentreIdentifier tid, final Tuple tuple,
                                final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -564,7 +564,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation setS(final TupleCentreId tid,
+    public TucsonOperation setS(final TupleCentreIdentifier tid,
                                 final LogicTuple spec, final Long timeout)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException, OperationTimeOutException {
@@ -574,7 +574,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation setS(final TupleCentreId tid,
+    public TucsonOperation setS(final TupleCentreIdentifier tid,
                                 final LogicTuple spec, final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -584,7 +584,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation setS(final TupleCentreId tid, final String spec,
+    public TucsonOperation setS(final TupleCentreIdentifier tid, final String spec,
                                 final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("setS");
@@ -597,7 +597,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation setS(final TupleCentreId tid, final String spec,
+    public TucsonOperation setS(final TupleCentreIdentifier tid, final String spec,
                                 final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -608,7 +608,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation spawn(final TupleCentreId tid, final Tuple toSpawn,
+    public TucsonOperation spawn(final TupleCentreIdentifier tid, final Tuple toSpawn,
                                  final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("spawn");
@@ -617,7 +617,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation spawn(final TupleCentreId tid, final Tuple toSpawn,
+    public TucsonOperation spawn(final TupleCentreIdentifier tid, final Tuple toSpawn,
                                  final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -627,7 +627,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation uin(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation uin(final TupleCentreIdentifier tid, final Tuple tuple,
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("uin");
@@ -636,7 +636,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation uin(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation uin(final TupleCentreIdentifier tid, final Tuple tuple,
                                final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -646,7 +646,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation uinp(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation uinp(final TupleCentreIdentifier tid, final Tuple tuple,
                                 final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("uinp");
@@ -655,7 +655,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation uinp(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation uinp(final TupleCentreIdentifier tid, final Tuple tuple,
                                 final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -665,7 +665,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation uno(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation uno(final TupleCentreIdentifier tid, final Tuple tuple,
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("uno");
@@ -674,7 +674,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation uno(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation uno(final TupleCentreIdentifier tid, final Tuple tuple,
                                final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -684,7 +684,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation unop(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation unop(final TupleCentreIdentifier tid, final Tuple tuple,
                                 final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("unop");
@@ -693,7 +693,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation unop(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation unop(final TupleCentreIdentifier tid, final Tuple tuple,
                                 final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -703,7 +703,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation urd(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation urd(final TupleCentreIdentifier tid, final Tuple tuple,
                                final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("urd");
@@ -712,7 +712,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation urd(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation urd(final TupleCentreIdentifier tid, final Tuple tuple,
                                final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {
@@ -722,7 +722,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation urdp(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation urdp(final TupleCentreIdentifier tid, final Tuple tuple,
                                 final Long timeout) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         this.checkPermission("urdp");
@@ -731,7 +731,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public TucsonOperation urdp(final TupleCentreId tid, final Tuple tuple,
+    public TucsonOperation urdp(final TupleCentreIdentifier tid, final Tuple tuple,
                                 final TucsonOperationCompletionListener l)
                     throws TucsonOperationNotPossibleException,
                     UnreachableNodeException {

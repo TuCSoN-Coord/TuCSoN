@@ -76,7 +76,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
      *            the object describing the request of entering the TuCSoN
      *            system
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the TupleCentreId, contained into AbstractTucsonProtocol's
+     *             if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
      *             message, does not represent a valid TuCSoN identifier
      *
      * @throws TucsonInvalidAgentIdException

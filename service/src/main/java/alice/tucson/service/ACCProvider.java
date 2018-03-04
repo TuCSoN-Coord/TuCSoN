@@ -93,7 +93,7 @@ public class ACCProvider {
      * @throws DialogReceiveException
      *             if there is something wrong in the reception stream
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the TupleCentreId, contained into AbstractTucsonProtocol's
+     *             if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
      *             message, does not represent a valid TuCSoN identifier
      *
      * @throws TucsonInvalidAgentIdException
