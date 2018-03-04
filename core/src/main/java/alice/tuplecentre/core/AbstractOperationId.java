@@ -1,24 +1,24 @@
 package alice.tuplecentre.core;
 
-import alice.tuplecentre.api.Identifier;
+import alice.tuplecentre.api.OperationIdentifier;
 
-public abstract class AbstractOperationId implements Identifier {
+/**
+ * Abstract class for Operation Identifiers
+ *
+ * @author Nicola Piscaglia
+ */
+public abstract class AbstractOperationId implements OperationIdentifier {
 
     protected final long id;
 
     /**
-     *
-     * @param i
-     *            the progressive, unique per tuple centre, operation identifier
+     * @param i the progressive, unique per tuple centre, operation identifier
      */
     protected AbstractOperationId(final long i) {
         this.id = i;
     }
 
-    /**
-     *
-     * @return the ReSpecT operation identifier
-     */
+    @Override
     public long getId() {
         return this.id;
     }

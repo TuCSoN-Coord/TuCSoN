@@ -3,6 +3,8 @@ package alice.respect.api;
 import alice.tuplecentre.core.AbstractOperationId;
 
 /**
+ * Respect Operation ID class
+ *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */

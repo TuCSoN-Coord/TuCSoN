@@ -5,30 +5,25 @@ package alice.tuplecentre.api;
  * tuple centre
  *
  * @author Matteo Casadei
- *
  */
-public interface EmitterIdentifier {
+public interface EmitterIdentifier extends Identifier {
 
     /**
-     *
      * @return wether this identifier is an agent identifier
      */
     boolean isAgent();
 
     /**
-     *
      * @return wether this identifier is an environmental resource identifier
      */
     boolean isEnv();
-    
+
     /**
-     * 
      * @return wether this identifier is a geolocation service identifier
      */
     boolean isGeo();
 
     /**
-     *
      * @return wether this identifier is a tuple centre identifier
      */
     boolean isTC();

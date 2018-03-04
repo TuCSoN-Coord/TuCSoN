@@ -16,17 +16,15 @@ package alice.tucson.api;
 import alice.tuplecentre.core.AbstractOperationId;
 
 /**
+ * Tucson Operation ID class
  *
  * @author ste (mailto: s.mariani@unibo.it)
- *
  */
-public class TucsonOpId extends AbstractOperationId{
+public class TucsonOpId extends AbstractOperationId {
 
     /**
-     *
-     * @param i
-     *            the Java long progressively, uniquely identifying TuCSoN
-     *            operations
+     * @param i the Java long progressively, uniquely identifying TuCSoN
+     *          operations
      */
     public TucsonOpId(final long i) {
         super(i);
