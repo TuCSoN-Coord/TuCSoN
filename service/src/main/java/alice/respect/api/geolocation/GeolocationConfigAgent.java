@@ -164,7 +164,7 @@ public class GeolocationConfigAgent extends Thread {
             final int platform = PlatformUtils.getPlatform();
             GeolocationConfigAgent
                     .log("Serving create android geolocation service request. EmitterIdentifier: "
-                            + sId.getName()
+                            + sId.getLocalName()
                             + "; TC Associated: "
                             + t.getArg(2).toString());
             GeolocationServiceManager.getGeolocationManager()
@@ -181,7 +181,7 @@ public class GeolocationConfigAgent extends Thread {
             final GeoServiceId sId = new GeoServiceId(t.getArg(0).getName());
             GeolocationConfigAgent
                     .log("Serving destroy android geolocation service request. EmitterIdentifier: "
-                            + sId.getName());
+                            + sId.getLocalName());
             GeolocationServiceManager.getGeolocationManager().destroyService(
                     sId);
         }

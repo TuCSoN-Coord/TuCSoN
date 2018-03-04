@@ -68,11 +68,11 @@ public final class GeolocationServiceManager {
         final GeoServiceId sId = s.getServiceId();
         if (this.servicesList.containsKey(sId)) {
             GeolocationServiceManager.error("GeolocationService "
-                    + sId.getName() + " is already registered");
+                    + sId.getLocalName() + " is already registered");
             return;
         }
         this.servicesList.put(sId, s);
-        GeolocationServiceManager.log("GeolocationService " + sId.getName()
+        GeolocationServiceManager.log("GeolocationService " + sId.getLocalName()
                 + " has been registered");
     }
 
@@ -122,7 +122,7 @@ public final class GeolocationServiceManager {
         // Checking if the service already exist
         if (this.servicesList.containsKey(sId)) {
             GeolocationServiceManager.error("GeolocationService "
-                    + sId.getName() + " is already registered");
+                    + sId.getLocalName() + " is already registered");
         } else {
             // Instantiating the concrete class
             final String normClassName = Tools.removeApices(className);
@@ -134,7 +134,7 @@ public final class GeolocationServiceManager {
                     platform, sId, tcId });
             s.addListener(new AgentGeolocationServiceListener(acc, s, tcId));
             this.servicesList.put(sId, s);
-            GeolocationServiceManager.log("GeolocationService " + sId.getName()
+            GeolocationServiceManager.log("GeolocationService " + sId.getLocalName()
                     + " has been registered");
         }
         return s;
@@ -179,7 +179,7 @@ public final class GeolocationServiceManager {
         // Checking if the service already exist
         if (this.servicesList.containsKey(sId)) {
             GeolocationServiceManager.error("GeolocationService "
-                    + sId.getName() + " is already registered");
+                    + sId.getLocalName() + " is already registered");
             return;
         }
         // Instantiating the concrete class
@@ -191,7 +191,7 @@ public final class GeolocationServiceManager {
                 .newInstance(new Object[] { platform, sId, tcId });
         s.addListener(new GeolocationServiceListener(s, tcId));
         this.servicesList.put(sId, s);
-        GeolocationServiceManager.log("GeolocationService " + sId.getName()
+        GeolocationServiceManager.log("GeolocationService " + sId.getLocalName()
                 + " has been registered");
     }
 
@@ -215,7 +215,7 @@ public final class GeolocationServiceManager {
      */
     public void destroyService(final GeoServiceId sId) {
         if (!this.servicesList.containsKey(sId)) {
-            GeolocationServiceManager.error("The service " + sId.getName()
+            GeolocationServiceManager.error("The service " + sId.getLocalName()
                     + " does not exist.");
             return;
         }
@@ -255,7 +255,7 @@ public final class GeolocationServiceManager {
         final Object[] keySet = this.servicesList.keySet().toArray();
         for (final Object element : keySet) {
             final GeoServiceId current = (GeoServiceId) element;
-            if (current.getName().equals(name)) {
+            if (current.getLocalName().equals(name)) {
                 return this.servicesList.get(current);
             }
         }

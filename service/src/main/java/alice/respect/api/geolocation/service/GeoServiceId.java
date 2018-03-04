@@ -4,18 +4,17 @@ import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 
 /**
- * 
+ * GeoLocation service identifier
+ *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
- * 
  */
 public class GeoServiceId implements GeoServiceIdentifier {
+
     private final Struct id;
     private final String name;
 
     /**
-     * 
-     * @param i
-     *            the String representation of the Geolocation Service id
+     * @param i the String representation of the Geolocation Service id
      */
     public GeoServiceId(final String i) {
         this.name = i;
@@ -44,11 +43,8 @@ public class GeoServiceId implements GeoServiceIdentifier {
         return true;
     }
 
-    /**
-     * 
-     * @return the name given to the Geolocation Service
-     */
-    public String getName() {
+    @Override
+    public String getLocalName() {
         return this.name;
     }
 
@@ -81,14 +77,16 @@ public class GeoServiceId implements GeoServiceIdentifier {
         return false;
     }
 
-    /**
-     * 
-     * @return the tuProlog Term representation of this Geolocation Service id
-     */
+    @Override
     public Term toTerm() {
         if ("@".equals(this.id.getName())) {
             return this.id.getArg(0).getTerm();
         }
         return this.id.getTerm();
+    }
+
+    @Override
+    public String toString() {
+        return id.toString();
     }
 }
