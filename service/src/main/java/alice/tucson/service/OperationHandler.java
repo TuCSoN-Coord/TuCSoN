@@ -371,7 +371,7 @@ public class OperationHandler {
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         TucsonTupleCentreIdDefault tcid = null;
-        if ("alice.tucson.api.TucsonTupleCentreId".equals(tid.getClass()
+        if ("alice.tucson.api.TucsonTupleCentreIdDefault".equals(tid.getClass()
                 .getName())) {
             tcid = (TucsonTupleCentreIdDefault) tid;
         } else if ("alice.respect.api.TupleCentreId".equals(tid.getClass()
@@ -439,7 +439,7 @@ public class OperationHandler {
             UnreachableNodeException {
         // log("tid.class().name() = " + tid.getClass().getName());
         TucsonTupleCentreIdDefault tcid = null;
-        if ("alice.tucson.api.TucsonTupleCentreId".equals(tid.getClass()
+        if ("alice.tucson.api.TucsonTupleCentreIdDefault".equals(tid.getClass()
                 .getName())) {
             tcid = (TucsonTupleCentreIdDefault) tid;
         } else if ("alice.respect.api.TupleCentreId".equals(tid.getClass()

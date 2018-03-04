@@ -236,7 +236,7 @@ OperationCompletionListener {
      */
     public InterTupleCentreACCProxy(final Object id)
             throws TucsonInvalidTupleCentreIdException {
-        if ("alice.tucson.api.TucsonTupleCentreId".equals(id.getClass()
+        if ("alice.tucson.api.TucsonTupleCentreIdDefault".equals(id.getClass()
                 .getName())) {
             this.aid = (TucsonTupleCentreIdDefault) id;
         } else if ("java.lang.String".equals(id.getClass().getName())) {
@@ -266,7 +266,7 @@ OperationCompletionListener {
             } catch (final TucsonInvalidTupleCentreIdException e) {
                 e.printStackTrace();
             }
-        } else if ("alice.tucson.api.TucsonTupleCentreId".equals(tid.getClass()
+        } else if ("alice.tucson.api.TucsonTupleCentreIdDefault".equals(tid.getClass()
                 .getName())) {
             tcid = (TucsonTupleCentreIdDefault) tid;
         } else if ("java.lang.String".equals(tid.getClass().getName())) {
