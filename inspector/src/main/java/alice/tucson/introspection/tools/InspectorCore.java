@@ -212,7 +212,7 @@ public class InspectorCore extends alice.tucson.introspection.Inspector {
                 ev = it.next();
                 if (ev.getSource().isAgent()) {
                     st.append(ev.getOp()).append(" from <")
-                            .append(((TucsonAgentId) ev.getSource()).getAgentName())
+                            .append(((TucsonAgentId) ev.getSource()).getLocalName())
                             .append("> to <").append(ev.getTarget())
                             .append(">\n");
                 } else if (ev.getSource().isTC()) {

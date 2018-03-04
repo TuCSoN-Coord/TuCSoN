@@ -684,7 +684,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final TransducersManager tm = TransducersManager.INSTANCE;
         // Getting the transducer from the transducer manager
         final TransducerId tId = tm.getTransducerId(envId);
-        if (tm.getTransducer(tId.getAgentName()).notifyOutput(internalEv)) {
+        if (tm.getTransducer(tId.getLocalName()).notifyOutput(internalEv)) {
             this.vm.fetchTriggeredReactions(internalEv);
             return true;
         }
@@ -2079,7 +2079,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final TransducersManager tm = TransducersManager.INSTANCE;
         // Getting the transducer from the transducer manager
         final TransducerId tId = tm.getTransducerId(envId);
-        if (tm.getTransducer(tId.getAgentName()).notifyOutput(internalEv)) {
+        if (tm.getTransducer(tId.getLocalName()).notifyOutput(internalEv)) {
             this.vm.fetchTriggeredReactions(internalEv);
             return true;
         }

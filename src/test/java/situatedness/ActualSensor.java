@@ -91,7 +91,7 @@ public class ActualSensor implements ISimpleProbe {
         }
         if (this.transducer == null) {
             this.transducer = TransducersManager.INSTANCE
-                    .getTransducer(this.tid.getAgentName());
+                    .getTransducer(this.tid.getLocalName());
             if (this.transducer == null) {
                 System.err.println("[" + this.pid
                         + "]: Can't retrieve my transducer!");

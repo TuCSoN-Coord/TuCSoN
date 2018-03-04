@@ -204,7 +204,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 .getGeolocationManager();
         if (geolocationManager.getServices().size() > 0) {
             final AbstractGeolocationService geoService = geolocationManager
-                    .getServiceByName(this.aid.getAgentName() + "_GeoService");
+                    .getServiceByName(this.aid.getLocalName() + "_GeoService");
             if (geoService != null) {
                 this.myGeolocationService = geoService;
                 // geoService.setCompletionListener(new
@@ -228,7 +228,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
 
         this.profile = new ACCDescription();
         this.profile.setProperty("agent_identity", this.aid.toString());
-        this.profile.setProperty("agent_name", this.aid.getAgentName());
+        this.profile.setProperty("agent_name", this.aid.getLocalName());
         this.profile.setProperty("agent-uuid",
                 this.executor.agentUUID.toString());
         this.profile.setProperty("agent_role", "user");
@@ -938,7 +938,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             // Integer.class, GeoServiceId.class, TucsonTupleCentreId.class});
             //
             final int platform = PlatformUtils.getPlatform();
-            final GeoServiceId sId = new GeoServiceId(this.aid.getAgentName()
+            final GeoServiceId sId = new GeoServiceId(this.aid.getLocalName()
                     + "_GeoService");
             //
             // this.myGeolocationService = (GeolocationService)

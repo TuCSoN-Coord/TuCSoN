@@ -244,7 +244,7 @@ public final class TupleCentreContainer {
         InputEvent event = null;
         final TransducersManager tm = TransducersManager.INSTANCE;
         TransducerStandardInterface transducer = tm.getTransducer(aid
-                .getAgentName());
+                .getLocalName());
         if (t != null) {
             // It's an event performed by a transducer. In other words, it's an
             // environment event
@@ -267,7 +267,7 @@ public final class TupleCentreContainer {
                     .getInternalTupleCentreId());
             for (final TransducerId tId2 : tIds) {
                 internalEv.setTarget(tId2); // Set target resource
-                transducer = tm.getTransducer(tId2.getAgentName());
+                transducer = tm.getTransducer(tId2.getLocalName());
                 transducer.notifyOutput(internalEv);
             }
         }
@@ -320,7 +320,7 @@ public final class TupleCentreContainer {
                 .getInternalTupleCentreId());
         for (final TransducerId tId2 : tIds) {
             internalEv.setTarget(tId2); // Set target resource
-            transducer = tm.getTransducer(tId2.getAgentName());
+            transducer = tm.getTransducer(tId2.getLocalName());
             transducer.notifyOutput(internalEv);
         }
         return op;

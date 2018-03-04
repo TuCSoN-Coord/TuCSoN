@@ -152,7 +152,7 @@ public enum ProbesManager {
     public void setTransducer(final AbstractProbeId pId, final TransducerId tId) {
         this.getProbe(pId).setTransducer(tId);
         if (tId != null) {
-            ProbesManager.speak("...transducer '" + tId.getAgentName()
+            ProbesManager.speak("...transducer '" + tId.getLocalName()
                     + "' set to probe '" + pId.getLocalName() + "'.");
         }
     }

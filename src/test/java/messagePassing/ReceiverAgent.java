@@ -116,7 +116,7 @@ public class ReceiverAgent extends AbstractTucsonAgent {
             /*
              * hi...
              */
-            templ = LogicTuple.parse("msg(sender(" + this.sender.getAgentName()
+            templ = LogicTuple.parse("msg(sender(" + this.sender.getLocalName()
                     + ")," + "content(M), receiver(" + this.myName() + "))");
             reply = this.receive(templ);
             this.say("	< " + reply.getArg("content").getArg(0).toString());
@@ -124,14 +124,14 @@ public class ReceiverAgent extends AbstractTucsonAgent {
              * ...hello...
              */
             msg = LogicTuple.parse("msg(sender(" + this.myName() + "),"
-                    + "content('Hello, " + this.sender.getAgentName() + "!'),"
-                    + "receiver(" + this.sender.getAgentName() + ")" + ")");
-            this.say("> Hello, " + this.sender.getAgentName() + "!");
+                    + "content('Hello, " + this.sender.getLocalName() + "!'),"
+                    + "receiver(" + this.sender.getLocalName() + ")" + ")");
+            this.say("> Hello, " + this.sender.getLocalName() + "!");
             this.send(msg);
             /*
              * ...how are you...
              */
-            templ = LogicTuple.parse("msg(sender(" + this.sender.getAgentName()
+            templ = LogicTuple.parse("msg(sender(" + this.sender.getLocalName()
                     + ")," + "content(M), receiver(" + this.myName() + "))");
             reply = this.receive(templ);
             this.say("	< " + reply.getArg("content").getArg(0).toString());
@@ -140,15 +140,15 @@ public class ReceiverAgent extends AbstractTucsonAgent {
              */
             msg = LogicTuple.parse("msg(sender(" + this.myName() + "),"
                     + "content('Fine thanks, and you "
-                    + this.sender.getAgentName() + "?')," + "receiver("
-                    + this.sender.getAgentName() + ")" + ")");
-            this.say("> Fine thanks, and you " + this.sender.getAgentName()
+                    + this.sender.getLocalName() + "?')," + "receiver("
+                    + this.sender.getLocalName() + ")" + ")");
+            this.say("> Fine thanks, and you " + this.sender.getLocalName()
                     + "?");
             this.send(msg);
             /*
              * ...me too...
              */
-            templ = LogicTuple.parse("msg(sender(" + this.sender.getAgentName()
+            templ = LogicTuple.parse("msg(sender(" + this.sender.getLocalName()
                     + ")," + "content(M), receiver(" + this.myName() + "))");
             reply = this.receive(templ);
             this.say("	< " + reply.getArg("content").getArg(0).toString());
@@ -157,13 +157,13 @@ public class ReceiverAgent extends AbstractTucsonAgent {
              */
             msg = LogicTuple.parse("msg(sender(" + this.myName() + "),"
                     + "content('Nice. Well...bye!')," + "receiver("
-                    + this.sender.getAgentName() + ")" + ")");
+                    + this.sender.getLocalName() + ")" + ")");
             this.say("> Nice. Well...bye!");
             this.send(msg);
             /*
              * ...bye.
              */
-            templ = LogicTuple.parse("msg(sender(" + this.sender.getAgentName()
+            templ = LogicTuple.parse("msg(sender(" + this.sender.getLocalName()
                     + ")," + "content(M), receiver(" + this.myName() + "))");
             reply = this.receive(templ);
             this.say("	< " + reply.getArg("content").getArg(0).toString());

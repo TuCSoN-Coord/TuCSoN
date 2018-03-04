@@ -155,7 +155,7 @@ public abstract class AbstractTucsonAgent implements
      * @return The String name of the agent
      */
     public final String myName() {
-        return this.aid.getAgentName();
+        return this.aid.getLocalName();
     }
 
     /**
@@ -205,7 +205,7 @@ public abstract class AbstractTucsonAgent implements
      * @param msg The message to print
      */
     protected void say(final String msg) {
-        System.out.println("[" + this.getTucsonAgentId().getAgentName() + "]: "
+        System.out.println("[" + this.getTucsonAgentId().getLocalName() + "]: "
                 + msg);
     }
 

@@ -74,16 +74,16 @@ public final class HelloWorldJTuples {
              */
             Tuple res = null;
             if (op.isResultSuccess()) {
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation succeeded.");
                 /*
                  * 7) Get requested operation result.
                  */
                 res = op.getJTupleResult();
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation result is " + res);
             } else {
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation failed.");
             }
             /*
@@ -95,10 +95,10 @@ public final class HelloWorldJTuples {
             op = acc.rdp(tid, template, null);
             if (op.isResultSuccess()) {
                 res = op.getJTupleResult();
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation result is " + res);
             } else {
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation failed.");
             }
             /*

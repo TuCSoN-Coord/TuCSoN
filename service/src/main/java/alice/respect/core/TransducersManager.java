@@ -68,13 +68,13 @@ public enum TransducersManager {
     public synchronized boolean addProbe(final AbstractProbeId id,
             final TransducerId tId, final ISimpleProbe probe) {
         TransducersManager.speak("Adding resource '" + id.getLocalName()
-                + "' to transducer '" + tId.getAgentName() + "'...");
+                + "' to transducer '" + tId.getLocalName() + "'...");
         if (!this.probesToTransducersMap.containsKey(tId)) {
-            TransducersManager.speakErr("Transducer '" + tId.getAgentName()
+            TransducersManager.speakErr("Transducer '" + tId.getLocalName()
                     + "' doesn't exist yet!");
             return false;
         } else if (this.probesToTransducersMap.get(tId).contains(probe)) {
-            TransducersManager.speak("Transducer '" + tId.getAgentName()
+            TransducersManager.speak("Transducer '" + tId.getLocalName()
                     + "' is already associated to probe '" + id.getLocalName()
                     + "'.");
             return false;
@@ -159,7 +159,7 @@ public enum TransducersManager {
     // FIXME Check correctness (synchronization needed?)
     public AbstractProbeId[] getProbes(final TransducerId tId) {
         if (!this.probesToTransducersMap.containsKey(tId)) {
-            TransducersManager.speakErr("Transducer '" + tId.getAgentName()
+            TransducersManager.speakErr("Transducer '" + tId.getLocalName()
                     + "' doesn't exist yet!");
             return null;
         }
@@ -182,7 +182,7 @@ public enum TransducersManager {
     public TransducerStandardInterface getTransducer(final String tId) {
         final Object[] keySet = this.transducersList.keySet().toArray();
         for (final Object element : keySet) {
-            if (((TransducerId) element).getAgentName().equals(tId)) {
+            if (((TransducerId) element).getLocalName().equals(tId)) {
                 return this.transducersList.get(element);
             }
         }
@@ -258,7 +258,7 @@ public enum TransducersManager {
                 return t;
             }
         }
-        TransducersManager.speakErr("Transducer '" + tId.getAgentName()
+        TransducersManager.speakErr("Transducer '" + tId.getLocalName()
                 + "' doesn't exist yet!");
         return null;
     }

@@ -63,16 +63,16 @@ public final class HelloWorld {
              */
             LogicTuple res = null;
             if (op.isResultSuccess()) {
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation succeeded.");
                 /*
                  * 7) Get requested operation result.
                  */
                 res = op.getLogicTupleResult();
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation result is " + res);
             } else {
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation failed.");
             }
             /*
@@ -82,10 +82,10 @@ public final class HelloWorld {
             op = acc.rdp(tid, template, null);
             if (op.isResultSuccess()) {
                 res = op.getLogicTupleResult();
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation result is " + res);
             } else {
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation failed.");
             }
             /*

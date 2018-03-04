@@ -30,7 +30,7 @@ import alice.tuprolog.Term;
  */
 public class AgentId implements AgentIdentifier, Serializable {
 
-    private Term id;
+    protected Term id;
 
     private static AgentIdOperatorManager opManager = new AgentIdOperatorManager();
 

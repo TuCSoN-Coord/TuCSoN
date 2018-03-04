@@ -285,7 +285,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      */
     protected void log(final String msg) {
         if (this.aid != null) {
-            System.out.println("[" + this.aid.getAgentName() + "-spawned]: "
+            System.out.println("[" + this.aid.getLocalName() + "-spawned]: "
                     + msg);
         } else {
             System.out

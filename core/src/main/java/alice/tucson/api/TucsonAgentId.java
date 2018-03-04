@@ -19,6 +19,7 @@ import alice.respect.api.AgentId;
 import alice.respect.api.exceptions.InvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.api.AgentIdentifier;
+import alice.tuprolog.Term;
 
 /**
  *
@@ -26,8 +27,7 @@ import alice.tuplecentre.api.AgentIdentifier;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  *
  */
-public class TucsonAgentId implements AgentIdentifier,
-        Serializable {
+public class TucsonAgentId implements AgentIdentifier, Serializable {
 
     private static final long serialVersionUID = -5788843633820003843L;
 
@@ -105,11 +105,9 @@ public class TucsonAgentId implements AgentIdentifier,
         return this.aid;
     }
 
-    /**
-     *
-     * @return the local name given to the agent by the programmer
-     */
-    public String getAgentName() {
+
+    @Override
+    public String getLocalName() {
         return this.aid.getLocalName();
     }
 
@@ -131,7 +129,7 @@ public class TucsonAgentId implements AgentIdentifier,
     public boolean isEnv() {
         return false;
     }
-    
+
     @Override
     public boolean isGeo() {
         return false;
@@ -140,6 +138,11 @@ public class TucsonAgentId implements AgentIdentifier,
     @Override
     public boolean isTC() {
         return false;
+    }
+
+    @Override
+    public Term toTerm() {
+        return aid.toTerm();
     }
 
     @Override
