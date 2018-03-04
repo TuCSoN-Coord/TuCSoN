@@ -10,7 +10,7 @@ import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -49,7 +49,7 @@ public final class PersistencyTester {
                     "def(1)@localhost:20504");
             final TucsonTupleCentreId ttcidOrg = new TucsonTupleCentreId(
                     "'$ORG'@localhost:20504");
-            final TucsonAgentId aid = new TucsonAgentId("'PersistencyTester'");
+            final TucsonAgentIdDefault aid = new TucsonAgentIdDefault("'PersistencyTester'");
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(aid);
             final EnhancedACC acc = negAcc.playDefaultRole();

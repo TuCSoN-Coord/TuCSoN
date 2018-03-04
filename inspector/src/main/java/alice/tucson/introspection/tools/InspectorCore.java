@@ -22,7 +22,7 @@ import alice.logictuple.LogicTuple;
 import alice.respect.api.AgentId;
 import alice.respect.api.TupleCentreId;
 import alice.respect.situatedness.TransducerId;
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.introspection.WSetEvent;
 import alice.tuplecentre.api.Tuple;
@@ -73,7 +73,7 @@ public class InspectorCore extends alice.tucson.introspection.Inspector {
      * @param tid
      *            the identifier of the tuple centre to inspect
      */
-    public InspectorCore(final InspectorGUI f, final TucsonAgentId id,
+    public InspectorCore(final InspectorGUI f, final TucsonAgentIdDefault id,
             final TucsonTupleCentreId tid) {
         super(id, tid);
         this.form = f;
@@ -212,7 +212,7 @@ public class InspectorCore extends alice.tucson.introspection.Inspector {
                 ev = it.next();
                 if (ev.getSource().isAgent()) {
                     st.append(ev.getOp()).append(" from <")
-                            .append(((TucsonAgentId) ev.getSource()).getLocalName())
+                            .append(((TucsonAgentIdDefault) ev.getSource()).getLocalName())
                             .append("> to <").append(ev.getTarget())
                             .append(">\n");
                 } else if (ev.getSource().isTC()) {

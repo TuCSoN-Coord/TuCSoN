@@ -9,10 +9,10 @@ import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.BulkSyncACC;
 import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -50,7 +50,7 @@ public class SwarmMonitor {
                         + this.tcids[i - 1].getPort());
             }
             NegotiationACC negAcc = TucsonMetaACC
-                    .getNegotiationContext(new TucsonAgentId("tcsMonitor"));
+                    .getNegotiationContext(new TucsonAgentIdDefault("tcsMonitor"));
             this.acc = negAcc.playDefaultRole();
         } catch (TucsonInvalidAgentIdException
                 | TucsonInvalidTupleCentreIdException

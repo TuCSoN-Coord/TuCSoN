@@ -3,10 +3,10 @@
  */
 package helloWorld;
 
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -40,12 +40,12 @@ public final class HelloWorldJTuples {
         /*
          * 1) Build a TuCSoN Agent identifier to contact the TuCSoN system.
          */
-        TucsonAgentId aid = null;
+        TucsonAgentIdDefault aid = null;
         try {
             if (args.length == 1) {
-                aid = new TucsonAgentId(args[0]);
+                aid = new TucsonAgentIdDefault(args[0]);
             } else {
-                aid = new TucsonAgentId("helloWorldMain");
+                aid = new TucsonAgentIdDefault("helloWorldMain");
             }
             /*
              * 2) Get a TuCSoN ACC to enable interaction with the TuCSoN system.

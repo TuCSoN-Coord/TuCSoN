@@ -5,7 +5,7 @@ import java.util.List;
 
 import alice.logictuple.LogicTuple;
 import alice.respect.core.LogicReaction;
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.introspection.Inspector;
@@ -36,7 +36,7 @@ public class Inspector4Gui extends Inspector {
  * **************************************************/
 	
 	public Inspector4Gui(final TucsonTupleCentreId arg1) throws Exception {
-		super(new TucsonAgentId("inspector4gui_" + System.currentTimeMillis()), arg1, true);	
+		super(new TucsonAgentIdDefault("inspector4gui_" + System.currentTimeMillis()), arg1, true);
 		this.observers = new ArrayList<>();
 		protocol = new InspectorProtocol();
 		protocol.setTsetObservType(InspectorProtocol.PROACTIVE_OBSERVATION);

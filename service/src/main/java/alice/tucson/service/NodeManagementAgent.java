@@ -13,7 +13,7 @@ import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.logictuple.exceptions.InvalidLogicTupleOperationException;
 import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.respect.core.RespectOperationDefault;
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
@@ -37,7 +37,7 @@ public class NodeManagementAgent extends Thread {
 
     private final TucsonTupleCentreId config;
     private final TucsonNodeService node;
-    private TucsonAgentId nodeManAid;
+    private TucsonAgentIdDefault nodeManAid;
 
     /**
      *
@@ -51,7 +51,7 @@ public class NodeManagementAgent extends Thread {
             final TucsonNodeService n) {
         super();
         try {
-            this.nodeManAid = new TucsonAgentId("node_management_agent");
+            this.nodeManAid = new TucsonAgentIdDefault("node_management_agent");
         } catch (final TucsonInvalidAgentIdException e) {
             // Cannot happen, the agend id it's specified here
             e.printStackTrace();

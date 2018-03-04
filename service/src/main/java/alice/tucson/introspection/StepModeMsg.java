@@ -13,7 +13,7 @@
  */
 package alice.tucson.introspection;
 
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 
 /**
  * @author Roberto D'Elia
@@ -27,7 +27,7 @@ public class StepModeMsg extends NodeMsg {
      * @param id
      *            the agent id of the sender
      */
-    public StepModeMsg(final TucsonAgentId id) {
+    public StepModeMsg(final TucsonAgentIdDefault id) {
         super(id, "stepMode");
     }
 }

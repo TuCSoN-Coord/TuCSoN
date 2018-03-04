@@ -10,7 +10,7 @@ import java.util.UUID;
 import alice.logictuple.LogicTuple;
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.geolocation.Position;
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOpId;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
@@ -365,7 +365,7 @@ public class OperationHandler {
      *
      * @see alice.tucson.api.TucsonTupleCentreId TucsonTupleCentreId
      */
-    public TucsonOperation doBlockingOperation(final TucsonAgentId aid,
+    public TucsonOperation doBlockingOperation(final TucsonAgentIdDefault aid,
                                                final TupleCentreOpType type, final Object tid, final Tuple t, final Long ms,
                                                final Position position)
             throws TucsonOperationNotPossibleException,
@@ -432,7 +432,7 @@ public class OperationHandler {
      *      TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    public TucsonOperation doNonBlockingOperation(final TucsonAgentId aid,
+    public TucsonOperation doNonBlockingOperation(final TucsonAgentIdDefault aid,
                                                   final TupleCentreOpType type, final Object tid, final Tuple t,
                                                   final TucsonOperationCompletionListener l, Position position)
             throws TucsonOperationNotPossibleException,
@@ -535,7 +535,7 @@ public class OperationHandler {
      * @see TucsonOperationDefault TucsonOperationDefault
      */
     protected synchronized TucsonOperation doOperation(
-            final TucsonAgentId aid, final TucsonTupleCentreId tcid,
+            final TucsonAgentIdDefault aid, final TucsonTupleCentreId tcid,
             final TupleCentreOpType type, final Tuple t,
             final TucsonOperationCompletionListener l, final Position position)
             throws UnreachableNodeException {
@@ -637,7 +637,7 @@ public class OperationHandler {
      * @see alice.tucson.service.ACCProxyNodeSide ACCProxyNodeSide
      */
     public AbstractTucsonProtocol getSession(final TucsonTupleCentreId tid,
-                                             final TucsonAgentId aid) throws UnreachableNodeException {
+                                             final TucsonAgentIdDefault aid) throws UnreachableNodeException {
         final String opNode = alice.util.Tools.removeApices(tid.getNode());
         final int p = tid.getPort();
         ControllerSession tc = this.controllerSessions.get(opNode + ":" + p);

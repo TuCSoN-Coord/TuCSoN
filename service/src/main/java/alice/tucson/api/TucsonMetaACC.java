@@ -54,7 +54,7 @@ public final class TucsonMetaACC {
      * @return the Administrative ACC if given credentials are valid,
      *         {@code null} otherwise
      */
-    public static AdminACC getAdminContext(final TucsonAgentId aid,
+    public static AdminACC getAdminContext(final TucsonAgentIdDefault aid,
                                            final String netid, final int portno, final String username,
                                            final String password) {
         AdminACC acc = null;
@@ -96,7 +96,7 @@ public final class TucsonMetaACC {
      *
      * @return The DefaultACC (which is the most powerful at the moment)
      */
-    public static EnhancedACC getContext(final TucsonAgentId aid) {
+    public static EnhancedACC getContext(final TucsonAgentIdDefault aid) {
         return TucsonMetaACC.getContext(aid, "localhost",
                 TucsonMetaACC.DEFAULT_PORT);
     }
@@ -114,7 +114,7 @@ public final class TucsonMetaACC {
      *
      * @return The DefaultACC (which is the most powerful at the moment)
      */
-    public static EnhancedACC getContext(final TucsonAgentId aid,
+    public static EnhancedACC getContext(final TucsonAgentIdDefault aid,
             final String netid, final int portno) {
         EnhancedACC acc = null;
         try {
@@ -159,7 +159,7 @@ public final class TucsonMetaACC {
             final String netid, final int portno) {
         NegotiationACC acc = null;
         try {
-            acc = new NegotiationACCProxyAgentSide(new TucsonAgentId(aid),
+            acc = new NegotiationACCProxyAgentSide(new TucsonAgentIdDefault(aid),
                     netid, portno);
         } catch (final TucsonInvalidAgentIdException e) {
             System.out.println("[TucsonMetaACC]: Given agent Identifier is NOT valid!");
@@ -181,7 +181,7 @@ public final class TucsonMetaACC {
      *            the Identifier of the agent demanding for the ACC
      * @return the Negotiation ACC requested
      */
-    public static NegotiationACC getNegotiationContext(final TucsonAgentId aid) {
+    public static NegotiationACC getNegotiationContext(final TucsonAgentIdDefault aid) {
         return TucsonMetaACC.getNegotiationContext(aid.toString());
     }
 
@@ -197,7 +197,7 @@ public final class TucsonMetaACC {
      *            the TCP port number of the TuCSoN node to contact
      * @return the Negotiation ACC requested
      */
-    public static NegotiationACC getNegotiationContext(final TucsonAgentId aid,
+    public static NegotiationACC getNegotiationContext(final TucsonAgentIdDefault aid,
             final String netid, final int portno) {
         return TucsonMetaACC.getNegotiationContext(aid.toString(), netid,
                 portno);

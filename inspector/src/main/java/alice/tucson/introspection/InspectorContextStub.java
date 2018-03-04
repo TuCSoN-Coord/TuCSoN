@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.OperationNotAllowedException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -41,7 +41,7 @@ public class InspectorContextStub implements InspectorContext {
     private AbstractTucsonProtocol dialog;
     private boolean exitFlag;
     /** user id */
-    private final TucsonAgentId id;
+    private final TucsonAgentIdDefault id;
     private final ACCDescription profile;
     /** current observation protocol */
     private InspectorProtocol protocol;
@@ -57,7 +57,7 @@ public class InspectorContextStub implements InspectorContext {
      *            whether the inspector is the Gui version (see Dradi MoK
      *            project 2014/2015)
      */
-    public InspectorContextStub(final TucsonAgentId i,
+    public InspectorContextStub(final TucsonAgentIdDefault i,
             final TucsonTupleCentreId tc, final boolean forGui) {
         this.profile = new ACCDescription();
         this.profile.setProperty("agent-identity", i.toString());
@@ -77,7 +77,7 @@ public class InspectorContextStub implements InspectorContext {
         this.exitFlag = false;
     }
 
-    public InspectorContextStub(final TucsonAgentId i,
+    public InspectorContextStub(final TucsonAgentIdDefault i,
             final TucsonTupleCentreId tc) {
         this(i, tc, false);
     }

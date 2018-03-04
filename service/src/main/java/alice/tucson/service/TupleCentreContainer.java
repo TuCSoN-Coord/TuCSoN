@@ -24,7 +24,7 @@ import alice.respect.core.SpecificationSynchInterface;
 import alice.respect.core.TransducersManager;
 import alice.respect.situatedness.TransducerId;
 import alice.respect.situatedness.TransducerStandardInterface;
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonInvalidSpecificationException;
@@ -224,7 +224,7 @@ public final class TupleCentreContainer {
      * @throws OperationTimeOutException           if the notification operation expires timeout
      */
     public static TupleCentreOperation doEnvironmentalOperation(
-            final TupleCentreOpType opType, final TucsonAgentId aid,
+            final TupleCentreOpType opType, final TucsonAgentIdDefault aid,
             final TucsonTupleCentreId tid, final LogicTuple t,
             final OperationCompletionListener l)
             throws OperationTimeOutException,

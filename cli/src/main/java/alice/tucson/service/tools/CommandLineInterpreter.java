@@ -14,8 +14,9 @@
 package alice.tucson.service.tools;
 
 import java.util.Date;
+
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.acc.EnhancedACC;
-import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -78,7 +79,7 @@ public final class CommandLineInterpreter {
                             + " >...");
             EnhancedACC context = null;
             try {
-                context = TucsonMetaACC.getContext(new TucsonAgentId(aid),
+                context = TucsonMetaACC.getContext(new TucsonAgentIdDefault(aid),
                         node, port);
                 context.enterACC();
             } catch (final TucsonInvalidAgentIdException | UnreachableNodeException | TucsonOperationNotPossibleException | TucsonInvalidTupleCentreIdException e) {

@@ -3,9 +3,9 @@ package uniform.swarms.env;
 import java.io.IOException;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -23,7 +23,7 @@ public final class Environment {
 
     private static final String PATH = "./alice/tucson/examples/uniform/swarms/env/evaporation.rsp";
 
-    private static TucsonAgentId me;
+    private static TucsonAgentIdDefault me;
     private static NegotiationACC negAcc;
     private static EnhancedSyncACC acc;
 
@@ -249,7 +249,7 @@ public final class Environment {
      */
     private static void acquireACC() {
         try {
-            Environment.me = new TucsonAgentId("env");
+            Environment.me = new TucsonAgentIdDefault("env");
             Environment.negAcc = TucsonMetaACC
                     .getNegotiationContext(Environment.me);
             Environment.acc = Environment.negAcc.playDefaultRole();

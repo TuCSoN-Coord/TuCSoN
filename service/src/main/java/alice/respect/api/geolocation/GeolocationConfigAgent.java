@@ -11,7 +11,7 @@ import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.respect.api.geolocation.service.GeoServiceId;
 import alice.respect.api.geolocation.service.GeolocationServiceManager;
 import alice.respect.core.RespectOperationDefault;
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
@@ -41,7 +41,7 @@ public class GeolocationConfigAgent extends Thread {
 
     private final TucsonTupleCentreId config;
     private final TucsonNodeService node;
-    private TucsonAgentId nodeManAid;
+    private TucsonAgentIdDefault nodeManAid;
 
     /**
      * Construct a GeolocationConfigAgent
@@ -57,7 +57,7 @@ public class GeolocationConfigAgent extends Thread {
             final TucsonNodeService n) {
         super();
         try {
-            this.nodeManAid = new TucsonAgentId("geolocationConfigAgent");
+            this.nodeManAid = new TucsonAgentIdDefault("geolocationConfigAgent");
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }

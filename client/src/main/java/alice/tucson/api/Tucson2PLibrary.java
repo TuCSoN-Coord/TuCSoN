@@ -86,11 +86,11 @@ public class Tucson2PLibrary extends Library {
      *             identifier
      *
      * @see EnhancedACC EnhancedACC
-     * @see alice.tucson.api.TucsonAgentId TucsonAgentId
+     * @see TucsonAgentIdDefault TucsonAgentId
      */
     public boolean acquire_acc_3(final Term id, final Term nodeHost, final Term portTerm)
             throws TucsonInvalidAgentIdException {
-        TucsonAgentId agentId;
+        TucsonAgentIdDefault agentId;
         if (this.context != null) {
             try {
                 this.context.exit();
@@ -99,7 +99,7 @@ public class Tucson2PLibrary extends Library {
                 return false;
             }
         }
-        agentId = new TucsonAgentId(id.getTerm().toString());
+        agentId = new TucsonAgentIdDefault(id.getTerm().toString());
         
         if (!nodeHost.isGround() || !portTerm.isGround()) {
         	return false;

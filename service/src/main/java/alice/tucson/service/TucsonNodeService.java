@@ -45,7 +45,7 @@ import alice.respect.api.geolocation.GeolocationConfigAgent;
 import alice.respect.core.EnvConfigAgent;
 import alice.respect.core.RespectOperationDefault;
 import alice.respect.core.RespectTC;
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.InvalidConfigException;
@@ -227,7 +227,7 @@ public class TucsonNodeService {
 
     private String adminUsername;
 
-    private final List<TucsonAgentId> agents;
+    private final List<TucsonAgentIdDefault> agents;
 
     // RBAC
     private String baseAgentClass;
@@ -251,7 +251,7 @@ public class TucsonNodeService {
     private boolean listAllRoles;
     private boolean loginRequired;
     private final List<Thread> nodeAgents;
-    private TucsonAgentId nodeAid;
+    private TucsonAgentIdDefault nodeAid;
     private boolean observed;
     private ObservationService obsService;
     private Tuple persistencyTemplate;
@@ -292,7 +292,7 @@ public class TucsonNodeService {
         this.tcpPort = portNumber;
         this.persistencyTemplate = persistTempl;
         try {
-            this.nodeAid = new TucsonAgentId("'$TucsonNodeService-Agent'");
+            this.nodeAid = new TucsonAgentIdDefault("'$TucsonNodeService-Agent'");
             this.idConfigTC = new TucsonTupleCentreId("'$ORG'", "localhost",
                     String.valueOf(this.tcpPort));
             this.idObsTC = new TucsonTupleCentreId("'$OBS'", "localhost",
@@ -310,7 +310,7 @@ public class TucsonNodeService {
             e.printStackTrace();
         }
         this.observed = false;
-        this.agents = new ArrayList<TucsonAgentId>();
+        this.agents = new ArrayList<TucsonAgentIdDefault>();
         this.nodeAgents = new ArrayList<Thread>();
         this.inspectorAgents = new ArrayList<InspectorContextSkel>();
         this.tcs = new ArrayList<RespectTC>();
@@ -344,7 +344,7 @@ public class TucsonNodeService {
      * @param aid
      *            the identifier of the agent to add to this TuCSoN node
      */
-    public synchronized void addAgent(final TucsonAgentId aid) {
+    public synchronized void addAgent(final TucsonAgentIdDefault aid) {
         boolean present = false;
         if (!this.agents.contains(aid)) {
             this.agents.add(aid);
@@ -384,7 +384,7 @@ public class TucsonNodeService {
      */
     // why another slightly different method to add an agent? is this for
     // inter-tc agents?
-    public void addTCAgent(final TucsonAgentId agentId,
+    public void addTCAgent(final TucsonAgentIdDefault agentId,
             final TucsonTupleCentreId tid) {
         this.cores.get(tid.getLocalName()).addUser(agentId);
     }
@@ -756,7 +756,7 @@ public class TucsonNodeService {
      * @param aid
      *            the identifier of the TuCSoN agent to be removed from users
      */
-    public synchronized void removeAgent(final TucsonAgentId aid) {
+    public synchronized void removeAgent(final TucsonAgentIdDefault aid) {
         boolean present = true;
         if (this.agents.contains(aid)) {
             this.agents.remove(aid);

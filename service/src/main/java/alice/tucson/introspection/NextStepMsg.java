@@ -13,7 +13,7 @@
  */
 package alice.tucson.introspection;
 
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 
 /**
  *
@@ -29,7 +29,7 @@ public class NextStepMsg extends NodeMsg {
      * @param id
      *            the agent id of the sender
      */
-    public NextStepMsg(final TucsonAgentId id) {
+    public NextStepMsg(final TucsonAgentIdDefault id) {
         super(id, "nextStep");
     }
 }

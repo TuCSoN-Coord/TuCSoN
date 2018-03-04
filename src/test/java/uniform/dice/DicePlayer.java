@@ -28,10 +28,10 @@ import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -64,7 +64,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
             Logger.getAnonymousLogger().log(Level.INFO,
                     "...boot done, now configuring space...");
             final NegotiationACC negAcc = TucsonMetaACC
-                    .getNegotiationContext(new TucsonAgentId("god"));
+                    .getNegotiationContext(new TucsonAgentIdDefault("god"));
             final EnhancedSyncACC acc = negAcc.playDefaultRole();
             acc.outAll(
                     new TucsonTupleCentreId("dice", "localhost", "20504"),

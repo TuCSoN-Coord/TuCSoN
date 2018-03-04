@@ -12,7 +12,7 @@
  */
 package alice.tucson.service;
 
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.api.ObservableEventListener;
 
@@ -31,7 +31,7 @@ public interface NodeServiceListener extends ObservableEventListener {
      * @param aid
      *            the agent identifier
      */
-    void accEntered(TucsonAgentId aid);
+    void accEntered(TucsonAgentIdDefault aid);
 
     /**
      * Reacts to ACC release by agent.
@@ -39,7 +39,7 @@ public interface NodeServiceListener extends ObservableEventListener {
      * @param aid
      *            the agent identifier
      */
-    void accQuit(TucsonAgentId aid);
+    void accQuit(TucsonAgentIdDefault aid);
 
     /**
      * Reacts to tuplecentre creation.

@@ -6,7 +6,7 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.respect.core.RespectOperationDefault;
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -48,7 +48,7 @@ public class Spawn2PLibrary extends Library {
         return new Struct(termArray);
     }
 
-    private TucsonAgentId aid;
+    private TucsonAgentIdDefault aid;
     private TucsonTupleCentreId target;
     private TucsonTupleCentreId tcid;
 
@@ -64,7 +64,7 @@ public class Spawn2PLibrary extends Library {
         if (this.aid == null) {
             return new TucsonIdWrapper<TucsonTupleCentreId>(this.tcid);
         }
-        return new TucsonIdWrapper<TucsonAgentId>(this.aid);
+        return new TucsonIdWrapper<TucsonAgentIdDefault>(this.aid);
     }
 
     /**
@@ -739,7 +739,7 @@ public class Spawn2PLibrary extends Library {
      * @param id
      *            the identifier of the agent whose behalf this spawn behaves on
      */
-    public final void setSpawnerId(final TucsonAgentId id) {
+    public final void setSpawnerId(final TucsonAgentIdDefault id) {
         this.aid = id;
         this.tcid = null;
     }

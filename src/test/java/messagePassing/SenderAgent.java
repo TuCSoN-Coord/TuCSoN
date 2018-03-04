@@ -3,10 +3,10 @@ package messagePassing;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -39,7 +39,7 @@ public class SenderAgent extends AbstractTucsonAgent {
 
     private OrdinaryAndSpecificationSyncACC acc;
     private TucsonOperation op;
-    private TucsonAgentId receiver;
+    private TucsonAgentIdDefault receiver;
 
     private TucsonTupleCentreId tid;
 
@@ -58,7 +58,7 @@ public class SenderAgent extends AbstractTucsonAgent {
             throws TucsonInvalidAgentIdException {
         super(aid);
         try {
-            this.receiver = new TucsonAgentId(who);
+            this.receiver = new TucsonAgentIdDefault(who);
             this.tid = new TucsonTupleCentreId(node);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");

@@ -11,9 +11,9 @@ import alice.respect.situatedness.AbstractTransducer;
 import alice.respect.situatedness.ISimpleProbe;
 import alice.respect.situatedness.TransducerId;
 import alice.respect.situatedness.TransducerStandardInterface;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -44,7 +44,7 @@ public class ActualSensor implements ISimpleProbe {
     public ActualSensor(final AbstractProbeId i) {
         this.pid = i;
         try {
-            final TucsonAgentId aid = new TucsonAgentId("sensor");
+            final TucsonAgentIdDefault aid = new TucsonAgentIdDefault("sensor");
             this.acc = TucsonMetaACC.getContext(aid, ActualSensor.DEFAULT_HOST,
                     Integer.valueOf(ActualSensor.DEFAULT_PORT));
             this.tempTc = new TucsonTupleCentreId("tempTc",

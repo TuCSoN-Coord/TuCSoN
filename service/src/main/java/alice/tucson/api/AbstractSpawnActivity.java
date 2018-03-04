@@ -31,7 +31,7 @@ import alice.tuplecentre.core.TupleCentreOpType;
  */
 public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     private static final long serialVersionUID = -6354837455366449916L;
-    private TucsonAgentId aid;
+    private TucsonAgentIdDefault aid;
     private TucsonTupleCentreId target;
     private TucsonTupleCentreId tcid;
 
@@ -66,7 +66,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
         if (this.aid == null) {
             return new TucsonIdWrapper<TucsonTupleCentreId>(this.tcid);
         }
-        return new TucsonIdWrapper<TucsonAgentId>(this.aid);
+        return new TucsonIdWrapper<TucsonAgentIdDefault>(this.aid);
     }
 
     /**
@@ -95,7 +95,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param id
      *            the identifier of the agent "owner" of the spawned activity.
      */
-    public final void setSpawnerId(final TucsonAgentId id) {
+    public final void setSpawnerId(final TucsonAgentIdDefault id) {
         this.aid = id;
         this.tcid = null;
     }

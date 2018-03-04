@@ -26,7 +26,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
 import alice.tucson.api.acc.EnhancedACC;
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonMetaACC;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -96,7 +96,7 @@ public class EditSpec extends javax.swing.JFrame {
         this.pack();
         this.tid = t;
         try {
-            this.context = TucsonMetaACC.getContext(new TucsonAgentId(
+            this.context = TucsonMetaACC.getContext(new TucsonAgentIdDefault(
                     "'$Inspector-" + System.currentTimeMillis() + "'"));
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();

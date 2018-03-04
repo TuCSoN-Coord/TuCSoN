@@ -30,7 +30,7 @@ import alice.respect.api.geolocation.service.AbstractGeolocationService;
 import alice.respect.api.geolocation.service.GeoServiceId;
 import alice.respect.api.geolocation.service.GeolocationServiceManager;
 import alice.respect.api.place.IPlace;
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
 import alice.tucson.api.TucsonTupleCentreId;
@@ -98,7 +98,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
     /**
      * TuCSoN Agent Identifier
      */
-    protected TucsonAgentId aid;
+    protected TucsonAgentIdDefault aid;
 
     /**
      * The handlers thread pool to carry out coordination services requests
@@ -164,9 +164,9 @@ public class ACCProxyAgentSide implements EnhancedACC {
     public ACCProxyAgentSide(final Object agId, final String n, final int p)
             throws TucsonInvalidAgentIdException {
         if (agId.getClass().getName().equals("alice.tucson.api.TucsonAgentId")) {
-            this.aid = (TucsonAgentId) agId;
+            this.aid = (TucsonAgentIdDefault) agId;
         } else {
-            this.aid = new TucsonAgentId(agId.toString());
+            this.aid = new TucsonAgentIdDefault(agId.toString());
         }
         this.node = n;
         this.port = p;
@@ -179,9 +179,9 @@ public class ACCProxyAgentSide implements EnhancedACC {
     public ACCProxyAgentSide(final Object agId, final String n, final int p,
             final UUID agentUUID) throws TucsonInvalidAgentIdException {
         if (agId.getClass().getName().equals("alice.tucson.api.TucsonAgentId")) {
-            this.aid = (TucsonAgentId) agId;
+            this.aid = (TucsonAgentIdDefault) agId;
         } else {
-            this.aid = new TucsonAgentId(agId.toString());
+            this.aid = new TucsonAgentIdDefault(agId.toString());
         }
         this.node = n;
         this.port = p;

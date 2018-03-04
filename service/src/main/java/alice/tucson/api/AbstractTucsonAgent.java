@@ -65,7 +65,7 @@ public abstract class AbstractTucsonAgent implements
     }
 
     private static final int DEFAULT_PORT = 20504;
-    private final TucsonAgentId aid;
+    private final TucsonAgentIdDefault aid;
     private EnhancedACC context;
     private final String node;
     private final int port;
@@ -84,7 +84,7 @@ public abstract class AbstractTucsonAgent implements
      */
     public AbstractTucsonAgent(final String id)
             throws TucsonInvalidAgentIdException {
-        this(new TucsonAgentId(id), "localhost",
+        this(new TucsonAgentIdDefault(id), "localhost",
                 AbstractTucsonAgent.DEFAULT_PORT);
     }
 
@@ -99,7 +99,7 @@ public abstract class AbstractTucsonAgent implements
      */
     public AbstractTucsonAgent(final String id, final String netid)
             throws TucsonInvalidAgentIdException {
-        this(new TucsonAgentId(id), netid, AbstractTucsonAgent.DEFAULT_PORT);
+        this(new TucsonAgentIdDefault(id), netid, AbstractTucsonAgent.DEFAULT_PORT);
     }
 
     /**
@@ -114,7 +114,7 @@ public abstract class AbstractTucsonAgent implements
      */
     public AbstractTucsonAgent(final String id, final String netid, final int p)
             throws TucsonInvalidAgentIdException {
-        this(new TucsonAgentId(id), netid, p);
+        this(new TucsonAgentIdDefault(id), netid, p);
     }
 
     /**
@@ -125,7 +125,7 @@ public abstract class AbstractTucsonAgent implements
      * @param netid The ip address of the TuCSoN Node to contact
      * @param p     The listening port of the TuCSoN Node to contact
      */
-    private AbstractTucsonAgent(final TucsonAgentId id, final String netid,
+    private AbstractTucsonAgent(final TucsonAgentIdDefault id, final String netid,
                                 final int p) {
         this.aid = id;
         this.node = netid;
@@ -137,7 +137,7 @@ public abstract class AbstractTucsonAgent implements
      *
      * @return The TucsonAgentId for this agent
      */
-    public final TucsonAgentId getTucsonAgentId() {
+    public final TucsonAgentIdDefault getTucsonAgentId() {
         return this.aid;
     }
 

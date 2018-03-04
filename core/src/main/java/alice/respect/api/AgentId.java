@@ -107,22 +107,22 @@ public class AgentId implements AgentIdentifier, Serializable {
     }
 
     @Override
-    public boolean isTC() {
+    public boolean isGeo() {
         return false;
     }
 
     @Override
-    public String toString() {
-        return this.id.toString();
-    }
-
-    @Override
-    public boolean isGeo() {
+    public boolean isTC() {
         return false;
     }
 
     @Override
     public Term toTerm() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return this.id.toString();
     }
 }

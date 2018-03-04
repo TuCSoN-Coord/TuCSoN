@@ -42,7 +42,7 @@ import alice.respect.core.tupleset.ITupleSet;
 import alice.respect.core.tupleset.TupleSetCoord;
 import alice.respect.core.tupleset.TupleSetSpec;
 import alice.tucson.api.AbstractSpawnActivity;
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -1684,7 +1684,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 					final Prolog solver = new Prolog();
 					final Spawn2PLibrary s2pLib = new Spawn2PLibrary();
 					if (owner.isAgent()) {
-						final TucsonAgentId aid = new TucsonAgentId(((AgentIdentifier) owner).toString());
+						final TucsonAgentIdDefault aid = new TucsonAgentIdDefault(((AgentIdentifier) owner).toString());
 						this.log("spawnActivity.aid = " + aid);
 						s2pLib.setSpawnerId(aid);
 					} else {
@@ -1730,7 +1730,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 					if (AbstractSpawnActivity.class.isAssignableFrom(toSpawn)) {
 						final AbstractSpawnActivity instance = (AbstractSpawnActivity) toSpawn.newInstance();
 						if (owner.isAgent()) {
-							final TucsonAgentId aid = new TucsonAgentId(((AgentIdentifier) owner).toString());
+							final TucsonAgentIdDefault aid = new TucsonAgentIdDefault(((AgentIdentifier) owner).toString());
 							this.log("spawnActivity.aid = " + aid);
 							instance.setSpawnerId(aid);
 						} else {

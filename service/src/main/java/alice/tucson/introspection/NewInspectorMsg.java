@@ -13,7 +13,7 @@
  */
 package alice.tucson.introspection;
 
-import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonAgentIdDefault;
 
 /**
  *
@@ -35,8 +35,8 @@ public class NewInspectorMsg extends NodeMsg {
      * @param i
      *            the inspection protocol used
      */
-    public NewInspectorMsg(final TucsonAgentId id, final String tcn,
-            final InspectorProtocol i) {
+    public NewInspectorMsg(final TucsonAgentIdDefault id, final String tcn,
+                           final InspectorProtocol i) {
         super(id, "newInspector");
         this.tcName = tcn;
         this.info = i;
