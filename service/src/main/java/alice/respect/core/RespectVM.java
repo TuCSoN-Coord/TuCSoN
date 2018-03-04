@@ -20,7 +20,7 @@ import alice.logictuple.LogicTuple;
 import alice.respect.api.IRespectTC;
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.OperationNotPossibleException;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.introspection.WSetEvent;
 import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.InspectableEventListener;
@@ -121,7 +121,7 @@ public class RespectVM implements Runnable {
      *
      */
     public void disablePersistency(final String path,
-            final TucsonTupleCentreId fileName) {
+            final TucsonTupleCentreIdDefault fileName) {
         this.context.disablePersistency(path, fileName);
     }
 
@@ -170,7 +170,7 @@ public class RespectVM implements Runnable {
      *
      */
     public void enablePersistency(final String path,
-            final TucsonTupleCentreId fileName) {
+            final TucsonTupleCentreIdDefault fileName) {
         this.context.enablePersistency(path, fileName);
     }
 
@@ -462,7 +462,7 @@ public class RespectVM implements Runnable {
      *
      */
     public void recoveryPersistent(final String path, final String file,
-            final TucsonTupleCentreId tcName) {
+            final TucsonTupleCentreIdDefault tcName) {
         this.context.recoveryPersistent(path, file, tcName);
     }
 

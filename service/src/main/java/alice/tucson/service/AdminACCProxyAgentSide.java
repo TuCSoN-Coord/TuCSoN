@@ -11,8 +11,8 @@ import alice.logictuple.exceptions.InvalidTupleArgumentException;
 import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.respect.api.exceptions.OperationNotAllowedException;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.AdminACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.*;
 import alice.tucson.rbac.AuthorisedAgent;
 import alice.tucson.rbac.Permission;
@@ -451,12 +451,12 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
 	                final String localNodeAddress = localhost.getHostAddress();
 	                tmpNode = localNodeAddress;
 	            } catch (final UnknownHostException e) {
-	                return new TucsonTupleCentreId(TC_ORG, "'"
+	                return new TucsonTupleCentreIdDefault(TC_ORG, "'"
 	                        + tmpNode + "'", "" + tmpPort);
 	            } 
 	        }
         }
-        return new TucsonTupleCentreId(TC_ORG, "'" + tmpNode
+        return new TucsonTupleCentreIdDefault(TC_ORG, "'" + tmpNode
                 + "'", "" + tmpPort);
 
     }

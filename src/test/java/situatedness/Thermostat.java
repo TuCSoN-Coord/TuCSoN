@@ -10,10 +10,10 @@ import alice.logictuple.Value;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -70,10 +70,10 @@ public final class Thermostat {
              * Thermostat.DEFAULT_HOST,
              * Integer.valueOf(Thermostat.DEFAULT_PORT));
              */
-            final TucsonTupleCentreId configTc = new TucsonTupleCentreId(
+            final TucsonTupleCentreIdDefault configTc = new TucsonTupleCentreIdDefault(
                     "'$ENV'", Thermostat.DEFAULT_HOST, Thermostat.DEFAULT_PORT);
             /* Set up temperature */
-            final TucsonTupleCentreId tempTc = new TucsonTupleCentreId(
+            final TucsonTupleCentreIdDefault tempTc = new TucsonTupleCentreIdDefault(
                     "tempTc", Thermostat.DEFAULT_HOST, Thermostat.DEFAULT_PORT);
             int bootT;
             do {
@@ -84,7 +84,7 @@ public final class Thermostat {
             acc.out(tempTc, bootTemp, null);
             /* Set up sensor */
             Thermostat.log(aid.toString(), "Set up sensor...");
-            final TucsonTupleCentreId sensorTc = new TucsonTupleCentreId(
+            final TucsonTupleCentreIdDefault sensorTc = new TucsonTupleCentreIdDefault(
                     "sensorTc", Thermostat.DEFAULT_HOST,
                     Thermostat.DEFAULT_PORT);
             try {
@@ -106,7 +106,7 @@ public final class Thermostat {
             acc.out(configTc, sensorTuple, null);
             /* Set up actuator */
             Thermostat.log(aid.toString(), "Set up actuator...");
-            final TucsonTupleCentreId actuatorTc = new TucsonTupleCentreId(
+            final TucsonTupleCentreIdDefault actuatorTc = new TucsonTupleCentreIdDefault(
                     "actuatorTc", Thermostat.DEFAULT_HOST,
                     Thermostat.DEFAULT_PORT);
             try {

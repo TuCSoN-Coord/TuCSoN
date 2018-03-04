@@ -5,10 +5,10 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -88,7 +88,7 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent {
                     .getNegotiationContext(this.getTucsonAgentId());
             final OrdinaryAndSpecificationSyncACC acc = negAcc.playDefaultRole();
 
-            final TucsonTupleCentreId table = new TucsonTupleCentreId("table",
+            final TucsonTupleCentreIdDefault table = new TucsonTupleCentreIdDefault("table",
                     this.ip, this.port);
             this.say("Injecting 'table' ReSpecT specification in tc < "
                     + table.toString() + " >...");

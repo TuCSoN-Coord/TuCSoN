@@ -8,11 +8,11 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -45,9 +45,9 @@ public final class PersistencyTester {
             } catch (final DialogInitializationException e) {
                 e.printStackTrace();
             }
-            final TucsonTupleCentreId ttcid = new TucsonTupleCentreId(
+            final TucsonTupleCentreIdDefault ttcid = new TucsonTupleCentreIdDefault(
                     "def(1)@localhost:20504");
-            final TucsonTupleCentreId ttcidOrg = new TucsonTupleCentreId(
+            final TucsonTupleCentreIdDefault ttcidOrg = new TucsonTupleCentreIdDefault(
                     "'$ORG'@localhost:20504");
             final TucsonAgentIdDefault aid = new TucsonAgentIdDefault("'PersistencyTester'");
             final NegotiationACC negAcc = TucsonMetaACC

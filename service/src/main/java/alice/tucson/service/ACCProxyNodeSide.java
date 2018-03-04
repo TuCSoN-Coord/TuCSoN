@@ -22,7 +22,7 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonInvalidSpecificationException;
@@ -60,7 +60,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     private final TucsonNodeService node;
     private final Map<Long, Long> opVsReq;
     private final Map<Long, TucsonMsgRequest> requests;
-    private TucsonTupleCentreId tcId;
+    private TucsonTupleCentreIdDefault tcId;
 
     /**
      *
@@ -92,7 +92,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
         String name = p.getProperty("agent-identity");
         if (name == null) {
             name = p.getProperty("tc-identity");
-            this.tcId = new TucsonTupleCentreId(name);
+            this.tcId = new TucsonTupleCentreIdDefault(name);
             this.agentId = new TucsonAgentIdDefault("tcAgent", this.tcId);
         } else {
             this.agentId = new TucsonAgentIdDefault(name);
@@ -165,7 +165,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
         this.node.addAgent(this.agentId);
         TucsonMsgRequest msg;
         TucsonMsgReply reply;
-        TucsonTupleCentreId tid;
+        TucsonTupleCentreIdDefault tid;
         final LogicTuple res = null;
         List<LogicTuple> resList;
         while (!this.ex) {
@@ -191,7 +191,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                 }
             }
             try {
-                tid = new TucsonTupleCentreId(evMsg.getReactingTC());
+                tid = new TucsonTupleCentreIdDefault(evMsg.getReactingTC());
             } catch (final TucsonInvalidTupleCentreIdException e) {
                 e.printStackTrace();
                 break;

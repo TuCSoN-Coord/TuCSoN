@@ -67,7 +67,7 @@ public class TucsonAgentIdDefault implements TucsonAgentId, Serializable {
      * @param tcId the identifier of the tuple centre the agent behind this
      *             identifier represents
      */
-    public TucsonAgentIdDefault(final String name, final TucsonTupleCentreId tcId) {
+    public TucsonAgentIdDefault(final String name, final TucsonTupleCentreIdDefault tcId) {
         this.aid = new AgentId(name, tcId);
     }
 

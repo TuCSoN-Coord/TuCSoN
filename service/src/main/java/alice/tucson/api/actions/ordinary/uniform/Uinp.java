@@ -24,7 +24,7 @@ import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.UniformAsyncACC;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -52,7 +52,7 @@ public class Uinp extends AbstractTucsonOrdinaryAction {
      * @param t
      *            the logic tuple argument of this coordination operation
      */
-    public Uinp(final TucsonTupleCentreId tc, final LogicTuple t) {
+    public Uinp(final TucsonTupleCentreIdDefault tc, final LogicTuple t) {
         super(tc, t);
     }
 

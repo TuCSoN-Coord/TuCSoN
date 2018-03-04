@@ -41,7 +41,7 @@ import alice.respect.core.RespectOperationDefault;
 import alice.respect.core.RespectVMContext;
 import alice.respect.core.TransducersManager;
 import alice.respect.situatedness.TransducerId;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.NetworkUtils;
@@ -83,8 +83,8 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 return true;
             }
         }
-        if (source instanceof TucsonTupleCentreId) {
-            final TucsonTupleCentreId ttcid = (TucsonTupleCentreId) source;
+        if (source instanceof TucsonTupleCentreIdDefault) {
+            final TucsonTupleCentreIdDefault ttcid = (TucsonTupleCentreIdDefault) source;
             if (alice.util.Tools.removeApices(ttcid.getNode()).equals(
                     Respect2PLibrary.getFirstActiveIP())) {
                 return true;

@@ -23,10 +23,10 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonOperationCompletionListener;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -69,10 +69,10 @@ public class PrimeCalculator extends AbstractTucsonAgent {
 
         private final EnhancedAsyncACC eaacc;
         private final AsynchOpsHelper help;
-        private final TucsonTupleCentreId ttcid;
+        private final TucsonTupleCentreIdDefault ttcid;
 
         public InpHandler(final EnhancedAsyncACC acc,
-                final TucsonTupleCentreId tid, final AsynchOpsHelper aqm) {
+                          final TucsonTupleCentreIdDefault tid, final AsynchOpsHelper aqm) {
             this.eaacc = acc;
             this.ttcid = tid;
             this.help = aqm;
@@ -207,7 +207,7 @@ public class PrimeCalculator extends AbstractTucsonAgent {
         try {
             super.say("Started");
             final EnhancedAsyncACC acc = this.getContext();
-            final TucsonTupleCentreId tid = new TucsonTupleCentreId("default",
+            final TucsonTupleCentreIdDefault tid = new TucsonTupleCentreIdDefault("default",
                     "localhost", "20504");
             final AsynchOpsHelper helper = new AsynchOpsHelper("'helper4"
                     + this.getTucsonAgentId() + "'");

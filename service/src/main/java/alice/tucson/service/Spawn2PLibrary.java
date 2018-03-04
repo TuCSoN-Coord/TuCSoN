@@ -7,7 +7,7 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.api.Tuple;
@@ -49,8 +49,8 @@ public class Spawn2PLibrary extends Library {
     }
 
     private TucsonAgentIdDefault aid;
-    private TucsonTupleCentreId target;
-    private TucsonTupleCentreId tcid;
+    private TucsonTupleCentreIdDefault target;
+    private TucsonTupleCentreIdDefault tcid;
 
     /**
      * Both agents and the coordination medium itself can spawn() a computation,
@@ -62,7 +62,7 @@ public class Spawn2PLibrary extends Library {
      */
     public final TucsonIdWrapper<?> getSpawnerId() {
         if (this.aid == null) {
-            return new TucsonIdWrapper<TucsonTupleCentreId>(this.tcid);
+            return new TucsonIdWrapper<TucsonTupleCentreIdDefault>(this.tcid);
         }
         return new TucsonIdWrapper<TucsonAgentIdDefault>(this.aid);
     }
@@ -71,7 +71,7 @@ public class Spawn2PLibrary extends Library {
      *
      * @return the tuple centre identifier of the target tuple centre
      */
-    public final TucsonTupleCentreId getTargetTC() {
+    public final TucsonTupleCentreIdDefault getTargetTC() {
         return this.target;
     }
 
@@ -750,7 +750,7 @@ public class Spawn2PLibrary extends Library {
      *            the identifier of the tuple centre whose behalf this spawn
      *            behaves on
      */
-    public final void setSpawnerId(final TucsonTupleCentreId id) {
+    public final void setSpawnerId(final TucsonTupleCentreIdDefault id) {
         this.aid = null;
         this.tcid = id;
     }
@@ -760,7 +760,7 @@ public class Spawn2PLibrary extends Library {
      * @param id
      *            the identifier of the tuple centre this spawn is operating on
      */
-    public final void setTargetTC(final TucsonTupleCentreId id) {
+    public final void setTargetTC(final TucsonTupleCentreIdDefault id) {
         this.target = id;
     }
 

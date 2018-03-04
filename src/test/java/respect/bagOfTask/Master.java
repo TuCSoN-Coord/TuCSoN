@@ -5,10 +5,10 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -80,7 +80,7 @@ public class Master extends AbstractTucsonAgent {
             /*
              * Our work has to be done in a custom-defined tuplecentre.
              */
-            final TucsonTupleCentreId ttcid = new TucsonTupleCentreId(
+            final TucsonTupleCentreIdDefault ttcid = new TucsonTupleCentreIdDefault(
                     "bagoftask", this.ip, this.port);
             this.say("Injecting ReSpecT Specification...");
             /*

@@ -164,8 +164,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.get(tid, (Long) null);
         if (op.isResultSuccess()) {
@@ -206,8 +206,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.getS(tid, (Long) null);
         if (op.isResultSuccess()) {
@@ -227,7 +227,7 @@ public class Tucson2PLibrary extends Library {
      *         tuProlog agents
      *
      * @see alice.tuprolog.Theory Theory
-     * @see alice.tucson.api.TucsonTupleCentreId TucsonTupleCentreId
+     * @see TucsonTupleCentreIdDefault TucsonTupleCentreId
      */
     @Override
     public String getTheory() {
@@ -327,8 +327,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.in(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
@@ -370,8 +370,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg2.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg2.getTerm().toString());
         TucsonOperation op;
         op = this.context.inAll(tid, new LogicTuple(arg0.getTerm()),
                 (Long) null);
@@ -421,8 +421,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg3.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
         op = this.context.inS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
@@ -464,8 +464,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.inp(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
@@ -513,8 +513,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg3.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
         op = this.context.inpS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
@@ -556,8 +556,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.no(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (!op.isResultSuccess()) {
@@ -599,8 +599,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg2.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg2.getTerm().toString());
         TucsonOperation op;
         op = this.context.noAll(tid, new LogicTuple(arg0.getTerm()),
                 (Long) null);
@@ -650,8 +650,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg3.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
         op = this.context.noS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
@@ -693,8 +693,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.nop(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (!op.isResultSuccess()) {
@@ -742,8 +742,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg3.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
         op = this.context.nopS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
@@ -785,8 +785,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.out(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         return op.isResultSuccess();
@@ -823,8 +823,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.outAll(tid, new LogicTuple(arg0.getTerm()),
                 (Long) null);
@@ -870,8 +870,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg3.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
         op = this.context.outS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
@@ -909,8 +909,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.rd(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
@@ -952,8 +952,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg2.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg2.getTerm().toString());
         TucsonOperation op;
         op = this.context.rdAll(tid, new LogicTuple(arg0.getTerm()),
                 (Long) null);
@@ -1004,8 +1004,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg3.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
         op = this.context.rdS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
@@ -1048,8 +1048,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.rdp(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
@@ -1098,8 +1098,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg3.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
         op = this.context.rdpS(tid, new LogicTuple(event.getTerm()),
                 new LogicTuple(guards.getTerm()),
@@ -1185,8 +1185,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.set(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         return op.isResultSuccess();
@@ -1225,8 +1225,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context
                 .setS(tid, new LogicTuple(arg0.getTerm()), (Long) null);
@@ -1265,8 +1265,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.spawn(tid, new LogicTuple(arg0.getTerm()),
                 (Long) null);
@@ -1305,8 +1305,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.uin(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
@@ -1347,8 +1347,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context
                 .uinp(tid, new LogicTuple(arg0.getTerm()), (Long) null);
@@ -1390,8 +1390,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.uno(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (!op.isResultSuccess()) {
@@ -1432,8 +1432,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context
                 .unop(tid, new LogicTuple(arg0.getTerm()), (Long) null);
@@ -1475,8 +1475,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context.urd(tid, new LogicTuple(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
@@ -1517,8 +1517,8 @@ public class Tucson2PLibrary extends Library {
         if (this.context == null) {
             return false;
         }
-        TucsonTupleCentreId tid;
-        tid = new TucsonTupleCentreId(arg1.getTerm().toString());
+        TucsonTupleCentreIdDefault tid;
+        tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context
                 .urdp(tid, new LogicTuple(arg0.getTerm()), (Long) null);

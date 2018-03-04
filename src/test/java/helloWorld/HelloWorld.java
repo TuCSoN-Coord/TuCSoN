@@ -9,7 +9,7 @@ import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -47,7 +47,7 @@ public final class HelloWorld {
             /*
              * 3) Define the tuplecentre target of your coordination operations.
              */
-            final TucsonTupleCentreId tid = new TucsonTupleCentreId("default",
+            final TucsonTupleCentreIdDefault tid = new TucsonTupleCentreIdDefault("default",
                     "localhost", "20504");
             /*
              * 4) Build the tuple using the communication language.

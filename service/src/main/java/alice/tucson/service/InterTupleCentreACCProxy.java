@@ -23,7 +23,7 @@ import alice.logictuple.LogicTuple;
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.geolocation.Position;
 import alice.tucson.api.TucsonOpId;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -215,7 +215,7 @@ OperationCompletionListener {
 
     private static final int TRIES = 3;
     // aid is the source tuple centre Identifier
-    private TucsonTupleCentreId aid;
+    private TucsonTupleCentreIdDefault aid;
     private final Map<String, ControllerSession> controllerSessions;
     private final List<TucsonOpCompletionEvent> events;
     private final Map<Long, AbstractTupleCentreOperation> operations;
@@ -238,9 +238,9 @@ OperationCompletionListener {
             throws TucsonInvalidTupleCentreIdException {
         if ("alice.tucson.api.TucsonTupleCentreId".equals(id.getClass()
                 .getName())) {
-            this.aid = (TucsonTupleCentreId) id;
+            this.aid = (TucsonTupleCentreIdDefault) id;
         } else if ("java.lang.String".equals(id.getClass().getName())) {
-            this.aid = new TucsonTupleCentreId((String) id);
+            this.aid = new TucsonTupleCentreIdDefault((String) id);
         } else {
             throw new TucsonInvalidTupleCentreIdException();
         }
@@ -257,21 +257,21 @@ OperationCompletionListener {
             final AbstractTupleCentreOperation op)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
-        TucsonTupleCentreId tcid = null;
+        TucsonTupleCentreIdDefault tcid = null;
         if ("alice.respect.api.TupleCentreId".equals(tid.getClass().getName())) {
             final TupleCentreId id = (TupleCentreId) tid;
             try {
-                tcid = new TucsonTupleCentreId(id.getLocalName(), id.getNode(),
+                tcid = new TucsonTupleCentreIdDefault(id.getLocalName(), id.getNode(),
                         String.valueOf(id.getPort()));
             } catch (final TucsonInvalidTupleCentreIdException e) {
                 e.printStackTrace();
             }
         } else if ("alice.tucson.api.TucsonTupleCentreId".equals(tid.getClass()
                 .getName())) {
-            tcid = (TucsonTupleCentreId) tid;
+            tcid = (TucsonTupleCentreIdDefault) tid;
         } else if ("java.lang.String".equals(tid.getClass().getName())) {
             try {
-                tcid = new TucsonTupleCentreId((String) tid);
+                tcid = new TucsonTupleCentreIdDefault((String) tid);
             } catch (final TucsonInvalidTupleCentreIdException e) {
                 throw new TucsonOperationNotPossibleException();
             }
@@ -403,7 +403,7 @@ OperationCompletionListener {
         return null;
     }
 
-    private AbstractTucsonProtocol getSession(final TucsonTupleCentreId tid)
+    private AbstractTucsonProtocol getSession(final TucsonTupleCentreIdDefault tid)
             throws UnreachableNodeException, DialogInitializationException {
         final String opNode = alice.util.Tools.removeApices(tid.getNode());
         final int port = tid.getPort();

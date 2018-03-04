@@ -14,7 +14,7 @@
 package alice.tucson.introspection;
 
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.service.ACCDescription;
 
 /**
@@ -34,7 +34,7 @@ public class InspectorProfile extends ACCDescription {
      *            the identifier of the tuple centre under inspection
      */
     public InspectorProfile(final TucsonAgentIdDefault aid,
-            final TucsonTupleCentreId tid) {
+            final TucsonTupleCentreIdDefault tid) {
         super();
         this.setProperty("context-name", "inspector");
         this.setProperty("agent-identity", aid.toString());

@@ -37,7 +37,7 @@ import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.AgentNotAllowedException;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -125,7 +125,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
             EnhancedACC acc = negACC.playRoleWithPermissions(permissions);
             Logger.getLogger("UnauthorisedAgent").info("Attempt successful");
             Logger.getLogger("UnauthorisedAgent").info("Trying 'rd' operation");
-            TucsonOperation op = acc.rd(new TucsonTupleCentreId("default",
+            TucsonOperation op = acc.rd(new TucsonTupleCentreIdDefault("default",
                     this.myNode(), String.valueOf(this.myport())),
                     new LogicTuple("test", new Var("Greet")), (Long) null);
             if (op.isResultSuccess()) {
@@ -136,7 +136,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
             Logger.getLogger("UnauthorisedAgent")
                     .info("Trying 'out' operation");
             try {
-                acc.out(new TucsonTupleCentreId("default", this.myNode(),
+                acc.out(new TucsonTupleCentreIdDefault("default", this.myNode(),
                         String.valueOf(this.myport())), new LogicTuple("test",
                         new Value("hi")), (Long) null);
             } catch (TucsonOperationNotPossibleException e) {

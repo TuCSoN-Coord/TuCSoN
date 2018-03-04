@@ -33,7 +33,7 @@ import alice.respect.api.place.IPlace;
 import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.DefaultACC;
 import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -199,7 +199,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
      *            Geolocation Service events
      */
     public void attachGeolocationService(final String className,
-            final TucsonTupleCentreId tcId) {
+            final TucsonTupleCentreIdDefault tcId) {
         final GeolocationServiceManager geolocationManager = GeolocationServiceManager
                 .getGeolocationManager();
         if (geolocationManager.getServices().size() > 0) {
@@ -237,7 +237,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             this.profile.setProperty("credentials", "'" + this.username + ":"
                     + TucsonACCTool.encrypt(this.password) + "'");
         }
-        final TucsonTupleCentreId tid = new TucsonTupleCentreId(
+        final TucsonTupleCentreIdDefault tid = new TucsonTupleCentreIdDefault(
                 ACCProxyAgentSide.TC_ORG, this.node, "" + this.port);
         this.executor.getSession(tid, this.aid);
 
@@ -929,7 +929,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 TupleCentreOpType.URDP, tid, tuple, l, this.getPosition());
     }
     
-    private void createGeolocationService(final TucsonTupleCentreId tcId,
+    private void createGeolocationService(final TucsonTupleCentreIdDefault tcId,
             final String className) {
         try {
             // String normClassName = Tools.removeApices(className);;

@@ -26,7 +26,7 @@ import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.logictuple.exceptions.LogicTupleException;
 import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonGenericException;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
@@ -56,7 +56,7 @@ public class ACCProvider {
     }
 
     private TucsonAgentIdDefault aid;
-    private final TucsonTupleCentreId config;
+    private final TucsonTupleCentreIdDefault config;
     private final ExecutorService exec;
     private final TucsonNodeService node;
 
@@ -68,7 +68,7 @@ public class ACCProvider {
      *            the identifier of the tuple centre used for internal
      *            configuration purpose
      */
-    public ACCProvider(final TucsonNodeService n, final TucsonTupleCentreId tid) {
+    public ACCProvider(final TucsonNodeService n, final TucsonTupleCentreIdDefault tid) {
         try {
             this.aid = new TucsonAgentIdDefault("context_manager");
         } catch (final TucsonInvalidAgentIdException e) {

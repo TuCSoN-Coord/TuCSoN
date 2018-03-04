@@ -23,7 +23,7 @@ import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -40,7 +40,7 @@ public abstract class AbstractTucsonAction {
     /**
      * The Identifier of the TuCSoN tuple centre target of the operation
      */
-    protected TucsonTupleCentreId tcid;
+    protected TucsonTupleCentreIdDefault tcid;
     /**
      * The name of the TuCSoN tuple centre target of the operation
      */
@@ -52,7 +52,7 @@ public abstract class AbstractTucsonAction {
      * @param tc
      *            the Identifier of the TuCSoN tuple centre target of the operation
      */
-    public AbstractTucsonAction(final TucsonTupleCentreId tc) {
+    public AbstractTucsonAction(final TucsonTupleCentreIdDefault tc) {
         this.tcid = tc;
     }
 

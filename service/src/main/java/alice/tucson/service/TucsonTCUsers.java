@@ -17,7 +17,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 
 /**
  *
@@ -28,14 +28,14 @@ public class TucsonTCUsers {
 
     private final Date creationDate;
     private final List<TucsonAgentIdDefault> currentAidUsers;
-    private final TucsonTupleCentreId tid;
+    private final TucsonTupleCentreIdDefault tid;
 
     /**
      *
      * @param id
      *            the identifier of the tuple centre this register refers to
      */
-    public TucsonTCUsers(final TucsonTupleCentreId id) {
+    public TucsonTCUsers(final TucsonTupleCentreIdDefault id) {
         this.tid = id;
         this.creationDate = new Date();
         this.currentAidUsers = new LinkedList<TucsonAgentIdDefault>();
@@ -66,7 +66,7 @@ public class TucsonTCUsers {
      *
      * @return the identifier of the tuple centre this register refers to
      */
-    public TucsonTupleCentreId getTucsonTupleCentreId() {
+    public TucsonTupleCentreIdDefault getTucsonTupleCentreId() {
         return this.tid;
     }
 

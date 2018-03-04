@@ -23,7 +23,7 @@ import alice.respect.api.AgentId;
 import alice.respect.api.TupleCentreId;
 import alice.respect.situatedness.TransducerId;
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.introspection.WSetEvent;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.core.TriggeredReaction;
@@ -74,7 +74,7 @@ public class InspectorCore extends alice.tucson.introspection.Inspector {
      *            the identifier of the tuple centre to inspect
      */
     public InspectorCore(final InspectorGUI f, final TucsonAgentIdDefault id,
-            final TucsonTupleCentreId tid) {
+            final TucsonTupleCentreIdDefault tid) {
         super(id, tid);
         this.form = f;
         this.logTupleFilename = "inspector-tuples.log";
@@ -217,10 +217,10 @@ public class InspectorCore extends alice.tucson.introspection.Inspector {
                             .append(">\n");
                 } else if (ev.getSource().isTC()) {
                     // Ugly
-                    if (ev.getSource() instanceof TucsonTupleCentreId) {
+                    if (ev.getSource() instanceof TucsonTupleCentreIdDefault) {
                         st.append(ev.getOp())
                                 .append(" from <")
-                                .append(((TucsonTupleCentreId) ev.getSource())
+                                .append(((TucsonTupleCentreIdDefault) ev.getSource())
                                         .toString()).append("> to <")
                                 .append(ev.getTarget()).append(">\n");
                     } else if (ev.getSource() instanceof TupleCentreId) {

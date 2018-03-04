@@ -14,7 +14,7 @@ import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOpId;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -344,7 +344,7 @@ public class OperationHandler {
      *            TuCSoN operation type (internal integer code)
      * @param tid
      *            Target TuCSoN tuplecentre id
-     *            {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *            {@link TucsonTupleCentreIdDefault tid}
      * @param t
      *            The Logic Tuple involved in the requested operation
      * @param ms
@@ -363,23 +363,23 @@ public class OperationHandler {
      *             if the timeout associated to the operation requested expires
      *             prior to operation completion
      *
-     * @see alice.tucson.api.TucsonTupleCentreId TucsonTupleCentreId
+     * @see TucsonTupleCentreIdDefault TucsonTupleCentreId
      */
     public TucsonOperation doBlockingOperation(final TucsonAgentIdDefault aid,
                                                final TupleCentreOpType type, final Object tid, final Tuple t, final Long ms,
                                                final Position position)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
-        TucsonTupleCentreId tcid = null;
+        TucsonTupleCentreIdDefault tcid = null;
         if ("alice.tucson.api.TucsonTupleCentreId".equals(tid.getClass()
                 .getName())) {
-            tcid = (TucsonTupleCentreId) tid;
+            tcid = (TucsonTupleCentreIdDefault) tid;
         } else if ("alice.respect.api.TupleCentreId".equals(tid.getClass()
                 .getName())) {
-            tcid = new TucsonTupleCentreId((TupleCentreId) tid);
+            tcid = new TucsonTupleCentreIdDefault((TupleCentreId) tid);
         } else if ("java.lang.String".equals(tid.getClass().getName())) {
             try {
-                tcid = new TucsonTupleCentreId((String) tid);
+                tcid = new TucsonTupleCentreIdDefault((String) tid);
             } catch (final TucsonInvalidTupleCentreIdException ex) {
                 System.err.println("[ACCProxyAgentSide]: " + ex);
                 return null;
@@ -411,7 +411,7 @@ public class OperationHandler {
      *            TuCSoN operation type (internal integer code)
      * @param tid
      *            Target TuCSoN tuplecentre id
-     *            {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *            {@link TucsonTupleCentreIdDefault tid}
      * @param t
      *            The Logic Tuple involved in the requested operation
      * @param l
@@ -427,7 +427,7 @@ public class OperationHandler {
      * @throws UnreachableNodeException
      *             if the target tuple centre cannot be reached over the network
      *
-     * @see alice.tucson.api.TucsonTupleCentreId TucsonTupleCentreId
+     * @see TucsonTupleCentreIdDefault TucsonTupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
      *      TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
@@ -438,17 +438,17 @@ public class OperationHandler {
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
         // log("tid.class().name() = " + tid.getClass().getName());
-        TucsonTupleCentreId tcid = null;
+        TucsonTupleCentreIdDefault tcid = null;
         if ("alice.tucson.api.TucsonTupleCentreId".equals(tid.getClass()
                 .getName())) {
-            tcid = (TucsonTupleCentreId) tid;
+            tcid = (TucsonTupleCentreIdDefault) tid;
         } else if ("alice.respect.api.TupleCentreId".equals(tid.getClass()
                 .getName())) {
-            tcid = new TucsonTupleCentreId((TupleCentreId) tid);
+            tcid = new TucsonTupleCentreIdDefault((TupleCentreId) tid);
             // log("tcid = " + tcid);
         } else if ("java.lang.String".equals(tid.getClass().getName())) {
             try {
-                tcid = new TucsonTupleCentreId((String) tid);
+                tcid = new TucsonTupleCentreIdDefault((String) tid);
             } catch (final TucsonInvalidTupleCentreIdException ex) {
                 System.err.println("[ACCProxyAgentSide]: " + ex);
                 return null;
@@ -512,7 +512,7 @@ public class OperationHandler {
      *            the agent identifier
      * @param tcid
      *            Target TuCSoN tuplecentre id
-     *            {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *            {@link TucsonTupleCentreIdDefault tid}
      * @param type
      *            TuCSoN operation type (internal integer code)
      * @param t
@@ -528,14 +528,14 @@ public class OperationHandler {
      * @throws UnreachableNodeException
      *             if the target tuple centre cannot be reached over the network
      *
-     * @see alice.tucson.api.TucsonTupleCentreId TucsonTupleCentreId
+     * @see TucsonTupleCentreIdDefault TucsonTupleCentreId
      * @see alice.tucson.api.TucsonOperationCompletionListener
      *      TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      * @see TucsonOperationDefault TucsonOperationDefault
      */
     protected synchronized TucsonOperation doOperation(
-            final TucsonAgentIdDefault aid, final TucsonTupleCentreId tcid,
+            final TucsonAgentIdDefault aid, final TucsonTupleCentreIdDefault tcid,
             final TupleCentreOpType type, final Tuple t,
             final TucsonOperationCompletionListener l, final Position position)
             throws UnreachableNodeException {
@@ -624,7 +624,7 @@ public class OperationHandler {
      *
      * @param tid
      *            Target TuCSoN tuplecentre id
-     *            {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *            {@link TucsonTupleCentreIdDefault tid}
      * @param aid
      *            the agent identifier
      *
@@ -636,7 +636,7 @@ public class OperationHandler {
      * @see alice.tucson.network.AbstractTucsonProtocol TucsonProtocol
      * @see alice.tucson.service.ACCProxyNodeSide ACCProxyNodeSide
      */
-    public AbstractTucsonProtocol getSession(final TucsonTupleCentreId tid,
+    public AbstractTucsonProtocol getSession(final TucsonTupleCentreIdDefault tid,
                                              final TucsonAgentIdDefault aid) throws UnreachableNodeException {
         final String opNode = alice.util.Tools.removeApices(tid.getNode());
         final int p = tid.getPort();

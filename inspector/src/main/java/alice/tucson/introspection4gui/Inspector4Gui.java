@@ -6,7 +6,7 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.respect.core.LogicReaction;
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.introspection.Inspector;
 import alice.tucson.introspection.InspectorContextEvent;
@@ -35,7 +35,7 @@ public class Inspector4Gui extends Inspector {
  * 
  * **************************************************/
 	
-	public Inspector4Gui(final TucsonTupleCentreId arg1) throws Exception {
+	public Inspector4Gui(final TucsonTupleCentreIdDefault arg1) throws Exception {
 		super(new TucsonAgentIdDefault("inspector4gui_" + System.currentTimeMillis()), arg1, true);
 		this.observers = new ArrayList<>();
 		protocol = new InspectorProtocol();
@@ -91,7 +91,7 @@ public class Inspector4Gui extends Inspector {
 						}
 					}
 					try {
-						TucsonTupleCentreId tcId = new TucsonTupleCentreId(tcName, tcHost, tcPort);
+						TucsonTupleCentreIdDefault tcId = new TucsonTupleCentreIdDefault(tcName, tcHost, tcPort);
 						notifyNewTupleCenter(tcId);
 					} catch (TucsonInvalidTupleCentreIdException e) {
 						e.printStackTrace();
@@ -128,7 +128,7 @@ public class Inspector4Gui extends Inspector {
 		}
 	}
 
-	private void notifyNewTupleCenter(final TucsonTupleCentreId newTcId) {
+	private void notifyNewTupleCenter(final TucsonTupleCentreIdDefault newTcId) {
 		for (Inspector4GuiObserver observer : observers) {
 			observer.onNewTupleCenter(newTcId);
 		}

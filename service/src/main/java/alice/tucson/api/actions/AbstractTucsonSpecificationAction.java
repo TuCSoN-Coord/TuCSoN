@@ -20,7 +20,7 @@
 package alice.tucson.api.actions;
 
 import alice.logictuple.LogicTuple;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 
 /**
  * Specification actions are those involving specification tuples, that is,
@@ -55,7 +55,7 @@ public abstract class AbstractTucsonSpecificationAction extends
      *            the logic tuple representing the reaction body of the ReSpecT
      *            specification tuple
      */
-    public AbstractTucsonSpecificationAction(final TucsonTupleCentreId t,
+    public AbstractTucsonSpecificationAction(final TucsonTupleCentreIdDefault t,
             final LogicTuple e, final LogicTuple g, final LogicTuple r) {
         super(t);
         this.event = e;

@@ -23,7 +23,7 @@ import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.respect.core.LogicReaction;
 import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonGenericException;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
@@ -68,7 +68,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
     /** current observation protocol */
     protected InspectorProtocol protocol;
     private boolean shutdown = false;
-    protected final TucsonTupleCentreId tcId;
+    protected final TucsonTupleCentreIdDefault tcId;
 
     /**
      *
@@ -104,7 +104,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         final String name = p.getProperty("agent-identity");
         this.agentId = new TucsonAgentIdDefault(name);
         msg = this.dialog.receiveInspectorMsg();
-        this.tcId = new TucsonTupleCentreId(msg.getTcName());
+        this.tcId = new TucsonTupleCentreIdDefault(msg.getTcName());
         final TucsonTCUsers coreInfo = node.resolveCore(msg.getTcName());
         if (coreInfo == null) {
             throw new TucsonGenericException(

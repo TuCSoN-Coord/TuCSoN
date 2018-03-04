@@ -9,8 +9,8 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -26,7 +26,7 @@ public class Ant extends AbstractTucsonAgent {
 
     private final static Long TIMEOUT = 500L;
 
-    private TucsonTupleCentreId tcid;
+    private TucsonTupleCentreIdDefault tcid;
     private EnhancedSyncACC acc;
 
     private boolean stopped;
@@ -50,7 +50,7 @@ public class Ant extends AbstractTucsonAgent {
         super(aid, netid, port);
         this.acc = null;
         try {
-            this.tcid = new TucsonTupleCentreId(tcName, netid, "" + port);
+            this.tcid = new TucsonTupleCentreIdDefault(tcName, netid, "" + port);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.err(e.getClass().getSimpleName() + ":" + tcName + ", " + netid
                     + ", " + port);
@@ -193,14 +193,14 @@ public class Ant extends AbstractTucsonAgent {
 
         if (op.isResultSuccess()) {
 
-            TucsonTupleCentreId oldTcid = null;
+            TucsonTupleCentreIdDefault oldTcid = null;
 
             try {
                 if (this.carryingFood) {
-                    oldTcid = new TucsonTupleCentreId(this.tcid.getLocalName(),
+                    oldTcid = new TucsonTupleCentreIdDefault(this.tcid.getLocalName(),
                             this.tcid.getNode(), "" + this.tcid.getPort());
                 }
-                this.tcid = new TucsonTupleCentreId(direction.getArg(0)
+                this.tcid = new TucsonTupleCentreIdDefault(direction.getArg(0)
                         .getArg(0).toString(), direction.getArg(0).getArg(1)
                         .getArg(0).toString(), direction.getArg(0).getArg(1)
                         .getArg(1).toString());

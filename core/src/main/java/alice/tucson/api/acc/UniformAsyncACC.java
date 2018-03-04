@@ -17,6 +17,7 @@ import java.util.List;
 
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.service.TucsonOpCompletionEvent;
@@ -47,7 +48,7 @@ public interface UniformAsyncACC extends AsyncACC {
      * of getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the tuple to be retrieved from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
@@ -75,7 +76,7 @@ public interface UniformAsyncACC extends AsyncACC {
      * the TuCSoN Agent exploiting this ACC.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the tuple to be retrieved from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
@@ -105,7 +106,7 @@ public interface UniformAsyncACC extends AsyncACC {
      * getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the tuple to be checked for absence from the target
      *              tuplecentre
      * @param l     the listener who should be notified upon operation completion
@@ -134,7 +135,7 @@ public interface UniformAsyncACC extends AsyncACC {
      * the TuCSoN Agent exploiting this ACC.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the tuple to be checked for absence from the target
      *              tuplecentre
      * @param l     the listener who should be notified upon operation completion
@@ -165,7 +166,7 @@ public interface UniformAsyncACC extends AsyncACC {
      * of getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the tuple to be read from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
@@ -193,7 +194,7 @@ public interface UniformAsyncACC extends AsyncACC {
      * the TuCSoN Agent exploiting this ACC.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the tuple to be read from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.

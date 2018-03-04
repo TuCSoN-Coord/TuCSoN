@@ -1,7 +1,7 @@
 package alice.respect.api.geolocation.service;
 
 import alice.respect.api.place.IPlace;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.service.ACCProxyAgentSide;
 import alice.tuplecentre.core.TupleCentreOpType;
 
@@ -27,7 +27,7 @@ public class AgentGeolocationServiceListener implements
     /**
      * Identifier of the associated tuple centre
      */
-    private final TucsonTupleCentreId tcId;
+    private final TucsonTupleCentreIdDefault tcId;
 
     /**
      * Constructs a listener
@@ -41,7 +41,7 @@ public class AgentGeolocationServiceListener implements
      */
     public AgentGeolocationServiceListener(
             final ACCProxyAgentSide accProxyAgentSide,
-            final AbstractGeolocationService s, final TucsonTupleCentreId ttci) {
+            final AbstractGeolocationService s, final TucsonTupleCentreIdDefault ttci) {
         this.acc = accProxyAgentSide;
         this.service = s;
         this.tcId = ttci;
@@ -66,7 +66,7 @@ public class AgentGeolocationServiceListener implements
     }
 
     @Override
-    public TucsonTupleCentreId getTcId() {
+    public TucsonTupleCentreIdDefault getTcId() {
         return this.tcId;
     }
 

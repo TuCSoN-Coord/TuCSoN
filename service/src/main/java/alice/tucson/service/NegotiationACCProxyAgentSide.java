@@ -9,9 +9,9 @@ import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.*;
 import alice.tucson.rbac.Policy;
 import alice.tucson.rbac.Role;
@@ -96,7 +96,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
         this.node = n;
         this.port = p;
         this.agentAid = aid;
-        this.tid = new TucsonTupleCentreId(NegotiationACCProxyAgentSide.TC_ORG,
+        this.tid = new TucsonTupleCentreIdDefault(NegotiationACCProxyAgentSide.TC_ORG,
                 "'" + n + "'", "" + p);
         this.setBasicAgentClass();
     }

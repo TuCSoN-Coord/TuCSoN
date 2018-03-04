@@ -18,6 +18,7 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.service.TucsonOpCompletionEvent;
@@ -49,7 +50,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * empty list is returned to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid the target TuCSoN tuplecentre id
-     *            {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *            {@link TucsonTupleCentreIdDefault tid}
      * @param l   the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
@@ -71,7 +72,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * answer is forwarded to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -103,7 +104,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * instead of getting stuck.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -133,7 +134,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * answer is forwarded to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -165,7 +166,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * instead of getting stuck.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -195,7 +196,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * (if the primitive successfully completes).
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the TuCSoN primitive to react to
      * @param guards       the guard predicates to be checked for satisfaction so to
      *                     actually trigger the body of the ReSpecT reaction
@@ -225,7 +226,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * answer is forwarded to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -258,7 +259,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * instead of getting stuck.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -288,7 +289,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * <code>R = reactionBody</code>.
      *
      * @param tid  the target TuCSoN tuplecentre id
-     *             {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *             {@link TucsonTupleCentreIdDefault tid}
      * @param spec the new ReSpecT specification to replace the current
      *             specification space
      * @param l    the listener who should be notified upon operation completion
@@ -309,7 +310,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * should be formatted according to Prolog theory syntax.
      *
      * @param tid  the target TuCSoN tuplecentre id
-     *             {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *             {@link TucsonTupleCentreIdDefault tid}
      * @param spec the new ReSpecT specification to replace the current
      *             specification space
      * @param l    the listener who should be notified upon operation completion

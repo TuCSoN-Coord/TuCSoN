@@ -15,7 +15,7 @@ import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -36,7 +36,7 @@ public class ActualActuator implements ISimpleProbe {
     private static final String DEFAULT_PORT = "20504";
     private EnhancedSyncACC acc;
     private final AbstractProbeId pid;
-    private TucsonTupleCentreId tempTc;
+    private TucsonTupleCentreIdDefault tempTc;
     private TransducerId tid;
     private TransducerStandardInterface transducer;
 
@@ -47,7 +47,7 @@ public class ActualActuator implements ISimpleProbe {
             this.acc = TucsonMetaACC.getContext(aid,
                     ActualActuator.DEFAULT_HOST,
                     Integer.valueOf(ActualActuator.DEFAULT_PORT));
-            this.tempTc = new TucsonTupleCentreId("tempTc",
+            this.tempTc = new TucsonTupleCentreIdDefault("tempTc",
                     ActualActuator.DEFAULT_HOST, ActualActuator.DEFAULT_PORT);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             e.printStackTrace();

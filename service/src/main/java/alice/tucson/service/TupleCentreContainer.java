@@ -25,7 +25,7 @@ import alice.respect.core.TransducersManager;
 import alice.respect.situatedness.TransducerId;
 import alice.respect.situatedness.TransducerStandardInterface;
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonInvalidSpecificationException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -58,7 +58,7 @@ public final class TupleCentreContainer {
      * @throws InvalidTupleCentreIdException if the given tuple centre identifier is not a valid TuCSoN
      *                                       tuple centre identifier
      */
-    public static RespectTC createTC(final TucsonTupleCentreId id, final int q,
+    public static RespectTC createTC(final TucsonTupleCentreIdDefault id, final int q,
                                      final int defPort) throws InvalidTupleCentreIdException {
         TupleCentreContainer.defaultport = defPort;
         try {
@@ -96,7 +96,7 @@ public final class TupleCentreContainer {
             TucsonOperationNotPossibleException {
         IOrdinarySynchInterface context = null;
         final TupleCentreOpType type = ev.getSimpleTCEvent().getType();
-        final TucsonTupleCentreId tid = (TucsonTupleCentreId) ev.getTarget();
+        final TucsonTupleCentreIdDefault tid = (TucsonTupleCentreIdDefault) ev.getTarget();
         try {
             context = RespectTCContainer.getRespectTCContainer()
                     .getOrdinarySynchInterface(tid.getInternalTupleCentreId());
@@ -155,7 +155,7 @@ public final class TupleCentreContainer {
         final LogicTuple res = null;
         ISpecificationSynchInterface context = null;
         final TupleCentreOpType type = ev.getSimpleTCEvent().getType();
-        final TucsonTupleCentreId tid = (TucsonTupleCentreId) ev.getTarget();
+        final TucsonTupleCentreIdDefault tid = (TucsonTupleCentreIdDefault) ev.getTarget();
         final LogicTuple t = (LogicTuple) ev.getTuple();
         try {
             context = RespectTCContainer.getRespectTCContainer()
@@ -186,7 +186,7 @@ public final class TupleCentreContainer {
         final LogicTuple res = null;
         ISpecificationSynchInterface context = null;
         final TupleCentreOpType type = ev.getSimpleTCEvent().getType();
-        final TucsonTupleCentreId tid = (TucsonTupleCentreId) ev.getTarget();
+        final TucsonTupleCentreIdDefault tid = (TucsonTupleCentreIdDefault) ev.getTarget();
         try {
             context = RespectTCContainer.getRespectTCContainer()
                     .getSpecificationSynchInterface(
@@ -225,7 +225,7 @@ public final class TupleCentreContainer {
      */
     public static TupleCentreOperation doEnvironmentalOperation(
             final TupleCentreOpType opType, final TucsonAgentIdDefault aid,
-            final TucsonTupleCentreId tid, final LogicTuple t,
+            final TucsonTupleCentreIdDefault tid, final LogicTuple t,
             final OperationCompletionListener l)
             throws OperationTimeOutException,
             TucsonOperationNotPossibleException, UnreachableNodeException {
@@ -288,8 +288,8 @@ public final class TupleCentreContainer {
      * @throws OperationTimeOutException           if the notification operation expires timeout
      */
     public static TupleCentreOperation doEnvironmentalOperation(
-            final TupleCentreOpType type, final TucsonTupleCentreId aid,
-            final TucsonTupleCentreId tid, final LogicTuple t,
+            final TupleCentreOpType type, final TucsonTupleCentreIdDefault aid,
+            final TucsonTupleCentreIdDefault tid, final LogicTuple t,
             final OperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
@@ -334,7 +334,7 @@ public final class TupleCentreContainer {
      * @return the result of the operation
      */
     public static Object doManagementOperation(final TupleCentreOpType type,
-                                               final TucsonTupleCentreId tid, final Object obj) {
+                                               final TucsonTupleCentreIdDefault tid, final Object obj) {
         IManagementContext context = null;
         context = RespectTCContainer.getRespectTCContainer()
                 .getManagementContext(tid.getInternalTupleCentreId());
@@ -423,7 +423,7 @@ public final class TupleCentreContainer {
         final TupleCentreOperation res = null;
         IOrdinaryAsynchInterface context = null;
         final TupleCentreOpType type = ev.getSimpleTCEvent().getType();
-        final TucsonTupleCentreId tid = (TucsonTupleCentreId) ev.getTarget();
+        final TucsonTupleCentreIdDefault tid = (TucsonTupleCentreIdDefault) ev.getTarget();
         try {
             context = RespectTCContainer.getRespectTCContainer()
                     .getOrdinaryAsynchInterface(tid.getInternalTupleCentreId());
@@ -484,7 +484,7 @@ public final class TupleCentreContainer {
         final TupleCentreOperation res = null;
         ISpecificationAsynchInterface context = null;
         final TupleCentreOpType type = ev.getSimpleTCEvent().getType();
-        final TucsonTupleCentreId tid = (TucsonTupleCentreId) ev.getTarget();
+        final TucsonTupleCentreIdDefault tid = (TucsonTupleCentreIdDefault) ev.getTarget();
         final LogicTuple t = (LogicTuple) ev.getTuple();
         try {
             context = RespectTCContainer.getRespectTCContainer()
@@ -542,7 +542,7 @@ public final class TupleCentreContainer {
      * @param persistencyPath the path where to store persistency information
      */
     public static synchronized void enablePersistency(
-            final TucsonTupleCentreId ttcid, final String persistencyPath) {
+            final TucsonTupleCentreIdDefault ttcid, final String persistencyPath) {
         IManagementContext context = null;
         context = RespectTCContainer.getRespectTCContainer()
                 .getManagementContext(ttcid.getInternalTupleCentreId());
@@ -554,7 +554,7 @@ public final class TupleCentreContainer {
      * @param persistencyPath the path where to store persistency information
      * @param file            the name of the file to recover
      */
-    public static void recoveryPersistent(final TucsonTupleCentreId ttcid,
+    public static void recoveryPersistent(final TucsonTupleCentreIdDefault ttcid,
                                           final String persistencyPath, final String file) {
         IManagementContext context = null;
         context = RespectTCContainer.getRespectTCContainer()

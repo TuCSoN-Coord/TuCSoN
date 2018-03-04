@@ -13,9 +13,9 @@ import alice.respect.situatedness.TransducerId;
 import alice.respect.situatedness.TransducerStandardInterface;
 import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -37,7 +37,7 @@ public class ActualSensor implements ISimpleProbe {
     private static final String DEFAULT_PORT = "20504";
     private EnhancedSyncACC acc;
     private final AbstractProbeId pid;
-    private TucsonTupleCentreId tempTc;
+    private TucsonTupleCentreIdDefault tempTc;
     private TransducerId tid;
     private TransducerStandardInterface transducer;
 
@@ -47,7 +47,7 @@ public class ActualSensor implements ISimpleProbe {
             final TucsonAgentIdDefault aid = new TucsonAgentIdDefault("sensor");
             this.acc = TucsonMetaACC.getContext(aid, ActualSensor.DEFAULT_HOST,
                     Integer.valueOf(ActualSensor.DEFAULT_PORT));
-            this.tempTc = new TucsonTupleCentreId("tempTc",
+            this.tempTc = new TucsonTupleCentreIdDefault("tempTc",
                     ActualSensor.DEFAULT_HOST, ActualSensor.DEFAULT_PORT);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             e.printStackTrace();

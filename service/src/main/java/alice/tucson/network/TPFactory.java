@@ -1,6 +1,6 @@
 package alice.tucson.network;
 
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.exceptions.DialogInitializationException;
 import alice.tucson.network.exceptions.IllegalPortNumberException;
@@ -43,7 +43,7 @@ public final class TPFactory {
      *             if the protocol type used is not DIALOG_TYPE_TCP
      */
     public static AbstractTucsonProtocol getDialogAgentSide(
-            final int tucsonProtocolType, final TucsonTupleCentreId tid)
+            final int tucsonProtocolType, final TucsonTupleCentreIdDefault tid)
             throws DialogInitializationException, UnreachableNodeException,
             InvalidProtocolTypeException {
         final String node = alice.util.Tools.removeApices(tid.getNode());
@@ -75,7 +75,7 @@ public final class TPFactory {
      *             if the target tuple centre is unreachable
      */
     public static AbstractTucsonProtocol getDialogAgentSide(
-            final TucsonTupleCentreId tid) throws UnreachableNodeException,
+            final TucsonTupleCentreIdDefault tid) throws UnreachableNodeException,
             DialogInitializationException {
         final TucsonNodeService tns = TucsonNodeService.getNode(tid.getPort());
         final TPConfig config;

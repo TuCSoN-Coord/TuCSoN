@@ -2,7 +2,7 @@ package alice.tucson.parsing;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.service.TucsonCmd;
 
@@ -25,7 +25,7 @@ public class TucsonOpParser {
     private final String input;
     private final String node;
     private TucsonCmd tcmd;
-    private TucsonTupleCentreId tid;
+    private TucsonTupleCentreIdDefault tid;
     private TupleCentreIdParser tidParser;
 
     /**
@@ -61,7 +61,7 @@ public class TucsonOpParser {
      *
      * @return the id of the tuple centre involved in the operation
      */
-    public TucsonTupleCentreId getTid() {
+    public TucsonTupleCentreIdDefault getTid() {
         return this.tid;
     }
 

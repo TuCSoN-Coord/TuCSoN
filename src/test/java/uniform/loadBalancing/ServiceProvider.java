@@ -6,10 +6,10 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -102,7 +102,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
 
     private final long serviceTime;
 
-    private TucsonTupleCentreId tid;
+    private TucsonTupleCentreIdDefault tid;
 
     /**
      * @param aid
@@ -120,7 +120,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
         super(aid);
         this.die = false;
         try {
-            this.tid = new TucsonTupleCentreId(node);
+            this.tid = new TucsonTupleCentreIdDefault(node);
             this.service = LogicTuple.parse("ad(" + aid + ")");
             this.say("I'm started.");
         } catch (final TucsonInvalidTupleCentreIdException e) {

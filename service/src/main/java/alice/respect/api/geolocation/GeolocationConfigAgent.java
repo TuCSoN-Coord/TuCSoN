@@ -12,7 +12,7 @@ import alice.respect.api.geolocation.service.GeoServiceId;
 import alice.respect.api.geolocation.service.GeolocationServiceManager;
 import alice.respect.core.RespectOperationDefault;
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -39,7 +39,7 @@ public class GeolocationConfigAgent extends Thread {
         System.out.println("[GeolocationConfigAgent]: " + s);
     }
 
-    private final TucsonTupleCentreId config;
+    private final TucsonTupleCentreIdDefault config;
     private final TucsonNodeService node;
     private TucsonAgentIdDefault nodeManAid;
 
@@ -53,7 +53,7 @@ public class GeolocationConfigAgent extends Thread {
      *            represents the port number on which the associated tuple
      *            centre is listening
      */
-    public GeolocationConfigAgent(final TucsonTupleCentreId conf,
+    public GeolocationConfigAgent(final TucsonTupleCentreIdDefault conf,
             final TucsonNodeService n) {
         super();
         try {
@@ -159,7 +159,7 @@ public class GeolocationConfigAgent extends Thread {
             final String[] tcNodeAndPort = sTcId[1].substring(
                     sTcId[1].indexOf('(') + 1, sTcId[1].indexOf(')'))
                     .split(",");
-            final TucsonTupleCentreId tcId = new TucsonTupleCentreId(tcName,
+            final TucsonTupleCentreIdDefault tcId = new TucsonTupleCentreIdDefault(tcName,
                     tcNodeAndPort[0], tcNodeAndPort[1]);
             final int platform = PlatformUtils.getPlatform();
             GeolocationConfigAgent

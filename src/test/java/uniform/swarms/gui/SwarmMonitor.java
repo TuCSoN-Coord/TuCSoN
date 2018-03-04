@@ -14,7 +14,7 @@ import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.BulkSyncACC;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -29,7 +29,7 @@ public class SwarmMonitor {
 
     final SwarmComponent component;
     private final JButton[] bs;
-    private final TucsonTupleCentreId[] tcids;
+    private final TucsonTupleCentreIdDefault[] tcids;
     private BulkSyncACC acc;
 
     /**
@@ -39,11 +39,11 @@ public class SwarmMonitor {
         this.component = c;
         final Component[] cs = this.component.getComponents();
         this.bs = new JButton[cs.length - 3];
-        this.tcids = new TucsonTupleCentreId[cs.length - 3];
+        this.tcids = new TucsonTupleCentreIdDefault[cs.length - 3];
         try {
             for (int i = 1; i < (cs.length - 2); i++) {
                 this.bs[i - 1] = (JButton) cs[i];
-                this.tcids[i - 1] = new TucsonTupleCentreId(
+                this.tcids[i - 1] = new TucsonTupleCentreIdDefault(
                         this.bs[i - 1].getName(), "localhost", "" + (20504 + i));
                 SwarmMonitor.log("" + this.bs[i - 1].getName());
                 SwarmMonitor.log("" + this.tcids[i - 1].getLocalName() + ":"

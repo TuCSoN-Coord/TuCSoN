@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.service.ACCProxyAgentSide;
 import alice.util.Tools;
 
@@ -113,7 +113,7 @@ public final class GeolocationServiceManager {
      */
     public AbstractGeolocationService createAgentService(
             final Integer platform, final GeoServiceId sId,
-            final String className, final TucsonTupleCentreId tcId,
+            final String className, final TucsonTupleCentreIdDefault tcId,
             final ACCProxyAgentSide acc) throws ClassNotFoundException,
             SecurityException, NoSuchMethodException, IllegalArgumentException,
             InstantiationException, IllegalAccessException,
@@ -129,7 +129,7 @@ public final class GeolocationServiceManager {
             final Class<?> c = Class.forName(normClassName);
             final Constructor<?> ctor = c.getConstructor(new Class[] {
                     Integer.class, GeoServiceId.class,
-                    TucsonTupleCentreId.class });
+                    TucsonTupleCentreIdDefault.class });
             s = (AbstractGeolocationService) ctor.newInstance(new Object[] {
                     platform, sId, tcId });
             s.addListener(new AgentGeolocationServiceListener(acc, s, tcId));
@@ -172,7 +172,7 @@ public final class GeolocationServiceManager {
      */
     public void createNodeService(final Integer platform,
             final GeoServiceId sId, final String className,
-            final TucsonTupleCentreId tcId) throws ClassNotFoundException,
+            final TucsonTupleCentreIdDefault tcId) throws ClassNotFoundException,
             SecurityException, NoSuchMethodException, IllegalArgumentException,
             InstantiationException, IllegalAccessException,
             InvocationTargetException {
@@ -186,7 +186,7 @@ public final class GeolocationServiceManager {
         final String normClassName = Tools.removeApices(className);
         final Class<?> c = Class.forName(normClassName);
         final Constructor<?> ctor = c.getConstructor(new Class[] {
-                Integer.class, GeoServiceId.class, TucsonTupleCentreId.class });
+                Integer.class, GeoServiceId.class, TucsonTupleCentreIdDefault.class });
         final AbstractGeolocationService s = (AbstractGeolocationService) ctor
                 .newInstance(new Object[] { platform, sId, tcId });
         s.addListener(new GeolocationServiceListener(s, tcId));

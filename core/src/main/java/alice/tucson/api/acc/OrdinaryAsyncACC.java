@@ -17,6 +17,7 @@ import java.util.List;
 
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.service.TucsonOpCompletionEvent;
@@ -47,7 +48,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * is returned to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid the target TuCSoN tuplecentre id
-     *            {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *            {@link TucsonTupleCentreIdDefault tid}
      * @param l   the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
@@ -70,7 +71,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * of getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the tuple to be retrieved from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
@@ -92,7 +93,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * the TuCSoN Agent exploiting this ACC.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the tuple to be retrieved from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
@@ -116,7 +117,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the tuple to be checked for absence from the target
      *              tuplecentre
      * @param l     the listener who should be notified upon operation completion
@@ -139,7 +140,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * the TuCSoN Agent exploiting this ACC.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the tuple to be checked for absence from the target
      *              tuplecentre
      * @param l     the listener who should be notified upon operation completion
@@ -162,7 +163,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * the primitive successfully completes)
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the tuple to be emitted in the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
@@ -186,7 +187,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * of getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the tuple to be read from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
@@ -208,7 +209,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * the TuCSoN Agent exploiting this ACC.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the tuple to be read from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
@@ -226,7 +227,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * target tuplecentre with that specified in the given list.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *              {@link TucsonTupleCentreIdDefault tid}
      * @param tuple the Prolog list of all the tuples to be injected (overwriting
      *              space)
      * @param l     the listener who should be notified upon operation completion
@@ -249,7 +250,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * exploiting this ACC.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                {@link TucsonTupleCentreIdDefault tid}
      * @param toSpawn the tuple storing the activity to spawn as a parallel
      *                computation. Must be a Prolog term with functor name
      *                <code>exec/solve</code>, storing either a Java qualified class

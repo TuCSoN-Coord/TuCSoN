@@ -32,8 +32,8 @@ import alice.tuplecentre.core.TupleCentreOpType;
 public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     private static final long serialVersionUID = -6354837455366449916L;
     private TucsonAgentIdDefault aid;
-    private TucsonTupleCentreId target;
-    private TucsonTupleCentreId tcid;
+    private TucsonTupleCentreIdDefault target;
+    private TucsonTupleCentreIdDefault tcid;
 
     /**
      * Checks if the activity to spawn has been correctly instantiated.
@@ -64,7 +64,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      */
     public final TucsonIdWrapper<?> getSpawnerId() {
         if (this.aid == null) {
-            return new TucsonIdWrapper<TucsonTupleCentreId>(this.tcid);
+            return new TucsonIdWrapper<TucsonTupleCentreIdDefault>(this.tcid);
         }
         return new TucsonIdWrapper<TucsonAgentIdDefault>(this.aid);
     }
@@ -74,7 +74,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * 
      * @return the identifier of the tuplecentre hosting the spawned activity.
      */
-    public final TucsonTupleCentreId getTargetTC() {
+    public final TucsonTupleCentreIdDefault getTargetTC() {
         return this.target;
     }
 
@@ -108,7 +108,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      *            the identifier of the tuplecentre "owner" of the spawned
      *            activity.
      */
-    public final void setSpawnerId(final TucsonTupleCentreId id) {
+    public final void setSpawnerId(final TucsonTupleCentreIdDefault id) {
         this.aid = null;
         this.tcid = id;
     }
@@ -121,7 +121,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      *            the identifier of the tuplecentre target of the spawned
      *            activity.
      */
-    public final void setTargetTC(final TucsonTupleCentreId id) {
+    public final void setTargetTC(final TucsonTupleCentreIdDefault id) {
         this.target = id;
     }
 

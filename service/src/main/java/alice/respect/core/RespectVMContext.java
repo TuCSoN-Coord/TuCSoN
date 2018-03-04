@@ -43,7 +43,7 @@ import alice.respect.core.tupleset.TupleSetCoord;
 import alice.respect.core.tupleset.TupleSetSpec;
 import alice.tucson.api.AbstractSpawnActivity;
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.introspection.WSetEvent;
@@ -343,7 +343,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	 *            the name of the file where persistency information is stored
 	 *
 	 */
-	public void disablePersistency(final String path, final TucsonTupleCentreId fileName) {
+	public void disablePersistency(final String path, final TucsonTupleCentreIdDefault fileName) {
 		this.closePersistencyUpdates();
 		this.isPersistent = false;
 	}
@@ -363,7 +363,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	 *            the name of the file to create for storing persistency information
 	 *
 	 */
-	public void enablePersistency(final String path, final TucsonTupleCentreId fileName) {
+	public void enablePersistency(final String path, final TucsonTupleCentreIdDefault fileName) {
 		this.isPersistent = true;
 		/*
 		 * this.pPath = path; this.pFileName = fileName.getName() + "_at_" +
@@ -1215,8 +1215,8 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 			final ILinkContext link = RespectTCContainer.getRespectTCContainer().getLinkContext(target);
 			// link.doOperation((TupleCentreIdentifier) oe.getSource(), op);
 			TupleCentreId source;
-			if (oe.getSource() instanceof TucsonTupleCentreId) {
-				source = ((TucsonTupleCentreId) oe.getSource()).getInternalTupleCentreId();
+			if (oe.getSource() instanceof TucsonTupleCentreIdDefault) {
+				source = ((TucsonTupleCentreIdDefault) oe.getSource()).getInternalTupleCentreId();
 			} else {
 				source = (TupleCentreId) oe.getSource();
 			}
@@ -1301,7 +1301,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	 *            the name of the tuple centre to be recovered
 	 *
 	 */
-	public void recoveryPersistent(final String path, final String file, final TucsonTupleCentreId tcName) {
+	public void recoveryPersistent(final String path, final String file, final TucsonTupleCentreIdDefault tcName) {
 		// BufferedReader br = null;
 		try {
 			final File f = new File(path.concat(file));
@@ -1688,16 +1688,16 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 						this.log("spawnActivity.aid = " + aid);
 						s2pLib.setSpawnerId(aid);
 					} else {
-						final TucsonTupleCentreId tcid = new TucsonTupleCentreId(((TupleCentreId) owner).getLocalName(),
+						final TucsonTupleCentreIdDefault tcid = new TucsonTupleCentreIdDefault(((TupleCentreId) owner).getLocalName(),
 								((TupleCentreId) owner).getNode(), String.valueOf(((TupleCentreId) owner).getPort()));
 						this.log("spawnActivity.tcid = " + tcid);
 						s2pLib.setSpawnerId(tcid);
 					}
-					TucsonTupleCentreId target;
-					if (targetTC instanceof TucsonTupleCentreId) {
-						target = (TucsonTupleCentreId) targetTC;
+					TucsonTupleCentreIdDefault target;
+					if (targetTC instanceof TucsonTupleCentreIdDefault) {
+						target = (TucsonTupleCentreIdDefault) targetTC;
 					} else {
-						target = new TucsonTupleCentreId(((TupleCentreId) targetTC).getLocalName(),
+						target = new TucsonTupleCentreIdDefault(((TupleCentreId) targetTC).getLocalName(),
 								((TupleCentreId) targetTC).getNode(),
 								String.valueOf(((TupleCentreId) targetTC).getPort()));
 					}
@@ -1734,17 +1734,17 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 							this.log("spawnActivity.aid = " + aid);
 							instance.setSpawnerId(aid);
 						} else {
-							final TucsonTupleCentreId tcid = new TucsonTupleCentreId(((TupleCentreId) owner).getLocalName(),
+							final TucsonTupleCentreIdDefault tcid = new TucsonTupleCentreIdDefault(((TupleCentreId) owner).getLocalName(),
 									((TupleCentreId) owner).getNode(),
 									String.valueOf(((TupleCentreId) owner).getPort()));
 							this.log("spawnActivity.tcid = " + tcid);
 							instance.setSpawnerId(tcid);
 						}
-						TucsonTupleCentreId target;
-						if (targetTC instanceof TucsonTupleCentreId) {
-							target = (TucsonTupleCentreId) targetTC;
+						TucsonTupleCentreIdDefault target;
+						if (targetTC instanceof TucsonTupleCentreIdDefault) {
+							target = (TucsonTupleCentreIdDefault) targetTC;
 						} else {
-							target = new TucsonTupleCentreId(((TupleCentreId) targetTC).getLocalName(),
+							target = new TucsonTupleCentreIdDefault(((TupleCentreId) targetTC).getLocalName(),
 									((TupleCentreId) targetTC).getNode(),
 									String.valueOf(((TupleCentreId) targetTC).getPort()));
 						}

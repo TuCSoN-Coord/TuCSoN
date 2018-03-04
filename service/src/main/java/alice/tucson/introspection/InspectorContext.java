@@ -15,7 +15,7 @@ package alice.tucson.introspection;
 
 import java.io.IOException;
 import java.util.List;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.api.Tuple;
@@ -71,7 +71,7 @@ public interface InspectorContext {
      *
      * @return the identifier of the tuple centre under inspection
      */
-    TucsonTupleCentreId getTid();
+    TucsonTupleCentreIdDefault getTid();
 
     /**
      * verify is step mode

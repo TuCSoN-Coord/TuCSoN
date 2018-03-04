@@ -7,10 +7,10 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -50,7 +50,7 @@ public class MasterAgent extends AbstractTucsonAgent {
     private final HashMap<Integer, Integer> pendings;
     private int reqID;
 
-    private final LinkedList<TucsonTupleCentreId> tids;
+    private final LinkedList<TucsonTupleCentreIdDefault> tids;
 
     /**
      * @param aid
@@ -70,10 +70,10 @@ public class MasterAgent extends AbstractTucsonAgent {
                     throws TucsonInvalidAgentIdException {
         super(aid);
         this.die = false;
-        this.tids = new LinkedList<TucsonTupleCentreId>();
+        this.tids = new LinkedList<TucsonTupleCentreIdDefault>();
         try {
             for (final String node : nodes) {
-                this.tids.add(new TucsonTupleCentreId(node));
+                this.tids.add(new TucsonTupleCentreIdDefault(node));
             }
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
@@ -117,7 +117,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                     .getNegotiationContext(this.getTucsonAgentId());
             this.acc = negAcc.playDefaultRole();
             TucsonOperation op;
-            TucsonTupleCentreId next;
+            TucsonTupleCentreIdDefault next;
             LogicTuple job;
             LogicTuple templ;
             List<LogicTuple> res;

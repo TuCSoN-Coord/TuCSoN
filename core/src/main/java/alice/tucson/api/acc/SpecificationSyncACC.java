@@ -15,6 +15,7 @@ package alice.tucson.api.acc;
 
 import alice.logictuple.LogicTuple;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.TupleCentreIdentifier;
@@ -40,7 +41,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * empty list is returned to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                {@link TucsonTupleCentreIdDefault tid}
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
      *                just unblocks the agent, but the request IS NOT REMOVED from
@@ -51,7 +52,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tucson.api.TucsonTupleCentreId TupleCentreIdentifier
+     * @see TucsonTupleCentreIdDefault TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
     TucsonOperation getS(final TupleCentreIdentifier tid, final Long timeout)
@@ -67,7 +68,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * answer is forwarded to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -84,7 +85,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tucson.api.TucsonTupleCentreId TupleCentreIdentifier
+     * @see TucsonTupleCentreIdDefault TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
     TucsonOperation inpS(final TupleCentreIdentifier tid, final LogicTuple event,
@@ -102,7 +103,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * is blocked waiting.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -119,7 +120,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tucson.api.TucsonTupleCentreId TupleCentreIdentifier
+     * @see TucsonTupleCentreIdDefault TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
     TucsonOperation inS(final TupleCentreIdentifier tid, final LogicTuple event,
@@ -136,7 +137,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * answer is forwarded to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -153,7 +154,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tucson.api.TucsonTupleCentreId TupleCentreIdentifier
+     * @see TucsonTupleCentreIdDefault TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
     TucsonOperation nopS(final TupleCentreIdentifier tid, final LogicTuple event,
@@ -171,7 +172,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * is blocked waiting.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -188,7 +189,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tucson.api.TucsonTupleCentreId TupleCentreIdentifier
+     * @see TucsonTupleCentreIdDefault TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
     TucsonOperation noS(final TupleCentreIdentifier tid, final LogicTuple event,
@@ -205,7 +206,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * (if the primitive successfully completes).
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the TuCSoN primitive to react to
      * @param guards       the guard predicates to be checked for satisfaction so to
      *                     actually trigger the body of the ReSpecT reaction
@@ -221,7 +222,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tucson.api.TucsonTupleCentreId TupleCentreIdentifier
+     * @see TucsonTupleCentreIdDefault TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
     TucsonOperation outS(final TupleCentreIdentifier tid, final LogicTuple event,
@@ -239,7 +240,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * answer is forwarded to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -256,7 +257,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tucson.api.TucsonTupleCentreId TupleCentreIdentifier
+     * @see TucsonTupleCentreIdDefault TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
     TucsonOperation rdpS(final TupleCentreIdentifier tid, final LogicTuple event,
@@ -275,7 +276,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * is blocked waiting.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                     {@link TucsonTupleCentreIdDefault tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -292,7 +293,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tucson.api.TucsonTupleCentreId TupleCentreIdentifier
+     * @see TucsonTupleCentreIdDefault TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
     TucsonOperation rdS(final TupleCentreIdentifier tid, final LogicTuple event,
@@ -309,7 +310,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * <code>R = reactionBody</code>.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                {@link TucsonTupleCentreIdDefault tid}
      * @param spec    the new ReSpecT specification to replace the current
      *                specification space
      * @param timeout the maximum waiting time for completion tolerated by the
@@ -322,7 +323,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tucson.api.TucsonTupleCentreId TupleCentreIdentifier
+     * @see TucsonTupleCentreIdDefault TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
     TucsonOperation setS(final TupleCentreIdentifier tid, final LogicTuple spec, final Long timeout)
@@ -336,7 +337,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * should be formatted according to Prolog theory syntax.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                {@link TucsonTupleCentreIdDefault tid}
      * @param spec    the new ReSpecT specification to replace the current
      *                specification space
      * @param timeout the maximum waiting time for completion tolerated by the
@@ -349,7 +350,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tucson.api.TucsonTupleCentreId TupleCentreIdentifier
+     * @see TucsonTupleCentreIdDefault TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Theory Theory
      */

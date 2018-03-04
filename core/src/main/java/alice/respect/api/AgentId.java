@@ -16,7 +16,7 @@ import java.io.Serializable;
 
 import alice.respect.api.exceptions.InvalidAgentIdException;
 import alice.respect.core.AgentIdOperatorManager;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Struct;
@@ -68,7 +68,7 @@ public class AgentId implements AgentIdentifier, Serializable {
      * @param name the string representation of this identifier
      * @param tcId the tuple centre identifier this agent operates on
      */
-    public AgentId(final String name, final TucsonTupleCentreId tcId) {
+    public AgentId(final String name, final TucsonTupleCentreIdDefault tcId) {
         this.id = new Struct(name, tcId.toTerm());
     }
 

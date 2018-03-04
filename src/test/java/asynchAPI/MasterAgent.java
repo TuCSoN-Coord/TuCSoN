@@ -22,10 +22,10 @@ package asynchAPI;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -126,10 +126,10 @@ public class MasterAgent extends AbstractTucsonAgent {
             TucsonOperationCompletionListener {
 
         private final AsynchOpsHelper help;
-        private final TucsonTupleCentreId ttcid;
+        private final TucsonTupleCentreIdDefault ttcid;
 
         public LastCompletionHandler(final AsynchOpsHelper aoh,
-                final TucsonTupleCentreId tid) {
+                final TucsonTupleCentreIdDefault tid) {
             this.help = aoh;
             this.ttcid = tid;
         }
@@ -232,7 +232,7 @@ public class MasterAgent extends AbstractTucsonAgent {
             super.say("Started");
             Out out;
             LogicTuple tuple = null;
-            final TucsonTupleCentreId tid = new TucsonTupleCentreId("default",
+            final TucsonTupleCentreIdDefault tid = new TucsonTupleCentreIdDefault("default",
                     "localhost", "20504");
             int number = MasterAgent.SEED;
             for (int i = 0; i < MasterAgent.REQUESTS; i++) {

@@ -6,10 +6,10 @@ import alice.logictuple.TupleArgument;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -44,7 +44,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
     private OrdinaryAndSpecificationSyncACC acc;
     private boolean die;
 
-    private TucsonTupleCentreId tid;
+    private TucsonTupleCentreIdDefault tid;
 
     /**
      * @param aid
@@ -60,7 +60,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
         super(aid);
         this.die = false;
         try {
-            this.tid = new TucsonTupleCentreId(node);
+            this.tid = new TucsonTupleCentreIdDefault(node);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
             this.die = true;

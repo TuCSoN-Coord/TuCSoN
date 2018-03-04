@@ -7,7 +7,7 @@ import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -54,10 +54,10 @@ public final class Environment {
      *
      */
     private static void initFoodSource() {
-        TucsonTupleCentreId tcid;
+        TucsonTupleCentreIdDefault tcid;
         try {
             Environment.log("Configuring <food>...");
-            tcid = new TucsonTupleCentreId("food", "localhost", "20504");
+            tcid = new TucsonTupleCentreIdDefault("food", "localhost", "20504");
             Environment.acc
                     .outAll(tcid,
                             LogicTuple
@@ -94,10 +94,10 @@ public final class Environment {
      * @param spec
      */
     private static void initLongPath(final String spec) {
-        TucsonTupleCentreId tcid;
+        TucsonTupleCentreIdDefault tcid;
         try {
             Environment.log("Configuring <long1>...");
-            tcid = new TucsonTupleCentreId("long1", "localhost", "20507");
+            tcid = new TucsonTupleCentreIdDefault("long1", "localhost", "20507");
             Environment.acc
                     .outAll(tcid,
                             LogicTuple
@@ -128,7 +128,7 @@ public final class Environment {
 
         try {
             Environment.log("Configuring <long2>...");
-            tcid = new TucsonTupleCentreId("long2", "localhost", "20505");
+            tcid = new TucsonTupleCentreIdDefault("long2", "localhost", "20505");
             Environment.acc
                     .outAll(tcid,
                             LogicTuple
@@ -162,10 +162,10 @@ public final class Environment {
      * @param spec
      */
     private static void initShortPath(final String spec) {
-        TucsonTupleCentreId tcid;
+        TucsonTupleCentreIdDefault tcid;
         try {
             Environment.log("Configuring <short>...");
-            tcid = new TucsonTupleCentreId("short", "localhost", "20506");
+            tcid = new TucsonTupleCentreIdDefault("short", "localhost", "20506");
             Environment.acc
                     .outAll(tcid,
                             LogicTuple
@@ -199,10 +199,10 @@ public final class Environment {
      * @param spec
      */
     private static void initAnthill(final String spec) {
-        TucsonTupleCentreId tcid;
+        TucsonTupleCentreIdDefault tcid;
         try {
             Environment.log("Configuring <anthill>...");
-            tcid = new TucsonTupleCentreId("anthill", "localhost", "20508");
+            tcid = new TucsonTupleCentreIdDefault("anthill", "localhost", "20508");
             Environment.acc
                     .outAll(tcid,
                             LogicTuple

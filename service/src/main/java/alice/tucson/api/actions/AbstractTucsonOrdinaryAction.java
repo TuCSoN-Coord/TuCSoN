@@ -20,7 +20,7 @@
 package alice.tucson.api.actions;
 
 import alice.logictuple.LogicTuple;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 
 /**
  * Ordinary actions are those involving ordinary tuples (that is, communication
@@ -46,7 +46,7 @@ public abstract class AbstractTucsonOrdinaryAction extends AbstractTucsonAction 
      * @param t
      *            the logic tuple argument of the operation
      */
-    public AbstractTucsonOrdinaryAction(final TucsonTupleCentreId tc,
+    public AbstractTucsonOrdinaryAction(final TucsonTupleCentreIdDefault tc,
             final LogicTuple t) {
         super(tc);
         this.tuple = t;

@@ -14,6 +14,7 @@
 package alice.tucson.api.acc;
 
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.Tuple;
@@ -38,7 +39,7 @@ public interface UniformSyncACC extends SyncACC {
      * waiting.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                {@link TucsonTupleCentreIdDefault tid}
      * @param tuple   the tuple to be retrieved from the target tuplecentre
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
@@ -69,7 +70,7 @@ public interface UniformSyncACC extends SyncACC {
      * the TuCSoN Agent exploiting this ACC.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                {@link TucsonTupleCentreIdDefault tid}
      * @param tuple   the tuple to be retrieved from the target tuplecentre
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
@@ -101,7 +102,7 @@ public interface UniformSyncACC extends SyncACC {
      * waiting.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                {@link TucsonTupleCentreIdDefault tid}
      * @param tuple   the tuple to be checked for absence from the target
      *                tuplecentre
      * @param timeout the maximum waiting time for completion tolerated by the
@@ -133,7 +134,7 @@ public interface UniformSyncACC extends SyncACC {
      * forwarded to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                {@link TucsonTupleCentreIdDefault tid}
      * @param tuple   the tuple to be checked for absence from the target
      *                tuplecentre
      * @param timeout the maximum waiting time for completion tolerated by the
@@ -166,7 +167,7 @@ public interface UniformSyncACC extends SyncACC {
      * waiting.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                {@link TucsonTupleCentreIdDefault tid}
      * @param tuple   the tuple to be read from the target tuplecentre
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
@@ -197,7 +198,7 @@ public interface UniformSyncACC extends SyncACC {
      * the TuCSoN Agent exploiting this ACC.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link alice.tucson.api.TucsonTupleCentreId tid}
+     *                {@link TucsonTupleCentreIdDefault tid}
      * @param tuple   the tuple to be read from the target tuplecentre
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout

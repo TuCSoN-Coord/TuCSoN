@@ -26,7 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.introspection.InspectorContext;
@@ -77,10 +77,10 @@ public class InspectorGUI extends javax.swing.JFrame {
             port = alice.util.Tools.getOpt(args, "-portno");
         }
         TucsonAgentIdDefault aid = null;
-        TucsonTupleCentreId tid = null;
+        TucsonTupleCentreIdDefault tid = null;
         try {
             aid = new TucsonAgentIdDefault(stAid);
-            tid = new TucsonTupleCentreId(tcname, netid, port);
+            tid = new TucsonTupleCentreIdDefault(tcname, netid, port);
             System.out.println("[Inspector]: Inspector Agent Identifier: "
                     + stAid);
             System.out.println("[Inspector]: Tuple Centre Identifier: " + tid);
@@ -145,7 +145,7 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Package-visible reference to the inspected tuplecentre.
      */
-    protected TucsonTupleCentreId tid;
+    protected TucsonTupleCentreIdDefault tid;
 
     /**
      * Called when no default tuplecentre to monitor is given.
@@ -174,7 +174,7 @@ public class InspectorGUI extends javax.swing.JFrame {
      * @param isVisible
      *            whether the Inspector should immediatley display the GUI
      */
-    public InspectorGUI(final TucsonAgentIdDefault id, final TucsonTupleCentreId tc,
+    public InspectorGUI(final TucsonAgentIdDefault id, final TucsonTupleCentreIdDefault tc,
                         final boolean isVisible) {
         this(id, isVisible);
         this.tid = tc;
@@ -246,7 +246,7 @@ public class InspectorGUI extends javax.swing.JFrame {
                 final String name = this.inputName.getText();
                 final String address = this.inputNode.getText();
                 final String port = this.inputPort.getText();
-                this.tid = new TucsonTupleCentreId(name, address, port);
+                this.tid = new TucsonTupleCentreIdDefault(name, address, port);
                 this.agent = new InspectorCore(this, this.aid, this.tid);
                 this.context = this.agent.getContext();
                 this.agent.start();
