@@ -6,7 +6,7 @@ import alice.respect.api.ISpatialContext;
 import alice.respect.api.place.IPlace;
 import alice.respect.core.RespectOperationDefault;
 import alice.respect.core.RespectTCContainer;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.TupleCentreOpType;
 
@@ -27,7 +27,7 @@ public class GeolocationServiceListener implements IGeolocationServiceListener {
     /**
      * Identifier of the associated tuple centre
      */
-    private final TucsonTupleCentreIdDefault tcId;
+    private final TucsonTupleCentreId tcId;
 
     /**
      * Constructs a listener
@@ -38,7 +38,7 @@ public class GeolocationServiceListener implements IGeolocationServiceListener {
      *            the associated tuple centre identifier
      */
     public GeolocationServiceListener(final AbstractGeolocationService s,
-            final TucsonTupleCentreIdDefault ttci) {
+            final TucsonTupleCentreId ttci) {
         this.service = s;
         this.tcId = ttci;
     }
@@ -49,12 +49,12 @@ public class GeolocationServiceListener implements IGeolocationServiceListener {
     }
 
     @Override
-    public GeoServiceId getServiceId() {
+    public GeoServiceIdentifier getServiceId() {
         return this.service.getServiceId();
     }
 
     @Override
-    public TucsonTupleCentreIdDefault getTcId() {
+    public TucsonTupleCentreId getTcId() {
         return this.tcId;
     }
 

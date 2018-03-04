@@ -44,7 +44,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
     /** Transducer's identifier **/
     protected TransducerId id;
     /** List of probes associated to the transducer **/
-    protected Map<AbstractProbeId, Object> probes;
+    protected Map<ProbeIdentifier, Object> probes;
     /** Identifier of the tuple centre associated **/
     protected TupleCentreIdentifier tcId;
 
@@ -61,7 +61,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
         this.tcId = tc;
         final UUID uuid = UUID.randomUUID(); // BUCCELLI
         this.executor = new OperationHandler(uuid);
-        this.probes = new HashMap<AbstractProbeId, Object>();
+        this.probes = new HashMap<>();
     }
 
     /**
@@ -73,7 +73,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
      * @param probe
      *            the probe itself
      */
-    public void addProbe(final AbstractProbeId i, final Object probe) {
+    public void addProbe(final ProbeIdentifier i, final Object probe) {
         if (!this.probes.containsKey(i)) {
             this.probes.put(i, probe);
         }
@@ -136,11 +136,11 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
      * @return array of the probes associated to the transducer
      */
     @Override
-    public AbstractProbeId[] getProbes() {
+    public ProbeIdentifier[] getProbes() {
         final Object[] keySet = this.probes.keySet().toArray();
-        final AbstractProbeId[] probeList = new AbstractProbeId[keySet.length];
+        final ProbeIdentifier[] probeList = new ProbeIdentifier[keySet.length];
         for (int i = 0; i < probeList.length; i++) {
-            probeList[i] = (AbstractProbeId) keySet[i];
+            probeList[i] = (ProbeIdentifier) keySet[i];
         }
         return probeList;
     }
@@ -221,10 +221,10 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
      * @param i
      *            probe's identifier
      */
-    public void removeProbe(final AbstractProbeId i) {
+    public void removeProbe(final ProbeIdentifier i) {
         final Object[] keySet = this.probes.keySet().toArray();
         for (final Object element : keySet) {
-            if (((AbstractProbeId) element).getLocalName().equals(
+            if (((ProbeIdentifier) element).getLocalName().equals(
                     i.getLocalName())) {
                 this.probes.remove(element);
                 return;

@@ -22,7 +22,7 @@ package alice.tucson.asynchSupport;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.TucsonAgentIdDefault;
+import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.TucsonOperationCompletionListener;
@@ -46,7 +46,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent {
      */
     private static final int POLLING_TIME = 10;
 
-    private static void log(final TucsonAgentIdDefault aid, final String msg) {
+    private static void log(final TucsonAgentId aid, final String msg) {
         System.out.println("....[AsynchOpsHelper (" + aid + ")]: " + msg);
     }
 

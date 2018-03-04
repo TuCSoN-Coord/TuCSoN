@@ -11,6 +11,7 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.BulkSyncACC;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonMetaACC;
@@ -29,7 +30,7 @@ public class SwarmMonitor {
 
     final SwarmComponent component;
     private final JButton[] bs;
-    private final TucsonTupleCentreIdDefault[] tcids;
+    private final TucsonTupleCentreId[] tcids;
     private BulkSyncACC acc;
 
     /**
@@ -39,7 +40,7 @@ public class SwarmMonitor {
         this.component = c;
         final Component[] cs = this.component.getComponents();
         this.bs = new JButton[cs.length - 3];
-        this.tcids = new TucsonTupleCentreIdDefault[cs.length - 3];
+        this.tcids = new TucsonTupleCentreId[cs.length - 3];
         try {
             for (int i = 1; i < (cs.length - 2); i++) {
                 this.bs[i - 1] = (JButton) cs[i];

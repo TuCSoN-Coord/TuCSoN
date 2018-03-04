@@ -3,8 +3,10 @@
  */
 package helloWorld;
 
+import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
@@ -40,7 +42,7 @@ public final class HelloWorldJTuples {
         /*
          * 1) Build a TuCSoN Agent identifier to contact the TuCSoN system.
          */
-        TucsonAgentIdDefault aid = null;
+        TucsonAgentId aid = null;
         try {
             if (args.length == 1) {
                 aid = new TucsonAgentIdDefault(args[0]);
@@ -57,7 +59,7 @@ public final class HelloWorldJTuples {
             /*
              * 3) Define the tuplecentre target of your coordination operations.
              */
-            final TucsonTupleCentreIdDefault tid = new TucsonTupleCentreIdDefault("default",
+            final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
                     "localhost", "20504");
             /*
              * 4) Build the tuple using the communication language.

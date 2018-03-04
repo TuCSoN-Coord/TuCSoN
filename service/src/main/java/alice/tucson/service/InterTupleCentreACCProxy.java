@@ -20,9 +20,9 @@ import java.util.List;
 import java.util.Map;
 
 import alice.logictuple.LogicTuple;
-import alice.respect.api.TupleCentreId;
 import alice.respect.api.geolocation.Position;
 import alice.tucson.api.TucsonOpId;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -34,7 +34,9 @@ import alice.tucson.network.TucsonProtocolTCP;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogInitializationException;
 import alice.tuplecentre.api.ITCCycleResult;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.OperationCompletionListener;
@@ -215,7 +217,7 @@ OperationCompletionListener {
 
     private static final int TRIES = 3;
     // aid is the source tuple centre Identifier
-    private TucsonTupleCentreIdDefault aid;
+    private TucsonTupleCentreId aid;
     private final Map<String, ControllerSession> controllerSessions;
     private final List<TucsonOpCompletionEvent> events;
     private final Map<Long, AbstractTupleCentreOperation> operations;
@@ -238,7 +240,7 @@ OperationCompletionListener {
             throws TucsonInvalidTupleCentreIdException {
         if ("alice.tucson.api.TucsonTupleCentreIdDefault".equals(id.getClass()
                 .getName())) {
-            this.aid = (TucsonTupleCentreIdDefault) id;
+            this.aid = (TucsonTupleCentreId) id;
         } else if ("java.lang.String".equals(id.getClass().getName())) {
             this.aid = new TucsonTupleCentreIdDefault((String) id);
         } else {
@@ -253,13 +255,13 @@ OperationCompletionListener {
     }
 
     @Override
-    public synchronized TucsonOpId doOperation(final Object tid,
-            final AbstractTupleCentreOperation op)
+    public synchronized OperationIdentifier doOperation(final Object tid,
+                                                        final AbstractTupleCentreOperation op)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
-        TucsonTupleCentreIdDefault tcid = null;
+        TucsonTupleCentreId tcid = null;
         if ("alice.respect.api.TupleCentreId".equals(tid.getClass().getName())) {
-            final TupleCentreId id = (TupleCentreId) tid;
+            final TupleCentreIdentifier id = (TupleCentreIdentifier) tid;
             try {
                 tcid = new TucsonTupleCentreIdDefault(id.getLocalName(), id.getNode(),
                         String.valueOf(id.getPort()));
@@ -268,7 +270,7 @@ OperationCompletionListener {
             }
         } else if ("alice.tucson.api.TucsonTupleCentreIdDefault".equals(tid.getClass()
                 .getName())) {
-            tcid = (TucsonTupleCentreIdDefault) tid;
+            tcid = (TucsonTupleCentreId) tid;
         } else if ("java.lang.String".equals(tid.getClass().getName())) {
             try {
                 tcid = new TucsonTupleCentreIdDefault((String) tid);
@@ -351,7 +353,7 @@ OperationCompletionListener {
     }
 
     @Override
-    public TucsonOpCompletionEvent waitForCompletion(final TucsonOpId id) {
+    public TucsonOpCompletionEvent waitForCompletion(final OperationIdentifier id) {
         try {
             synchronized (this.events) {
                 TucsonOpCompletionEvent ev = this.findEvent(id);
@@ -367,7 +369,7 @@ OperationCompletionListener {
     }
 
     @Override
-    public TucsonOpCompletionEvent waitForCompletion(final TucsonOpId id,
+    public TucsonOpCompletionEvent waitForCompletion(final OperationIdentifier id,
             final int timeout) {
         try {
             final long startTime = System.currentTimeMillis();
@@ -391,7 +393,7 @@ OperationCompletionListener {
                 + this.profile.getProperty("tc-identity") + ")]: " + msg);
     }
 
-    private TucsonOpCompletionEvent findEvent(final TucsonOpId id) {
+    private TucsonOpCompletionEvent findEvent(final OperationIdentifier id) {
         final Iterator<TucsonOpCompletionEvent> it = this.events.iterator();
         while (it.hasNext()) {
             final TucsonOpCompletionEvent ev = it.next();
@@ -403,7 +405,7 @@ OperationCompletionListener {
         return null;
     }
 
-    private AbstractTucsonProtocol getSession(final TucsonTupleCentreIdDefault tid)
+    private AbstractTucsonProtocol getSession(final TucsonTupleCentreId tid)
             throws UnreachableNodeException, DialogInitializationException {
         final String opNode = alice.util.Tools.removeApices(tid.getNode());
         final int port = tid.getPort();

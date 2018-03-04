@@ -16,8 +16,9 @@ package alice.tucson.service;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonTupleCentreId;
 
 /**
  *
@@ -27,18 +28,18 @@ import alice.tucson.api.TucsonTupleCentreIdDefault;
 public class TucsonTCUsers {
 
     private final Date creationDate;
-    private final List<TucsonAgentIdDefault> currentAidUsers;
-    private final TucsonTupleCentreIdDefault tid;
+    private final List<TucsonAgentId> currentAidUsers;
+    private final TucsonTupleCentreId tid;
 
     /**
      *
      * @param id
      *            the identifier of the tuple centre this register refers to
      */
-    public TucsonTCUsers(final TucsonTupleCentreIdDefault id) {
+    public TucsonTCUsers(final TucsonTupleCentreId id) {
         this.tid = id;
         this.creationDate = new Date();
-        this.currentAidUsers = new LinkedList<TucsonAgentIdDefault>();
+        this.currentAidUsers = new LinkedList<TucsonAgentId>();
     }
 
     /**
@@ -46,7 +47,7 @@ public class TucsonTCUsers {
      * @param aid
      *            the identifier of the agent to add to this register
      */
-    public void addUser(final TucsonAgentIdDefault aid) {
+    public void addUser(final TucsonAgentId aid) {
         synchronized (this.currentAidUsers) {
             if (!this.currentAidUsers.contains(aid)) {
                 this.currentAidUsers.add(aid);
@@ -66,7 +67,7 @@ public class TucsonTCUsers {
      *
      * @return the identifier of the tuple centre this register refers to
      */
-    public TucsonTupleCentreIdDefault getTucsonTupleCentreId() {
+    public TucsonTupleCentreId getTucsonTupleCentreId() {
         return this.tid;
     }
 
@@ -74,7 +75,7 @@ public class TucsonTCUsers {
      *
      * @return the list of user agents (their identifiers) currently registered
      */
-    public List<TucsonAgentIdDefault> getUsers() {
+    public List<TucsonAgentId> getUsers() {
         synchronized (this.currentAidUsers) {
             return this.currentAidUsers;
         }
@@ -85,7 +86,7 @@ public class TucsonTCUsers {
      * @param aid
      *            the identifier of the agent to remove from this register
      */
-    public void removeUser(final TucsonAgentIdDefault aid) {
+    public void removeUser(final TucsonAgentId aid) {
         synchronized (this.currentAidUsers) {
             if (this.currentAidUsers.contains(aid)) {
                 this.currentAidUsers.remove(aid);

@@ -13,7 +13,7 @@
  */
 package alice.tucson.introspection;
 
-import alice.tucson.api.TucsonAgentIdDefault;
+import alice.tucson.api.TucsonAgentId;
 
 /**
  *
@@ -29,7 +29,7 @@ public class ShutdownMsg extends NodeMsg {
      * @param id
      *            the agent id of the sender
      */
-    public ShutdownMsg(final TucsonAgentIdDefault id) {
+    public ShutdownMsg(final TucsonAgentId id) {
         super(id, "exit");
     }
 

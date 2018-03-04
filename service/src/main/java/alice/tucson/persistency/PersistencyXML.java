@@ -25,7 +25,7 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import alice.logictuple.LogicTuple;
 import alice.respect.core.RespectVMContext.ModType;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 
 /**
  *
@@ -53,7 +53,7 @@ public class PersistencyXML {
     private static final String UPDATE_NODE = "update";
     private static final String UPDATES_NODE = "updates";
     private String pDate;
-    private TucsonTupleCentreIdDefault pFileName;
+    private TucsonTupleCentreId pFileName;
     private String pPath;
     private File xmlFile;
 
@@ -61,7 +61,7 @@ public class PersistencyXML {
         this.xmlFile = new File(fileName);
     }
 
-    public PersistencyXML(final String path, final TucsonTupleCentreIdDefault fileName) {
+    public PersistencyXML(final String path, final TucsonTupleCentreId fileName) {
         this.pFileName = fileName;
         this.pPath = path;
     }

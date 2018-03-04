@@ -13,7 +13,7 @@
  */
 package alice.tucson.introspection;
 
-import alice.tucson.api.TucsonAgentIdDefault;
+import alice.tucson.api.TucsonAgentId;
 
 /**
  *
@@ -29,7 +29,7 @@ public class ResetMsg extends NodeMsg {
      * @param id
      *            the agent id of the sender
      */
-    public ResetMsg(final TucsonAgentIdDefault id) {
+    public ResetMsg(final TucsonAgentId id) {
         super(id, "reset");
     }
 }

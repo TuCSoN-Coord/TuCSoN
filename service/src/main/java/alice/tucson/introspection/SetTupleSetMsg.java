@@ -13,7 +13,7 @@
  */
 package alice.tucson.introspection;
 
-import alice.tucson.api.TucsonAgentIdDefault;
+import alice.tucson.api.TucsonAgentId;
 import alice.tuplecentre.api.Tuple;
 
 /**
@@ -33,7 +33,7 @@ public class SetTupleSetMsg extends NodeMsg {
      * @param ts
      *            the list of tuples to overwrite the tuple set with
      */
-    public SetTupleSetMsg(final TucsonAgentIdDefault id,
+    public SetTupleSetMsg(final TucsonAgentId id,
             final java.util.List<? extends Tuple> ts) {
         super(id, "setTupleSet");
         this.tupleSet = ts;

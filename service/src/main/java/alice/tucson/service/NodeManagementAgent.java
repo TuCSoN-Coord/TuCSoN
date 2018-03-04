@@ -13,8 +13,9 @@ import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.logictuple.exceptions.InvalidLogicTupleOperationException;
 import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.respect.core.RespectOperationDefault;
+import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -35,9 +36,9 @@ public class NodeManagementAgent extends Thread {
         System.out.println("[NodeManagementAgent]: " + s);
     }
 
-    private final TucsonTupleCentreIdDefault config;
+    private final TucsonTupleCentreId config;
     private final TucsonNodeService node;
-    private TucsonAgentIdDefault nodeManAid;
+    private TucsonAgentId nodeManAid;
 
     /**
      *
@@ -47,7 +48,7 @@ public class NodeManagementAgent extends Thread {
      * @param n
      *            the TuCSoN node this management agent belongs to
      */
-    public NodeManagementAgent(final TucsonTupleCentreIdDefault conf,
+    public NodeManagementAgent(final TucsonTupleCentreId conf,
             final TucsonNodeService n) {
         super();
         try {

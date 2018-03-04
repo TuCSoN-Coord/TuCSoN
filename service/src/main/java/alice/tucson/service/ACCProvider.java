@@ -25,8 +25,9 @@ import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.logictuple.exceptions.LogicTupleException;
 import alice.respect.core.RespectOperationDefault;
+import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.TucsonGenericException;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
@@ -55,8 +56,8 @@ public class ACCProvider {
         System.out.println("..[ACCProvider]: " + st);
     }
 
-    private TucsonAgentIdDefault aid;
-    private final TucsonTupleCentreIdDefault config;
+    private TucsonAgentId aid;
+    private final TucsonTupleCentreId config;
     private final ExecutorService exec;
     private final TucsonNodeService node;
 
@@ -68,7 +69,7 @@ public class ACCProvider {
      *            the identifier of the tuple centre used for internal
      *            configuration purpose
      */
-    public ACCProvider(final TucsonNodeService n, final TucsonTupleCentreIdDefault tid) {
+    public ACCProvider(final TucsonNodeService n, final TucsonTupleCentreId tid) {
         try {
             this.aid = new TucsonAgentIdDefault("context_manager");
         } catch (final TucsonInvalidAgentIdException e) {
@@ -229,7 +230,7 @@ public class ACCProvider {
      */
     // exception handling is a mess, need to review it...
     public synchronized boolean shutdownContext(final int ctxId,
-            final TucsonAgentIdDefault id) {
+            final TucsonAgentId id) {
         LogicTuple req = null;
         try {
             req = new LogicTuple("context_shutdown", new Value(ctxId),

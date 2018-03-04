@@ -1,7 +1,7 @@
 package alice.respect.api.geolocation.service;
 
 import alice.respect.api.place.IPlace;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.core.TupleCentreOpType;
 
 /**
@@ -23,7 +23,7 @@ public interface IGeolocationServiceListener {
      * 
      * @return service identifier
      */
-    GeoServiceId getServiceId();
+    GeoServiceIdentifier getServiceId();
 
     /**
      * Gets the tuple centre identifier associated with this listener and
@@ -31,7 +31,7 @@ public interface IGeolocationServiceListener {
      * 
      * @return tuple centre identifier
      */
-    TucsonTupleCentreIdDefault getTcId();
+    TucsonTupleCentreId getTcId();
 
     /**
      * Called by the related service when the location is changed

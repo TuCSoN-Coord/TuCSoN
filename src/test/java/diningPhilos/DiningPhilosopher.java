@@ -4,10 +4,10 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -25,7 +25,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
     private static final int THINKING_TIME = 5000;
     private OrdinaryAndSpecificationSyncACC acc;
     private final int chop1, chop2;
-    private final TucsonTupleCentreIdDefault myTable;
+    private final TucsonTupleCentreId myTable;
 
     /**
      *
@@ -43,7 +43,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
      *             if the given String does not represent a valid TuCSoN agent
      *             identifier
      */
-    public DiningPhilosopher(final String aid, final TucsonTupleCentreIdDefault table,
+    public DiningPhilosopher(final String aid, final TucsonTupleCentreId table,
             final int left, final int right)
             throws TucsonInvalidAgentIdException {
         super(aid);

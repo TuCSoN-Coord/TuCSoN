@@ -8,6 +8,8 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.acc.NegotiationACC;
@@ -45,11 +47,11 @@ public final class PersistencyTester {
             } catch (final DialogInitializationException e) {
                 e.printStackTrace();
             }
-            final TucsonTupleCentreIdDefault ttcid = new TucsonTupleCentreIdDefault(
+            final TucsonTupleCentreId ttcid = new TucsonTupleCentreIdDefault(
                     "def(1)@localhost:20504");
-            final TucsonTupleCentreIdDefault ttcidOrg = new TucsonTupleCentreIdDefault(
+            final TucsonTupleCentreId ttcidOrg = new TucsonTupleCentreIdDefault(
                     "'$ORG'@localhost:20504");
-            final TucsonAgentIdDefault aid = new TucsonAgentIdDefault("'PersistencyTester'");
+            final TucsonAgentId aid = new TucsonAgentIdDefault("'PersistencyTester'");
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(aid);
             final EnhancedACC acc = negAcc.playDefaultRole();

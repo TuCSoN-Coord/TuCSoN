@@ -20,10 +20,10 @@
 package alice.tucson.api.actions.specification;
 
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonOperationCompletionListener;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.SpecificationAsyncACC;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -48,7 +48,7 @@ public class GetS extends AbstractTucsonSpecificationAction {
      *            the Identifier of the TuCSoN tuple centre target of this coordination
      *            operation
      */
-    public GetS(final TucsonTupleCentreIdDefault tc) {
+    public GetS(final TucsonTupleCentreId tc) {
         super(tc, null, null, null);
     }
 

@@ -33,7 +33,6 @@ import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.respect.api.ILinkContext;
 import alice.respect.api.IRespectTC;
 import alice.respect.api.RespectSpecification;
-import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.OperationNotPossibleException;
 import alice.respect.api.geolocation.PlatformUtils;
 import alice.respect.api.geolocation.service.AbstractGeolocationService;
@@ -42,7 +41,9 @@ import alice.respect.core.tupleset.ITupleSet;
 import alice.respect.core.tupleset.TupleSetCoord;
 import alice.respect.core.tupleset.TupleSetSpec;
 import alice.tucson.api.AbstractSpawnActivity;
+import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonAgentIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -54,6 +55,7 @@ import alice.tucson.service.Spawn2PSolver;
 import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.AbstractBehaviourSpecification;
 import alice.tuplecentre.core.AbstractEvent;
@@ -115,7 +117,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 			// 3rd arg is the target of the event,
 			RespectVMContext.this.log("Completion op = " + arg0 + ", from = " + this.oe.getSource() + ", to = "
 					+ this.oe.getTarget() + ", arg = " + arg0.getTupleResult() + " / " + arg0.getTupleListResult());
-			final InputEvent res = new InputEvent(this.oe.getSource(), arg0, (TupleCentreId) this.oe.getTarget(),
+			final InputEvent res = new InputEvent(this.oe.getSource(), arg0, (TupleCentreIdentifier) this.oe.getTarget(),
 					RespectVMContext.this.getCurrentTime(), RespectVMContext.this.getPosition());
 			RespectVMContext.this.notifyInputEvent(res);
 		}
@@ -218,8 +220,8 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	 * @param respectTC
 	 *            the ReSpecT tuple centres manager
 	 */
-	public RespectVMContext(final RespectVM rvm, final TupleCentreId tid, final int queueSize,
-			final IRespectTC respectTC) {
+	public RespectVMContext(final RespectVM rvm, final TupleCentreIdentifier tid, final int queueSize,
+							final IRespectTC respectTC) {
 		super(rvm, tid, queueSize, respectTC);
 		this.timers = new ArrayList<Timer>();
 		this.semaphore = new Object();
@@ -343,7 +345,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	 *            the name of the file where persistency information is stored
 	 *
 	 */
-	public void disablePersistency(final String path, final TucsonTupleCentreIdDefault fileName) {
+	public void disablePersistency(final String path, final TucsonTupleCentreId fileName) {
 		this.closePersistencyUpdates();
 		this.isPersistent = false;
 	}
@@ -363,7 +365,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	 *            the name of the file to create for storing persistency information
 	 *
 	 */
-	public void enablePersistency(final String path, final TucsonTupleCentreIdDefault fileName) {
+	public void enablePersistency(final String path, final TucsonTupleCentreId fileName) {
 		this.isPersistent = true;
 		/*
 		 * this.pPath = path; this.pFileName = fileName.getName() + "_at_" +
@@ -1208,17 +1210,17 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	@Override
 	public void linkOperation(final OutputEvent oe) {
 		this.log(" ### ### ### OE = " + oe);
-		final TupleCentreId target = (TupleCentreId) oe.getTarget();
+		final TupleCentreIdentifier target = (TupleCentreIdentifier) oe.getTarget();
 		try {
 			final AbstractTupleCentreOperation op = oe.getSimpleTCEvent();
 			op.setCompletionListener(new CompletionListener(oe));
 			final ILinkContext link = RespectTCContainer.getRespectTCContainer().getLinkContext(target);
 			// link.doOperation((TupleCentreIdentifier) oe.getSource(), op);
-			TupleCentreId source;
+			TupleCentreIdentifier source;
 			if (oe.getSource() instanceof TucsonTupleCentreIdDefault) {
-				source = ((TucsonTupleCentreIdDefault) oe.getSource()).getInternalTupleCentreId();
+				source = ((TucsonTupleCentreId) oe.getSource()).getInternalTupleCentreId();
 			} else {
-				source = (TupleCentreId) oe.getSource();
+				source = (TupleCentreIdentifier) oe.getSource();
 			}
 			link.doOperation(source, op);
 		} catch (final OperationNotPossibleException e) {
@@ -1301,7 +1303,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	 *            the name of the tuple centre to be recovered
 	 *
 	 */
-	public void recoveryPersistent(final String path, final String file, final TucsonTupleCentreIdDefault tcName) {
+	public void recoveryPersistent(final String path, final String file, final TucsonTupleCentreId tcName) {
 		// BufferedReader br = null;
 		try {
 			final File f = new File(path.concat(file));
@@ -1684,22 +1686,22 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 					final Prolog solver = new Prolog();
 					final Spawn2PLibrary s2pLib = new Spawn2PLibrary();
 					if (owner.isAgent()) {
-						final TucsonAgentIdDefault aid = new TucsonAgentIdDefault(((AgentIdentifier) owner).toString());
+						final TucsonAgentId aid = new TucsonAgentIdDefault(((AgentIdentifier) owner).toString());
 						this.log("spawnActivity.aid = " + aid);
 						s2pLib.setSpawnerId(aid);
 					} else {
-						final TucsonTupleCentreIdDefault tcid = new TucsonTupleCentreIdDefault(((TupleCentreId) owner).getLocalName(),
-								((TupleCentreId) owner).getNode(), String.valueOf(((TupleCentreId) owner).getPort()));
+						final TucsonTupleCentreId tcid = new TucsonTupleCentreIdDefault(((TupleCentreIdentifier) owner).getLocalName(),
+								((TupleCentreIdentifier) owner).getNode(), String.valueOf(((TupleCentreIdentifier) owner).getPort()));
 						this.log("spawnActivity.tcid = " + tcid);
 						s2pLib.setSpawnerId(tcid);
 					}
-					TucsonTupleCentreIdDefault target;
+					TucsonTupleCentreId target;
 					if (targetTC instanceof TucsonTupleCentreIdDefault) {
-						target = (TucsonTupleCentreIdDefault) targetTC;
+						target = (TucsonTupleCentreId) targetTC;
 					} else {
-						target = new TucsonTupleCentreIdDefault(((TupleCentreId) targetTC).getLocalName(),
-								((TupleCentreId) targetTC).getNode(),
-								String.valueOf(((TupleCentreId) targetTC).getPort()));
+						target = new TucsonTupleCentreIdDefault(((TupleCentreIdentifier) targetTC).getLocalName(),
+								((TupleCentreIdentifier) targetTC).getNode(),
+								String.valueOf(((TupleCentreIdentifier) targetTC).getPort()));
 					}
 					this.log("spawnActivity.target = " + target);
 					s2pLib.setTargetTC(target);
@@ -1730,23 +1732,23 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 					if (AbstractSpawnActivity.class.isAssignableFrom(toSpawn)) {
 						final AbstractSpawnActivity instance = (AbstractSpawnActivity) toSpawn.newInstance();
 						if (owner.isAgent()) {
-							final TucsonAgentIdDefault aid = new TucsonAgentIdDefault(((AgentIdentifier) owner).toString());
+							final TucsonAgentId aid = new TucsonAgentIdDefault(((AgentIdentifier) owner).toString());
 							this.log("spawnActivity.aid = " + aid);
 							instance.setSpawnerId(aid);
 						} else {
-							final TucsonTupleCentreIdDefault tcid = new TucsonTupleCentreIdDefault(((TupleCentreId) owner).getLocalName(),
-									((TupleCentreId) owner).getNode(),
-									String.valueOf(((TupleCentreId) owner).getPort()));
+							final TucsonTupleCentreId tcid = new TucsonTupleCentreIdDefault(((TupleCentreIdentifier) owner).getLocalName(),
+									((TupleCentreIdentifier) owner).getNode(),
+									String.valueOf(((TupleCentreIdentifier) owner).getPort()));
 							this.log("spawnActivity.tcid = " + tcid);
 							instance.setSpawnerId(tcid);
 						}
-						TucsonTupleCentreIdDefault target;
+						TucsonTupleCentreId target;
 						if (targetTC instanceof TucsonTupleCentreIdDefault) {
-							target = (TucsonTupleCentreIdDefault) targetTC;
+							target = (TucsonTupleCentreId) targetTC;
 						} else {
-							target = new TucsonTupleCentreIdDefault(((TupleCentreId) targetTC).getLocalName(),
-									((TupleCentreId) targetTC).getNode(),
-									String.valueOf(((TupleCentreId) targetTC).getPort()));
+							target = new TucsonTupleCentreIdDefault(((TupleCentreIdentifier) targetTC).getLocalName(),
+									((TupleCentreIdentifier) targetTC).getNode(),
+									String.valueOf(((TupleCentreIdentifier) targetTC).getPort()));
 						}
 						this.log("spawnActivity.target = " + target);
 						instance.setTargetTC(target);
@@ -1824,9 +1826,9 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	}
 
 	private void log(final String s) {
-		System.out.println("....[RespectVMContext (" + ((alice.respect.api.TupleCentreId) this.getId()).getLocalName() + "@"
-				+ ((alice.respect.api.TupleCentreId) this.getId()).getNode() + ":"
-				+ ((alice.respect.api.TupleCentreId) this.getId()).getPort() + ")]: " + s);
+		System.out.println("....[RespectVMContext (" + this.getId().getLocalName() + "@"
+				+ this.getId().getNode() + ":"
+				+ this.getId().getPort() + ")]: " + s);
 	}
 
 	/**

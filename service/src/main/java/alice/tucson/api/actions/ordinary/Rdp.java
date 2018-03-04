@@ -20,11 +20,11 @@
 package alice.tucson.api.actions.ordinary;
 
 import alice.logictuple.LogicTuple;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonOperation;
 import alice.tucson.api.TucsonOperationCompletionListener;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.OrdinaryAsyncACC;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -52,7 +52,7 @@ public class Rdp extends AbstractTucsonOrdinaryAction {
      * @param t
      *            the logic tuple argument of this coordination operation
      */
-    public Rdp(final TucsonTupleCentreIdDefault tc, final LogicTuple t) {
+    public Rdp(final TucsonTupleCentreId tc, final LogicTuple t) {
         super(tc, t);
     }
 

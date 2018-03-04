@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import alice.respect.api.IRespectTC;
 import alice.respect.api.ITCRegistry;
-import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.InstantiationNotPossibleException;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 
 /**
  *
@@ -30,7 +30,7 @@ public class RespectLocalRegistry implements ITCRegistry {
 
     @Override
     public void addTC(final IRespectTC tc) {
-        final TupleCentreId id = tc.getId();
+        final TupleCentreIdentifier id = tc.getId();
         final String key = id.getLocalName() + ":" + id.getPort();
         if (!this.reg.containsKey(key)) {
             this.reg.put(key, tc);
@@ -51,7 +51,7 @@ public class RespectLocalRegistry implements ITCRegistry {
     }
 
     @Override
-    public IRespectTC getTC(final TupleCentreId id)
+    public IRespectTC getTC(final TupleCentreIdentifier id)
             throws InstantiationNotPossibleException {
         final String key = id.getLocalName() + ":" + id.getPort();
         if (!this.reg.containsKey(key)) {

@@ -4,6 +4,7 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
@@ -36,7 +37,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
 
     private OrdinaryAndSpecificationSyncACC acc;
 
-    private TucsonTupleCentreIdDefault tid;
+    private TucsonTupleCentreId tid;
 
     /**
      * @param aid

@@ -27,11 +27,11 @@ import alice.respect.api.ISpecificationAsynchInterface;
 import alice.respect.api.ISpecificationSynchInterface;
 import alice.respect.api.ITimedContext;
 import alice.respect.api.RespectSpecification;
-import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.InvalidSpecificationException;
 import alice.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuprolog.Prolog;
 
@@ -57,7 +57,7 @@ public class RespectTC implements IRespectTC {
      * @param qSize
      *            the maximum size of the input queue
      */
-    public RespectTC(final TupleCentreId tid,
+    public RespectTC(final TupleCentreIdentifier tid,
             final RespectTCContainer container, final int qSize) {
         this.vm = new RespectVM(tid, container, qSize, this);
         this.vmThread = new Thread(this.vm);
@@ -80,7 +80,7 @@ public class RespectTC implements IRespectTC {
     }
 
     @Override
-    public TupleCentreId getId() {
+    public TupleCentreIdentifier getId() {
         return this.vm.getId();
     }
 

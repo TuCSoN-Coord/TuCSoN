@@ -5,6 +5,7 @@ import alice.logictuple.TupleArgument;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
@@ -86,7 +87,7 @@ public class Worker extends AbstractTucsonAgent {
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());
             acc = negAcc.playDefaultRole();
-            final TucsonTupleCentreIdDefault ttcid = new TucsonTupleCentreIdDefault(
+            final TucsonTupleCentreId ttcid = new TucsonTupleCentreIdDefault(
                     "bagoftask", this.ip, this.port);
             LogicTuple taskTempl;
             TucsonOperation taskOp;

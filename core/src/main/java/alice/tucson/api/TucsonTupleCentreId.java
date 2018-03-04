@@ -1,6 +1,5 @@
 package alice.tucson.api;
 
-import alice.respect.api.TupleCentreId;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 
 /**
@@ -11,5 +10,5 @@ public interface TucsonTupleCentreId extends TupleCentreIdentifier {
     /**
      * @return the local tuple centre identifier
      */
-    TupleCentreId getInternalTupleCentreId();
+    TupleCentreIdentifier getInternalTupleCentreId();
 }

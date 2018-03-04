@@ -14,8 +14,9 @@
 package alice.tucson.introspection;
 
 import java.io.IOException;
-import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.network.exceptions.DialogException;
 import alice.tucson.network.exceptions.DialogSendException;
 
@@ -46,7 +47,7 @@ public class Inspector extends Thread implements InspectorContextListener {
      *            whether the inspector is the Gui version (see Dradi MoK
      *            project 2014/2015)
      */
-    public Inspector(final TucsonAgentIdDefault id, final TucsonTupleCentreIdDefault tid,
+    public Inspector(final TucsonAgentId id, final TucsonTupleCentreId tid,
                      boolean forGui) {
         super();
         this.context = new InspectorContextStub(id, tid, forGui);
@@ -54,7 +55,7 @@ public class Inspector extends Thread implements InspectorContextListener {
         this.q = false;
     }
 
-    public Inspector(final TucsonAgentIdDefault id, final TucsonTupleCentreIdDefault tid) {
+    public Inspector(final TucsonAgentId id, final TucsonTupleCentreId tid) {
         this(id, tid, false);
     }
 

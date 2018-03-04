@@ -13,7 +13,7 @@
  */
 package alice.tucson.introspection;
 
-import alice.tucson.api.TucsonAgentIdDefault;
+import alice.tucson.api.TucsonAgentId;
 
 /**
  *
@@ -40,7 +40,7 @@ public class GetSnapshotMsg extends NodeMsg {
      * @param w
      *            the set to retrieve
      */
-    public GetSnapshotMsg(final TucsonAgentIdDefault id, final byte w) {
+    public GetSnapshotMsg(final TucsonAgentId id, final byte w) {
         super(id, "getSnapshot");
         this.what = w;
     }

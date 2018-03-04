@@ -14,7 +14,8 @@
 package alice.tucson.introspection;
 
 import java.util.List;
-import alice.tucson.api.TucsonAgentIdDefault;
+
+import alice.tucson.api.TucsonAgentId;
 import alice.tuplecentre.api.Tuple;
 
 /**
@@ -35,7 +36,7 @@ public class SetEventSetMsg extends NodeMsg {
      *            the list of tuples representing events to overwrite the InQ
      *            with
      */
-    public SetEventSetMsg(final TucsonAgentIdDefault id, final List<? extends Tuple> ts) {
+    public SetEventSetMsg(final TucsonAgentId id, final List<? extends Tuple> ts) {
         super(id, "setEventSet");
         this.eventWnSet = ts;
     }

@@ -6,6 +6,7 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
@@ -49,7 +50,7 @@ public class MasterAgent extends AbstractTucsonAgent {
     private final HashMap<Integer, Integer> pendings;
     private int reqID;
 
-    private final LinkedList<TucsonTupleCentreIdDefault> tids;
+    private final LinkedList<TucsonTupleCentreId> tids;
 
     /**
      * @param aid
@@ -69,7 +70,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                     throws TucsonInvalidAgentIdException {
         super(aid);
         this.die = false;
-        this.tids = new LinkedList<TucsonTupleCentreIdDefault>();
+        this.tids = new LinkedList<>();
         try {
             for (final String node : nodes) {
                 this.tids.add(new TucsonTupleCentreIdDefault(node));
@@ -116,7 +117,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                     .getNegotiationContext(this.getTucsonAgentId());
             this.acc = negAcc.playDefaultRole();
             TucsonOperation op;
-            TucsonTupleCentreIdDefault next;
+            TucsonTupleCentreId next;
             LogicTuple job;
             LogicTuple templ;
             LogicTuple res;

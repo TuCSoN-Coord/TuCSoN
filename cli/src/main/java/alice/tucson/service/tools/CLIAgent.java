@@ -20,8 +20,8 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.LogicTupleOpManager;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.EnhancedACC;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -117,7 +117,7 @@ public class CLIAgent extends alice.util.Automaton {
             e.printStackTrace();
         }
         final TucsonCmd cmd = parser.getCmd();
-        final TucsonTupleCentreIdDefault tid = parser.getTid();
+        final TucsonTupleCentreId tid = parser.getTid();
         if (cmd == null || tid == null) {
             CLIAgent.error(st);
         } else if ("quit".equals(cmd.getPrimitive())

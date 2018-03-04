@@ -18,6 +18,7 @@ import java.io.Serializable;
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuprolog.Term;
 
 /**
@@ -29,7 +30,7 @@ import alice.tuprolog.Term;
 public class TucsonTupleCentreIdDefault implements TucsonTupleCentreId, Serializable {
 
     private static final long serialVersionUID = -4503481713163088789L;
-    private TupleCentreId tid;
+    private TupleCentreIdentifier tid;
 
     /**
      * @param id the String representation of a valid TuCSoN tuple centre
@@ -66,12 +67,12 @@ public class TucsonTupleCentreIdDefault implements TucsonTupleCentreId, Serializ
      * @param id the String representation of a valid TuCSoN tuple centre
      *           identifier
      */
-    public TucsonTupleCentreIdDefault(final TupleCentreId id) {
+    public TucsonTupleCentreIdDefault(final TupleCentreIdentifier id) {
         this.tid = id;
     }
 
     @Override
-    public TupleCentreId getInternalTupleCentreId() {
+    public TupleCentreIdentifier getInternalTupleCentreId() {
         return this.tid;
     }
 

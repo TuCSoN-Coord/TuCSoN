@@ -31,9 +31,9 @@ import alice.tuplecentre.core.TupleCentreOpType;
  */
 public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     private static final long serialVersionUID = -6354837455366449916L;
-    private TucsonAgentIdDefault aid;
-    private TucsonTupleCentreIdDefault target;
-    private TucsonTupleCentreIdDefault tcid;
+    private TucsonAgentId aid;
+    private TucsonTupleCentreId target;
+    private TucsonTupleCentreId tcid;
 
     /**
      * Checks if the activity to spawn has been correctly instantiated.
@@ -64,9 +64,9 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      */
     public final TucsonIdWrapper<?> getSpawnerId() {
         if (this.aid == null) {
-            return new TucsonIdWrapper<TucsonTupleCentreIdDefault>(this.tcid);
+            return new TucsonIdWrapper<>(this.tcid);
         }
-        return new TucsonIdWrapper<TucsonAgentIdDefault>(this.aid);
+        return new TucsonIdWrapper<>(this.aid);
     }
 
     /**
@@ -74,7 +74,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * 
      * @return the identifier of the tuplecentre hosting the spawned activity.
      */
-    public final TucsonTupleCentreIdDefault getTargetTC() {
+    public final TucsonTupleCentreId getTargetTC() {
         return this.target;
     }
 
@@ -95,7 +95,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @param id
      *            the identifier of the agent "owner" of the spawned activity.
      */
-    public final void setSpawnerId(final TucsonAgentIdDefault id) {
+    public final void setSpawnerId(final TucsonAgentId id) {
         this.aid = id;
         this.tcid = null;
     }
@@ -108,7 +108,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      *            the identifier of the tuplecentre "owner" of the spawned
      *            activity.
      */
-    public final void setSpawnerId(final TucsonTupleCentreIdDefault id) {
+    public final void setSpawnerId(final TucsonTupleCentreId id) {
         this.aid = null;
         this.tcid = id;
     }
@@ -121,7 +121,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      *            the identifier of the tuplecentre target of the spawned
      *            activity.
      */
-    public final void setTargetTC(final TucsonTupleCentreIdDefault id) {
+    public final void setTargetTC(final TucsonTupleCentreId id) {
         this.target = id;
     }
 

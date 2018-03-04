@@ -13,7 +13,7 @@
  */
 package alice.tucson.introspection;
 
-import alice.tucson.api.TucsonAgentIdDefault;
+import alice.tucson.api.TucsonAgentId;
 
 /**
  *
@@ -29,7 +29,7 @@ public class NewNodeInspectorMsg extends NodeMsg {
      * @param i
      *            the agent id of the sender
      */
-    public NewNodeInspectorMsg(final TucsonAgentIdDefault i) {
+    public NewNodeInspectorMsg(final TucsonAgentId i) {
         super(i, "newNodeInspector");
     }
 }

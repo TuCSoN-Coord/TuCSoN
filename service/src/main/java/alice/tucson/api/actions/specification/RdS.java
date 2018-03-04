@@ -21,7 +21,7 @@ package alice.tucson.api.actions.specification;
 
 import alice.logictuple.LogicTuple;
 import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonOperationCompletionListener;
@@ -58,7 +58,7 @@ public class RdS extends AbstractTucsonSpecificationAction {
      *            the logic tuple representing the reaction body of the ReSpecT
      *            specification tuple
      */
-    public RdS(final TucsonTupleCentreIdDefault tc, final LogicTuple e,
+    public RdS(final TucsonTupleCentreId tc, final LogicTuple e,
                final LogicTuple g, final LogicTuple r) {
         super(tc, e, g, r);
     }

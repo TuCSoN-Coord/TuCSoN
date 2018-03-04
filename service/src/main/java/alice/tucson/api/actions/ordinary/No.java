@@ -21,7 +21,7 @@ package alice.tucson.api.actions.ordinary;
 
 import alice.logictuple.LogicTuple;
 import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonOperationCompletionListener;
@@ -52,7 +52,7 @@ public class No extends AbstractTucsonOrdinaryAction {
      * @param t
      *            the logic tuple argument of this coordination operation
      */
-    public No(final TucsonTupleCentreIdDefault tc, final LogicTuple t) {
+    public No(final TucsonTupleCentreId tc, final LogicTuple t) {
         super(tc, t);
     }
 

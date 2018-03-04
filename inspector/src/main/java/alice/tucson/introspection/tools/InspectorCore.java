@@ -19,13 +19,15 @@ import java.util.Calendar;
 import java.util.Iterator;
 
 import alice.logictuple.LogicTuple;
-import alice.respect.api.AgentId;
 import alice.respect.api.TupleCentreId;
 import alice.respect.situatedness.TransducerId;
-import alice.tucson.api.TucsonAgentIdDefault;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.introspection.WSetEvent;
+import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.TriggeredReaction;
 
 /**
@@ -73,8 +75,8 @@ public class InspectorCore extends alice.tucson.introspection.Inspector {
      * @param tid
      *            the identifier of the tuple centre to inspect
      */
-    public InspectorCore(final InspectorGUI f, final TucsonAgentIdDefault id,
-            final TucsonTupleCentreIdDefault tid) {
+    public InspectorCore(final InspectorGUI f, final TucsonAgentId id,
+            final TucsonTupleCentreId tid) {
         super(id, tid);
         this.form = f;
         this.logTupleFilename = "inspector-tuples.log";
@@ -212,7 +214,7 @@ public class InspectorCore extends alice.tucson.introspection.Inspector {
                 ev = it.next();
                 if (ev.getSource().isAgent()) {
                     st.append(ev.getOp()).append(" from <")
-                            .append(((TucsonAgentIdDefault) ev.getSource()).getLocalName())
+                            .append(((TucsonAgentId) ev.getSource()).getLocalName())
                             .append("> to <").append(ev.getTarget())
                             .append(">\n");
                 } else if (ev.getSource().isTC()) {
@@ -220,13 +222,13 @@ public class InspectorCore extends alice.tucson.introspection.Inspector {
                     if (ev.getSource() instanceof TucsonTupleCentreIdDefault) {
                         st.append(ev.getOp())
                                 .append(" from <")
-                                .append(((TucsonTupleCentreIdDefault) ev.getSource())
+                                .append(((TucsonTupleCentreId) ev.getSource())
                                         .toString()).append("> to <")
                                 .append(ev.getTarget()).append(">\n");
                     } else if (ev.getSource() instanceof TupleCentreId) {
                         st.append(ev.getOp())
                                 .append(" from <")
-                                .append(((TupleCentreId) ev.getSource())
+                                .append(((TupleCentreIdentifier) ev.getSource())
                                         .toString()).append("> to <")
                                 .append(ev.getTarget()).append(">\n");
                     }
@@ -259,7 +261,7 @@ public class InspectorCore extends alice.tucson.introspection.Inspector {
                             st.append("\t\top(what(")
                                     .append(ev.getOp())
                                     .append("),\n\t\t\twho(")
-                                    .append(((AgentId) ev.getSource())
+                                    .append(((AgentIdentifier) ev.getSource())
                                             .getLocalName())
                                     .append("),\n\t\t\twhere(")
                                     .append(ev.getTarget())
@@ -269,7 +271,7 @@ public class InspectorCore extends alice.tucson.introspection.Inspector {
                                 st.append("\t\top(what(")
                                         .append(ev.getOp())
                                         .append("),\n\t\t\twho(")
-                                        .append(((AgentId) ev.getSource())
+                                        .append(((AgentIdentifier) ev.getSource())
                                                 .getLocalName())
                                         .append("),\n\t\t\twhere(")
                                         .append(ev.getTarget())
@@ -285,7 +287,7 @@ public class InspectorCore extends alice.tucson.introspection.Inspector {
                                 st.append("\t\top(what(")
                                         .append(ev.getOp())
                                         .append("),\n\t\t\twho(")
-                                        .append(((AgentId) ev.getSource())
+                                        .append(((AgentIdentifier) ev.getSource())
                                                 .getLocalName())
                                         .append("),\n\t\t\twhere(")
                                         .append(ev.getTarget())
@@ -298,7 +300,7 @@ public class InspectorCore extends alice.tucson.introspection.Inspector {
                                     st.append("\t\top(what(")
                                             .append(ev.getOp())
                                             .append("),\n\t\t\twho(")
-                                            .append(((AgentId) ev.getSource())
+                                            .append(((AgentIdentifier) ev.getSource())
                                                     .getLocalName())
                                             .append("),\n\t\t\twhere(")
                                             .append(ev.getTarget())

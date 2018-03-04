@@ -29,7 +29,7 @@ public interface TransducerStandardInterface {
      *
      * @return the list of Probes for which this tranduces is responsible for
      */
-    AbstractProbeId[] getProbes();
+    ProbeIdentifier[] getProbes();
 
     /**
      *

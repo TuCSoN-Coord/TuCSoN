@@ -9,6 +9,7 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -26,7 +27,7 @@ public class Ant extends AbstractTucsonAgent {
 
     private final static Long TIMEOUT = 500L;
 
-    private TucsonTupleCentreIdDefault tcid;
+    private TucsonTupleCentreId tcid;
     private EnhancedSyncACC acc;
 
     private boolean stopped;
@@ -193,7 +194,7 @@ public class Ant extends AbstractTucsonAgent {
 
         if (op.isResultSuccess()) {
 
-            TucsonTupleCentreIdDefault oldTcid = null;
+            TucsonTupleCentreId oldTcid = null;
 
             try {
                 if (this.carryingFood) {

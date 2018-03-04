@@ -17,8 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import alice.tucson.api.TucsonAgentIdDefault;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.exceptions.OperationNotAllowedException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.AbstractTucsonProtocol;
@@ -41,12 +41,12 @@ public class InspectorContextStub implements InspectorContext {
     private AbstractTucsonProtocol dialog;
     private boolean exitFlag;
     /** user id */
-    private final TucsonAgentIdDefault id;
+    private final TucsonAgentId id;
     private final ACCDescription profile;
     /** current observation protocol */
     private InspectorProtocol protocol;
     /** id of the tuple centre to be observed */
-    protected TucsonTupleCentreIdDefault tid;
+    protected TucsonTupleCentreId tid;
 
     /**
      * @param i
@@ -57,8 +57,8 @@ public class InspectorContextStub implements InspectorContext {
      *            whether the inspector is the Gui version (see Dradi MoK
      *            project 2014/2015)
      */
-    public InspectorContextStub(final TucsonAgentIdDefault i,
-                                final TucsonTupleCentreIdDefault tc, final boolean forGui) {
+    public InspectorContextStub(final TucsonAgentId i,
+                                final TucsonTupleCentreId tc, final boolean forGui) {
         this.profile = new ACCDescription();
         this.profile.setProperty("agent-identity", i.toString());
         String agentRole = forGui ? "$inspector4gui" : "$inspector";
@@ -77,8 +77,8 @@ public class InspectorContextStub implements InspectorContext {
         this.exitFlag = false;
     }
 
-    public InspectorContextStub(final TucsonAgentIdDefault i,
-            final TucsonTupleCentreIdDefault tc) {
+    public InspectorContextStub(final TucsonAgentId i,
+            final TucsonTupleCentreId tc) {
         this(i, tc, false);
     }
 
@@ -114,7 +114,7 @@ public class InspectorContextStub implements InspectorContext {
     }
 
     @Override
-    public TucsonTupleCentreIdDefault getTid() {
+    public TucsonTupleCentreId getTid() {
         return this.tid;
     }
 
@@ -178,7 +178,7 @@ public class InspectorContextStub implements InspectorContext {
      * established connection
      */
     private AbstractTucsonProtocol getTupleCentreInfo(
-            final TucsonTupleCentreIdDefault tc) throws UnreachableNodeException,
+            final TucsonTupleCentreId tc) throws UnreachableNodeException,
             OperationNotAllowedException {
         try {
             final String node = alice.util.Tools.removeApices(tc.getNode());
@@ -205,7 +205,7 @@ public class InspectorContextStub implements InspectorContext {
      * @param titcd
      *            the identifier of the tuple centre to be resolved
      */
-    protected void resolveTupleCentreInfo(final TucsonTupleCentreIdDefault titcd) {
+    protected void resolveTupleCentreInfo(final TucsonTupleCentreId titcd) {
         try {
             this.getTupleCentreInfo(titcd);
         } catch (final UnreachableNodeException e) {

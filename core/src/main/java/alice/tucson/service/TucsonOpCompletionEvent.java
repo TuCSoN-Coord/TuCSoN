@@ -2,7 +2,7 @@ package alice.tucson.service;
 
 import java.util.List;
 import alice.logictuple.LogicTuple;
-import alice.tucson.api.TucsonOpId;
+import alice.tuplecentre.api.OperationIdentifier;
 
 /**
  * Completion of a TuCSoN operation: such event stores the corresponding
@@ -15,7 +15,7 @@ import alice.tucson.api.TucsonOpId;
 public class TucsonOpCompletionEvent {
 
     private final boolean allowed;
-    private final TucsonOpId opId;
+    private final OperationIdentifier opId;
     private final boolean resultSuccess;
     private String spec;
     private final boolean success;
@@ -33,8 +33,8 @@ public class TucsonOpCompletionEvent {
      * @param resOk
      *            wether the result operation succeded
      */
-    public TucsonOpCompletionEvent(final TucsonOpId id, final boolean a,
-            final boolean s, final boolean resOk) {
+    public TucsonOpCompletionEvent(final OperationIdentifier id, final boolean a,
+                                   final boolean s, final boolean resOk) {
         this.opId = id;
         this.allowed = a;
         this.success = s;
@@ -54,8 +54,8 @@ public class TucsonOpCompletionEvent {
      * @param tl
      *            the list of tuples result of the oepration
      */
-    public TucsonOpCompletionEvent(final TucsonOpId id, final boolean a,
-            final boolean s, final boolean resOk, final List<LogicTuple> tl) {
+    public TucsonOpCompletionEvent(final OperationIdentifier id, final boolean a,
+                                   final boolean s, final boolean resOk, final List<LogicTuple> tl) {
         this.opId = id;
         this.allowed = a;
         this.success = s;
@@ -77,8 +77,8 @@ public class TucsonOpCompletionEvent {
      * @param resOk
      *            whether the operations already has its result available
      */
-    public TucsonOpCompletionEvent(final TucsonOpId id, final boolean a,
-            final boolean s, final boolean resOk, final LogicTuple t) {
+    public TucsonOpCompletionEvent(final OperationIdentifier id, final boolean a,
+                                   final boolean s, final boolean resOk, final LogicTuple t) {
         this.opId = id;
         this.allowed = a;
         this.success = s;
@@ -99,8 +99,8 @@ public class TucsonOpCompletionEvent {
      * @param sp
      *            the String representation of the ReSpecT specification used
      */
-    public TucsonOpCompletionEvent(final TucsonOpId id, final boolean a,
-            final boolean s, final boolean resOk, final String sp) {
+    public TucsonOpCompletionEvent(final OperationIdentifier id, final boolean a,
+                                   final boolean s, final boolean resOk, final String sp) {
         this.opId = id;
         this.allowed = a;
         this.success = s;
@@ -112,7 +112,7 @@ public class TucsonOpCompletionEvent {
      *
      * @return the identifier of the TuCSoN operation
      */
-    public TucsonOpId getOpId() {
+    public OperationIdentifier getOpId() {
         return this.opId;
     }
 

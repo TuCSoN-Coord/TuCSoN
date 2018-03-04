@@ -5,6 +5,7 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
@@ -78,7 +79,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent {
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());
             final OrdinaryAndSpecificationSyncACC acc = negAcc.playDefaultRole();
-            final TucsonTupleCentreIdDefault[] seats = new TucsonTupleCentreIdDefault[DDiningPhilosophersTest.N_PHILOSOPHERS];
+            final TucsonTupleCentreId[] seats = new TucsonTupleCentreId[DDiningPhilosophersTest.N_PHILOSOPHERS];
             for (int i = 0; i < DDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
                 seats[i] = new TucsonTupleCentreIdDefault("seat(" + i + "," + (i + 1)
                         % DDiningPhilosophersTest.N_PHILOSOPHERS + ")",
@@ -93,7 +94,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent {
                         null);
             }
             /* MOD: begin */
-            final TucsonTupleCentreIdDefault table = new TucsonTupleCentreIdDefault("table",
+            final TucsonTupleCentreId table = new TucsonTupleCentreIdDefault("table",
                     this.ip, String.valueOf(this.port + 1));
             /* MOD: end */
             this.say("Injecting 'table' ReSpecT specification in tc < "

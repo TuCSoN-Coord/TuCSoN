@@ -65,7 +65,7 @@ public abstract class AbstractTucsonAgent implements
     }
 
     private static final int DEFAULT_PORT = 20504;
-    private final TucsonAgentIdDefault aid;
+    private final TucsonAgentId aid;
     private EnhancedACC context;
     private final String node;
     private final int port;
@@ -125,7 +125,7 @@ public abstract class AbstractTucsonAgent implements
      * @param netid The ip address of the TuCSoN Node to contact
      * @param p     The listening port of the TuCSoN Node to contact
      */
-    private AbstractTucsonAgent(final TucsonAgentIdDefault id, final String netid,
+    private AbstractTucsonAgent(final TucsonAgentId id, final String netid,
                                 final int p) {
         this.aid = id;
         this.node = netid;
@@ -137,7 +137,7 @@ public abstract class AbstractTucsonAgent implements
      *
      * @return The TucsonAgentId for this agent
      */
-    public final TucsonAgentIdDefault getTucsonAgentId() {
+    public final TucsonAgentId getTucsonAgentId() {
         return this.aid;
     }
 

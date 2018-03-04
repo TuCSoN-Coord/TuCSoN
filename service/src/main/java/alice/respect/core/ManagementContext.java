@@ -7,7 +7,7 @@ import alice.respect.api.IManagementContext;
 import alice.respect.api.RespectSpecification;
 import alice.respect.api.exceptions.InvalidSpecificationException;
 import alice.respect.api.exceptions.OperationNotPossibleException;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.introspection.WSetEvent;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
@@ -53,7 +53,7 @@ public class ManagementContext implements IManagementContext {
      */
     @Override
     public void disablePersistency(final String path,
-            final TucsonTupleCentreIdDefault fileName) {
+            final TucsonTupleCentreId fileName) {
         this.vm.disablePersistency(path, fileName);
     }
 
@@ -65,7 +65,7 @@ public class ManagementContext implements IManagementContext {
      */
     @Override
     public void enablePersistency(final String path,
-            final TucsonTupleCentreIdDefault fileName) {
+            final TucsonTupleCentreId fileName) {
         this.vm.enablePersistency(path, fileName);
     }
 
@@ -127,7 +127,7 @@ public class ManagementContext implements IManagementContext {
      */
     @Override
     public void recoveryPersistent(final String path, final String file,
-            final TucsonTupleCentreIdDefault tcName) {
+            final TucsonTupleCentreId tcName) {
         this.vm.recoveryPersistent(path, file, tcName);
     }
 

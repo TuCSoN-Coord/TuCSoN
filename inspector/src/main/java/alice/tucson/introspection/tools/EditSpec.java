@@ -25,10 +25,10 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 
@@ -46,7 +46,7 @@ public class EditSpec extends javax.swing.JFrame {
     private final JTextArea inputSpec;
     private javax.swing.JTextField outputState;
     private String specFileName = "default.rsp";
-    private final TucsonTupleCentreIdDefault tid;
+    private final TucsonTupleCentreId tid;
 
     /**
      * Creates new form GUIEditTheory
@@ -54,7 +54,7 @@ public class EditSpec extends javax.swing.JFrame {
      * @param t
      *            the identifier of the tuple centre under inspection
      */
-    public EditSpec(final TucsonTupleCentreIdDefault t) {
+    public EditSpec(final TucsonTupleCentreId t) {
         super();
         this.initComponents();
         this.setTitle("ReSpecT specification tuples of tuplecentre < "

@@ -21,7 +21,9 @@ import java.util.Map;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.respect.core.RespectOperationDefault;
+import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonAgentIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
@@ -51,7 +53,7 @@ import alice.tuplecentre.core.TupleCentreOpType;
  */
 public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
 
-    private TucsonAgentIdDefault agentId;
+    private TucsonAgentId agentId;
     private final String agentName;
     private final int ctxId;
     private final AbstractTucsonProtocol dialog;
@@ -60,7 +62,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     private final TucsonNodeService node;
     private final Map<Long, Long> opVsReq;
     private final Map<Long, TucsonMsgRequest> requests;
-    private TucsonTupleCentreIdDefault tcId;
+    private TucsonTupleCentreId tcId;
 
     /**
      *
@@ -165,7 +167,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
         this.node.addAgent(this.agentId);
         TucsonMsgRequest msg;
         TucsonMsgReply reply;
-        TucsonTupleCentreIdDefault tid;
+        TucsonTupleCentreId tid;
         final LogicTuple res = null;
         List<LogicTuple> resList;
         while (!this.ex) {

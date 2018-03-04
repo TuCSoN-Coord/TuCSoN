@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 import alice.respect.api.ILinkContext;
-import alice.respect.api.TupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -23,15 +23,15 @@ public class InterTupleCentreACCProvider implements ILinkContext {
 
     class Executor extends Thread {
 
-        private final TupleCentreId fromId;
+        private final TupleCentreIdentifier fromId;
         private InterTupleCentreACC helper;
-        private final Map<TupleCentreId, InterTupleCentreACC> helpers;
+        private final Map<TupleCentreIdentifier, InterTupleCentreACC> helpers;
         private final AbstractTupleCentreOperation op;
         private final TupleCentreIdentifier toId;
 
         public Executor(final TupleCentreIdentifier to,
-                final TupleCentreId from, final AbstractTupleCentreOperation o,
-                final Map<TupleCentreId, InterTupleCentreACC> helps) {
+                        final TupleCentreIdentifier from, final AbstractTupleCentreOperation o,
+                        final Map<TupleCentreIdentifier, InterTupleCentreACC> helps) {
             super();
             this.toId = to;
             this.fromId = from;
@@ -71,7 +71,7 @@ public class InterTupleCentreACCProvider implements ILinkContext {
 
     // FIXME How to fix this?
     private static ExecutorService exec;
-    private static Map<TupleCentreId, InterTupleCentreACC> helpList;
+    private static Map<TupleCentreIdentifier, InterTupleCentreACC> helpList;
     private final TupleCentreIdentifier idTo;
 
     /**
@@ -85,7 +85,7 @@ public class InterTupleCentreACCProvider implements ILinkContext {
         this.idTo = id;
         synchronized (this) {
             if (InterTupleCentreACCProvider.helpList == null) {
-                InterTupleCentreACCProvider.helpList = new HashMap<TupleCentreId, InterTupleCentreACC>();
+                InterTupleCentreACCProvider.helpList = new HashMap<>();
             }
         }
         synchronized (this) {
@@ -97,7 +97,7 @@ public class InterTupleCentreACCProvider implements ILinkContext {
     }
 
     @Override
-    public synchronized void doOperation(final TupleCentreId id,
+    public synchronized void doOperation(final TupleCentreIdentifier id,
             final AbstractTupleCentreOperation op) {
         // id e' il tuplecentre source
         final Executor ex = new Executor(this.idTo, id, op,

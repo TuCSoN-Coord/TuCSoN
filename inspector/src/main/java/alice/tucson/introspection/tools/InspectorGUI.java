@@ -25,7 +25,10 @@ import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
+import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonAgentIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -76,8 +79,8 @@ public class InspectorGUI extends javax.swing.JFrame {
         if (alice.util.Tools.isOpt(args, "-portno")) {
             port = alice.util.Tools.getOpt(args, "-portno");
         }
-        TucsonAgentIdDefault aid = null;
-        TucsonTupleCentreIdDefault tid = null;
+        TucsonAgentId aid = null;
+        TucsonTupleCentreId tid = null;
         try {
             aid = new TucsonAgentIdDefault(stAid);
             tid = new TucsonTupleCentreIdDefault(tcname, netid, port);
@@ -112,7 +115,7 @@ public class InspectorGUI extends javax.swing.JFrame {
     /** if we do a quit in inspector, this flag became true */
     private boolean afterQuit = false;
     private final JRadioButton agentStepMode = new JRadioButton();
-    private final TucsonAgentIdDefault aid;
+    private final TucsonAgentId aid;
     private final ButtonGroup buttonGroup = new ButtonGroup();
     private javax.swing.JButton buttonInspect;
     private javax.swing.JPanel chooseTC;
@@ -145,7 +148,7 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Package-visible reference to the inspected tuplecentre.
      */
-    protected TucsonTupleCentreIdDefault tid;
+    protected TucsonTupleCentreId tid;
 
     /**
      * Called when no default tuplecentre to monitor is given.
@@ -155,7 +158,7 @@ public class InspectorGUI extends javax.swing.JFrame {
      * @param isVisible
      *            whether the Inspector should immediatley display the GUI
      */
-    public InspectorGUI(final TucsonAgentIdDefault id, final boolean isVisible) {
+    public InspectorGUI(final TucsonAgentId id, final boolean isVisible) {
         super();
         this.initComponents();
         this.aid = id;
@@ -174,7 +177,7 @@ public class InspectorGUI extends javax.swing.JFrame {
      * @param isVisible
      *            whether the Inspector should immediatley display the GUI
      */
-    public InspectorGUI(final TucsonAgentIdDefault id, final TucsonTupleCentreIdDefault tc,
+    public InspectorGUI(final TucsonAgentId id, final TucsonTupleCentreId tc,
                         final boolean isVisible) {
         this(id, isVisible);
         this.tid = tc;

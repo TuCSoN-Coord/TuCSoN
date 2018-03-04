@@ -3,7 +3,9 @@ package uniform.swarms.env;
 import java.io.IOException;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonAgentIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.TucsonMetaACC;
@@ -23,7 +25,7 @@ public final class Environment {
 
     private static final String PATH = "./alice/tucson/examples/uniform/swarms/env/evaporation.rsp";
 
-    private static TucsonAgentIdDefault me;
+    private static TucsonAgentId me;
     private static NegotiationACC negAcc;
     private static EnhancedSyncACC acc;
 
@@ -54,7 +56,7 @@ public final class Environment {
      *
      */
     private static void initFoodSource() {
-        TucsonTupleCentreIdDefault tcid;
+        TucsonTupleCentreId tcid;
         try {
             Environment.log("Configuring <food>...");
             tcid = new TucsonTupleCentreIdDefault("food", "localhost", "20504");
@@ -94,7 +96,7 @@ public final class Environment {
      * @param spec
      */
     private static void initLongPath(final String spec) {
-        TucsonTupleCentreIdDefault tcid;
+        TucsonTupleCentreId tcid;
         try {
             Environment.log("Configuring <long1>...");
             tcid = new TucsonTupleCentreIdDefault("long1", "localhost", "20507");
@@ -162,7 +164,7 @@ public final class Environment {
      * @param spec
      */
     private static void initShortPath(final String spec) {
-        TucsonTupleCentreIdDefault tcid;
+        TucsonTupleCentreId tcid;
         try {
             Environment.log("Configuring <short>...");
             tcid = new TucsonTupleCentreIdDefault("short", "localhost", "20506");
@@ -199,7 +201,7 @@ public final class Environment {
      * @param spec
      */
     private static void initAnthill(final String spec) {
-        TucsonTupleCentreIdDefault tcid;
+        TucsonTupleCentreId tcid;
         try {
             Environment.log("Configuring <anthill>...");
             tcid = new TucsonTupleCentreIdDefault("anthill", "localhost", "20508");

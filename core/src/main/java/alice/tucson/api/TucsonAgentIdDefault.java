@@ -19,6 +19,7 @@ import java.util.UUID;
 import alice.respect.api.AgentId;
 import alice.respect.api.exceptions.InvalidAgentIdException;
 import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuprolog.Term;
 
 /**
@@ -45,7 +46,7 @@ public class TucsonAgentIdDefault implements TucsonAgentId, Serializable {
         return res;
     }
 
-    private AgentId aid;
+    private AgentIdentifier aid;
     private UUID uuid;
 
     /**
@@ -67,7 +68,7 @@ public class TucsonAgentIdDefault implements TucsonAgentId, Serializable {
      * @param tcId the identifier of the tuple centre the agent behind this
      *             identifier represents
      */
-    public TucsonAgentIdDefault(final String name, final TucsonTupleCentreIdDefault tcId) {
+    public TucsonAgentIdDefault(final String name, final TucsonTupleCentreId tcId) {
         this.aid = new AgentId(name, tcId);
     }
 
@@ -87,7 +88,7 @@ public class TucsonAgentIdDefault implements TucsonAgentId, Serializable {
     }
 
     @Override
-    public AgentId getAgentId() {
+    public AgentIdentifier getAgentId() {
         return this.aid;
     }
 

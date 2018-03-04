@@ -1,7 +1,7 @@
 package alice.respect.api.geolocation.service;
 
 import alice.respect.api.place.IPlace;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tuprolog.Term;
 
 /**
@@ -53,14 +53,14 @@ public interface IGeolocationService {
      * 
      * @return service identifier
      */
-    GeoServiceId getServiceId();
+    GeoServiceIdentifier getServiceId();
 
     /**
      * Gets the tuple centre identifier associated with this service
      * 
      * @return tuple centre identifier
      */
-    TucsonTupleCentreIdDefault getTcId();
+    TucsonTupleCentreId getTcId();
 
     /**
      * Return the running status of the service

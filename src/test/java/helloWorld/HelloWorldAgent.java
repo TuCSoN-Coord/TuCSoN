@@ -4,6 +4,7 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.NegotiationACC;
 import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tucson.api.TucsonMetaACC;
@@ -97,7 +98,7 @@ public class HelloWorldAgent extends AbstractTucsonAgent {
             /*
              * 5) Define the tuplecentre target of your coordination operations.
              */
-            final TucsonTupleCentreIdDefault tid = new TucsonTupleCentreIdDefault("default",
+            final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
                     "localhost", "20504");
             /*
              * 6) Build the tuple e.g. using TuCSoN parsing facilities.

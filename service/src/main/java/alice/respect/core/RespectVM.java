@@ -18,14 +18,14 @@ import java.util.List;
 
 import alice.logictuple.LogicTuple;
 import alice.respect.api.IRespectTC;
-import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.OperationNotPossibleException;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.introspection.WSetEvent;
 import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.AbstractBehaviourSpecification;
 import alice.tuplecentre.core.AbstractEvent;
 import alice.tuplecentre.core.InputEvent;
@@ -70,8 +70,8 @@ public class RespectVM implements Runnable {
      *            the reference to the ReSpecT tuple centre this VM should
      *            manage
      */
-    public RespectVM(final TupleCentreId tid, final RespectTCContainer c,
-            final int qSize, final IRespectTC respectTC) {
+    public RespectVM(final TupleCentreIdentifier tid, final RespectTCContainer c,
+                     final int qSize, final IRespectTC respectTC) {
         this.container = c;
         this.context = new RespectVMContext(this, tid, qSize, respectTC);
         this.news = new EventMonitor();
@@ -121,7 +121,7 @@ public class RespectVM implements Runnable {
      *
      */
     public void disablePersistency(final String path,
-            final TucsonTupleCentreIdDefault fileName) {
+            final TucsonTupleCentreId fileName) {
         this.context.disablePersistency(path, fileName);
     }
 
@@ -170,7 +170,7 @@ public class RespectVM implements Runnable {
      *
      */
     public void enablePersistency(final String path,
-            final TucsonTupleCentreIdDefault fileName) {
+            final TucsonTupleCentreId fileName) {
         this.context.enablePersistency(path, fileName);
     }
 
@@ -186,8 +186,8 @@ public class RespectVM implements Runnable {
      *
      * @return the identifier of the tuple centre this VM is managing
      */
-    public TupleCentreId getId() {
-        return (TupleCentreId) this.context.getId();
+    public TupleCentreIdentifier getId() {
+        return this.context.getId();
     }
 
     /**
@@ -462,7 +462,7 @@ public class RespectVM implements Runnable {
      *
      */
     public void recoveryPersistent(final String path, final String file,
-            final TucsonTupleCentreIdDefault tcName) {
+            final TucsonTupleCentreId tcName) {
         this.context.recoveryPersistent(path, file, tcName);
     }
 

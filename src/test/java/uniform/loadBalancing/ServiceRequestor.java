@@ -4,6 +4,7 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.acc.NegotiationACC;
@@ -41,7 +42,7 @@ public class ServiceRequestor extends AbstractTucsonAgent {
     private EnhancedSyncACC acc;
     private boolean die;
 
-    private TucsonTupleCentreIdDefault tid;
+    private TucsonTupleCentreId tid;
 
     /**
      * @param aid

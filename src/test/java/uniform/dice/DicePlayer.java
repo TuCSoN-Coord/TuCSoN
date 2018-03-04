@@ -30,6 +30,7 @@ import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tucson.api.AbstractTucsonAgent;
 import alice.tucson.api.TucsonAgentIdDefault;
 import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.acc.NegotiationACC;
@@ -99,7 +100,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
     }
 
     private boolean stop;
-    private TucsonTupleCentreIdDefault tcid;
+    private TucsonTupleCentreId tcid;
     private Map<Integer, Integer> outcomes;
     private static TucsonNodeService node;
 

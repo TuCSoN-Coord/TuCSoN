@@ -19,7 +19,7 @@ import javax.swing.JTextArea;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.EnhancedACC;
 import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
@@ -65,10 +65,10 @@ public class SpecWorker extends Thread {
     private final JTextArea inputSpec;
     /** Kind of operation */
     private final String operation;
-    private final TucsonTupleCentreIdDefault tid;
+    private final TucsonTupleCentreId tid;
 
     public SpecWorker(final String op, final EnhancedACC c,
-                      final TucsonTupleCentreIdDefault ttcid, final EditSpec editSpec,
+                      final TucsonTupleCentreId ttcid, final EditSpec editSpec,
                       final JTextArea input) {
         this.operation = op;
         this.context = c;

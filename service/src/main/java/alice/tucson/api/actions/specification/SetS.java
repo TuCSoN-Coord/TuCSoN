@@ -21,7 +21,7 @@ package alice.tucson.api.actions.specification;
 
 import alice.logictuple.LogicTuple;
 import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tucson.api.TucsonTupleCentreId;
 import alice.tucson.api.acc.EnhancedAsyncACC;
 import alice.tucson.api.acc.EnhancedSyncACC;
 import alice.tucson.api.TucsonOperationCompletionListener;
@@ -51,7 +51,7 @@ public class SetS extends AbstractTucsonSpecificationAction {
      * @param spec
      *            the logic tuple representing the whole ReSpecT specification
      */
-    public SetS(final TucsonTupleCentreIdDefault tc, final LogicTuple spec) {
+    public SetS(final TucsonTupleCentreId tc, final LogicTuple spec) {
         super(tc, null, null, spec);
     }
 
