@@ -38,7 +38,7 @@ public class InspectorProfile extends ACCDescription {
         super();
         this.setProperty("context-name", "inspector");
         this.setProperty("agent-identity", aid.toString());
-        this.setProperty("tuple-centre", tid.getName());
+        this.setProperty("tuple-centre", tid.getLocalName());
         this.setProperty("node", tid.getNode());
     }
 }

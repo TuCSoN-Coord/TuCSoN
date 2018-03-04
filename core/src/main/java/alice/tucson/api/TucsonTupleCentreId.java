@@ -14,6 +14,7 @@
 package alice.tucson.api;
 
 import java.io.Serializable;
+
 import alice.respect.api.TupleCentreId;
 import alice.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -21,25 +22,21 @@ import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuprolog.Term;
 
 /**
+ * Tucson tuple centre identifier
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
-public class TucsonTupleCentreId implements
-        TupleCentreIdentifier, Serializable {
+public class TucsonTupleCentreId implements TupleCentreIdentifier, Serializable {
 
     private static final long serialVersionUID = -4503481713163088789L;
     private TupleCentreId tid;
 
     /**
-     *
-     * @param id
-     *            the String representation of a valid TuCSoN tuple centre
-     *            identifier
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given String does not represent a valid TuCSoN
-     *             identifier
+     * @param id the String representation of a valid TuCSoN tuple centre
+     *           identifier
+     * @throws TucsonInvalidTupleCentreIdException if the given String does not represent a valid TuCSoN
+     *                                             identifier
      */
     public TucsonTupleCentreId(final String id)
             throws TucsonInvalidTupleCentreIdException {
@@ -51,19 +48,14 @@ public class TucsonTupleCentreId implements
     }
 
     /**
-     *
-     * @param tcName
-     *            the String representation of a valid tuple centre name
-     * @param netid
-     *            the String representation of a valid IP address
-     * @param portno
-     *            the String representation of a valid port number
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the combination of the given Strings does not represent a
-     *             valid TuCSoN identifier
+     * @param tcName the String representation of a valid tuple centre name
+     * @param netid  the String representation of a valid IP address
+     * @param portno the String representation of a valid port number
+     * @throws TucsonInvalidTupleCentreIdException if the combination of the given Strings does not represent a
+     *                                             valid TuCSoN identifier
      */
     public TucsonTupleCentreId(final String tcName, final String netid,
-            final String portno) throws TucsonInvalidTupleCentreIdException {
+                               final String portno) throws TucsonInvalidTupleCentreIdException {
         try {
             this.tid = new TupleCentreId(tcName, netid, portno);
         } catch (final InvalidTupleCentreIdException e) {
@@ -72,43 +64,31 @@ public class TucsonTupleCentreId implements
     }
 
     /**
-     *
-     * @param id
-     *            the String representation of a valid TuCSoN tuple centre
-     *            identifier
+     * @param id the String representation of a valid TuCSoN tuple centre
+     *           identifier
      */
     public TucsonTupleCentreId(final TupleCentreId id) {
         this.tid = id;
     }
 
     /**
-     *
      * @return the local tuple centre identifier
      */
     public TupleCentreId getInternalTupleCentreId() {
         return this.tid;
     }
 
-    /**
-     *
-     * @return the local name of the tuple centre
-     */
-    public String getName() {
-        return this.tid.getName();
+    @Override
+    public String getLocalName() {
+        return this.tid.getLocalName();
     }
 
-    /**
-     *
-     * @return the IP address of the tuple centre
-     */
+    @Override
     public String getNode() {
         return this.tid.getNode();
     }
 
-    /**
-     *
-     * @return the listening port of the tuple centre
-     */
+    @Override
     public int getPort() {
         return this.tid.getPort();
     }
@@ -122,7 +102,7 @@ public class TucsonTupleCentreId implements
     public boolean isEnv() {
         return false;
     }
-    
+
     @Override
     public boolean isGeo() {
         return false;
@@ -134,15 +114,12 @@ public class TucsonTupleCentreId implements
     }
 
     @Override
-    public String toString() {
-        return this.tid.toString();
-    }
-
-    /**
-     *
-     * @return the tuProlog Term representation of this tuple centre identifier
-     */
     public Term toTerm() {
         return alice.tuprolog.Term.createTerm(this.tid.toString());
+    }
+
+    @Override
+    public String toString() {
+        return this.tid.toString();
     }
 }

@@ -89,7 +89,7 @@ public class Inspector extends Thread implements InspectorContextListener {
     @Override
     public synchronized void run() {
         System.out.println("[Inspector]: Started inspecting TuCSoN Node < "
-                + this.context.getTid().getName() + "@"
+                + this.context.getTid().getLocalName() + "@"
                 + this.context.getTid().getNode() + ":"
                 + this.context.getTid().getPort() + " >");
         while (!this.q) {
@@ -103,7 +103,7 @@ public class Inspector extends Thread implements InspectorContextListener {
                 break;
             } catch (final DialogException e) {
                 System.err.println("TuCSoN node "
-                        + this.context.getTid().getName() + "@"
+                        + this.context.getTid().getLocalName() + "@"
                         + this.context.getTid().getNode() + ":"
                         + this.context.getTid().getPort()
                         + " disconnected unexpectedly :/");
@@ -111,7 +111,7 @@ public class Inspector extends Thread implements InspectorContextListener {
             }
         }
         System.out.println("[Inspector]: Stopped inspecting TuCSoN Node < "
-                + this.context.getTid().getName() + "@"
+                + this.context.getTid().getLocalName() + "@"
                 + this.context.getTid().getNode() + ":"
                 + this.context.getTid().getPort() + " >");
     }

@@ -197,7 +197,7 @@ public class Ant extends AbstractTucsonAgent {
 
             try {
                 if (this.carryingFood) {
-                    oldTcid = new TucsonTupleCentreId(this.tcid.getName(),
+                    oldTcid = new TucsonTupleCentreId(this.tcid.getLocalName(),
                             this.tcid.getNode(), "" + this.tcid.getPort());
                 }
                 this.tcid = new TucsonTupleCentreId(direction.getArg(0)
@@ -234,7 +234,7 @@ public class Ant extends AbstractTucsonAgent {
     }
 
     private boolean isAnthill() {
-        return ("anthill".equals(this.tcid.getName()));
+        return ("anthill".equals(this.tcid.getLocalName()));
     }
 
     private void dropFood() {

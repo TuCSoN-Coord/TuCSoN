@@ -66,7 +66,7 @@ public class TupleViewer extends javax.swing.JFrame {
         this.mainForm = mf;
         this.context = this.mainForm.agent.getContext();
         this.setTitle("Logic tuples set of tuplecentre < "
-                + this.mainForm.tid.getName() + "@"
+                + this.mainForm.tid.getLocalName() + "@"
                 + this.mainForm.tid.getNode() + ":"
                 + this.mainForm.tid.getPort() + " >");
         this.setSize(520, 460);

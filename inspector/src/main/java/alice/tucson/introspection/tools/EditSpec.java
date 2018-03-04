@@ -58,7 +58,7 @@ public class EditSpec extends javax.swing.JFrame {
         super();
         this.initComponents();
         this.setTitle("ReSpecT specification tuples of tuplecentre < "
-                + t.getName() + "@" + t.getNode() + ":" + t.getPort() + " >");
+                + t.getLocalName() + "@" + t.getNode() + ":" + t.getPort() + " >");
         this.inputSpec = new JTextArea("% Write your respect reactions below\n");
         this.inputSpec.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         this.inputSpec.setPreferredSize(new java.awt.Dimension(800, 600));

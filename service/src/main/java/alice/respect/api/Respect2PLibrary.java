@@ -546,7 +546,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local get triggered...");
@@ -601,7 +601,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local get_s triggered...");
@@ -786,7 +786,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -839,7 +839,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg2);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -892,7 +892,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(tc);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         Term goal;
         try {
@@ -964,7 +964,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -1020,7 +1020,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(tc);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         Term goal;
         try {
@@ -1258,7 +1258,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -1309,7 +1309,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg2);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -1362,7 +1362,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(tc);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         Term goal;
         try {
@@ -1420,7 +1420,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -1475,7 +1475,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(tc);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         Term goal;
         try {
@@ -1548,7 +1548,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local out triggered...");
@@ -1610,7 +1610,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local out_all triggered...");
@@ -1663,7 +1663,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(tc);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         Term goal;
         try {
@@ -1733,7 +1733,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -1786,7 +1786,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg2);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -1839,7 +1839,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(tc);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         Term goal;
         try {
@@ -1899,7 +1899,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -1959,7 +1959,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(tc);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         Term goal;
         try {
@@ -2102,7 +2102,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local spawn triggered...");
@@ -2422,7 +2422,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -2470,7 +2470,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -2518,7 +2518,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -2566,7 +2566,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -2614,7 +2614,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
@@ -2662,7 +2662,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         String tcName = null;
         TupleCentreId tid = null;
         tid = new TupleCentreId(arg1);
-        tcName = tid.getName();
+        tcName = tid.getLocalName();
         final LogicTuple tuArg = new LogicTuple(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {

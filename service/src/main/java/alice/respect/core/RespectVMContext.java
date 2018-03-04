@@ -1688,7 +1688,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 						this.log("spawnActivity.aid = " + aid);
 						s2pLib.setSpawnerId(aid);
 					} else {
-						final TucsonTupleCentreId tcid = new TucsonTupleCentreId(((TupleCentreId) owner).getName(),
+						final TucsonTupleCentreId tcid = new TucsonTupleCentreId(((TupleCentreId) owner).getLocalName(),
 								((TupleCentreId) owner).getNode(), String.valueOf(((TupleCentreId) owner).getPort()));
 						this.log("spawnActivity.tcid = " + tcid);
 						s2pLib.setSpawnerId(tcid);
@@ -1697,7 +1697,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 					if (targetTC instanceof TucsonTupleCentreId) {
 						target = (TucsonTupleCentreId) targetTC;
 					} else {
-						target = new TucsonTupleCentreId(((TupleCentreId) targetTC).getName(),
+						target = new TucsonTupleCentreId(((TupleCentreId) targetTC).getLocalName(),
 								((TupleCentreId) targetTC).getNode(),
 								String.valueOf(((TupleCentreId) targetTC).getPort()));
 					}
@@ -1734,7 +1734,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 							this.log("spawnActivity.aid = " + aid);
 							instance.setSpawnerId(aid);
 						} else {
-							final TucsonTupleCentreId tcid = new TucsonTupleCentreId(((TupleCentreId) owner).getName(),
+							final TucsonTupleCentreId tcid = new TucsonTupleCentreId(((TupleCentreId) owner).getLocalName(),
 									((TupleCentreId) owner).getNode(),
 									String.valueOf(((TupleCentreId) owner).getPort()));
 							this.log("spawnActivity.tcid = " + tcid);
@@ -1744,7 +1744,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 						if (targetTC instanceof TucsonTupleCentreId) {
 							target = (TucsonTupleCentreId) targetTC;
 						} else {
-							target = new TucsonTupleCentreId(((TupleCentreId) targetTC).getName(),
+							target = new TucsonTupleCentreId(((TupleCentreId) targetTC).getLocalName(),
 									((TupleCentreId) targetTC).getNode(),
 									String.valueOf(((TupleCentreId) targetTC).getPort()));
 						}
@@ -1824,7 +1824,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 	}
 
 	private void log(final String s) {
-		System.out.println("....[RespectVMContext (" + ((alice.respect.api.TupleCentreId) this.getId()).getName() + "@"
+		System.out.println("....[RespectVMContext (" + ((alice.respect.api.TupleCentreId) this.getId()).getLocalName() + "@"
 				+ ((alice.respect.api.TupleCentreId) this.getId()).getNode() + ":"
 				+ ((alice.respect.api.TupleCentreId) this.getId()).getPort() + ")]: " + s);
 	}

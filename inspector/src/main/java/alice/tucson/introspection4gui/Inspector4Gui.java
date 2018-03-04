@@ -121,9 +121,9 @@ public class Inspector4Gui extends Inspector {
 	private void notifyTransfer(final String tcName, final String tcHost, final String tcPort, final String tuple, final boolean reverseOrder) {
 		for (Inspector4GuiObserver observer : observers) {
 			if (!reverseOrder) {
-			observer.onNewTrasfer(this.context.getTid().getName(), tcName, tuple);
+			observer.onNewTrasfer(this.context.getTid().getLocalName(), tcName, tuple);
 			} else {
-				observer.onNewTrasfer(tcName, this.context.getTid().getName(), tuple);
+				observer.onNewTrasfer(tcName, this.context.getTid().getLocalName(), tuple);
 			}
 		}
 	}

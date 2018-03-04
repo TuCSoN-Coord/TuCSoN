@@ -178,7 +178,7 @@ public class InspectorGUI extends javax.swing.JFrame {
             final boolean isVisible) {
         this(id, isVisible);
         this.tid = tc;
-        this.inputName.setText(tc.getName());
+        this.inputName.setText(tc.getLocalName());
         this.inputNode.setText(alice.util.Tools.removeApices(tc.getNode()));
         this.inputPort.setText(alice.util.Tools.removeApices(String
                 .valueOf(this.tid.getPort())));
@@ -254,7 +254,7 @@ public class InspectorGUI extends javax.swing.JFrame {
                 this.pendingQueryForm = new EventViewer(this);
                 this.reactionForm = new ReactionViewer(this);
                 this.specForm = new EditSpec(this.tid);
-                this.inputName.setText(this.tid.getName());
+                this.inputName.setText(this.tid.getLocalName());
                 this.inputNode.setText(alice.util.Tools.removeApices(this.tid
                         .getNode()));
                 this.inputPort.setText(alice.util.Tools.removeApices(String

@@ -221,7 +221,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     + ", type=" + evOp.getType() + ", tuple="
                     + evMsg.getTuple() + " >...");
             if (msgType == TupleCentreOpType.SET_S) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 try {
                     resList = (List<LogicTuple>) TupleCentreContainer
@@ -257,7 +257,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     break;
                 }
             } else if (msgType == TupleCentreOpType.SET) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 try {
                     resList = (List<LogicTuple>) TupleCentreContainer
@@ -292,7 +292,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     break;
                 }
             } else if (msgType == TupleCentreOpType.GET) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 try {
                     resList = (List<LogicTuple>) TupleCentreContainer
@@ -324,7 +324,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     break;
                 }
             } else if (msgType == TupleCentreOpType.GET_S) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 try {
                     resList = (List<LogicTuple>) TupleCentreContainer
@@ -376,7 +376,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     || msgType == TupleCentreOpType.RD_ALL
                     || msgType == TupleCentreOpType.NO_ALL
                     || msgType == TupleCentreOpType.SPAWN) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 TupleCentreOperation op;
                 synchronized (this.requests) {
@@ -415,7 +415,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     || msgType == TupleCentreOpType.INP_S
                     || msgType == TupleCentreOpType.RD_S
                     || msgType == TupleCentreOpType.RDP_S) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 TupleCentreOperation op;
                 synchronized (this.requests) {
@@ -450,7 +450,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                 }
             } else if (msgType == TupleCentreOpType.GET_ENV
                     || msgType == TupleCentreOpType.SET_ENV) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 TupleCentreOperation op = null;
                 synchronized (this.requests) {

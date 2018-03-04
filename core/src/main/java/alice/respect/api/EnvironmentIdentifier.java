@@ -5,7 +5,9 @@ import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuprolog.Term;
 
 /**
- * Flag interface
+ * Environmental resource identifier
+ *
+ * @author Nicola Piscaglia
  */
 public interface EnvironmentIdentifier extends EmitterIdentifier {
     /**

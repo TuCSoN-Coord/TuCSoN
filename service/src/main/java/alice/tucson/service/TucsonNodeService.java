@@ -386,7 +386,7 @@ public class TucsonNodeService {
     // inter-tc agents?
     public void addTCAgent(final TucsonAgentId agentId,
             final TucsonTupleCentreId tid) {
-        this.cores.get(tid.getName()).addUser(agentId);
+        this.cores.get(tid.getLocalName()).addUser(agentId);
     }
 
     /**
@@ -486,7 +486,7 @@ public class TucsonNodeService {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.IN, new LogicTuple("is_persistent",
-                            new Value(tar.getTucsonTupleCentreId().getName())),
+                            new Value(tar.getTucsonTupleCentreId().getLocalName())),
                     null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.nodeAid, opRequested,
@@ -526,7 +526,7 @@ public class TucsonNodeService {
                 try {
                     final TucsonTupleCentreId ttcid = tc
                             .getTucsonTupleCentreId();
-                    final Tuple tid = LogicTuple.parse(ttcid.getName());
+                    final Tuple tid = LogicTuple.parse(ttcid.getLocalName());
                     TucsonNodeService.log(">>> Found tid: " + tid);
                     if (LogicMatchingEngine.match((LogicTuple) template,
                             (LogicTuple) tid)) {
@@ -538,7 +538,7 @@ public class TucsonNodeService {
                                 .make(TupleCentreOpType.IN, new LogicTuple(
                                         "is_persistent", new Value(tc
                                                 .getTucsonTupleCentreId()
-                                                .getName())), null);
+                                                .getLocalName())), null);
                         // InputEvent Creation
                         final InputEvent ev = new InputEvent(this.nodeAid,
                                 opRequested, tc.getTucsonTupleCentreId(),
@@ -582,7 +582,7 @@ public class TucsonNodeService {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT, new LogicTuple("is_persistent",
-                            new Value(tar.getTucsonTupleCentreId().getName())),
+                            new Value(tar.getTucsonTupleCentreId().getLocalName())),
                     null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.nodeAid, opRequested,
@@ -620,7 +620,7 @@ public class TucsonNodeService {
             final TucsonTCUsers tc = it.next();
             try {
                 final TucsonTupleCentreId ttcid = tc.getTucsonTupleCentreId();
-                final Tuple tid = LogicTuple.parse(ttcid.getName());
+                final Tuple tid = LogicTuple.parse(ttcid.getLocalName());
                 TucsonNodeService.log(">>> Found tid: " + tid);
                 if (LogicMatchingEngine.match((LogicTuple) template,
                         (LogicTuple) tid)) {
@@ -633,7 +633,7 @@ public class TucsonNodeService {
                             TupleCentreOpType.OUT, new LogicTuple(
                                     "is_persistent",
                                     new Value(tc.getTucsonTupleCentreId()
-                                            .getName())), null);
+                                            .getLocalName())), null);
                     // InputEvent Creation
                     final InputEvent ev = new InputEvent(this.nodeAid,
                             opRequested, tc.getTucsonTupleCentreId(),
@@ -812,7 +812,7 @@ public class TucsonNodeService {
             e.printStackTrace();
             return null;
         }
-        final String realName = tid.getName();
+        final String realName = tid.getLocalName();
         TucsonTCUsers core = this.cores.get(realName);
         if (core == null) {
             TucsonNodeService.log("Booting new tuple centre < " + realName
@@ -950,7 +950,7 @@ public class TucsonNodeService {
             this.obsService.tcCreated(id);
         }
         final TucsonTCUsers tcUsers = new TucsonTCUsers(id);
-        this.cores.put(id.getName(), tcUsers);
+        this.cores.put(id.getLocalName(), tcUsers);
         return tcUsers;
     }
 
@@ -1026,7 +1026,7 @@ public class TucsonNodeService {
      */
     private void setupConfigTupleCentre() {
         try {
-            this.bootTupleCentre(this.idConfigTC.getName());
+            this.bootTupleCentre(this.idConfigTC.getLocalName());
             final InputStream is = Thread
                     .currentThread()
                     .getContextClassLoader()
@@ -1203,7 +1203,7 @@ public class TucsonNodeService {
      */
     private void setupEnvConfigTupleCentre() {
         try {
-            this.bootTupleCentre(this.idEnvTC.getName());
+            this.bootTupleCentre(this.idEnvTC.getLocalName());
             final InputStream is = Thread
                     .currentThread()
                     .getContextClassLoader()
@@ -1242,7 +1242,7 @@ public class TucsonNodeService {
      */
     private void setupGeolocationConfigTupleCentre() {
         try {
-            this.bootTupleCentre(this.idGeolocationTC.getName());
+            this.bootTupleCentre(this.idGeolocationTC.getLocalName());
             final InputStream is = Thread
                     .currentThread()
                     .getContextClassLoader()
@@ -1283,7 +1283,7 @@ public class TucsonNodeService {
      */
     private void setupObsTupleCentre() {
         try {
-            this.bootTupleCentre(this.idObsTC.getName());
+            this.bootTupleCentre(this.idObsTC.getLocalName());
             final InputStream is = Thread
                     .currentThread()
                     .getContextClassLoader()

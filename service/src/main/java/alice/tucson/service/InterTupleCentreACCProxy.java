@@ -261,7 +261,7 @@ OperationCompletionListener {
         if ("alice.respect.api.TupleCentreIdentifier".equals(tid.getClass().getName())) {
             final TupleCentreId id = (TupleCentreId) tid;
             try {
-                tcid = new TucsonTupleCentreId(id.getName(), id.getNode(),
+                tcid = new TucsonTupleCentreId(id.getLocalName(), id.getNode(),
                         String.valueOf(id.getPort()));
             } catch (final TucsonInvalidTupleCentreIdException e) {
                 e.printStackTrace();

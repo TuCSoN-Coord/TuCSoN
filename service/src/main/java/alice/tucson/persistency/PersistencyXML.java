@@ -217,7 +217,7 @@ public class PersistencyXML {
                     "yyyy-MM-dd_HH.mm.ss");
             final String date = sdf.format(d);
             this.pDate = date;
-            final String pXMLFileName = this.pFileName.getName() + "_at_"
+            final String pXMLFileName = this.pFileName.getLocalName() + "_at_"
                     + this.pFileName.getNode() + "_at_"
                     + this.pFileName.getPort();
             // Delete old persistency file

@@ -63,7 +63,7 @@ public class InspectorContextStub implements InspectorContext {
         this.profile.setProperty("agent-identity", i.toString());
         String agentRole = forGui ? "$inspector4gui" : "$inspector";
         this.profile.setProperty("agent-role", agentRole);
-        this.profile.setProperty("tuple-centre", tc.getName());
+        this.profile.setProperty("tuple-centre", tc.getLocalName());
         this.profile.setProperty("agent-uuid", UUID.randomUUID().toString());
         this.id = i;
         this.tid = tc;

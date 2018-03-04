@@ -46,7 +46,7 @@ public class SwarmMonitor {
                 this.tcids[i - 1] = new TucsonTupleCentreId(
                         this.bs[i - 1].getName(), "localhost", "" + (20504 + i));
                 SwarmMonitor.log("" + this.bs[i - 1].getName());
-                SwarmMonitor.log("" + this.tcids[i - 1].getName() + ":"
+                SwarmMonitor.log("" + this.tcids[i - 1].getLocalName() + ":"
                         + this.tcids[i - 1].getPort());
             }
             NegotiationACC negAcc = TucsonMetaACC
@@ -92,7 +92,7 @@ public class SwarmMonitor {
             TucsonOperation op;
             List<LogicTuple> tuples;
             for (int i = 0; i < this.tcids.length; i++) {
-                SwarmMonitor.log("Smelling " + this.tcids[i].getName() + "...");
+                SwarmMonitor.log("Smelling " + this.tcids[i].getLocalName() + "...");
                 op = this.acc.rdAll(this.tcids[i], LogicTuple.parse("nbr(N)"),
                         null);
                 if (op.isResultSuccess()) {

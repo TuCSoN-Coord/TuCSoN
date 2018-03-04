@@ -65,7 +65,7 @@ public final class TupleCentreContainer {
             final RespectTCContainer rtcc = RespectTCContainer
                     .getRespectTCContainer();
             RespectTCContainer.setDefPort(TupleCentreContainer.defaultport);
-            final TupleCentreId tid = new TupleCentreId(id.getName(),
+            final TupleCentreId tid = new TupleCentreId(id.getLocalName(),
                     id.getNode(), String.valueOf(id.getPort()));
             return rtcc.createRespectTC(tid, q);
         } catch (final InvalidTupleCentreIdException e) {
