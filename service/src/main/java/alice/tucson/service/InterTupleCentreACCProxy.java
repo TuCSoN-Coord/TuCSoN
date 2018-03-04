@@ -258,7 +258,7 @@ OperationCompletionListener {
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
         TucsonTupleCentreId tcid = null;
-        if ("alice.respect.api.TupleCentreIdentifier".equals(tid.getClass().getName())) {
+        if ("alice.respect.api.TupleCentreId".equals(tid.getClass().getName())) {
             final TupleCentreId id = (TupleCentreId) tid;
             try {
                 tcid = new TucsonTupleCentreId(id.getLocalName(), id.getNode(),
