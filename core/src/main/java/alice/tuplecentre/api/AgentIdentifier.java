@@ -13,8 +13,6 @@
  */
 package alice.tuplecentre.api;
 
-import alice.tuprolog.Term;
-
 /**
  * Represents an agent identifier
  *
@@ -22,15 +20,4 @@ import alice.tuprolog.Term;
  */
 public interface AgentIdentifier extends EmitterIdentifier {
 
-    /**
-     * @return the string representation of the local name
-     */
-    String getLocalName();
-
-    /**
-     * Provides the logic term representation of the identifier
-     *
-     * @return the term representing the identifier
-     */
-    Term toTerm();
 }

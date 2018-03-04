@@ -13,19 +13,12 @@
  */
 package alice.tuplecentre.api;
 
-import alice.tuprolog.Term;
-
 /**
  * Represents identifier for a tuple centre
  *
  * @author Alessandro Ricci
  */
 public interface TupleCentreIdentifier extends EmitterIdentifier {
-
-    /**
-     * @return the local name of the tuple centre
-     */
-    String getLocalName();
 
     /**
      * @return the IP address of the tuple centre
@@ -36,11 +29,4 @@ public interface TupleCentreIdentifier extends EmitterIdentifier {
      * @return the listening port for this tuple centre identifier
      */
     int getPort();
-
-    /**
-     * Provides the logic term representation of the identifier
-     *
-     * @return the term representing the identifier
-     */
-    Term toTerm();
 }
