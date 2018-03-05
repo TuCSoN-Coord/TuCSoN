@@ -5,19 +5,20 @@ package uniform.swarms.ants;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.TucsonTupleCentreIdDefault;
-import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * @author ste
@@ -62,7 +63,7 @@ public class Ant extends AbstractTucsonAgent {
 
     /*
      * (non-Javadoc)
-     * @see alice.tucson.api.TucsonAgent#main()
+     * @see alice.tuplecentre.tucson.api.TucsonAgent#main()
      */
     @Override
     protected void main() {
@@ -278,7 +279,7 @@ public class Ant extends AbstractTucsonAgent {
 
     /*
      * (non-Javadoc)
-     * @see alice.tucson.api.TucsonAgent#operationCompleted(alice.tucson.api.
+     * @see alice.tuplecentre.tucson.api.TucsonAgent#operationCompleted(alice.tuplecentre.tucson.api.
      * TucsonOperation)
      */
     @Override
@@ -289,7 +290,7 @@ public class Ant extends AbstractTucsonAgent {
     /*
      * (non-Javadoc)
      * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
+     * alice.tuplecentre.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
      * .core.AbstractTupleCentreOperation)
      */
     @Override

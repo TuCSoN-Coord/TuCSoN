@@ -15,9 +15,9 @@ package alice.tuplecentre.core;
 
 import java.util.Map;
 
-import alice.respect.api.geolocation.Position;
 import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.TupleCentreIdentifier;
+import alice.tuplecentre.respect.api.geolocation.Position;
 
 /**
  * Represents input events of the tuple centre virtual machine (only difference
