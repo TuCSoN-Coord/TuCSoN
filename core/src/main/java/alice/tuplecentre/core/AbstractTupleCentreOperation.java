@@ -13,9 +13,6 @@
  */
 package alice.tuplecentre.core;
 
-import java.util.LinkedList;
-import java.util.List;
-
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.ITCCycleResult;
@@ -23,6 +20,9 @@ import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This class represents an Operation on a tuple centre.

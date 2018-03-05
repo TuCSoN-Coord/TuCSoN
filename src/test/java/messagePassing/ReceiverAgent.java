@@ -2,19 +2,15 @@ package messagePassing;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.*;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * Receiver thread of a two-thread synchronous conversation protocol. Given a
@@ -68,7 +64,7 @@ public class ReceiverAgent extends AbstractTucsonAgent {
     /*
      * (non-Javadoc)
      * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
+     * alice.tuplecentre.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
      * .core.AbstractTupleCentreOperation)
      */
     @Override
@@ -96,8 +92,8 @@ public class ReceiverAgent extends AbstractTucsonAgent {
     }
 
     private void send(final LogicTuple msg) throws InvalidLogicTupleException,
-    TucsonOperationNotPossibleException, UnreachableNodeException,
-    OperationTimeOutException {
+            TucsonOperationNotPossibleException, UnreachableNodeException,
+            OperationTimeOutException {
         this.acc.in(this.tid, LogicTuple.parse("get(msg)"), null);
         this.acc.out(this.tid, msg, null);
         this.acc.in(this.tid, LogicTuple.parse("got(msg)"), null);

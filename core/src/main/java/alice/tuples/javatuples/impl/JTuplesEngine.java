@@ -3,24 +3,16 @@
  */
 package alice.tuples.javatuples.impl;
 
+import alice.logictuple.*;
+import alice.tuplecentre.api.exceptions.InvalidTupleException;
+import alice.tuples.javatuples.api.*;
+import alice.tuples.javatuples.exceptions.InvalidJValException;
+import alice.tuples.javatuples.exceptions.InvalidJVarException;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import alice.logictuple.LogicMatchingEngine;
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.Value;
-import alice.logictuple.Var;
-import alice.tuplecentre.api.exceptions.InvalidTupleException;
-import alice.tuples.javatuples.api.IJArg;
-import alice.tuples.javatuples.api.IJTuple;
-import alice.tuples.javatuples.api.IJTupleTemplate;
-import alice.tuples.javatuples.api.IJVal;
-import alice.tuples.javatuples.api.IJVar;
-import alice.tuples.javatuples.api.JArgType;
-import alice.tuples.javatuples.exceptions.InvalidJValException;
-import alice.tuples.javatuples.exceptions.InvalidJVarException;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014

@@ -3,9 +3,10 @@
  */
 package uniform.swarms.utils;
 
+import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
+import alice.tuplecentre.tucson.service.TucsonNodeService;
+
 import java.util.Properties;
-import alice.tucson.network.exceptions.DialogInitializationException;
-import alice.tucson.service.TucsonNodeService;
 
 /**
  * @author ste

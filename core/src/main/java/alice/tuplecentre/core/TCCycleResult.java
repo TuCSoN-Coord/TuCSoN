@@ -1,10 +1,10 @@
 package alice.tuplecentre.core;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.Tuple;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Alessandro Ricci
