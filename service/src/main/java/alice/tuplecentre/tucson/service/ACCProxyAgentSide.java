@@ -20,6 +20,7 @@ import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -264,7 +265,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             this.operations.put(op.getId(), op);*/
             op = new TucsonOperationDefault(TupleCentreOpType.EXIT,
                     (TupleTemplate) null, null, this.executor /* this */);
-            this.executor.addOperation(op.getId(), op);
+            this.executor.addOperation(op);
             final InputEventMsg ev = new InputEventMsg(this.aid.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(), null,
                     System.currentTimeMillis(), this.getPosition());
@@ -305,7 +306,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
     }
 
     @Override
-    public Map<Long, TucsonOperation> getPendingOperationsMap() {
+    public Map<TupleCentreOpId, TucsonOperation> getPendingOperationsMap() {
         return this.executor.operations;
     }
     

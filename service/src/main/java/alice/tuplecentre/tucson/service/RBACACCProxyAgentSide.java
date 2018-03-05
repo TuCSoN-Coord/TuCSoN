@@ -7,6 +7,7 @@ import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.tucson.api.TucsonOperation;
@@ -104,7 +105,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public Map<Long, TucsonOperation> getPendingOperationsMap() {
+    public Map<TupleCentreOpId, TucsonOperation> getPendingOperationsMap() {
         return this.executor.operations;
     }
 

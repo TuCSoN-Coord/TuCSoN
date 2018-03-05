@@ -1,19 +1,18 @@
 package alice.tuplecentre.tucson.service;
 
+import java.io.Serializable;
+
 import alice.logictuple.LogicTuple;
+import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.api.geolocation.Position;
 
-import java.io.Serializable;
-
 /**
- * 
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
- * 
  */
 public class InputEventMsg implements Serializable {
     private static final long serialVersionUID = 6617714748018050950L;
-    private final long opId;
+    private final TupleCentreOpId opId;
     private final TupleCentreOpType opType;
     private final Position place;
     private final String reactingTC;
@@ -23,26 +22,18 @@ public class InputEventMsg implements Serializable {
     private final LogicTuple tuple;
 
     /**
-     * 
-     * @param s
-     *            the source of the event
-     * @param oid
-     *            the id of the operation causing this event
-     * @param opt
-     *            the type code of the operation causing this event
-     * @param lt
-     *            the logic tuple argument of the operation causing this event
-     * @param trg
-     *            the id of the tuple centre target of the operation causing
+     * @param s   the source of the event
+     * @param oid the id of the operation causing this event
+     * @param opt the type code of the operation causing this event
+     * @param lt  the logic tuple argument of the operation causing this event
+     * @param trg the id of the tuple centre target of the operation causing
      *            this event
-     * @param t
-     *            the time at which this event was generated
-     * @param p
-     *            the place where this event was generated
+     * @param t   the time at which this event was generated
+     * @param p   the place where this event was generated
      */
-    public InputEventMsg(final String s, final long oid, final TupleCentreOpType opt,
-            final LogicTuple lt, final String trg, final long t,
-            final Position p) {
+    public InputEventMsg(final String s, final TupleCentreOpId oid, final TupleCentreOpType opt,
+                         final LogicTuple lt, final String trg, final long t,
+                         final Position p) {
         this.source = s;
         this.opId = oid;
         this.opType = opt;
@@ -54,15 +45,13 @@ public class InputEventMsg implements Serializable {
     }
 
     /**
-     * 
      * @return the id of the operation which caused this event
      */
-    public long getOpId() {
+    public TupleCentreOpId getOpId() {
         return this.opId;
     }
 
     /**
-     * 
      * @return the type code of the operation which caused this event
      */
     public TupleCentreOpType getOpType() {
@@ -70,7 +59,6 @@ public class InputEventMsg implements Serializable {
     }
 
     /**
-     * 
      * @return the Position where this event was generated
      */
     public Position getPlace() {
@@ -78,16 +66,14 @@ public class InputEventMsg implements Serializable {
     }
 
     /**
-     * 
      * @return the String representation of the tuple centre currently handling
-     *         this event
+     * this event
      */
     public String getReactingTC() {
         return this.reactingTC;
     }
 
     /**
-     * 
      * @return the String representation of the source of this event
      */
     public String getSource() {
@@ -95,7 +81,6 @@ public class InputEventMsg implements Serializable {
     }
 
     /**
-     * 
      * @return the String representation of the target of this event
      */
     public String getTarget() {
@@ -103,7 +88,6 @@ public class InputEventMsg implements Serializable {
     }
 
     /**
-     * 
      * @return the time at which this event was generated
      */
     public long getTime() {
@@ -111,7 +95,6 @@ public class InputEventMsg implements Serializable {
     }
 
     /**
-     * 
      * @return the logic tuple argument of the operation which caused this event
      */
     public LogicTuple getTuple() {

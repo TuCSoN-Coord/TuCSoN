@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.tucson.service;
 
+import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.TucsonOpId;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -20,7 +21,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
- *
+ * TODO add documentation
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
@@ -45,7 +46,7 @@ public interface InterTupleCentreACC {
      *             if the given Object is not a valid identifier of a tuple
      *             centre
      */
-    TucsonOpId doOperation(Object tid, AbstractTupleCentreOperation op)
+    TupleCentreOpId doOperation(final Object tid, final AbstractTupleCentreOperation op)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, TucsonInvalidTupleCentreIdException;
 
@@ -55,7 +56,7 @@ public interface InterTupleCentreACC {
      *            the identifier of the operation requested
      * @return the Object representing operation completion
      */
-    TucsonOpCompletionEvent waitForCompletion(TucsonOpId id);
+    TucsonOpCompletionEvent waitForCompletion(final TupleCentreOpId id);
 
     /**
      *
@@ -65,5 +66,5 @@ public interface InterTupleCentreACC {
      *            the timeout associated to the operation
      * @return the Object representing operation completion
      */
-    TucsonOpCompletionEvent waitForCompletion(TucsonOpId id, int timeout);
+    TucsonOpCompletionEvent waitForCompletion(final TupleCentreOpId id, final int timeout);
 }

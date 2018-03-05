@@ -1,9 +1,10 @@
 package alice.tuplecentre.tucson.service;
 
-import alice.logictuple.LogicTuple;
-import alice.tuplecentre.tucson.api.TucsonOpId;
-
 import java.util.List;
+
+import alice.logictuple.LogicTuple;
+import alice.tuplecentre.api.TupleCentreOpId;
+import alice.tuplecentre.tucson.api.TucsonOpId;
 
 /**
  * Completion of a TuCSoN operation: such event stores the corresponding
@@ -11,12 +12,11 @@ import java.util.List;
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 public class TucsonOpCompletionEvent {
 
     private final boolean allowed;
-    private final TucsonOpId opId;
+    private final TupleCentreOpId opId;
     private final boolean resultSuccess;
     private String spec;
     private final boolean success;
@@ -24,18 +24,13 @@ public class TucsonOpCompletionEvent {
     private List<LogicTuple> tupleList;
 
     /**
-     *
-     * @param id
-     *            the identifier of the TuCSoN operation
-     * @param a
-     *            wether the operation is allowed
-     * @param s
-     *            wether the operation succeded
-     * @param resOk
-     *            wether the result operation succeded
+     * @param id    the identifier of the TuCSoN operation
+     * @param a     wether the operation is allowed
+     * @param s     wether the operation succeded
+     * @param resOk wether the result operation succeded
      */
-    public TucsonOpCompletionEvent(final TucsonOpId id, final boolean a,
-            final boolean s, final boolean resOk) {
+    public TucsonOpCompletionEvent(final TupleCentreOpId id, final boolean a,
+                                   final boolean s, final boolean resOk) {
         this.opId = id;
         this.allowed = a;
         this.success = s;
@@ -43,20 +38,14 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     *
-     * @param id
-     *            the identifier of the TuCSoN operation
-     * @param a
-     *            wether the operation is allowed
-     * @param s
-     *            wether the operation succeded
-     * @param resOk
-     *            wether the result operation succeded
-     * @param tl
-     *            the list of tuples result of the oepration
+     * @param id    the identifier of the TuCSoN operation
+     * @param a     wether the operation is allowed
+     * @param s     wether the operation succeded
+     * @param resOk wether the result operation succeded
+     * @param tl    the list of tuples result of the oepration
      */
-    public TucsonOpCompletionEvent(final TucsonOpId id, final boolean a,
-            final boolean s, final boolean resOk, final List<LogicTuple> tl) {
+    public TucsonOpCompletionEvent(final TupleCentreOpId id, final boolean a,
+                                   final boolean s, final boolean resOk, final List<LogicTuple> tl) {
         this.opId = id;
         this.allowed = a;
         this.success = s;
@@ -65,21 +54,14 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     *
-     * @param id
-     *            the identifier of the TuCSoN operation
-     * @param a
-     *            wether the operation is allowed
-     * @param s
-     *            wether the operation succeded
-     * @param t
-     *            the tuple result of the operation
-     *
-     * @param resOk
-     *            whether the operations already has its result available
+     * @param id    the identifier of the TuCSoN operation
+     * @param a     wether the operation is allowed
+     * @param s     wether the operation succeded
+     * @param t     the tuple result of the operation
+     * @param resOk whether the operations already has its result available
      */
-    public TucsonOpCompletionEvent(final TucsonOpId id, final boolean a,
-            final boolean s, final boolean resOk, final LogicTuple t) {
+    public TucsonOpCompletionEvent(final TupleCentreOpId id, final boolean a,
+                                   final boolean s, final boolean resOk, final LogicTuple t) {
         this.opId = id;
         this.allowed = a;
         this.success = s;
@@ -88,20 +70,14 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     *
-     * @param id
-     *            the identifier of the TuCSoN operation
-     * @param a
-     *            wether the operation is allowed
-     * @param s
-     *            wether the operation succeded
-     * @param resOk
-     *            wether the result operation succeded
-     * @param sp
-     *            the String representation of the ReSpecT specification used
+     * @param id    the identifier of the TuCSoN operation
+     * @param a     wether the operation is allowed
+     * @param s     wether the operation succeded
+     * @param resOk wether the result operation succeded
+     * @param sp    the String representation of the ReSpecT specification used
      */
-    public TucsonOpCompletionEvent(final TucsonOpId id, final boolean a,
-            final boolean s, final boolean resOk, final String sp) {
+    public TucsonOpCompletionEvent(final TupleCentreOpId id, final boolean a,
+                                   final boolean s, final boolean resOk, final String sp) {
         this.opId = id;
         this.allowed = a;
         this.success = s;
@@ -110,15 +86,13 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     *
      * @return the identifier of the TuCSoN operation
      */
-    public TucsonOpId getOpId() {
+    public TupleCentreOpId getOpId() {
         return this.opId;
     }
 
     /**
-     *
      * @return the ReSpecT specification used in the operation
      */
     public String getSpec() {
@@ -126,7 +100,6 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     *
      * @return the tuple result of the operation
      */
     public LogicTuple getTuple() {
@@ -134,7 +107,6 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     *
      * @return the list of tuples result of the operation
      */
     public List<LogicTuple> getTupleList() {
@@ -142,7 +114,6 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     *
      * @return wether the operation was allowed
      */
     public boolean operationAllowed() {
@@ -150,7 +121,6 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     *
      * @return wether the operation succeeded
      */
     public boolean operationSucceeded() {
@@ -158,7 +128,6 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     *
      * @return wether the result operation succeeded
      */
     public boolean resultOperationSucceeded() {

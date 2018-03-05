@@ -12,19 +12,20 @@
  */
 package alice.tuplecentre.respect.api;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
+import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.respect.api.exceptions.InvalidSpecificationException;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.introspection.WSetEvent;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- * Basic Management Interface for a RespecT Tuple Centre.
+ * Basic Management Interface for a ReSpecT Tuple Centre.
  *
  * @author Alessandro Ricci
  */
@@ -32,32 +33,27 @@ public interface IManagementContext {
 
     /**
      * Abort a previously executed in or rd operation
-     *
+     * <p>
      * The method is successful only if the operation has not completed
      *
-     * @param opId
-     *            the operation identifier
+     * @param opId the operation identifier
      * @return true if the operation has been aborted
      */
-    boolean abortOperation(long opId);
+    boolean abortOperation(final TupleCentreOpId opId);
 
     /**
-     *
-     * @param l
-     *            the listener of inspectable events
+     * @param l the listener of inspectable events
      */
-    void addInspector(InspectableEventListener l);
+    void addInspector(final InspectableEventListener l);
 
     /**
-     *
-     * @param l
-     *            the listener of observable events
+     * @param l the listener of observable events
      */
-    void addObserver(ObservableEventListener l);
+    void addObserver(final ObservableEventListener l);
 
-    void disablePersistency(String path, TucsonTupleCentreId ttcid);
+    void disablePersistency(final String path, final TucsonTupleCentreId ttcid);
 
-    void enablePersistency(String path, TucsonTupleCentreId ttcid);
+    void enablePersistency(final String path, final TucsonTupleCentreId ttcid);
 
     ArrayList<InspectableEventListener> getInspectors();
 
@@ -71,50 +67,44 @@ public interface IManagementContext {
     /**
      * Gets current content of the triggered reactions in terms of logic tuples
      *
-     * @param filter
-     *            tuple filtering tuples to be retrieved
+     * @param filter tuple filtering tuples to be retrieved
      * @return the array of tuples representing the triggered reactions
      */
-    LogicTuple[] getTRSet(LogicTuple filter);
+    LogicTuple[] getTRSet(final LogicTuple filter);
 
     /**
      * Gets current content of the tuple set
      *
-     * @param filter
-     *            tuple filtering tuples to be retrieved
+     * @param filter tuple filtering tuples to be retrieved
      * @return the array of tuples stored in the tuple centre
      */
-    LogicTuple[] getTSet(LogicTuple filter);
+    LogicTuple[] getTSet(final LogicTuple filter);
 
     /**
      * Gets current content of the query set in terms of logic tuples
      *
-     * @param filter
-     *            tuple filtering tuples to be retrieved
+     * @param filter tuple filtering tuples to be retrieved
      * @return the array of tuples representing the pending operations
      */
-    WSetEvent[] getWSet(LogicTuple filter);
+    WSetEvent[] getWSet(final LogicTuple filter);
 
     /**
      * Resumes VM execution (management mode)
      *
-     * @throws OperationNotPossibleException
-     *             if the operation is not possible according to current VM
-     *             state
+     * @throws OperationNotPossibleException if the operation is not possible according to current VM
+     *                                       state
      */
     void goCommand() throws OperationNotPossibleException;
 
     /**
-     *
      * @return <code>true</code> if the tuple centre has some inspector
-     *         listening
+     * listening
      */
     boolean hasInspectors();
 
     /**
-     *
      * @return <code>true</code> if the tuple centre has some observers
-     *         listening
+     * listening
      */
     boolean hasObservers();
 
@@ -128,42 +118,41 @@ public interface IManagementContext {
     /**
      * Executes a single execution step (step mode)
      *
-     * @throws OperationNotPossibleException
-     *             if the operation cannot be performed
+     * @throws OperationNotPossibleException if the operation cannot be performed
      */
     void nextStepCommand() throws OperationNotPossibleException;
 
-    void recoveryPersistent(String path, String file, TucsonTupleCentreId ttcid);
+    /**
+     * TODO add documentation
+     *
+     * @param path
+     * @param file
+     * @param ttcid
+     */
+    void recoveryPersistent(final String path, final String file, final TucsonTupleCentreId ttcid);
 
     /**
-     *
-     * @param l
-     *            the listener of inspectable events
+     * @param l the listener of inspectable events
      */
-    void removeInspector(InspectableEventListener l);
+    void removeInspector(final InspectableEventListener l);
 
     /**
-     *
-     * @param l
-     *            the listener of observable events
+     * @param l the listener of observable events
      */
-    void removeObserver(ObservableEventListener l);
+    void removeObserver(final ObservableEventListener l);
 
     /**
      *
      */
     void reset();
 
-    void setManagementMode(boolean activate);
+    void setManagementMode(final boolean activate);
 
     /**
      * Specify the behaviour of the tuple centre
      *
-     * @param spec
-     *            The specification in ReSpecT language
-     *
-     * @throws InvalidSpecificationException
-     *             If the specification is not correct
+     * @param spec The specification in ReSpecT language
+     * @throws InvalidSpecificationException If the specification is not correct
      */
     void setSpec(RespectSpecification spec)
             throws InvalidSpecificationException;
@@ -171,10 +160,9 @@ public interface IManagementContext {
     /**
      * Sets current content of the query set in terms of logic tuples
      *
-     * @param wSet
-     *            set in terms of logic tuples
+     * @param wSet set in terms of logic tuples
      */
-    void setWSet(List<LogicTuple> wSet);
+    void setWSet(final List<LogicTuple> wSet);
 
     /**
      * enable/disable VM step mode
@@ -184,9 +172,8 @@ public interface IManagementContext {
     /**
      * Stops the VM (management mode, debugging)
      *
-     * @throws OperationNotPossibleException
-     *             if the operation is not possible according to current VM
-     *             state
+     * @throws OperationNotPossibleException if the operation is not possible according to current VM
+     *                                       state
      */
     void stopCommand() throws OperationNotPossibleException;
 }

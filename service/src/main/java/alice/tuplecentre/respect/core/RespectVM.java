@@ -12,11 +12,16 @@
  */
 package alice.tuplecentre.respect.core;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.IId;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.core.AbstractBehaviourSpecification;
 import alice.tuplecentre.core.AbstractEvent;
 import alice.tuplecentre.core.InputEvent;
@@ -27,15 +32,11 @@ import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.introspection.WSetEvent;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 /**
  * RespecT Tuple Centre Virtual Machine.
- *
+ * <p>
  * Defines the core behaviour of a tuple centre virtual machine.
- *
+ * <p>
  * The behaviour reflects the operational semantic expressed in related tuple
  * centre articles.
  *
@@ -43,7 +44,7 @@ import java.util.List;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Saverio Cicora
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
+ * michele.bombardi@studio.unibo.it)
  */
 public class RespectVM implements Runnable {
 
@@ -51,7 +52,9 @@ public class RespectVM implements Runnable {
     private final RespectVMContext context;
     private final Object idle;
     private final EventMonitor news;
-    /** listener to VM inspectable events */
+    /**
+     * listener to VM inspectable events
+     */
     protected List<InspectableEventListener> inspectors;
     /**
      *
@@ -59,19 +62,14 @@ public class RespectVM implements Runnable {
     protected List<ObservableEventListener> observers;
 
     /**
-     *
-     * @param tid
-     *            the identifier of the tuple centre this VM should manage
-     * @param c
-     *            the ReSpecT tuple centres manager this VM should interact with
-     * @param qSize
-     *            the maximum InQ size
-     * @param respectTC
-     *            the reference to the ReSpecT tuple centre this VM should
-     *            manage
+     * @param tid       the identifier of the tuple centre this VM should manage
+     * @param c         the ReSpecT tuple centres manager this VM should interact with
+     * @param qSize     the maximum InQ size
+     * @param respectTC the reference to the ReSpecT tuple centre this VM should
+     *                  manage
      */
     public RespectVM(final TupleCentreId tid, final RespectTCContainer c,
-            final int qSize, final IRespectTC respectTC) {
+                     final int qSize, final IRespectTC respectTC) {
         this.container = c;
         this.context = new RespectVMContext(this, tid, qSize, respectTC);
         this.news = new EventMonitor();
@@ -81,13 +79,11 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
-     * @param opId
-     *            the progressive, unique per tuple centre identifier of an
-     *            operation
+     * @param opId the progressive, unique per tuple centre identifier of an
+     *             operation
      * @return wether the operation has been succefully aborted
      */
-    public boolean abortOperation(final long opId) {
+    public boolean abortOperation(final TupleCentreOpId opId) {
         boolean res;
         synchronized (this.idle) {
             res = this.context.removePendingQueryEvent(opId);
@@ -96,43 +92,32 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
-     * @param l
-     *            the listener of inspectable events to add
+     * @param l the listener of inspectable events to add
      */
     public void addInspector(final InspectableEventListener l) {
         this.inspectors.add(l);
     }
 
     /**
-     *
-     * @param l
-     *            the listener of observable events to add
+     * @param l the listener of observable events to add
      */
     public void addObserver(final ObservableEventListener l) {
         this.observers.add(l);
     }
 
     /**
-     * @param path
-     *            the path where persistency information is stored
-     * @param fileName
-     *            the name of the file where persistency information is stored
-     *
+     * @param path     the path where persistency information is stored
+     * @param fileName the name of the file where persistency information is stored
      */
     public void disablePersistency(final String path,
-            final TucsonTupleCentreId fileName) {
+                                   final TucsonTupleCentreId fileName) {
         this.context.disablePersistency(path, fileName);
     }
 
     /**
-     *
-     * @param id
-     *            the identifier of who is issuing the operation
-     * @param op
-     *            the operation requested
-     * @throws OperationNotPossibleException
-     *             if the requested operation cannot be carried out
+     * @param id the identifier of who is issuing the operation
+     * @param op the operation requested
+     * @throws OperationNotPossibleException if the requested operation cannot be carried out
      */
     public void doOperation(final IId id, final RespectOperationDefault op)
             throws OperationNotPossibleException {
@@ -143,13 +128,10 @@ public class RespectVM implements Runnable {
             throw new OperationNotPossibleException(e.getMessage());
         }
     }
-    
+
     /**
-     * 
-     * @param ev
-     *            the event whose operation should be executed
-     * @throws OperationNotPossibleException
-     *             if the operation which caused the event cannot be executed
+     * @param ev the event whose operation should be executed
+     * @throws OperationNotPossibleException if the operation which caused the event cannot be executed
      */
     public void doOperation(final InputEvent ev)
             throws OperationNotPossibleException {
@@ -162,20 +144,16 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     * @param path
-     *            the path where to store persistency information
-     * @param fileName
-     *            the name of the file to create for storing persistency
-     *            information
-     *
+     * @param path     the path where to store persistency information
+     * @param fileName the name of the file to create for storing persistency
+     *                 information
      */
     public void enablePersistency(final String path,
-            final TucsonTupleCentreId fileName) {
+                                  final TucsonTupleCentreId fileName) {
         this.context.enablePersistency(path, fileName);
     }
 
     /**
-     *
      * @return the ReSpecT tuple centres manager this VM is interacting with
      */
     public RespectTCContainer getContainer() {
@@ -183,7 +161,6 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
      * @return the identifier of the tuple centre this VM is managing
      */
     public TupleCentreId getId() {
@@ -191,7 +168,6 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
      * @return the list of inspector
      */
     public ArrayList<InspectableEventListener> getInspectors() {
@@ -199,7 +175,6 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
      * @return the list of observable events listeners
      */
     public List<ObservableEventListener> getObservers() {
@@ -207,7 +182,6 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
      * @return the ReSpecT specification used by this ReSpecT VM
      */
     public AbstractBehaviourSpecification getReactionSpec() {
@@ -217,7 +191,6 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
      * @return the ReSpecT VM storage context
      */
     public RespectVMContext getRespectVMContext() {
@@ -225,7 +198,6 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
      * @return ReSpecT triggered reactions set
      */
     public LogicTuple[] getTRSet() {
@@ -233,9 +205,7 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
-     * @param filter
-     *            the tuple template to be used in filtering tuples
+     * @param filter the tuple template to be used in filtering tuples
      * @return the list of tuples currently stored
      */
     public LogicTuple[] getTSet(final LogicTuple filter) {
@@ -243,9 +213,7 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
-     * @param filter
-     *            the tuple template to be used in filtering InQ events
+     * @param filter the tuple template to be used in filtering InQ events
      * @return the list of InQ events currently stored
      */
     public WSetEvent[] getWSet(final LogicTuple filter) {
@@ -253,9 +221,7 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
-     * @throws OperationNotPossibleException
-     *             if the requested operation cannot be carried out
+     * @throws OperationNotPossibleException if the requested operation cannot be carried out
      */
     public void goCommand() throws OperationNotPossibleException {
         try {
@@ -267,18 +233,16 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
      * @return wether this ReSpecT VM has any inspectable events listener
-     *         registered
+     * registered
      */
     public boolean hasInspectors() {
         return this.inspectors.size() > 0;
     }
 
     /**
-     *
      * @return wether this ReSpecT VM has any observable events listener
-     *         registered
+     * registered
      */
     public boolean hasObservers() {
         return this.observers.size() > 0;
@@ -292,8 +256,7 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     * @throws OperationNotPossibleException
-     *             if the ReSpecT VM is not in step mode
+     * @throws OperationNotPossibleException if the ReSpecT VM is not in step mode
      */
     public void nextStepCommand() throws OperationNotPossibleException {
         try {
@@ -305,9 +268,7 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
-     * @param e
-     *            the inpsectable event to notify to listeners
+     * @param e the inpsectable event to notify to listeners
      */
     public void notifyInspectableEvent(final InspectableEvent e) {
         final Iterator<? extends InspectableEventListener> it = this.inspectors
@@ -325,9 +286,7 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
-     * @param ev
-     *            the observable event to notify to listeners
+     * @param ev the observable event to notify to listeners
      */
     public void notifyObservableEvent(final AbstractEvent ev) {
         final int size = this.observers.size();
@@ -453,32 +412,24 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     * @param path
-     *            the path where persistency information is stored
-     * @param file
-     *            the name of the file where persistency information is stored
-     * @param tcName
-     *            the name of the tuple centre to be recovered
-     *
+     * @param path   the path where persistency information is stored
+     * @param file   the name of the file where persistency information is stored
+     * @param tcName the name of the tuple centre to be recovered
      */
     public void recoveryPersistent(final String path, final String file,
-            final TucsonTupleCentreId tcName) {
+                                   final TucsonTupleCentreId tcName) {
         this.context.recoveryPersistent(path, file, tcName);
     }
 
     /**
-     *
-     * @param l
-     *            the inspectable events listener to remove
+     * @param l the inspectable events listener to remove
      */
     public void removeInspector(final InspectableEventListener l) {
         this.inspectors.remove(l);
     }
 
     /**
-     *
-     * @param l
-     *            the observable events listener to remove
+     * @param l the observable events listener to remove
      */
     public void removeObserver(final ObservableEventListener l) {
         this.observers.remove(l);
@@ -519,17 +470,14 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     * @param activate
-     *            toggles management mode on and off
+     * @param activate toggles management mode on and off
      */
     public void setManagementMode(final boolean activate) {
         this.context.setManagementMode(activate);
     }
 
     /**
-     *
-     * @param spec
-     *            the ReSpecT specification to overwrite current one with
+     * @param spec the ReSpecT specification to overwrite current one with
      * @return wether the ReSpecT speification has been successfully overwritten
      */
     public boolean setReactionSpec(final AbstractBehaviourSpecification spec) {
@@ -540,9 +488,7 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
-     * @param wSet
-     *            the InQ to overwrite current one with
+     * @param wSet the InQ to overwrite current one with
      */
     public void setWSet(final List<LogicTuple> wSet) {
         this.context.setWSet(wSet);
@@ -553,9 +499,7 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     *
-     * @throws OperationNotPossibleException
-     *             if the requested operation cannot be carried out
+     * @throws OperationNotPossibleException if the requested operation cannot be carried out
      */
     public void stopCommand() throws OperationNotPossibleException {
         try {

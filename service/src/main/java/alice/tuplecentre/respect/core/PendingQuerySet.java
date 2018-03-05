@@ -11,6 +11,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import alice.tuplecentre.api.TupleCentreOpId;
+import alice.tuplecentre.core.AbstractEvent;
+
 /**
  * Pending Query Set.
  *
@@ -35,9 +38,7 @@ public class PendingQuerySet {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple centre event to add to the InQ
+     * @param t the tuple centre event to add to the InQ
      */
     public void add(final alice.tuplecentre.core.AbstractEvent t) {
         this.events.add(t);
@@ -48,7 +49,7 @@ public class PendingQuerySet {
 
     /**
      * Begins a transaction section
-     *
+     * <p>
      * Every operation on multiset can be undone
      */
     public void beginTransaction() {
@@ -68,10 +69,9 @@ public class PendingQuerySet {
      * Ends a transaction section specifying if operations must be committed or
      * undone
      *
-     * @param commit
-     *            if <code>true</code> the operations are committed, else they
-     *            are undone and the multiset is rolled back to the state before
-     *            the <code>beginTransaction</code> invocation
+     * @param commit if <code>true</code> the operations are committed, else they
+     *               are undone and the multiset is rolled back to the state before
+     *               the <code>beginTransaction</code> invocation
      */
     public void endTransaction(final boolean commit) {
         if (!commit) {
@@ -90,7 +90,6 @@ public class PendingQuerySet {
     }
 
     /**
-     *
      * @return the tuple centre event head of the InQ
      */
     public alice.tuplecentre.core.AbstractEvent get() {
@@ -102,7 +101,6 @@ public class PendingQuerySet {
     }
 
     /**
-     *
      * @return an iterator through the InQ
      */
     public Iterator<? extends AbstractEvent> getIterator() {
@@ -110,7 +108,6 @@ public class PendingQuerySet {
     }
 
     /**
-     *
      * @return wether the InQ is empty or not
      */
     public boolean isEmpty() {
@@ -118,9 +115,7 @@ public class PendingQuerySet {
     }
 
     /**
-     *
-     * @param t
-     *            the event to remove from the InQ
+     * @param t the event to remove from the InQ
      */
     public void remove(final alice.tuplecentre.core.AbstractEvent t) {
         this.events.remove(t);
@@ -130,17 +125,15 @@ public class PendingQuerySet {
     }
 
     /**
-     *
-     * @param opId
-     *            the progressive, unique per tuple centre operation id whose
-     *            operation events have to be removed
+     * @param opId the progressive, unique per tuple centre operation id whose
+     *             operation events have to be removed
      * @return wether the events have been succesfully removed
      */
-    public boolean removeEventOfOperation(final long opId) {
+    public boolean removeEventOfOperation(final TupleCentreOpId opId) {
         final Iterator<? extends AbstractEvent> it = this.events.listIterator();
         while (it.hasNext()) {
             final alice.tuplecentre.core.AbstractEvent ev = it.next();
-            if (ev.getSimpleTCEvent().getId() == opId) {
+            if (ev.getSimpleTCEvent().getId().equals(opId)) {
                 it.remove();
                 return true;
             }
@@ -149,10 +142,8 @@ public class PendingQuerySet {
     }
 
     /**
-     *
-     * @param id
-     *            the identifier of the tuple centre agent whose events have to
-     *            be removed
+     * @param id the identifier of the tuple centre agent whose events have to
+     *           be removed
      */
     public void removeEventsOf(final alice.tuplecentre.api.AgentId id) {
         final Iterator<? extends AbstractEvent> it = this.events.listIterator();
@@ -165,7 +156,6 @@ public class PendingQuerySet {
     }
 
     /**
-     *
      * @return the length of the InQ
      */
     public int size() {
@@ -173,7 +163,6 @@ public class PendingQuerySet {
     }
 
     /**
-     *
      * @return the array representation of the InQ
      */
     public alice.tuplecentre.core.AbstractEvent[] toArray() {

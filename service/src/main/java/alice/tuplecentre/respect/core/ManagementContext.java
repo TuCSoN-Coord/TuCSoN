@@ -1,17 +1,18 @@
 package alice.tuplecentre.respect.core;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
+import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.respect.api.IManagementContext;
 import alice.tuplecentre.respect.api.RespectSpecification;
 import alice.tuplecentre.respect.api.exceptions.InvalidSpecificationException;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.introspection.WSetEvent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
@@ -32,7 +33,7 @@ public class ManagementContext implements IManagementContext {
     }
 
     @Override
-    public boolean abortOperation(final long opId) {
+    public boolean abortOperation(final TupleCentreOpId opId) {
         return this.vm.abortOperation(opId);
     }
 
