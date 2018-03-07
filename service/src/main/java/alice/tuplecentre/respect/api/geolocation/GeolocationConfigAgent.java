@@ -1,5 +1,7 @@
 package alice.tuplecentre.respect.api.geolocation;
 
+import java.lang.reflect.InvocationTargetException;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.Var;
@@ -9,10 +11,13 @@ import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.api.geolocation.service.GeoServiceId;
+import alice.tuplecentre.respect.api.geolocation.service.GeoServiceIdentifier;
 import alice.tuplecentre.respect.api.geolocation.service.GeolocationServiceManager;
 import alice.tuplecentre.respect.core.RespectOperationDefault;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -20,8 +25,6 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuplecentre.tucson.service.TucsonNodeService;
 import alice.tuplecentre.tucson.service.TupleCentreContainer;
 import alice.tuprolog.InvalidTermException;
-
-import java.lang.reflect.InvocationTargetException;
 
 /**
  * Geolocation configuration support agent. It checks for requests on
@@ -57,7 +60,7 @@ public class GeolocationConfigAgent extends Thread {
             final TucsonNodeService n) {
         super();
         try {
-            this.nodeManAid = new TucsonAgentId("geolocationConfigAgent");
+            this.nodeManAid = new TucsonAgentIdDefault("geolocationConfigAgent");
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
@@ -151,7 +154,7 @@ public class GeolocationConfigAgent extends Thread {
             final InputEvent ev = new InputEvent(this.nodeManAid, opRequested,
                     this.config, System.currentTimeMillis(), null);
             t = (LogicTuple) TupleCentreContainer.doBlockingOperation(ev);
-            final GeoServiceId sId = new GeoServiceId(t.getArg(0).getName());
+            final GeoServiceIdentifier sId = new GeoServiceId(t.getArg(0).getName());
             // Building service
             final String[] sTcId = t.getArg(2).toString().split(":"); // '@'(name,':'(node,port))
             final String tcName = sTcId[0].substring(sTcId[0].indexOf('(') + 1,
@@ -159,12 +162,12 @@ public class GeolocationConfigAgent extends Thread {
             final String[] tcNodeAndPort = sTcId[1].substring(
                     sTcId[1].indexOf('(') + 1, sTcId[1].indexOf(')'))
                     .split(",");
-            final TucsonTupleCentreId tcId = new TucsonTupleCentreId(tcName,
+            final TucsonTupleCentreId tcId = new TucsonTupleCentreIdDefault(tcName,
                     tcNodeAndPort[0], tcNodeAndPort[1]);
             final int platform = PlatformUtils.getPlatform();
             GeolocationConfigAgent
-                    .log("Serving create android geolocation service request. Id: "
-                            + sId.getName()
+                    .log("Serving create android geolocation service request. EmitterIdentifier: "
+                            + sId.getLocalName()
                             + "; TC Associated: "
                             + t.getArg(2).toString());
             GeolocationServiceManager.getGeolocationManager()
@@ -178,10 +181,10 @@ public class GeolocationConfigAgent extends Thread {
             final InputEvent ev = new InputEvent(this.nodeManAid, opRequested,
                     this.config, System.currentTimeMillis(), null);
             t = (LogicTuple) TupleCentreContainer.doBlockingOperation(ev);
-            final GeoServiceId sId = new GeoServiceId(t.getArg(0).getName());
+            final GeoServiceIdentifier sId = new GeoServiceId(t.getArg(0).getName());
             GeolocationConfigAgent
-                    .log("Serving destroy android geolocation service request. Id: "
-                            + sId.getName());
+                    .log("Serving destroy android geolocation service request. EmitterIdentifier: "
+                            + sId.getLocalName());
             GeolocationServiceManager.getGeolocationManager().destroyService(
                     sId);
         }

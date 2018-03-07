@@ -61,7 +61,7 @@ public class AgentGeolocationServiceListener implements
     }
 
     @Override
-    public GeoServiceId getServiceId() {
+    public GeoServiceIdentifier getServiceId() {
         return this.service.getServiceId();
     }
 

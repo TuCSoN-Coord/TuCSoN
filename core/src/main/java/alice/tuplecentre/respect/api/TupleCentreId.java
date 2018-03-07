@@ -12,6 +12,9 @@
  */
 package alice.tuplecentre.respect.api;
 
+import java.io.Serializable;
+
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.tuplecentre.respect.core.TupleCentreIdOperatorManager;
 import alice.tuprolog.InvalidTermException;
@@ -20,31 +23,26 @@ import alice.tuprolog.Term;
 
 /**
  * Tuple centre identifier for ReSpecT tuple centres
- * 
+ * <p>
  * A tuple centre identifier must be a ground logic term.
- * 
+ *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
-public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId,
-        java.io.Serializable {
+public class TupleCentreId implements TupleCentreIdentifier, Serializable {
 
-    private static final int DEFAULT_PORT = 20504;
+    private static final int DEFAULT_PORT = 20504; //TODO replace with a TucsonInfo.getDefaultPort() call
     private static TupleCentreIdOperatorManager opManager = new TupleCentreIdOperatorManager();
     private static final long serialVersionUID = 1L;
-    /**
-     * 
-     */
-    protected alice.tuprolog.Term id;
+
+    private Term id;
 
     /**
      * Constructs a tuple centre identifier from a string, which must represent
      * a well-formed ground logic term
-     * 
-     * @param n
-     *            is the textual representation of the identifier
-     * @throws InvalidTupleCentreIdException
-     *             if name is not a well-formed ground logic term
+     *
+     * @param n is the textual representation of the identifier
+     * @throws InvalidTupleCentreIdException if name is not a well-formed ground logic term
      */
     public TupleCentreId(final String n) throws InvalidTupleCentreIdException {
         String name = n;
@@ -59,18 +57,13 @@ public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId,
     }
 
     /**
-     * 
-     * @param tcName
-     *            logical name of the tuple centre
-     * @param hostName
-     *            the netid of the device hosting the tuple centre
-     * @param portName
-     *            the listening port of the tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if the tuple centre id is not a valid Prolog term
+     * @param tcName   logical name of the tuple centre
+     * @param hostName the netid of the device hosting the tuple centre
+     * @param portName the listening port of the tuple centre
+     * @throws InvalidTupleCentreIdException if the tuple centre id is not a valid Prolog term
      */
     public TupleCentreId(final String tcName, final String hostName,
-            final String portName) throws InvalidTupleCentreIdException {
+                         final String portName) throws InvalidTupleCentreIdException {
         final String tc = tcName.trim();
         final String host = alice.util.Tools.removeApices(hostName.trim());
         final String port = alice.util.Tools.removeApices(portName.trim());
@@ -92,11 +85,9 @@ public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId,
     /**
      * Constructs a tuple centre identifier, which must be a well-formed ground
      * logic term
-     * 
-     * @param name
-     *            is the term representing the identifier
-     * @throws InvalidTupleCentreIdException
-     *             if name is not a well-formed ground logic term
+     *
+     * @param name is the term representing the identifier
+     * @throws InvalidTupleCentreIdException if name is not a well-formed ground logic term
      */
     public TupleCentreId(final Term name) throws InvalidTupleCentreIdException {
         this.id = name.getTerm();
@@ -132,12 +123,8 @@ public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId,
         return true;
     }
 
-    /**
-     * Gets the string representation of the tuple centre name
-     * 
-     * @return the ReSpecT node identifier
-     */
-    public String getName() {
+    @Override
+    public String getLocalName() {
         if (this.id instanceof alice.tuprolog.Struct) {
             final Struct sid = (Struct) this.id;
             if (sid.getArity() == 2 && "@".equals(sid.getName())) {
@@ -147,11 +134,7 @@ public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId,
         return this.id.toString();
     }
 
-    /**
-     * Gets localhost ReSpecT has no net infrastructure
-     * 
-     * @return the node identifier (localhost)
-     */
+    @Override
     public String getNode() {
         if (this.id instanceof alice.tuprolog.Struct) {
             final Struct sid = (Struct) this.id.getTerm();
@@ -166,16 +149,13 @@ public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId,
                         .toString())
                         + "."
                         + alice.util.Tools.removeApices(tt.getArg(1).getTerm()
-                                .toString());
+                        .toString());
             }
         }
         return "localhost";
     }
 
-    /**
-     * 
-     * @return the listening port for this tuple centre identifier
-     */
+    @Override
     public int getPort() {
         if (this.id instanceof alice.tuprolog.Struct) {
             final Struct sid = (Struct) this.id;
@@ -209,7 +189,7 @@ public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId,
     public boolean isEnv() {
         return false;
     }
-    
+
     @Override
     public boolean isGeo() {
         return false;
@@ -221,16 +201,12 @@ public class TupleCentreId implements alice.tuplecentre.api.TupleCentreId,
     }
 
     @Override
-    public String toString() {
-        return this.id.toString();
+    public Term toTerm() {
+        return id;
     }
 
-    /**
-     * Provides the logic term representation of the identifier
-     * 
-     * @return the term representing the identifier
-     */
-    public Term toTerm() {
-        return this.id;
+    @Override
+    public String toString() {
+        return this.id.toString();
     }
 }

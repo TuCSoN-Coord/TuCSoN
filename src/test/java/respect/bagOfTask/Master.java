@@ -1,5 +1,7 @@
 package respect.bagOfTask;
 
+import java.util.Random;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -8,14 +10,13 @@ import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-
-import java.util.Random;
 
 /**
  * Master thread of a bag-of-task architecture. Given a TuCSoN Node (optional)
@@ -81,7 +82,7 @@ public class Master extends AbstractTucsonAgent {
             /*
              * Our work has to be done in a custom-defined tuplecentre.
              */
-            final TucsonTupleCentreId ttcid = new TucsonTupleCentreId(
+            final TucsonTupleCentreId ttcid = new TucsonTupleCentreIdDefault(
                     "bagoftask", this.ip, this.port);
             this.say("Injecting ReSpecT Specification...");
             /*

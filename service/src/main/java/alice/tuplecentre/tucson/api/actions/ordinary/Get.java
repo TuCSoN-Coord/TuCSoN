@@ -45,7 +45,7 @@ public class Get extends AbstractTucsonOrdinaryAction {
      * Builds the TuCSoN {@code get} action given its target tuple centre
      * 
      * @param tc
-     *            the ID of the TuCSoN tuple centre target of this coordination
+     *            the Identifier of the TuCSoN tuple centre target of this coordination
      *            operation
      */
     public Get(final TucsonTupleCentreId tc) {

@@ -14,13 +14,19 @@
 package alice.tuplecentre.api;
 
 /**
- *
  * Represents identifier for a tuple centre
  *
  * @author Alessandro Ricci
  */
-public interface TupleCentreId extends IId {
-    /*
-     *
+public interface TupleCentreIdentifier extends EmitterIdentifier {
+
+    /**
+     * @return the IP address of the tuple centre
      */
+    String getNode();
+
+    /**
+     * @return the listening port for this tuple centre identifier
+     */
+    int getPort();
 }

@@ -17,17 +17,16 @@ import java.util.Iterator;
 import java.util.List;
 
 import alice.logictuple.LogicTuple;
-import alice.tuplecentre.api.IId;
+import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreOpId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.AbstractBehaviourSpecification;
 import alice.tuplecentre.core.AbstractEvent;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.InspectableEvent;
 import alice.tuplecentre.respect.api.IRespectTC;
-import alice.tuplecentre.respect.api.TupleCentreId;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.introspection.WSetEvent;
@@ -68,7 +67,7 @@ public class RespectVM implements Runnable {
      * @param respectTC the reference to the ReSpecT tuple centre this VM should
      *                  manage
      */
-    public RespectVM(final TupleCentreId tid, final RespectTCContainer c,
+    public RespectVM(final TupleCentreIdentifier tid, final RespectTCContainer c,
                      final int qSize, final IRespectTC respectTC) {
         this.container = c;
         this.context = new RespectVMContext(this, tid, qSize, respectTC);
@@ -119,7 +118,7 @@ public class RespectVM implements Runnable {
      * @param op the operation requested
      * @throws OperationNotPossibleException if the requested operation cannot be carried out
      */
-    public void doOperation(final IId id, final RespectOperationDefault op)
+    public void doOperation(final EmitterIdentifier id, final RespectOperationDefault op)
             throws OperationNotPossibleException {
         try {
             this.context.doOperation(id, op);
@@ -163,8 +162,8 @@ public class RespectVM implements Runnable {
     /**
      * @return the identifier of the tuple centre this VM is managing
      */
-    public TupleCentreId getId() {
-        return (TupleCentreId) this.context.getId();
+    public TupleCentreIdentifier getId() {
+        return this.context.getId();
     }
 
     /**

@@ -1,5 +1,9 @@
 package masterWorkers.bulk;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -8,16 +12,13 @@ import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Master thread of a master-worker architecture. Given a list of TuCSoN Nodes
@@ -64,17 +65,17 @@ public class MasterAgent extends AbstractTucsonAgent {
      *            max number for which to calculate factorial
      *
      * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     *             if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public MasterAgent(final String aid, final LinkedList<String> nodes,
             final int iters, final int maxFact)
                     throws TucsonInvalidAgentIdException {
         super(aid);
         this.die = false;
-        this.tids = new LinkedList<TucsonTupleCentreId>();
+        this.tids = new LinkedList<>();
         try {
             for (final String node : nodes) {
-                this.tids.add(new TucsonTupleCentreId(node));
+                this.tids.add(new TucsonTupleCentreIdDefault(node));
             }
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
@@ -235,7 +236,7 @@ public class MasterAgent extends AbstractTucsonAgent {
         } catch (final InterruptedException e) {
             this.say("ERROR: Sleep interrupted!");
         } catch (final TucsonInvalidAgentIdException e) {
-            this.say("ERROR: Given ID is not a valid TuCSoN agent ID!");
+            this.say("ERROR: Given Identifier is not a valid TuCSoN agent Identifier!");
         }
     }
 

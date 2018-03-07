@@ -13,6 +13,10 @@
  */
 package alice.tuplecentre.tucson.service.tools;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.LogicTupleOpManager;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
@@ -26,10 +30,6 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.parsing.TucsonOpParser;
 import alice.tuplecentre.tucson.service.TucsonCmd;
 import alice.tuprolog.Parser;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * Command Line Interpreter TuCSoN agent. Waits for user input, properly parses

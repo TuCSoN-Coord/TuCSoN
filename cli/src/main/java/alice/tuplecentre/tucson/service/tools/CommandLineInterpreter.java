@@ -13,7 +13,9 @@
  */
 package alice.tuplecentre.tucson.service.tools;
 
-import alice.tuplecentre.tucson.api.TucsonAgentId;
+import java.util.Date;
+
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -21,10 +23,8 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdExcepti
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
-import java.util.Date;
-
 /**
- * Command Line Interpreter. Can be booted with a TuCSoN agent ID or using a
+ * Command Line Interpreter. Can be booted with a TuCSoN agent Identifier or using a
  * default assigned one (both passed to the CLIAgent). Gets a TuCSoN ACC from
  * TucsonMetaACC then spawns the CLIAgent who manages user input.
  *
@@ -79,7 +79,7 @@ public final class CommandLineInterpreter {
                             + " >...");
             EnhancedACC context = null;
             try {
-                context = TucsonMetaACC.getContext(new TucsonAgentId(aid),
+                context = TucsonMetaACC.getContext(new TucsonAgentIdDefault(aid),
                         node, port);
                 context.enterACC();
             } catch (final TucsonInvalidAgentIdException | UnreachableNodeException | TucsonOperationNotPossibleException | TucsonInvalidTupleCentreIdException e) {

@@ -21,9 +21,6 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-
-import javax.swing.*;
-import java.util.List;
 //import alice.util.jedit.JEditTextArea;
 
 /**
@@ -67,8 +64,8 @@ public class SpecWorker extends Thread {
     private final TucsonTupleCentreId tid;
 
     public SpecWorker(final String op, final EnhancedACC c,
-            final TucsonTupleCentreId ttcid, final EditSpec editSpec,
-            final JTextArea input) {
+                      final TucsonTupleCentreId ttcid, final EditSpec editSpec,
+                      final JTextArea input) {
         this.operation = op;
         this.context = c;
         this.tid = ttcid;

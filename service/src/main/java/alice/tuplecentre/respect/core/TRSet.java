@@ -12,11 +12,11 @@
  */
 package alice.tuplecentre.respect.core;
 
-import alice.tuplecentre.core.TriggeredReaction;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+
+import alice.tuplecentre.core.TriggeredReaction;
 
 /**
  * Triggered Reaction Set.

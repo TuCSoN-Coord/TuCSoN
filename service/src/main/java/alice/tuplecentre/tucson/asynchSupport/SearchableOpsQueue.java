@@ -20,9 +20,7 @@
 package alice.tuplecentre.tucson.asynchSupport;
 
 import java.util.concurrent.LinkedBlockingQueue;
-
-import alice.tuplecentre.api.TupleCentreOpId;
-import alice.tuplecentre.tucson.api.actions.AbstractTucsonAction;
+import alice.tuplecentre.api.TupleCentreOpId;import alice.tuplecentre.tucson.api.actions.AbstractTucsonAction;
 
 /**
  * Queue storing pending operations delegated to
@@ -84,9 +82,9 @@ public class SearchableOpsQueue extends LinkedBlockingQueue<TucsonOpWrapper> {
     }
 
     /**
-     * Removes the operation identified by the given ID
+     * Removes the operation identified by the given Identifier
      *
-     * @param id the ID of the operation to remove
+     * @param id the Identifier of the operation to remove
      * @return {@code true} or {@code false} depending on whether removal was
      * successful or not
      */

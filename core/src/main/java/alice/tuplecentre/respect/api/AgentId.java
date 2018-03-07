@@ -12,6 +12,9 @@
  */
 package alice.tuplecentre.respect.api;
 
+import java.io.Serializable;
+
+import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuplecentre.respect.api.exceptions.InvalidAgentIdException;
 import alice.tuplecentre.respect.core.AgentIdOperatorManager;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
@@ -25,31 +28,24 @@ import alice.tuprolog.Term;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
-public class AgentId implements alice.tuplecentre.api.AgentId,
-        java.io.Serializable {
+public class AgentId implements AgentIdentifier, Serializable {
+
+    private Term id;
 
     private static AgentIdOperatorManager opManager = new AgentIdOperatorManager();
-    /**
-     *
-     */
+
     private static final long serialVersionUID = 1L;
-    /**
-     *
-     */
-    protected Term id;
 
     /**
      * Constructs an agent identifier
-     *
+     * <p>
      * The Agent identifier must be a ground valid logic term
      *
-     * @param sid
-     *            is the string representation of the identifier
-     * @throws InvalidAgentIdException
-     *             if it is not a valid identifier
+     * @param sid is the string representation of the identifier
+     * @throws InvalidAgentIdException if it is not a valid identifier
      */
     public AgentId(final String sid) throws InvalidAgentIdException {
-        String newSid = null;
+        String newSid;
         if (sid.indexOf(':') != -1) {
             newSid = sid.substring(0, sid.indexOf(':'));
         } else {
@@ -69,11 +65,8 @@ public class AgentId implements alice.tuplecentre.api.AgentId,
     }
 
     /**
-     *
-     * @param name
-     *            the string representation of this identifier
-     * @param tcId
-     *            the tuple centre identifier this agent operates on
+     * @param name the string representation of this identifier
+     * @param tcId the tuple centre identifier this agent operates on
      */
     public AgentId(final String name, final TucsonTupleCentreId tcId) {
         this.id = new Struct(name, tcId.toTerm());
@@ -81,13 +74,11 @@ public class AgentId implements alice.tuplecentre.api.AgentId,
 
     /**
      * Constructs an agent identifier
-     *
+     * <p>
      * The Agent identifier must be a ground logic term
      *
-     * @param tid
-     *            the identifier as tuProlog term
-     * @throws InvalidAgentIdException
-     *             if it is not a valid identifier
+     * @param tid the identifier as tuProlog term
+     * @throws InvalidAgentIdException if it is not a valid identifier
      */
     public AgentId(final Term tid) throws InvalidAgentIdException {
         this.id = tid.getTerm();
@@ -97,10 +88,7 @@ public class AgentId implements alice.tuplecentre.api.AgentId,
         }
     }
 
-    /**
-     *
-     * @return the string representation of the local name
-     */
+    @Override
     public String getLocalName() {
         if (this.id.isCompound()) {
             return ((Struct) this.id).getArg(0).toString();
@@ -119,26 +107,22 @@ public class AgentId implements alice.tuplecentre.api.AgentId,
     }
 
     @Override
+    public boolean isGeo() {
+        return false;
+    }
+
+    @Override
     public boolean isTC() {
         return false;
+    }
+
+    @Override
+    public Term toTerm() {
+        return id;
     }
 
     @Override
     public String toString() {
         return this.id.toString();
     }
-
-    /**
-     * Provides the logic term representation of the identifier
-     *
-     * @return the term representing the identifier
-     */
-    public Term toTerm() {
-        return this.id;
-    }
-
-	@Override
-	public boolean isGeo() {
-		return false;
-	}
 }

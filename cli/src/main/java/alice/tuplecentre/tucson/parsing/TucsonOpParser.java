@@ -1,11 +1,11 @@
 package alice.tuplecentre.tucson.parsing;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.service.TucsonCmd;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  *

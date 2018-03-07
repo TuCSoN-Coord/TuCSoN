@@ -1,24 +1,34 @@
 package alice.tuplecentre.tucson.persistency;
 
-import alice.logictuple.LogicTuple;
-import alice.tuplecentre.respect.core.RespectVMContext.ModType;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import alice.logictuple.LogicTuple;
+import alice.tuplecentre.respect.core.RespectVMContext.ModType;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 
 /**
  *
@@ -210,7 +220,7 @@ public class PersistencyXML {
                     "yyyy-MM-dd_HH.mm.ss");
             final String date = sdf.format(d);
             this.pDate = date;
-            final String pXMLFileName = this.pFileName.getName() + "_at_"
+            final String pXMLFileName = this.pFileName.getLocalName() + "_at_"
                     + this.pFileName.getNode() + "_at_"
                     + this.pFileName.getPort();
             // Delete old persistency file

@@ -12,11 +12,11 @@
  */
 package alice.tuplecentre.respect.core.tupleset;
 
+import java.util.LinkedList;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.tuplecentre.respect.core.collection.DoubleKeyMVMap;
-
-import java.util.LinkedList;
 
 /**
  * Class representing a Tuple Set.

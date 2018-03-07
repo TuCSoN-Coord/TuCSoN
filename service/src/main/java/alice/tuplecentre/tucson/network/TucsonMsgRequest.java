@@ -1,8 +1,8 @@
 package alice.tuplecentre.tucson.network;
 
-import alice.tuplecentre.tucson.service.InputEventMsg;
-
 import java.io.Serializable;
+
+import alice.tuplecentre.tucson.service.InputEventMsg;
 
 /**
  * 
@@ -48,7 +48,7 @@ public class TucsonMsgRequest implements Serializable {
     public String toString() {
         final StringBuffer s = new StringBuffer(45);
         final InputEventMsg iEv = this.getInputEventMsg();
-        s.append("ID: ");
+        s.append("Identifier: ");
         s.append(iEv.getOpId());
         s.append("; Type: ");
         s.append(iEv.getOpType());

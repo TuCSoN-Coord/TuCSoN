@@ -8,6 +8,7 @@ import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -45,13 +46,13 @@ public class CalleeAgent extends AbstractTucsonAgent {
      *            the node used for RPC synchronization.
      *
      * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     *             if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public CalleeAgent(final String aid, final String node)
             throws TucsonInvalidAgentIdException {
         super(aid);
         try {
-            this.tid = new TucsonTupleCentreId(node);
+            this.tid = new TucsonTupleCentreIdDefault(node);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
         }
@@ -134,7 +135,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
         } catch (final OperationTimeOutException e) {
             this.say("ERROR: Endless timeout expired!");
         } catch (final TucsonInvalidAgentIdException e) {
-            this.say("ERROR: Given ID is not a valid TuCSoN agent ID!");
+            this.say("ERROR: Given Identifier is not a valid TuCSoN agent Identifier!");
         }
     }
 

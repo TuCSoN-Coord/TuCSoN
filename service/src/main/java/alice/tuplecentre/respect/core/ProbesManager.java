@@ -3,14 +3,15 @@
  */
 package alice.tuplecentre.respect.core;
 
-import alice.tuplecentre.respect.situatedness.AbstractProbeId;
-import alice.tuplecentre.respect.situatedness.ISimpleProbe;
-import alice.tuplecentre.respect.situatedness.TransducerId;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+
+import alice.tuplecentre.respect.situatedness.AbstractProbeId;
+import alice.tuplecentre.respect.situatedness.ISimpleProbe;
+import alice.tuplecentre.respect.situatedness.ProbeIdentifier;
+import alice.tuplecentre.respect.situatedness.TransducerId;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 04/nov/2013
@@ -35,10 +36,10 @@ public enum ProbesManager {
     }
 
     /** List of all probes on a single node **/
-    private final Map<AbstractProbeId, ISimpleProbe> probesList;
+    private final Map<ProbeIdentifier, ISimpleProbe> probesList;
 
     private ProbesManager() {
-        this.probesList = new HashMap<AbstractProbeId, ISimpleProbe>();
+        this.probesList = new HashMap<>();
     }
 
     /**
@@ -64,7 +65,7 @@ public enum ProbesManager {
      *             if the callee cannot be found
      */
     public synchronized boolean createProbe(final String className,
-            final AbstractProbeId id) throws ClassNotFoundException,
+            final ProbeIdentifier id) throws ClassNotFoundException,
             NoSuchMethodException, InstantiationException,
             IllegalAccessException, InvocationTargetException {
         if (this.probesList.containsKey(id)) {
@@ -93,7 +94,7 @@ public enum ProbesManager {
      * @return an interface toward the resource whose identifier has been given
      */
     // FIXME Check correctness (synchronization needed?)
-    public ISimpleProbe getProbe(final AbstractProbeId id) {
+    public ISimpleProbe getProbe(final ProbeIdentifier id) {
         if (this.probesList.containsKey(id)) {
             return this.probesList.get(id);
         }
@@ -114,7 +115,7 @@ public enum ProbesManager {
     public ISimpleProbe getProbeByName(final String name) {
         final Object[] keySet = this.probesList.keySet().toArray();
         for (final Object element : keySet) {
-            if (((AbstractProbeId) element).getLocalName().equals(name)) {
+            if (((ProbeIdentifier) element).getLocalName().equals(name)) {
                 return this.probesList.get(element);
             }
         }
@@ -150,10 +151,10 @@ public enum ProbesManager {
      * @param tId
      *            the transducer's identifier
      */
-    public void setTransducer(final AbstractProbeId pId, final TransducerId tId) {
+    public void setTransducer(final ProbeIdentifier pId, final TransducerId tId) {
         this.getProbe(pId).setTransducer(tId);
         if (tId != null) {
-            ProbesManager.speak("...transducer '" + tId.getAgentName()
+            ProbesManager.speak("...transducer '" + tId.getLocalName()
                     + "' set to probe '" + pId.getLocalName() + "'.");
         }
     }

@@ -1,9 +1,9 @@
 package alice.tuplecentre.tucson.persistency;
 
+import java.util.List;
+
 import alice.tuplecentre.respect.core.TupleSet;
 import alice.tuplecentre.respect.core.tupleset.ITupleSet;
-
-import java.util.List;
 
 /**
  * @author Lorenzo Pontellini, Vincenzo Scafuto

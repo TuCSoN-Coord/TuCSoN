@@ -1,5 +1,10 @@
 package spawnedWorkers;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
@@ -9,17 +14,13 @@ import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Master thread of a master-worker architecture. Given a list of TuCSoN Nodes
@@ -77,10 +78,10 @@ public class MasterAgent extends AbstractTucsonAgent {
                     throws TucsonInvalidAgentIdException {
         super(aid);
         this.die = false;
-        this.tids = new LinkedList<TucsonTupleCentreId>();
+        this.tids = new LinkedList<>();
         try {
             for (final String node : nodes) {
-                this.tids.add(new TucsonTupleCentreId(node));
+                this.tids.add(new TucsonTupleCentreIdDefault(node));
             }
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
@@ -185,7 +186,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                         acc.spawn(
                                 next,
                                 LogicTuple
-                                .parse("exec('alice.tuplecentre.tucson.examples.spawnedWorkers.SpawnedWorkingActivity.class')"),
+                                        .parse("exec('alice.tuplecentre.tucson.examples.spawnedWorkers.SpawnedWorkingActivity.class')"),
                                 null);
                         /*
                          * Just to let you view something on the console.

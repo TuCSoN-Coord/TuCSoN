@@ -12,14 +12,26 @@
  */
 package alice.tuplecentre.tucson.network;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ConnectException;
+import java.net.InetSocketAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.introspection.InspectorContextEvent;
 import alice.tuplecentre.tucson.introspection.NewInspectorMsg;
 import alice.tuplecentre.tucson.introspection.NodeMsg;
-import alice.tuplecentre.tucson.network.exceptions.*;
-
-import java.io.*;
-import java.net.*;
+import alice.tuplecentre.tucson.network.exceptions.DialogAcceptException;
+import alice.tuplecentre.tucson.network.exceptions.DialogCloseException;
+import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
+import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
+import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 
 /*
  * TODO CICORA: e' necessario separare la classe usata server side e la classe

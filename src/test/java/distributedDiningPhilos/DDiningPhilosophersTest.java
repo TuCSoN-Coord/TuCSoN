@@ -1,5 +1,7 @@
 package distributedDiningPhilos;
 
+import java.io.IOException;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -8,6 +10,7 @@ import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -15,8 +18,6 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdExcepti
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.utilities.Utils;
-
-import java.io.IOException;
 
 /**
  *
@@ -81,7 +82,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent {
             final OrdinaryAndSpecificationSyncACC acc = negAcc.playDefaultRole();
             final TucsonTupleCentreId[] seats = new TucsonTupleCentreId[DDiningPhilosophersTest.N_PHILOSOPHERS];
             for (int i = 0; i < DDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
-                seats[i] = new TucsonTupleCentreId("seat(" + i + "," + (i + 1)
+                seats[i] = new TucsonTupleCentreIdDefault("seat(" + i + "," + (i + 1)
                         % DDiningPhilosophersTest.N_PHILOSOPHERS + ")",
                         this.ip, String.valueOf(this.port));
                 this.say("Injecting 'seat' ReSpecT specification in tc < "
@@ -94,7 +95,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent {
                         null);
             }
             /* MOD: begin */
-            final TucsonTupleCentreId table = new TucsonTupleCentreId("table",
+            final TucsonTupleCentreId table = new TucsonTupleCentreIdDefault("table",
                     this.ip, String.valueOf(this.port + 1));
             /* MOD: end */
             this.say("Injecting 'table' ReSpecT specification in tc < "

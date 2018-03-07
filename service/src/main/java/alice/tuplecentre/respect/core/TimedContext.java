@@ -23,8 +23,6 @@ import alice.tuplecentre.respect.api.RespectOperation;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.respect.api.exceptions.OperationTimeOutException;
 
-import java.util.List;
-
 /**
  * 
  * A Timed Context wraps the access to a tuple centre virtual machine for a

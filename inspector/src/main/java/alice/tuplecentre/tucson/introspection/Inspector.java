@@ -13,12 +13,12 @@
  */
 package alice.tuplecentre.tucson.introspection;
 
+import java.io.IOException;
+
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
-
-import java.io.IOException;
 
 /**
  *
@@ -48,7 +48,7 @@ public class Inspector extends Thread implements InspectorContextListener {
      *            project 2014/2015)
      */
     public Inspector(final TucsonAgentId id, final TucsonTupleCentreId tid,
-            boolean forGui) {
+                     boolean forGui) {
         super();
         this.context = new InspectorContextStub(id, tid, forGui);
         this.context.addInspectorContextListener(this);
@@ -90,7 +90,7 @@ public class Inspector extends Thread implements InspectorContextListener {
     @Override
     public synchronized void run() {
         System.out.println("[Inspector]: Started inspecting TuCSoN Node < "
-                + this.context.getTid().getName() + "@"
+                + this.context.getTid().getLocalName() + "@"
                 + this.context.getTid().getNode() + ":"
                 + this.context.getTid().getPort() + " >");
         while (!this.q) {
@@ -104,7 +104,7 @@ public class Inspector extends Thread implements InspectorContextListener {
                 break;
             } catch (final DialogException e) {
                 System.err.println("TuCSoN node "
-                        + this.context.getTid().getName() + "@"
+                        + this.context.getTid().getLocalName() + "@"
                         + this.context.getTid().getNode() + ":"
                         + this.context.getTid().getPort()
                         + " disconnected unexpectedly :/");
@@ -112,7 +112,7 @@ public class Inspector extends Thread implements InspectorContextListener {
             }
         }
         System.out.println("[Inspector]: Stopped inspecting TuCSoN Node < "
-                + this.context.getTid().getName() + "@"
+                + this.context.getTid().getLocalName() + "@"
                 + this.context.getTid().getNode() + ":"
                 + this.context.getTid().getPort() + " >");
     }

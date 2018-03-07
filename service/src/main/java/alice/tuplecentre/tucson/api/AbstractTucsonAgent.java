@@ -13,13 +13,13 @@
  */
 package alice.tuplecentre.tucson.api;
 
+import java.util.List;
+
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.service.TucsonOpCompletionEvent;
-
-import java.util.List;
 
 /**
  * Base class to extend to implement TuCSoN Agents. Once created, the method
@@ -84,7 +84,7 @@ public abstract class AbstractTucsonAgent implements
      */
     public AbstractTucsonAgent(final String id)
             throws TucsonInvalidAgentIdException {
-        this(new TucsonAgentId(id), "localhost",
+        this(new TucsonAgentIdDefault(id), "localhost",
                 AbstractTucsonAgent.DEFAULT_PORT);
     }
 
@@ -99,7 +99,7 @@ public abstract class AbstractTucsonAgent implements
      */
     public AbstractTucsonAgent(final String id, final String netid)
             throws TucsonInvalidAgentIdException {
-        this(new TucsonAgentId(id), netid, AbstractTucsonAgent.DEFAULT_PORT);
+        this(new TucsonAgentIdDefault(id), netid, AbstractTucsonAgent.DEFAULT_PORT);
     }
 
     /**
@@ -114,7 +114,7 @@ public abstract class AbstractTucsonAgent implements
      */
     public AbstractTucsonAgent(final String id, final String netid, final int p)
             throws TucsonInvalidAgentIdException {
-        this(new TucsonAgentId(id), netid, p);
+        this(new TucsonAgentIdDefault(id), netid, p);
     }
 
     /**
@@ -155,7 +155,7 @@ public abstract class AbstractTucsonAgent implements
      * @return The String name of the agent
      */
     public final String myName() {
-        return this.aid.getAgentName();
+        return this.aid.getLocalName();
     }
 
     /**
@@ -205,7 +205,7 @@ public abstract class AbstractTucsonAgent implements
      * @param msg The message to print
      */
     protected void say(final String msg) {
-        System.out.println("[" + this.getTucsonAgentId().getAgentName() + "]: "
+        System.out.println("[" + this.getTucsonAgentId().getLocalName() + "]: "
                 + msg);
     }
 

@@ -1,11 +1,21 @@
 package alice.tuplecentre.respect.core;
 
-import alice.tuplecentre.respect.api.*;
-import alice.tuplecentre.respect.api.exceptions.InstantiationNotPossibleException;
-import alice.tuplecentre.tucson.service.RemoteLinkProvider;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
+import alice.tuplecentre.api.TupleCentreIdentifier;
+import alice.tuplecentre.respect.api.IEnvironmentContext;
+import alice.tuplecentre.respect.api.ILinkContext;
+import alice.tuplecentre.respect.api.IManagementContext;
+import alice.tuplecentre.respect.api.IOrdinaryAsynchInterface;
+import alice.tuplecentre.respect.api.IOrdinarySynchInterface;
+import alice.tuplecentre.respect.api.IRemoteLinkProvider;
+import alice.tuplecentre.respect.api.ISpatialContext;
+import alice.tuplecentre.respect.api.ISpecificationAsynchInterface;
+import alice.tuplecentre.respect.api.ISpecificationSynchInterface;
+import alice.tuplecentre.respect.api.ITCRegistry;
+import alice.tuplecentre.respect.api.exceptions.InstantiationNotPossibleException;
+import alice.tuplecentre.tucson.service.RemoteLinkProvider;
 
 /**
  * A Container for ReSpecT tuple centres
@@ -86,7 +96,7 @@ public final class RespectTCContainer {
      *            its maximum queue size
      * @return a reference to the ReSpecT tuple centre created
      */
-    public RespectTC createRespectTC(final TupleCentreId id, final Integer q) {
+    public RespectTC createRespectTC(final TupleCentreIdentifier id, final Integer q) {
         final RespectTC rtc = new RespectTC(id, this, q);
         this.registry.addTC(rtc);
         return rtc;
@@ -99,7 +109,7 @@ public final class RespectTCContainer {
      *            context should be acquired
      * @return the environmental context acquired
      */
-    public IEnvironmentContext getEnvironmentContext(final TupleCentreId id) {
+    public IEnvironmentContext getEnvironmentContext(final TupleCentreIdentifier id) {
         try {
             return ((RespectTC) this.registry.getTC(id))
                     .getEnvironmentContext();
@@ -118,7 +128,7 @@ public final class RespectTCContainer {
      *            the identifier of the tuple centre target (local or remote)
      * @return the linking context toward the given tuple centre
      */
-    public ILinkContext getLinkContext(final TupleCentreId id) {
+    public ILinkContext getLinkContext(final TupleCentreIdentifier id) {
         if ((this.hostname.equals(id.getNode()) || this.loopback.equals(id
                 .getNode())) && id.getPort() == RespectTCContainer.defaultport) {
             try {
@@ -142,7 +152,7 @@ public final class RespectTCContainer {
      *            the identifier of the tuple centre target (local or remote)
      * @return the management context toward the given tuple centre
      */
-    public IManagementContext getManagementContext(final TupleCentreId id) {
+    public IManagementContext getManagementContext(final TupleCentreIdentifier id) {
         try {
             return ((RespectTC) this.registry.getTC(id)).getManagementContext();
         } catch (final InstantiationNotPossibleException e) {
@@ -160,7 +170,7 @@ public final class RespectTCContainer {
      * @return the ordinary, asynchronous context toward the given tuple centre
      */
     public IOrdinaryAsynchInterface getOrdinaryAsynchInterface(
-            final TupleCentreId id) {
+            final TupleCentreIdentifier id) {
         try {
             return ((RespectTC) this.registry.getTC(id))
                     .getOrdinaryAsynchInterface();
@@ -179,7 +189,7 @@ public final class RespectTCContainer {
      * @return the ordinary, synchronous context toward the given tuple centre
      */
     public IOrdinarySynchInterface getOrdinarySynchInterface(
-            final TupleCentreId id) {
+            final TupleCentreIdentifier id) {
         try {
             return ((RespectTC) this.registry.getTC(id))
                     .getOrdinarySynchInterface();
@@ -206,7 +216,7 @@ public final class RespectTCContainer {
      *            retrieved
      * @return the Spatial Context retrieved
      */
-    public ISpatialContext getSpatialContext(final TupleCentreId id) {
+    public ISpatialContext getSpatialContext(final TupleCentreIdentifier id) {
         try {
             return ((RespectTC) this.registry.getTC(id)).getSpatialContext();
         } catch (final InstantiationNotPossibleException e) {
@@ -225,7 +235,7 @@ public final class RespectTCContainer {
      *         centre
      */
     public ISpecificationAsynchInterface getSpecificationAsynchInterface(
-            final TupleCentreId id) {
+            final TupleCentreIdentifier id) {
         try {
             return ((RespectTC) this.registry.getTC(id))
                     .getSpecificationAsynchInterface();
@@ -245,7 +255,7 @@ public final class RespectTCContainer {
      *         centre
      */
     public ISpecificationSynchInterface getSpecificationSynchInterface(
-            final TupleCentreId id) {
+            final TupleCentreIdentifier id) {
         try {
             return ((RespectTC) this.registry.getTC(id))
                     .getSpecificationSynchInterface();

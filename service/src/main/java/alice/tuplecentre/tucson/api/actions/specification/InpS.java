@@ -46,7 +46,7 @@ public class InpS extends AbstractTucsonSpecificationAction {
      * Builds the TuCSoN {@code inp_s} action given its target tuple centre
      * 
      * @param tc
-     *            the ID of the TuCSoN tuple centre target of this coordination
+     *            the Identifier of the TuCSoN tuple centre target of this coordination
      *            operation
      * @param e
      *            the logic tuple representing the triggering event of the
@@ -59,7 +59,7 @@ public class InpS extends AbstractTucsonSpecificationAction {
      *            specification tuple
      */
     public InpS(final TucsonTupleCentreId tc, final LogicTuple e,
-            final LogicTuple g, final LogicTuple r) {
+                final LogicTuple g, final LogicTuple r) {
         super(tc, e, g, r);
     }
 

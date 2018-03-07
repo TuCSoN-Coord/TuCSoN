@@ -47,7 +47,7 @@ public class Uinp extends AbstractTucsonOrdinaryAction {
      * its tuple argument
      * 
      * @param tc
-     *            the ID of the TuCSoN tuple centre target of this coordination
+     *            the Identifier of the TuCSoN tuple centre target of this coordination
      *            operation
      * @param t
      *            the logic tuple argument of this coordination operation

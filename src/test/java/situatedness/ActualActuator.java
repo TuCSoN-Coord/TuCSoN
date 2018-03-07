@@ -7,11 +7,17 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.respect.core.TransducersManager;
-import alice.tuplecentre.respect.situatedness.*;
+import alice.tuplecentre.respect.situatedness.AbstractProbeId;
+import alice.tuplecentre.respect.situatedness.AbstractTransducer;
+import alice.tuplecentre.respect.situatedness.ISimpleProbe;
+import alice.tuplecentre.respect.situatedness.TransducerId;
+import alice.tuplecentre.respect.situatedness.TransducerStandardInterface;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -39,11 +45,11 @@ public class ActualActuator implements ISimpleProbe {
     public ActualActuator(final AbstractProbeId i) {
         this.pid = i;
         try {
-            final TucsonAgentId aid = new TucsonAgentId("actuator");
+            final TucsonAgentId aid = new TucsonAgentIdDefault("actuator");
             this.acc = TucsonMetaACC.getContext(aid,
                     ActualActuator.DEFAULT_HOST,
                     Integer.valueOf(ActualActuator.DEFAULT_PORT));
-            this.tempTc = new TucsonTupleCentreId("tempTc",
+            this.tempTc = new TucsonTupleCentreIdDefault("tempTc",
                     ActualActuator.DEFAULT_HOST, ActualActuator.DEFAULT_PORT);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             e.printStackTrace();
@@ -109,7 +115,7 @@ public class ActualActuator implements ISimpleProbe {
         }
         if (this.transducer == null) {
             this.transducer = TransducersManager.INSTANCE
-                    .getTransducer(this.tid.getAgentName());
+                    .getTransducer(this.tid.getLocalName());
             if (this.transducer == null) {
                 System.err.println("[" + this.pid
                         + "]: Can't retrieve my transducer!");

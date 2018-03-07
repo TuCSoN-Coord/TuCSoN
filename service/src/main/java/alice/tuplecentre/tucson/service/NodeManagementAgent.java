@@ -16,6 +16,7 @@ import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.core.RespectOperationDefault;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidLogicTupleException;
@@ -51,7 +52,7 @@ public class NodeManagementAgent extends Thread {
             final TucsonNodeService n) {
         super();
         try {
-            this.nodeManAid = new TucsonAgentId("node_management_agent");
+            this.nodeManAid = new TucsonAgentIdDefault("node_management_agent");
         } catch (final TucsonInvalidAgentIdException e) {
             // Cannot happen, the agend id it's specified here
             e.printStackTrace();

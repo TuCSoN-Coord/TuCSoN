@@ -19,6 +19,9 @@
  */
 package alice.tuplecentre.tucson.asynchSupport;
 
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
@@ -29,9 +32,6 @@ import alice.tuplecentre.tucson.api.actions.AbstractTucsonAction;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Helper TuCSoN agent to delegate asynchronous operation to.
@@ -60,10 +60,10 @@ public class AsynchOpsHelper extends AbstractTucsonAgent {
     private final Semaphore shutdownSynch;
 
     /**
-     * Builds an helper given the delegating agent ID
+     * Builds an helper given the delegating agent Identifier
      *
      * @param id
-     *            the ID of the agent delegating asynchronous invocation to this
+     *            the Identifier of the agent delegating asynchronous invocation to this
      *            helper
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent

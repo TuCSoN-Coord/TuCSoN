@@ -25,11 +25,11 @@
 
 package rbac;
 
+import java.util.logging.Logger;
+
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
 import alice.tuplecentre.tucson.service.TucsonNodeService;
-
-import java.util.logging.Logger;
 
 /**
  * Example showcasing RBAC in TuCSoN. A TuCSoN node is configured with a set of

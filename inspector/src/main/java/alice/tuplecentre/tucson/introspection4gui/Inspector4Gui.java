@@ -1,20 +1,21 @@
 package alice.tuplecentre.tucson.introspection4gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.core.Reaction;
 import alice.tuplecentre.respect.core.LogicReaction;
-import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.introspection.Inspector;
 import alice.tuplecentre.tucson.introspection.InspectorContextEvent;
 import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuprolog.Struct;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Inspector4Gui extends Inspector {
 
@@ -36,7 +37,7 @@ public class Inspector4Gui extends Inspector {
  * **************************************************/
 	
 	public Inspector4Gui(final TucsonTupleCentreId arg1) throws Exception {
-		super(new TucsonAgentId("inspector4gui_" + System.currentTimeMillis()), arg1, true);	
+		super(new TucsonAgentIdDefault("inspector4gui_" + System.currentTimeMillis()), arg1, true);
 		this.observers = new ArrayList<>();
 		protocol = new InspectorProtocol();
 		protocol.setTsetObservType(InspectorProtocol.PROACTIVE_OBSERVATION);
@@ -91,7 +92,7 @@ public class Inspector4Gui extends Inspector {
 						}
 					}
 					try {
-						TucsonTupleCentreId tcId = new TucsonTupleCentreId(tcName, tcHost, tcPort);
+						TucsonTupleCentreId tcId = new TucsonTupleCentreIdDefault(tcName, tcHost, tcPort);
 						notifyNewTupleCenter(tcId);
 					} catch (TucsonInvalidTupleCentreIdException e) {
 						e.printStackTrace();
@@ -121,9 +122,9 @@ public class Inspector4Gui extends Inspector {
 	private void notifyTransfer(final String tcName, final String tcHost, final String tcPort, final String tuple, final boolean reverseOrder) {
 		for (Inspector4GuiObserver observer : observers) {
 			if (!reverseOrder) {
-			observer.onNewTrasfer(this.context.getTid().getName(), tcName, tuple);
+			observer.onNewTrasfer(this.context.getTid().getLocalName(), tcName, tuple);
 			} else {
-				observer.onNewTrasfer(tcName, this.context.getTid().getName(), tuple);
+				observer.onNewTrasfer(tcName, this.context.getTid().getLocalName(), tuple);
 			}
 		}
 	}

@@ -1,8 +1,13 @@
 package alice.tuplecentre.respect.situatedness;
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.UUID;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.core.InternalEvent;
@@ -15,11 +20,6 @@ import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.service.InputEventMsg;
 import alice.tuplecentre.tucson.service.OperationHandler;
 import alice.tuplecentre.tucson.service.TucsonOperationDefault;
-
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * This class implements some common behavior of transducers and defines some
@@ -44,9 +44,9 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
     /** Transducer's identifier **/
     protected TransducerId id;
     /** List of probes associated to the transducer **/
-    protected Map<AbstractProbeId, Object> probes;
+    protected Map<ProbeIdentifier, Object> probes;
     /** Identifier of the tuple centre associated **/
-    protected TupleCentreId tcId;
+    protected TupleCentreIdentifier tcId;
 
     /**
      * Constructs a transducer
@@ -56,12 +56,12 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
      * @param tc
      *            the associated tuple centre's identifier
      */
-    public AbstractTransducer(final TransducerId i, final TupleCentreId tc) {
+    public AbstractTransducer(final TransducerId i, final TupleCentreIdentifier tc) {
         this.id = i;
         this.tcId = tc;
         final UUID uuid = UUID.randomUUID(); // BUCCELLI
         this.executor = new OperationHandler(uuid);
-        this.probes = new HashMap<AbstractProbeId, Object>();
+        this.probes = new HashMap<>();
     }
 
     /**
@@ -73,7 +73,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
      * @param probe
      *            the probe itself
      */
-    public void addProbe(final AbstractProbeId i, final Object probe) {
+    public void addProbe(final ProbeIdentifier i, final Object probe) {
         if (!this.probes.containsKey(i)) {
             this.probes.put(i, probe);
         }
@@ -136,11 +136,11 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
      * @return array of the probes associated to the transducer
      */
     @Override
-    public AbstractProbeId[] getProbes() {
+    public ProbeIdentifier[] getProbes() {
         final Object[] keySet = this.probes.keySet().toArray();
-        final AbstractProbeId[] probeList = new AbstractProbeId[keySet.length];
+        final ProbeIdentifier[] probeList = new ProbeIdentifier[keySet.length];
         for (int i = 0; i < probeList.length; i++) {
-            probeList[i] = (AbstractProbeId) keySet[i];
+            probeList[i] = (ProbeIdentifier) keySet[i];
         }
         return probeList;
     }
@@ -151,7 +151,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
      * @return the tuple centre identifier.
      */
     @Override
-    public TupleCentreId getTCId() {
+    public TupleCentreIdentifier getTCId() {
         return this.tcId;
     }
 
@@ -221,10 +221,10 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
      * @param i
      *            probe's identifier
      */
-    public void removeProbe(final AbstractProbeId i) {
+    public void removeProbe(final ProbeIdentifier i) {
         final Object[] keySet = this.probes.keySet().toArray();
         for (final Object element : keySet) {
-            if (((AbstractProbeId) element).getLocalName().equals(
+            if (((ProbeIdentifier) element).getLocalName().equals(
                     i.getLocalName())) {
                 this.probes.remove(element);
                 return;

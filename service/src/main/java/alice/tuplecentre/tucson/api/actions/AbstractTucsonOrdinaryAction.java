@@ -42,7 +42,7 @@ public abstract class AbstractTucsonOrdinaryAction extends AbstractTucsonAction 
      * argument is the given tuple
      * 
      * @param tc
-     *            the ID of the TuCSoN tuple centre target of the operation
+     *            the Identifier of the TuCSoN tuple centre target of the operation
      * @param t
      *            the logic tuple argument of the operation
      */

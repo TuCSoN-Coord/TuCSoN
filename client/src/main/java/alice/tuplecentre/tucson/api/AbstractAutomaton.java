@@ -13,11 +13,11 @@
  */
 package alice.tuplecentre.tucson.api;
 
-import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 
 /**
  * FSA-like TuCSoN agent.
@@ -41,12 +41,10 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent {
     protected String state = "boot";
 
     /**
-     * @param aid
-     *            name of the agent (must be a valid Prolog term)
+     * @param aid name of the agent (must be a valid Prolog term)
+     * @throws TucsonInvalidAgentIdException if the given String is not a valid representation of a
+     *                                       ReSpecT agent identifier
      * @see alice.tuprolog.Term Term
-     * @throws TucsonInvalidAgentIdException
-     *             if the given String is not a valid representation of a
-     *             ReSpecT agent identifier
      */
     public AbstractAutomaton(final String aid)
             throws TucsonInvalidAgentIdException {
@@ -56,8 +54,7 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent {
     /**
      * To change state.
      *
-     * @param s
-     *            the string representing the state to become
+     * @param s the string representing the state to become
      */
     protected void become(final String s) {
         if (!"end".equals(this.state)) {
@@ -69,10 +66,8 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent {
     /**
      * To change state
      *
-     * @param s
-     *            the string representing the state to become
-     * @param args
-     *            arguments to be used in the target state
+     * @param s    the string representing the state to become
+     * @param args arguments to be used in the target state
      */
     protected void become(final String s, final Object[] args) {
         if (!"end".equals(this.state)) {
@@ -89,8 +84,7 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent {
     /**
      * End state.
      *
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      */
     protected void end() throws TucsonOperationNotPossibleException {
         this.getContext().exit();
@@ -110,8 +104,8 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent {
     protected final void main() {
         // FIXME I don't think the string is correct...
         try {
-            AbstractAutomaton.argType = new Class[] { Class
-                    .forName("java.lang.Object") };
+            AbstractAutomaton.argType = new Class[]{Class
+                    .forName("java.lang.Object")};
         } catch (final ClassNotFoundException e) {
             System.err.println("[Automaton]: " + e);
             e.printStackTrace();

@@ -28,6 +28,7 @@ import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.actions.ordinary.In;
 import alice.tuplecentre.tucson.api.actions.ordinary.Inp;
@@ -189,16 +190,16 @@ public class MasterAgent extends AbstractTucsonAgent {
     private final int nPrimeCalc;
 
     /**
-     * Builds a Master Agent given its TuCSoN agent ID and the number of
+     * Builds a Master Agent given its TuCSoN agent Identifier and the number of
      * calculations to perform
      *
      * @param id
-     *            the TuCSoN agent ID
+     *            the TuCSoN agent Identifier
      * @param nCalcs
      *            the number of calculations to perform
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent
-     *             ID
+     *             Identifier
      */
     public MasterAgent(final String id, final int nCalcs)
             throws TucsonInvalidAgentIdException {
@@ -232,7 +233,7 @@ public class MasterAgent extends AbstractTucsonAgent {
             super.say("Started");
             Out out;
             LogicTuple tuple = null;
-            final TucsonTupleCentreId tid = new TucsonTupleCentreId("default",
+            final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
                     "localhost", "20504");
             int number = MasterAgent.SEED;
             for (int i = 0; i < MasterAgent.REQUESTS; i++) {

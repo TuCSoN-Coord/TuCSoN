@@ -13,6 +13,27 @@
  */
 package alice.tuplecentre.tucson.service;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.ConnectException;
+import java.net.Socket;
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.StringTokenizer;
+
 import alice.logictuple.LogicMatchingEngine;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
@@ -28,9 +49,18 @@ import alice.tuplecentre.respect.core.EnvConfigAgent;
 import alice.tuplecentre.respect.core.RespectOperationDefault;
 import alice.tuplecentre.respect.core.RespectTC;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.exceptions.*;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.exceptions.InvalidConfigException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonGenericException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidLogicTupleException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidSpecificationException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.introspection.InspectorContextSkel;
 import alice.tuplecentre.tucson.network.AbstractTucsonProtocol;
 import alice.tuplecentre.tucson.network.TPConfig;
@@ -42,13 +72,6 @@ import alice.tuprolog.MalformedGoalException;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.Theory;
 import alice.tuprolog.lib.InvalidObjectIdException;
-
-import java.io.*;
-import java.net.ConnectException;
-import java.net.Socket;
-import java.net.SocketTimeoutException;
-import java.net.UnknownHostException;
-import java.util.*;
 
 /**
  *
@@ -271,14 +294,14 @@ public class TucsonNodeService {
         this.tcpPort = portNumber;
         this.persistencyTemplate = persistTempl;
         try {
-            this.nodeAid = new TucsonAgentId("'$TucsonNodeService-Agent'");
-            this.idConfigTC = new TucsonTupleCentreId("'$ORG'", "localhost",
+            this.nodeAid = new TucsonAgentIdDefault("'$TucsonNodeService-Agent'");
+            this.idConfigTC = new TucsonTupleCentreIdDefault("'$ORG'", "localhost",
                     String.valueOf(this.tcpPort));
-            this.idObsTC = new TucsonTupleCentreId("'$OBS'", "localhost",
+            this.idObsTC = new TucsonTupleCentreIdDefault("'$OBS'", "localhost",
                     String.valueOf(this.tcpPort));
-            this.idEnvTC = new TucsonTupleCentreId("'$ENV'", "localhost",
+            this.idEnvTC = new TucsonTupleCentreIdDefault("'$ENV'", "localhost",
                     String.valueOf(this.tcpPort));
-            this.idGeolocationTC = new TucsonTupleCentreId(
+            this.idGeolocationTC = new TucsonTupleCentreIdDefault(
                     "geolocationConfigTC", "localhost",
                     String.valueOf(this.tcpPort));
         } catch (final TucsonInvalidAgentIdException e) {
@@ -365,7 +388,7 @@ public class TucsonNodeService {
     // inter-tc agents?
     public void addTCAgent(final TucsonAgentId agentId,
             final TucsonTupleCentreId tid) {
-        this.cores.get(tid.getName()).addUser(agentId);
+        this.cores.get(tid.getLocalName()).addUser(agentId);
     }
 
     /**
@@ -398,7 +421,7 @@ public class TucsonNodeService {
         }
         TucsonTupleCentreId tid;
         try {
-            tid = new TucsonTupleCentreId(tcName.toString());
+            tid = new TucsonTupleCentreIdDefault(tcName.toString());
         } catch (final TucsonInvalidTupleCentreIdException e) {
             e.printStackTrace();
             return false;
@@ -465,7 +488,7 @@ public class TucsonNodeService {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.IN, new LogicTuple("is_persistent",
-                            new Value(tar.getTucsonTupleCentreId().getName())),
+                            new Value(tar.getTucsonTupleCentreId().getLocalName())),
                     null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.nodeAid, opRequested,
@@ -505,7 +528,7 @@ public class TucsonNodeService {
                 try {
                     final TucsonTupleCentreId ttcid = tc
                             .getTucsonTupleCentreId();
-                    final Tuple tid = LogicTuple.parse(ttcid.getName());
+                    final Tuple tid = LogicTuple.parse(ttcid.getLocalName());
                     TucsonNodeService.log(">>> Found tid: " + tid);
                     if (LogicMatchingEngine.match((LogicTuple) template,
                             (LogicTuple) tid)) {
@@ -517,7 +540,7 @@ public class TucsonNodeService {
                                 .make(TupleCentreOpType.IN, new LogicTuple(
                                         "is_persistent", new Value(tc
                                                 .getTucsonTupleCentreId()
-                                                .getName())), null);
+                                                .getLocalName())), null);
                         // InputEvent Creation
                         final InputEvent ev = new InputEvent(this.nodeAid,
                                 opRequested, tc.getTucsonTupleCentreId(),
@@ -561,7 +584,7 @@ public class TucsonNodeService {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.OUT, new LogicTuple("is_persistent",
-                            new Value(tar.getTucsonTupleCentreId().getName())),
+                            new Value(tar.getTucsonTupleCentreId().getLocalName())),
                     null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.nodeAid, opRequested,
@@ -599,7 +622,7 @@ public class TucsonNodeService {
             final TucsonTCUsers tc = it.next();
             try {
                 final TucsonTupleCentreId ttcid = tc.getTucsonTupleCentreId();
-                final Tuple tid = LogicTuple.parse(ttcid.getName());
+                final Tuple tid = LogicTuple.parse(ttcid.getLocalName());
                 TucsonNodeService.log(">>> Found tid: " + tid);
                 if (LogicMatchingEngine.match((LogicTuple) template,
                         (LogicTuple) tid)) {
@@ -612,7 +635,7 @@ public class TucsonNodeService {
                             TupleCentreOpType.OUT, new LogicTuple(
                                     "is_persistent",
                                     new Value(tc.getTucsonTupleCentreId()
-                                            .getName())), null);
+                                            .getLocalName())), null);
                     // InputEvent Creation
                     final InputEvent ev = new InputEvent(this.nodeAid,
                             opRequested, tc.getTucsonTupleCentreId(),
@@ -786,12 +809,12 @@ public class TucsonNodeService {
         }
         TucsonTupleCentreId tid;
         try {
-            tid = new TucsonTupleCentreId(tcName.toString());
+            tid = new TucsonTupleCentreIdDefault(tcName.toString());
         } catch (final TucsonInvalidTupleCentreIdException e) {
             e.printStackTrace();
             return null;
         }
-        final String realName = tid.getName();
+        final String realName = tid.getLocalName();
         TucsonTCUsers core = this.cores.get(realName);
         if (core == null) {
             TucsonNodeService.log("Booting new tuple centre < " + realName
@@ -914,7 +937,7 @@ public class TucsonNodeService {
         if (n.indexOf(':') < 0) {
             name.append(':').append("'").append(this.tcpPort).append("'");
         }
-        final TucsonTupleCentreId id = new TucsonTupleCentreId(name.toString());
+        final TucsonTupleCentreId id = new TucsonTupleCentreIdDefault(name.toString());
         try {
             final RespectTC rtc = TupleCentreContainer.createTC(id,
                     TucsonNodeService.MAX_EVENT_QUEUE_SIZE, this.tcpPort);
@@ -929,7 +952,7 @@ public class TucsonNodeService {
             this.obsService.tcCreated(id);
         }
         final TucsonTCUsers tcUsers = new TucsonTCUsers(id);
-        this.cores.put(id.getName(), tcUsers);
+        this.cores.put(id.getLocalName(), tcUsers);
         return tcUsers;
     }
 
@@ -1005,7 +1028,7 @@ public class TucsonNodeService {
      */
     private void setupConfigTupleCentre() {
         try {
-            this.bootTupleCentre(this.idConfigTC.getName());
+            this.bootTupleCentre(this.idConfigTC.getLocalName());
             final InputStream is = Thread
                     .currentThread()
                     .getContextClassLoader()
@@ -1182,7 +1205,7 @@ public class TucsonNodeService {
      */
     private void setupEnvConfigTupleCentre() {
         try {
-            this.bootTupleCentre(this.idEnvTC.getName());
+            this.bootTupleCentre(this.idEnvTC.getLocalName());
             final InputStream is = Thread
                     .currentThread()
                     .getContextClassLoader()
@@ -1221,7 +1244,7 @@ public class TucsonNodeService {
      */
     private void setupGeolocationConfigTupleCentre() {
         try {
-            this.bootTupleCentre(this.idGeolocationTC.getName());
+            this.bootTupleCentre(this.idGeolocationTC.getLocalName());
             final InputStream is = Thread
                     .currentThread()
                     .getContextClassLoader()
@@ -1262,7 +1285,7 @@ public class TucsonNodeService {
      */
     private void setupObsTupleCentre() {
         try {
-            this.bootTupleCentre(this.idObsTC.getName());
+            this.bootTupleCentre(this.idObsTC.getLocalName());
             final InputStream is = Thread
                     .currentThread()
                     .getContextClassLoader()

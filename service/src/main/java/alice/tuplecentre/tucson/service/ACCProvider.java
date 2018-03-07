@@ -13,6 +13,10 @@
  */
 package alice.tuplecentre.tucson.service;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.Value;
@@ -24,18 +28,19 @@ import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.core.RespectOperationDefault;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.exceptions.*;
+import alice.tuplecentre.tucson.api.exceptions.TucsonGenericException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidLogicTupleException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.introspection.InspectorContextSkel;
 import alice.tuplecentre.tucson.introspection4gui.Inspector4GuiContextSkel;
 import alice.tuplecentre.tucson.network.AbstractTucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.util.Tools;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -66,7 +71,7 @@ public class ACCProvider {
      */
     public ACCProvider(final TucsonNodeService n, final TucsonTupleCentreId tid) {
         try {
-            this.aid = new TucsonAgentId("context_manager");
+            this.aid = new TucsonAgentIdDefault("context_manager");
         } catch (final TucsonInvalidAgentIdException e) {
             // Cannot happen because it's specified here
             e.printStackTrace();
@@ -89,7 +94,7 @@ public class ACCProvider {
      * @throws DialogReceiveException
      *             if there is something wrong in the reception stream
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the TupleCentreId, contained into AbstractTucsonProtocol's
+     *             if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
      *             message, does not represent a valid TuCSoN identifier
      *
      * @throws TucsonInvalidAgentIdException

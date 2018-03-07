@@ -27,10 +27,9 @@ import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
  * Class wrapping a TuCSoN listener for a correct coordination with
  * {@link AsynchOpsHelper} and handling queues
  * update.
- * 
+ *
  * @author Fabio Consalici, Riccardo Drudi
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 public class TucsonListenerWrapper implements TucsonOperationCompletionListener {
 
@@ -41,21 +40,19 @@ public class TucsonListenerWrapper implements TucsonOperationCompletionListener 
     /**
      * Builds a wrapper to an operation listener given the actual listener and
      * the asynchronous operations handler
-     * 
-     * @param l
-     *            the actual listener to trigger for operation handling
-     * @param aoh
-     *            the helper in charge of the operation
+     *
+     * @param l   the actual listener to trigger for operation handling
+     * @param aoh the helper in charge of the operation
      */
     public TucsonListenerWrapper(final TucsonOperationCompletionListener l,
-            final AsynchOpsHelper aoh) {
+                                 final AsynchOpsHelper aoh) {
         this.helper = aoh;
         this.listener = l;
     }
 
     /**
      * Gets the associated helper
-     * 
+     *
      * @return the associated helper
      */
     public AsynchOpsHelper getOpHelper() {
@@ -64,7 +61,7 @@ public class TucsonListenerWrapper implements TucsonOperationCompletionListener 
 
     /**
      * Gets the associated TuCSoN operation completion listener
-     * 
+     *
      * @return the associated TuCSoN operation completion listener
      */
     public TucsonOperationCompletionListener getActualListener() {
@@ -73,7 +70,7 @@ public class TucsonListenerWrapper implements TucsonOperationCompletionListener 
 
     /**
      * Gets the operation whose completion is handled by the wrapped listener
-     * 
+     *
      * @return the operation whose completion is handled by the wrapped listener
      */
     public TucsonOpWrapper getOp() {
@@ -110,9 +107,8 @@ public class TucsonListenerWrapper implements TucsonOperationCompletionListener 
     /**
      * Sets the wrapper of the TuCSoN operation whose completion should be
      * handled
-     * 
-     * @param tow
-     *            the wrapper of the TuCSoN operation whose completion should be
+     *
+     * @param tow the wrapper of the TuCSoN operation whose completion should be
      *            handled
      */
     public final void setTucsonOpWrapper(final TucsonOpWrapper tow) {

@@ -26,6 +26,7 @@ import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.acc.EnhancedAsyncACC;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
+import alice.tuplecentre.tucson.api.acc.SpecificationAsyncACC;
 import alice.tuplecentre.tucson.api.actions.AbstractTucsonSpecificationAction;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
@@ -45,7 +46,7 @@ public class InS extends AbstractTucsonSpecificationAction {
      * Builds the TuCSoN {@code in_s} action given its target tuple centre
      * 
      * @param tc
-     *            the ID of the TuCSoN tuple centre target of this coordination
+     *            the Identifier of the TuCSoN tuple centre target of this coordination
      *            operation
      * @param e
      *            the logic tuple representing the triggering event of the

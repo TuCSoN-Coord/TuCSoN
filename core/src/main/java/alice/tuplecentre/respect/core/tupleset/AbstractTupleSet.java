@@ -1,14 +1,14 @@
 package alice.tuplecentre.respect.core.tupleset;
 
-import alice.logictuple.LogicTuple;
-import alice.tuplecentre.respect.core.collection.DoubleKeyMVMap;
-import alice.tuplecentre.respect.core.collection.MVMap;
-import alice.tuprolog.Var;
-
 import java.util.AbstractMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
+
+import alice.logictuple.LogicTuple;
+import alice.tuplecentre.respect.core.collection.DoubleKeyMVMap;
+import alice.tuplecentre.respect.core.collection.MVMap;
+import alice.tuprolog.Var;
 
 /**
  *

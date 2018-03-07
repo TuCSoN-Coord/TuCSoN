@@ -62,9 +62,9 @@ public class Spawn2PLibrary extends Library {
      */
     public final TucsonIdWrapper<?> getSpawnerId() {
         if (this.aid == null) {
-            return new TucsonIdWrapper<TucsonTupleCentreId>(this.tcid);
+            return new TucsonIdWrapper<>(this.tcid);
         }
-        return new TucsonIdWrapper<TucsonAgentId>(this.aid);
+        return new TucsonIdWrapper<>(this.aid);
     }
 
     /**

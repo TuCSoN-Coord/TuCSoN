@@ -13,6 +13,10 @@
  */
 package alice.tuplecentre.tucson.introspection;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
@@ -23,10 +27,6 @@ import alice.tuplecentre.tucson.network.TucsonProtocolTCP;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.service.ACCDescription;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 /**
  *
@@ -58,12 +58,12 @@ public class InspectorContextStub implements InspectorContext {
      *            project 2014/2015)
      */
     public InspectorContextStub(final TucsonAgentId i,
-            final TucsonTupleCentreId tc, final boolean forGui) {
+                                final TucsonTupleCentreId tc, final boolean forGui) {
         this.profile = new ACCDescription();
         this.profile.setProperty("agent-identity", i.toString());
         String agentRole = forGui ? "$inspector4gui" : "$inspector";
         this.profile.setProperty("agent-role", agentRole);
-        this.profile.setProperty("tuple-centre", tc.getName());
+        this.profile.setProperty("tuple-centre", tc.getLocalName());
         this.profile.setProperty("agent-uuid", UUID.randomUUID().toString());
         this.id = i;
         this.tid = tc;

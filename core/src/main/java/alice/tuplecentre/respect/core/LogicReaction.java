@@ -12,12 +12,12 @@
  */
 package alice.tuplecentre.respect.core;
 
+import java.util.AbstractMap;
+import java.util.LinkedHashMap;
+
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 import alice.tuprolog.Var;
-
-import java.util.AbstractMap;
-import java.util.LinkedHashMap;
 
 /**
  * Defines the reaction type managed by ReSpect Reactor (logic reactions).

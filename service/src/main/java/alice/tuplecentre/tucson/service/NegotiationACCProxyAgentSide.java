@@ -1,26 +1,30 @@
 package alice.tuplecentre.tucson.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidVarNameException;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonOperation;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
-import alice.tuplecentre.tucson.api.exceptions.*;
+import alice.tuplecentre.tucson.api.exceptions.AgentNotAllowedException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.rbac.Policy;
 import alice.tuplecentre.tucson.rbac.Role;
 import alice.tuplecentre.tucson.rbac.TucsonPolicy;
 import alice.tuplecentre.tucson.rbac.TucsonRole;
 import alice.tuplecentre.tucson.service.tools.TucsonACCTool;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
 
 /**
  * Class implementing the negotiation ACC.
@@ -55,17 +59,17 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
     private final EnhancedACC internalACC;
     private final String node;
     private final int port;
-    private final TupleCentreId tid;
+    private final TupleCentreIdentifier tid;
 
     /**
-     * Builds a Negotiation ACC given the associated agent ID or name
+     * Builds a Negotiation ACC given the associated agent Identifier or name
      *
      * @param aid
-     *            the associated agent ID or name (String)
+     *            the associated agent Identifier or name (String)
      * @throws TucsonInvalidAgentIdException
-     *             if the given agent ID is NOT valid
+     *             if the given agent Identifier is NOT valid
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre ID is NOT valid
+     *             if the given tuple centre Identifier is NOT valid
      */
     public NegotiationACCProxyAgentSide(final Object aid)
             throws TucsonInvalidAgentIdException,
@@ -74,20 +78,20 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
     }
 
     /**
-     * Builds a Negotiation ACC given the associated agent ID or name, the IP
+     * Builds a Negotiation ACC given the associated agent Identifier or name, the IP
      * address of the TuCSoN node the agent is willing to interact with, and the
      * TCP port also.
      *
      * @param aid
-     *            the associated agent ID or name (String)
+     *            the associated agent Identifier or name (String)
      * @param n
      *            the IP address of the target TuCSoN node
      * @param p
      *            the TCP port of the target TuCSoN node
      * @throws TucsonInvalidAgentIdException
-     *             if the given agent ID is NOT valid
+     *             if the given agent Identifier is NOT valid
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre ID is NOT valid
+     *             if the given tuple centre Identifier is NOT valid
      */
     public NegotiationACCProxyAgentSide(final Object aid, final String n,
             final int p) throws TucsonInvalidAgentIdException,
@@ -97,7 +101,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
         this.node = n;
         this.port = p;
         this.agentAid = aid;
-        this.tid = new TucsonTupleCentreId(NegotiationACCProxyAgentSide.TC_ORG,
+        this.tid = new TucsonTupleCentreIdDefault(NegotiationACCProxyAgentSide.TC_ORG,
                 "'" + n + "'", "" + p);
         this.setBasicAgentClass();
     }
@@ -249,7 +253,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
         return this.agentClass;
     }
 
-    private boolean isRBACInstalled(final TupleCentreId tcid)
+    private boolean isRBACInstalled(final TupleCentreIdentifier tcid)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         LogicTuple rbacInstalled = null;

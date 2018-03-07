@@ -13,11 +13,11 @@
  */
 package alice.tuplecentre.tucson.service;
 
-import alice.tuplecentre.tucson.rbac.Role;
-
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Properties;
+
+import alice.tuplecentre.tucson.rbac.Role;
 
 
 /**

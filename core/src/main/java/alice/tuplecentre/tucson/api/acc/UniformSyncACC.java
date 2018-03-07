@@ -14,10 +14,9 @@
 package alice.tuplecentre.tucson.api.acc;
 
 import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonOperation;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
@@ -39,7 +38,7 @@ public interface UniformSyncACC extends SyncACC {
      * waiting.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link TucsonTupleCentreId tid}
+     *                {@link TupleCentreIdentifier tid}
      * @param tuple   the tuple to be retrieved from the target tuplecentre
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
@@ -51,10 +50,10 @@ public interface UniformSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation uin(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation uin(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -70,7 +69,7 @@ public interface UniformSyncACC extends SyncACC {
      * the TuCSoN Agent exploiting this ACC.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link TucsonTupleCentreId tid}
+     *                {@link TupleCentreIdentifier tid}
      * @param tuple   the tuple to be retrieved from the target tuplecentre
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
@@ -82,10 +81,10 @@ public interface UniformSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation uinp(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation uinp(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -102,7 +101,7 @@ public interface UniformSyncACC extends SyncACC {
      * waiting.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link TucsonTupleCentreId tid}
+     *                {@link TupleCentreIdentifier tid}
      * @param tuple   the tuple to be checked for absence from the target
      *                tuplecentre
      * @param timeout the maximum waiting time for completion tolerated by the
@@ -115,10 +114,10 @@ public interface UniformSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation uno(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation uno(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -134,7 +133,7 @@ public interface UniformSyncACC extends SyncACC {
      * forwarded to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link TucsonTupleCentreId tid}
+     *                {@link TupleCentreIdentifier tid}
      * @param tuple   the tuple to be checked for absence from the target
      *                tuplecentre
      * @param timeout the maximum waiting time for completion tolerated by the
@@ -147,10 +146,10 @@ public interface UniformSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation unop(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation unop(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -167,7 +166,7 @@ public interface UniformSyncACC extends SyncACC {
      * waiting.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link TucsonTupleCentreId tid}
+     *                {@link TupleCentreIdentifier tid}
      * @param tuple   the tuple to be read from the target tuplecentre
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
@@ -179,10 +178,10 @@ public interface UniformSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation urd(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation urd(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -198,7 +197,7 @@ public interface UniformSyncACC extends SyncACC {
      * the TuCSoN Agent exploiting this ACC.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link TucsonTupleCentreId tid}
+     *                {@link TupleCentreIdentifier tid}
      * @param tuple   the tuple to be read from the target tuplecentre
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
@@ -210,10 +209,10 @@ public interface UniformSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation urdp(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation urdp(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 }

@@ -1,6 +1,7 @@
 package alice.tuplecentre.tucson.parsing;
 
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 
 /**
@@ -75,6 +76,6 @@ public class TupleCentreIdParser {
                         .trim();
             }
         }
-        return new TucsonTupleCentreId(tcName, hostName, portName);
+        return new TucsonTupleCentreIdDefault(tcName, hostName, portName);
     }
 }

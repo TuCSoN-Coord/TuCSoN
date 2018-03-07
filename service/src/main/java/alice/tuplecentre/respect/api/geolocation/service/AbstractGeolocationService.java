@@ -1,13 +1,13 @@
 package alice.tuplecentre.respect.api.geolocation.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.api.geolocation.Position;
 import alice.tuplecentre.respect.api.place.IPlace;
 import alice.tuplecentre.respect.api.place.PhPlace;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class represent the generic geolocation service and implements some of
@@ -38,7 +38,7 @@ public abstract class AbstractGeolocationService implements IGeolocationService 
     /**
      * Service identifier
      */
-    protected GeoServiceId serviceId;
+    protected GeoServiceIdentifier serviceId;
     /**
      * Identifier of the associated tuple centre
      */
@@ -54,7 +54,7 @@ public abstract class AbstractGeolocationService implements IGeolocationService 
      * @param ttci
      *            the associated tuple centre identifier
      */
-    public AbstractGeolocationService(final Integer p, final GeoServiceId sid,
+    public AbstractGeolocationService(final Integer p, final GeoServiceIdentifier sid,
             final TucsonTupleCentreId ttci) {
         this.platform = p;
         this.serviceId = sid;
@@ -78,7 +78,7 @@ public abstract class AbstractGeolocationService implements IGeolocationService 
     }
 
     @Override
-    public GeoServiceId getServiceId() {
+    public GeoServiceIdentifier getServiceId() {
         return this.serviceId;
     }
 

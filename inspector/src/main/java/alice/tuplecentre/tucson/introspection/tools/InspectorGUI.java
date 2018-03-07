@@ -13,20 +13,29 @@
  */
 package alice.tuplecentre.tucson.introspection.tools;
 
+import java.awt.Color;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.introspection.InspectorContext;
 import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 
 /**
  *
@@ -74,8 +83,8 @@ public class InspectorGUI extends javax.swing.JFrame {
         TucsonAgentId aid = null;
         TucsonTupleCentreId tid = null;
         try {
-            aid = new TucsonAgentId(stAid);
-            tid = new TucsonTupleCentreId(tcname, netid, port);
+            aid = new TucsonAgentIdDefault(stAid);
+            tid = new TucsonTupleCentreIdDefault(tcname, netid, port);
             System.out.println("[Inspector]: Inspector Agent Identifier: "
                     + stAid);
             System.out.println("[Inspector]: Tuple Centre Identifier: " + tid);
@@ -170,10 +179,10 @@ public class InspectorGUI extends javax.swing.JFrame {
      *            whether the Inspector should immediatley display the GUI
      */
     public InspectorGUI(final TucsonAgentId id, final TucsonTupleCentreId tc,
-            final boolean isVisible) {
+                        final boolean isVisible) {
         this(id, isVisible);
         this.tid = tc;
-        this.inputName.setText(tc.getName());
+        this.inputName.setText(tc.getLocalName());
         this.inputNode.setText(alice.util.Tools.removeApices(tc.getNode()));
         this.inputPort.setText(alice.util.Tools.removeApices(String
                 .valueOf(this.tid.getPort())));
@@ -241,7 +250,7 @@ public class InspectorGUI extends javax.swing.JFrame {
                 final String name = this.inputName.getText();
                 final String address = this.inputNode.getText();
                 final String port = this.inputPort.getText();
-                this.tid = new TucsonTupleCentreId(name, address, port);
+                this.tid = new TucsonTupleCentreIdDefault(name, address, port);
                 this.agent = new InspectorCore(this, this.aid, this.tid);
                 this.context = this.agent.getContext();
                 this.agent.start();
@@ -249,7 +258,7 @@ public class InspectorGUI extends javax.swing.JFrame {
                 this.pendingQueryForm = new EventViewer(this);
                 this.reactionForm = new ReactionViewer(this);
                 this.specForm = new EditSpec(this.tid);
-                this.inputName.setText(this.tid.getName());
+                this.inputName.setText(this.tid.getLocalName());
                 this.inputNode.setText(alice.util.Tools.removeApices(this.tid
                         .getNode()));
                 this.inputPort.setText(alice.util.Tools.removeApices(String

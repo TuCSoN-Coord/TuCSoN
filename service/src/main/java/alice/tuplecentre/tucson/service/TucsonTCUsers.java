@@ -13,12 +13,12 @@
  */
 package alice.tuplecentre.tucson.service;
 
-import alice.tuplecentre.tucson.api.TucsonAgentId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 
 /**
  *

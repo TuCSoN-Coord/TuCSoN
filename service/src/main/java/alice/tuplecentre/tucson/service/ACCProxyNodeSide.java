@@ -16,26 +16,28 @@ package alice.tuplecentre.tucson.service;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.TupleCentreOpId;
+import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.core.RespectOperationDefault;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.exceptions.*;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidLogicTupleException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidSpecificationException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.introspection.ShutdownMsg;
 import alice.tuplecentre.tucson.network.AbstractTucsonProtocol;
 import alice.tuplecentre.tucson.network.TucsonMsgReply;
 import alice.tuplecentre.tucson.network.TucsonMsgRequest;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
-
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -72,7 +74,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
      *            the object describing the request of entering the TuCSoN
      *            system
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the TupleCentreId, contained into AbstractTucsonProtocol's
+     *             if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
      *             message, does not represent a valid TuCSoN identifier
      *
      * @throws TucsonInvalidAgentIdException
@@ -88,10 +90,10 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
         String name = p.getProperty("agent-identity");
         if (name == null) {
             name = p.getProperty("tc-identity");
-            this.tcId = new TucsonTupleCentreId(name);
-            this.agentId = new TucsonAgentId("tcAgent", this.tcId);
+            this.tcId = new TucsonTupleCentreIdDefault(name);
+            this.agentId = new TucsonAgentIdDefault("tcAgent", this.tcId);
         } else {
-            this.agentId = new TucsonAgentId(name);
+            this.agentId = new TucsonAgentIdDefault(name);
         }
         this.agentName = name;
         this.dialog = d;
@@ -187,7 +189,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                 }
             }
             try {
-                tid = new TucsonTupleCentreId(evMsg.getReactingTC());
+                tid = new TucsonTupleCentreIdDefault(evMsg.getReactingTC());
             } catch (final TucsonInvalidTupleCentreIdException e) {
                 e.printStackTrace();
                 break;
@@ -217,7 +219,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     + ", type=" + evOp.getType() + ", tuple="
                     + evMsg.getTuple() + " >...");
             if (msgType == TupleCentreOpType.SET_S) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 try {
                     resList = (List<LogicTuple>) TupleCentreContainer
@@ -253,7 +255,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     break;
                 }
             } else if (msgType == TupleCentreOpType.SET) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 try {
                     resList = (List<LogicTuple>) TupleCentreContainer
@@ -288,7 +290,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     break;
                 }
             } else if (msgType == TupleCentreOpType.GET) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 try {
                     resList = (List<LogicTuple>) TupleCentreContainer
@@ -320,7 +322,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     break;
                 }
             } else if (msgType == TupleCentreOpType.GET_S) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 try {
                     resList = (List<LogicTuple>) TupleCentreContainer
@@ -372,7 +374,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     || msgType == TupleCentreOpType.RD_ALL
                     || msgType == TupleCentreOpType.NO_ALL
                     || msgType == TupleCentreOpType.SPAWN) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 TupleCentreOperation op;
                 synchronized (this.requests) {
@@ -411,7 +413,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     || msgType == TupleCentreOpType.INP_S
                     || msgType == TupleCentreOpType.RD_S
                     || msgType == TupleCentreOpType.RDP_S) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 TupleCentreOperation op;
                 synchronized (this.requests) {
@@ -445,7 +447,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                 }
             } else if (msgType == TupleCentreOpType.GET_ENV
                     || msgType == TupleCentreOpType.SET_ENV) {
-                this.node.resolveCore(tid.getName());
+                this.node.resolveCore(tid.getLocalName());
                 this.node.addTCAgent(this.agentId, tid);
                 TupleCentreOperation op = null;
                 synchronized (this.requests) {

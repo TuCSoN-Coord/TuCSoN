@@ -14,10 +14,9 @@
 package alice.tuplecentre.tucson.api.acc;
 
 import alice.logictuple.LogicTuple;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonOperation;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
@@ -41,7 +40,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * empty list is returned to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link TucsonTupleCentreId tid}
+     *                {@link TupleCentreIdentifier tid}
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
      *                just unblocks the agent, but the request IS NOT REMOVED from
@@ -52,10 +51,10 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see TucsonTupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation getS(final TupleCentreId tid, final Long timeout)
+    TucsonOperation getS(final TupleCentreIdentifier tid, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -68,7 +67,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * answer is forwarded to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link TucsonTupleCentreId tid}
+     *                     {@link TupleCentreIdentifier tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -85,10 +84,10 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see TucsonTupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation inpS(final TupleCentreId tid, final LogicTuple event,
+    TucsonOperation inpS(final TupleCentreIdentifier tid, final LogicTuple event,
                          final LogicTuple guards, final LogicTuple reactionBody, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
@@ -103,7 +102,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * is blocked waiting.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link TucsonTupleCentreId tid}
+     *                     {@link TupleCentreIdentifier tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -120,10 +119,10 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see TucsonTupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation inS(final TupleCentreId tid, final LogicTuple event,
+    TucsonOperation inS(final TupleCentreIdentifier tid, final LogicTuple event,
                         final LogicTuple guards, final LogicTuple reactionBody, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
@@ -137,7 +136,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * answer is forwarded to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link TucsonTupleCentreId tid}
+     *                     {@link TupleCentreIdentifier tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -154,10 +153,10 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see TucsonTupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation nopS(final TupleCentreId tid, final LogicTuple event,
+    TucsonOperation nopS(final TupleCentreIdentifier tid, final LogicTuple event,
                          final LogicTuple guards, final LogicTuple reactionBody, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
@@ -172,7 +171,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * is blocked waiting.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link TucsonTupleCentreId tid}
+     *                     {@link TupleCentreIdentifier tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -189,10 +188,10 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see TucsonTupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation noS(final TupleCentreId tid, final LogicTuple event,
+    TucsonOperation noS(final TupleCentreIdentifier tid, final LogicTuple event,
                         final LogicTuple guards, final LogicTuple reactionBody, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
@@ -206,7 +205,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * (if the primitive successfully completes).
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link TucsonTupleCentreId tid}
+     *                     {@link TupleCentreIdentifier tid}
      * @param event        the TuCSoN primitive to react to
      * @param guards       the guard predicates to be checked for satisfaction so to
      *                     actually trigger the body of the ReSpecT reaction
@@ -222,10 +221,10 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see TucsonTupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation outS(final TupleCentreId tid, final LogicTuple event,
+    TucsonOperation outS(final TupleCentreIdentifier tid, final LogicTuple event,
                          final LogicTuple guards, final LogicTuple reactionBody, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
@@ -240,7 +239,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * answer is forwarded to the TuCSoN Agent exploiting this ACC.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link TucsonTupleCentreId tid}
+     *                     {@link TupleCentreIdentifier tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -257,10 +256,10 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see TucsonTupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation rdpS(final TupleCentreId tid, final LogicTuple event,
+    TucsonOperation rdpS(final TupleCentreIdentifier tid, final LogicTuple event,
                          final LogicTuple guards, final LogicTuple reactionBody, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
@@ -276,7 +275,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * is blocked waiting.
      *
      * @param tid          the target TuCSoN tuplecentre id
-     *                     {@link TucsonTupleCentreId tid}
+     *                     {@link TupleCentreIdentifier tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
      *                     satisfaction so to actually trigger the body of the ReSpecT
@@ -293,10 +292,10 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see TucsonTupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation rdS(final TupleCentreId tid, final LogicTuple event,
+    TucsonOperation rdS(final TupleCentreIdentifier tid, final LogicTuple event,
                         final LogicTuple guards, final LogicTuple reactionBody, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
@@ -310,7 +309,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * <code>R = reactionBody</code>.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link TucsonTupleCentreId tid}
+     *                {@link TupleCentreIdentifier tid}
      * @param spec    the new ReSpecT specification to replace the current
      *                specification space
      * @param timeout the maximum waiting time for completion tolerated by the
@@ -323,10 +322,10 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see TucsonTupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation setS(final TupleCentreId tid, final LogicTuple spec, final Long timeout)
+    TucsonOperation setS(final TupleCentreIdentifier tid, final LogicTuple spec, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -337,7 +336,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * should be formatted according to Prolog theory syntax.
      *
      * @param tid     the target TuCSoN tuplecentre id
-     *                {@link TucsonTupleCentreId tid}
+     *                {@link TupleCentreIdentifier tid}
      * @param spec    the new ReSpecT specification to replace the current
      *                specification space
      * @param timeout the maximum waiting time for completion tolerated by the
@@ -350,11 +349,11 @@ public interface SpecificationSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see TucsonTupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Theory Theory
      */
-    TucsonOperation setS(final TupleCentreId tid, final String spec, final Long timeout)
+    TucsonOperation setS(final TupleCentreIdentifier tid, final String spec, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 }

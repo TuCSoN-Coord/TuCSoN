@@ -6,7 +6,6 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
-import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.respect.api.IManagementContext;
 import alice.tuplecentre.respect.api.RespectSpecification;
 import alice.tuplecentre.respect.api.exceptions.InvalidSpecificationException;

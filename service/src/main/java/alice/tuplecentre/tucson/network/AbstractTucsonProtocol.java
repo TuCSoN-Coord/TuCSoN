@@ -12,6 +12,9 @@
  */
 package alice.tuplecentre.tucson.network;
 
+import java.io.IOException;
+import java.util.Properties;
+
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.introspection.InspectorContextEvent;
 import alice.tuplecentre.tucson.introspection.NewInspectorMsg;
@@ -21,9 +24,6 @@ import alice.tuplecentre.tucson.network.exceptions.DialogCloseException;
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.service.ACCDescription;
-
-import java.io.IOException;
-import java.util.Properties;
 
 /**
  *

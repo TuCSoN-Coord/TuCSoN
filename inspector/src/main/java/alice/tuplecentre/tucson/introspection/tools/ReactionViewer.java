@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.tucson.introspection.tools;
 
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -44,7 +45,7 @@ public class ReactionViewer extends javax.swing.JFrame {
         this.pack();
         this.mainForm = mf;
         this.setTitle("Triggered ReSpecT reaction set of tuplecentre < "
-                + this.mainForm.tid.getName() + "@"
+                + this.mainForm.tid.getLocalName() + "@"
                 + this.mainForm.tid.getNode() + ":"
                 + this.mainForm.tid.getPort() + " >");
         this.setSize(520, 460);

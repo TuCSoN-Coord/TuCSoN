@@ -15,6 +15,8 @@ package alice.tuplecentre.respect.api;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import alice.tuplecentre.api.AgentIdentifier;
+
 /**
  * Base class for building ReSpecT agents.
  *
@@ -51,7 +53,7 @@ public abstract class AbstractAgent {
     private static final Object[] ARGS = new Object[] {};
     @SuppressWarnings("unchecked")
     private static final Class<? extends Object>[] ARGS_CLASS = new Class[] {};
-    private final AgentId id;
+    private final AgentIdentifier id;
     private IRespectTC tc;
 
     /**
@@ -59,7 +61,7 @@ public abstract class AbstractAgent {
      * @param aid
      *            the identifier of this agent
      */
-    protected AbstractAgent(final AgentId aid) {
+    protected AbstractAgent(final AgentIdentifier aid) {
         this.id = aid;
     }
 
@@ -70,7 +72,7 @@ public abstract class AbstractAgent {
      * @param rtc
      *            the ReSpecT tuple centre this agent wants to operate on
      */
-    protected AbstractAgent(final AgentId aid, final IRespectTC rtc) {
+    protected AbstractAgent(final AgentIdentifier aid, final IRespectTC rtc) {
         this.id = aid;
         this.tc = rtc;
     }
@@ -79,7 +81,7 @@ public abstract class AbstractAgent {
      *
      * @return the identifier of this agent
      */
-    public AgentId getId() {
+    public AgentIdentifier getId() {
         return this.id;
     }
 

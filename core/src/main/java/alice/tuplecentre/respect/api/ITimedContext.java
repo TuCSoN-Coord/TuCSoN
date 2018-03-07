@@ -1,12 +1,12 @@
 package alice.tuplecentre.respect.api;
 
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.respect.api.exceptions.OperationTimeOutException;
-
-import java.util.List;
 
 /**
  * Interface to a ReSpecT Tuple Centre with timing functionalities.

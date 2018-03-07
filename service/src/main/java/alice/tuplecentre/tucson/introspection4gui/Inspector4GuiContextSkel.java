@@ -1,7 +1,14 @@
 package alice.tuplecentre.tucson.introspection4gui;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import alice.logictuple.LogicTuple;
-import alice.tuplecentre.core.*;
+import alice.tuplecentre.core.InspectableEvent;
+import alice.tuplecentre.core.ObservableEventExt;
+import alice.tuplecentre.core.ObservableEventReactionOK;
+import alice.tuplecentre.core.TriggeredReaction;
+import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.tucson.api.exceptions.TucsonGenericException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -13,9 +20,6 @@ import alice.tuplecentre.tucson.service.ACCDescription;
 import alice.tuplecentre.tucson.service.ACCProvider;
 import alice.tuplecentre.tucson.service.TucsonNodeService;
 import alice.tuplecentre.tucson.service.TupleCentreContainer;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class Inspector4GuiContextSkel extends InspectorContextSkel {
 	

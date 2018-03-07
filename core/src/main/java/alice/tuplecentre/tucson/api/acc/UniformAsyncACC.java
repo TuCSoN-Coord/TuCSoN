@@ -13,16 +13,16 @@
  */
 package alice.tuplecentre.tucson.api.acc;
 
+import java.util.List;
+
 import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.service.TucsonOpCompletionEvent;
-
-import java.util.List;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it)
@@ -48,18 +48,18 @@ public interface UniformAsyncACC extends AsyncACC {
      * of getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link TucsonTupleCentreId tid}
+     *              {@link TupleCentreIdentifier tid}
      * @param tuple the tuple to be retrieved from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
-     * @see TucsonOperationCompletionListener
+     * @see TupleCentreIdentifier TupleCentreIdentifier
+     * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation uin(final TupleCentreId tid, final Tuple tuple,
+    TucsonOperation uin(final TupleCentreIdentifier tid, final Tuple tuple,
                         final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
@@ -76,18 +76,18 @@ public interface UniformAsyncACC extends AsyncACC {
      * the TuCSoN Agent exploiting this ACC.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link TucsonTupleCentreId tid}
+     *              {@link TupleCentreIdentifier tid}
      * @param tuple the tuple to be retrieved from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
-     * @see TucsonOperationCompletionListener
+     * @see TupleCentreIdentifier TupleCentreIdentifier
+     * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation uinp(final TupleCentreId tid, final Tuple tuple,
+    TucsonOperation uinp(final TupleCentreIdentifier tid, final Tuple tuple,
                          final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
@@ -106,19 +106,19 @@ public interface UniformAsyncACC extends AsyncACC {
      * getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link TucsonTupleCentreId tid}
+     *              {@link TupleCentreIdentifier tid}
      * @param tuple the tuple to be checked for absence from the target
      *              tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
-     * @see TucsonOperationCompletionListener
+     * @see TupleCentreIdentifier TupleCentreIdentifier
+     * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation uno(final TupleCentreId tid, final Tuple tuple,
+    TucsonOperation uno(final TupleCentreIdentifier tid, final Tuple tuple,
                         final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
@@ -135,19 +135,19 @@ public interface UniformAsyncACC extends AsyncACC {
      * the TuCSoN Agent exploiting this ACC.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link TucsonTupleCentreId tid}
+     *              {@link TupleCentreIdentifier tid}
      * @param tuple the tuple to be checked for absence from the target
      *              tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
-     * @see TucsonOperationCompletionListener
+     * @see TupleCentreIdentifier TupleCentreIdentifier
+     * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation unop(final TupleCentreId tid, final Tuple tuple,
+    TucsonOperation unop(final TupleCentreIdentifier tid, final Tuple tuple,
                          final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
@@ -166,18 +166,18 @@ public interface UniformAsyncACC extends AsyncACC {
      * of getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link TucsonTupleCentreId tid}
+     *              {@link TupleCentreIdentifier tid}
      * @param tuple the tuple to be read from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
-     * @see TucsonOperationCompletionListener
+     * @see TupleCentreIdentifier TupleCentreIdentifier
+     * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation urd(final TupleCentreId tid, final Tuple tuple,
+    TucsonOperation urd(final TupleCentreIdentifier tid, final Tuple tuple,
                         final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
@@ -194,18 +194,18 @@ public interface UniformAsyncACC extends AsyncACC {
      * the TuCSoN Agent exploiting this ACC.
      *
      * @param tid   the target TuCSoN tuplecentre id
-     *              {@link TucsonTupleCentreId tid}
+     *              {@link TupleCentreIdentifier tid}
      * @param tuple the tuple to be read from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
-     * @see TucsonOperationCompletionListener
+     * @see TupleCentreIdentifier TupleCentreIdentifier
+     * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation urdp(final TupleCentreId tid, final Tuple tuple,
+    TucsonOperation urdp(final TupleCentreIdentifier tid, final Tuple tuple,
                          final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;

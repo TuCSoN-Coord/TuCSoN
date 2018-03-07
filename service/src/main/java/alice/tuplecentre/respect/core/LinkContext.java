@@ -1,8 +1,8 @@
 package alice.tuplecentre.respect.core;
 
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.respect.api.ILinkContext;
-import alice.tuplecentre.respect.api.TupleCentreId;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 
 /**
@@ -24,7 +24,7 @@ public class LinkContext implements ILinkContext {
     }
 
     @Override
-    public void doOperation(final TupleCentreId id,
+    public void doOperation(final TupleCentreIdentifier id,
             final AbstractTupleCentreOperation op)
             throws OperationNotPossibleException {
         this.vm.doOperation(id, (RespectOperationDefault) op);

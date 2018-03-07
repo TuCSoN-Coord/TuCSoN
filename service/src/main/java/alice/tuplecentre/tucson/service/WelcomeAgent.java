@@ -17,7 +17,12 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.network.AbstractTucsonProtocol;
 import alice.tuplecentre.tucson.network.TPFactory;
-import alice.tuplecentre.tucson.network.exceptions.*;
+import alice.tuplecentre.tucson.network.exceptions.DialogAcceptException;
+import alice.tuplecentre.tucson.network.exceptions.DialogCloseException;
+import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
+import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
+import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
+import alice.tuplecentre.tucson.network.exceptions.InvalidProtocolTypeException;
 
 /**
  *

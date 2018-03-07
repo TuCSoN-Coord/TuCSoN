@@ -14,6 +14,7 @@ package alice.tuplecentre.respect.api;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.respect.api.exceptions.InvalidSpecificationException;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
@@ -44,7 +45,7 @@ public interface IRespectTC {
      * 
      * @return the tuple centre id
      */
-    TupleCentreId getId();
+    TupleCentreIdentifier getId();
 
     /**
      * 

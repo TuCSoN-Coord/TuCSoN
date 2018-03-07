@@ -1,13 +1,13 @@
 package alice.tuplecentre.tucson.api.acc;
 
+import java.util.List;
+
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.exceptions.AgentNotAllowedException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.rbac.Role;
-
-import java.util.List;
 
 /**
  * (Meta) Agent Coordination Context enabling agents to negotiate an actual ACC,
@@ -64,7 +64,7 @@ public interface NegotiationACC {
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @throws TucsonInvalidAgentIdException       if the requesting agent ID is not a valid TuCSoN agent ID
+     * @throws TucsonInvalidAgentIdException       if the requesting agent Identifier is not a valid TuCSoN agent Identifier
      */
     EnhancedACC playDefaultRole() throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException,
@@ -83,7 +83,7 @@ public interface NegotiationACC {
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @throws TucsonInvalidAgentIdException       if the requesting agent ID is not a valid TuCSoN agent ID
+     * @throws TucsonInvalidAgentIdException       if the requesting agent Identifier is not a valid TuCSoN agent Identifier
      * @throws AgentNotAllowedException            if the requesting agent is not allowed to request this TuCSoN
      *                                             operation
      */
@@ -108,7 +108,7 @@ public interface NegotiationACC {
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @throws TucsonInvalidAgentIdException       if the requesting agent ID is not a valid TuCSoN agent ID
+     * @throws TucsonInvalidAgentIdException       if the requesting agent Identifier is not a valid TuCSoN agent Identifier
      * @throws AgentNotAllowedException            if the requesting agent is not allowed to request this TuCSoN
      *                                             operation
      */
@@ -131,7 +131,7 @@ public interface NegotiationACC {
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @throws TucsonInvalidAgentIdException       if the requesting agent ID is not a valid TuCSoN agent ID
+     * @throws TucsonInvalidAgentIdException       if the requesting agent Identifier is not a valid TuCSoN agent Identifier
      * @throws AgentNotAllowedException            if the requesting agent is not allowed to request this TuCSoN
      *                                             operation
      */
@@ -156,7 +156,7 @@ public interface NegotiationACC {
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @throws TucsonInvalidAgentIdException       if the requesting agent ID is not a valid TuCSoN agent ID
+     * @throws TucsonInvalidAgentIdException       if the requesting agent Identifier is not a valid TuCSoN agent Identifier
      * @throws AgentNotAllowedException            if the requesting agent is not allowed to request this TuCSoN
      *                                             operation
      */

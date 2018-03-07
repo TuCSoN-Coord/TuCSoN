@@ -13,9 +13,9 @@
  */
 package alice.tuplecentre.tucson.introspection;
 
-import alice.tuplecentre.tucson.api.TucsonAgentId;
-
 import java.io.Serializable;
+
+import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
  *

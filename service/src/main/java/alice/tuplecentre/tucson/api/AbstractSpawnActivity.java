@@ -1,5 +1,8 @@
 package alice.tuplecentre.tucson.api;
 
+import java.io.Serializable;
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.core.InputEvent;
@@ -12,9 +15,6 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.service.TucsonIdWrapper;
 import alice.tuplecentre.tucson.service.TupleCentreContainer;
-
-import java.io.Serializable;
-import java.util.List;
 
 /**
  * The "parallel computation" to be started with a <code>spawn</code> primitive.
@@ -59,14 +59,14 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * @return the "spawner" id (actually, a generic wrapper hosting either a
      *         TucsonAgentId or a TucsonTupleCentreId, accessible with method
      *         <code>getId()</code>)
-     * 
+     *
      * @see alice.tuplecentre.tucson.service.TucsonIdWrapper TucsonIdWrapper
      */
     public final TucsonIdWrapper<?> getSpawnerId() {
         if (this.aid == null) {
-            return new TucsonIdWrapper<TucsonTupleCentreId>(this.tcid);
+            return new TucsonIdWrapper<>(this.tcid);
         }
-        return new TucsonIdWrapper<TucsonAgentId>(this.aid);
+        return new TucsonIdWrapper<>(this.aid);
     }
 
     /**
@@ -285,7 +285,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      */
     protected void log(final String msg) {
         if (this.aid != null) {
-            System.out.println("[" + this.aid.getAgentName() + "-spawned]: "
+            System.out.println("[" + this.aid.getLocalName() + "-spawned]: "
                     + msg);
         } else {
             System.out

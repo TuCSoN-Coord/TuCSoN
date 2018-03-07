@@ -13,23 +13,21 @@
  */
 package alice.tuplecentre.tucson.api;
 
-import alice.tuplecentre.api.TupleCentreOpId;
+import alice.tuplecentre.core.AbstractOperationId;
 
 /**
  * Class that represent operation ID on TuCSoN tupleCentres
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public class TucsonOpId implements TupleCentreOpId {
-
-    private long id;
+public class TucsonOpId extends AbstractOperationId {
 
     /**
-     * @param id the Java long progressively, uniquely identifying TuCSoN
+     * @param i the Java long progressively, uniquely identifying TuCSoN
      *          operations
      */
-    public TucsonOpId(final long id) {
-        this.id = id;
+    public TucsonOpId(final long i) {
+        super(i);
     }
 
     @Override
@@ -63,8 +61,4 @@ public class TucsonOpId implements TupleCentreOpId {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(this.id);
-    }
 }

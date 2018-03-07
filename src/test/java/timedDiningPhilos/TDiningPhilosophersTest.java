@@ -1,5 +1,7 @@
 package timedDiningPhilos;
 
+import java.io.IOException;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -8,6 +10,7 @@ import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -15,8 +18,6 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdExcepti
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.utilities.Utils;
-
-import java.io.IOException;
 
 /**
  * Classic Dining Philosophers coordination problem tackled by adopting a clear
@@ -94,7 +95,7 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent {
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());
             final OrdinaryAndSpecificationSyncACC acc = negAcc.playDefaultRole();
-            final TucsonTupleCentreId table = new TucsonTupleCentreId("table",
+            final TucsonTupleCentreId table = new TucsonTupleCentreIdDefault("table",
                     this.ip, this.port);
             this.say("Injecting 'table' ReSpecT specification in tc < "
                     + table.toString() + " >...");

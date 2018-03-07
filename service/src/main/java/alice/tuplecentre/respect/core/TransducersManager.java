@@ -3,14 +3,23 @@
  */
 package alice.tuplecentre.respect.core;
 
-import alice.tuplecentre.api.TupleCentreId;
-import alice.tuplecentre.respect.api.EnvId;
-import alice.tuplecentre.respect.situatedness.*;
-import alice.tuprolog.Term;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import alice.tuplecentre.api.TupleCentreIdentifier;
+import alice.tuplecentre.respect.api.EnvironmentIdentifier;
+import alice.tuplecentre.respect.situatedness.AbstractProbeId;
+import alice.tuplecentre.respect.situatedness.AbstractTransducer;
+import alice.tuplecentre.respect.situatedness.ISimpleProbe;
+import alice.tuplecentre.respect.situatedness.ProbeIdentifier;
+import alice.tuplecentre.respect.situatedness.TransducerId;
+import alice.tuplecentre.respect.situatedness.TransducerStandardInterface;
+import alice.tuprolog.Term;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 04/nov/2013
@@ -35,16 +44,16 @@ public enum TransducersManager {
     }
 
     /** List of the associations transducer/probes **/
-    private Map<TransducerId, List<AbstractProbeId>> probesToTransducersMap;
+    private Map<TransducerId, List<ProbeIdentifier>> probesToTransducersMap;
     /** List of all the transducers on a single node **/
     private Map<TransducerId, AbstractTransducer> transducersList;
     /** List of the associations tuple centre/transducers **/
-    private Map<TupleCentreId, List<TransducerId>> transducersToTupleCentresMap;
+    private Map<TupleCentreIdentifier, List<TransducerId>> transducersToTupleCentresMap;
 
     private TransducersManager() {
         this.transducersList = new HashMap<TransducerId, AbstractTransducer>();
-        this.probesToTransducersMap = new HashMap<TransducerId, List<AbstractProbeId>>();
-        this.transducersToTupleCentresMap = new HashMap<TupleCentreId, List<TransducerId>>();
+        this.probesToTransducersMap = new HashMap<TransducerId, List<ProbeIdentifier>>();
+        this.transducersToTupleCentresMap = new HashMap<TupleCentreIdentifier, List<TransducerId>>();
     }
 
     /**
@@ -58,16 +67,16 @@ public enum TransducersManager {
      *            the probe itself
      * @return wether the resource has been successfully added
      */
-    public synchronized boolean addProbe(final AbstractProbeId id,
+    public synchronized boolean addProbe(final ProbeIdentifier id,
             final TransducerId tId, final ISimpleProbe probe) {
         TransducersManager.speak("Adding resource '" + id.getLocalName()
-                + "' to transducer '" + tId.getAgentName() + "'...");
+                + "' to transducer '" + tId.getLocalName() + "'...");
         if (!this.probesToTransducersMap.containsKey(tId)) {
-            TransducersManager.speakErr("Transducer '" + tId.getAgentName()
+            TransducersManager.speakErr("Transducer '" + tId.getLocalName()
                     + "' doesn't exist yet!");
             return false;
         } else if (this.probesToTransducersMap.get(tId).contains(probe)) {
-            TransducersManager.speak("Transducer '" + tId.getAgentName()
+            TransducersManager.speak("Transducer '" + tId.getLocalName()
                     + "' is already associated to probe '" + id.getLocalName()
                     + "'.");
             return false;
@@ -105,8 +114,8 @@ public enum TransducersManager {
      *             if the callee cannot be found
      */
     public synchronized boolean createTransducer(final String className,
-            final TransducerId id, final TupleCentreId tcId,
-            final AbstractProbeId probeId) throws InstantiationException,
+            final TransducerId id, final TupleCentreIdentifier tcId,
+            final ProbeIdentifier probeId) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException,
             NoSuchMethodException, InvocationTargetException {
         // Checking if the transducer already exist
@@ -128,12 +137,12 @@ public enum TransducersManager {
                 className.length() - 1);
         final Class<?> c = Class.forName(normClassName);
         final Constructor<?> ctor = c.getConstructor(new Class[] {
-                TransducerId.class, TupleCentreId.class });
+                TransducerId.class, TupleCentreIdentifier.class });
         final AbstractTransducer t = (AbstractTransducer) ctor
                 .newInstance(new Object[] { id, tcId });
         this.transducersList.put(id, t);
         // Adding probe to the transducer
-        final ArrayList<AbstractProbeId> probes = new ArrayList<AbstractProbeId>();
+        final ArrayList<ProbeIdentifier> probes = new ArrayList<ProbeIdentifier>();
         probes.add(probeId);
         this.probesToTransducersMap.put(id, probes);
         this.addProbe(probeId, id, ProbesManager.INSTANCE.getProbe(probeId));
@@ -150,16 +159,16 @@ public enum TransducersManager {
      * @return a resource list as a ProbeId array.
      */
     // FIXME Check correctness (synchronization needed?)
-    public AbstractProbeId[] getProbes(final TransducerId tId) {
+    public ProbeIdentifier[] getProbes(final TransducerId tId) {
         if (!this.probesToTransducersMap.containsKey(tId)) {
-            TransducersManager.speakErr("Transducer '" + tId.getAgentName()
+            TransducersManager.speakErr("Transducer '" + tId.getLocalName()
                     + "' doesn't exist yet!");
             return null;
         }
         final Object[] values = this.probesToTransducersMap.get(tId).toArray();
-        final AbstractProbeId[] probes = new AbstractProbeId[values.length];
+        final ProbeIdentifier[] probes = new ProbeIdentifier[values.length];
         for (int i = 0; i < probes.length; i++) {
-            probes[i] = (AbstractProbeId) values[i];
+            probes[i] = (ProbeIdentifier) values[i];
         }
         return probes;
     }
@@ -175,7 +184,7 @@ public enum TransducersManager {
     public TransducerStandardInterface getTransducer(final String tId) {
         final Object[] keySet = this.transducersList.keySet().toArray();
         for (final Object element : keySet) {
-            if (((TransducerId) element).getAgentName().equals(tId)) {
+            if (((TransducerId) element).getLocalName().equals(tId)) {
                 return this.transducersList.get(element);
             }
         }
@@ -190,7 +199,7 @@ public enum TransducersManager {
      * @return the transducer identifier
      */
     // FIXME Check correctness (synchronization needed?)
-    public TransducerId getTransducerId(final EnvId probe) {
+    public TransducerId getTransducerId(final EnvironmentIdentifier probe) {
         final Set<TransducerId> set = this.probesToTransducersMap.keySet();
         final Object[] keySet = set.toArray();
         for (final Object element : keySet) {
@@ -216,11 +225,11 @@ public enum TransducersManager {
      * @return list of transducer id associated to tcId
      */
     // FIXME Check correctness (synchronization needed?)
-    public TransducerId[] getTransducerIds(final TupleCentreId tcId) {
+    public TransducerId[] getTransducerIds(final TupleCentreIdentifier tcId) {
         final Object[] tcIds = this.transducersToTupleCentresMap.keySet()
                 .toArray();
         for (final Object tcId2 : tcIds) {
-            if (((TupleCentreId) tcId2).toString().equals(tcId.toString())) {
+            if (((TupleCentreIdentifier) tcId2).toString().equals(tcId.toString())) {
                 final Object[] values = this.transducersToTupleCentresMap.get(
                         tcId2).toArray();
                 final TransducerId[] transducerIds = new TransducerId[values.length];
@@ -245,13 +254,13 @@ public enum TransducersManager {
      * @return the tuple centre's identifier
      */
     // FIXME Check correctness (synchronization needed?)
-    public TupleCentreId getTupleCentreId(final TransducerId tId) {
-        for (final TupleCentreId t : this.transducersToTupleCentresMap.keySet()) {
+    public TupleCentreIdentifier getTupleCentreId(final TransducerId tId) {
+        for (final TupleCentreIdentifier t : this.transducersToTupleCentresMap.keySet()) {
             if (this.transducersToTupleCentresMap.get(t).contains(tId)) {
                 return t;
             }
         }
-        TransducersManager.speakErr("Transducer '" + tId.getAgentName()
+        TransducersManager.speakErr("Transducer '" + tId.getLocalName()
                 + "' doesn't exist yet!");
         return null;
     }
@@ -301,12 +310,12 @@ public enum TransducersManager {
         // Decouple the transducer from the probes associated.
         final Object[] pIds = this.probesToTransducersMap.get(id).toArray();
         for (final Object pId : pIds) {
-            ProbesManager.INSTANCE.getProbe((AbstractProbeId) pId)
+            ProbesManager.INSTANCE.getProbe((ProbeIdentifier) pId)
                     .setTransducer(null);
         }
         this.transducersList.remove(id);
         this.probesToTransducersMap.remove(id);
-        final TupleCentreId tcAssociated = this.getTupleCentreId(id);
+        final TupleCentreIdentifier tcAssociated = this.getTupleCentreId(id);
         this.transducersToTupleCentresMap.get(tcAssociated).remove(id);
         // If the tc doesn't have any transducer associated, it will be removed
         if (this.transducersToTupleCentresMap.get(tcAssociated).isEmpty()) {

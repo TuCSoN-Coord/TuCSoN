@@ -53,7 +53,7 @@ public interface IGeolocationService {
      * 
      * @return service identifier
      */
-    GeoServiceId getServiceId();
+    GeoServiceIdentifier getServiceId();
 
     /**
      * Gets the tuple centre identifier associated with this service

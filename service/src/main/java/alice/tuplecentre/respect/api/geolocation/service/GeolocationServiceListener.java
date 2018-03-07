@@ -49,7 +49,7 @@ public class GeolocationServiceListener implements IGeolocationServiceListener {
     }
 
     @Override
-    public GeoServiceId getServiceId() {
+    public GeoServiceIdentifier getServiceId() {
         return this.service.getServiceId();
     }
 

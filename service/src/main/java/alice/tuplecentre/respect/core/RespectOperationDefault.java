@@ -30,7 +30,40 @@ import alice.tuprolog.Term;
 import java.util.LinkedList;
 import java.util.List;
 
-import static alice.tuplecentre.core.TupleCentreOpType.*;
+import static alice.tuplecentre.core.TupleCentreOpType.FROM;
+import static alice.tuplecentre.core.TupleCentreOpType.GET;
+import static alice.tuplecentre.core.TupleCentreOpType.GET_ENV;
+import static alice.tuplecentre.core.TupleCentreOpType.GET_S;
+import static alice.tuplecentre.core.TupleCentreOpType.IN;
+import static alice.tuplecentre.core.TupleCentreOpType.INP;
+import static alice.tuplecentre.core.TupleCentreOpType.INP_S;
+import static alice.tuplecentre.core.TupleCentreOpType.IN_ALL;
+import static alice.tuplecentre.core.TupleCentreOpType.IN_S;
+import static alice.tuplecentre.core.TupleCentreOpType.NO;
+import static alice.tuplecentre.core.TupleCentreOpType.NOP;
+import static alice.tuplecentre.core.TupleCentreOpType.NOP_S;
+import static alice.tuplecentre.core.TupleCentreOpType.NO_ALL;
+import static alice.tuplecentre.core.TupleCentreOpType.NO_S;
+import static alice.tuplecentre.core.TupleCentreOpType.OUT;
+import static alice.tuplecentre.core.TupleCentreOpType.OUT_ALL;
+import static alice.tuplecentre.core.TupleCentreOpType.OUT_S;
+import static alice.tuplecentre.core.TupleCentreOpType.RD;
+import static alice.tuplecentre.core.TupleCentreOpType.RDP;
+import static alice.tuplecentre.core.TupleCentreOpType.RDP_S;
+import static alice.tuplecentre.core.TupleCentreOpType.RD_ALL;
+import static alice.tuplecentre.core.TupleCentreOpType.RD_S;
+import static alice.tuplecentre.core.TupleCentreOpType.SET;
+import static alice.tuplecentre.core.TupleCentreOpType.SET_ENV;
+import static alice.tuplecentre.core.TupleCentreOpType.SET_S;
+import static alice.tuplecentre.core.TupleCentreOpType.SPAWN;
+import static alice.tuplecentre.core.TupleCentreOpType.TIME;
+import static alice.tuplecentre.core.TupleCentreOpType.TO;
+import static alice.tuplecentre.core.TupleCentreOpType.UIN;
+import static alice.tuplecentre.core.TupleCentreOpType.UINP;
+import static alice.tuplecentre.core.TupleCentreOpType.UNO;
+import static alice.tuplecentre.core.TupleCentreOpType.UNOP;
+import static alice.tuplecentre.core.TupleCentreOpType.URD;
+import static alice.tuplecentre.core.TupleCentreOpType.URDP;
 
 /**
  * This class represents a ReSpecT operation.

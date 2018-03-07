@@ -1,13 +1,14 @@
 package alice.tuplecentre.respect.api.geolocation.service;
 
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
-import alice.util.Tools;
-
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
+import alice.util.Tools;
 
 /**
  * Class used for managing (creation and removal) geolocation services.
@@ -54,10 +55,10 @@ public final class GeolocationServiceManager {
     /**
      * List of all geolocation services on a single node
      */
-    private final Map<GeoServiceId, AbstractGeolocationService> servicesList;
+    private final Map<GeoServiceIdentifier, AbstractGeolocationService> servicesList;
 
     private GeolocationServiceManager() {
-        this.servicesList = new HashMap<GeoServiceId, AbstractGeolocationService>();
+        this.servicesList = new HashMap<>();
     }
 
     /**
@@ -66,14 +67,14 @@ public final class GeolocationServiceManager {
      *            the newly-created Geolocation Service to start tracking
      */
     public void addService(final AbstractGeolocationService s) {
-        final GeoServiceId sId = s.getServiceId();
+        final GeoServiceIdentifier sId = s.getServiceId();
         if (this.servicesList.containsKey(sId)) {
             GeolocationServiceManager.error("GeolocationService "
-                    + sId.getName() + " is already registered");
+                    + sId.getLocalName() + " is already registered");
             return;
         }
         this.servicesList.put(sId, s);
-        GeolocationServiceManager.log("GeolocationService " + sId.getName()
+        GeolocationServiceManager.log("GeolocationService " + sId.getLocalName()
                 + " has been registered");
     }
 
@@ -113,7 +114,7 @@ public final class GeolocationServiceManager {
      *             instantiate
      */
     public AbstractGeolocationService createAgentService(
-            final Integer platform, final GeoServiceId sId,
+            final Integer platform, final GeoServiceIdentifier sId,
             final String className, final TucsonTupleCentreId tcId,
             final ACCProxyAgentSide acc) throws ClassNotFoundException,
             SecurityException, NoSuchMethodException, IllegalArgumentException,
@@ -123,19 +124,19 @@ public final class GeolocationServiceManager {
         // Checking if the service already exist
         if (this.servicesList.containsKey(sId)) {
             GeolocationServiceManager.error("GeolocationService "
-                    + sId.getName() + " is already registered");
+                    + sId.getLocalName() + " is already registered");
         } else {
             // Instantiating the concrete class
             final String normClassName = Tools.removeApices(className);
             final Class<?> c = Class.forName(normClassName);
             final Constructor<?> ctor = c.getConstructor(new Class[] {
                     Integer.class, GeoServiceId.class,
-                    TucsonTupleCentreId.class });
+                    TucsonTupleCentreIdDefault.class });
             s = (AbstractGeolocationService) ctor.newInstance(new Object[] {
                     platform, sId, tcId });
             s.addListener(new AgentGeolocationServiceListener(acc, s, tcId));
             this.servicesList.put(sId, s);
-            GeolocationServiceManager.log("GeolocationService " + sId.getName()
+            GeolocationServiceManager.log("GeolocationService " + sId.getLocalName()
                     + " has been registered");
         }
         return s;
@@ -172,27 +173,27 @@ public final class GeolocationServiceManager {
      *             instantiate
      */
     public void createNodeService(final Integer platform,
-            final GeoServiceId sId, final String className,
-            final TucsonTupleCentreId tcId) throws ClassNotFoundException,
+                                  final GeoServiceIdentifier sId, final String className,
+                                  final TucsonTupleCentreId tcId) throws ClassNotFoundException,
             SecurityException, NoSuchMethodException, IllegalArgumentException,
             InstantiationException, IllegalAccessException,
             InvocationTargetException {
         // Checking if the service already exist
         if (this.servicesList.containsKey(sId)) {
             GeolocationServiceManager.error("GeolocationService "
-                    + sId.getName() + " is already registered");
+                    + sId.getLocalName() + " is already registered");
             return;
         }
         // Instantiating the concrete class
         final String normClassName = Tools.removeApices(className);
         final Class<?> c = Class.forName(normClassName);
         final Constructor<?> ctor = c.getConstructor(new Class[] {
-                Integer.class, GeoServiceId.class, TucsonTupleCentreId.class });
+                Integer.class, GeoServiceId.class, TucsonTupleCentreIdDefault.class });
         final AbstractGeolocationService s = (AbstractGeolocationService) ctor
                 .newInstance(new Object[] { platform, sId, tcId });
         s.addListener(new GeolocationServiceListener(s, tcId));
         this.servicesList.put(sId, s);
-        GeolocationServiceManager.log("GeolocationService " + sId.getName()
+        GeolocationServiceManager.log("GeolocationService " + sId.getLocalName()
                 + " has been registered");
     }
 
@@ -202,7 +203,7 @@ public final class GeolocationServiceManager {
     public void destroyAllServices() {
         final Object[] keySet = this.servicesList.keySet().toArray();
         for (final Object element : keySet) {
-            final GeoServiceId current = (GeoServiceId) element;
+            final GeoServiceIdentifier current = (GeoServiceIdentifier) element;
             this.servicesList.get(current).stop();
         }
         this.servicesList.clear();
@@ -214,9 +215,9 @@ public final class GeolocationServiceManager {
      * @param sId
      *            the identifier of the Geolocation Service to destroy
      */
-    public void destroyService(final GeoServiceId sId) {
+    public void destroyService(final GeoServiceIdentifier sId) {
         if (!this.servicesList.containsKey(sId)) {
-            GeolocationServiceManager.error("The service " + sId.getName()
+            GeolocationServiceManager.error("The service " + sId.getLocalName()
                     + " does not exist.");
             return;
         }
@@ -255,8 +256,8 @@ public final class GeolocationServiceManager {
     public AbstractGeolocationService getServiceByName(final String name) {
         final Object[] keySet = this.servicesList.keySet().toArray();
         for (final Object element : keySet) {
-            final GeoServiceId current = (GeoServiceId) element;
-            if (current.getName().equals(name)) {
+            final GeoServiceIdentifier current = (GeoServiceIdentifier) element;
+            if (current.getLocalName().equals(name)) {
                 return this.servicesList.get(current);
             }
         }
@@ -270,7 +271,7 @@ public final class GeolocationServiceManager {
      * @return The mapping between Geolocation Services ids and the
      *         corresponding services
      */
-    public Map<GeoServiceId, AbstractGeolocationService> getServices() {
+    public Map<GeoServiceIdentifier, AbstractGeolocationService> getServices() {
         return this.servicesList;
     }
 }

@@ -3,7 +3,7 @@
  */
 package situatedness;
 
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.respect.situatedness.AbstractTransducer;
 import alice.tuplecentre.respect.situatedness.ISimpleProbe;
@@ -26,7 +26,7 @@ public class ActuatorTransducer extends AbstractTransducer {
      * @param tc
      *            the tuple centre id
      */
-    public ActuatorTransducer(final TransducerId i, final TupleCentreId tc) {
+    public ActuatorTransducer(final TransducerId i, final TupleCentreIdentifier tc) {
         super(i, tc);
     }
 

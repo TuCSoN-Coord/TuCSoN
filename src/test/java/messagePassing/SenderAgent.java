@@ -4,7 +4,13 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
-import alice.tuplecentre.tucson.api.*;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -48,14 +54,14 @@ public class SenderAgent extends AbstractTucsonAgent {
      *            the node used as "message transport layer"
      *
      * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     *             if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public SenderAgent(final String aid, final String who, final String node)
             throws TucsonInvalidAgentIdException {
         super(aid);
         try {
-            this.receiver = new TucsonAgentId(who);
-            this.tid = new TucsonTupleCentreId(node);
+            this.receiver = new TucsonAgentIdDefault(who);
+            this.tid = new TucsonTupleCentreIdDefault(node);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
         }
@@ -113,15 +119,15 @@ public class SenderAgent extends AbstractTucsonAgent {
              * hi...
              */
             msg = LogicTuple.parse("msg(sender(" + this.myName() + "),"
-                    + "content('Hi " + this.receiver.getAgentName() + "!'),"
-                    + "receiver(" + this.receiver.getAgentName() + ")" + ")");
-            this.say("> Hi " + this.receiver.getAgentName() + "!");
+                    + "content('Hi " + this.receiver.getLocalName() + "!'),"
+                    + "receiver(" + this.receiver.getLocalName() + ")" + ")");
+            this.say("> Hi " + this.receiver.getLocalName() + "!");
             this.send(msg);
             /*
              * ...hello...
              */
             templ = LogicTuple.parse("msg(sender("
-                    + this.receiver.getAgentName() + "),"
+                    + this.receiver.getLocalName() + "),"
                     + "content(M), receiver(" + this.myName() + "))");
             reply = this.receive(templ);
             this.say("	< " + reply.getArg("content").getArg(0).toString());
@@ -129,17 +135,17 @@ public class SenderAgent extends AbstractTucsonAgent {
              * ...how are you...
              */
             msg = LogicTuple.parse("msg(sender(" + this.myName() + "),"
-                    + "content('How are you, " + this.receiver.getAgentName()
-                    + "?')," + "receiver(" + this.receiver.getAgentName() + ")"
+                    + "content('How are you, " + this.receiver.getLocalName()
+                    + "?')," + "receiver(" + this.receiver.getLocalName() + ")"
                     + ")");
-            this.say("> How are you, " + this.receiver.getAgentName() + "?");
+            this.say("> How are you, " + this.receiver.getLocalName() + "?");
             this.send(msg);
             /*
              * Old template is now 'unified' with received tuple, we need a new
              * one.
              */
             templ = LogicTuple.parse("msg(sender("
-                    + this.receiver.getAgentName() + "),"
+                    + this.receiver.getLocalName() + "),"
                     + "content(M), receiver(" + this.myName() + "))");
             /*
              * ...fine...
@@ -150,17 +156,17 @@ public class SenderAgent extends AbstractTucsonAgent {
              * ...me too...
              */
             msg = LogicTuple.parse("msg(sender(" + this.myName() + "),"
-                    + "content('I am fine too, " + this.receiver.getAgentName()
+                    + "content('I am fine too, " + this.receiver.getLocalName()
                     + ", thanks!')," + "receiver("
-                    + this.receiver.getAgentName() + ")" + ")");
-            this.say("> I am fine too, " + this.receiver.getAgentName()
+                    + this.receiver.getLocalName() + ")" + ")");
+            this.say("> I am fine too, " + this.receiver.getLocalName()
                     + ", thanks!");
             this.send(msg);
             /*
              * ...bye...
              */
             templ = LogicTuple.parse("msg(sender("
-                    + this.receiver.getAgentName() + "),"
+                    + this.receiver.getLocalName() + "),"
                     + "content(M), receiver(" + this.myName() + "))");
             reply = this.receive(templ);
             this.say("	< " + reply.getArg("content").getArg(0).toString());
@@ -169,7 +175,7 @@ public class SenderAgent extends AbstractTucsonAgent {
              */
             msg = LogicTuple.parse("msg(sender(" + this.myName() + "),"
                     + "content('Bye!')," + "receiver("
-                    + this.receiver.getAgentName() + ")" + ")");
+                    + this.receiver.getLocalName() + ")" + ")");
             this.say("> Bye!");
             this.send(msg);
         } catch (final InvalidLogicTupleException e) {
@@ -183,7 +189,7 @@ public class SenderAgent extends AbstractTucsonAgent {
         } catch (final OperationTimeOutException e) {
             this.say("ERROR: Endless timeout expired!");
         } catch (final TucsonInvalidAgentIdException e) {
-            this.say("ERROR: Given ID is not a valid TuCSoN agent ID!");
+            this.say("ERROR: Given Identifier is not a valid TuCSoN agent Identifier!");
         }
     }
 

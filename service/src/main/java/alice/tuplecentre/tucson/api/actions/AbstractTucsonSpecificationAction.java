@@ -44,7 +44,7 @@ public abstract class AbstractTucsonSpecificationAction extends
      * argument is the given ReSpecT specification tuple
      * 
      * @param t
-     *            the ID of the TuCSoN tuple centre target of the operation
+     *            the Identifier of the TuCSoN tuple centre target of the operation
      * @param e
      *            the logic tuple representing the triggering event of the
      *            ReSpecT specification tuple

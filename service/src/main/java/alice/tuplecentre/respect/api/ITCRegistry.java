@@ -1,8 +1,9 @@
 package alice.tuplecentre.respect.api;
 
-import alice.tuplecentre.respect.api.exceptions.InstantiationNotPossibleException;
-
 import java.util.Map;
+
+import alice.tuplecentre.api.TupleCentreIdentifier;
+import alice.tuplecentre.respect.api.exceptions.InstantiationNotPossibleException;
 
 /**
  *
@@ -33,5 +34,5 @@ public interface ITCRegistry {
      * @throws InstantiationNotPossibleException
      *             if the tuple centre cannot be instantiated
      */
-    IRespectTC getTC(TupleCentreId id) throws InstantiationNotPossibleException;
+    IRespectTC getTC(final TupleCentreIdentifier id) throws InstantiationNotPossibleException;
 }

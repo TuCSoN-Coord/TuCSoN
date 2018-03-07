@@ -1,9 +1,16 @@
 package alice.tuplecentre.respect.api.geolocation;
 
-import alice.tuplecentre.respect.api.place.*;
-import alice.tuprolog.Term;
-
 import java.io.Serializable;
+
+import alice.tuplecentre.respect.api.place.AbstractPhysicalPlace;
+import alice.tuplecentre.respect.api.place.AbstractVirtualPlace;
+import alice.tuplecentre.respect.api.place.DnsPlace;
+import alice.tuplecentre.respect.api.place.IPlace;
+import alice.tuplecentre.respect.api.place.IpPlace;
+import alice.tuplecentre.respect.api.place.MapPlace;
+import alice.tuplecentre.respect.api.place.OrgPlace;
+import alice.tuplecentre.respect.api.place.PhPlace;
+import alice.tuprolog.Term;
 
 /**
  * 

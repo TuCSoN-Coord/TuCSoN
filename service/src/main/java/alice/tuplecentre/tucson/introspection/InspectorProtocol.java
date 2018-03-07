@@ -13,9 +13,9 @@
  */
 package alice.tuplecentre.tucson.introspection;
 
-import alice.logictuple.LogicTuple;
-
 import java.io.Serializable;
+
+import alice.logictuple.LogicTuple;
 
 /**
  *

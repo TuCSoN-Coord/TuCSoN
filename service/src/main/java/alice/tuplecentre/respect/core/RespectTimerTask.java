@@ -1,8 +1,8 @@
 package alice.tuplecentre.respect.core;
 
-import alice.tuplecentre.core.InputEvent;
-
 import java.util.TimerTask;
+
+import alice.tuplecentre.core.InputEvent;
 
 /**
  *

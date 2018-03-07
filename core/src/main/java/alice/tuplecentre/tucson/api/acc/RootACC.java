@@ -13,11 +13,11 @@
  */
 package alice.tuplecentre.tucson.api.acc;
 
+import java.util.UUID;
+
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-
-import java.util.UUID;
 
 /**
  * Root ACC, no Linda nor TuCSoN operations available, only ACC release back to
@@ -35,8 +35,8 @@ public interface RootACC {
      * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
      *                                             network-reachable
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws TucsonInvalidTupleCentreIdException if the target tuple centre ID is not a valid TuCSoN tuple
-     *                                             centre ID
+     * @throws TucsonInvalidTupleCentreIdException if the target tuple centre Identifier is not a valid TuCSoN tuple
+     *                                             centre Identifier
      */
     void enterACC() throws UnreachableNodeException, // galassi
             TucsonOperationNotPossibleException,

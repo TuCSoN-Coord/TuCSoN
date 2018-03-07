@@ -25,6 +25,10 @@
 
 package rbac;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Logger;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -32,14 +36,14 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
-import alice.tuplecentre.tucson.api.exceptions.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
+import alice.tuplecentre.tucson.api.exceptions.AgentNotAllowedException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * An authorised agent. It is "known" by TuCSoN-RBAC, thanks to administrators
@@ -52,7 +56,7 @@ public final class AuthorisedAgentImpl extends AbstractTucsonAgent {
 
     /**
      * @param id
-     *            the ID of this TuCSoN agent
+     *            the Identifier of this TuCSoN agent
      * @param netid
      *            the IP address of the TuCSoN node it is willing to interact
      *            with
@@ -61,7 +65,7 @@ public final class AuthorisedAgentImpl extends AbstractTucsonAgent {
      *            interact with
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent
-     *             ID
+     *             Identifier
      */
     public AuthorisedAgentImpl(final String id, final String netid, final int p)
             throws TucsonInvalidAgentIdException {
@@ -128,7 +132,7 @@ public final class AuthorisedAgentImpl extends AbstractTucsonAgent {
             EnhancedACC acc = negACC.playRoleWithPermissions(permissions);
             Logger.getLogger("AuthorisedAgent").info("Attempt successful");
             Logger.getLogger("AuthorisedAgent").info("Trying 'out' operation");
-            TucsonOperation op = acc.out(new TucsonTupleCentreId("default",
+            TucsonOperation op = acc.out(new TucsonTupleCentreIdDefault("default",
                     this.myNode(), String.valueOf(this.myport())),
                     new LogicTuple("test", new Value("hello")), (Long) null);
             if (op.isResultSuccess()) {

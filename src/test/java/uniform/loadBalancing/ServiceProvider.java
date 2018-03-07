@@ -1,5 +1,8 @@
 package uniform.loadBalancing;
 
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -8,15 +11,13 @@ import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Dummy Service Provider class to show some 'adaptive' features related to
@@ -114,14 +115,14 @@ public class ServiceProvider extends AbstractTucsonAgent {
      *            to simulate computational power
      *
      * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     *             if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public ServiceProvider(final String aid, final String node,
             final long cpuTime) throws TucsonInvalidAgentIdException {
         super(aid);
         this.die = false;
         try {
-            this.tid = new TucsonTupleCentreId(node);
+            this.tid = new TucsonTupleCentreIdDefault(node);
             this.service = LogicTuple.parse("ad(" + aid + ")");
             this.say("I'm started.");
         } catch (final TucsonInvalidTupleCentreIdException e) {
@@ -216,7 +217,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
         } catch (final OperationTimeOutException e) {
             this.say("ERROR: Endless timeout expired!");
         } catch (final TucsonInvalidAgentIdException e1) {
-            this.say("ERROR: Given ID is not a valid agent ID!");
+            this.say("ERROR: Given Identifier is not a valid agent Identifier!");
         }
     }
 

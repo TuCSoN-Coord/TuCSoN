@@ -4,6 +4,7 @@ import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
@@ -11,11 +12,24 @@ import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.OperationCompletionListener;
 import alice.tuplecentre.core.TupleCentreOpType;
-import alice.tuplecentre.respect.api.*;
+import alice.tuplecentre.respect.api.IEnvironmentContext;
+import alice.tuplecentre.respect.api.IManagementContext;
+import alice.tuplecentre.respect.api.IOrdinaryAsynchInterface;
+import alice.tuplecentre.respect.api.IOrdinarySynchInterface;
+import alice.tuplecentre.respect.api.ISpecificationAsynchInterface;
+import alice.tuplecentre.respect.api.ISpecificationSynchInterface;
+import alice.tuplecentre.respect.api.RespectSpecification;
+import alice.tuplecentre.respect.api.TupleCentreId;
 import alice.tuplecentre.respect.api.exceptions.InvalidSpecificationException;
 import alice.tuplecentre.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
-import alice.tuplecentre.respect.core.*;
+import alice.tuplecentre.respect.core.InternalEvent;
+import alice.tuplecentre.respect.core.InternalOperation;
+import alice.tuplecentre.respect.core.RespectOperationDefault;
+import alice.tuplecentre.respect.core.RespectTC;
+import alice.tuplecentre.respect.core.RespectTCContainer;
+import alice.tuplecentre.respect.core.SpecificationSynchInterface;
+import alice.tuplecentre.respect.core.TransducersManager;
 import alice.tuplecentre.respect.situatedness.TransducerId;
 import alice.tuplecentre.respect.situatedness.TransducerStandardInterface;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
@@ -25,9 +39,10 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidSpecificationExcepti
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
-import java.util.HashMap;
-
-import static alice.tuplecentre.core.TupleCentreOpType.*;
+import static alice.tuplecentre.core.TupleCentreOpType.GET_ENV;
+import static alice.tuplecentre.core.TupleCentreOpType.GET_S;
+import static alice.tuplecentre.core.TupleCentreOpType.SET_ENV;
+import static alice.tuplecentre.core.TupleCentreOpType.SET_S;
 
 /**
  * @author Alessandro Ricci
@@ -53,7 +68,7 @@ public final class TupleCentreContainer {
             final RespectTCContainer rtcc = RespectTCContainer
                     .getRespectTCContainer();
             RespectTCContainer.setDefPort(TupleCentreContainer.defaultport);
-            final TupleCentreId tid = new TupleCentreId(id.getName(),
+            final TupleCentreIdentifier tid = new TupleCentreId(id.getLocalName(),
                     id.getNode(), String.valueOf(id.getPort()));
             return rtcc.createRespectTC(tid, q);
         } catch (final InvalidTupleCentreIdException e) {
@@ -232,7 +247,7 @@ public final class TupleCentreContainer {
         InputEvent event = null;
         final TransducersManager tm = TransducersManager.INSTANCE;
         TransducerStandardInterface transducer = tm.getTransducer(aid
-                .getAgentName());
+                .getLocalName());
         if (t != null) {
             // It's an event performed by a transducer. In other words, it's an
             // environment event
@@ -255,7 +270,7 @@ public final class TupleCentreContainer {
                     .getInternalTupleCentreId());
             for (final TransducerId tId2 : tIds) {
                 internalEv.setTarget(tId2); // Set target resource
-                transducer = tm.getTransducer(tId2.getAgentName());
+                transducer = tm.getTransducer(tId2.getLocalName());
                 transducer.notifyOutput(internalEv);
             }
         }
@@ -308,7 +323,7 @@ public final class TupleCentreContainer {
                 .getInternalTupleCentreId());
         for (final TransducerId tId2 : tIds) {
             internalEv.setTarget(tId2); // Set target resource
-            transducer = tm.getTransducer(tId2.getAgentName());
+            transducer = tm.getTransducer(tId2.getLocalName());
             transducer.notifyOutput(internalEv);
         }
         return op;

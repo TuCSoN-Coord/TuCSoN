@@ -19,13 +19,23 @@
  */
 package uniform.dice;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
-import alice.tuplecentre.tucson.api.*;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -34,11 +44,6 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
 import alice.tuplecentre.tucson.service.TucsonNodeService;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author Stefano Mariani (mailto: s [dot] mariani [at] unibo [dot] it)
@@ -61,10 +66,10 @@ public final class DicePlayer extends AbstractTucsonAgent {
             Logger.getAnonymousLogger().log(Level.INFO,
                     "...boot done, now configuring space...");
             final NegotiationACC negAcc = TucsonMetaACC
-                    .getNegotiationContext(new TucsonAgentId("god"));
+                    .getNegotiationContext(new TucsonAgentIdDefault("god"));
             final EnhancedSyncACC acc = negAcc.playDefaultRole();
             acc.outAll(
-                    new TucsonTupleCentreId("dice", "localhost", "20504"),
+                    new TucsonTupleCentreIdDefault("dice", "localhost", "20504"),
                     LogicTuple
                             .parse("[face(1),face(2),face(3),face(4),face(5),face(6)]"),
                     Long.MAX_VALUE);
@@ -104,7 +109,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
         super(aid);
         this.stop = false;
         try {
-            this.tcid = new TucsonTupleCentreId("dice", "localhost", "20504");
+            this.tcid = new TucsonTupleCentreIdDefault("dice", "localhost", "20504");
         } catch (TucsonInvalidTupleCentreIdException e) {
             e.printStackTrace();
             System.exit(-1);

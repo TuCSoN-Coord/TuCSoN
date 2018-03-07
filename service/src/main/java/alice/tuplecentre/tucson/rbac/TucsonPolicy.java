@@ -1,9 +1,9 @@
 package alice.tuplecentre.tucson.rbac;
 
-import alice.logictuple.TupleArgument;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import alice.logictuple.TupleArgument;
 
 /**
  * Class implementing a RBAC policy.

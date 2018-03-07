@@ -3,6 +3,8 @@
  */
 package situatedness;
 
+import java.io.IOException;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.Value;
@@ -10,9 +12,11 @@ import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -20,8 +24,6 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdExcepti
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.utilities.Utils;
-
-import java.io.IOException;
 
 /**
  * TuCSoN situatedness feature example.
@@ -61,7 +63,7 @@ public final class Thermostat {
      */
     public static void main(final String[] args) {
         try {
-            final TucsonAgentId aid = new TucsonAgentId("thermostat");
+            final TucsonAgentId aid = new TucsonAgentIdDefault("thermostat");
             final NegotiationACC negACC = TucsonMetaACC.getNegotiationContext(
                     aid, Thermostat.DEFAULT_HOST,
                     Integer.valueOf(Thermostat.DEFAULT_PORT));
@@ -71,10 +73,10 @@ public final class Thermostat {
              * Thermostat.DEFAULT_HOST,
              * Integer.valueOf(Thermostat.DEFAULT_PORT));
              */
-            final TucsonTupleCentreId configTc = new TucsonTupleCentreId(
+            final TucsonTupleCentreId configTc = new TucsonTupleCentreIdDefault(
                     "'$ENV'", Thermostat.DEFAULT_HOST, Thermostat.DEFAULT_PORT);
             /* Set up temperature */
-            final TucsonTupleCentreId tempTc = new TucsonTupleCentreId(
+            final TucsonTupleCentreId tempTc = new TucsonTupleCentreIdDefault(
                     "tempTc", Thermostat.DEFAULT_HOST, Thermostat.DEFAULT_PORT);
             int bootT;
             do {
@@ -85,7 +87,7 @@ public final class Thermostat {
             acc.out(tempTc, bootTemp, null);
             /* Set up sensor */
             Thermostat.log(aid.toString(), "Set up sensor...");
-            final TucsonTupleCentreId sensorTc = new TucsonTupleCentreId(
+            final TucsonTupleCentreId sensorTc = new TucsonTupleCentreIdDefault(
                     "sensorTc", Thermostat.DEFAULT_HOST,
                     Thermostat.DEFAULT_PORT);
             try {
@@ -102,12 +104,12 @@ public final class Thermostat {
                     new Value(
                             "alice.tuplecentre.tucson.examples.situatedness.SensorTransducer"),
                             new Value("sensorTransducer"), new Value(
-                                    "alice.tuplecentre.tucson.examples.situatedness.ActualSensor"),
+                    "alice.tuplecentre.tucson.examples.situatedness.ActualSensor"),
                                     new Value("sensor"));
             acc.out(configTc, sensorTuple, null);
             /* Set up actuator */
             Thermostat.log(aid.toString(), "Set up actuator...");
-            final TucsonTupleCentreId actuatorTc = new TucsonTupleCentreId(
+            final TucsonTupleCentreId actuatorTc = new TucsonTupleCentreIdDefault(
                     "actuatorTc", Thermostat.DEFAULT_HOST,
                     Thermostat.DEFAULT_PORT);
             try {

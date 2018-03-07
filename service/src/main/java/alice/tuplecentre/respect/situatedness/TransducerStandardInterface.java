@@ -1,6 +1,6 @@
 package alice.tuplecentre.respect.situatedness;
 
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.respect.core.InternalEvent;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -29,14 +29,14 @@ public interface TransducerStandardInterface {
      *
      * @return the list of Probes for which this tranduces is responsible for
      */
-    AbstractProbeId[] getProbes();
+    ProbeIdentifier[] getProbes();
 
     /**
      *
      * @return the identifier of the TuCSoN tuple centre this transducer works
      *         with
      */
-    TupleCentreId getTCId();
+    TupleCentreIdentifier getTCId();
 
     /**
      *

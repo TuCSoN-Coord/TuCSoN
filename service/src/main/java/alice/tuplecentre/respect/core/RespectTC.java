@@ -11,17 +11,29 @@
  */
 package alice.tuplecentre.respect.core;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.InputEvent;
-import alice.tuplecentre.respect.api.*;
+import alice.tuplecentre.respect.api.IEnvironmentContext;
+import alice.tuplecentre.respect.api.ILinkContext;
+import alice.tuplecentre.respect.api.IManagementContext;
+import alice.tuplecentre.respect.api.IOrdinaryAsynchInterface;
+import alice.tuplecentre.respect.api.IOrdinarySynchInterface;
+import alice.tuplecentre.respect.api.IRespectTC;
+import alice.tuplecentre.respect.api.ISpatialContext;
+import alice.tuplecentre.respect.api.ISpecificationAsynchInterface;
+import alice.tuplecentre.respect.api.ISpecificationSynchInterface;
+import alice.tuplecentre.respect.api.ITimedContext;
+import alice.tuplecentre.respect.api.RespectOperation;
+import alice.tuplecentre.respect.api.RespectSpecification;
 import alice.tuplecentre.respect.api.exceptions.InvalidSpecificationException;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuprolog.Prolog;
-
-import java.util.Iterator;
-import java.util.LinkedList;
 
 /**
  *
@@ -45,7 +57,7 @@ public class RespectTC implements IRespectTC {
      * @param qSize
      *            the maximum size of the input queue
      */
-    public RespectTC(final TupleCentreId tid,
+    public RespectTC(final TupleCentreIdentifier tid,
             final RespectTCContainer container, final int qSize) {
         this.vm = new RespectVM(tid, container, qSize, this);
         this.vmThread = new Thread(this.vm);
@@ -68,7 +80,7 @@ public class RespectTC implements IRespectTC {
     }
 
     @Override
-    public TupleCentreId getId() {
+    public TupleCentreIdentifier getId() {
         return this.vm.getId();
     }
 

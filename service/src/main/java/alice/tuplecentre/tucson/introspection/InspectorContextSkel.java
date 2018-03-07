@@ -13,25 +13,43 @@
  */
 package alice.tuplecentre.tucson.introspection;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tuplecentre.api.InspectableEventListener;
-import alice.tuplecentre.core.*;
-import alice.tuplecentre.respect.core.LogicReaction;
-import alice.tuplecentre.respect.core.RespectOperationDefault;
-import alice.tuplecentre.tucson.api.TucsonAgentId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.exceptions.*;
-import alice.tuplecentre.tucson.network.AbstractTucsonProtocol;
-import alice.tuplecentre.tucson.network.exceptions.DialogException;
-import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
-import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
-import alice.tuplecentre.tucson.service.*;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import alice.logictuple.LogicTuple;
+import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuplecentre.api.InspectableEventListener;
+import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.core.InputEvent;
+import alice.tuplecentre.core.InspectableEvent;
+import alice.tuplecentre.core.ObservableEventExt;
+import alice.tuplecentre.core.ObservableEventReactionFail;
+import alice.tuplecentre.core.ObservableEventReactionOK;
+import alice.tuplecentre.core.TriggeredReaction;
+import alice.tuplecentre.core.TupleCentreOpType;
+import alice.tuplecentre.respect.core.LogicReaction;
+import alice.tuplecentre.respect.core.RespectOperationDefault;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.exceptions.TucsonGenericException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidLogicTupleException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.network.AbstractTucsonProtocol;
+import alice.tuplecentre.tucson.network.exceptions.DialogException;
+import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
+import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
+import alice.tuplecentre.tucson.service.ACCDescription;
+import alice.tuplecentre.tucson.service.ACCProvider;
+import alice.tuplecentre.tucson.service.AbstractACCProxyNodeSide;
+import alice.tuplecentre.tucson.service.TucsonNodeService;
+import alice.tuplecentre.tucson.service.TucsonTCUsers;
+import alice.tuplecentre.tucson.service.TupleCentreContainer;
 
 /**
  *
@@ -70,7 +88,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      *             if the ACCDescription's "agent-identity" property does not
      *             represent a valid TuCSoN identifier
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the TupleCentreId, contained into AbstractTucsonProtocol's
+     *             if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
      *             message, does not represent a valid TuCSoN identifier
      * @throws DialogReceiveException
      *             if something goes wrong in the underlying network
@@ -86,9 +104,9 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         NewInspectorMsg msg = null;
         this.ctxId = Integer.parseInt(p.getProperty("context-id"));
         final String name = p.getProperty("agent-identity");
-        this.agentId = new TucsonAgentId(name);
+        this.agentId = new TucsonAgentIdDefault(name);
         msg = this.dialog.receiveInspectorMsg();
-        this.tcId = new TucsonTupleCentreId(msg.getTcName());
+        this.tcId = new TucsonTupleCentreIdDefault(msg.getTcName());
         final TucsonTCUsers coreInfo = node.resolveCore(msg.getTcName());
         if (coreInfo == null) {
             throw new TucsonGenericException(

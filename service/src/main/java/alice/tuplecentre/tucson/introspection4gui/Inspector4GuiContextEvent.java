@@ -1,9 +1,9 @@
 package alice.tuplecentre.tucson.introspection4gui;
 
+import java.util.Set;
+
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.tucson.introspection.InspectorContextEvent;
-
-import java.util.Set;
 
 public class Inspector4GuiContextEvent extends InspectorContextEvent {
 

@@ -28,6 +28,7 @@ import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedAsyncACC;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.actions.ordinary.In;
@@ -72,7 +73,7 @@ public class PrimeCalculator extends AbstractTucsonAgent {
         private final TucsonTupleCentreId ttcid;
 
         public InpHandler(final EnhancedAsyncACC acc,
-                final TucsonTupleCentreId tid, final AsynchOpsHelper aqm) {
+                          final TucsonTupleCentreId tid, final AsynchOpsHelper aqm) {
             this.eaacc = acc;
             this.ttcid = tid;
             this.help = aqm;
@@ -174,13 +175,13 @@ public class PrimeCalculator extends AbstractTucsonAgent {
     private boolean stop;
 
     /**
-     * Builds a Prime Calculator Agent given its TuCSoN agent ID
+     * Builds a Prime Calculator Agent given its TuCSoN agent Identifier
      *
      * @param id
-     *            the TuCSoN agent ID
+     *            the TuCSoN agent Identifier
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent
-     *             ID
+     *             Identifier
      */
     public PrimeCalculator(final String id)
             throws TucsonInvalidAgentIdException {
@@ -207,7 +208,7 @@ public class PrimeCalculator extends AbstractTucsonAgent {
         try {
             super.say("Started");
             final EnhancedAsyncACC acc = this.getContext();
-            final TucsonTupleCentreId tid = new TucsonTupleCentreId("default",
+            final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
                     "localhost", "20504");
             final AsynchOpsHelper helper = new AsynchOpsHelper("'helper4"
                     + this.getTucsonAgentId() + "'");

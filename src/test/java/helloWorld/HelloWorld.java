@@ -6,9 +6,11 @@ import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -34,9 +36,9 @@ public final class HelloWorld {
         TucsonAgentId aid = null;
         try {
             if (args.length == 1) {
-                aid = new TucsonAgentId(args[0]);
+                aid = new TucsonAgentIdDefault(args[0]);
             } else {
-                aid = new TucsonAgentId("helloWorldMain");
+                aid = new TucsonAgentIdDefault("helloWorldMain");
             }
             /*
              * 2) Get a TuCSoN ACC to enable interaction with the TuCSoN system.
@@ -47,7 +49,7 @@ public final class HelloWorld {
             /*
              * 3) Define the tuplecentre target of your coordination operations.
              */
-            final TucsonTupleCentreId tid = new TucsonTupleCentreId("default",
+            final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
                     "localhost", "20504");
             /*
              * 4) Build the tuple using the communication language.
@@ -63,16 +65,16 @@ public final class HelloWorld {
              */
             LogicTuple res = null;
             if (op.isResultSuccess()) {
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation succeeded.");
                 /*
                  * 7) Get requested operation result.
                  */
                 res = op.getLogicTupleResult();
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation result is " + res);
             } else {
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation failed.");
             }
             /*
@@ -82,10 +84,10 @@ public final class HelloWorld {
             op = acc.rdp(tid, template, null);
             if (op.isResultSuccess()) {
                 res = op.getLogicTupleResult();
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation result is " + res);
             } else {
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation failed.");
             }
             /*
@@ -94,7 +96,7 @@ public final class HelloWorld {
             acc.exit();
         } catch (final TucsonInvalidAgentIdException e) {
             /*
-             * The chosen TuCSoN Agent ID is not admissible.
+             * The chosen TuCSoN Agent Identifier is not admissible.
              */
             e.printStackTrace();
         } catch (final TucsonInvalidTupleCentreIdException e) {

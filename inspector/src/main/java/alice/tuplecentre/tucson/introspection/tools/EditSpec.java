@@ -13,20 +13,25 @@
  */
 package alice.tuplecentre.tucson.introspection.tools;
 
-import alice.tuplecentre.tucson.api.TucsonAgentId;
+import java.awt.Color;
+import java.awt.Font;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
+import javax.swing.text.BadLocationException;
+
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
-
-import javax.swing.*;
-import javax.swing.text.BadLocationException;
-import java.awt.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  *
@@ -54,7 +59,7 @@ public class EditSpec extends javax.swing.JFrame {
         super();
         this.initComponents();
         this.setTitle("ReSpecT specification tuples of tuplecentre < "
-                + t.getName() + "@" + t.getNode() + ":" + t.getPort() + " >");
+                + t.getLocalName() + "@" + t.getNode() + ":" + t.getPort() + " >");
         this.inputSpec = new JTextArea("% Write your respect reactions below\n");
         this.inputSpec.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
         this.inputSpec.setPreferredSize(new java.awt.Dimension(800, 600));
@@ -92,7 +97,7 @@ public class EditSpec extends javax.swing.JFrame {
         this.pack();
         this.tid = t;
         try {
-            this.context = TucsonMetaACC.getContext(new TucsonAgentId(
+            this.context = TucsonMetaACC.getContext(new TucsonAgentIdDefault(
                     "'$Inspector-" + System.currentTimeMillis() + "'"));
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();

@@ -13,7 +13,19 @@
  */
 package alice.tuplecentre.core;
 
-import alice.tuplecentre.api.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
+import alice.tuplecentre.api.AgentIdentifier;
+import alice.tuplecentre.api.EmitterIdentifier;
+import alice.tuplecentre.api.ITupleCentre;
+import alice.tuplecentre.api.ITupleCentreManagement;
+import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.TupleCentreIdentifier;
+import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.respect.api.IRespectTC;
 import alice.tuplecentre.respect.api.geolocation.PlatformUtils;
@@ -23,8 +35,6 @@ import alice.tuplecentre.respect.api.geolocation.service.GeolocationServiceManag
 import alice.tuplecentre.respect.core.RespectVM;
 import alice.tuplecentre.respect.core.StepMonitor;
 import alice.tuprolog.Term;
-
-import java.util.*;
 
 /**
  * Defines the build abstract behaviour of a tuple centre virtual machine.
@@ -59,7 +69,7 @@ public abstract class AbstractTupleCentreVMContext implements
     private final Map<String, AbstractTupleCentreVMState> states;
     private final StepMonitor step;
     private boolean stepMode;
-    private final TupleCentreId tid;
+    private final TupleCentreIdentifier tid;
 
     /**
      * Creates a new tuple centre virtual machine build
@@ -74,7 +84,7 @@ public abstract class AbstractTupleCentreVMContext implements
      *            the ReSpecT tuple centre this VM refers to
      */
     public AbstractTupleCentreVMContext(final RespectVM vm,
-            final TupleCentreId id, final int ieSize, final IRespectTC rtc) {
+                                        final TupleCentreIdentifier id, final int ieSize, final IRespectTC rtc) {
         this.rvm = vm;
         this.management = false;
         this.stepMode = false;
@@ -166,7 +176,7 @@ public abstract class AbstractTupleCentreVMContext implements
     public abstract void addTuple(Tuple t, boolean u);
 
 
-    public void doOperation(final IId who, final AbstractTupleCentreOperation op)
+    public void doOperation(final EmitterIdentifier who, final AbstractTupleCentreOperation op)
             throws OperationNotPossibleException {
         final InputEvent ev = new InputEvent(who, op, this.tid,
                 this.getCurrentTime(), this.getPosition());
@@ -332,7 +342,7 @@ public abstract class AbstractTupleCentreVMContext implements
      * @return the identifier of the tuple centre managed by this tuple centre
      *         VM
      */
-    public TupleCentreId getId() {
+    public TupleCentreIdentifier getId() {
         return this.tid;
     }
 
@@ -532,7 +542,7 @@ public abstract class AbstractTupleCentreVMContext implements
      * @param id
      *            is the agent identifies
      */
-    public abstract void removePendingQueryEventsOf(AgentId id);
+    public abstract void removePendingQueryEventsOf(AgentIdentifier id);
 
     /**
      * Removes a time-triggered reaction, previously fetched
@@ -593,7 +603,7 @@ public abstract class AbstractTupleCentreVMContext implements
      *            the identifier of the tuple centre target of the operation
      * @return wether the operation succeeded
      */
-    public abstract boolean spawnActivity(Tuple t, IId owner, IId targetTC);
+    public abstract boolean spawnActivity(Tuple t, EmitterIdentifier owner, EmitterIdentifier targetTC);
 
     @Override
     public void stopCommand() throws OperationNotPossibleException {

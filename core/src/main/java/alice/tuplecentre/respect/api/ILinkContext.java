@@ -1,5 +1,6 @@
 package alice.tuplecentre.respect.api;
 
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 
@@ -19,6 +20,6 @@ public interface ILinkContext {
      * @throws OperationNotPossibleException
      *             if the operation cannot be carried out
      */
-    void doOperation(TupleCentreId id, AbstractTupleCentreOperation op)
+    void doOperation(final TupleCentreIdentifier id, final AbstractTupleCentreOperation op)
             throws OperationNotPossibleException;
 }

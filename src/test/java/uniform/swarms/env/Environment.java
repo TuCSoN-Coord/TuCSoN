@@ -1,11 +1,15 @@
 package uniform.swarms.env;
 
+import java.io.IOException;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -13,8 +17,6 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdExcepti
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.utilities.Utils;
-
-import java.io.IOException;
 
 /**
  * @author Stefano Mariani (mailto: s [dot] mariani [at] unibo [dot] it)
@@ -58,7 +60,7 @@ public final class Environment {
         TucsonTupleCentreId tcid;
         try {
             Environment.log("Configuring <food>...");
-            tcid = new TucsonTupleCentreId("food", "localhost", "20504");
+            tcid = new TucsonTupleCentreIdDefault("food", "localhost", "20504");
             Environment.acc
                     .outAll(tcid,
                             LogicTuple
@@ -98,7 +100,7 @@ public final class Environment {
         TucsonTupleCentreId tcid;
         try {
             Environment.log("Configuring <long1>...");
-            tcid = new TucsonTupleCentreId("long1", "localhost", "20507");
+            tcid = new TucsonTupleCentreIdDefault("long1", "localhost", "20507");
             Environment.acc
                     .outAll(tcid,
                             LogicTuple
@@ -129,7 +131,7 @@ public final class Environment {
 
         try {
             Environment.log("Configuring <long2>...");
-            tcid = new TucsonTupleCentreId("long2", "localhost", "20505");
+            tcid = new TucsonTupleCentreIdDefault("long2", "localhost", "20505");
             Environment.acc
                     .outAll(tcid,
                             LogicTuple
@@ -166,7 +168,7 @@ public final class Environment {
         TucsonTupleCentreId tcid;
         try {
             Environment.log("Configuring <short>...");
-            tcid = new TucsonTupleCentreId("short", "localhost", "20506");
+            tcid = new TucsonTupleCentreIdDefault("short", "localhost", "20506");
             Environment.acc
                     .outAll(tcid,
                             LogicTuple
@@ -203,7 +205,7 @@ public final class Environment {
         TucsonTupleCentreId tcid;
         try {
             Environment.log("Configuring <anthill>...");
-            tcid = new TucsonTupleCentreId("anthill", "localhost", "20508");
+            tcid = new TucsonTupleCentreIdDefault("anthill", "localhost", "20508");
             Environment.acc
                     .outAll(tcid,
                             LogicTuple
@@ -250,7 +252,7 @@ public final class Environment {
      */
     private static void acquireACC() {
         try {
-            Environment.me = new TucsonAgentId("env");
+            Environment.me = new TucsonAgentIdDefault("env");
             Environment.negAcc = TucsonMetaACC
                     .getNegotiationContext(Environment.me);
             Environment.acc = Environment.negAcc.playDefaultRole();

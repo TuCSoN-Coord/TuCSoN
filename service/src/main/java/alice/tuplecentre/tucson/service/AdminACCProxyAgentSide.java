@@ -6,22 +6,24 @@ import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidTupleArgumentException;
 import alice.logictuple.exceptions.InvalidVarNameException;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.respect.api.exceptions.OperationNotAllowedException;
 import alice.tuplecentre.tucson.api.TucsonOperation;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.AdminACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.tucson.rbac.*;
+import alice.tuplecentre.tucson.rbac.AuthorisedAgent;
+import alice.tuplecentre.tucson.rbac.Permission;
+import alice.tuplecentre.tucson.rbac.Policy;
+import alice.tuplecentre.tucson.rbac.RBACStructure;
+import alice.tuplecentre.tucson.rbac.Role;
+import alice.tuplecentre.tucson.rbac.TucsonAuthorisedAgent;
 import alice.tuplecentre.tucson.service.tools.TucsonACCTool;
 import alice.tuplecentre.tucson.utilities.Utils;
-
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 /**
  * Class implementing the Administrator ACC.
@@ -35,17 +37,17 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
 
     private static final int DEF_PORT = 20504;
     private boolean isAdminAuth;
-    private final TupleCentreId tid;
+    private final TupleCentreIdentifier tid;
 
     /**
-     * Builds an Administrator ACC given the associated agent ID or name
+     * Builds an Administrator ACC given the associated agent Identifier or name
      *
      * @param aid
-     *            the associated agent ID or name (String)
+     *            the associated agent Identifier or name (String)
      * @throws TucsonInvalidAgentIdException
-     *             if the given agent ID is NOT valid
+     *             if the given agent Identifier is NOT valid
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre ID is NOT valid
+     *             if the given tuple centre Identifier is NOT valid
      */
     public AdminACCProxyAgentSide(final Object aid)
             throws TucsonInvalidAgentIdException,
@@ -54,20 +56,20 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
     }
 
     /**
-     * Builds an Administrator ACC given the associated agent ID or name, the IP
+     * Builds an Administrator ACC given the associated agent Identifier or name, the IP
      * address of the TuCSoN node the agent is willing to interact with, and the
      * TCP port also.
      *
      * @param aid
-     *            the associated agent ID or name (String)
+     *            the associated agent Identifier or name (String)
      * @param node
      *            the IP address of the target TuCSoN node
      * @param port
      *            the TCP port of the target TuCSoN node
      * @throws TucsonInvalidAgentIdException
-     *             if the given agent ID is NOT valid
+     *             if the given agent Identifier is NOT valid
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre ID is NOT valid
+     *             if the given tuple centre Identifier is NOT valid
      */
     public AdminACCProxyAgentSide(final Object aid, final String node,
             final int port) throws TucsonInvalidAgentIdException,
@@ -76,12 +78,12 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
     }
 
     /**
-     * Builds an Administrator ACC given the associated agent ID or name, the IP
+     * Builds an Administrator ACC given the associated agent Identifier or name, the IP
      * address of the TuCSoN node the agent is willing to interact with, the TCP
      * port also, as well as the agent username and (encrypted) password.
      *
      * @param aid
-     *            the associated agent ID or name (String)
+     *            the associated agent Identifier or name (String)
      * @param node
      *            the IP address of the target TuCSoN node
      * @param port
@@ -91,9 +93,9 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
      * @param psw
      *            the associated agent (encrypted) password
      * @throws TucsonInvalidAgentIdException
-     *             if the given agent ID is NOT valid
+     *             if the given agent Identifier is NOT valid
      * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre ID is NOT valid
+     *             if the given tuple centre Identifier is NOT valid
      */
     public AdminACCProxyAgentSide(final Object aid, final String node,
             final int port, final String uname, final String psw)
@@ -425,7 +427,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
 
     }
 
-    private TupleCentreId getTid(final String n, final int p)
+    private TupleCentreIdentifier getTid(final String n, final int p)
             throws TucsonInvalidTupleCentreIdException {
 
         String tmpNode;
@@ -449,12 +451,12 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
 	                final String localNodeAddress = localhost.getHostAddress();
 	                tmpNode = localNodeAddress;
 	            } catch (final UnknownHostException e) {
-	                return new TucsonTupleCentreId(TC_ORG, "'"
+	                return new TucsonTupleCentreIdDefault(TC_ORG, "'"
 	                        + tmpNode + "'", "" + tmpPort);
 	            } 
 	        }
         }
-        return new TucsonTupleCentreId(TC_ORG, "'" + tmpNode
+        return new TucsonTupleCentreIdDefault(TC_ORG, "'" + tmpNode
                 + "'", "" + tmpPort);
 
     }

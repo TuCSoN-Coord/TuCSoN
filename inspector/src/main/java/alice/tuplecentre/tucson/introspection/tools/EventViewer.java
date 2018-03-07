@@ -13,14 +13,19 @@
  */
 package alice.tuplecentre.tucson.introspection.tools;
 
+import java.awt.Color;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.tucson.introspection.GetSnapshotMsg;
 import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
-
-import javax.swing.*;
-import java.awt.*;
 
 /**
  *
@@ -63,7 +68,7 @@ public class EventViewer extends javax.swing.JFrame {
         this.mainForm = mf;
         this.context = this.mainForm.agent.getContext();
         this.setTitle("Pending TuCSoN operations set of tuplecentre < "
-                + this.mainForm.tid.getName() + "@"
+                + this.mainForm.tid.getLocalName() + "@"
                 + this.mainForm.tid.getNode() + ":"
                 + this.mainForm.tid.getPort() + " >");
         this.setSize(520, 460);

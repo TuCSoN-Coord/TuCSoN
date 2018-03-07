@@ -3,6 +3,9 @@
  */
 package uniform.swarms.ants;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -10,14 +13,12 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author ste
@@ -51,7 +52,7 @@ public class Ant extends AbstractTucsonAgent {
         super(aid, netid, port);
         this.acc = null;
         try {
-            this.tcid = new TucsonTupleCentreId(tcName, netid, "" + port);
+            this.tcid = new TucsonTupleCentreIdDefault(tcName, netid, "" + port);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.err(e.getClass().getSimpleName() + ":" + tcName + ", " + netid
                     + ", " + port);
@@ -198,10 +199,10 @@ public class Ant extends AbstractTucsonAgent {
 
             try {
                 if (this.carryingFood) {
-                    oldTcid = new TucsonTupleCentreId(this.tcid.getName(),
+                    oldTcid = new TucsonTupleCentreIdDefault(this.tcid.getLocalName(),
                             this.tcid.getNode(), "" + this.tcid.getPort());
                 }
-                this.tcid = new TucsonTupleCentreId(direction.getArg(0)
+                this.tcid = new TucsonTupleCentreIdDefault(direction.getArg(0)
                         .getArg(0).toString(), direction.getArg(0).getArg(1)
                         .getArg(0).toString(), direction.getArg(0).getArg(1)
                         .getArg(1).toString());
@@ -235,7 +236,7 @@ public class Ant extends AbstractTucsonAgent {
     }
 
     private boolean isAnthill() {
-        return ("anthill".equals(this.tcid.getName()));
+        return ("anthill".equals(this.tcid.getLocalName()));
     }
 
     private void dropFood() {

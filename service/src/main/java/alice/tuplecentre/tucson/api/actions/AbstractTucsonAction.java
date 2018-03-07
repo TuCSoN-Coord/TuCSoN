@@ -38,7 +38,7 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 public abstract class AbstractTucsonAction {
 
     /**
-     * The ID of the TuCSoN tuple centre target of the operation
+     * The Identifier of the TuCSoN tuple centre target of the operation
      */
     protected TucsonTupleCentreId tcid;
     /**
@@ -50,7 +50,7 @@ public abstract class AbstractTucsonAction {
      * Builds a TuCSoN action whose target is the given tuple centre
      * 
      * @param tc
-     *            the ID of the TuCSoN tuple centre target of the operation
+     *            the Identifier of the TuCSoN tuple centre target of the operation
      */
     public AbstractTucsonAction(final TucsonTupleCentreId tc) {
         this.tcid = tc;

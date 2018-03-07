@@ -26,6 +26,7 @@ import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.acc.EnhancedAsyncACC;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
+import alice.tuplecentre.tucson.api.acc.OrdinaryAsyncACC;
 import alice.tuplecentre.tucson.api.actions.AbstractTucsonOrdinaryAction;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
@@ -46,7 +47,7 @@ public class Out extends AbstractTucsonOrdinaryAction {
      * its tuple argument
      * 
      * @param tc
-     *            the ID of the TuCSoN tuple centre target of this coordination
+     *            the Identifier of the TuCSoN tuple centre target of this coordination
      *            operation
      * @param t
      *            the logic tuple argument of this coordination operation

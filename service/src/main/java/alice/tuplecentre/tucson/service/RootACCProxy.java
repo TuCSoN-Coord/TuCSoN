@@ -1,8 +1,8 @@
 package alice.tuplecentre.tucson.service;
 
-import alice.tuplecentre.tucson.api.acc.RootACC;
-
 import java.util.UUID;
+
+import alice.tuplecentre.tucson.api.acc.RootACC;
 
 /**
  *

@@ -1,9 +1,9 @@
 package alice.tuplecentre.tucson.introspection;
 
-import alice.logictuple.LogicTuple;
-import alice.tuplecentre.api.IId;
-
 import java.io.Serializable;
+
+import alice.logictuple.LogicTuple;
+import alice.tuplecentre.api.EmitterIdentifier;
 
 /**
  *
@@ -18,8 +18,8 @@ public class WSetEvent implements Serializable {
      */
     private static final long serialVersionUID = 9193318251500885501L;
     private LogicTuple op;
-    private IId source;
-    private IId target;
+    private EmitterIdentifier source;
+    private EmitterIdentifier target;
 
     /**
      *
@@ -30,7 +30,7 @@ public class WSetEvent implements Serializable {
      * @param t
      *            the identifier of the event target
      */
-    public WSetEvent(final LogicTuple lt, final IId s, final IId t) {
+    public WSetEvent(final LogicTuple lt, final EmitterIdentifier s, final EmitterIdentifier t) {
         this.op = lt;
         this.source = s;
         this.target = t;
@@ -46,14 +46,14 @@ public class WSetEvent implements Serializable {
     /**
      * @return the source
      */
-    public IId getSource() {
+    public EmitterIdentifier getSource() {
         return this.source;
     }
 
     /**
      * @return the target
      */
-    public IId getTarget() {
+    public EmitterIdentifier getTarget() {
         return this.target;
     }
 
@@ -69,7 +69,7 @@ public class WSetEvent implements Serializable {
      * @param s
      *            the source to set
      */
-    public void setSource(final IId s) {
+    public void setSource(final EmitterIdentifier s) {
         this.source = s;
     }
 
@@ -77,7 +77,7 @@ public class WSetEvent implements Serializable {
      * @param t
      *            the target to set
      */
-    public void setTarget(final IId t) {
+    public void setTarget(final EmitterIdentifier t) {
         this.target = t;
     }
 }

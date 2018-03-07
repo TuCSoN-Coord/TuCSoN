@@ -19,9 +19,9 @@
  */
 package asynchAPI;
 
-import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
-
 import java.util.logging.Logger;
+
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 
 /**
  * An example of usage of TuCSoN asynchSupport API. A master agent (MasterAgent)

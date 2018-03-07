@@ -1,8 +1,8 @@
 package alice.tuplecentre.respect.api.place;
 
-import alice.tuprolog.Term;
-
 import java.io.Serializable;
+
+import alice.tuprolog.Term;
 
 /**
  * 

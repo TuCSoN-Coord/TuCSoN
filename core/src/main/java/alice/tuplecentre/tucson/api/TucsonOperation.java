@@ -13,10 +13,10 @@
  */
 package alice.tuplecentre.tucson.api;
 
+import java.util.List;
+
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreOperation;
-
-import java.util.List;
 
 /**
  * TucsonOperation interface, to access the data about TuCSoN operations

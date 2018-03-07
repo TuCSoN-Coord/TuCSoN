@@ -3,14 +3,18 @@
  */
 package persistency;
 
+import java.io.IOException;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -20,8 +24,6 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
 import alice.tuplecentre.tucson.service.TucsonNodeService;
 import alice.tuplecentre.tucson.utilities.Utils;
-
-import java.io.IOException;
 
 /**
  * @author ste
@@ -46,11 +48,11 @@ public final class PersistencyTester {
             } catch (final DialogInitializationException e) {
                 e.printStackTrace();
             }
-            final TucsonTupleCentreId ttcid = new TucsonTupleCentreId(
+            final TucsonTupleCentreId ttcid = new TucsonTupleCentreIdDefault(
                     "def(1)@localhost:20504");
-            final TucsonTupleCentreId ttcidOrg = new TucsonTupleCentreId(
+            final TucsonTupleCentreId ttcidOrg = new TucsonTupleCentreIdDefault(
                     "'$ORG'@localhost:20504");
-            final TucsonAgentId aid = new TucsonAgentId("'PersistencyTester'");
+            final TucsonAgentId aid = new TucsonAgentIdDefault("'PersistencyTester'");
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(aid);
             final EnhancedACC acc = negAcc.playDefaultRole();

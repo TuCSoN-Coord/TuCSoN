@@ -13,9 +13,8 @@
  */
 package alice.tuplecentre.tucson.service;
 
-import alice.tuplecentre.api.TupleCentreOpId;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
-import alice.tuplecentre.tucson.api.TucsonOpId;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
@@ -28,43 +27,29 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 public interface InterTupleCentreACC {
 
     /**
-     *
-     *
-     * @param tid
-     *            the identifier of the tuple centre target of the operation
+     * @param tid the identifier of the tuple centre target of the operation
      *            requested
-     * @param op
-     *            the operation requested
-     *
+     * @param op  the operation requested
      * @return the identifier of the operation requested
-     *
-     * @throws TucsonOperationNotPossibleException
-     *             if the operation requested cannot be performed
-     * @throws UnreachableNodeException
-     *             if the target tuple centre cannot be reached over the network
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Object is not a valid identifier of a tuple
-     *             centre
+     * @throws TucsonOperationNotPossibleException if the operation requested cannot be performed
+     * @throws UnreachableNodeException            if the target tuple centre cannot be reached over the network
+     * @throws TucsonInvalidTupleCentreIdException if the given Object is not a valid identifier of a tuple
+     *                                             centre
      */
-    TupleCentreOpId doOperation(final Object tid, final AbstractTupleCentreOperation op)
+    OperationIdentifier doOperation(final Object tid, final AbstractTupleCentreOperation op)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, TucsonInvalidTupleCentreIdException;
 
     /**
-     *
-     * @param id
-     *            the identifier of the operation requested
+     * @param id the identifier of the operation requested
      * @return the Object representing operation completion
      */
-    TucsonOpCompletionEvent waitForCompletion(final TupleCentreOpId id);
+    TucsonOpCompletionEvent waitForCompletion(final OperationIdentifier id);
 
     /**
-     *
-     * @param id
-     *            the identifier of the operation requested
-     * @param timeout
-     *            the timeout associated to the operation
+     * @param id      the identifier of the operation requested
+     * @param timeout the timeout associated to the operation
      * @return the Object representing operation completion
      */
-    TucsonOpCompletionEvent waitForCompletion(final TupleCentreOpId id, final int timeout);
+    TucsonOpCompletionEvent waitForCompletion(final OperationIdentifier id, final int timeout);
 }

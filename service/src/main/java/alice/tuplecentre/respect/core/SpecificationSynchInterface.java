@@ -12,6 +12,9 @@
  */
 package alice.tuplecentre.respect.core;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -22,9 +25,6 @@ import alice.tuplecentre.respect.api.RespectOperation;
 import alice.tuplecentre.respect.api.RespectSpecification;
 import alice.tuplecentre.respect.api.exceptions.InvalidSpecificationException;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * 

@@ -14,10 +14,9 @@
 package alice.tuplecentre.tucson.api.acc;
 
 import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonOperation;
-import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
@@ -34,7 +33,7 @@ public interface BulkSyncACC extends SyncACC {
      * one shot (a single transition step). The empty list may be returned in
      * case no tuples match. Matching tuples are removed from the space.
      *
-     * @param tid     the TupleCentreId of the target tuple centre
+     * @param tid     the TupleCentreIdentifier of the target tuple centre
      * @param tuple   the tuple template to be used to retrieve tuples
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
@@ -48,12 +47,12 @@ public interface BulkSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    TucsonOperation inAll(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation inAll(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -64,7 +63,7 @@ public interface BulkSyncACC extends SyncACC {
      * all the tuples matching the template are returned (with <code> no </code>
      * only one non-deterministically selected is returned).
      *
-     * @param tid     the TupleCentreId of the target tuple centre
+     * @param tid     the TupleCentreIdentifier of the target tuple centre
      * @param tuple   the tuple template to be used to check absence
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
@@ -78,12 +77,12 @@ public interface BulkSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    TucsonOperation noAll(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation noAll(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -91,7 +90,7 @@ public interface BulkSyncACC extends SyncACC {
      * Inject in the space a list of tuples in one shot (a single transition
      * step).
      *
-     * @param tid     the TupleCentreId of the target tuple centre
+     * @param tid     the TupleCentreIdentifier of the target tuple centre
      * @param tuple   the list of tuples to inject (must be a Prolog list)
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
@@ -105,12 +104,12 @@ public interface BulkSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    TucsonOperation outAll(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation outAll(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
@@ -119,7 +118,7 @@ public interface BulkSyncACC extends SyncACC {
      * shot (a single transition step). The empty list may be returned in case
      * no tuples match. Matching tuples are NOT removed from the space.
      *
-     * @param tid     the TupleCentreId of the target tuple centre
+     * @param tid     the TupleCentreIdentifier of the target tuple centre
      * @param tuple   the tuple template to be used to observe tuples
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
@@ -133,12 +132,12 @@ public interface BulkSyncACC extends SyncACC {
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
-     * @see alice.tuplecentre.api.TupleCentreId TupleCentreId
+     * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    TucsonOperation rdAll(final TupleCentreId tid, final Tuple tuple, final Long timeout)
+    TucsonOperation rdAll(final TupleCentreIdentifier tid, final Tuple tuple, final Long timeout)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 }

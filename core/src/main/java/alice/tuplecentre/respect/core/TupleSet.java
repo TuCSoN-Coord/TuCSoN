@@ -12,10 +12,15 @@
  */
 package alice.tuplecentre.respect.core;
 
+import java.util.AbstractMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.ListIterator;
+
 import alice.logictuple.LogicTuple;
 import alice.tuprolog.Var;
-
-import java.util.*;
 
 /**
  * Class representing a Tuple Set.

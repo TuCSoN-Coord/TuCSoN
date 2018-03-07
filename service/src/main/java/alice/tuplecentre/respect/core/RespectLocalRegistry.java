@@ -1,12 +1,12 @@
 package alice.tuplecentre.respect.core;
 
-import alice.tuplecentre.respect.api.IRespectTC;
-import alice.tuplecentre.respect.api.ITCRegistry;
-import alice.tuplecentre.respect.api.TupleCentreId;
-import alice.tuplecentre.respect.api.exceptions.InstantiationNotPossibleException;
-
 import java.util.HashMap;
 import java.util.Map;
+
+import alice.tuplecentre.api.TupleCentreIdentifier;
+import alice.tuplecentre.respect.api.IRespectTC;
+import alice.tuplecentre.respect.api.ITCRegistry;
+import alice.tuplecentre.respect.api.exceptions.InstantiationNotPossibleException;
 
 /**
  *
@@ -31,8 +31,8 @@ public class RespectLocalRegistry implements ITCRegistry {
 
     @Override
     public void addTC(final IRespectTC tc) {
-        final TupleCentreId id = tc.getId();
-        final String key = id.getName() + ":" + id.getPort();
+        final TupleCentreIdentifier id = tc.getId();
+        final String key = id.getLocalName() + ":" + id.getPort();
         if (!this.reg.containsKey(key)) {
             this.reg.put(key, tc);
         }
@@ -52,9 +52,9 @@ public class RespectLocalRegistry implements ITCRegistry {
     }
 
     @Override
-    public IRespectTC getTC(final TupleCentreId id)
+    public IRespectTC getTC(final TupleCentreIdentifier id)
             throws InstantiationNotPossibleException {
-        final String key = id.getName() + ":" + id.getPort();
+        final String key = id.getLocalName() + ":" + id.getPort();
         if (!this.reg.containsKey(key)) {
             throw new InstantiationNotPossibleException("The string " + key
                     + " is not contained in the registry");

@@ -15,7 +15,7 @@ package alice.tuplecentre.tucson.api.acc;
 
 import java.util.Map;
 
-import alice.tuplecentre.api.TupleCentreOpId;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 
 /**
@@ -32,5 +32,5 @@ public interface AsyncACC extends RootACC {
      *
      * @return the Map associating operation ids with the actual TuCSoN operation
      */
-    Map<TupleCentreOpId, TucsonOperation> getPendingOperationsMap();
+    Map<OperationIdentifier, TucsonOperation> getPendingOperationsMap();
 }
