@@ -1,6 +1,3 @@
-/**
- * JTuplesEngine.java
- */
 package alice.tuple.java.impl;
 
 import java.util.ArrayList;
@@ -9,11 +6,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import alice.tuple.java.api.JArg;
+import alice.tuple.java.api.JArgType;
 import alice.tuple.java.api.JTuple;
 import alice.tuple.java.api.JTupleTemplate;
 import alice.tuple.java.api.JVal;
 import alice.tuple.java.api.JVar;
-import alice.tuple.java.api.JArgType;
 import alice.tuple.java.exceptions.InvalidJValException;
 import alice.tuple.java.exceptions.InvalidJVarException;
 import alice.tuple.logic.LogicMatchingEngine;
@@ -25,19 +22,15 @@ import alice.tuplecentre.api.exceptions.InvalidTupleException;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014
- *
  */
 public final class JTuplesEngine {
 
     /**
-     *
-     * @param lt
-     *            the tuProlog LogicTuple to be checked
+     * @param lt the tuProlog LogicTuple to be checked
      * @return wether the given tuProlog LogicTuple represents a template
-     *         (namely, wether it contains any variable)
-     * @throws InvalidTupleException
-     *             if the given tuProlog LogicTuple is not convertible into a
-     *             JTuple (too much expressive)
+     * (namely, wether it contains any variable)
+     * @throws InvalidTupleException if the given tuProlog LogicTuple is not convertible into a
+     *                               JTuple (too much expressive)
      */
     public static boolean isTemplate(final LogicTuple lt)
             throws InvalidTupleException {
@@ -66,18 +59,16 @@ public final class JTuplesEngine {
     /**
      * Tests if the given arguments matches according to tuProlog matching rules
      * for LogicTuples
-     *
+     * <p>
      * No unification (a la tuProlog) is performed
      *
-     * @param template
-     *            the JTupleTemplate to match
-     * @param tuple
-     *            the JTuple to match
+     * @param template the JTupleTemplate to match
+     * @param tuple    the JTuple to match
      * @return wether the given JTupleTemplate and the given JTuple match
-     *         (according to tuProlog matching rules for LogicTuples)
+     * (according to tuProlog matching rules for LogicTuples)
      */
     public static boolean match(final JTupleTemplate template,
-            final JTuple tuple) {
+                                final JTuple tuple) {
         return LogicMatchingEngine.match(JTuplesEngine.toLogicTuple(template),
                 JTuplesEngine.toLogicTuple(tuple));
     }
@@ -85,28 +76,23 @@ public final class JTuplesEngine {
     /**
      * Tries to perform unification (a la tuProlog)
      *
-     * @param template
-     *            the JTupleTemplate to match
-     * @param tuple
-     *            the JTuple to match
+     * @param template the JTupleTemplate to match
+     * @param tuple    the JTuple to match
      * @return wether the given JTupleTemplate and the given JTuple match
-     *         (according to tuProlog matching rules for LogicTuples)
+     * (according to tuProlog matching rules for LogicTuples)
      */
     public static boolean propagate(final JTupleTemplate template,
-            final JTuple tuple) {
+                                    final JTuple tuple) {
         return LogicMatchingEngine.propagate(
                 JTuplesEngine.toLogicTuple(template),
                 JTuplesEngine.toLogicTuple(tuple));
     }
 
     /**
-     *
-     * @param tuple
-     *            the tuProlog LogicTuple to convert into a JTuple
+     * @param tuple the tuProlog LogicTuple to convert into a JTuple
      * @return the obtained JTuple
-     * @throws InvalidTupleException
-     *             if the given tuProlog LogicTuple is more expressive w.r.t.
-     *             JTuple language, hence, not convertible
+     * @throws InvalidTupleException if the given tuProlog LogicTuple is more expressive w.r.t.
+     *                               JTuple language, hence, not convertible
      */
     public static JTuple toJavaTuple(final LogicTuple tuple)
             throws InvalidTupleException {
@@ -153,14 +139,11 @@ public final class JTuplesEngine {
     }
 
     /**
-     *
-     * @param template
-     *            the tuProlog LogicTuple template to convert into a
-     *            JTupleTemplate
+     * @param template the tuProlog LogicTuple template to convert into a
+     *                 JTupleTemplate
      * @return the obtained JTupleTemplate
-     * @throws InvalidTupleException
-     *             if the given tuProlog LogicTuple template is more expressive
-     *             w.r.t. JTupleTemplate language, hence, not convertible
+     * @throws InvalidTupleException if the given tuProlog LogicTuple template is more expressive
+     *                               w.r.t. JTupleTemplate language, hence, not convertible
      */
     public static JTupleTemplate toJavaTupleTemplate(final LogicTuple template)
             throws InvalidTupleException {
@@ -233,9 +216,7 @@ public final class JTuplesEngine {
     }
 
     /**
-     *
-     * @param tuple
-     *            the JTuple to convert into a tuProlog LogicTuple
+     * @param tuple the JTuple to convert into a tuProlog LogicTuple
      * @return the obtained tuProlog LogicTuple
      */
     public static LogicTuple toLogicTuple(final JTuple tuple) {
@@ -260,9 +241,7 @@ public final class JTuplesEngine {
     }
 
     /**
-     *
-     * @param template
-     *            the JTupleTemplate to convert into a tuProlog LogicTuple
+     * @param template the JTupleTemplate to convert into a tuProlog LogicTuple
      * @return the obtained tuProlog LogicTuple
      */
     public static LogicTuple toLogicTuple(final JTupleTemplate template) {

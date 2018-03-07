@@ -7,7 +7,7 @@ import alice.tuprolog.Prolog;
 import alice.tuprolog.Term;
 
 /**
- * Utility class for matching or unifying log tuples
+ * Utility class for matching or unifying logic tuples
  *
  * @author ste (mailto: s.mariani@unibo.it) on 07/gen/2014 ciccis
  */
