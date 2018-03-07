@@ -24,9 +24,9 @@ import alice.logictuple.LogicTupleOpManager;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidVarNameException;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
-import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -59,13 +59,13 @@ import alice.tuprolog.Parser;
  * Active part of the Default Agent Coordination Context.
  *
  * It implements the underlying behavior needed by every TuCSoN Agent
- * {@link AbstractTucsonAgent user} to fruitfully interact with
+ * {@link alice.tuplecentre.tucson.api.AbstractTucsonAgent user} to fruitfully interact with
  * the TuCSoN Node Service {@link alice.tuplecentre.tucson.service.TucsonNodeService TuCSoN}
  * . Essentially, it implements every method exposed in the Default ACC
  * Interface {@link DefaultACC default} offered to the agent,
  * maps each of them into TuCSoN Request Messages
  * {@link TucsonMsgRequest req}, then waits for TuCSoN Node
- * Services replies {@link TucsonMsgReply reply} forwarding
+ * Services replies {@link alice.tuplecentre.tucson.network.TucsonMsgReply reply} forwarding
  * them to the agent.
  *
  * It also is in charge of establishing the first connection toward the TuCSoN
@@ -74,17 +74,17 @@ import alice.tuprolog.Parser;
  *
  * It is created from the TuCSoN Agent class. In it, an internal thread is
  * responsible to obtain the choosen ACC (the Default is the only at the moment)
- * by invoking the {@link TucsonMetaACC#getContext getContext}
+ * by invoking the {@link alice.tuplecentre.tucson.api.TucsonMetaACC#getContext getContext}
  * static method from the TuCSoN Meta ACC class
- * {@link TucsonMetaACC metaACC}. The acquisition of such ACC
+ * {@link alice.tuplecentre.tucson.api.TucsonMetaACC metaACC}. The acquisition of such ACC
  * triggers this proxy creation and execution.
  *
- * @see AbstractTucsonAgent TucsonAgent
+ * @see alice.tuplecentre.tucson.api.AbstractTucsonAgent TucsonAgent
  * @see alice.tuplecentre.tucson.service.TucsonNodeService TucsonNodeService
  * @see DefaultACC DefaultACC
  * @see TucsonMsgRequest TucsonMsgRequest
- * @see TucsonMsgReply TucsonMsgReply
- * @see TucsonMetaACC TucsonMetaACC
+ * @see alice.tuplecentre.tucson.network.TucsonMsgReply TucsonMsgReply
+ * @see alice.tuplecentre.tucson.api.TucsonMetaACC TucsonMetaACC
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
@@ -311,7 +311,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
     }
 
     @Override
-    public Map<TupleCentreOpId, TucsonOperation> getPendingOperationsMap() {
+    public Map<OperationIdentifier, TucsonOperation> getPendingOperationsMap() {
         return this.executor.operations;
     }
     

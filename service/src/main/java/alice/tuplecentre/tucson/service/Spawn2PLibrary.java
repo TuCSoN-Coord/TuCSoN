@@ -1,5 +1,8 @@
 package alice.tuplecentre.tucson.service;
 
+import java.util.Iterator;
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.Tuple;
@@ -14,9 +17,6 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuprolog.Library;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
-
-import java.util.Iterator;
-import java.util.List;
 
 /**
  *

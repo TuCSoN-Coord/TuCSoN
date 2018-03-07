@@ -6,6 +6,7 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.respect.api.IManagementContext;
 import alice.tuplecentre.respect.api.RespectSpecification;
 import alice.tuplecentre.respect.api.exceptions.InvalidSpecificationException;
@@ -32,7 +33,7 @@ public class ManagementContext implements IManagementContext {
     }
 
     @Override
-    public boolean abortOperation(final TupleCentreOpId opId) {
+    public boolean abortOperation(final OperationIdentifier opId) {
         return this.vm.abortOperation(opId);
     }
 

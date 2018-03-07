@@ -65,7 +65,7 @@ public enum ProbesManager {
      *             if the callee cannot be found
      */
     public synchronized boolean createProbe(final String className,
-            final ProbeIdentifier id) throws ClassNotFoundException,
+                                            final ProbeIdentifier id) throws ClassNotFoundException,
             NoSuchMethodException, InstantiationException,
             IllegalAccessException, InvocationTargetException {
         if (this.probesList.containsKey(id)) {
@@ -130,7 +130,7 @@ public enum ProbesManager {
      *            the identifier of the resource to remove
      * @return wether the resource has been successfully removed
      */
-    public synchronized boolean removeProbe(final AbstractProbeId id) {
+    public synchronized boolean removeProbe(final ProbeIdentifier id) {
         ProbesManager.speak("Removing probe '" + id.getLocalName() + "'...");
         if (!this.probesList.containsKey(id)) {
             ProbesManager.speakErr("Resource '" + id.getLocalName()

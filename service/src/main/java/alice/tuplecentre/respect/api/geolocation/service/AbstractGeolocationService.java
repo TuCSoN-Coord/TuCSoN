@@ -55,7 +55,7 @@ public abstract class AbstractGeolocationService implements IGeolocationService 
      *            the associated tuple centre identifier
      */
     public AbstractGeolocationService(final Integer p, final GeoServiceIdentifier sid,
-            final TucsonTupleCentreId ttci) {
+                                      final TucsonTupleCentreId ttci) {
         this.platform = p;
         this.serviceId = sid;
         this.tcId = ttci;

@@ -19,8 +19,8 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.ITCCycleResult;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -42,7 +42,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     /**
      * internal identifier of the operation
      */
-    private final TupleCentreOpId id;
+    private final OperationIdentifier id;
 
     private final TCCycleResult result;
     private TupleTemplate templateArgument;
@@ -133,7 +133,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     }
 
     @Override
-    public TupleCentreOpId getId() {
+    public OperationIdentifier getId() {
         return this.id;
     }
 

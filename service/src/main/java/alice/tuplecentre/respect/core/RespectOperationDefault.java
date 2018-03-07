@@ -12,6 +12,9 @@
  */
 package alice.tuplecentre.respect.core;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.Var;
@@ -26,9 +29,6 @@ import alice.tuplecentre.respect.api.RespectOperation;
 import alice.tuplecentre.respect.api.RespectSpecification;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
-
-import java.util.LinkedList;
-import java.util.List;
 
 import static alice.tuplecentre.core.TupleCentreOpType.FROM;
 import static alice.tuplecentre.core.TupleCentreOpType.GET;

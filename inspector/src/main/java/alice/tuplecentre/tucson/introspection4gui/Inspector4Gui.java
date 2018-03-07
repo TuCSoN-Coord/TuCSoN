@@ -37,7 +37,7 @@ public class Inspector4Gui extends Inspector {
  * **************************************************/
 	
 	public Inspector4Gui(final TucsonTupleCentreId arg1) throws Exception {
-		super(new TucsonAgentIdDefault("inspector4gui_" + System.currentTimeMillis()), arg1, true);
+        super(new TucsonAgentIdDefault("inspector4gui_" + System.currentTimeMillis()), arg1, true);
 		this.observers = new ArrayList<>();
 		protocol = new InspectorProtocol();
 		protocol.setTsetObservType(InspectorProtocol.PROACTIVE_OBSERVATION);
@@ -92,7 +92,7 @@ public class Inspector4Gui extends Inspector {
 						}
 					}
 					try {
-						TucsonTupleCentreId tcId = new TucsonTupleCentreIdDefault(tcName, tcHost, tcPort);
+                        TucsonTupleCentreId tcId = new TucsonTupleCentreIdDefault(tcName, tcHost, tcPort);
 						notifyNewTupleCenter(tcId);
 					} catch (TucsonInvalidTupleCentreIdException e) {
 						e.printStackTrace();
@@ -122,9 +122,9 @@ public class Inspector4Gui extends Inspector {
 	private void notifyTransfer(final String tcName, final String tcHost, final String tcPort, final String tuple, final boolean reverseOrder) {
 		for (Inspector4GuiObserver observer : observers) {
 			if (!reverseOrder) {
-			observer.onNewTrasfer(this.context.getTid().getLocalName(), tcName, tuple);
+                observer.onNewTrasfer(this.context.getTid().getLocalName(), tcName, tuple);
 			} else {
-				observer.onNewTrasfer(tcName, this.context.getTid().getLocalName(), tuple);
+                observer.onNewTrasfer(tcName, this.context.getTid().getLocalName(), tuple);
 			}
 		}
 	}

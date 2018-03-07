@@ -18,6 +18,7 @@ import java.util.List;
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.respect.api.exceptions.InvalidSpecificationException;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
@@ -38,7 +39,7 @@ public interface IManagementContext {
      * @param opId the operation identifier
      * @return true if the operation has been aborted
      */
-    boolean abortOperation(final TupleCentreOpId opId);
+    boolean abortOperation(final OperationIdentifier opId);
 
     /**
      * @param l the listener of inspectable events

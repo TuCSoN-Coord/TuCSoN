@@ -58,7 +58,7 @@ public class RespectTC implements IRespectTC {
      *            the maximum size of the input queue
      */
     public RespectTC(final TupleCentreIdentifier tid,
-            final RespectTCContainer container, final int qSize) {
+                     final RespectTCContainer container, final int qSize) {
         this.vm = new RespectVM(tid, container, qSize, this);
         this.vmThread = new Thread(this.vm);
         this.vmThread.start();

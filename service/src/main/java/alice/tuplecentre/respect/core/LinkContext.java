@@ -25,7 +25,7 @@ public class LinkContext implements ILinkContext {
 
     @Override
     public void doOperation(final TupleCentreIdentifier id,
-            final AbstractTupleCentreOperation op)
+                            final AbstractTupleCentreOperation op)
             throws OperationNotPossibleException {
         this.vm.doOperation(id, (RespectOperationDefault) op);
     }

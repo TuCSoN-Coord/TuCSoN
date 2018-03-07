@@ -13,6 +13,8 @@
  */
 package alice.tuplecentre.tucson.api.acc;
 
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.tucson.api.TucsonOperation;

@@ -10,6 +10,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import alice.tuplecentre.api.AgentIdentifier;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.core.AbstractEvent;
 
 /**
@@ -127,7 +128,7 @@ public class PendingQuerySet {
      *             operation events have to be removed
      * @return wether the events have been succesfully removed
      */
-    public boolean removeEventOfOperation(final TupleCentreOpId opId) {
+    public boolean removeEventOfOperation(final OperationIdentifier opId) {
         final Iterator<? extends AbstractEvent> it = this.events.listIterator();
         while (it.hasNext()) {
             final alice.tuplecentre.core.AbstractEvent ev = it.next();

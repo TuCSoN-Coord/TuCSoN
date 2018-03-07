@@ -13,10 +13,15 @@
  */
 package alice.tuplecentre.tucson.service;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -56,8 +61,8 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     private boolean ex = false;
     private final ACCProvider manager;
     private final TucsonNodeService node;
-    private final Map<TupleCentreOpId, TupleCentreOpId> opVsReq;
-    private final Map<TupleCentreOpId, TucsonMsgRequest> requests;
+    private final Map<OperationIdentifier, OperationIdentifier> opVsReq;
+    private final Map<OperationIdentifier, TucsonMsgRequest> requests;
     private TucsonTupleCentreId tcId;
 
     /**
@@ -116,7 +121,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
      */
     @Override
     public void operationCompleted(final AbstractTupleCentreOperation op) {
-        TupleCentreOpId reqId;
+        OperationIdentifier reqId;
         TucsonMsgRequest msg;
         synchronized (this.requests) {
             reqId = this.opVsReq.remove(op.getId());

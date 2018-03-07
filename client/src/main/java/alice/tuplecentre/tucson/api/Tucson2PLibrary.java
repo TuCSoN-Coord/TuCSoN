@@ -124,7 +124,7 @@ public class Tucson2PLibrary extends Library {
 			e.printStackTrace();
 			return false;
 		}
-        
+
         this.aid = agentId.getLocalName();
         this.netid = netId;
         if (this.netid.charAt(0) == '\'' && this.netid.charAt(this.netid.length() - 1) == '\'')

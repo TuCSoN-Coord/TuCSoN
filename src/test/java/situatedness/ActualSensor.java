@@ -8,9 +8,9 @@ import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.respect.core.TransducersManager;
-import alice.tuplecentre.respect.situatedness.AbstractProbeId;
 import alice.tuplecentre.respect.situatedness.AbstractTransducer;
 import alice.tuplecentre.respect.situatedness.ISimpleProbe;
+import alice.tuplecentre.respect.situatedness.ProbeIdentifier;
 import alice.tuplecentre.respect.situatedness.TransducerId;
 import alice.tuplecentre.respect.situatedness.TransducerStandardInterface;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
@@ -38,12 +38,12 @@ public class ActualSensor implements ISimpleProbe {
     private static final String DEFAULT_HOST = "localhost";
     private static final String DEFAULT_PORT = "20504";
     private EnhancedSyncACC acc;
-    private final AbstractProbeId pid;
+    private final ProbeIdentifier pid;
     private TucsonTupleCentreId tempTc;
     private TransducerId tid;
     private TransducerStandardInterface transducer;
 
-    public ActualSensor(final AbstractProbeId i) {
+    public ActualSensor(final ProbeIdentifier i) {
         this.pid = i;
         try {
             final TucsonAgentId aid = new TucsonAgentIdDefault("sensor");
@@ -63,7 +63,7 @@ public class ActualSensor implements ISimpleProbe {
      * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#getIdentifier()
      */
     @Override
-    public AbstractProbeId getIdentifier() {
+    public ProbeIdentifier getIdentifier() {
         return this.pid;
     }
 

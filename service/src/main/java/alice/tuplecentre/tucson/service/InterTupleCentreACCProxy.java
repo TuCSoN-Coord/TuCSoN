@@ -220,7 +220,7 @@ OperationCompletionListener {
     private TucsonTupleCentreId aid;
     private final Map<String, ControllerSession> controllerSessions;
     private final List<TucsonOpCompletionEvent> events;
-    private final Map<TupleCentreOpId, AbstractTupleCentreOperation> operations;
+    private final Map<OperationIdentifier, AbstractTupleCentreOperation> operations;
     private long opId;
     private final ACCDescription profile;
     /**
@@ -297,7 +297,7 @@ OperationCompletionListener {
             } catch (DialogInitializationException e) {
 				e.printStackTrace();
 			}
-            final TupleCentreOpId tucsonOpId = new TucsonOpId(this.opId);
+            final OperationIdentifier tucsonOpId = new TucsonOpId(this.opId);
             this.operations.put(tucsonOpId, op);
             final TupleCentreOpType type = op.getType();
             TucsonMsgRequest msg;
@@ -370,7 +370,7 @@ OperationCompletionListener {
 
     @Override
     public TucsonOpCompletionEvent waitForCompletion(final OperationIdentifier id,
-            final int timeout) {
+                                                     final int timeout) {
         try {
             final long startTime = System.currentTimeMillis();
             synchronized (this.events) {

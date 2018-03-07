@@ -16,7 +16,7 @@ public interface ISimpleProbe {
      *
      * @return probe's identifier
      */
-    AbstractProbeId getIdentifier();
+    ProbeIdentifier getIdentifier();
 
     /**
      * Gets the transducer which the probe is communicating with.

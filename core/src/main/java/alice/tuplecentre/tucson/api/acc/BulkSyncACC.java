@@ -48,7 +48,7 @@ public interface BulkSyncACC extends SyncACC {
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
      * @see TupleCentreIdentifier TupleCentreIdentifier
-     * @see TucsonOperationCompletionListener
+     * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
@@ -78,7 +78,7 @@ public interface BulkSyncACC extends SyncACC {
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
      * @see TupleCentreIdentifier TupleCentreIdentifier
-     * @see TucsonOperationCompletionListener
+     * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
@@ -105,7 +105,7 @@ public interface BulkSyncACC extends SyncACC {
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
      * @see TupleCentreIdentifier TupleCentreIdentifier
-     * @see TucsonOperationCompletionListener
+     * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
@@ -133,7 +133,7 @@ public interface BulkSyncACC extends SyncACC {
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
      * @see TupleCentreIdentifier TupleCentreIdentifier
-     * @see TucsonOperationCompletionListener
+     * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */

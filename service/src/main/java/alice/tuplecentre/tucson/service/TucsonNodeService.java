@@ -540,7 +540,7 @@ public class TucsonNodeService {
                                 .make(TupleCentreOpType.IN, new LogicTuple(
                                         "is_persistent", new Value(tc
                                                 .getTucsonTupleCentreId()
-                                                .getLocalName())), null);
+                                        .getLocalName())), null);
                         // InputEvent Creation
                         final InputEvent ev = new InputEvent(this.nodeAid,
                                 opRequested, tc.getTucsonTupleCentreId(),

@@ -13,6 +13,10 @@
  */
 package alice.tuplecentre.tucson.introspection.tools;
 
+import java.util.List;
+
+import javax.swing.JTextArea;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;

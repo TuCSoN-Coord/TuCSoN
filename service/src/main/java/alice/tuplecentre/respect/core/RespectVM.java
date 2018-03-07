@@ -20,6 +20,7 @@ import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.AbstractBehaviourSpecification;
@@ -82,7 +83,7 @@ public class RespectVM implements Runnable {
      *             operation
      * @return wether the operation has been succefully aborted
      */
-    public boolean abortOperation(final TupleCentreOpId opId) {
+    public boolean abortOperation(final OperationIdentifier opId) {
         boolean res;
         synchronized (this.idle) {
             res = this.context.removePendingQueryEvent(opId);

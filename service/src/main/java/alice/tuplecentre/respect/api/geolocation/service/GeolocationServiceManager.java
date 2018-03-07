@@ -131,7 +131,7 @@ public final class GeolocationServiceManager {
             final Class<?> c = Class.forName(normClassName);
             final Constructor<?> ctor = c.getConstructor(new Class[] {
                     Integer.class, GeoServiceId.class,
-                    TucsonTupleCentreIdDefault.class });
+                    TucsonTupleCentreIdDefault.class});
             s = (AbstractGeolocationService) ctor.newInstance(new Object[] {
                     platform, sId, tcId });
             s.addListener(new AgentGeolocationServiceListener(acc, s, tcId));
@@ -188,7 +188,7 @@ public final class GeolocationServiceManager {
         final String normClassName = Tools.removeApices(className);
         final Class<?> c = Class.forName(normClassName);
         final Constructor<?> ctor = c.getConstructor(new Class[] {
-                Integer.class, GeoServiceId.class, TucsonTupleCentreIdDefault.class });
+                Integer.class, GeoServiceId.class, TucsonTupleCentreIdDefault.class});
         final AbstractGeolocationService s = (AbstractGeolocationService) ctor
                 .newInstance(new Object[] { platform, sId, tcId });
         s.addListener(new GeolocationServiceListener(s, tcId));

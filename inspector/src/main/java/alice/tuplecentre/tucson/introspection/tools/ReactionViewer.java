@@ -14,8 +14,12 @@
 package alice.tuplecentre.tucson.introspection.tools;
 
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 
 /**
  *

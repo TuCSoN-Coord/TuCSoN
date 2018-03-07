@@ -13,7 +13,6 @@ import java.util.Set;
 
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.respect.api.EnvironmentIdentifier;
-import alice.tuplecentre.respect.situatedness.AbstractProbeId;
 import alice.tuplecentre.respect.situatedness.AbstractTransducer;
 import alice.tuplecentre.respect.situatedness.ISimpleProbe;
 import alice.tuplecentre.respect.situatedness.ProbeIdentifier;
@@ -68,7 +67,7 @@ public enum TransducersManager {
      * @return wether the resource has been successfully added
      */
     public synchronized boolean addProbe(final ProbeIdentifier id,
-            final TransducerId tId, final ISimpleProbe probe) {
+                                         final TransducerId tId, final ISimpleProbe probe) {
         TransducersManager.speak("Adding resource '" + id.getLocalName()
                 + "' to transducer '" + tId.getLocalName() + "'...");
         if (!this.probesToTransducersMap.containsKey(tId)) {
@@ -114,8 +113,8 @@ public enum TransducersManager {
      *             if the callee cannot be found
      */
     public synchronized boolean createTransducer(final String className,
-            final TransducerId id, final TupleCentreIdentifier tcId,
-            final ProbeIdentifier probeId) throws InstantiationException,
+                                                 final TransducerId id, final TupleCentreIdentifier tcId,
+                                                 final ProbeIdentifier probeId) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException,
             NoSuchMethodException, InvocationTargetException {
         // Checking if the transducer already exist
@@ -137,7 +136,7 @@ public enum TransducersManager {
                 className.length() - 1);
         final Class<?> c = Class.forName(normClassName);
         final Constructor<?> ctor = c.getConstructor(new Class[] {
-                TransducerId.class, TupleCentreIdentifier.class });
+                TransducerId.class, TupleCentreIdentifier.class});
         final AbstractTransducer t = (AbstractTransducer) ctor
                 .newInstance(new Object[] { id, tcId });
         this.transducersList.put(id, t);
@@ -272,7 +271,7 @@ public enum TransducersManager {
      *            the resource's identifier to remove
      * @return wether the resource has been succesfully removed
      */
-    public synchronized boolean removeProbe(final AbstractProbeId probe) {
+    public synchronized boolean removeProbe(final ProbeIdentifier probe) {
         for (final TransducerId t : this.probesToTransducersMap.keySet()) {
             if (this.probesToTransducersMap.get(t).contains(probe)) {
                 final TransducerId tId = this.getTransducerId(probe);

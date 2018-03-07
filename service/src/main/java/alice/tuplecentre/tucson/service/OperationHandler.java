@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import alice.logictuple.LogicTuple;
 import alice.tuplecentre.api.ITCCycleResult;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.TupleTemplate;
@@ -79,7 +80,7 @@ public class OperationHandler {
                  * dal thr controller e dal addOperation usato in doOperation?
                  */
                 synchronized (OperationHandler.this.operations) {
-                    for (final TupleCentreOpId opId : OperationHandler.this.operationExpiredIds) {
+                    for (final OperationIdentifier opId : OperationHandler.this.operationExpiredIds) {
                         OperationHandler.this.operations.remove(opId);
                     }
                 }
@@ -271,11 +272,11 @@ public class OperationHandler {
     /**
      * Expired TuCSoN operations
      */
-    protected List<TupleCentreOpId> operationExpiredIds;
+    protected List<OperationIdentifier> operationExpiredIds;
     /**
      * Requested TuCSoN operations
      */
-    public Map<TupleCentreOpId, TucsonOperation> operations;
+    public Map<OperationIdentifier, TucsonOperation> operations;
 
     /**
      * Current ACC session description
@@ -307,7 +308,7 @@ public class OperationHandler {
      *
      * @param id Unique Identifier of the expired operation
      */
-    public void addOperationExpired(final TupleCentreOpId id) {
+    public void addOperationExpired(final OperationIdentifier id) {
         this.operationExpiredIds.add(id);
     }
 

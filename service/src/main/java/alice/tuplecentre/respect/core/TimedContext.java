@@ -12,6 +12,8 @@
  */
 package alice.tuplecentre.respect.core;
 
+import java.util.List;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.exceptions.InvalidLogicTupleException;

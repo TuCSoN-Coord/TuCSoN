@@ -67,7 +67,7 @@ public final class TucsonMetaACC {
             return null;
         } catch (final TucsonInvalidTupleCentreIdException e) {
             System.err
-            .println("[TucsonMetaACC]: Given tuple centre Identifier is NOT valid!");
+                    .println("[TucsonMetaACC]: Given tuple centre Identifier is NOT valid!");
             e.printStackTrace();
             return null;
         }
@@ -167,7 +167,7 @@ public final class TucsonMetaACC {
             return null;
         } catch (final TucsonInvalidTupleCentreIdException e) {
             System.err
-            .println("[TucsonMetaACC]: Given tuple centre Identifier is NOT valid!");
+                    .println("[TucsonMetaACC]: Given tuple centre Identifier is NOT valid!");
             e.printStackTrace();
             return null;
         }

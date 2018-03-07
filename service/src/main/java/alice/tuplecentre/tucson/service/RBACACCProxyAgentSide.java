@@ -1,13 +1,18 @@
 package alice.tuplecentre.tucson.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.LogicTupleOpManager;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidVarNameException;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
-import alice.tuplecentre.api.TupleCentreOpId;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.tucson.api.TucsonOperation;
@@ -18,11 +23,6 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.rbac.Permission;
 import alice.tuplecentre.tucson.rbac.Role;
 import alice.tuprolog.Parser;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * Class implementing the RBAC ACC.
@@ -105,7 +105,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
     }
 
     @Override
-    public Map<TupleCentreOpId, TucsonOperation> getPendingOperationsMap() {
+    public Map<OperationIdentifier, TucsonOperation> getPendingOperationsMap() {
         return this.executor.operations;
     }
 

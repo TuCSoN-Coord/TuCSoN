@@ -1,14 +1,17 @@
 package alice.tuplecentre.api;
 
+import java.io.Serializable;
+
 /**
- * Interface for Operation Identifiers
+ * Interface that represents the operation ID on a tuple centre.
  *
- * @author Enrico Siboni
+ * @author Nicola Piscaglia
+ * @author (contributor) Enrico Siboni
  */
-public interface OperationIdentifier extends Identifier {
+public interface OperationIdentifier extends Identifier, Serializable {
 
     /**
-     * @return the ReSpecT operation identifier
+     * @return the progressive, unique identifier of operations
      */
     long getId();
 }
