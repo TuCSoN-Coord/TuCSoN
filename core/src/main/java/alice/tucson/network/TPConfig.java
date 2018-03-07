@@ -15,6 +15,7 @@ import alice.tucson.service.TucsonInfo;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  *
  */
+// To break dependency with service module, this class is no more used, assuming that the only used protocol will be TCP/IP
 public final class TPConfig {
 
     // TCP configuration ----------------------------------
@@ -33,7 +34,7 @@ public final class TPConfig {
     private final int defProtType = TPFactory.DIALOG_TYPE_TCP;
     private int tcpPort = -1;
 
-    /**
+    /*
      * Return the default Protocol type
      *
      * @return the protocol type codified as an integer

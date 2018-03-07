@@ -13,7 +13,6 @@
  */
 package alice.tucson.service;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -26,10 +25,8 @@ import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidVarNameException;
 import alice.respect.api.geolocation.PlatformUtils;
 import alice.respect.api.geolocation.Position;
-import alice.respect.api.geolocation.service.AbstractGeolocationService;
 import alice.respect.api.geolocation.service.GeoLocationService;
 import alice.respect.api.geolocation.service.GeoServiceId;
-import alice.respect.api.geolocation.service.GeolocationServiceManager;
 import alice.respect.api.place.IPlace;
 import alice.tucson.api.TucsonAgentId;
 import alice.tucson.api.TucsonOperation;
@@ -56,8 +53,8 @@ import alice.tuprolog.Parser;
  * Active part of the Default Agent Coordination Context.
  *
  * It implements the underlying behavior needed by every TuCSoN Agent
- * {@link alice.tucson.api.AbstractTucsonAgent user} to fruitfully interact with
- * the TuCSoN Node Service {@link alice.tucson.service.TucsonNodeService TuCSoN}
+ *  to fruitfully interact with
+ * the TuCSoN Node Service
  * . Essentially, it implements every method exposed in the Default ACC
  * Interface {@link DefaultACC default} offered to the agent,
  * maps each of them into TuCSoN Request Messages
@@ -76,8 +73,6 @@ import alice.tuprolog.Parser;
  * {@link alice.tucson.api.TucsonMetaACC metaACC}. The acquisition of such ACC
  * triggers this proxy creation and execution.
  *
- * @see alice.tucson.api.AbstractTucsonAgent TucsonAgent
- * @see alice.tucson.service.TucsonNodeService TucsonNodeService
  * @see DefaultACC DefaultACC
  * @see alice.tucson.network.TucsonMsgRequest TucsonMsgRequest
  * @see alice.tucson.network.TucsonMsgReply TucsonMsgReply
@@ -200,7 +195,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
      */
     public void attachGeolocationService(final String className,
             final TucsonTupleCentreId tcId) {
-        final GeolocationServiceManager geolocationManager = GeolocationServiceManager
+        /*final GeolocationServiceManager geolocationManager = GeolocationServiceManager
                 .getGeolocationManager();
         if (geolocationManager.getServices().size() > 0) {
             final GeoLocationService geoService = geolocationManager
@@ -219,7 +214,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             }
         } else {
             this.createGeolocationService(tcId, className);
-        }
+        }*/
     }
 
     @Override
@@ -245,10 +240,10 @@ public class ACCProxyAgentSide implements EnhancedACC {
 
     @Override
     public synchronized void exit() {
-        if (this.myGeolocationService != null) {
+        /*if (this.myGeolocationService != null) {
             GeolocationServiceManager.getGeolocationManager().destroyService(
                     this.myGeolocationService.getServiceId());
-        }
+        }*/
         final Iterator<OperationHandler.ControllerSession> it = this.executor
                 .getControllerSessions().values().iterator();
         OperationHandler.ControllerSession cs;
@@ -943,9 +938,13 @@ public class ACCProxyAgentSide implements EnhancedACC {
             //
             // this.myGeolocationService = (GeolocationService)
             // ctor.newInstance(new Object[] {platform, sId, tcId});
-            this.myGeolocationService = GeolocationServiceManager
+
+
+            /*this.myGeolocationService = GeolocationServiceManager
                     .getGeolocationManager().createAgentService(platform, sId,
-                            className, tcId, this);
+                            className, tcId, this);*/
+
+
             if (this.myGeolocationService != null) {
                 // this.myGeolocationService.setCompletionListener(new
                 // AgentGeolocationServiceListener(this,
@@ -956,18 +955,6 @@ public class ACCProxyAgentSide implements EnhancedACC {
                 this.log("Error during service creation");
             }
         } catch (final SecurityException e) {
-            this.log("Error during service creation: " + e.getMessage());
-        } catch (final NoSuchMethodException e) {
-            this.log("Error during service creation: " + e.getMessage());
-        } catch (final IllegalArgumentException e) {
-            this.log("Error during service creation: " + e.getMessage());
-        } catch (final InstantiationException e) {
-            this.log("Error during service creation: " + e.getMessage());
-        } catch (final IllegalAccessException e) {
-            this.log("Error during service creation: " + e.getMessage());
-        } catch (final InvocationTargetException e) {
-            this.log("Error during service creation: " + e.getMessage());
-        } catch (final ClassNotFoundException e) {
             this.log("Error during service creation: " + e.getMessage());
         }
     }

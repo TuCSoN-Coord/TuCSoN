@@ -5,7 +5,6 @@ import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.network.exceptions.DialogInitializationException;
 import alice.tucson.network.exceptions.IllegalPortNumberException;
 import alice.tucson.network.exceptions.InvalidProtocolTypeException;
-import alice.tucson.service.TucsonNodeService;
 
 /**
  * <p>
@@ -19,6 +18,7 @@ import alice.tucson.service.TucsonNodeService;
  * @author Saverio Cicora
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
+// To break dependency with service module, this class is no more used, assuming that the only used protocol will be TCP/IP
 public final class TPFactory {
 
     /**
@@ -77,14 +77,17 @@ public final class TPFactory {
     public static TucsonProtocol getDialogAgentSide(
             final TucsonTupleCentreId tid) throws UnreachableNodeException,
             DialogInitializationException {
-        final TucsonNodeService tns = TucsonNodeService.getNode(tid.getPort());
+
+        /*final TucsonNodeService tns = TucsonNodeService.getNode(tid.getPort());
         final TPConfig config;
         if (tns != null) {
             config = tns.getTPConfig();
         } else {
             config = new TPConfig();
             config.setTcpPort(tid.getPort());
-        }
+        }*/
+
+        final TPConfig config = new TPConfig();
         try {
             return TPFactory.getDialogAgentSide(
                     config.getDefaultProtocolType(), tid);
@@ -112,8 +115,9 @@ public final class TPFactory {
             throws InvalidProtocolTypeException, DialogInitializationException {
         TucsonProtocol tp = null;
         if (tucsonProtocolType == TPFactory.DIALOG_TYPE_TCP) {
-            final TPConfig config = TucsonNodeService.getNode(portno)
-                    .getTPConfig();
+            /*final TPConfig config = TucsonNodeService.getNode(portno)
+                    .getTPConfig();*/
+            final TPConfig config = new TPConfig();
             final int port = config.getNodeTcpPort();
             if (port < 1 || port > TPFactory.MAX_UNBOUND_PORT) {
                 throw new IllegalPortNumberException(

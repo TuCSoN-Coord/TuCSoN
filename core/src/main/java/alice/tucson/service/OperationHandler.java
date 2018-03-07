@@ -620,7 +620,7 @@ public class OperationHandler {
      * thus for every TuCSoN Operation request we should check wether a new
      * tuplecentre has to be created and booted. If a new tuplecentre has to be
      * booted the correspondant proxy node side is dinamically triggered and
-     * booted {@link alice.tucson.service.ACCProxyNodeSide nodeProxy}
+     * booted
      *
      * @param tid
      *            Target TuCSoN tuplecentre id
@@ -634,7 +634,6 @@ public class OperationHandler {
      *             if the target tuple centre cannot be reached over the network
      *
      * @see alice.tucson.network.AbstractTucsonProtocol TucsonProtocol
-     * @see alice.tucson.service.ACCProxyNodeSide ACCProxyNodeSide
      */
     public TucsonProtocol getSession(final TucsonTupleCentreId tid,
                                      final TucsonAgentId aid) throws UnreachableNodeException {

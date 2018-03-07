@@ -57,7 +57,6 @@ import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tucson.introspection.InspectorContextSkel;
 import alice.tucson.network.AbstractTucsonProtocol;
-import alice.tucson.network.TPConfig;
 import alice.tucson.network.exceptions.DialogInitializationException;
 import alice.tucson.service.tools.TucsonACCTool;
 import alice.tucson.utilities.Utils;
@@ -87,8 +86,7 @@ public class TucsonNodeService {
     private static final String DEFAULT_GEOLOCATION_SPEC_FILE = TUCSON_NODE_SERVICE_RESOURCES_FOLDER + "geolocation_spec.rsp";
     private static final String DEFAULT_OBS_SPEC_FILE = TUCSON_NODE_SERVICE_RESOURCES_FOLDER + "obs_spec.rsp";
 
-    private static final int DEFAULT_TCP_PORT = 20504;
-    // how to set a "proper" number?
+
     private static final int MAX_EVENT_QUEUE_SIZE = 1000;
     private static final int MAX_UNBOUND_PORT = 64000;
     private static final Map<Integer, TucsonNodeService> NODES = new HashMap<Integer, TucsonNodeService>();
@@ -102,8 +100,7 @@ public class TucsonNodeService {
     public static boolean isInstalled(final int timeout)
             throws DialogInitializationException {
         try {
-            return TucsonNodeService.isInstalled("localhost",
-                    TucsonNodeService.DEFAULT_TCP_PORT, timeout);
+            return TucsonNodeService.isInstalled("localhost", TucsonInfo.getDefaultPortNumber(), timeout);
         } catch (final UnreachableNodeException e) {
             e.printStackTrace();
             return false;
@@ -178,7 +175,7 @@ public class TucsonNodeService {
             final String configInfo = alice.util.Tools.getOpt(args, "-config");
             final String persistencyInfo = alice.util.Tools.getOpt(args,
                     "-persistency");
-            int portNumber = TucsonNodeService.DEFAULT_TCP_PORT;
+            int portNumber = TucsonInfo.getDefaultPortNumber();
             if (portInfo != null) {
                 try {
                     portNumber = Integer.parseInt(portInfo);
@@ -246,16 +243,16 @@ public class TucsonNodeService {
     private boolean observed;
     private ObservationService obsService;
     private Tuple persistencyTemplate;
-    private int tcpPort = TucsonNodeService.DEFAULT_TCP_PORT;
+    private int tcpPort = TucsonInfo.getDefaultPortNumber();
     private final List<RespectTC> tcs;
-    private final TPConfig tpConfig;
+    //private final TPConfig tpConfig;
     private WelcomeAgent welcome;
 
     /**
      *
      */
     public TucsonNodeService() {
-        this(null, TucsonNodeService.DEFAULT_TCP_PORT, null);
+        this(null, TucsonInfo.getDefaultPortNumber(), null);
     }
 
     /**
@@ -305,8 +302,8 @@ public class TucsonNodeService {
         this.nodeAgents = new ArrayList<Thread>();
         this.inspectorAgents = new ArrayList<InspectorContextSkel>();
         this.tcs = new ArrayList<RespectTC>();
-        this.tpConfig = new TPConfig();
-        this.tpConfig.setTcpPort(this.tcpPort);
+        /*this.tpConfig = new TPConfig();
+        this.tpConfig.setTcpPort(this.tcpPort);*/
         synchronized (TucsonNodeService.NODES) {
             TucsonNodeService.NODES.put(this.tcpPort, this);
         }
@@ -687,9 +684,9 @@ public class TucsonNodeService {
         return this.tcpPort;
     }
 
-    public final TPConfig getTPConfig() {
+    /*public final TPConfig getTPConfig() {
         return this.tpConfig;
-    }
+    }*/
 
     /**
      *
