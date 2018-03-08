@@ -5,9 +5,9 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
 import alice.tuplecentre.respect.core.collection.DoubleKeyMVMap;
-import alice.tuplecentre.respect.core.collection.MVMap;
+import alice.tuplecentre.respect.core.collection.MVMap;import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
 import alice.tuprolog.Var;
 
 /**
@@ -152,7 +152,7 @@ public abstract class AbstractTupleSet implements ITupleSet {
                     this.tRemoved.add(this.createEntry(tu));
                 }
                 final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
-                return new LogicTuple(tu.toTerm().copyGoal(v, 0));
+                return LogicTuples.newInstance(tu.toTerm().copyGoal(v, 0));
             }
         }
         return null;
@@ -193,7 +193,7 @@ public abstract class AbstractTupleSet implements ITupleSet {
             final LogicTuple tu = l.next();
             if (templ.match(tu)) {
                 final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
-                return new LogicTuple(tu.toTerm().copyGoal(v, 0));
+                return LogicTuples.newInstance(tu.toTerm().copyGoal(v, 0));
             }
         }
         return null;

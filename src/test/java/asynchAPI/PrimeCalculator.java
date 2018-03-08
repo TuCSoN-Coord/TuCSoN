@@ -19,8 +19,9 @@
  */
 package asynchAPI;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -94,12 +95,12 @@ public class PrimeCalculator extends AbstractTucsonAgent {
                             .getPrimeNumbers(upperBound);
                     this.info("Prime numbers up to " + upperBound + " are "
                             + primeNumbers);
-                    tupleRes = LogicTuple.parse("prime(" + upperBound + ","
+                    tupleRes = LogicTuples.parse("prime(" + upperBound + ","
                             + primeNumbers + ")");
                     final Out out = new Out(this.ttcid, tupleRes);
                     this.help.enqueue(out, null);
                     if (!PrimeCalculator.this.stop) {
-                        final LogicTuple tuple = LogicTuple
+                        final LogicTuple tuple = LogicTuples
                                 .parse("calcprime(X)");
                         final Inp inp = new Inp(this.ttcid, tuple);
                         this.help.enqueue(inp, new InpHandler(this.eaacc,
@@ -116,7 +117,7 @@ public class PrimeCalculator extends AbstractTucsonAgent {
                 try {
                     Thread.sleep(PrimeCalculator.SLEEP);
                     if (!PrimeCalculator.this.stop) {
-                        final LogicTuple tuple = LogicTuple
+                        final LogicTuple tuple = LogicTuples
                                 .parse("calcprime(X)");
                         final Inp inp = new Inp(this.ttcid, tuple);
                         this.help.enqueue(inp, new InpHandler(this.eaacc,
@@ -212,11 +213,11 @@ public class PrimeCalculator extends AbstractTucsonAgent {
                     "localhost", "20504");
             final AsynchOpsHelper helper = new AsynchOpsHelper("'helper4"
                     + this.getTucsonAgentId() + "'");
-            final LogicTuple tuple = LogicTuple.parse("calcprime(X)");
+            final LogicTuple tuple = LogicTuples.parse("calcprime(X)");
             final Inp inp = new Inp(tid, tuple);
             helper.enqueue(inp, new InpHandler(acc, tid, helper));
             final EnhancedSyncACC accSynch = this.getContext();
-            final LogicTuple stopTuple = LogicTuple.parse("stop(primecalc)");
+            final LogicTuple stopTuple = LogicTuples.parse("stop(primecalc)");
             final In inStop = new In(tid, stopTuple);
             inStop.executeSynch(accSynch, null);
             this.stop = true;

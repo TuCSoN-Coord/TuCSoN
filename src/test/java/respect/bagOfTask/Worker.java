@@ -1,8 +1,9 @@
 package respect.bagOfTask;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -95,7 +96,7 @@ public class Worker extends AbstractTucsonAgent {
             int s;
             LogicTuple res;
             while (true) {
-                taskTempl = LogicTuple.parse("task(OP)");
+                taskTempl = LogicTuples.parse("task(OP)");
                 this.say("Waiting for task...");
                 /*
                  * Usage of timeouts: be careful that timeout extinction DOES
@@ -119,7 +120,7 @@ public class Worker extends AbstractTucsonAgent {
                 /*
                  * Put back result.
                  */
-                res = LogicTuple.parse("res(" + s + ")");
+                res = LogicTuples.parse("res(" + s + ")");
                 this.say("Injecting result: " + res + "...");
                 acc.out(ttcid, res, null);
                 // Thread.sleep(1000);

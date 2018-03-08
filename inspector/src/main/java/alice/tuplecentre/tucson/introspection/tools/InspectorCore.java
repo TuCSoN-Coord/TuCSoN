@@ -18,10 +18,10 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Iterator;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreIdentifier;
+import alice.tuple.TupleCentreIdentifier;
 import alice.tuplecentre.core.TriggeredReaction;
 import alice.tuplecentre.respect.api.TupleCentreId;
 import alice.tuplecentre.respect.situatedness.TransducerId;

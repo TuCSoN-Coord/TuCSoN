@@ -19,7 +19,7 @@
  */
 package alice.tuplecentre.tucson.api.actions;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 
 /**

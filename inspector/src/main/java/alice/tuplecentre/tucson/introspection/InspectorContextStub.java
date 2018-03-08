@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.exceptions.OperationNotAllowedException;

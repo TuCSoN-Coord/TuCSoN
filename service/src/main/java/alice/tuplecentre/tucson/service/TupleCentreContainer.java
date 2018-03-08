@@ -2,8 +2,9 @@ package alice.tuplecentre.tucson.service;
 
 import java.util.HashMap;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.api.OperationIdentifier;
@@ -359,7 +360,7 @@ public final class TupleCentreContainer {
                     return false;
                 }
             case GET_S:
-                return new LogicTuple(context.getSpec().toString());
+                return LogicTuples.newInstance(context.getSpec().toString());
             case GET_TRSET:
                 return context.getTRSet((LogicTuple) obj);
             case GET_TSET:

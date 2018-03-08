@@ -3,7 +3,7 @@ package alice.tuplecentre.respect.core;
 import java.util.ArrayList;
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.api.OperationIdentifier;

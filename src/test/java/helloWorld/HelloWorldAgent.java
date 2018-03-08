@@ -1,7 +1,8 @@
 package helloWorld;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -103,7 +104,7 @@ public class HelloWorldAgent extends AbstractTucsonAgent {
             /*
              * 6) Build the tuple e.g. using TuCSoN parsing facilities.
              */
-            final LogicTuple tuple = LogicTuple.parse("hello(world)");
+            final LogicTuple tuple = LogicTuples.parse("hello(world)");
             /*
              * 7) Perform the coordination operation using the preferred
              * coordination primitive.
@@ -126,7 +127,7 @@ public class HelloWorldAgent extends AbstractTucsonAgent {
             /*
              * Another success test to be sure.
              */
-            final LogicTuple template = LogicTuple.parse("hello(Who)");
+            final LogicTuple template = LogicTuples.parse("hello(Who)");
             op = acc.rdp(tid, template, null);
             if (op.isResultSuccess()) {
                 res = op.getLogicTupleResult();

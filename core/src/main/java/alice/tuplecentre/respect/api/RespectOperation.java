@@ -1,6 +1,6 @@
 package alice.tuplecentre.respect.api;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.TupleCentreOperation;
 
 /**

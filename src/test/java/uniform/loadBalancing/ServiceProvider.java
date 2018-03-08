@@ -3,8 +3,9 @@ package uniform.loadBalancing;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -38,7 +39,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
             TucsonOperation op;
             this.say("Waiting for requests...");
             try {
-                final LogicTuple templ = LogicTuple.parse("req("
+                final LogicTuple templ = LogicTuples.parse("req("
                         + ServiceProvider.this.service.getArg(0) + ")");
                 while (!ServiceProvider.this.die) {
                     op = ServiceProvider.this.acc.in(ServiceProvider.this.tid,
@@ -123,7 +124,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
         this.die = false;
         try {
             this.tid = new TucsonTupleCentreIdDefault(node);
-            this.service = LogicTuple.parse("ad(" + aid + ")");
+            this.service = LogicTuples.parse("ad(" + aid + ")");
             this.say("I'm started.");
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
@@ -165,7 +166,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
             new Receiver().start();
             TucsonOperation op;
             LogicTuple req;
-            final LogicTuple dieTuple = LogicTuple.parse("die(" + this.myName()
+            final LogicTuple dieTuple = LogicTuples.parse("die(" + this.myName()
                     + ")");
             while (!this.die) {
                 this.say("Checking termination...");

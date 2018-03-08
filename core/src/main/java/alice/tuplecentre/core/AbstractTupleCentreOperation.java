@@ -16,13 +16,14 @@ package alice.tuplecentre.core;
 import java.util.LinkedList;
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.Tuple;
+import alice.tuple.TupleTemplate;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.OperationIdentifier;
-import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreOperation;
-import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonOpId;
 
@@ -144,11 +145,11 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
             if (TupleCentreOpType.getProducerPrimitives().contains(this.type)) {
                 pred.append(this.getPrimitive().toString()).append('(')
                         .append(this.tupleArgument).append(')');
-                return LogicTuple.parse(pred.toString());
+                return LogicTuples.parse(pred.toString());
             }
             pred.append(this.getPrimitive().toString()).append('(')
                     .append(this.templateArgument).append(')');
-            return LogicTuple.parse(pred.toString());
+            return LogicTuples.parse(pred.toString());
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();
             return null;
@@ -159,7 +160,10 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     @Override
     public Tuple getPrimitive() {
         if (TupleCentreOpType.getStandardOperationTypes().contains(this.type)) {
-            return new LogicTuple(this.type.name().toLowerCase());
+
+
+
+            return LogicTuples.newInstance(this.type.name().toLowerCase());
         } else {
             return null;
         }

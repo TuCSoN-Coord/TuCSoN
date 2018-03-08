@@ -3,7 +3,7 @@ package alice.tuplecentre.tucson.introspection4gui;
 import java.util.HashSet;
 import java.util.Set;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.core.InspectableEvent;
 import alice.tuplecentre.core.ObservableEventExt;
 import alice.tuplecentre.core.ObservableEventReactionOK;

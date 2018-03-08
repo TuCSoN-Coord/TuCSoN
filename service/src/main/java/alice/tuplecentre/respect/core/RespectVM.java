@@ -16,12 +16,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
 import alice.tuplecentre.api.OperationIdentifier;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.AbstractBehaviourSpecification;
 import alice.tuplecentre.core.AbstractEvent;

@@ -3,8 +3,8 @@ package alice.tuplecentre.tucson.introspection4gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.core.Reaction;
 import alice.tuplecentre.respect.core.LogicReaction;
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;

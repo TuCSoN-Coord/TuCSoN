@@ -4,9 +4,10 @@ import java.math.BigInteger;
 import java.util.LinkedList;
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -119,7 +120,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
             while (!this.die) {
                 this.say("Checking termination...");
                 op = this.acc.inp(this.tid,
-                        LogicTuple.parse("die(" + this.myName() + ")"), null);
+                        LogicTuples.parse("die(" + this.myName() + ")"), null);
                 /*
                  * Only upon success the searched tuple was found.
                  */
@@ -130,7 +131,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
                 /*
                  * Jobs collection phase.
                  */
-                templ = LogicTuple.parse("fact(master(M),num(N),reqID(R))");
+                templ = LogicTuples.parse("fact(master(M),num(N),reqID(R))");
                 this.say("Waiting for jobs...");
                 /*
                  * No longer a suspensive primitive: in case no jobs have been
@@ -146,7 +147,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
                     for (final LogicTuple lt : job) {
                         bigNum = this.computeFactorial(lt.getArg("num").getArg(
                                 0));
-                        res.add(LogicTuple.parse("res(" + "master("
+                        res.add(LogicTuples.parse("res(" + "master("
                                 + lt.getArg("master").getArg(0) + "),"
                                 + "fact(" + bigNum.toString() + ")," + "reqID("
                                 + lt.getArg("reqID").getArg(0) + ")" + ")"));
@@ -155,7 +156,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
                      * Result submission phase.
                      */
                     this.say("Putting results: " + res.toString());
-                    this.acc.outAll(this.tid, LogicTuple.parse(res.toString()),
+                    this.acc.outAll(this.tid, LogicTuples.parse(res.toString()),
                             null);
                     /*
                      * Empty data stores for next iteration.

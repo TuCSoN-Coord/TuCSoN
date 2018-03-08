@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import alice.tuplecentre.api.EmitterIdentifier;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.respect.api.geolocation.Position;
 

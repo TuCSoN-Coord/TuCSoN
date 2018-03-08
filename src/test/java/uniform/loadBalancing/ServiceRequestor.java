@@ -1,7 +1,8 @@
 package uniform.loadBalancing;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -96,7 +97,7 @@ public class ServiceRequestor extends AbstractTucsonAgent {
             LogicTuple templ;
             LogicTuple service;
             LogicTuple req;
-            final LogicTuple dieTuple = LogicTuple.parse("die(" + this.myName()
+            final LogicTuple dieTuple = LogicTuples.parse("die(" + this.myName()
                     + ")");
             while (!this.die) {
                 this.say("Checking termination...");
@@ -108,7 +109,7 @@ public class ServiceRequestor extends AbstractTucsonAgent {
                 /*
                  * Service search phase.
                  */
-                templ = LogicTuple.parse("ad(S)");
+                templ = LogicTuples.parse("ad(S)");
                 this.say("Looking for services...");
                 /*
                  * Experiment alternative primitives and analyse different
@@ -122,7 +123,7 @@ public class ServiceRequestor extends AbstractTucsonAgent {
                  */
                 this.say("Submitting request for service: "
                         + service.toString());
-                req = LogicTuple.parse("req(" + service.getArg(0) + ")");
+                req = LogicTuples.parse("req(" + service.getArg(0) + ")");
                 this.acc.out(this.tid, req, null);
                 Thread.sleep(1000);
             }

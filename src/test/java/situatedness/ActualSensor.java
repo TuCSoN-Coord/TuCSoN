@@ -3,8 +3,9 @@
  */
 package situatedness;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.respect.core.TransducersManager;
@@ -101,7 +102,7 @@ public class ActualSensor implements ISimpleProbe {
             }
         }
         try {
-            final LogicTuple template = LogicTuple.parse("temp(_)");
+            final LogicTuple template = LogicTuples.parse("temp(_)");
             final TucsonOperation op = this.acc
                     .rd(this.tempTc, template, null);
             if (op.isResultSuccess()) {

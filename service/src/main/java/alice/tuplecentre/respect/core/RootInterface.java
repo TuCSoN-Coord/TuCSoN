@@ -1,8 +1,8 @@
 package alice.tuplecentre.respect.core;
 
-import alice.logictuple.LogicTuple;
-import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleTemplate;
+import alice.tuple.Tuple;
+import alice.tuple.TupleTemplate;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.respect.api.IRespectTC;
 
 /**

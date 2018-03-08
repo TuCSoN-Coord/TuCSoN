@@ -1,7 +1,8 @@
 package rpc;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -24,8 +25,7 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 public class CalleeAgent extends AbstractTucsonAgent {
 
     /**
-     * @param args
-     *            no args expected.
+     * @param args no args expected.
      */
     public static void main(final String[] args) {
         try {
@@ -40,13 +40,9 @@ public class CalleeAgent extends AbstractTucsonAgent {
     private TucsonTupleCentreId tid;
 
     /**
-     * @param aid
-     *            the name of the callee agent.
-     * @param node
-     *            the node used for RPC synchronization.
-     *
-     * @throws TucsonInvalidAgentIdException
-     *             if the chosen Identifier is not a valid TuCSoN agent Identifier
+     * @param aid  the name of the callee agent.
+     * @param node the node used for RPC synchronization.
+     * @throws TucsonInvalidAgentIdException if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public CalleeAgent(final String aid, final String node)
             throws TucsonInvalidAgentIdException {
@@ -104,8 +100,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
                  * Invocation phase (not TuCSoN invocation!).
                  */
                 this.say("Waiting for remote calls...");
-                op = this.acc.in(this.tid, LogicTuple
-                        .parse("factorial(caller(Who)," + "arg(N))"), null);
+                op = this.acc.in(this.tid, LogicTuples.parse("factorial(caller(Who)," + "arg(N))"), null);
                 req = op.getLogicTupleResult();
                 this.say("Call received from " + req.getArg("caller").getArg(0));
                 arg = req.getArg("arg").getArg(0).intValue();
@@ -120,7 +115,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
                 this.say("Call returns to " + req.getArg("caller").getArg(0));
                 this.acc.out(
                         this.tid,
-                        LogicTuple.parse("result(" + "caller("
+                        LogicTuples.parse("result(" + "caller("
                                 + req.getArg("caller").getArg(0) + "),"
                                 + "res(" + result + "))"), null);
             }

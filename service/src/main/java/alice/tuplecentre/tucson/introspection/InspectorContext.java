@@ -16,7 +16,7 @@ package alice.tuplecentre.tucson.introspection;
 import java.io.IOException;
 import java.util.List;
 
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;

@@ -12,9 +12,14 @@
  */
 package alice.tuplecentre.respect.core;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import java.util.Iterator;
+import java.util.List;
+
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.respect.api.IOrdinarySynchInterface;
@@ -23,9 +28,6 @@ import alice.tuplecentre.respect.api.RespectOperation;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
-
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * 
@@ -99,8 +101,8 @@ public class OrdinarySynchInterface extends RootInterface implements
         if (",".equals(t.getName()) && t.getArity() == 2) {
             arg = ((LogicTuple) ev.getTuple()).getArg(1);
             this.unify(
-                    new LogicTuple(new TupleArgument(arg.toTerm())),
-                    new LogicTuple(OrdinarySynchInterface.list2tuple(op
+                    LogicTuples.newInstance(TupleArguments.newInstance(arg.toTerm())),
+                    LogicTuples.newInstance(OrdinarySynchInterface.list2tuple(op
                             .getLogicTupleListResult())));
             return op.getLogicTupleListResult();
         }
@@ -152,8 +154,8 @@ public class OrdinarySynchInterface extends RootInterface implements
         if (",".equals(t.getName()) && t.getArity() == 2) {
             arg = t.getArg(1);
             this.unify(
-                    new LogicTuple(new TupleArgument(arg.toTerm())),
-                    new LogicTuple(OrdinarySynchInterface.list2tuple(op
+                    LogicTuples.newInstance(TupleArguments.newInstance(arg.toTerm())),
+                    LogicTuples.newInstance(OrdinarySynchInterface.list2tuple(op
                             .getLogicTupleListResult())));
             return op.getLogicTupleListResult();
         }
@@ -228,8 +230,8 @@ public class OrdinarySynchInterface extends RootInterface implements
         if (",".equals(t.getName()) && t.getArity() == 2) {
             arg = t.getArg(1);
             this.unify(
-                    new LogicTuple(new TupleArgument(arg.toTerm())),
-                    new LogicTuple(OrdinarySynchInterface.list2tuple(op
+                    LogicTuples.newInstance(TupleArguments.newInstance(arg.toTerm())),
+                    LogicTuples.newInstance(OrdinarySynchInterface.list2tuple(op
                             .getLogicTupleListResult())));
             return op.getLogicTupleListResult();
         }

@@ -1,7 +1,7 @@
 package diningPhilos;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -76,7 +76,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
              */
             op = this.acc.in(
                     this.myTable,
-                    LogicTuple.parse("chops(" + this.chop1 + "," + this.chop2
+                    LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();
@@ -106,7 +106,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
         try {
             this.acc.out(
                     this.myTable,
-                    LogicTuple.parse("chops(" + this.chop1 + "," + this.chop2
+                    LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();

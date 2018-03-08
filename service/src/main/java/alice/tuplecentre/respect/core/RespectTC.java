@@ -14,9 +14,9 @@ package alice.tuplecentre.respect.core;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.ITCCycleResult;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.respect.api.IEnvironmentContext;

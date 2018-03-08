@@ -13,7 +13,7 @@
  */
 package alice.tuplecentre.tucson.api.acc;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonOperation;

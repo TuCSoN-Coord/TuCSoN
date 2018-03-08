@@ -2,7 +2,7 @@ package alice.tuplecentre.tucson.introspection4gui;
 
 import java.util.Set;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.tucson.introspection.InspectorContextEvent;
 
 public class Inspector4GuiContextEvent extends InspectorContextEvent {

@@ -3,7 +3,7 @@ package alice.tuplecentre.tucson.rbac;
 import java.util.ArrayList;
 import java.util.List;
 
-import alice.logictuple.TupleArgument;
+import alice.tuple.logic.TupleArgument;
 
 /**
  * Class implementing a RBAC policy.

@@ -3,7 +3,10 @@
  */
 package helloWorld;
 
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
+import alice.tuple.java.api.JTupleTemplate;
+import alice.tuple.java.impl.JValDefault;
+import alice.tuple.java.impl.JVarDefault;
 import alice.tuplecentre.api.exceptions.InvalidTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
@@ -18,15 +21,12 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuples.javatuples.api.IJTuple;
-import alice.tuples.javatuples.api.IJTupleTemplate;
-import alice.tuples.javatuples.api.JArgType;
-import alice.tuples.javatuples.exceptions.InvalidJValException;
-import alice.tuples.javatuples.exceptions.InvalidJVarException;
-import alice.tuples.javatuples.impl.JTuple;
-import alice.tuples.javatuples.impl.JTupleTemplate;
-import alice.tuples.javatuples.impl.JVal;
-import alice.tuples.javatuples.impl.JVar;
+import alice.tuple.java.api.JTuple;
+import alice.tuple.java.api.JArgType;
+import alice.tuple.java.exceptions.InvalidJValException;
+import alice.tuple.java.exceptions.InvalidJVarException;
+import alice.tuple.java.impl.JTupleDefault;
+import alice.tuple.java.impl.JTupleTemplateDefault;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 24/feb/2014
@@ -64,8 +64,8 @@ public final class HelloWorldJTuples {
             /*
              * 4) Build the tuple using the communication language.
              */
-            final IJTuple tuple = new JTuple(new JVal("hello"));
-            tuple.addArg(new JVal("world"));
+            final JTuple tuple = new JTupleDefault(new JValDefault("hello"));
+            tuple.addArg(new JValDefault("world"));
             /*
              * 5) Perform the coordination operation using the preferred
              * coordination primitive.
@@ -91,9 +91,9 @@ public final class HelloWorldJTuples {
             /*
              * Another success test to be sure.
              */
-            final IJTupleTemplate template = new JTupleTemplate(new JVal(
+            final JTupleTemplate template = new JTupleTemplateDefault(new JValDefault(
                     "hello"));
-            template.addArg(new JVar(JArgType.LITERAL));
+            template.addArg(new JVarDefault(JArgType.LITERAL));
             op = acc.rdp(tid, template, null);
             if (op.isResultSuccess()) {
                 res = op.getJTupleResult();

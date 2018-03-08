@@ -23,14 +23,16 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import alice.logictuple.LogicMatchingEngine;
-import alice.logictuple.LogicTuple;
-import alice.logictuple.LogicTupleOpManager;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.logictuple.exceptions.InvalidTupleArgumentException;
+import alice.tuple.Tuple;
+import alice.tuple.logic.LogicMatchingEngine;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleOpManager;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
 import alice.tuplecentre.api.EmitterIdentifier;
-import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -47,7 +49,6 @@ import alice.tuplecentre.respect.api.geolocation.service.GeolocationServiceManag
 import alice.tuplecentre.respect.core.InternalEvent;
 import alice.tuplecentre.respect.core.InternalOperation;
 import alice.tuplecentre.respect.core.RespectOperationDefault;
-import alice.tuplecentre.respect.core.RespectVMContext;
 import alice.tuplecentre.respect.core.TransducersManager;
 import alice.tuplecentre.respect.situatedness.TransducerId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
@@ -556,17 +557,17 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             final TupleArgument[] array = new TupleArgument[list.size()];
             int i = 0;
             while (!list.isEmpty()) {
-                array[i++] = new TupleArgument(
+                array[i++] = TupleArguments.newInstance(
                         ((LogicTuple) list.remove(0)).toTerm());
             }
-            final alice.tuplecentre.api.Tuple tuple = new LogicTuple("get",
+            final Tuple tuple = LogicTuples.newInstance("get",
                     array);
             if (((LogicTuple) tuple).getArg(0) != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeGetR(new LogicTuple(arg0
+                        InternalOperation.makeGetR(LogicTuples.newInstance(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -578,7 +579,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote get triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeGet(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeGet(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -615,17 +616,17 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             final TupleArgument[] array = new TupleArgument[list.size()];
             int i = 0;
             while (!list.isEmpty()) {
-                array[i++] = new TupleArgument(
+                array[i++] = TupleArguments.newInstance(
                         ((LogicTuple) list.remove(0)).toTerm());
             }
-            final alice.tuplecentre.api.Tuple tuple = new LogicTuple("get_s",
+            final Tuple tuple = LogicTuples.newInstance("get_s",
                     array);
             if (((LogicTuple) tuple).getArg(0) != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeGetSR(new LogicTuple(arg0
+                        InternalOperation.makeGetSR(LogicTuples.newInstance(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -637,7 +638,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote get_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeGetS(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeGetS(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -669,8 +670,8 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         // Get engine's copy of key and val
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         final AbstractMap<Var, Var> v1 = new LinkedHashMap<Var, Var>();
-        final LogicTuple lt = new LogicTuple("getEnv", new TupleArgument(
-                key.copyGoal(v, 0)), new TupleArgument(val.copyGoal(v1, 0)));
+        final LogicTuple lt = LogicTuples.newInstance("getEnv", TupleArguments.newInstance(
+                key.copyGoal(v, 0)), TupleArguments.newInstance(val.copyGoal(v1, 0)));
         // Building internal event
         final InputEvent ev = this.vm.getCurrentEvent();
         // log("### DEBUG >>> ev = " + ev);
@@ -789,18 +790,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local in triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .removeMatchingTuple(tuArg, true);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeInR(new LogicTuple(arg0.copyGoal(
+                        InternalOperation.makeInR(LogicTuples.newInstance(arg0.copyGoal(
                                 v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -812,7 +813,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote in triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeIn(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeIn(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -842,11 +843,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg2);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local in_all triggered...");
-            final List<alice.tuplecentre.api.Tuple> tuples = this.vm
+            final List<Tuple> tuples = this.vm
                     .inAllTuples(tuArg);
             if (tuples != null) {
                 final Term term = Respect2PLibrary.list2tuple(tuples);
@@ -859,7 +860,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final InputEvent ce = this.vm.getCurrentEvent();
         final String tuple = arg0.getTerm().toString() + "," + arg1;
         LogicTuple resultArg = null;
-        resultArg = LogicTuple.parse(tuple);
+        resultArg = LogicTuples.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeInAll(resultArg, null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
@@ -910,15 +911,15 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local in_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = new LogicTuple(newArg);
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final Tuple tuple = this.vm
                     .removeMatchingSpecTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(goal, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent iev = new InternalEvent(ce,
-                        InternalOperation.makeInSR(new LogicTuple(goal
+                        InternalOperation.makeInSR(LogicTuples.newInstance(goal
                                 .copyGoal(v, 0))));
                 iev.setSource(ce.getReactingTC());
                 iev.setTarget(ce.getReactingTC());
@@ -930,7 +931,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote in_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeInS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeInS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -967,18 +968,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local inp triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .removeMatchingTuple(tuArg, true);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeInR(new LogicTuple(arg0.copyGoal(
+                        InternalOperation.makeInR(LogicTuples.newInstance(arg0.copyGoal(
                                 v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -990,7 +991,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote inp triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeInp(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeInp(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1038,15 +1039,15 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local inp_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = new LogicTuple(newArg);
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final Tuple tuple = this.vm
                     .removeMatchingSpecTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(goal, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent iev = new InternalEvent(ce,
-                        InternalOperation.makeInSR(new LogicTuple(goal
+                        InternalOperation.makeInSR(LogicTuples.newInstance(goal
                                 .copyGoal(v, 0))));
                 iev.setSource(ce.getReactingTC());
                 iev.setTarget(ce.getReactingTC());
@@ -1058,7 +1059,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote inp_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeInpS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeInpS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1261,16 +1262,16 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local no triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readMatchingTuple(tuArg);
             if (tuple == null) {
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeNoR(new LogicTuple(arg0.copyGoal(
+                        InternalOperation.makeNoR(LogicTuples.newInstance(arg0.copyGoal(
                                 v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -1282,7 +1283,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote no triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeNo(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeNo(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1312,11 +1313,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg2);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local no_all triggered...");
-            final List<alice.tuplecentre.api.Tuple> tuples = this.vm
+            final List<Tuple> tuples = this.vm
                     .readAllTuples(tuArg);
             if (tuples == null) {
                 final Term term = Respect2PLibrary.list2tuple(tuples);
@@ -1329,7 +1330,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final InputEvent ce = this.vm.getCurrentEvent();
         final String tuple = arg0.getTerm().toString() + "," + arg1;
         LogicTuple resultArg = null;
-        resultArg = LogicTuple.parse(tuple);
+        resultArg = LogicTuples.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeNoAll(resultArg, null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
@@ -1380,13 +1381,13 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local no_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = new LogicTuple(newArg);
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final Tuple tuple = this.vm
                     .readMatchingSpecTuple(tuArg);
             if (tuple == null) {
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent iev = new InternalEvent(ce,
-                        InternalOperation.makeNoSR(new LogicTuple(goal
+                        InternalOperation.makeNoSR(LogicTuples.newInstance(goal
                                 .copyGoal(v, 0))));
                 iev.setSource(ce.getReactingTC());
                 iev.setTarget(ce.getReactingTC());
@@ -1398,7 +1399,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote no_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeNoS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeNoS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1423,16 +1424,16 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local nop triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readMatchingTuple(tuArg);
             if (tuple == null) {
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeNoR(new LogicTuple(arg0.copyGoal(
+                        InternalOperation.makeNoR(LogicTuples.newInstance(arg0.copyGoal(
                                 v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -1444,7 +1445,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote nop triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeNop(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeNop(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1493,13 +1494,13 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local nop_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = new LogicTuple(newArg);
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final Tuple tuple = this.vm
                     .readMatchingSpecTuple(tuArg);
             if (tuple == null) {
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent iev = new InternalEvent(ce,
-                        InternalOperation.makeNoSR(new LogicTuple(goal
+                        InternalOperation.makeNoSR(LogicTuples.newInstance(goal
                                 .copyGoal(v, 0))));
                 iev.setSource(ce.getReactingTC());
                 iev.setTarget(ce.getReactingTC());
@@ -1511,7 +1512,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote nop_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeNopS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeNopS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1555,11 +1556,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local out triggered...");
             final Term newArg = arg0.copyGoal(v, 0);
-            final LogicTuple tuArg = new LogicTuple(newArg);
+            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
             this.vm.addTuple(tuArg, true);
             final InputEvent ce = this.vm.getCurrentEvent();
             final InternalEvent ev = new InternalEvent(ce,
-                    InternalOperation.makeOutR(new LogicTuple(arg0.copyGoal(v,
+                    InternalOperation.makeOutR(LogicTuples.newInstance(arg0.copyGoal(v,
                             0))));
             ev.setSource(ce.getReactingTC());
             ev.setTarget(ce.getReactingTC());
@@ -1588,7 +1589,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         // return true;
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeOut(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeOut(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1617,11 +1618,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local out_all triggered...");
             final Term newArg = arg0.copyGoal(v, 0);
-            final LogicTuple tuArg = new LogicTuple(newArg);
+            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
             this.vm.addListTuple(tuArg);
             final InputEvent ce = this.vm.getCurrentEvent();
             final InternalEvent ev = new InternalEvent(ce,
-                    InternalOperation.makeOutAllR(new LogicTuple(arg0.copyGoal(
+                    InternalOperation.makeOutAllR(LogicTuples.newInstance(arg0.copyGoal(
                             v, 0))));
             ev.setSource(ce.getReactingTC());
             ev.setTarget(ce.getReactingTC());
@@ -1632,7 +1633,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeOutAll(
-                        new LogicTuple(arg0.copyGoal(v, 0)), null), tid,
+                        LogicTuples.newInstance(arg0.copyGoal(v, 0)), null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1681,11 +1682,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local out_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = new LogicTuple(newArg);
+            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
             this.vm.addSpecTuple(tuArg);
             final InputEvent ce = this.vm.getCurrentEvent();
             final InternalEvent iev = new InternalEvent(ce,
-                    InternalOperation.makeOutSR(new LogicTuple(goal.copyGoal(v,
+                    InternalOperation.makeOutSR(LogicTuples.newInstance(goal.copyGoal(v,
                             0))));
             iev.setSource(ce.getReactingTC());
             iev.setTarget(ce.getReactingTC());
@@ -1695,7 +1696,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote out_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeOutS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeOutS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1736,18 +1737,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rd triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readMatchingTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeRdR(new LogicTuple(arg0.copyGoal(
+                        InternalOperation.makeRdR(LogicTuples.newInstance(arg0.copyGoal(
                                 v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -1759,7 +1760,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote rd triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeRd(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeRd(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1789,11 +1790,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg2);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rd_all triggered...");
-            final List<alice.tuplecentre.api.Tuple> tuples = this.vm
+            final List<Tuple> tuples = this.vm
                     .readAllTuples(tuArg);
             if (tuples != null) {
                 final Term term = Respect2PLibrary.list2tuple(tuples);
@@ -1806,7 +1807,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final InputEvent ce = this.vm.getCurrentEvent();
         final String tuple = arg0.getTerm().toString() + "," + arg1;
         LogicTuple resultArg = null;
-        resultArg = LogicTuple.parse(tuple);
+        resultArg = LogicTuples.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeRdAll(resultArg, null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
@@ -1857,15 +1858,15 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rd_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = new LogicTuple(newArg);
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final Tuple tuple = this.vm
                     .readMatchingSpecTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(goal, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent iev = new InternalEvent(ce,
-                        InternalOperation.makeRdSR(new LogicTuple(goal
+                        InternalOperation.makeRdSR(LogicTuples.newInstance(goal
                                 .copyGoal(v, 0))));
                 iev.setSource(ce.getReactingTC());
                 iev.setTarget(ce.getReactingTC());
@@ -1877,7 +1878,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote rd_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeRdS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeRdS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1902,18 +1903,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rdp triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readMatchingTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeRdR(new LogicTuple(arg0.copyGoal(
+                        InternalOperation.makeRdR(LogicTuples.newInstance(arg0.copyGoal(
                                 v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -1925,7 +1926,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote rdp triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeRdp(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeRdp(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1977,15 +1978,15 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rdp_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = new LogicTuple(newArg);
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final Tuple tuple = this.vm
                     .readMatchingSpecTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(goal, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent iev = new InternalEvent(ce,
-                        InternalOperation.makeRdSR(new LogicTuple(goal
+                        InternalOperation.makeRdSR(LogicTuples.newInstance(goal
                                 .copyGoal(v, 0))));
                 iev.setSource(ce.getReactingTC());
                 iev.setTarget(ce.getReactingTC());
@@ -1997,7 +1998,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote rdp_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeRdpS(new LogicTuple(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeRdpS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2064,8 +2065,8 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         // Get engine's copy of key and val
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         final AbstractMap<Var, Var> v1 = new LinkedHashMap<Var, Var>();
-        final LogicTuple lt = new LogicTuple("setEnv", new TupleArgument(
-                key.copyGoal(v, 0)), new TupleArgument(val.copyGoal(v1, 0)));
+        final LogicTuple lt = LogicTuples.newInstance("setEnv", TupleArguments.newInstance(
+                key.copyGoal(v, 0)), TupleArguments.newInstance(val.copyGoal(v1, 0)));
         // Building internal event
         final InputEvent ev = this.vm.getCurrentEvent();
         // log("### DEBUG >>> ev = " + ev);
@@ -2109,11 +2110,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local spawn triggered...");
             final Term newArg = arg0.copyGoal(v, 0);
-            final LogicTuple tuArg = new LogicTuple(newArg);
+            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
             final InputEvent ce = this.vm.getCurrentEvent();
             this.vm.spawnActivity(tuArg, ce.getReactingTC(), ce.getReactingTC());
             final InternalEvent ev = new InternalEvent(ce,
-                    InternalOperation.makeSpawnR(new LogicTuple(arg0.copyGoal(
+                    InternalOperation.makeSpawnR(LogicTuples.newInstance(arg0.copyGoal(
                             v, 0))));
             ev.setSource(ce.getReactingTC());
             ev.setTarget(ce.getReactingTC());
@@ -2123,7 +2124,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote spawn triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeSpawn(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeSpawn(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2182,13 +2183,13 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractEvent e = this.vm.getCurrentReactionEvent();
         if (e.isInternal()) {
             final InternalEvent ie = (InternalEvent) e;
-            return LogicMatchingEngine.propagate(new LogicTuple(predicate),
+            return LogicMatchingEngine.propagate(LogicTuples.newInstance(predicate),
                     (LogicTuple) ie.getInputEvent().getSimpleTCEvent()
                             .getPredicate());
         }
         if (e.isOutput()) {
             final OutputEvent oe = (OutputEvent) e;
-            return LogicMatchingEngine.propagate(new LogicTuple(predicate),
+            return LogicMatchingEngine.propagate(LogicTuples.newInstance(predicate),
                     (LogicTuple) oe.getInputEvent().getSimpleTCEvent()
                             .getPredicate());
         }
@@ -2425,18 +2426,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local uin triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .removeUniformTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeUinR(new LogicTuple(arg0
+                        InternalOperation.makeUinR(LogicTuples.newInstance(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -2448,7 +2449,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote uin triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeUin(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUin(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2473,18 +2474,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local uinp triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .removeUniformTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeUinR(new LogicTuple(arg0
+                        InternalOperation.makeUinR(LogicTuples.newInstance(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -2496,7 +2497,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote uinp triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeUinp(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUinp(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2521,17 +2522,17 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local uno triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readUniformTuple(tuArg);
             if (tuple == null) {
                 Respect2PLibrary.log("uno success");
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeUnoR(new LogicTuple(arg0
+                        InternalOperation.makeUnoR(LogicTuples.newInstance(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -2544,7 +2545,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote uno triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeUno(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUno(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2569,17 +2570,17 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local unop triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readUniformTuple(tuArg);
             if (tuple == null) {
                 Respect2PLibrary.log("unop success");
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeUnoR(new LogicTuple(arg0
+                        InternalOperation.makeUnoR(LogicTuples.newInstance(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -2592,7 +2593,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote unop triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeUnop(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUnop(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2617,18 +2618,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local urd triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readUniformTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeUrdR(new LogicTuple(arg0
+                        InternalOperation.makeUrdR(LogicTuples.newInstance(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -2640,7 +2641,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote urd triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeUrd(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUrd(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2665,18 +2666,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid = null;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = new LogicTuple(arg0);
+        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local urdp triggered...");
-            final alice.tuplecentre.api.Tuple tuple = this.vm
+            final Tuple tuple = this.vm
                     .readUniformTuple(tuArg);
             if (tuple != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeUrdR(new LogicTuple(arg0
+                        InternalOperation.makeUrdR(LogicTuples.newInstance(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -2688,7 +2689,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote urdp triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeUrdp(new LogicTuple(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUrdp(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);

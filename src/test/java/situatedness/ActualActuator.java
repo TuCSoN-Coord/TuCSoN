@@ -3,8 +3,9 @@
  */
 package situatedness;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.respect.core.TransducersManager;
 import alice.tuplecentre.respect.situatedness.AbstractTransducer;
@@ -123,11 +124,11 @@ public class ActualActuator implements ISimpleProbe {
             }
         }
         try {
-            final LogicTuple template = LogicTuple.parse("temp(_)");
+            final LogicTuple template = LogicTuples.parse("temp(_)");
             final TucsonOperation op = this.acc.inAll(this.tempTc, template,
                     null);
             if (op.isResultSuccess()) {
-                final LogicTuple tempTuple = LogicTuple.parse("temp(" + value
+                final LogicTuple tempTuple = LogicTuples.parse("temp(" + value
                         + ")");
                 this.acc.out(this.tempTc, tempTuple, null);
                 System.out.println("[" + this.pid + "]: temp set to " + value);

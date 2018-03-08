@@ -18,10 +18,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.OperationIdentifier;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;

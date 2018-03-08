@@ -6,8 +6,9 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
@@ -92,7 +93,7 @@ public class SwarmMonitor {
             List<LogicTuple> tuples;
             for (int i = 0; i < this.tcids.length; i++) {
                 SwarmMonitor.log("Smelling " + this.tcids[i].getLocalName() + "...");
-                op = this.acc.rdAll(this.tcids[i], LogicTuple.parse("nbr(N)"),
+                op = this.acc.rdAll(this.tcids[i], LogicTuples.parse("nbr(N)"),
                         null);
                 if (op.isResultSuccess()) {
                     tuples = op.getLogicTupleListResult();

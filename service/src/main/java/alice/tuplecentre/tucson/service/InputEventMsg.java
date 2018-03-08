@@ -2,7 +2,7 @@ package alice.tuplecentre.tucson.service;
 
 import java.io.Serializable;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.api.geolocation.Position;

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.Value;
-import alice.logictuple.Var;
-import alice.logictuple.exceptions.InvalidVarNameException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonOperation;
@@ -113,8 +113,8 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
             UnreachableNodeException, OperationTimeOutException {
         TucsonOperation op = null;
         try {
-            op = this.internalACC.inp(this.tid, new LogicTuple(
-                    "roles_list_request", new Value(this.agentClass), new Var(
+            op = this.internalACC.inp(this.tid, LogicTuples.newInstance(
+                    "roles_list_request", TupleArguments.newValueArgument(this.agentClass), TupleArguments.newVarArgument(
                             "Result")), (Long) null);
         } catch (final InvalidVarNameException e) {
             /*
@@ -154,8 +154,8 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
         LogicTuple loginTuple = null;
         TucsonOperation op = null;
         try {
-            loginTuple = new LogicTuple("login_request", new Value(username
-                    + ":" + TucsonACCTool.encrypt(password)), new Var("Result"));
+            loginTuple = LogicTuples.newInstance("login_request", TupleArguments.newValueArgument(username
+                    + ":" + TucsonACCTool.encrypt(password)), TupleArguments.newVarArgument("Result"));
             op = this.internalACC.inp(this.tid, loginTuple, (Long) null);
         } catch (final InvalidVarNameException e) {
             // TODO Auto-generated catch block
@@ -258,7 +258,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
             UnreachableNodeException, OperationTimeOutException {
         LogicTuple rbacInstalled = null;
         try {
-            rbacInstalled = new LogicTuple("is_rbac_installed", new Var("Result"));
+            rbacInstalled = LogicTuples.newInstance("is_rbac_installed", TupleArguments.newVarArgument("Result"));
         } catch (final InvalidVarNameException e) {
             e.printStackTrace();
         }
@@ -279,8 +279,8 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
 
     private void setBasicAgentClass() {
         try {
-            final LogicTuple baseClassTuple = new LogicTuple(
-                    "get_basic_agent_class", new Var("Response"));
+            final LogicTuple baseClassTuple = LogicTuples.newInstance(
+                    "get_basic_agent_class", TupleArguments.newVarArgument("Response"));
             final TucsonOperation op = this.internalACC.inp(this.tid,
                     baseClassTuple, (Long) null);
             if (op.isResultSuccess()) {

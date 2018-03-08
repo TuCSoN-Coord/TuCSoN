@@ -3,12 +3,12 @@ package alice.tuplecentre.tucson.service;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.Value;
-import alice.logictuple.Var;
-import alice.logictuple.exceptions.InvalidTupleArgumentException;
-import alice.logictuple.exceptions.InvalidVarNameException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
+import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.respect.api.exceptions.OperationNotAllowedException;
@@ -126,9 +126,9 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
             UnreachableNodeException, OperationTimeOutException {
 
         try {
-            final LogicTuple setPermissionTuple = new LogicTuple(
-                    "add_permission", new Value(policyName), new Value(
-                            permission.getPermissionName()), new Var("Result"));
+            final LogicTuple setPermissionTuple = LogicTuples.newInstance(
+                    "add_permission", TupleArguments.newValueArgument(policyName), TupleArguments.newValueArgument(
+                            permission.getPermissionName()), TupleArguments.newVarArgument("Result"));
             final TucsonOperation op = this.inp(this.tid, setPermissionTuple,
                     (Long) null);
             if (op.isResultSuccess()) {
@@ -177,8 +177,8 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
                 throw new OperationNotAllowedException();
             }
             this.installRBACSupport();
-            final LogicTuple orgTuple = new LogicTuple("organisation_name",
-                    new Value(rbac.getOrgName()));
+            final LogicTuple orgTuple = LogicTuples.newInstance("organisation_name",
+                    TupleArguments.newValueArgument(rbac.getOrgName()));
             TucsonOperation op = this.out(this.tid, orgTuple, timeout);
             if (op.isResultSuccess()) {
                 final LogicTuple res = op.getLogicTupleResult();
@@ -188,8 +188,8 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
                 this.log("Cannot install RBAC for organisation: "
                         + rbac.getOrgName());
             }
-            final LogicTuple basicAgClassTuple = new LogicTuple(
-                    "set_basic_agent_class", new Value(
+            final LogicTuple basicAgClassTuple = LogicTuples.newInstance(
+                    "set_basic_agent_class", TupleArguments.newValueArgument(
                             rbac.getBasicAgentClass()));
             op = this.inp(this.tid, basicAgClassTuple, timeout);
             for (final Role role : rbac.getRoles()) {
@@ -203,18 +203,18 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
             }
             LogicTuple loginTuple = null;
             if (rbac.isLoginRequired()) {
-                loginTuple = new LogicTuple("set_login", new Value("yes"));
+                loginTuple = LogicTuples.newInstance("set_login", TupleArguments.newValueArgument("yes"));
             } else {
-                loginTuple = new LogicTuple("set_login", new Value("no"));
+                loginTuple = LogicTuples.newInstance("set_login", TupleArguments.newValueArgument("no"));
             }
             op = this.inp(this.tid, loginTuple, timeout);
             LogicTuple inspectorsTuple = null;
             if (rbac.isInspectionAllowed()) {
-                inspectorsTuple = new LogicTuple("authorise_inspection",
-                        new Value("yes"));
+                inspectorsTuple = LogicTuples.newInstance("authorise_inspection",
+                        TupleArguments.newValueArgument("yes"));
             } else {
-                inspectorsTuple = new LogicTuple("authorise_inspection",
-                        new Value("no"));
+                inspectorsTuple = LogicTuples.newInstance("authorise_inspection",
+                        TupleArguments.newValueArgument("no"));
             }
             op = this.inp(this.tid, inspectorsTuple, timeout);
             if (op.isResultSuccess()) {
@@ -246,8 +246,8 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
     public void removePolicy(final String policyName)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
-        final Value policy = new Value(policyName);
-        final LogicTuple removePolicyTuple = new LogicTuple("remove_policy",
+        final TupleArgument policy = TupleArguments.newValueArgument(policyName);
+        final LogicTuple removePolicyTuple = LogicTuples.newInstance("remove_policy",
                 policy);
         this.inp(this.tid, removePolicyTuple, (Long) null);
         this.log("Removed policy: " + policy);
@@ -268,15 +268,15 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
         if (!this.isAdminAuth) {
             throw new OperationNotAllowedException();
         }
-        this.inp(this.tid, new LogicTuple("disinstall_rbac"), (Long) null);
+        this.inp(this.tid, LogicTuples.newInstance("disinstall_rbac"), (Long) null);
     }
 
     @Override
     public void removeRole(final String roleName)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
-        final Value role = new Value(Utils.decapitalize(roleName));
-        final LogicTuple roleDestructionTuple = new LogicTuple("remove_role",
+        final TupleArgument role = TupleArguments.newValueArgument(Utils.decapitalize(roleName));
+        final LogicTuple roleDestructionTuple = LogicTuples.newInstance("remove_role",
                 role);
         this.inp(this.tid, roleDestructionTuple, (Long) null);
         this.log("Removed role: " + role);
@@ -286,8 +286,8 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
     public void setBasicAgentClass(final String newBasicAgentClass)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
-        final LogicTuple newClassTuple = new LogicTuple(
-                "set_basic_agent_class", new Value(newBasicAgentClass));
+        final LogicTuple newClassTuple = LogicTuples.newInstance(
+                "set_basic_agent_class", TupleArguments.newValueArgument(newBasicAgentClass));
         final TucsonOperation op = this.inp(this.tid, newClassTuple,
                 (Long) null);
         if (op.isResultSuccess()) {
@@ -304,8 +304,8 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
 
         LogicTuple setRoleClassTuple;
         try {
-            setRoleClassTuple = new LogicTuple("set_role_class", new Value(
-                    roleName), new Value(agentClass), new Var("Result"));
+            setRoleClassTuple = LogicTuples.newInstance("set_role_class", TupleArguments.newValueArgument(
+                    roleName), TupleArguments.newValueArgument(agentClass), TupleArguments.newVarArgument("Result"));
             final TucsonOperation op = this.inp(this.tid, setRoleClassTuple,
                     (Long) null);
             if (op.isResultSuccess()) {
@@ -332,8 +332,8 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
             UnreachableNodeException, OperationTimeOutException {
         LogicTuple setPolicyTuple;
         try {
-            setPolicyTuple = new LogicTuple("set_role_policy", new Value(
-                    roleName), new Value(policyName), new Var("Result"));
+            setPolicyTuple = LogicTuples.newInstance("set_role_policy", TupleArguments.newValueArgument(
+                    roleName), TupleArguments.newValueArgument(policyName), TupleArguments.newVarArgument("Result"));
             final TucsonOperation op = this.inp(this.tid, setPolicyTuple,
                     (Long) null);
             if (op.isResultSuccess()) {
@@ -379,8 +379,8 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
         LogicTuple policyTuple = null;
         TucsonOperation op = null;
         try {
-            policyTuple = new LogicTuple("policy", new Value(
-                    policy.getPolicyName()), TupleArgument.parse(permissions));
+            policyTuple = LogicTuples.newInstance("policy", TupleArguments.newValueArgument(
+                    policy.getPolicyName()), TupleArguments.parse(permissions));
             op = this.out(this.tid, policyTuple, l);
         } catch (final InvalidTupleArgumentException e) {
             // TODO Auto-generated catch block
@@ -399,9 +399,9 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
 
-        final LogicTuple roleTuple = new LogicTuple("role", new Value(
-                role.getRoleName()), new Value(role.getDescription()),
-                new Value(role.getAgentClass()));
+        final LogicTuple roleTuple = LogicTuples.newInstance("role", TupleArguments.newValueArgument(
+                role.getRoleName()), TupleArguments.newValueArgument(role.getDescription()),
+                TupleArguments.newValueArgument(role.getAgentClass()));
 
         final TucsonOperation op = this.out(this.tid, roleTuple, l);
         if (op.isResultSuccess()) {
@@ -418,8 +418,8 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
             final Long l) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
 
-        final LogicTuple policyTuple = new LogicTuple("role_policy", new Value(
-                roleName), new Value(policy.getPolicyName()));
+        final LogicTuple policyTuple = LogicTuples.newInstance("role_policy", TupleArguments.newValueArgument(
+                roleName), TupleArguments.newValueArgument(policy.getPolicyName()));
         final TucsonOperation op = this.out(this.tid, policyTuple, l);
         if (op.isResultSuccess()) {
             final LogicTuple res = op.getLogicTupleResult();
@@ -472,21 +472,21 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
         if (!this.isAdminAuth) {
             throw new OperationNotAllowedException();
         }
-        this.inp(this.tid, new LogicTuple("install_rbac"), (Long) null);
+        this.inp(this.tid, LogicTuples.newInstance("install_rbac"), (Long) null);
         // TODO: Serve admin autorizzato? Se non fosse autorizzato non potrebbe
         // farlo!
-        final LogicTuple adminAuthorised = new LogicTuple("authorised_agent",
-                new Value(this.aid.toString()));
+        final LogicTuple adminAuthorised = LogicTuples.newInstance("authorised_agent",
+                TupleArguments.newValueArgument(this.aid.toString()));
         this.out(this.tid, adminAuthorised, (Long) null);
 
     }
 
     private void playAdminRole() {
         try {
-            final LogicTuple template = new LogicTuple("admin_login_request",
-                    new Value(this.getUsername() + ":"
+            final LogicTuple template = LogicTuples.newInstance("admin_login_request",
+                    TupleArguments.newValueArgument(this.getUsername() + ":"
                             + TucsonACCTool.encrypt(this.getPassword())),
-                    new Var("Result"));
+                    TupleArguments.newVarArgument("Result"));
             final TucsonOperation op = this.inp(this.tid, template,
                     (Long) null);
             if (op.isResultSuccess()) {

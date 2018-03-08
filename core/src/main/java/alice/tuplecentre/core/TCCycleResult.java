@@ -1,7 +1,7 @@
 package alice.tuplecentre.core;
 
 import alice.tuplecentre.api.ITCCycleResult;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 
 import java.util.ArrayList;
 import java.util.List;

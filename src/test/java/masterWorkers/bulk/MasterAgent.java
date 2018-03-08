@@ -4,8 +4,9 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -128,7 +129,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                 this.say("Checking termination...");
                 for (int i = 0; i < this.tids.size(); i++) {
                     op = this.acc.inp(this.tids.get(i),
-                            LogicTuple.parse("die(" + this.myName() + ")"),
+                            LogicTuples.parse("die(" + this.myName() + ")"),
                             (Long) null);
                     /*
                      * Only upon success the searched tuple was found. NB: we do
@@ -156,7 +157,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                          * ...to put in each <ITERs> jobs.
                          */
                         num = this.drawRandomInt();
-                        job = LogicTuple.parse("fact(" + "master("
+                        job = LogicTuples.parse("fact(" + "master("
                                 + this.myName() + ")," + "num(" + num + "),"
                                 + "reqID(" + this.reqID + ")" + ")");
                         this.say("Putting job: " + job.toString());
@@ -186,7 +187,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                         /*
                          * ...this time to retrieve factorial results.
                          */
-                        templ = LogicTuple.parse("res(" + "master("
+                        templ = LogicTuples.parse("res(" + "master("
                                 + this.myName() + ")," + "fact(F),"
                                 + "reqID(N)" + ")");
                         /*

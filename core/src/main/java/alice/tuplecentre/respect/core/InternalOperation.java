@@ -12,8 +12,9 @@
  */
 package alice.tuplecentre.respect.core;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArguments;
 
 /**
  * Represents an internal operation of a ReSpecT virtual machine.
@@ -542,6 +543,6 @@ public final class InternalOperation {
         } else {
             opName = "unknownOp";
         }
-        return new LogicTuple(opName, new TupleArgument(t.toTerm()));
+        return LogicTuples.newInstance(opName, TupleArguments.newInstance(t.toTerm()));
     }
 }

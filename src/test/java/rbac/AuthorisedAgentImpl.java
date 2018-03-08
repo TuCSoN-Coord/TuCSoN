@@ -29,8 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.Value;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArguments;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -134,7 +134,7 @@ public final class AuthorisedAgentImpl extends AbstractTucsonAgent {
             Logger.getLogger("AuthorisedAgent").info("Trying 'out' operation");
             TucsonOperation op = acc.out(new TucsonTupleCentreIdDefault("default",
                     this.myNode(), String.valueOf(this.myport())),
-                    new LogicTuple("test", new Value("hello")), (Long) null);
+                    LogicTuples.newInstance("test", TupleArguments.newValueArgument("hello")), (Long) null);
             if (op.isResultSuccess()) {
                 Logger.getLogger("AuthorisedAgent").info(
                         "'out' operation successful");

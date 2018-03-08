@@ -24,10 +24,10 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.Value;
-import alice.logictuple.Var;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -47,13 +47,11 @@ import alice.tuplecentre.tucson.service.TucsonNodeService;
 
 /**
  * @author Stefano Mariani (mailto: s [dot] mariani [at] unibo [dot] it)
- *
  */
 public final class DicePlayer extends AbstractTucsonAgent {
 
     /**
-     * @param args
-     *            no args expected.
+     * @param args no args expected.
      */
     public static void main(final String[] args) {
         try {
@@ -70,8 +68,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
             final EnhancedSyncACC acc = negAcc.playDefaultRole();
             acc.outAll(
                     new TucsonTupleCentreIdDefault("dice", "localhost", "20504"),
-                    LogicTuple
-                            .parse("[face(1),face(2),face(3),face(4),face(5),face(6)]"),
+                    LogicTuples.parse("[face(1),face(2),face(3),face(4),face(5),face(6)]"),
                     Long.MAX_VALUE);
             Logger.getAnonymousLogger().log(Level.INFO,
                     "...configuration done, now starting agent...");
@@ -99,11 +96,9 @@ public final class DicePlayer extends AbstractTucsonAgent {
     private static TucsonNodeService node;
 
     /**
-     * @param aid
-     *            the TuCSoN agent identifier
-     * @throws TucsonInvalidAgentIdException
-     *             if the given String does not represent a valid TuCSoN agent
-     *             identifier
+     * @param aid the TuCSoN agent identifier
+     * @throws TucsonInvalidAgentIdException if the given String does not represent a valid TuCSoN agent
+     *                                       identifier
      */
     public DicePlayer(String aid) throws TucsonInvalidAgentIdException {
         super(aid);
@@ -129,7 +124,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
             final EnhancedSyncACC acc = negAcc.playDefaultRole();
             TucsonOperation op;
             LogicTuple template;
-            final LogicTuple dieTuple = new LogicTuple("stahp", new Value(
+            final LogicTuple dieTuple = LogicTuples.newInstance("stahp", TupleArguments.newValueArgument(
                     this.myName()));
             int face;
             Integer nTimes = 1;
@@ -141,7 +136,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
                     continue;
                 }
                 this.say("Rolling dice...");
-                template = new LogicTuple("face", new Var());
+                template = LogicTuples.newInstance("face", TupleArguments.newVarArgument());
                 // op = acc.rd(this.tcid, template, Long.MAX_VALUE);
                 op = acc.urd(this.tcid, template, Long.MAX_VALUE);
                 if (op.isResultSuccess()) {
@@ -179,7 +174,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
     }
 
     /**
-     * 
+     *
      */
     private void printFinalStats() {
         this.say("Outcomes 'till now:");
@@ -199,7 +194,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
     }
 
     /**
-     * 
+     *
      */
     private void printStats() {
         this.say("Outcomes 'till now:");

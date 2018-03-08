@@ -2,8 +2,8 @@ package diningPhilos;
 
 import java.io.IOException;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -106,7 +106,7 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent {
                 /*
                  * Init chopsticks required to eat.
                  */
-                acc.out(table, LogicTuple.parse("chop(" + i + ")"), null);
+                acc.out(table, LogicTuples.parse("chop(" + i + ")"), null);
             }
             for (int i = 0; i < DiningPhilosophersTest.N_PHILOSOPHERS; i++) {
                 /*

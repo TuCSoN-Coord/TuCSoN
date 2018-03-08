@@ -5,10 +5,12 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.Value;
+
+import alice.tuple.TupleTemplate;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArguments;
 import alice.tuplecentre.api.TupleCentreIdentifier;
-import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.core.InternalEvent;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
@@ -176,13 +178,13 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
         if (mod == AbstractTransducer.GET_MODE) {
-            final LogicTuple tupla = new LogicTuple("getEnv", new Value(key),
-                    new Value(value));
+            final LogicTuple tupla = LogicTuples.newInstance("getEnv", TupleArguments.newValueArgument(key),
+                    TupleArguments.newValueArgument(value));
             this.executor.doNonBlockingOperation(this.id,
                     TupleCentreOpType.GET_ENV, this.tcId, tupla, this, null);
         } else if (mod == AbstractTransducer.SET_MODE) {
-            final LogicTuple tupla = new LogicTuple("setEnv", new Value(key),
-                    new Value(value));
+            final LogicTuple tupla = LogicTuples.newInstance("setEnv", TupleArguments.newValueArgument(key),
+                    TupleArguments.newValueArgument(value));
             this.executor.doNonBlockingOperation(this.id,
                     TupleCentreOpType.SET_ENV, this.tcId, tupla, this, null);
         }

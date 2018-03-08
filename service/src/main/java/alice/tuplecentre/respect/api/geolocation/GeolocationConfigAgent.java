@@ -2,12 +2,13 @@ package alice.tuplecentre.respect.api.geolocation;
 
 import java.lang.reflect.InvocationTargetException;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.Var;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.logictuple.exceptions.InvalidLogicTupleOperationException;
-import alice.logictuple.exceptions.InvalidVarNameException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.exceptions.InvalidLogicTupleOperationException;
+import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.api.geolocation.service.GeoServiceId;
@@ -75,8 +76,8 @@ public class GeolocationConfigAgent extends Thread {
             while (true) {
                 Object cmd;
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                        TupleCentreOpType.IN, new LogicTuple("cmd",
-                                new Var("X")), null);
+                        TupleCentreOpType.IN, LogicTuples.newInstance("cmd",
+                                TupleArguments.newVarArgument("X")), null);
                 final InputEvent ev = new InputEvent(this.nodeManAid,
                         opRequested, this.config, System.currentTimeMillis(),
                         null);
@@ -148,7 +149,7 @@ public class GeolocationConfigAgent extends Thread {
         GeolocationConfigAgent.log("Executing command " + name);
         LogicTuple t = null;
         if (GeolocationConfigAgent.CREATE_GEOLOCATION_SERVICE.equals(name)) {
-            t = LogicTuple.parse("createGeolocationService(Sid,Sclass,Stcid)");
+            t = LogicTuples.parse("createGeolocationService(Sid,Sclass,Stcid)");
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.IN, t, null);
             final InputEvent ev = new InputEvent(this.nodeManAid, opRequested,
@@ -175,7 +176,7 @@ public class GeolocationConfigAgent extends Thread {
                             tcId);
         } else if (GeolocationConfigAgent.DESTROY_GEOLOCATION_SERVICE
                 .equals(name)) {
-            t = LogicTuple.parse("destroyGeolocationService(Sid)");
+            t = LogicTuples.parse("destroyGeolocationService(Sid)");
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.IN, t, null);
             final InputEvent ev = new InputEvent(this.nodeManAid, opRequested,

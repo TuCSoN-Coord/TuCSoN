@@ -5,8 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -36,8 +37,7 @@ public class MasterAgent extends AbstractTucsonAgent {
     private static final int SLEEP = 1000;
 
     /**
-     * @param args
-     *            no args expected.
+     * @param args no args expected.
      */
     public static void main(final String[] args) {
         final LinkedList<String> nodes = new LinkedList<String>();
@@ -60,22 +60,16 @@ public class MasterAgent extends AbstractTucsonAgent {
     private final List<TucsonTupleCentreId> tids;
 
     /**
-     * @param aid
-     *            agent name
-     * @param nodes
-     *            list of nodes where to submit jobs
-     * @param iters
-     *            max number of jobs per node
-     * @param maxFact
-     *            max number for which to calculate factorial
-     *
-     * @throws TucsonInvalidAgentIdException
-     *             if the given String does not represent a valid TuCSoN agent
-     *             identifier
+     * @param aid     agent name
+     * @param nodes   list of nodes where to submit jobs
+     * @param iters   max number of jobs per node
+     * @param maxFact max number for which to calculate factorial
+     * @throws TucsonInvalidAgentIdException if the given String does not represent a valid TuCSoN agent
+     *                                       identifier
      */
     public MasterAgent(final String aid, final List<String> nodes,
-            final int iters, final int maxFact)
-                    throws TucsonInvalidAgentIdException {
+                       final int iters, final int maxFact)
+            throws TucsonInvalidAgentIdException {
         super(aid);
         this.die = false;
         this.tids = new LinkedList<>();
@@ -129,7 +123,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                 this.say("Checking termination...");
                 for (int i = 0; i < this.tids.size(); i++) {
                     op = acc.inp(this.tids.get(i),
-                            LogicTuple.parse("die(" + this.myName() + ")"),
+                            LogicTuples.parse("die(" + this.myName() + ")"),
                             (Long) null);
                     /*
                      * Only upon success the searched tuple was found. NB: we do
@@ -157,7 +151,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                          * ...to put in each <ITERs> jobs.
                          */
                         num = this.drawRandomInt();
-                        job = LogicTuple.parse("fact(" + "master("
+                        job = LogicTuples.parse("fact(" + "master("
                                 + this.myName() + ")," + "num(" + num + "),"
                                 + "reqID(" + this.reqID + ")" + ")");
                         this.say("Putting job: " + job.toString());
@@ -185,8 +179,8 @@ public class MasterAgent extends AbstractTucsonAgent {
                     for (int j = 0; j < this.nIters; j++) {
                         acc.spawn(
                                 next,
-                                LogicTuple
-                                        .parse("exec('alice.tuplecentre.tucson.examples.spawnedWorkers.SpawnedWorkingActivity.class')"),
+                                LogicTuples
+                                .parse("exec('alice.tuplecentre.tucson.examples.spawnedWorkers.SpawnedWorkingActivity.class')"),
                                 null);
                         /*
                          * Just to let you view something on the console.
@@ -195,7 +189,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                         /*
                          * ...this time to retrieve factorial results.
                          */
-                        templ = LogicTuple.parse("res(" + "master("
+                        templ = LogicTuples.parse("res(" + "master("
                                 + this.myName() + ")," + "fact(F),"
                                 + "reqID(N)" + ")");
                         /*

@@ -14,9 +14,11 @@ package alice.tuplecentre.respect.core;
 
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.respect.api.IRespectTC;
@@ -94,8 +96,8 @@ public class TimedContext extends RootInterface implements ITimedContext {
 		}
 		if (",".equals(t.getName()) && t.getArity() == 2) {
 		    arg = t.getArg(1);
-		    return this.unify(new LogicTuple(
-		            new TupleArgument(arg.toTerm())), op
+		    return this.unify(LogicTuples.newInstance(
+		            TupleArguments.newInstance(arg.toTerm())), op
 		            .getLogicTupleResult());
 		}
         return op.getLogicTupleResult();
@@ -156,8 +158,8 @@ public class TimedContext extends RootInterface implements ITimedContext {
 		}
 		if (",".equals(t.getName()) && t.getArity() == 2) {
 		    arg = t.getArg(1);
-		    return this.unify(new LogicTuple(
-		            new TupleArgument(arg.toTerm())), op
+		    return this.unify(LogicTuples.newInstance(
+		            TupleArguments.newInstance(arg.toTerm())), op
 		            .getLogicTupleResult());
 		}
         return op.getLogicTupleResult();
@@ -252,8 +254,8 @@ public class TimedContext extends RootInterface implements ITimedContext {
 		}
 		if (",".equals(t.getName()) && t.getArity() == 2) {
 		    arg = t.getArg(1);
-		    return this.unify(new LogicTuple(
-		            new TupleArgument(arg.toTerm())), op
+		    return this.unify(LogicTuples.newInstance(
+		            TupleArguments.newInstance(arg.toTerm())), op
 		            .getLogicTupleResult());
 		}
         return op.getLogicTupleResult();

@@ -19,12 +19,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.OperationIdentifier;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
-import alice.tuplecentre.api.TupleTemplate;
+import alice.tuple.TupleTemplate;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.OperationCompletionListener;
 import alice.tuplecentre.core.TupleCentreOpType;

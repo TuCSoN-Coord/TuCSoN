@@ -2,8 +2,8 @@ package timedDiningPhilos;
 
 import java.io.IOException;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -111,14 +111,14 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent {
              * Init max eating time.
              */
             acc.out(table,
-                    LogicTuple.parse("max_eating_time("
+                    LogicTuples.parse("max_eating_time("
                             + TDiningPhilosophersTest.MAX_EATING_TIME + ")"),
                             null);
             for (int i = 0; i < TDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
                 /*
                  * Init chopsticks required to eat.
                  */
-                acc.out(table, LogicTuple.parse("chop(" + i + ")"), null);
+                acc.out(table, LogicTuples.parse("chop(" + i + ")"), null);
             }
             for (int i = 0; i < TDiningPhilosophersTest.N_PHILOSOPHERS - 1; i++) {
                 /*

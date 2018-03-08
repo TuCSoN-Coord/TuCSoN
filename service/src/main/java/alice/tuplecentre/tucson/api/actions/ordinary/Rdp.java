@@ -19,7 +19,7 @@
  */
 package alice.tuplecentre.tucson.api.actions.ordinary;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;

@@ -15,7 +15,7 @@ package alice.tuplecentre.tucson.api.acc;
 
 import java.util.List;
 
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
