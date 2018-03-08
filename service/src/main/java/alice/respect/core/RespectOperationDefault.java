@@ -517,6 +517,8 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      */
     public static RespectOperationDefault makeSetS(final OperationCompletionListener l) {
         return new RespectOperationDefault(SET_S, LogicTuples.newInstance("spec"), l);
+        // TODO: 08/03/2018 there was a creation of a LogicTuple with no argument... with refactor this was no more possible...
+        // replaced with creation of a "spec" tuple
     }
 
     /**
