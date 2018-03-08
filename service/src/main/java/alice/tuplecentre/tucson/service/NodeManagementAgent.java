@@ -83,7 +83,7 @@ public class NodeManagementAgent extends Thread {
                 // (LogicTuple) TupleCentreContainer.doBlockingOperation(
                 // TupleCentreOpType.IN, this.nodeManAid,
                 // this.config,
-                // new LogicTuple("cmd", TupleArguments.newVarArgument("X")));
+                // LogicTuples.newInstance("cmd", TupleArguments.newVarArgument("X")));
                 if (cmd != null) {
                     this.execCmd(cmd.getArg(0));
                 } else {
@@ -141,8 +141,8 @@ public class NodeManagementAgent extends Thread {
                 }
                 // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                 // .outCode(), this.nodeManAid, this.config,
-                // new LogicTuple("cmd_result", new Value("destroy"),
-                // new Value("ok")));
+                // LogicTuples.newInstance("cmd_result", TupleArguments.newValueArgument("destroy"),
+                // TupleArguments.newValueArgument("ok")));
             } else {
                 try {
                     // Operation Make
@@ -160,8 +160,8 @@ public class NodeManagementAgent extends Thread {
                 }
                 // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                 // .outCode(), this.nodeManAid, this.config,
-                // new LogicTuple("cmd_result", new Value("destroy"),
-                // new Value("failed")));
+                // LogicTuples.newInstance("cmd_result", TupleArguments.newValueArgument("destroy"),
+                // TupleArguments.newValueArgument("failed")));
             }
         } else if ("enable_persistency".equals(name)) {
             try {
@@ -181,8 +181,8 @@ public class NodeManagementAgent extends Thread {
                 e.printStackTrace();
             }
             // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.OUT,
-            // this.nodeManAid, this.config, new LogicTuple("cmd_result",
-            // cmd, new Value("ok")));
+            // this.nodeManAid, this.config, LogicTuples.newInstance("cmd_result",
+            // cmd, TupleArguments.newValueArgument("ok")));
         } else if ("disable_persistency".equals(name)) {
             try {
             	NodeManagementAgent.log("Disabling persistency...");
@@ -202,8 +202,8 @@ public class NodeManagementAgent extends Thread {
                 e.printStackTrace();
             }
             // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.OUT,
-            // this.nodeManAid, this.config, new LogicTuple("cmd_result",
-            // new Value("disable_persistency"), new Value("ok")));
+            // this.nodeManAid, this.config, LogicTuples.newInstance("cmd_result",
+            // TupleArguments.newValueArgument("disable_persistency"), TupleArguments.newValueArgument("ok")));
         } else if ("enable_observability".equals(name)) {
             this.node.activateObservability();
         } else if ("disable_observability".equals(name)) {

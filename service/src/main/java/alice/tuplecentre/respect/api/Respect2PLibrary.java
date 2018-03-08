@@ -49,6 +49,7 @@ import alice.tuplecentre.respect.api.geolocation.service.GeolocationServiceManag
 import alice.tuplecentre.respect.core.InternalEvent;
 import alice.tuplecentre.respect.core.InternalOperation;
 import alice.tuplecentre.respect.core.RespectOperationDefault;
+import alice.tuplecentre.respect.core.RespectVMContext;
 import alice.tuplecentre.respect.core.TransducersManager;
 import alice.tuplecentre.respect.situatedness.TransducerId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
@@ -1581,7 +1582,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         // }
         // final InputEvent outEv =
         // new InputEvent(ce.getReactingTC(), RespectOperationDefault.makeOut(
-        // this.getProlog(), new LogicTuple(arg0.copyGoal(v, 0)),
+        // this.getProlog(), LogicTuples.newInstance(arg0.copyGoal(v, 0)),
         // null), newTid, this.vm.getCurrentTime());
         // outEv.setIsLinking(true);
         // outEv.setTarget(newTid);

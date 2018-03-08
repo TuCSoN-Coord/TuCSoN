@@ -449,7 +449,7 @@ public class TucsonNodeService {
                 TupleCentreContainer.doBlockingOperation(ev);
                 // TupleCentreContainer.doBlockingOperation(
                 // TupleCentreOpType.INP, this.nodeAid,
-                // this.idConfigTC, new LogicTuple("tuple_centre", tcArg));
+                // this.idConfigTC, LogicTuples.newInstance("tuple_centre", tcArg));
                 final RespectOperationDefault opRequested2 = RespectOperationDefault.make(
                         TupleCentreOpType.INP, LogicTuples.newInstance(
                                 "is_persistent", TupleArguments.newValueArgument(realName)), null);
@@ -459,7 +459,7 @@ public class TucsonNodeService {
                 TupleCentreContainer.doBlockingOperation(ev2);
                 // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                 // .inpCode(), this.nodeAid, this.idConfigTC,
-                // new LogicTuple("is_persistent", new Value(realName)));
+                // LogicTuples.newInstance("is_persistent", TupleArguments.newValueArgument(realName)));
             } catch (final TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
             } catch (final InvalidTupleArgumentException e) {
@@ -500,8 +500,8 @@ public class TucsonNodeService {
             return true;
 
             // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.IN,
-            // this.nodeAid, tar.getTucsonTupleCentreId(), new LogicTuple(
-            // "is_persistent", new Value(tar
+            // this.nodeAid, tar.getTucsonTupleCentreId(), LogicTuples.newInstance(
+            // "is_persistent", TupleArguments.newValueArgument(tar
             // .getTucsonTupleCentreId().getName())));
         } catch (final TucsonOperationNotPossibleException e) {
             e.printStackTrace();
@@ -550,7 +550,7 @@ public class TucsonNodeService {
                         // TupleCentreContainer.doBlockingOperation(
                         // TupleCentreOpType.IN, this.nodeAid, tc
                         // .getTucsonTupleCentreId(),
-                        // new LogicTuple("is_persistent", new Value(tc
+                        // LogicTuples.newInstance("is_persistent", TupleArguments.newValueArgument(tc
                         // .getTucsonTupleCentreId().getName())));
                         TucsonNodeService.log(">>> persistency disabled.");
                     }
@@ -593,8 +593,8 @@ public class TucsonNodeService {
                     null);
             TupleCentreContainer.doBlockingOperation(ev);
             // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.OUT,
-            // this.nodeAid, tar.getTucsonTupleCentreId(), new LogicTuple(
-            // "is_persistent", new Value(tar
+            // this.nodeAid, tar.getTucsonTupleCentreId(), LogicTuples.newInstance(
+            // "is_persistent", TupleArguments.newValueArgument(tar
             // .getTucsonTupleCentreId().getName())));
             return true;
         } catch (final TucsonOperationNotPossibleException e) {
@@ -644,8 +644,8 @@ public class TucsonNodeService {
                     TupleCentreContainer.doBlockingOperation(ev);
                     // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                     // .outCode(), this.nodeAid, tc
-                    // .getTucsonTupleCentreId(), new LogicTuple(
-                    // "is_persistent", new Value(tc
+                    // .getTucsonTupleCentreId(), LogicTuples.newInstance(
+                    // "is_persistent", TupleArguments.newValueArgument(tc
                     // .getTucsonTupleCentreId().getName())));
                     TucsonNodeService.log(">>> persistency enabled.");
                 }
@@ -1087,24 +1087,24 @@ public class TucsonNodeService {
             TupleCentreContainer.doBlockingOperation(ev6);
 
             // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.OUT,
-            // this.nodeAid, this.idConfigTC, new LogicTuple("role", new
-            // Value("admin_role"), new Value("admin role"), new Value("0")));
+            // this.nodeAid, this.idConfigTC, LogicTuples.newInstance("role", new
+            // Value("admin_role"), TupleArguments.newValueArgument("admin role"), TupleArguments.newValueArgument("0")));
             /*
              * if(!authForAdmin){
              * TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
              * .outCode(), this.nodeAid, this.idConfigTC, new
-             * LogicTuple("role_credentials", new Value("admin_role"), new
+             * LogicTuple("role_credentials", TupleArguments.newValueArgument("admin_role"), new
              * Value("_"))); } else if(adminUsername!=null &&
              * !adminUsername.equalsIgnoreCase("") && adminPassword!=null &&
              * !adminPassword.equalsIgnoreCase("")) {
              * TupleCentreContainer.doBlockingOperation
              * (TupleCentreOpType.OUT, nodeAid, idConfigTC, new
-             * LogicTuple("role_credentials", new Value("admin_role"), new
+             * LogicTuple("role_credentials", TupleArguments.newValueArgument("admin_role"), new
              * Value(adminUsername+":"+TucsonACCTool.encrypt(adminPassword))));
              * } else {
              * TupleCentreContainer.doBlockingOperation(TucsonOperationDefault.
              * outCode(), this.nodeAid, this.idConfigTC, new
-             * LogicTuple("role_credentials", new Value("admin_role"), new
+             * LogicTuple("role_credentials", TupleArguments.newValueArgument("admin_role"), new
              * Value("_"))); }
              */
             if (this.adminUsername != null

@@ -2,8 +2,8 @@ package alice.tuplecentre.respect.api;
 
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 

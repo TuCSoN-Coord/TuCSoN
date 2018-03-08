@@ -122,7 +122,7 @@ public class ACCProvider {
                     Tools.removeApices(agentName)), TupleArguments.newVarArgument("CtxId"),
                     TupleArguments.newValueArgument(agentClass), TupleArguments.newValueArgument(agentUUID));
             /*
-             * final LogicTuple req = new LogicTuple("context_request", new
+             * final LogicTuple req = LogicTuples.newInstance("context_request", new
              * Value( agentName), TupleArguments.newVarArgument("CtxId"));
              */
             // Operation Make

@@ -1,9 +1,7 @@
 package alice.tuplecentre.tucson.introspection4gui;
 
-import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.TucsonTupleCentreId;
 import alice.tuple.Tuple;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 
 public interface Inspector4GuiObserver {
 	

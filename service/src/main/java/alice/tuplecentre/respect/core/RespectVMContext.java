@@ -25,20 +25,21 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.LogicTupleOpManager;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.Value;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.Tuple;
+import alice.tuple.TupleTemplate;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleOpManager;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.OperationIdentifier;
-import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
-import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.core.AbstractBehaviourSpecification;
 import alice.tuplecentre.core.AbstractEvent;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.core.AbstractTupleCentreVMContext;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.ObservableEventReactionFail;
 import alice.tuplecentre.core.ObservableEventReactionOK;
@@ -92,7 +93,7 @@ import alice.tuprolog.Var;
  * @author (contributor) Michele Bombardi (mailto:
  *         michele.bombardi@studio.unibo.it)
  */
-public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentreVMContext {
+public class RespectVMContext extends AbstractTupleCentreVMContext {
 
     /**
      * @author Stefano Mariani (mailto: s.mariani@unibo.it)
@@ -148,13 +149,13 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
                 core.setTheory(thspec);
             } else {
                 core = null;
-                return new LogicTuple("invalid", new alice.logictuple.Var());
+                return LogicTuples.newInstance("invalid", TupleArguments.newVarArgument());
             }
             core = null;
-            return new LogicTuple("valid");
+            return LogicTuples.newInstance("valid");
         } catch (final alice.tuprolog.InvalidTheoryException ex) {
             core = null;
-            return new LogicTuple("invalid", new Value(ex.line));
+            return LogicTuples.newInstance("invalid", TupleArguments.newValueArgument(ex.line));
         }
     }
 
@@ -280,13 +281,13 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
         LogicTuple tuple = (LogicTuple) t;
         LogicTuple toAdd;
         while (!"[]".equals(tuple.toString())) {
-            toAdd = new LogicTuple(tuple.getArg(0));
+            toAdd = LogicTuples.newInstance(tuple.getArg(0));
             this.tSet.add(toAdd);
             if (this.isPersistent) {
                 this.writePersistencyUpdate(toAdd, ModType.ADD_TUPLE);
             }
-            list.add(new LogicTuple(tuple.getArg(0)));
-            tuple = new LogicTuple(tuple.getArg(1));
+            list.add(LogicTuples.newInstance(tuple.getArg(0)));
+            tuple = LogicTuples.newInstance(tuple.getArg(1));
         }
         return list;
     }
@@ -300,7 +301,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
     public void addSpecTuple(final Tuple t) {
         Tuple tuple = null;
         if (",".equals(((LogicTuple) t).getName())) {
-            tuple = new LogicTuple("reaction", ((LogicTuple) t).getArg(0), ((LogicTuple) t).getArg(1).getArg(0),
+            tuple = LogicTuples.newInstance("reaction", ((LogicTuple) t).getArg(0), ((LogicTuple) t).getArg(1).getArg(0),
                     ((LogicTuple) t).getArg(1).getArg(1));
         } else {
             tuple = t;
@@ -1125,7 +1126,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
         final LogicTuple[] tuples = new LogicTuple[trig.length];
         for (int i = 0; i < tuples.length; i++) {
             final Term term = ((LogicReaction) trig[i].getReaction()).getStructReaction().getTerm();
-            tuples[i] = new LogicTuple(term);
+            tuples[i] = LogicTuples.newInstance(term);
         }
         return tuples;
     }
@@ -1262,12 +1263,12 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
 
     @Override
     public Tuple readMatchingSpecTuple(final TupleTemplate t) {
-        return this.tSpecSet.readMatchingTuple((alice.logictuple.LogicTuple) t);
+        return this.tSpecSet.readMatchingTuple((LogicTuple) t);
     }
 
     @Override
     public Tuple readMatchingTuple(final TupleTemplate t) {
-        return this.tSet.readMatchingTuple((alice.logictuple.LogicTuple) t);
+        return this.tSet.readMatchingTuple((LogicTuple) t);
     }
 
     @Override
@@ -1335,7 +1336,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
                 this.log(">>> Recovering tuples...");
                 for (final String t : tuples) {
                     if (!t.startsWith("is_persistent")) {
-                        this.addTuple(LogicTuple.parse(t), true);
+                        this.addTuple(LogicTuples.parse(t), true);
                     }
                 }
                 this.log(">>> ...tuples recovered!");
@@ -1344,7 +1345,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
             if (specs != null && !specs.isEmpty()) {
                 this.log(">>> Recovering specs...");
                 for (final String s : specs) {
-                    this.addSpecTuple(LogicTuple.parse(s));
+                    this.addSpecTuple(LogicTuples.parse(s));
                 }
                 this.log(">>> ...specs recovered!");
             }
@@ -1352,7 +1353,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
             if (predicates != null && !predicates.isEmpty()) {
                 this.log(">>> Recovering predicates...");
                 for (final String p : predicates) {
-                    this.prologPredicates.add(LogicTuple.parse(p));
+                    this.prologPredicates.add(LogicTuples.parse(p));
                 }
                 this.log(">>> ...predicates recovered!");
             }
@@ -1368,20 +1369,20 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
                     // }
                     if ("(+t)".equals(split[0])) {
                         if (!split[1].startsWith("is_persistent")) {
-                            this.addTuple(LogicTuple.parse(split[1]), true);
+                            this.addTuple(LogicTuples.parse(split[1]), true);
                         }
                     } else if ("(-t)".equals(split[0])) {
                         if (!split[1].startsWith("is_persistent")) {
-                            this.removeMatchingTuple(LogicTuple.parse(split[1]), true);
+                            this.removeMatchingTuple(LogicTuples.parse(split[1]), true);
                         }
                     } else if ("(+s)".equals(split[0])) {
-                        this.addSpecTuple(LogicTuple.parse(split[1]));
+                        this.addSpecTuple(LogicTuples.parse(split[1]));
                     } else if ("(-s)".equals(split[0])) {
-                        this.removeMatchingSpecTuple(LogicTuple.parse(split[1]));
+                        this.removeMatchingSpecTuple(LogicTuples.parse(split[1]));
                     } else if ("(+p)".equals(split[0])) {
-                        this.prologPredicates.add(LogicTuple.parse(split[1]));
+                        this.prologPredicates.add(LogicTuples.parse(split[1]));
                     } else if ("(-p)".equals(split[0])) {
-                        this.prologPredicates.getMatchingTuple(LogicTuple.parse(split[1]));
+                        this.prologPredicates.getMatchingTuple(LogicTuples.parse(split[1]));
                     } else if ("(et)".equals(split[0])) {
                         this.emptyTupleSet();
                     } else if ("(ep)".equals(split[0])) {
@@ -1550,7 +1551,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
             while (term != null) {
                 engine.solve("assert(" + term + ").");
                 if (!term.match(Term.createTerm("reaction(E,G,R)"))) {
-                    pp = new LogicTuple(term);
+                    pp = LogicTuples.newInstance(term);
                     this.prologPredicates.add(pp);
                     if (this.isPersistent) {
                         this.writePersistencyUpdate(pp, ModType.ADD_PRED);
@@ -1583,7 +1584,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
                 LogicTuple st;
                 while (true) {
                     final alice.tuprolog.Term solution = info.getSolution();
-                    st = new LogicTuple(solution);
+                    st = LogicTuples.newInstance(solution);
                     this.tSpecSet.add(st);
                     if (this.isPersistent) {
                         this.writePersistencyUpdate(st, ModType.ADD_SPEC);
@@ -1615,7 +1616,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
                 final String tupla = operation.substring(3, operation.length() - 1);
                 LogicTuple logicTuple = null;
                 try {
-                    logicTuple = LogicTuple.parse(tupla);
+                    logicTuple = LogicTuples.parse(tupla);
                     final RespectOperationDefault op = RespectOperationDefault.makeRd(logicTuple, null);
                     this.vm.doOperation(null, op);
                 } catch (final InvalidLogicTupleException e) {
@@ -1627,7 +1628,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
                 final String tupla = operation.substring(3, operation.length() - 1);
                 LogicTuple logicTuple = null;
                 try {
-                    logicTuple = LogicTuple.parse(tupla);
+                    logicTuple = LogicTuples.parse(tupla);
                     final RespectOperationDefault op = RespectOperationDefault.makeIn(logicTuple, null);
                     this.vm.doOperation(null, op);
                 } catch (final InvalidLogicTupleException e) {
@@ -1793,7 +1794,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
         final LogicReaction lr = (LogicReaction) tr.getReaction();
         final Struct rStruct = lr.getStructReaction();
         final Struct rg = new Struct(rStruct.getName(), rStruct.getArg(0), new Var(), rStruct.getArg(1));
-        this.removeMatchingSpecTuple(new LogicTuple(rg));
+        this.removeMatchingSpecTuple(LogicTuples.newInstance(rg));
     }
 
     private boolean evalGuard(final Term g) {
@@ -1873,7 +1874,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
                 }
                 currTimer.schedule(
                         new RespectTimerTask(this,
-                                RespectOperationDefault.makeTime(new LogicTuple("time", new TupleArgument(current)), null)),
+                                RespectOperationDefault.makeTime(LogicTuples.newInstance("time", TupleArguments.newInstance(current)), null)),
                         delay);
             }
             /** SPATIAL EXTENSION - Interfacing with geolocation service **/
@@ -1971,7 +1972,7 @@ public class RespectVMContext extends alice.tuplecentre.core.AbstractTupleCentre
                 }
                 currTimer.schedule(
                         new RespectTimerTask(this,
-                                RespectOperationDefault.makeTime(new LogicTuple("time", new TupleArgument(current)), null)),
+                                RespectOperationDefault.makeTime(LogicTuples.newInstance("time", TupleArguments.newInstance(current)), null)),
                         delay);
             }
             /** SPATIAL EXTENSION - Interfacing with geolocation service **/
