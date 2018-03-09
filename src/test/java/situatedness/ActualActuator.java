@@ -5,22 +5,22 @@ package situatedness;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.respect.core.TransducersManager;
-import alice.respect.situatedness.AbstractProbeId;
-import alice.respect.situatedness.AbstractTransducer;
-import alice.respect.situatedness.ISimpleProbe;
-import alice.respect.situatedness.TransducerId;
-import alice.respect.situatedness.TransducerStandardInterface;
-import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
+import alice.tuplecentre.respect.core.TransducersManager;
+import alice.tuplecentre.respect.situatedness.AbstractProbeId;
+import alice.tuplecentre.respect.situatedness.AbstractTransducer;
+import alice.tuplecentre.respect.situatedness.ISimpleProbe;
+import alice.tuplecentre.respect.situatedness.TransducerId;
+import alice.tuplecentre.respect.situatedness.TransducerStandardInterface;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * The 'actual' actuator probe deployed in this scenario. Although in this toy
@@ -58,7 +58,7 @@ public class ActualActuator implements ISimpleProbe {
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#getIdentifier()
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#getIdentifier()
      */
     @Override
     public AbstractProbeId getIdentifier() {
@@ -67,7 +67,7 @@ public class ActualActuator implements ISimpleProbe {
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#getTransducer()
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#getTransducer()
      */
     @Override
     public TransducerId getTransducer() {
@@ -76,7 +76,7 @@ public class ActualActuator implements ISimpleProbe {
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#readValue(java.lang.String)
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#readValue(java.lang.String)
      */
     @Override
     public boolean readValue(final String key) {
@@ -87,7 +87,7 @@ public class ActualActuator implements ISimpleProbe {
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#setTransducer(alice.respect.
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#setTransducer(alice.tuplecentre.respect.
      * situatedness.TransducerId)
      */
     @Override
@@ -97,7 +97,7 @@ public class ActualActuator implements ISimpleProbe {
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#writeValue(java.lang.String,
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#writeValue(java.lang.String,
      * int)
      */
     @Override

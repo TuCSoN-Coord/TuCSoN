@@ -27,25 +27,25 @@ package rbac;
 
 import java.util.logging.Logger;
 
-import alice.respect.api.exceptions.OperationNotAllowedException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.acc.AdminACC;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.rbac.AuthorisedAgent;
-import alice.tucson.rbac.Permission;
-import alice.tucson.rbac.Policy;
-import alice.tucson.rbac.Role;
-import alice.tucson.rbac.TucsonAuthorisedAgent;
-import alice.tucson.rbac.TucsonPermission;
-import alice.tucson.rbac.TucsonPolicy;
-import alice.tucson.rbac.TucsonRBACStructure;
-import alice.tucson.rbac.TucsonRole;
-import alice.tucson.service.TucsonInfo;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
+import alice.tuplecentre.respect.api.exceptions.OperationNotAllowedException;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.acc.AdminACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.rbac.AuthorisedAgent;
+import alice.tuplecentre.tucson.rbac.Permission;
+import alice.tuplecentre.tucson.rbac.Policy;
+import alice.tuplecentre.tucson.rbac.Role;
+import alice.tuplecentre.tucson.rbac.TucsonAuthorisedAgent;
+import alice.tuplecentre.tucson.rbac.TucsonPermission;
+import alice.tuplecentre.tucson.rbac.TucsonPolicy;
+import alice.tuplecentre.tucson.rbac.TucsonRBACStructure;
+import alice.tuplecentre.tucson.rbac.TucsonRole;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * The administrator agent, configuring the RBAC properties.
@@ -86,7 +86,7 @@ public final class AdminAgent extends AbstractTucsonAgent<AdminACC> {
 
     /*
      * (non-Javadoc)
-     * @see alice.tucson.api.AbstractTucsonAgent#main()
+     * @see alice.tuplecentre.tucson.api.AbstractTucsonAgent#main()
      */
     @Override
     protected void main() {

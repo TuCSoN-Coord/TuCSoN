@@ -31,21 +31,21 @@ import java.util.logging.Logger;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.acc.EnhancedACC;
-import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.acc.RootACC;
-import alice.tucson.api.exceptions.AgentNotAllowedException;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.service.TucsonInfo;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.acc.EnhancedACC;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
+import alice.tuplecentre.tucson.api.exceptions.AgentNotAllowedException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * An authorised agent. It is "known" by TuCSoN-RBAC, thanks to administrators
@@ -81,7 +81,7 @@ public final class AuthorisedAgent extends AbstractTucsonAgent<RootACC> {
 
     /*
      * (non-Javadoc)
-     * @see alice.tucson.api.AbstractTucsonAgent#main()
+     * @see alice.tuplecentre.tucson.api.AbstractTucsonAgent#main()
      */
     @Override
     protected void main() {
