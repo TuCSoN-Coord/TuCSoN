@@ -14,14 +14,11 @@ package alice.tuplecentre.core;
 
 /**
  * @author Alessandro Ricci
- *
  */
 public interface OperationCompletionListener {
 
     /**
-     *
-     * @param op
-     *            the operation completed
+     * @param op the operation completed
      */
-    void operationCompleted(AbstractTupleCentreOperation op);
+    void operationCompleted(final AbstractTupleCentreOperation op);
 }

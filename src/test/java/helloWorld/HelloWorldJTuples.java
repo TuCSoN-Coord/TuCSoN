@@ -3,28 +3,30 @@
  */
 package helloWorld;
 
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.api.Tuple;
+import alice.tuple.Tuple;
+import alice.tuple.java.api.JArgType;
+import alice.tuple.java.api.JTuple;
+import alice.tuple.java.api.JTupleTemplate;
+import alice.tuple.java.exceptions.InvalidJValException;
+import alice.tuple.java.exceptions.InvalidJVarException;
+import alice.tuple.java.impl.JTupleDefault;
+import alice.tuple.java.impl.JTupleTemplateDefault;
+import alice.tuple.java.impl.JValDefault;
+import alice.tuple.java.impl.JVarDefault;
 import alice.tuplecentre.api.exceptions.InvalidTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuples.javatuples.api.IJTuple;
-import alice.tuples.javatuples.api.IJTupleTemplate;
-import alice.tuples.javatuples.api.JArgType;
-import alice.tuples.javatuples.exceptions.InvalidJValException;
-import alice.tuples.javatuples.exceptions.InvalidJVarException;
-import alice.tuples.javatuples.impl.JTuple;
-import alice.tuples.javatuples.impl.JTupleTemplate;
-import alice.tuples.javatuples.impl.JVal;
-import alice.tuples.javatuples.impl.JVar;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 24/feb/2014
@@ -43,9 +45,9 @@ public final class HelloWorldJTuples {
         TucsonAgentId aid = null;
         try {
             if (args.length == 1) {
-                aid = new TucsonAgentId(args[0]);
+                aid = new TucsonAgentIdDefault(args[0]);
             } else {
-                aid = new TucsonAgentId("helloWorldMain");
+                aid = new TucsonAgentIdDefault("helloWorldMain");
             }
             /*
              * 2) Get a TuCSoN ACC to enable interaction with the TuCSoN system.
@@ -57,13 +59,13 @@ public final class HelloWorldJTuples {
             /*
              * 3) Define the tuplecentre target of your coordination operations.
              */
-            final TucsonTupleCentreId tid = new TucsonTupleCentreId("default",
+            final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
                     "localhost", "20504");
             /*
              * 4) Build the tuple using the communication language.
              */
-            final IJTuple tuple = new JTuple(new JVal("hello"));
-            tuple.addArg(new JVal("world"));
+            final JTuple tuple = new JTupleDefault(new JValDefault("hello"));
+            tuple.addArg(new JValDefault("world"));
             /*
              * 5) Perform the coordination operation using the preferred
              * coordination primitive.
@@ -74,31 +76,31 @@ public final class HelloWorldJTuples {
              */
             Tuple res = null;
             if (op.isResultSuccess()) {
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation succeeded.");
                 /*
                  * 7) Get requested operation result.
                  */
                 res = op.getJTupleResult();
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation result is " + res);
             } else {
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation failed.");
             }
             /*
              * Another success test to be sure.
              */
-            final IJTupleTemplate template = new JTupleTemplate(new JVal(
+            final JTupleTemplate template = new JTupleTemplateDefault(new JValDefault(
                     "hello"));
-            template.addArg(new JVar(JArgType.LITERAL));
+            template.addArg(new JVarDefault(JArgType.LITERAL));
             op = acc.rdp(tid, template, null);
             if (op.isResultSuccess()) {
                 res = op.getJTupleResult();
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation result is " + res);
             } else {
-                System.out.println("[" + aid.getAgentName()
+                System.out.println("[" + aid.getLocalName()
                         + "]: Operation failed.");
             }
             /*
@@ -107,7 +109,7 @@ public final class HelloWorldJTuples {
             acc.exit();
         } catch (final TucsonInvalidAgentIdException e) {
             /*
-             * The chosen TuCSoN Agent ID is not admissible.
+             * The chosen TuCSoN Agent Identifier is not admissible.
              */
             e.printStackTrace();
         } catch (final TucsonInvalidTupleCentreIdException e) {

@@ -1,29 +1,29 @@
-/**
- *
- */
 package uniform.swarms.gui;
 
 import java.awt.Component;
 import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.SwingUtilities;
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.BulkSyncACC;
-import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
+
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.BulkSyncACC;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * @author ste
- *
  */
 public class SwarmMonitor {
 
@@ -43,14 +43,14 @@ public class SwarmMonitor {
         try {
             for (int i = 1; i < (cs.length - 2); i++) {
                 this.bs[i - 1] = (JButton) cs[i];
-                this.tcids[i - 1] = new TucsonTupleCentreId(
+                this.tcids[i - 1] = new TucsonTupleCentreIdDefault(
                         this.bs[i - 1].getName(), "localhost", "" + (20504 + i));
                 SwarmMonitor.log("" + this.bs[i - 1].getName());
-                SwarmMonitor.log("" + this.tcids[i - 1].getName() + ":"
+                SwarmMonitor.log("" + this.tcids[i - 1].getLocalName() + ":"
                         + this.tcids[i - 1].getPort());
             }
             NegotiationACC negAcc = TucsonMetaACC
-                    .getNegotiationContext(new TucsonAgentId("tcsMonitor"));
+                    .getNegotiationContext(new TucsonAgentIdDefault("tcsMonitor"));
             this.acc = negAcc.playDefaultRole();
         } catch (TucsonInvalidAgentIdException
                 | TucsonInvalidTupleCentreIdException
@@ -92,8 +92,8 @@ public class SwarmMonitor {
             TucsonOperation op;
             List<LogicTuple> tuples;
             for (int i = 0; i < this.tcids.length; i++) {
-                SwarmMonitor.log("Smelling " + this.tcids[i].getName() + "...");
-                op = this.acc.rdAll(this.tcids[i], LogicTuple.parse("nbr(N)"),
+                SwarmMonitor.log("Smelling " + this.tcids[i].getLocalName() + "...");
+                op = this.acc.rdAll(this.tcids[i], LogicTuples.parse("nbr(N)"),
                         null);
                 if (op.isResultSuccess()) {
                     tuples = op.getLogicTupleListResult();

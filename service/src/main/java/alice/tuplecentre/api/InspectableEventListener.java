@@ -14,6 +14,7 @@
 package alice.tuplecentre.api;
 
 import java.util.EventListener;
+
 import alice.tuplecentre.core.InspectableEvent;
 
 /**
@@ -32,5 +33,5 @@ public interface InspectableEventListener extends EventListener {
      * @param e
      *            the observed events
      */
-    void onInspectableEvent(InspectableEvent e);
+    void onInspectableEvent(final InspectableEvent e);
 }

@@ -3,24 +3,27 @@
  */
 package situatedness;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.respect.core.TransducersManager;
-import alice.respect.situatedness.AbstractProbeId;
-import alice.respect.situatedness.AbstractTransducer;
-import alice.respect.situatedness.ISimpleProbe;
-import alice.respect.situatedness.TransducerId;
-import alice.respect.situatedness.TransducerStandardInterface;
-import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
+import alice.tuplecentre.respect.core.TransducersManager;
+import alice.tuplecentre.respect.situatedness.AbstractTransducer;
+import alice.tuplecentre.respect.situatedness.ISimpleProbe;
+import alice.tuplecentre.respect.situatedness.ProbeIdentifier;
+import alice.tuplecentre.respect.situatedness.TransducerId;
+import alice.tuplecentre.respect.situatedness.TransducerStandardInterface;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * The 'actual' actuator probe deployed in this scenario. Although in this toy
@@ -35,19 +38,19 @@ public class ActualActuator implements ISimpleProbe {
     private static final String DEFAULT_HOST = "localhost";
     private static final String DEFAULT_PORT = "20504";
     private EnhancedSyncACC acc;
-    private final AbstractProbeId pid;
+    private final ProbeIdentifier pid;
     private TucsonTupleCentreId tempTc;
     private TransducerId tid;
     private TransducerStandardInterface transducer;
 
-    public ActualActuator(final AbstractProbeId i) {
+    public ActualActuator(final ProbeIdentifier i) {
         this.pid = i;
         try {
-            final TucsonAgentId aid = new TucsonAgentId("actuator");
+            final TucsonAgentId aid = new TucsonAgentIdDefault("actuator");
             this.acc = TucsonMetaACC.getContext(aid,
                     ActualActuator.DEFAULT_HOST,
                     Integer.valueOf(ActualActuator.DEFAULT_PORT));
-            this.tempTc = new TucsonTupleCentreId("tempTc",
+            this.tempTc = new TucsonTupleCentreIdDefault("tempTc",
                     ActualActuator.DEFAULT_HOST, ActualActuator.DEFAULT_PORT);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             e.printStackTrace();
@@ -58,16 +61,16 @@ public class ActualActuator implements ISimpleProbe {
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#getIdentifier()
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#getIdentifier()
      */
     @Override
-    public AbstractProbeId getIdentifier() {
+    public ProbeIdentifier getIdentifier() {
         return this.pid;
     }
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#getTransducer()
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#getTransducer()
      */
     @Override
     public TransducerId getTransducer() {
@@ -76,7 +79,7 @@ public class ActualActuator implements ISimpleProbe {
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#readValue(java.lang.String)
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#readValue(java.lang.String)
      */
     @Override
     public boolean readValue(final String key) {
@@ -87,7 +90,7 @@ public class ActualActuator implements ISimpleProbe {
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#setTransducer(alice.respect.
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#setTransducer(alice.tuplecentre.respect.
      * situatedness.TransducerId)
      */
     @Override
@@ -97,7 +100,7 @@ public class ActualActuator implements ISimpleProbe {
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#writeValue(java.lang.String,
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#writeValue(java.lang.String,
      * int)
      */
     @Override
@@ -113,7 +116,7 @@ public class ActualActuator implements ISimpleProbe {
         }
         if (this.transducer == null) {
             this.transducer = TransducersManager.INSTANCE
-                    .getTransducer(this.tid.getAgentName());
+                    .getTransducer(this.tid.getLocalName());
             if (this.transducer == null) {
                 System.err.println("[" + this.pid
                         + "]: Can't retrieve my transducer!");
@@ -121,11 +124,11 @@ public class ActualActuator implements ISimpleProbe {
             }
         }
         try {
-            final LogicTuple template = LogicTuple.parse("temp(_)");
+            final LogicTuple template = LogicTuples.parse("temp(_)");
             final TucsonOperation op = this.acc.inAll(this.tempTc, template,
                     null);
             if (op.isResultSuccess()) {
-                final LogicTuple tempTuple = LogicTuple.parse("temp(" + value
+                final LogicTuple tempTuple = LogicTuples.parse("temp(" + value
                         + ")");
                 this.acc.out(this.tempTc, tempTuple, null);
                 System.out.println("[" + this.pid + "]: temp set to " + value);

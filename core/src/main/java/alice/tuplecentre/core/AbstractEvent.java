@@ -16,96 +16,90 @@ package alice.tuplecentre.core;
 import java.util.HashMap;
 import java.util.Map;
 
-import alice.respect.api.geolocation.Position;
-import alice.tuplecentre.api.IId;
-import alice.tuplecentre.api.Tuple;
-import alice.tuplecentre.api.TupleCentreId;
+import alice.tuple.Tuple;
+import alice.tuplecentre.api.EmitterIdentifier;
+import alice.tuplecentre.api.TupleCentreIdentifier;
+import alice.tuplecentre.respect.api.geolocation.Position;
 
 /**
  * Represents events of the tuple centre virtual machine
- *
+ * <p>
  * An events is always related to the operation executed by some agent.
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
+ * michele.bombardi@studio.unibo.it)
  */
 public abstract class AbstractEvent implements java.io.Serializable {
 
     private static final long serialVersionUID = 5233628097824741218L;
     private final Map<String, String> evProp;
-    /** place in where this events occurs */
+    /**
+     * place in where this events occurs
+     */
     private final Position place;
-    /** the current tuple centre (VM) where this events is managed **/
-    private TupleCentreId reactingTC;
-    /** the operation (primitive + tuple) associated with this events **/
+    /*** the current tuple centre (VM) where this events is managed **/
+    private TupleCentreIdentifier reactingTC;
+    /**
+     * the operation (primitive + tuple) associated with this events
+     **/
     private AbstractTupleCentreOperation simpleTCEvent;
-    /** the entitiy executing the operation **/
-    private IId source;
-    /** represent the target entity that could be an agent or a TC **/
-    private IId target;
-    /** time at which this events occurs */
+    /**
+     * the entitiy executing the operation
+     **/
+    private EmitterIdentifier source;
+    /**
+     * represent the target entity that could be an agent or a TC
+     **/
+    private EmitterIdentifier target;
+    /**
+     * time at which this events occurs
+     */
     private final long time;
 
     /**
-     *
-     * @param s
-     *            the identifier of the source of the events
-     * @param op
-     *            the operation which caused the events
-     * @param tc
-     *            the identifier of the tuple centre target of the events
-     * @param t
-     *            the time at which the events was generated
-     * @param p
-     *            the position (wichever sort of) where the events was generated
+     * @param s  the identifier of the source of the events
+     * @param op the operation which caused the events
+     * @param tc the identifier of the tuple centre target of the events
+     * @param t  the time at which the events was generated
+     * @param p  the position (wichever sort of) where the events was generated
      */
-    public AbstractEvent(final IId s, final AbstractTupleCentreOperation op,
-            final TupleCentreId tc, final long t, final Position p) {
+    public AbstractEvent(final EmitterIdentifier s, final AbstractTupleCentreOperation op,
+                         final TupleCentreIdentifier tc, final long t, final Position p) {
         this.source = s;
         this.simpleTCEvent = op;
         this.target = tc;
         this.reactingTC = tc;
         this.time = t;
-        this.evProp = new HashMap<String, String>();
+        this.evProp = new HashMap<>();
         this.place = p;
     }
 
     /**
-     *
-     * @param s
-     *            the identifier of the source of the events
-     * @param op
-     *            the operation which caused the events
-     * @param tc
-     *            the identifier of the tuple centre target of the events
-     * @param t
-     *            the time at which the events was generated
-     * @param prop
-     *            some properties relatde to the events
-     * @param p
-     *            the position (wichever sort of) where the events was generated
+     * @param s    the identifier of the source of the events
+     * @param op   the operation which caused the events
+     * @param tc   the identifier of the tuple centre target of the events
+     * @param t    the time at which the events was generated
+     * @param prop some properties relatde to the events
+     * @param p    the position (wichever sort of) where the events was generated
      */
-    public AbstractEvent(final IId s, final AbstractTupleCentreOperation op,
-            final TupleCentreId tc, final long t, final Position p, final Map<String, String> prop) {
+    public AbstractEvent(final EmitterIdentifier s, final AbstractTupleCentreOperation op,
+                         final TupleCentreIdentifier tc, final long t, final Position p, final Map<String, String> prop) {
         this(s, op, tc, t, p);
         this.evProp.putAll(prop);
     }
 
     /**
-     *
-     * @param key
-     *            the String representation of the key of the property to
+     * @param key the String representation of the key of the property to
      *            retrieve
      * @return the String representation of the value of the property retrieved
      */
     public String getEventProp(final String key) {
         return this.evProp.get(key);
     }
-    
+
     /**
-     * 
      * @return the place in where this events occurred
      */
     public Position getPosition() {
@@ -113,16 +107,14 @@ public abstract class AbstractEvent implements java.io.Serializable {
     }
 
     /**
-     *
      * @return the identifier of the tuple centre currently reacting to the
      *         events
      */
-    public TupleCentreId getReactingTC() {
+    public TupleCentreIdentifier getReactingTC() {
         return this.reactingTC;
     }
 
     /**
-     *
      * @return the operation which caused the events
      */
     public AbstractTupleCentreOperation getSimpleTCEvent() {
@@ -135,20 +127,18 @@ public abstract class AbstractEvent implements java.io.Serializable {
      *
      * @return the id of the executor
      */
-    public IId getSource() {
+    public EmitterIdentifier getSource() {
         return this.source;
     }
 
     /**
-     *
      * @return the identifier of the target of the events
      */
-    public IId getTarget() {
+    public EmitterIdentifier getTarget() {
         return this.target;
     }
 
     /**
-     *
      * @return the time at which this events occurred
      */
     public long getTime() {
@@ -156,7 +146,6 @@ public abstract class AbstractEvent implements java.io.Serializable {
     }
 
     /**
-     *
      * @return the tuple argument of the operation which caused the events
      */
     public Tuple getTuple() {
@@ -186,38 +175,32 @@ public abstract class AbstractEvent implements java.io.Serializable {
 
     /**
      *
-     * @param tc
-     *            the identifier of the tuple centre currently reacting to the
+     @param tc
+     the identifier of the tuple centre currently reacting to the
      *            events
      */
-    public void setReactingTC(final TupleCentreId tc) {
+    public void setReactingTC(final TupleCentreIdentifier tc) {
         this.reactingTC = tc;
     }
 
     /**
-     *
-     * @param op
-     *            the operation which caused the events
+     * @param op the operation which caused the events
      */
     public void setSimpleTCEvent(final AbstractTupleCentreOperation op) {
         this.simpleTCEvent = op;
     }
 
     /**
-     *
-     * @param s
-     *            the identifier of the source of the events
+     * @param s the identifier of the source of the events
      */
-    public void setSource(final IId s) {
+    public void setSource(final EmitterIdentifier s) {
         this.source = s;
     }
 
     /**
-     *
-     * @param t
-     *            the identifier of the target of the events
+     * @param t the identifier of the target of the events
      */
-    public void setTarget(final IId t) {
+    public void setTarget(final EmitterIdentifier t) {
         this.target = t;
     }
 

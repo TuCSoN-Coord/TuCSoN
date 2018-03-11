@@ -19,25 +19,29 @@
  */
 package asynchAPI;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.TucsonOperationCompletionListener;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.asynchSupport.AsynchOpsHelper;
-import alice.tucson.asynchSupport.TucsonOpWrapper;
-import alice.tucson.api.actions.ordinary.In;
-import alice.tucson.api.actions.ordinary.Inp;
-import alice.tucson.api.actions.ordinary.Out;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
+import alice.tuplecentre.tucson.api.actions.ordinary.In;
+import alice.tuplecentre.tucson.api.actions.ordinary.Inp;
+import alice.tuplecentre.tucson.api.actions.ordinary.Out;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.asynchSupport.AsynchOpsHelper;
+import alice.tuplecentre.tucson.asynchSupport.TucsonOpWrapper;
 
 /**
  * Prime Calculation example master agent. The master agent delegates
@@ -48,9 +52,8 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
  *
  * @author Fabio Consalici, Riccardo Drudi
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
-public class MasterAgent extends AbstractTucsonAgent {
+public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements TucsonOperationCompletionListener {
 
     /**
      * The handler of operations completion except the last operation. This
@@ -61,7 +64,6 @@ public class MasterAgent extends AbstractTucsonAgent {
      *
      * @author Fabio Consalici, Riccardo Drudi
      * @author (contributor) ste (mailto: s.mariani@unibo.it)
-     *
      */
     private class CompletionHandler implements
             TucsonOperationCompletionListener {
@@ -120,7 +122,6 @@ public class MasterAgent extends AbstractTucsonAgent {
      *
      * @author Fabio Consalici, Riccardo Drudi
      * @author (contributor) ste (mailto: s.mariani@unibo.it)
-     *
      */
     private class LastCompletionHandler implements
             TucsonOperationCompletionListener {
@@ -129,7 +130,7 @@ public class MasterAgent extends AbstractTucsonAgent {
         private final TucsonTupleCentreId ttcid;
 
         public LastCompletionHandler(final AsynchOpsHelper aoh,
-                final TucsonTupleCentreId tid) {
+                                     final TucsonTupleCentreId tid) {
             this.help = aoh;
             this.ttcid = tid;
         }
@@ -138,7 +139,7 @@ public class MasterAgent extends AbstractTucsonAgent {
         public void operationCompleted(final AbstractTupleCentreOperation op) {
             LogicTuple tuple;
             try {
-                tuple = LogicTuple.parse("firstloop");
+                tuple = LogicTuples.parse("firstloop");
                 final Out out = new Out(this.ttcid, tuple);
                 this.help.enqueue(out, null);
                 this.info("First loop done");
@@ -169,9 +170,7 @@ public class MasterAgent extends AbstractTucsonAgent {
     private static final int STEP = 1000;
 
     /**
-     *
-     * @param args
-     *            no args expected
+     * @param args no args expected
      */
     public static void main(final String[] args) {
         try {
@@ -189,16 +188,16 @@ public class MasterAgent extends AbstractTucsonAgent {
     private final int nPrimeCalc;
 
     /**
-     * Builds a Master Agent given its TuCSoN agent ID and the number of
+     * Builds a Master Agent given its TuCSoN agent Identifier and the number of
      * calculations to perform
      *
      * @param id
-     *            the TuCSoN agent ID
+    the TuCSoN agent Identifier
      * @param nCalcs
-     *            the number of calculations to perform
+    the number of calculations to perform
      * @throws TucsonInvalidAgentIdException
-     *             if the given String does not represent a valid TuCSoN agent
-     *             ID
+    if the given String does not represent a valid TuCSoN agent
+     *             Identifier
      */
     public MasterAgent(final String id, final int nCalcs)
             throws TucsonInvalidAgentIdException {
@@ -227,16 +226,21 @@ public class MasterAgent extends AbstractTucsonAgent {
     }
 
     @Override
+    protected EnhancedSyncACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return TucsonMetaACC.getContext(aid, networkAddress, portNumber);
+    }
+
+    @Override
     protected void main() {
         try {
             super.say("Started");
             Out out;
             LogicTuple tuple = null;
-            final TucsonTupleCentreId tid = new TucsonTupleCentreId("default",
+            final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
                     "localhost", "20504");
             int number = MasterAgent.SEED;
             for (int i = 0; i < MasterAgent.REQUESTS; i++) {
-                tuple = LogicTuple.parse("calcprime(" + number + ")");
+                tuple = LogicTuples.parse("calcprime(" + number + ")");
                 super.say("Enqueuing prime numbers calculation up to " + number);
                 /*
                  * 2 - Build the TuCSoN action whose asynchronous invocation
@@ -254,7 +258,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                     + " requests to Prime Calculator agent, now registering handlers...");
             Inp inp;
             for (int i = 0; i < MasterAgent.REQUESTS; i++) {
-                tuple = LogicTuple.parse("prime(X,Y)");
+                tuple = LogicTuples.parse("prime(X,Y)");
                 inp = new Inp(tid, tuple);
                 if (i == MasterAgent.REQUESTS - 1) {
                     final LastCompletionHandler lch = new LastCompletionHandler(
@@ -266,8 +270,8 @@ public class MasterAgent extends AbstractTucsonAgent {
                 }
             }
             super.say("Handlers registered, now I suspend myself until first loop completes...");
-            final EnhancedSyncACC accSynch = this.getContext();
-            final LogicTuple firstLoopTuple = LogicTuple.parse("firstloop");
+            final EnhancedSyncACC accSynch = this.getACC();
+            final LogicTuple firstLoopTuple = LogicTuples.parse("firstloop");
             final In firstLoopIn = new In(tid, firstLoopTuple);
             /*
              * - You can also directly execute synchronous invocation the usual
@@ -291,7 +295,7 @@ public class MasterAgent extends AbstractTucsonAgent {
              */
             this.helper.getCompletedOps().removeSuccessfulOps();
             for (int i = 0; i < MasterAgent.REQUESTS - this.nInpSucceeded; i++) {
-                tuple = LogicTuple.parse("prime(X,Y)");
+                tuple = LogicTuples.parse("prime(X,Y)");
                 in = new In(tid, tuple);
                 final CompletionHandler ch = new CompletionHandler();
                 this.helper.enqueue(in, ch);
@@ -321,7 +325,7 @@ public class MasterAgent extends AbstractTucsonAgent {
             }
             super.say("Stopping Prime Calculator agent");
             for (int i = 0; i < this.nPrimeCalc; i++) {
-                tuple = LogicTuple.parse("stop(primecalc)");
+                tuple = LogicTuples.parse("stop(primecalc)");
                 out = new Out(tid, tuple);
                 this.helper.enqueue(out, null);
             }

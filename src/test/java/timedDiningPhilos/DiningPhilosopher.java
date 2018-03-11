@@ -1,25 +1,26 @@
 package timedDiningPhilos;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * A Dining Philosopher: thinks and eats in an endless loop.
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public class DiningPhilosopher extends AbstractTucsonAgent {
+public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
 
     private static final int THINK_TIME = 5000;
     private OrdinaryAndSpecificationSyncACC acc;
@@ -59,17 +60,8 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation arg0) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     private boolean acquireChops() {
@@ -82,7 +74,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
              */
             op = this.acc.in(
                     this.myTable,
-                    LogicTuple.parse("chops(" + this.chop1 + "," + this.chop2
+                    LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();
@@ -107,7 +99,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
                 Thread.sleep(this.step);
                 op = this.acc.rdp(
                         this.myTable,
-                        LogicTuple.parse("used(" + this.chop1 + ","
+                        LogicTuples.parse("used(" + this.chop1 + ","
                                 + this.chop2 + ",_)"), null);
                 if (!op.isResultSuccess()) {
                     break;
@@ -134,7 +126,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
         try {
             this.acc.out(
                     this.myTable,
-                    LogicTuple.parse("chops(" + this.chop1 + "," + this.chop2
+                    LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();

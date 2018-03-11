@@ -1,20 +1,23 @@
 package messagePassing;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * Receiver thread of a two-thread synchronous conversation protocol. Given a
@@ -23,7 +26,7 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
  *
  * @author s.mariani@unibo.it
  */
-public class ReceiverAgent extends AbstractTucsonAgent {
+public class ReceiverAgent extends AbstractTucsonAgent<RootACC> {
 
     /**
      * @param args
@@ -52,55 +55,40 @@ public class ReceiverAgent extends AbstractTucsonAgent {
      *            the node used as "message transport layer"
      *
      * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     *             if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public ReceiverAgent(final String aid, final String who, final String node)
             throws TucsonInvalidAgentIdException {
         super(aid);
         try {
-            this.sender = new TucsonAgentId(who);
-            this.tid = new TucsonTupleCentreId(node);
+            this.sender = new TucsonAgentIdDefault(who);
+            this.tid = new TucsonTupleCentreIdDefault(node);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
         }
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
-    @Override
-    public void operationCompleted(final AbstractTupleCentreOperation arg0) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation arg0) {
-        /*
-         * not used atm
-         */
     }
 
     private LogicTuple receive(final LogicTuple templ)
             throws InvalidLogicTupleException,
             TucsonOperationNotPossibleException, UnreachableNodeException,
             OperationTimeOutException {
-        this.acc.out(this.tid, LogicTuple.parse("get(msg)"), null);
+        this.acc.out(this.tid, LogicTuples.parse("get(msg)"), null);
         this.op = this.acc.in(this.tid, templ, null);
-        this.acc.out(this.tid, LogicTuple.parse("got(msg)"), null);
+        this.acc.out(this.tid, LogicTuples.parse("got(msg)"), null);
         return this.op.getLogicTupleResult();
     }
 
     private void send(final LogicTuple msg) throws InvalidLogicTupleException,
-    TucsonOperationNotPossibleException, UnreachableNodeException,
-    OperationTimeOutException {
-        this.acc.in(this.tid, LogicTuple.parse("get(msg)"), null);
+            TucsonOperationNotPossibleException, UnreachableNodeException,
+            OperationTimeOutException {
+        this.acc.in(this.tid, LogicTuples.parse("get(msg)"), null);
         this.acc.out(this.tid, msg, null);
-        this.acc.in(this.tid, LogicTuple.parse("got(msg)"), null);
+        this.acc.in(this.tid, LogicTuples.parse("got(msg)"), null);
+    }
+
+    @Override
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     @Override
@@ -116,55 +104,55 @@ public class ReceiverAgent extends AbstractTucsonAgent {
             /*
              * hi...
              */
-            templ = LogicTuple.parse("msg(sender(" + this.sender.getAgentName()
-                    + ")," + "content(M), receiver(" + this.myName() + "))");
+            templ = LogicTuples.parse("msg(sender(" + this.sender.getLocalName()
+                    + ")," + "content(M), receiver(" + this.getTucsonAgentId().getLocalName() + "))");
             reply = this.receive(templ);
             this.say("	< " + reply.getArg("content").getArg(0).toString());
             /*
              * ...hello...
              */
-            msg = LogicTuple.parse("msg(sender(" + this.myName() + "),"
-                    + "content('Hello, " + this.sender.getAgentName() + "!'),"
-                    + "receiver(" + this.sender.getAgentName() + ")" + ")");
-            this.say("> Hello, " + this.sender.getAgentName() + "!");
+            msg = LogicTuples.parse("msg(sender(" + this.getTucsonAgentId().getLocalName() + "),"
+                    + "content('Hello, " + this.sender.getLocalName() + "!'),"
+                    + "receiver(" + this.sender.getLocalName() + ")" + ")");
+            this.say("> Hello, " + this.sender.getLocalName() + "!");
             this.send(msg);
             /*
              * ...how are you...
              */
-            templ = LogicTuple.parse("msg(sender(" + this.sender.getAgentName()
-                    + ")," + "content(M), receiver(" + this.myName() + "))");
+            templ = LogicTuples.parse("msg(sender(" + this.sender.getLocalName()
+                    + ")," + "content(M), receiver(" + this.getTucsonAgentId().getLocalName() + "))");
             reply = this.receive(templ);
             this.say("	< " + reply.getArg("content").getArg(0).toString());
             /*
              * ...fine...
              */
-            msg = LogicTuple.parse("msg(sender(" + this.myName() + "),"
+            msg = LogicTuples.parse("msg(sender(" + this.getTucsonAgentId().getLocalName() + "),"
                     + "content('Fine thanks, and you "
-                    + this.sender.getAgentName() + "?')," + "receiver("
-                    + this.sender.getAgentName() + ")" + ")");
-            this.say("> Fine thanks, and you " + this.sender.getAgentName()
+                    + this.sender.getLocalName() + "?')," + "receiver("
+                    + this.sender.getLocalName() + ")" + ")");
+            this.say("> Fine thanks, and you " + this.sender.getLocalName()
                     + "?");
             this.send(msg);
             /*
              * ...me too...
              */
-            templ = LogicTuple.parse("msg(sender(" + this.sender.getAgentName()
-                    + ")," + "content(M), receiver(" + this.myName() + "))");
+            templ = LogicTuples.parse("msg(sender(" + this.sender.getLocalName()
+                    + ")," + "content(M), receiver(" + this.getTucsonAgentId().getLocalName() + "))");
             reply = this.receive(templ);
             this.say("	< " + reply.getArg("content").getArg(0).toString());
             /*
              * ...bye...
              */
-            msg = LogicTuple.parse("msg(sender(" + this.myName() + "),"
+            msg = LogicTuples.parse("msg(sender(" + this.getTucsonAgentId().getLocalName() + "),"
                     + "content('Nice. Well...bye!')," + "receiver("
-                    + this.sender.getAgentName() + ")" + ")");
+                    + this.sender.getLocalName() + ")" + ")");
             this.say("> Nice. Well...bye!");
             this.send(msg);
             /*
              * ...bye.
              */
-            templ = LogicTuple.parse("msg(sender(" + this.sender.getAgentName()
-                    + ")," + "content(M), receiver(" + this.myName() + "))");
+            templ = LogicTuples.parse("msg(sender(" + this.sender.getLocalName()
+                    + ")," + "content(M), receiver(" + this.getTucsonAgentId().getLocalName() + "))");
             reply = this.receive(templ);
             this.say("	< " + reply.getArg("content").getArg(0).toString());
         } catch (final InvalidLogicTupleException e) {
@@ -178,7 +166,7 @@ public class ReceiverAgent extends AbstractTucsonAgent {
         } catch (final OperationTimeOutException e) {
             this.say("ERROR: Endless timeout expired!");
         } catch (final TucsonInvalidAgentIdException e) {
-            this.say("ERROR: Given ID is not a valid TuCSoN agent ID!");
+            this.say("ERROR: Given Identifier is not a valid TuCSoN agent Identifier!");
         }
     }
 

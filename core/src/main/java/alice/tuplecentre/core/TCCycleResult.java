@@ -3,8 +3,8 @@ package alice.tuplecentre.core;
 import java.util.ArrayList;
 import java.util.List;
 
+import alice.tuple.Tuple;
 import alice.tuplecentre.api.ITCCycleResult;
-import alice.tuplecentre.api.Tuple;
 
 /**
  * @author Alessandro Ricci

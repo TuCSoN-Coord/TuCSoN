@@ -21,6 +21,6 @@ public interface ITupleCentre {
      * @throws OperationNotPossibleException
      *             if the operation cannot be performed
      */
-    void doOperation(IId who, AbstractTupleCentreOperation op)
+    void doOperation(EmitterIdentifier who, AbstractTupleCentreOperation op)
             throws OperationNotPossibleException;
 }
