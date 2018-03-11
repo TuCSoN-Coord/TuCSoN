@@ -28,23 +28,24 @@ package rbac;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidVarNameException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.EnhancedACC;
-import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.AgentNotAllowedException;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.acc.EnhancedACC;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.exceptions.AgentNotAllowedException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * An unauthorised agent. It is NOT "known" by TuCSoN-RBAC, lacking
@@ -77,7 +78,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
     /*
      * (non-Javadoc)
      * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
+     * alice.tuplecentre.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
      * .core.AbstractTupleCentreOperation)
      */
     @Override
@@ -90,7 +91,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
     /*
      * (non-Javadoc)
      * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tucson.
+     * alice.tuplecentre.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre.tucson.
      * api.TucsonOperation)
      */
     @Override
@@ -102,7 +103,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
 
     /*
      * (non-Javadoc)
-     * @see alice.tucson.api.AbstractTucsonAgent#main()
+     * @see alice.tuplecentre.tucson.api.AbstractTucsonAgent#main()
      */
     @Override
     protected void main() {

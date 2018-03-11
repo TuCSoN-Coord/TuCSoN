@@ -4,23 +4,24 @@
 package situatedness;
 
 import java.io.IOException;
+
 import alice.logictuple.LogicTuple;
 import alice.logictuple.TupleArgument;
 import alice.logictuple.Value;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.utilities.Utils;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.utilities.Utils;
 
 /**
  * TuCSoN situatedness feature example.
@@ -99,9 +100,9 @@ public final class Thermostat {
                     "createTransducerSensor",
                     new TupleArgument(sensorTc.toTerm()),
                     new Value(
-                            "alice.tucson.examples.situatedness.SensorTransducer"),
+                            "alice.tuplecentre.tucson.examples.situatedness.SensorTransducer"),
                             new Value("sensorTransducer"), new Value(
-                                    "alice.tucson.examples.situatedness.ActualSensor"),
+                    "alice.tuplecentre.tucson.examples.situatedness.ActualSensor"),
                                     new Value("sensor"));
             acc.out(configTc, sensorTuple, null);
             /* Set up actuator */
@@ -121,10 +122,10 @@ public final class Thermostat {
                     "createTransducerActuator",
                     new TupleArgument(actuatorTc.toTerm()),
                     new Value(
-                            "alice.tucson.examples.situatedness.ActuatorTransducer"),
+                            "alice.tuplecentre.tucson.examples.situatedness.ActuatorTransducer"),
                             new Value("actuatorTransducer"),
                             new Value(
-                                    "alice.tucson.examples.situatedness.ActualActuator"),
+                                    "alice.tuplecentre.tucson.examples.situatedness.ActualActuator"),
                                     new Value("actuator"));
             acc.out(configTc, actuatorTuple, null);
             /* Start perception-reason-action loop */
