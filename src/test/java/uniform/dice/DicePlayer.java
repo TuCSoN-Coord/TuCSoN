@@ -29,8 +29,8 @@ import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
@@ -38,6 +38,7 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -48,7 +49,7 @@ import alice.tuplecentre.tucson.service.TucsonNodeService;
 /**
  * @author Stefano Mariani (mailto: s [dot] mariani [at] unibo [dot] it)
  */
-public final class DicePlayer extends AbstractTucsonAgent {
+public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
 
     /**
      * @param args no args expected.
@@ -125,7 +126,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
             TucsonOperation op;
             LogicTuple template;
             final LogicTuple dieTuple = LogicTuples.newInstance("stahp", TupleArguments.newValueArgument(
-                    this.myName()));
+                    this.getTucsonAgentId().getLocalName()));
             int face;
             Integer nTimes = 1;
             while (!this.stop) {
@@ -204,30 +205,8 @@ public final class DicePlayer extends AbstractTucsonAgent {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tuplecentre.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
     @Override
-    public void operationCompleted(AbstractTupleCentreOperation arg0) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
-
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tuplecentre.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre.tucson.
-     * api.TucsonOperation)
-     */
-    @Override
-    public void operationCompleted(TucsonOperation arg0) {
-        /*
-         * not used atm
-         */
-    }
-
 }

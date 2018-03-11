@@ -575,7 +575,7 @@ public class EventViewer extends javax.swing.JFrame {
 
     private void radioProactiveActionPerformed() {
         this.mainForm.protocol
-                .setPendingQueryObservType(InspectorProtocol.PROACTIVE_OBSERVATION);
+                .setPendingQueryObservType(InspectorProtocol.ObsType.PROACTIVE);
         try {
             this.context.setProtocol(this.mainForm.protocol);
         } catch (final DialogSendException e) {
@@ -588,7 +588,7 @@ public class EventViewer extends javax.swing.JFrame {
 
     private void radioReactiveActionPerformed() {
         this.mainForm.protocol
-                .setPendingQueryObservType(InspectorProtocol.REACTIVE_OBSERVATION);
+                .setPendingQueryObservType(InspectorProtocol.ObsType.REACTIVE);
         try {
             this.context.setProtocol(this.mainForm.protocol);
         } catch (final DialogSendException e) {

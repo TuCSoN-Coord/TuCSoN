@@ -22,10 +22,9 @@ package alice.tuplecentre.tucson.asynchSupport;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
-import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.acc.EnhancedAsyncACC;
 import alice.tuplecentre.tucson.api.actions.AbstractTucsonAction;
@@ -38,9 +37,8 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
  *
  * @author Fabio Consalici, Riccardo Drudi
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
-public class AsynchOpsHelper extends AbstractTucsonAgent {
+public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
 
     /**
      * Tune very carefully, configurable should be
@@ -51,7 +49,6 @@ public class AsynchOpsHelper extends AbstractTucsonAgent {
         System.out.println("....[AsynchOpsHelper (" + aid + ")]: " + msg);
     }
 
-    private EnhancedAsyncACC acc;
     private final CompletedOpsQueue completedOpsQueue;
     private boolean isHardStopped = false;
     private boolean isSoftStopped = false;
@@ -62,12 +59,10 @@ public class AsynchOpsHelper extends AbstractTucsonAgent {
     /**
      * Builds an helper given the delegating agent Identifier
      *
-     * @param id
-     *            the Identifier of the agent delegating asynchronous invocation to this
-     *            helper
-     * @throws TucsonInvalidAgentIdException
-     *             if the given String does not represent a valid TuCSoN agent
-     *             identifier
+     * @param id the Identifier of the agent delegating asynchronous invocation to this
+     *           helper
+     * @throws TucsonInvalidAgentIdException if the given String does not represent a valid TuCSoN agent
+     *                                       identifier
      */
     public AsynchOpsHelper(final String id)
             throws TucsonInvalidAgentIdException {
@@ -83,23 +78,21 @@ public class AsynchOpsHelper extends AbstractTucsonAgent {
      * Adds an operation to the queue of pending operations, only if the
      * shutdown operation hasn't been called yet.
      *
-     * @param action
-     *            the TuCSoN operation to execute.
-     * @param listener
-     *            the TuCSoN listener in charge of handling operation completion
-     *            asynchronously
+     * @param action   the TuCSoN operation to execute.
+     * @param listener the TuCSoN listener in charge of handling operation completion
+     *                 asynchronously
      * @return {@code true} or {@code false} depending on whether the enqueue
-     *         operation was successful or not
+     * operation was successful or not
      */
     public final boolean enqueue(final AbstractTucsonAction action,
-            final TucsonOperationCompletionListener listener) {
+                                 final TucsonOperationCompletionListener listener) {
         if (this.isSoftStopped || this.isHardStopped) {
             return false;
         }
         TucsonOpWrapper op = null;
         final TucsonListenerWrapper wol = new TucsonListenerWrapper(listener,
                 this);
-        op = new TucsonOpWrapper(this.acc, action, wol);
+        op = new TucsonOpWrapper(getACC(), action, wol);
         wol.setTucsonOpWrapper(op);
         try {
             return this.pendingOpsQueue.add(op);
@@ -141,7 +134,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent {
      * synchronisation
      *
      * @return the {@link java.util.concurrent.Semaphore} for shutdown
-     *         synchronisation
+     * synchronisation
      */
     public final Semaphore getShutdownSemaphore() {
         return this.shutdownSynch;
@@ -151,7 +144,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent {
      * Checks whether soft shutdown has been requested
      *
      * @return {@code true} or {@code false} depending on whether soft shutdown
-     *         has been requested or not
+     * has been requested or not
      */
     public final boolean isShutdownGraceful() {
         return this.isSoftStopped;
@@ -161,24 +154,10 @@ public class AsynchOpsHelper extends AbstractTucsonAgent {
      * Checks whether hard shutdown has been requested
      *
      * @return {@code true} or {@code false} depending on whether hard shutdown
-     *         has been requested or not
+     * has been requested or not
      */
     public final boolean isShutdownNow() {
         return this.isHardStopped;
-    }
-
-    @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        /*
-         * Not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation op) {
-        /*
-         * Not used atm
-         */
     }
 
     /**
@@ -199,8 +178,12 @@ public class AsynchOpsHelper extends AbstractTucsonAgent {
     }
 
     @Override
+    protected final EnhancedAsyncACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return TucsonMetaACC.getContext(aid, networkAddress, portNumber);
+    }
+
+    @Override
     protected final void main() {
-        this.acc = this.getContext();
         TucsonOpWrapper op = null;
         AsynchOpsHelper.log(this.getTucsonAgentId(), "started");
         // this is the loop that executes the operation until user stop command

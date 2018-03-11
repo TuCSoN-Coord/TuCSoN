@@ -16,15 +16,15 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
  * changes and implements the behavior in response to some admissible
  * geolocation events. This class is delegated to interface with tucson, giving
  * origin to "from" and "to" events.
- * 
+ *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
- * 
  */
-public class GeolocationServiceListener implements IGeolocationServiceListener {
+public class GeoLocationServiceListenerDefault implements GeoLocationServiceListener {
+
     /**
      * Listener identifier
      */
-    private final AbstractGeolocationService service;
+    private final GeoLocationService service;
     /**
      * Identifier of the associated tuple centre
      */
@@ -32,20 +32,18 @@ public class GeolocationServiceListener implements IGeolocationServiceListener {
 
     /**
      * Constructs a listener
-     * 
-     * @param s
-     *            the service associated
-     * @param ttci
-     *            the associated tuple centre identifier
+     *
+     * @param s    the service associated
+     * @param ttci the associated tuple centre identifier
      */
-    public GeolocationServiceListener(final AbstractGeolocationService s,
-            final TucsonTupleCentreId ttci) {
+    public GeoLocationServiceListenerDefault(final GeoLocationService s,
+                                             final TucsonTupleCentreId ttci) {
         this.service = s;
         this.tcId = ttci;
     }
 
     @Override
-    public AbstractGeolocationService getService() {
+    public GeoLocationService getService() {
         return this.service;
     }
 

@@ -16,6 +16,7 @@ package alice.tuplecentre.tucson.api;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import alice.tuplecentre.tucson.api.acc.RootACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 
@@ -25,7 +26,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
-public abstract class AbstractAutomaton extends AbstractTucsonAgent {
+public abstract class AbstractAutomaton extends AbstractTucsonAgent<RootACC> {
 
     /**
      *
@@ -87,7 +88,7 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent {
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      */
     protected void end() throws TucsonOperationNotPossibleException {
-        this.getContext().exit();
+        this.getACC().exit();
     }
 
     /**

@@ -18,10 +18,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuple.Tuple;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -39,9 +39,9 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdExcepti
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.introspection.ShutdownMsg;
-import alice.tuplecentre.tucson.network.AbstractTucsonProtocol;
 import alice.tuplecentre.tucson.network.TucsonMsgReply;
 import alice.tuplecentre.tucson.network.TucsonMsgRequest;
+import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 
 /**
@@ -57,7 +57,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     private TucsonAgentId agentId;
     private final String agentName;
     private final int ctxId;
-    private final AbstractTucsonProtocol dialog;
+    private final TucsonProtocol dialog;
     private boolean ex = false;
     private final ACCProvider manager;
     private final TucsonNodeService node;
@@ -87,8 +87,8 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
      *             represent a valid TuCSoN identifier
      */
     public ACCProxyNodeSide(final ACCProvider man,
-            final AbstractTucsonProtocol d, final TucsonNodeService n,
-            final ACCDescription p) throws TucsonInvalidTupleCentreIdException,
+                            final TucsonProtocol d, final TucsonNodeService n,
+                            final ACCDescription p) throws TucsonInvalidTupleCentreIdException,
             TucsonInvalidAgentIdException {
         super();
         this.ctxId = Integer.parseInt(p.getProperty("context-id"));
@@ -134,21 +134,21 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                 op.setTupleListResult(new LinkedList<Tuple>());
             }
             if (op.isResultSuccess()) {
-                reply = new TucsonMsgReply(new OutputEventMsg(evMsg.getOpId(),
+                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
                         evMsg.getOpType(), true, true, true, evMsg.getTuple(),
                         op.getTupleListResult()));
             } else {
-                reply = new TucsonMsgReply(new OutputEventMsg(evMsg.getOpId(),
+                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
                         evMsg.getOpType(), true, true, false, evMsg.getTuple(),
                         op.getTupleListResult()));
             }
         } else {
             if (op.isResultSuccess()) {
-                reply = new TucsonMsgReply(new OutputEventMsg(evMsg.getOpId(),
+                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
                         evMsg.getOpType(), true, true, true, evMsg.getTuple(),
                         op.getTupleResult()));
             } else {
-                reply = new TucsonMsgReply(new OutputEventMsg(evMsg.getOpId(),
+                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
                         evMsg.getOpType(), true, true, false, evMsg.getTuple(),
                         op.getTupleResult()));
             }
@@ -183,7 +183,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
             final InputEventMsg evMsg = msg.getInputEventMsg();
             final TupleCentreOpType msgType = evMsg.getOpType();
             if (msgType == TupleCentreOpType.EXIT) {
-                reply = new TucsonMsgReply(new OutputEventMsg(evMsg.getOpId(),
+                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
                         TupleCentreOpType.EXIT, true, true, true));
                 try {
                     this.dialog.sendMsgReply(reply);
@@ -251,7 +251,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-                reply = new TucsonMsgReply(new OutputEventMsg(evMsg.getOpId(),
+                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
                         msgType, true, true, true, evMsg.getTuple(), resList));
                 try {
                     this.dialog.sendMsgReply(reply);
@@ -286,7 +286,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-                reply = new TucsonMsgReply(new OutputEventMsg(evMsg.getOpId(),
+                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
                         msgType, true, true, true, res, resList));
                 try {
                     this.dialog.sendMsgReply(reply);
@@ -318,7 +318,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-                reply = new TucsonMsgReply(new OutputEventMsg(evMsg.getOpId(),
+                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
                         msgType, true, true, true, null, resList));
                 try {
                     this.dialog.sendMsgReply(reply);
@@ -353,7 +353,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-                reply = new TucsonMsgReply(new OutputEventMsg(evMsg.getOpId(),
+                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
                         msgType, true, true, true, null, resList));
                 try {
                     this.dialog.sendMsgReply(reply);

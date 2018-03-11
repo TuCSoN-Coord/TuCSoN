@@ -22,7 +22,7 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.exceptions.OperationNotAllowedException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.tucson.network.AbstractTucsonProtocol;
+import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.TucsonProtocolTCP;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
@@ -38,7 +38,7 @@ public class InspectorContextStub implements InspectorContext {
 
     /** listeners registrated for virtual machine output events */
     private final List<InspectorContextListener> contextListeners = new ArrayList<InspectorContextListener>();
-    private AbstractTucsonProtocol dialog;
+    private TucsonProtocol dialog;
     private boolean exitFlag;
     /** user id */
     private final TucsonAgentId id;
@@ -150,7 +150,7 @@ public class InspectorContextStub implements InspectorContext {
     @Override
     public void setProtocol(final InspectorProtocol p)
             throws DialogSendException {
-        final InspectorProtocol newp = new InspectorProtocol();
+        final InspectorProtocol newp = new InspectorProtocolDefault();
         newp.setTsetObservType(p.getTsetObservType());
         newp.setTsetFilter(p.getTsetFilter());
         newp.setWsetFilter(p.getWsetFilter());
@@ -177,7 +177,7 @@ public class InspectorContextStub implements InspectorContext {
      * daemon providing the tuple centre otherwise return the already
      * established connection
      */
-    private AbstractTucsonProtocol getTupleCentreInfo(
+    private TucsonProtocol getTupleCentreInfo(
             final TucsonTupleCentreId tc) throws UnreachableNodeException,
             OperationNotAllowedException {
         try {
@@ -187,7 +187,7 @@ public class InspectorContextStub implements InspectorContext {
             this.dialog.sendEnterRequest(this.profile);
             this.dialog.receiveEnterRequestAnswer();
             if (this.dialog.isEnterRequestAccepted()) {
-                this.protocol = new InspectorProtocol();
+                this.protocol = new InspectorProtocolDefault();
                 final NewInspectorMsg msg = new NewInspectorMsg(this.id,
                         tc.toString(), this.protocol);
                 this.dialog.sendInspectorMsg(msg);

@@ -3,8 +3,8 @@ package alice.tuplecentre.tucson.introspection4gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import alice.tuple.logic.LogicTuple;
 import alice.tuple.Tuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.core.Reaction;
 import alice.tuplecentre.respect.core.LogicReaction;
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
@@ -14,6 +14,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdExcepti
 import alice.tuplecentre.tucson.introspection.Inspector;
 import alice.tuplecentre.tucson.introspection.InspectorContextEvent;
 import alice.tuplecentre.tucson.introspection.InspectorProtocol;
+import alice.tuplecentre.tucson.introspection.InspectorProtocolDefault;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuprolog.Struct;
 
@@ -39,9 +40,9 @@ public class Inspector4Gui extends Inspector {
 	public Inspector4Gui(final TucsonTupleCentreId arg1) throws Exception {
         super(new TucsonAgentIdDefault("inspector4gui_" + System.currentTimeMillis()), arg1, true);
 		this.observers = new ArrayList<>();
-		protocol = new InspectorProtocol();
-		protocol.setTsetObservType(InspectorProtocol.PROACTIVE_OBSERVATION);
-		protocol.setReactionsObservType(InspectorProtocol.PROACTIVE_OBSERVATION);
+        protocol = new InspectorProtocolDefault();
+        protocol.setTsetObservType(InspectorProtocol.ObsType.PROACTIVE);
+        protocol.setReactionsObservType(InspectorProtocol.ObsType.PROACTIVE);
 		getContext().setProtocol(protocol);
 	}
 	

@@ -26,7 +26,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-
 import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.respect.core.RespectVMContext.ModType;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;

@@ -10,14 +10,15 @@ import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -30,7 +31,7 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public class MasterAgent extends AbstractTucsonAgent {
+public class MasterAgent extends AbstractTucsonAgent<RootACC> {
 
     private static final int ITERS = 10;
     private static final int MAX_FACT = 10;
@@ -87,17 +88,9 @@ public class MasterAgent extends AbstractTucsonAgent {
         this.pendings = new HashMap<Integer, Integer>();
     }
 
-    // modified by SANGIO
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        // TODO Auto-generated method stub
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation op) {
-        /*
-         *
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     private int drawRandomInt() {
@@ -108,7 +101,7 @@ public class MasterAgent extends AbstractTucsonAgent {
     protected void main() {
         this.say("I'm started.");
 
-        // final EnhancedSyncACC acc = this.getContext();
+        // final EnhancedSyncACC acc = this.getACC();
         TucsonOperation op;
         TucsonTupleCentreId next;
         LogicTuple job;
@@ -123,7 +116,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                 this.say("Checking termination...");
                 for (int i = 0; i < this.tids.size(); i++) {
                     op = acc.inp(this.tids.get(i),
-                            LogicTuples.parse("die(" + this.myName() + ")"),
+                            LogicTuples.parse("die(" + this.getTucsonAgentId().getLocalName() + ")"),
                             (Long) null);
                     /*
                      * Only upon success the searched tuple was found. NB: we do
@@ -152,7 +145,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                          */
                         num = this.drawRandomInt();
                         job = LogicTuples.parse("fact(" + "master("
-                                + this.myName() + ")," + "num(" + num + "),"
+                                + this.getTucsonAgentId().getLocalName() + ")," + "num(" + num + "),"
                                 + "reqID(" + this.reqID + ")" + ")");
                         this.say("Putting job: " + job.toString());
                         /*
@@ -180,7 +173,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                         acc.spawn(
                                 next,
                                 LogicTuples
-                                .parse("exec('alice.tuplecentre.tucson.examples.spawnedWorkers.SpawnedWorkingActivity.class')"),
+                                        .parse("exec('alice.tuplecentre.tucson.examples.spawnedWorkers.SpawnedWorkingActivity.class')"),
                                 null);
                         /*
                          * Just to let you view something on the console.
@@ -190,7 +183,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                          * ...this time to retrieve factorial results.
                          */
                         templ = LogicTuples.parse("res(" + "master("
-                                + this.myName() + ")," + "fact(F),"
+                                + this.getTucsonAgentId().getLocalName() + ")," + "fact(F),"
                                 + "reqID(N)" + ")");
                         /*
                          * No longer a suspensive primitive. We need to keep

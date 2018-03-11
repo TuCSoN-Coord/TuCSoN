@@ -13,7 +13,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonGenericException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.introspection.InspectorContextSkel;
-import alice.tuplecentre.tucson.network.AbstractTucsonProtocol;
+import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.service.ACCDescription;
@@ -26,8 +26,8 @@ public class Inspector4GuiContextSkel extends InspectorContextSkel {
 	private Set<LogicTuple> tuples;
 	private Set<LogicTuple> currentNewTuples = new HashSet<>();
 	private Set<LogicTuple> currentRemovedTuples = new HashSet<>();
-	
-	public Inspector4GuiContextSkel(ACCProvider man, AbstractTucsonProtocol d, TucsonNodeService node, ACCDescription p)
+
+    public Inspector4GuiContextSkel(ACCProvider man, TucsonProtocol d, TucsonNodeService node, ACCDescription p)
 			throws TucsonGenericException, TucsonInvalidAgentIdException, DialogReceiveException,
             TucsonInvalidTupleCentreIdException {
 		super(man, d, node, p);

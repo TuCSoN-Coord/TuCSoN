@@ -55,7 +55,7 @@ public final class GeolocationServiceManager {
     /**
      * List of all geolocation services on a single node
      */
-    private final Map<GeoServiceIdentifier, AbstractGeolocationService> servicesList;
+    private final Map<GeoServiceIdentifier, GeoLocationService> servicesList;
 
     private GeolocationServiceManager() {
         this.servicesList = new HashMap<>();
@@ -66,7 +66,7 @@ public final class GeolocationServiceManager {
      * @param s
      *            the newly-created Geolocation Service to start tracking
      */
-    public void addService(final AbstractGeolocationService s) {
+    public void addService(final GeoLocationService s) {
         final GeoServiceIdentifier sId = s.getServiceId();
         if (this.servicesList.containsKey(sId)) {
             GeolocationServiceManager.error("GeolocationService "
@@ -113,14 +113,14 @@ public final class GeolocationServiceManager {
      *             if the given arguments are not suitable for the class to
      *             instantiate
      */
-    public AbstractGeolocationService createAgentService(
+    public GeoLocationService createAgentService(
             final Integer platform, final GeoServiceIdentifier sId,
             final String className, final TucsonTupleCentreId tcId,
             final ACCProxyAgentSide acc) throws ClassNotFoundException,
             SecurityException, NoSuchMethodException, IllegalArgumentException,
             InstantiationException, IllegalAccessException,
             InvocationTargetException {
-        AbstractGeolocationService s = null;
+        GeoLocationService s = null;
         // Checking if the service already exist
         if (this.servicesList.containsKey(sId)) {
             GeolocationServiceManager.error("GeolocationService "
@@ -132,9 +132,9 @@ public final class GeolocationServiceManager {
             final Constructor<?> ctor = c.getConstructor(new Class[] {
                     Integer.class, GeoServiceId.class,
                     TucsonTupleCentreIdDefault.class});
-            s = (AbstractGeolocationService) ctor.newInstance(new Object[] {
+            s = (GeoLocationService) ctor.newInstance(new Object[]{
                     platform, sId, tcId });
-            s.addListener(new AgentGeolocationServiceListener(acc, s, tcId));
+            s.addListener(new AgentGeoLocationServiceListener(acc, s, tcId));
             this.servicesList.put(sId, s);
             GeolocationServiceManager.log("GeolocationService " + sId.getLocalName()
                     + " has been registered");
@@ -189,9 +189,9 @@ public final class GeolocationServiceManager {
         final Class<?> c = Class.forName(normClassName);
         final Constructor<?> ctor = c.getConstructor(new Class[] {
                 Integer.class, GeoServiceId.class, TucsonTupleCentreIdDefault.class});
-        final AbstractGeolocationService s = (AbstractGeolocationService) ctor
+        final GeoLocationService s = (GeoLocationService) ctor
                 .newInstance(new Object[] { platform, sId, tcId });
-        s.addListener(new GeolocationServiceListener(s, tcId));
+        s.addListener(new GeoLocationServiceListenerDefault(s, tcId));
         this.servicesList.put(sId, s);
         GeolocationServiceManager.log("GeolocationService " + sId.getLocalName()
                 + " has been registered");
@@ -234,10 +234,10 @@ public final class GeolocationServiceManager {
      *            Service should be created
      * @return the Geolocation Service suitable for the given platform
      */
-    public AbstractGeolocationService getAppositeService(final int platform) {
+    public GeoLocationService getAppositeService(final int platform) {
         final Object[] valueSet = this.servicesList.values().toArray();
         for (final Object element : valueSet) {
-            final AbstractGeolocationService current = (AbstractGeolocationService) element;
+            final GeoLocationService current = (GeoLocationService) element;
             if (current.getPlatform() == platform) {
                 return current;
             }
@@ -253,7 +253,7 @@ public final class GeolocationServiceManager {
      *            the name of the Geolocation Service to retrieve.
      * @return the Geolocation Service whose name was given
      */
-    public AbstractGeolocationService getServiceByName(final String name) {
+    public GeoLocationService getServiceByName(final String name) {
         final Object[] keySet = this.servicesList.keySet().toArray();
         for (final Object element : keySet) {
             final GeoServiceIdentifier current = (GeoServiceIdentifier) element;
@@ -271,7 +271,7 @@ public final class GeolocationServiceManager {
      * @return The mapping between Geolocation Services ids and the
      *         corresponding services
      */
-    public Map<GeoServiceIdentifier, AbstractGeolocationService> getServices() {
+    public Map<GeoServiceIdentifier, GeoLocationService> getServices() {
         return this.servicesList;
     }
 }

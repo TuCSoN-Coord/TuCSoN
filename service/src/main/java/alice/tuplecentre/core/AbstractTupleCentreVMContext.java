@@ -19,18 +19,18 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import alice.tuple.Tuple;
+import alice.tuple.TupleTemplate;
 import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.ITupleCentre;
 import alice.tuplecentre.api.ITupleCentreManagement;
-import alice.tuple.Tuple;
 import alice.tuplecentre.api.TupleCentreIdentifier;
-import alice.tuple.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.respect.api.IRespectTC;
 import alice.tuplecentre.respect.api.geolocation.PlatformUtils;
 import alice.tuplecentre.respect.api.geolocation.Position;
-import alice.tuplecentre.respect.api.geolocation.service.AbstractGeolocationService;
+import alice.tuplecentre.respect.api.geolocation.service.GeoLocationService;
 import alice.tuplecentre.respect.api.geolocation.service.GeolocationServiceManager;
 import alice.tuplecentre.respect.core.RespectVM;
 import alice.tuplecentre.respect.core.StepMonitor;
@@ -689,7 +689,7 @@ public abstract class AbstractTupleCentreVMContext implements
                 .getGeolocationManager();
         if (geolocationManager.getServices().size() > 0) {
             final int platform = PlatformUtils.getPlatform();
-            final AbstractGeolocationService geoService = GeolocationServiceManager
+            final GeoLocationService geoService = GeolocationServiceManager
                     .getGeolocationManager().getAppositeService(platform);
             if (geoService != null && !geoService.isRunning()) {
                 geoService.start();

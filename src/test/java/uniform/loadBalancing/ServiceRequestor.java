@@ -4,14 +4,15 @@ import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
@@ -24,7 +25,7 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
  *
  * @author s.mariani@unibo.it
  */
-public class ServiceRequestor extends AbstractTucsonAgent {
+public class ServiceRequestor extends AbstractTucsonAgent<RootACC> {
 
     /**
      * @param args
@@ -67,24 +68,9 @@ public class ServiceRequestor extends AbstractTucsonAgent {
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tuplecentre.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation arg0) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation op) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     @Override
@@ -97,7 +83,7 @@ public class ServiceRequestor extends AbstractTucsonAgent {
             LogicTuple templ;
             LogicTuple service;
             LogicTuple req;
-            final LogicTuple dieTuple = LogicTuples.parse("die(" + this.myName()
+            final LogicTuple dieTuple = LogicTuples.parse("die(" + this.getTucsonAgentId().getLocalName()
                     + ")");
             while (!this.die) {
                 this.say("Checking termination...");

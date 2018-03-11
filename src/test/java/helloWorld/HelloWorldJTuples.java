@@ -4,7 +4,13 @@
 package helloWorld;
 
 import alice.tuple.Tuple;
+import alice.tuple.java.api.JArgType;
+import alice.tuple.java.api.JTuple;
 import alice.tuple.java.api.JTupleTemplate;
+import alice.tuple.java.exceptions.InvalidJValException;
+import alice.tuple.java.exceptions.InvalidJVarException;
+import alice.tuple.java.impl.JTupleDefault;
+import alice.tuple.java.impl.JTupleTemplateDefault;
 import alice.tuple.java.impl.JValDefault;
 import alice.tuple.java.impl.JVarDefault;
 import alice.tuplecentre.api.exceptions.InvalidTupleException;
@@ -21,12 +27,6 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuple.java.api.JTuple;
-import alice.tuple.java.api.JArgType;
-import alice.tuple.java.exceptions.InvalidJValException;
-import alice.tuple.java.exceptions.InvalidJVarException;
-import alice.tuple.java.impl.JTupleDefault;
-import alice.tuple.java.impl.JTupleTemplateDefault;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 24/feb/2014

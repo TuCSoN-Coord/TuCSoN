@@ -577,7 +577,7 @@ public class TupleViewer extends javax.swing.JFrame {
 
     private void radioProactiveActionPerformed() {
         this.mainForm.protocol
-                .setTsetObservType(InspectorProtocol.PROACTIVE_OBSERVATION);
+                .setTsetObservType(InspectorProtocol.ObsType.PROACTIVE);
         try {
             this.context.setProtocol(this.mainForm.protocol);
         } catch (final DialogSendException e) {
@@ -591,7 +591,7 @@ public class TupleViewer extends javax.swing.JFrame {
     private void radioReactiveActionPerformed() {
         try {
             this.mainForm.protocol
-                    .setTsetObservType(InspectorProtocol.REACTIVE_OBSERVATION);
+                    .setTsetObservType(InspectorProtocol.ObsType.REACTIVE);
             this.context.setProtocol(this.mainForm.protocol);
             this.buttonGet.setEnabled(true);
             this.radioProactive.setSelected(false);

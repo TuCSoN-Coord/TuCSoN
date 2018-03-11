@@ -4,10 +4,13 @@ import alice.tuple.Tuple;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 
 public interface Inspector4GuiObserver {
-	
-	void onNewTupleCenter(TucsonTupleCentreId ttc);
-	void onNewTuple(Tuple tuple, TucsonTupleCentreId ttc);
-	void onRemovedTuple(Tuple tupleRemoved, TucsonTupleCentreId ttc);
-	void onNewTrasfer(String tccSource, String tccDest, String tuple);
-	
+
+    void onNewTupleCenter(final TucsonTupleCentreId ttc);
+
+    void onNewTuple(final Tuple tuple, final TucsonTupleCentreId ttc);
+
+    void onRemovedTuple(final Tuple tupleRemoved, final TucsonTupleCentreId ttc);
+
+    void onNewTrasfer(final String tccSource, final String tccDest, final String tuple);
+
 }

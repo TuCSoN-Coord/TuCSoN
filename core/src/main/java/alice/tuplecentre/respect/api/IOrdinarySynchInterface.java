@@ -10,187 +10,246 @@ import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 /**
  * A ReSpecT Tuple Centre Interface to issue ReSpecT ordinary primitives using a
  * synchronous semantics.
- *
+ * 
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
- * michele.bombardi@studio.unibo.it)
+ *         michele.bombardi@studio.unibo.it)
  */
 public interface IOrdinarySynchInterface {
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    List<LogicTuple> get(InputEvent ev) throws OperationNotPossibleException;
+    List<LogicTuple> get(final InputEvent ev) throws OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    LogicTuple in(InputEvent ev) throws InvalidLogicTupleException,
+    LogicTuple in(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    List<LogicTuple> inAll(InputEvent ev) throws InvalidLogicTupleException,
+    List<LogicTuple> inAll(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    LogicTuple inp(InputEvent ev) throws InvalidLogicTupleException,
+    LogicTuple inp(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    LogicTuple no(InputEvent ev) throws InvalidLogicTupleException,
+    LogicTuple no(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    List<LogicTuple> noAll(InputEvent ev) throws InvalidLogicTupleException,
+    List<LogicTuple> noAll(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    LogicTuple nop(InputEvent ev) throws InvalidLogicTupleException,
+    LogicTuple nop(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @param ev
+     *            the event to handle
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    void out(InputEvent ev) throws InvalidLogicTupleException,
+    void out(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    List<LogicTuple> outAll(InputEvent ev) throws InvalidLogicTupleException,
+    List<LogicTuple> outAll(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    LogicTuple rd(InputEvent ev) throws InvalidLogicTupleException,
+    LogicTuple rd(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    List<LogicTuple> rdAll(InputEvent ev) throws InvalidLogicTupleException,
+    List<LogicTuple> rdAll(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    LogicTuple rdp(InputEvent ev) throws InvalidLogicTupleException,
+    LogicTuple rdp(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    List<LogicTuple> set(InputEvent ev) throws OperationNotPossibleException,
+    List<LogicTuple> set(final InputEvent ev) throws OperationNotPossibleException,
             InvalidLogicTupleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    LogicTuple spawn(InputEvent ev) throws InvalidLogicTupleException,
+    LogicTuple spawn(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    LogicTuple uin(InputEvent ev) throws InvalidLogicTupleException,
+    LogicTuple uin(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    LogicTuple uinp(InputEvent ev) throws InvalidLogicTupleException,
+    LogicTuple uinp(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    LogicTuple uno(InputEvent ev) throws InvalidLogicTupleException,
+    LogicTuple uno(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    LogicTuple unop(InputEvent ev) throws InvalidLogicTupleException,
+    LogicTuple unop(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    LogicTuple urd(InputEvent ev) throws InvalidLogicTupleException,
+    LogicTuple urd(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 
     /**
-     * @param ev the event to handle
+     * @param ev
+     *            the event to handle
      * @return the result of the operation
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
+     * @throws InvalidLogicTupleException
+     *             if the tuple given as argument is not a valid Prolog tuple
+     * @throws OperationNotPossibleException
+     *             if the operation requested cannot be carried out
      */
-    LogicTuple urdp(InputEvent ev) throws InvalidLogicTupleException,
+    LogicTuple urdp(final InputEvent ev) throws InvalidLogicTupleException,
             OperationNotPossibleException;
 }

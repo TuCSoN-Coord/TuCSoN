@@ -35,7 +35,6 @@ import alice.tuplecentre.tucson.service.tools.TucsonACCTool;
  */
 public class NegotiationACCProxyAgentSide implements NegotiationACC {
 
-    private static final int DEF_PORT = 20504;
     private static final String TC_AGENT = "negotAgent";
     private static final String TC_ORG = "'$ORG'";
 
@@ -74,7 +73,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
     public NegotiationACCProxyAgentSide(final Object aid)
             throws TucsonInvalidAgentIdException,
             TucsonInvalidTupleCentreIdException {
-        this(aid, "localhost", NegotiationACCProxyAgentSide.DEF_PORT);
+        this(aid, "localhost", TucsonInfo.getDefaultPortNumber());
     }
 
     /**

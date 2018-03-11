@@ -5,7 +5,6 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
 import alice.tuplecentre.tucson.network.exceptions.IllegalPortNumberException;
 import alice.tuplecentre.tucson.network.exceptions.InvalidProtocolTypeException;
-import alice.tuplecentre.tucson.service.TucsonNodeService;
 
 /**
  * <p>
@@ -19,6 +18,7 @@ import alice.tuplecentre.tucson.service.TucsonNodeService;
  * @author Saverio Cicora
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
+// To break dependency with service module, this class is no more used, assuming that the only used protocol will be TCP/IP
 public final class TPFactory {
 
     /**
@@ -42,7 +42,7 @@ public final class TPFactory {
      * @throws InvalidProtocolTypeException
      *             if the protocol type used is not DIALOG_TYPE_TCP
      */
-    public static AbstractTucsonProtocol getDialogAgentSide(
+    public static TucsonProtocol getDialogAgentSide(
             final int tucsonProtocolType, final TucsonTupleCentreId tid)
             throws DialogInitializationException, UnreachableNodeException,
             InvalidProtocolTypeException {
@@ -55,7 +55,7 @@ public final class TPFactory {
             throw new IllegalPortNumberException(
                     "Port number out of bounds. Port number: " + port);
         }
-        AbstractTucsonProtocol tp = null;
+        TucsonProtocol tp = null;
         if (tucsonProtocolType == TPFactory.DIALOG_TYPE_TCP) {
             tp = new TucsonProtocolTCP(node, port);
         } else {
@@ -74,17 +74,20 @@ public final class TPFactory {
      * @throws UnreachableNodeException
      *             if the target tuple centre is unreachable
      */
-    public static AbstractTucsonProtocol getDialogAgentSide(
+    public static TucsonProtocol getDialogAgentSide(
             final TucsonTupleCentreId tid) throws UnreachableNodeException,
             DialogInitializationException {
-        final TucsonNodeService tns = TucsonNodeService.getNode(tid.getPort());
+
+        /*final TucsonNodeService tns = TucsonNodeService.getNode(tid.getPort());
         final TPConfig config;
         if (tns != null) {
             config = tns.getTPConfig();
         } else {
             config = new TPConfig();
             config.setTcpPort(tid.getPort());
-        }
+        }*/
+
+        final TPConfig config = new TPConfig();
         try {
             return TPFactory.getDialogAgentSide(
                     config.getDefaultProtocolType(), tid);
@@ -107,13 +110,14 @@ public final class TPFactory {
      * @throws InvalidProtocolTypeException
      *             if the protocol type used is not DIALOG_TYPE_TCP
      */
-    public static AbstractTucsonProtocol getDialogNodeSide(
+    public static TucsonProtocol getDialogNodeSide(
             final int tucsonProtocolType, final int portno)
             throws InvalidProtocolTypeException, DialogInitializationException {
-        AbstractTucsonProtocol tp = null;
+        TucsonProtocol tp = null;
         if (tucsonProtocolType == TPFactory.DIALOG_TYPE_TCP) {
-            final TPConfig config = TucsonNodeService.getNode(portno)
-                    .getTPConfig();
+            /*final TPConfig config = TucsonNodeService.getNode(portno)
+                    .getTPConfig();*/
+            final TPConfig config = new TPConfig();
             final int port = config.getNodeTcpPort();
             if (port < 1 || port > TPFactory.MAX_UNBOUND_PORT) {
                 throw new IllegalPortNumberException(

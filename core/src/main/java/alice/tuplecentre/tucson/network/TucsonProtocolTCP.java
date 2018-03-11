@@ -150,7 +150,7 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
     }
 
     @Override
-    public AbstractTucsonProtocol acceptNewDialog()
+    public TucsonProtocol acceptNewDialog()
             throws DialogAcceptException {
         try {
             return new TucsonProtocolTCP(this.mainSocket.accept());
@@ -279,7 +279,7 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * (non-Javadoc)
      * @see
      * alice.tuplecentre.tucson.network.AbstractTucsonProtocol#sendInspectorEvent(alice.
-     * tucson.introspection.InspectorContextEvent)
+     * tucson.introspection.InspectorContextEventDefault)
      */
     @Override
     public void sendInspectorEvent(final InspectorContextEvent msg)

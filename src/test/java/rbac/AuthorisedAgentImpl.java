@@ -32,18 +32,20 @@ import java.util.logging.Logger;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArguments;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
 import alice.tuplecentre.tucson.api.exceptions.AgentNotAllowedException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * An authorised agent. It is "known" by TuCSoN-RBAC, thanks to administrators
@@ -52,7 +54,7 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
  * @author Stefano Mariani (mailto: s.mariani@unibo.it)
  *
  */
-public final class AuthorisedAgentImpl extends AbstractTucsonAgent {
+public final class AuthorisedAgentImpl extends AbstractTucsonAgent<RootACC> {
 
     /**
      * @param id
@@ -72,41 +74,16 @@ public final class AuthorisedAgentImpl extends AbstractTucsonAgent {
         super(id, netid, p);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tuplecentre.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        /*
-         * Not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tuplecentre.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre.tucson.
-     * api.TucsonOperation)
-     */
-    @Override
-    public void operationCompleted(final TucsonOperation op) {
-        /*
-         * Not used atm
-         */
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see alice.tuplecentre.tucson.api.AbstractTucsonAgent#main()
-     */
     @Override
     protected void main() {
         Logger.getLogger("AuthorisedAgent").info(
                 "Acquiring NegotiationACC from TuCSoN Node installed on TCP port "
-                        + this.myport());
+                        + this.myPort());
         /*
          * A negotiation ACC must be acquired by any software entity willing to
          * exploit TuCSoN coordination services, thus willing to acquire an ACC.
@@ -133,7 +110,7 @@ public final class AuthorisedAgentImpl extends AbstractTucsonAgent {
             Logger.getLogger("AuthorisedAgent").info("Attempt successful");
             Logger.getLogger("AuthorisedAgent").info("Trying 'out' operation");
             TucsonOperation op = acc.out(new TucsonTupleCentreIdDefault("default",
-                    this.myNode(), String.valueOf(this.myport())),
+                            this.myNode(), String.valueOf(this.myPort())),
                     LogicTuples.newInstance("test", TupleArguments.newValueArgument("hello")), (Long) null);
             if (op.isResultSuccess()) {
                 Logger.getLogger("AuthorisedAgent").info(
@@ -159,7 +136,7 @@ public final class AuthorisedAgentImpl extends AbstractTucsonAgent {
      *            program arguments: args[0] is TuCSoN Node TCP port number.
      */
     public static void main(final String[] args) {
-        int portno = 20504;
+        int portno = TucsonInfo.getDefaultPortNumber();
         if (args.length == 1) {
             portno = Integer.parseInt(args[0]);
         }

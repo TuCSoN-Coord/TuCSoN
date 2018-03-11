@@ -26,6 +26,8 @@ import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
@@ -50,9 +52,8 @@ import alice.tuplecentre.tucson.asynchSupport.TucsonOpWrapper;
  *
  * @author Fabio Consalici, Riccardo Drudi
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
-public class MasterAgent extends AbstractTucsonAgent {
+public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements TucsonOperationCompletionListener {
 
     /**
      * The handler of operations completion except the last operation. This
@@ -63,7 +64,6 @@ public class MasterAgent extends AbstractTucsonAgent {
      *
      * @author Fabio Consalici, Riccardo Drudi
      * @author (contributor) ste (mailto: s.mariani@unibo.it)
-     *
      */
     private class CompletionHandler implements
             TucsonOperationCompletionListener {
@@ -122,7 +122,6 @@ public class MasterAgent extends AbstractTucsonAgent {
      *
      * @author Fabio Consalici, Riccardo Drudi
      * @author (contributor) ste (mailto: s.mariani@unibo.it)
-     *
      */
     private class LastCompletionHandler implements
             TucsonOperationCompletionListener {
@@ -131,7 +130,7 @@ public class MasterAgent extends AbstractTucsonAgent {
         private final TucsonTupleCentreId ttcid;
 
         public LastCompletionHandler(final AsynchOpsHelper aoh,
-                final TucsonTupleCentreId tid) {
+                                     final TucsonTupleCentreId tid) {
             this.help = aoh;
             this.ttcid = tid;
         }
@@ -171,9 +170,7 @@ public class MasterAgent extends AbstractTucsonAgent {
     private static final int STEP = 1000;
 
     /**
-     *
-     * @param args
-     *            no args expected
+     * @param args no args expected
      */
     public static void main(final String[] args) {
         try {
@@ -195,11 +192,11 @@ public class MasterAgent extends AbstractTucsonAgent {
      * calculations to perform
      *
      * @param id
-     *            the TuCSoN agent Identifier
+    the TuCSoN agent Identifier
      * @param nCalcs
-     *            the number of calculations to perform
+    the number of calculations to perform
      * @throws TucsonInvalidAgentIdException
-     *             if the given String does not represent a valid TuCSoN agent
+    if the given String does not represent a valid TuCSoN agent
      *             Identifier
      */
     public MasterAgent(final String id, final int nCalcs)
@@ -226,6 +223,11 @@ public class MasterAgent extends AbstractTucsonAgent {
         /*
          * Not used atm
          */
+    }
+
+    @Override
+    protected EnhancedSyncACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return TucsonMetaACC.getContext(aid, networkAddress, portNumber);
     }
 
     @Override
@@ -268,7 +270,7 @@ public class MasterAgent extends AbstractTucsonAgent {
                 }
             }
             super.say("Handlers registered, now I suspend myself until first loop completes...");
-            final EnhancedSyncACC accSynch = this.getContext();
+            final EnhancedSyncACC accSynch = this.getACC();
             final LogicTuple firstLoopTuple = LogicTuples.parse("firstloop");
             final In firstLoopIn = new In(tid, firstLoopTuple);
             /*

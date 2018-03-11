@@ -29,10 +29,10 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.introspection.Inspector;
+import alice.tuplecentre.tucson.introspection.InspectorContextEvent;
 import alice.tuplecentre.tucson.introspection.WSetEvent;
 
 /**
- *
  * @author Unknown...
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
@@ -43,41 +43,58 @@ public class InspectorCore extends Inspector {
      */
     private Calendar cal;
     private final InspectorGUI form;
-    /** wether pending queries view logging is enabled */
+    /**
+     * wether pending queries view logging is enabled
+     */
     protected boolean loggingQueries = false;
-    /** wether triggered reactions view logging is enabled */
+    /**
+     * wether triggered reactions view logging is enabled
+     */
     protected boolean loggingReactions = false;
-    /** wether tuples view logging is enabled */
+    /**
+     * wether tuples view logging is enabled
+     */
     protected boolean loggingTuples = false;
-    /** template filtering pending queries logging */
+    /**
+     * template filtering pending queries logging
+     */
     protected LogicTuple logOpFilter;
-    /** file name to log pending queries */
+    /**
+     * file name to log pending queries
+     */
     protected String logQueryFilename;
-    /** writing component to log pending queries */
+    /**
+     * writing component to log pending queries
+     */
     protected FileWriter logQueryWriter;
-    /** file name to log triggered reactions */
+    /**
+     * file name to log triggered reactions
+     */
     protected String logReactionFilename;
-    /** writing component to log triggered reactions */
+    /**
+     * writing component to log triggered reactions
+     */
     protected FileWriter logReactionWriter;
-    /** file name to log tuples */
+    /**
+     * file name to log tuples
+     */
     protected String logTupleFilename;
-    /** template filtering tuples logging */
+    /**
+     * template filtering tuples logging
+     */
     protected LogicTuple logTupleFilter;
-    /** writing component to log tuples */
+    /**
+     * writing component to log tuples
+     */
     protected FileWriter logTupleWriter;
 
     /**
-     *
-     *
-     * @param f
-     *            the GUI this inpector refers to
-     * @param id
-     *            the agent identifier used by this inspector
-     * @param tid
-     *            the identifier of the tuple centre to inspect
+     * @param f   the GUI this inpector refers to
+     * @param id  the agent identifier used by this inspector
+     * @param tid the identifier of the tuple centre to inspect
      */
     public InspectorCore(final InspectorGUI f, final TucsonAgentId id,
-            final TucsonTupleCentreId tid) {
+                         final TucsonTupleCentreId tid) {
         super(id, tid);
         this.form = f;
         this.logTupleFilename = "inspector-tuples.log";
@@ -143,8 +160,7 @@ public class InspectorCore extends Inspector {
     }
 
     @Override
-    public void onContextEvent(
-            final alice.tuplecentre.tucson.introspection.InspectorContextEvent msg) {
+    public void onContextEvent(final InspectorContextEvent msg) {
         if (msg.getTuples() != null) {
             final TupleViewer viewer = this.form.getTupleForm();
             final StringBuffer st = new StringBuffer();

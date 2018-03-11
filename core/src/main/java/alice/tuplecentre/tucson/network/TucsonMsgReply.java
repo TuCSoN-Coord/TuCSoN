@@ -46,7 +46,7 @@ public class TucsonMsgReply implements Serializable {
 
     @Override
     public String toString() {
-        final StringBuffer s = new StringBuffer(87);
+        final StringBuilder s = new StringBuilder(87);
         final OutputEventMsg oEv = this.getOutputEvent();
         s.append("Identifier: ");
         s.append(oEv.getOpId());

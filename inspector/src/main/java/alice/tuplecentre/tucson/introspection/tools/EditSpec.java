@@ -27,11 +27,11 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
-import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
 
 /**
  *
@@ -97,7 +97,10 @@ public class EditSpec extends javax.swing.JFrame {
         this.pack();
         this.tid = t;
         try {
-            this.context = TucsonMetaACC.getContext(new TucsonAgentIdDefault(
+            // TODO how to gain ACC????
+
+            // TODO Temporary solution!!! ACCProxyAgentSide will be moved soon to "client" sub-project
+            this.context = new ACCProxyAgentSide(new TucsonAgentIdDefault(
                     "'$Inspector-" + System.currentTimeMillis() + "'"));
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();

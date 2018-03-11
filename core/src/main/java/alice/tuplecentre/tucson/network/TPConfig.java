@@ -1,6 +1,7 @@
 package alice.tuplecentre.tucson.network;
 
 import alice.tuplecentre.tucson.network.exceptions.IllegalPortNumberException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * <p>
@@ -14,10 +15,10 @@ import alice.tuplecentre.tucson.network.exceptions.IllegalPortNumberException;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  *
  */
+// To break dependency with service module, this class is no more used, assuming that the only used protocol will be TCP/IP
 public final class TPConfig {
 
     // TCP configuration ----------------------------------
-    private static final int DEFAULT_TCP_PORT = 20504;
     private static final int MAX_UNBOUND_PORT = 64000;
 
     /**
@@ -26,14 +27,14 @@ public final class TPConfig {
      * @return a valid TCP port number
      */
     public static int getDefaultTcpPort() {
-        return TPConfig.DEFAULT_TCP_PORT;
+        return TucsonInfo.getDefaultPortNumber();
     }
 
     // Generic configuration ------------------------------
     private final int defProtType = TPFactory.DIALOG_TYPE_TCP;
     private int tcpPort = -1;
 
-    /**
+    /*
      * Return the default Protocol type
      *
      * @return the protocol type codified as an integer
@@ -49,7 +50,7 @@ public final class TPConfig {
      */
     public int getNodeTcpPort() {
         if (this.tcpPort < 0) {
-            return TPConfig.DEFAULT_TCP_PORT;
+            return TucsonInfo.getDefaultPortNumber();
         }
         return this.tcpPort;
     }

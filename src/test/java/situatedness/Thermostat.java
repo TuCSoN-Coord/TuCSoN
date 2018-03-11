@@ -69,7 +69,7 @@ public final class Thermostat {
                     Integer.valueOf(Thermostat.DEFAULT_PORT));
             final EnhancedSyncACC acc = negACC.playDefaultRole();
             /*
-             * final EnhancedSyncACC acc = TucsonMetaACC.getContext(aid,
+             * final EnhancedSyncACC acc = TucsonMetaACC.getACC(aid,
              * Thermostat.DEFAULT_HOST,
              * Integer.valueOf(Thermostat.DEFAULT_PORT));
              */

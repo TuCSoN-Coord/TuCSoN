@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
-
 import alice.tuple.TupleTemplate;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
@@ -16,10 +15,11 @@ import alice.tuplecentre.respect.core.InternalEvent;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.tucson.network.AbstractTucsonProtocol;
 import alice.tuplecentre.tucson.network.TucsonMsgRequest;
+import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.service.InputEventMsg;
+import alice.tuplecentre.tucson.service.InputEventMsgDefault;
 import alice.tuplecentre.tucson.service.OperationHandler;
 import alice.tuplecentre.tucson.service.TucsonOperationDefault;
 
@@ -88,7 +88,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
         final Iterator<OperationHandler.ControllerSession> it = this.executor
                 .getControllerSessions().values().iterator();
         OperationHandler.ControllerSession cs;
-        AbstractTucsonProtocol info;
+        TucsonProtocol info;
         OperationHandler.Controller contr;
         TucsonOperationDefault op;
         TucsonMsgRequest exit;
@@ -100,7 +100,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
             op = new TucsonOperationDefault(TupleCentreOpType.EXIT,
                     (TupleTemplate) null, null, this.executor);
             this.executor.addOperation(op);
-            final InputEventMsg ev = new InputEventMsg(this.id.toString(),
+            final InputEventMsg ev = new InputEventMsgDefault(this.id.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(), null,
                     System.currentTimeMillis(), null);
             exit = new TucsonMsgRequest(ev);

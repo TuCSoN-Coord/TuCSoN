@@ -33,13 +33,14 @@ import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
 import alice.tuplecentre.tucson.api.exceptions.AgentNotAllowedException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -54,7 +55,7 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
  * @author Stefano Mariani (mailto: s.mariani@unibo.it)
  *
  */
-public final class UnauthorisedAgent extends AbstractTucsonAgent {
+public final class UnauthorisedAgent extends AbstractTucsonAgent<RootACC> {
 
     /**
      * @param id
@@ -74,41 +75,16 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
         super(id, netid, p);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tuplecentre.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        /*
-         * Not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tuplecentre.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre.tucson.
-     * api.TucsonOperation)
-     */
-    @Override
-    public void operationCompleted(final TucsonOperation op) {
-        /*
-         * Not used atm
-         */
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see alice.tuplecentre.tucson.api.AbstractTucsonAgent#main()
-     */
     @Override
     protected void main() {
         Logger.getLogger("UnauthorisedAgent").info(
                 "Acquiring NegotiationACC from TuCSoN Node installed on TCP port "
-                        + this.myport());
+                        + this.myPort());
         NegotiationACC negACC = TucsonMetaACC
                 .getNegotiationContext("unauthorised");
         Logger.getLogger("UnauthorisedAgent").info("NegotiationACC acquired");
@@ -126,7 +102,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
             Logger.getLogger("UnauthorisedAgent").info("Attempt successful");
             Logger.getLogger("UnauthorisedAgent").info("Trying 'rd' operation");
             TucsonOperation op = acc.rd(new TucsonTupleCentreIdDefault("default",
-                    this.myNode(), String.valueOf(this.myport())),
+                            this.myNode(), String.valueOf(this.myPort())),
                     LogicTuples.newInstance("test", TupleArguments.newVarArgument("Greet")), (Long) null);
             if (op.isResultSuccess()) {
                 Logger.getLogger("UnauthorisedAgent").info(
@@ -137,7 +113,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
                     .info("Trying 'out' operation");
             try {
                 acc.out(new TucsonTupleCentreIdDefault("default", this.myNode(),
-                        String.valueOf(this.myport())), LogicTuples.newInstance("test",
+                        String.valueOf(this.myPort())), LogicTuples.newInstance("test",
                         TupleArguments.newValueArgument("hi")), (Long) null);
             } catch (TucsonOperationNotPossibleException e) {
                 Logger.getLogger("UnauthorisedAgent").info("Operation failed!");

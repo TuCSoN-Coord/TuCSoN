@@ -10,12 +10,10 @@ import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
  * changes and implements the behavior in response to some admissible
  * geolocation events. This class is delegated to interface with tucson, giving
  * origin to "from" and "to" events.
- * 
+ *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
- * 
  */
-public class AgentGeolocationServiceListener implements
-        IGeolocationServiceListener {
+public class AgentGeoLocationServiceListener implements GeoLocationServiceListener {
     /**
      * The acc context of the agent associated with this listener
      */
@@ -23,7 +21,7 @@ public class AgentGeolocationServiceListener implements
     /**
      * Listener identifier
      */
-    private final AbstractGeolocationService service;
+    private final GeoLocationService service;
     /**
      * Identifier of the associated tuple centre
      */
@@ -31,24 +29,20 @@ public class AgentGeolocationServiceListener implements
 
     /**
      * Constructs a listener
-     * 
-     * @param accProxyAgentSide
-     *            the acc context of the agent associated with this listener
-     * @param s
-     *            the service associated
-     * @param ttci
-     *            the associated tuple centre identifier
+     *
+     * @param accProxyAgentSide the acc context of the agent associated with this listener
+     * @param s                 the service associated
+     * @param ttci              the associated tuple centre identifier
      */
-    public AgentGeolocationServiceListener(
+    public AgentGeoLocationServiceListener(
             final ACCProxyAgentSide accProxyAgentSide,
-            final AbstractGeolocationService s, final TucsonTupleCentreId ttci) {
+            final GeoLocationService s, final TucsonTupleCentreId ttci) {
         this.acc = accProxyAgentSide;
         this.service = s;
         this.tcId = ttci;
     }
 
     /**
-     * 
      * @return the ACC for which this Geolocation Listener is responsible for.
      */
     public ACCProxyAgentSide getACC() {
@@ -56,7 +50,7 @@ public class AgentGeolocationServiceListener implements
     }
 
     @Override
-    public AbstractGeolocationService getService() {
+    public GeoLocationService getService() {
         return this.service;
     }
 

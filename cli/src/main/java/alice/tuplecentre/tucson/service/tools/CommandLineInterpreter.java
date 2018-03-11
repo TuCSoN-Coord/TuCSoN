@@ -22,6 +22,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * Command Line Interpreter. Can be booted with a TuCSoN agent Identifier or using a
@@ -70,7 +71,7 @@ public final class CommandLineInterpreter {
                 port = CommandLineInterpreter.DEF_PORT;
             }
             CommandLineInterpreter.log("Version "
-                    + alice.tuplecentre.tucson.api.TucsonMetaACC.getVersion());
+                    + TucsonInfo.getVersion());
             CommandLineInterpreter
                     .log("--------------------------------------------------------------------------------");
             CommandLineInterpreter.log(new Date().toString());

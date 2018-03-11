@@ -5,7 +5,6 @@ package alice.tuplecentre.tucson.rbac;
  *
  * @author Emanuele Buccelli
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public class TucsonPermission implements Permission {
 
@@ -19,9 +18,8 @@ public class TucsonPermission implements Permission {
     /**
      * Builds the permission representation.
      *
-     * @param perm
-     *            the name of the permission. In TuCSoN, atm, a permission name
-     *            corresponds to the name of a TuCSoN primitive.
+     * @param perm the name of the permission. In TuCSoN, atm, a permission name
+     *             corresponds to the name of a TuCSoN primitive.
      */
     public TucsonPermission(final String perm) {
         this.permissionName = perm;

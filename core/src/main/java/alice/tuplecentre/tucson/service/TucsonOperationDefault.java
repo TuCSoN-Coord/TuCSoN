@@ -1,18 +1,18 @@
 package alice.tuplecentre.tucson.service;
 
-import alice.tuple.logic.LogicTuple;
+import java.util.ArrayList;
+import java.util.List;
+
 import alice.tuple.Tuple;
 import alice.tuple.TupleTemplate;
+import alice.tuple.java.impl.JTuplesEngine;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.exceptions.InvalidTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.OperationCompletionListener;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.tucson.api.TucsonOperation;
-import alice.tuple.java.impl.JTuplesEngine;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Class implementing a Default TucsonOperation

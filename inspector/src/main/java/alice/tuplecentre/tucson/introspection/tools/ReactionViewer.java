@@ -13,7 +13,6 @@
  */
 package alice.tuplecentre.tucson.introspection.tools;
 
-
 import java.awt.Color;
 
 import javax.swing.JButton;

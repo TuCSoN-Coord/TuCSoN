@@ -21,6 +21,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdExcepti
 import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
 import alice.tuplecentre.tucson.service.AdminACCProxyAgentSide;
 import alice.tuplecentre.tucson.service.NegotiationACCProxyAgentSide;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * TuCSoN Meta Agent Coordination Context. It is exploited by TuCSoN agents to
@@ -32,9 +33,6 @@ import alice.tuplecentre.tucson.service.NegotiationACCProxyAgentSide;
  *
  */
 public final class TucsonMetaACC {
-
-    private static final int DEFAULT_PORT = 20504;
-    private static final String VERSION = "TuCSoN-1.13.0.0301-beta";
 
     // TODO: Controllo password
     /**
@@ -98,7 +96,7 @@ public final class TucsonMetaACC {
      */
     public static EnhancedACC getContext(final TucsonAgentId aid) {
         return TucsonMetaACC.getContext(aid, "localhost",
-                TucsonMetaACC.DEFAULT_PORT);
+                TucsonInfo.getDefaultPortNumber());
     }
 
     /**
@@ -139,7 +137,7 @@ public final class TucsonMetaACC {
      */
     public static NegotiationACC getNegotiationContext(final String aid) {
         return TucsonMetaACC.getNegotiationContext(aid, "localhost",
-                TucsonMetaACC.DEFAULT_PORT);
+                TucsonInfo.getDefaultPortNumber());
     }
 
     /**
@@ -201,14 +199,6 @@ public final class TucsonMetaACC {
             final String netid, final int portno) {
         return getNegotiationContext(aid.toString(), netid,
                 portno);
-    }
-
-    /**
-     *
-     * @return the current version of the TuCSoN Coordination Infrastructure
-     */
-    public static String getVersion() {
-        return TucsonMetaACC.VERSION;
     }
 
     private TucsonMetaACC() {

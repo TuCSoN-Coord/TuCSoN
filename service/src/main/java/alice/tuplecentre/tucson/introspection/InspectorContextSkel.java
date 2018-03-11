@@ -40,7 +40,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tuplecentre.tucson.network.AbstractTucsonProtocol;
+import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
@@ -64,7 +64,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
 
     private final TucsonAgentId agentId;
     private final int ctxId;
-    protected final AbstractTucsonProtocol dialog;
+    protected final TucsonProtocol dialog;
     private final ACCProvider manager;
     private boolean nStep;
     /** current observation protocol */
@@ -94,8 +94,8 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      *             if something goes wrong in the underlying network
      */
     public InspectorContextSkel(final ACCProvider man,
-            final AbstractTucsonProtocol d, final TucsonNodeService node,
-            final ACCDescription p) throws TucsonGenericException,
+                                final TucsonProtocol d, final TucsonNodeService node,
+                                final ACCDescription p) throws TucsonGenericException,
             TucsonInvalidAgentIdException, DialogReceiveException,
             TucsonInvalidTupleCentreIdException {
         super();
@@ -128,7 +128,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      *            the snapshot message
      */
     public void getSnapshot(final GetSnapshotMsg m) {
-        final InspectorContextEvent msg = new InspectorContextEvent();
+        final InspectorContextEventDefault msg = new InspectorContextEventDefault();
         msg.setVmTime(System.currentTimeMillis());
         msg.setLocalTime(System.currentTimeMillis());
         if (m.getWhat() == GetSnapshotMsg.TSET) {
@@ -171,7 +171,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         final boolean isActive = (Boolean) TupleCentreContainer
                 .doManagementOperation(TupleCentreOpType.IS_STEP_MODE,
                         this.tcId, null);
-        final InspectorContextEvent msg = new InspectorContextEvent();
+        final InspectorContextEvent msg = new InspectorContextEventDefault();
         msg.setStepMode(isActive);
         try {
             this.dialog.sendInspectorEvent(msg);
@@ -198,12 +198,12 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                 this.wait();
             }
             this.nStep = false;
-            final InspectorContextEvent msg = new InspectorContextEvent();
+            final InspectorContextEventDefault msg = new InspectorContextEventDefault();
             msg.setLocalTime(System.currentTimeMillis());
             msg.setVmTime(ev.getTime());
             if (ev.getType() == InspectableEvent.TYPE_IDLESTATE
-                    && this.protocol.getStepModeObservType() == InspectorProtocol.STEPMODE_AGENT_OBSERVATION) {
-                if (this.protocol.getTsetObservType() == InspectorProtocol.PROACTIVE_OBSERVATION) {
+                    && this.protocol.getStepModeObservType() == InspectorProtocol.ObsType.STEP_MODE_AGENT) {
+                if (this.protocol.getTsetObservType() == InspectorProtocol.ObsType.PROACTIVE) {
                     final LogicTuple[] ltSet = (LogicTuple[]) TupleCentreContainer
                             .doManagementOperation(
                                     TupleCentreOpType.GET_TSET, this.tcId,
@@ -215,7 +215,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                         }
                     }
                 }
-                if (this.protocol.getPendingQueryObservType() == InspectorProtocol.PROACTIVE_OBSERVATION) {
+                if (this.protocol.getPendingQueryObservType() == InspectorProtocol.ObsType.PROACTIVE) {
                     final WSetEvent[] ltSet = (WSetEvent[]) TupleCentreContainer
                             .doManagementOperation(
                                     TupleCentreOpType.GET_WSET, this.tcId,
@@ -230,8 +230,8 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                 this.dialog.sendInspectorEvent(msg);
             }
             if (ev.getType() == InspectableEvent.TYPE_NEWSTATE
-                    && this.protocol.getStepModeObservType() == InspectorProtocol.STEPMODE_TUPLESPACE_OBSERVATION) {
-                if (this.protocol.getTsetObservType() == InspectorProtocol.PROACTIVE_OBSERVATION) {
+                    && this.protocol.getStepModeObservType() == InspectorProtocol.ObsType.STEP_MODE_TUPLE_SPACE) {
+                if (this.protocol.getTsetObservType() == InspectorProtocol.ObsType.PROACTIVE) {
                     final LogicTuple[] ltSet = (LogicTuple[]) TupleCentreContainer
                             .doManagementOperation(
                                     TupleCentreOpType.GET_TSET, this.tcId,
@@ -243,7 +243,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                         }
                     }
                 }
-                if (this.protocol.getPendingQueryObservType() == InspectorProtocol.PROACTIVE_OBSERVATION) {
+                if (this.protocol.getPendingQueryObservType() == InspectorProtocol.ObsType.PROACTIVE) {
                     final WSetEvent[] ltSet = (WSetEvent[]) TupleCentreContainer
                             .doManagementOperation(
                                     TupleCentreOpType.GET_WSET, this.tcId,
@@ -257,7 +257,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                 }
                 this.dialog.sendInspectorEvent(msg);
             } else if (ev.getType() == ObservableEventExt.TYPE_REACTIONOK) {
-                if (this.protocol.getReactionsObservType() != InspectorProtocol.NO_OBSERVATION) {
+                if (this.protocol.getReactionsObservType() != InspectorProtocol.ObsType.DISABLED) {
                     final TriggeredReaction zCopy = new TriggeredReaction(null,
                             ((ObservableEventReactionOK) ev).getZ()
                                     .getReaction());
@@ -271,7 +271,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                     this.dialog.sendInspectorEvent(msg);
                 }
             } else if (ev.getType() == ObservableEventExt.TYPE_REACTIONFAIL
-                    && this.protocol.getReactionsObservType() != InspectorProtocol.NO_OBSERVATION) {
+                    && this.protocol.getReactionsObservType() != InspectorProtocol.ObsType.DISABLED) {
                 final TriggeredReaction zCopy = new TriggeredReaction(null,
                         ((ObservableEventReactionFail) ev).getZ().getReaction());
                 msg.setReactionFailed(zCopy);
@@ -402,7 +402,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
             if (skel.getId() == this.getId()) {
                 continue;
             }
-            final InspectorContextEvent msg = new InspectorContextEvent();
+            final InspectorContextEvent msg = new InspectorContextEventDefault();
             msg.setModeChanged(true);
             try {
                 skel.getDialog().sendInspectorEvent(msg);
@@ -416,7 +416,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      *
      * @return InspectorContextSke dialog
      */
-    private AbstractTucsonProtocol getDialog() {
+    private TucsonProtocol getDialog() {
         return this.dialog;
     }
 

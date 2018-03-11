@@ -51,7 +51,7 @@ import alice.tuplecentre.respect.api.IRespectTC;
 import alice.tuplecentre.respect.api.RespectSpecification;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.respect.api.geolocation.PlatformUtils;
-import alice.tuplecentre.respect.api.geolocation.service.AbstractGeolocationService;
+import alice.tuplecentre.respect.api.geolocation.service.GeoLocationService;
 import alice.tuplecentre.respect.api.geolocation.service.GeolocationServiceManager;
 import alice.tuplecentre.respect.core.tupleset.ITupleSet;
 import alice.tuplecentre.respect.core.tupleset.TupleSetCoord;
@@ -1881,7 +1881,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             final GeolocationServiceManager geolocationManager = GeolocationServiceManager.getGeolocationManager();
             if (geolocationManager.getServices().size() > 0) {
                 final int platform = PlatformUtils.getPlatform();
-                final AbstractGeolocationService geoService = GeolocationServiceManager.getGeolocationManager()
+                final GeoLocationService geoService = GeolocationServiceManager.getGeolocationManager()
                         .getAppositeService(platform);
                 if (geoService != null) {
                     final Iterator<Term> fit = this.findFromReactions();
@@ -1979,7 +1979,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             final GeolocationServiceManager geolocationManager = GeolocationServiceManager.getGeolocationManager();
             if (geolocationManager.getServices().size() > 0) {
                 final int platform = PlatformUtils.getPlatform();
-                final AbstractGeolocationService geoService = GeolocationServiceManager.getGeolocationManager()
+                final GeoLocationService geoService = GeolocationServiceManager.getGeolocationManager()
                         .getAppositeService(platform);
                 if (geoService != null) {
                     final Iterator<Term> fit = this.findFromReactions();

@@ -15,22 +15,20 @@ package alice.tuplecentre.respect.api;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import alice.tuplecentre.api.AgentIdentifier;
-
 /**
  * Base class for building ReSpecT agents.
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
-public abstract class AbstractAgent {
+public abstract class AbstractRespectAgent {
 
     final class PlanExecutor extends Thread {
 
         private final Method activity;
-        private final AbstractAgent agent;
+        private final AbstractRespectAgent agent;
 
-        PlanExecutor(final AbstractAgent ag, final Method m) {
+        PlanExecutor(final AbstractRespectAgent ag, final Method m) {
             super();
             this.agent = ag;
             this.activity = m;
@@ -39,7 +37,7 @@ public abstract class AbstractAgent {
         @Override
         public void run() {
             try {
-                this.activity.invoke(this.agent, AbstractAgent.ARGS);
+                this.activity.invoke(this.agent, AbstractRespectAgent.ARGS);
             } catch (final IllegalAccessException e) {
                 e.printStackTrace();
             } catch (final IllegalArgumentException e) {
@@ -53,7 +51,7 @@ public abstract class AbstractAgent {
     private static final Object[] ARGS = new Object[] {};
     @SuppressWarnings("unchecked")
     private static final Class<? extends Object>[] ARGS_CLASS = new Class[] {};
-    private final AgentIdentifier id;
+    private final AgentId id;
     private IRespectTC tc;
 
     /**
@@ -61,7 +59,7 @@ public abstract class AbstractAgent {
      * @param aid
      *            the identifier of this agent
      */
-    protected AbstractAgent(final AgentIdentifier aid) {
+    protected AbstractRespectAgent(final AgentId aid) {
         this.id = aid;
     }
 
@@ -72,7 +70,7 @@ public abstract class AbstractAgent {
      * @param rtc
      *            the ReSpecT tuple centre this agent wants to operate on
      */
-    protected AbstractAgent(final AgentIdentifier aid, final IRespectTC rtc) {
+    protected AbstractRespectAgent(final AgentId aid, final IRespectTC rtc) {
         this.id = aid;
         this.tc = rtc;
     }
@@ -81,7 +79,7 @@ public abstract class AbstractAgent {
      *
      * @return the identifier of this agent
      */
-    public AgentIdentifier getId() {
+    public AgentId getId() {
         return this.id;
     }
 
@@ -116,7 +114,7 @@ public abstract class AbstractAgent {
         Method m = null;
         try {
             m = this.getClass().getDeclaredMethod(name,
-                    AbstractAgent.ARGS_CLASS);
+                    AbstractRespectAgent.ARGS_CLASS);
         } catch (final NoSuchMethodException e) {
             e.printStackTrace();
         } catch (final SecurityException e) {

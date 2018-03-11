@@ -26,10 +26,13 @@ import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.acc.EnhancedAsyncACC;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.actions.ordinary.In;
@@ -51,7 +54,7 @@ import alice.tuplecentre.tucson.asynchSupport.AsynchOpsHelper;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  *
  */
-public class PrimeCalculator extends AbstractTucsonAgent {
+public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
 
     /**
      * 
@@ -191,24 +194,15 @@ public class PrimeCalculator extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        /*
-         * Not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation op) {
-        /*
-         * Not used atm
-         */
+    protected EnhancedACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return TucsonMetaACC.getContext(aid, networkAddress, portNumber);
     }
 
     @Override
     protected void main() {
         try {
             super.say("Started");
-            final EnhancedAsyncACC acc = this.getContext();
+            final EnhancedAsyncACC acc = this.getACC();
             final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
                     "localhost", "20504");
             final AsynchOpsHelper helper = new AsynchOpsHelper("'helper4"
@@ -216,7 +210,7 @@ public class PrimeCalculator extends AbstractTucsonAgent {
             final LogicTuple tuple = LogicTuples.parse("calcprime(X)");
             final Inp inp = new Inp(tid, tuple);
             helper.enqueue(inp, new InpHandler(acc, tid, helper));
-            final EnhancedSyncACC accSynch = this.getContext();
+            final EnhancedSyncACC accSynch = this.getACC();
             final LogicTuple stopTuple = LogicTuples.parse("stop(primecalc)");
             final In inStop = new In(tid, stopTuple);
             inStop.executeSynch(accSynch, null);
