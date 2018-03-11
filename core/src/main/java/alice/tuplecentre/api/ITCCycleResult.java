@@ -2,6 +2,8 @@ package alice.tuplecentre.api;
 
 import java.util.List;
 
+import alice.tuple.Tuple;
+
 /**
  *
  * @author Alessandro Ricci

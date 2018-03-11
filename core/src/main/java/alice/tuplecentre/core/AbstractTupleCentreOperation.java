@@ -16,13 +16,16 @@ package alice.tuplecentre.core;
 import java.util.LinkedList;
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tuple.Tuple;
+import alice.tuple.TupleTemplate;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.ITCCycleResult;
-import alice.tuplecentre.api.Tuple;
+import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.api.TupleCentreOperation;
-import alice.tuplecentre.api.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
+import alice.tuplecentre.tucson.api.TucsonOpId;
 
 /**
  * This class represents an Operation on a tuple centre.
@@ -40,7 +43,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     /**
      * internal identifier of the operation
      */
-    private final long id;
+    private final OperationIdentifier id;
 
     private final TCCycleResult result;
     private TupleTemplate templateArgument;
@@ -62,7 +65,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
         this.result = new TCCycleResult();
         this.type = opType;
         this.token = new Object();
-        this.id = AbstractTupleCentreOperation.idCounter;
+        this.id = new TucsonOpId(AbstractTupleCentreOperation.idCounter);
         AbstractTupleCentreOperation.idCounter++;
     }
 
@@ -131,7 +134,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     }
 
     @Override
-    public long getId() {
+    public OperationIdentifier getId() {
         return this.id;
     }
 
@@ -142,11 +145,11 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
             if (TupleCentreOpType.getProducerPrimitives().contains(this.type)) {
                 pred.append(this.getPrimitive().toString()).append('(')
                         .append(this.tupleArgument).append(')');
-                return LogicTuple.parse(pred.toString());
+                return LogicTuples.parse(pred.toString());
             }
             pred.append(this.getPrimitive().toString()).append('(')
                     .append(this.templateArgument).append(')');
-            return LogicTuple.parse(pred.toString());
+            return LogicTuples.parse(pred.toString());
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();
             return null;
@@ -158,10 +161,9 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     public Tuple getPrimitive() {
         if (TupleCentreOpType.getStandardOperationTypes().contains(this.type)) {
 
-            // TODO modificare LogicTuple in modo che accetti in ingresso direttamente il tipo dell'operazione
-            // TODO e che lo trasformi internamente in stringa (se necessario)
 
-            return new LogicTuple(this.type.name().toLowerCase());
+
+            return LogicTuples.newInstance(this.type.name().toLowerCase());
         } else {
             return null;
         }

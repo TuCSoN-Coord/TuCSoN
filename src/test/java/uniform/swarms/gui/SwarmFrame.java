@@ -3,7 +3,7 @@
  */
 package uniform.swarms.gui;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 /**
  * @author ste

@@ -2,20 +2,24 @@ package uniform.loadBalancing;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
+
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * Dummy Service Provider class to show some 'adaptive' features related to
@@ -26,7 +30,7 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
  *
  * @author s.mariani@unibo.it
  */
-public class ServiceProvider extends AbstractTucsonAgent {
+public class ServiceProvider extends AbstractTucsonAgent<RootACC> {
 
     class Receiver extends Thread {
 
@@ -36,7 +40,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
             TucsonOperation op;
             this.say("Waiting for requests...");
             try {
-                final LogicTuple templ = LogicTuple.parse("req("
+                final LogicTuple templ = LogicTuples.parse("req("
                         + ServiceProvider.this.service.getArg(0) + ")");
                 while (!ServiceProvider.this.die) {
                     op = ServiceProvider.this.acc.in(ServiceProvider.this.tid,
@@ -113,15 +117,15 @@ public class ServiceProvider extends AbstractTucsonAgent {
      *            to simulate computational power
      *
      * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     *             if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public ServiceProvider(final String aid, final String node,
             final long cpuTime) throws TucsonInvalidAgentIdException {
         super(aid);
         this.die = false;
         try {
-            this.tid = new TucsonTupleCentreId(node);
-            this.service = LogicTuple.parse("ad(" + aid + ")");
+            this.tid = new TucsonTupleCentreIdDefault(node);
+            this.service = LogicTuples.parse("ad(" + aid + ")");
             this.say("I'm started.");
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
@@ -134,24 +138,9 @@ public class ServiceProvider extends AbstractTucsonAgent {
         this.serviceTime = cpuTime;
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation arg0) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final TucsonOperation op) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     @Override
@@ -163,7 +152,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
             new Receiver().start();
             TucsonOperation op;
             LogicTuple req;
-            final LogicTuple dieTuple = LogicTuple.parse("die(" + this.myName()
+            final LogicTuple dieTuple = LogicTuples.parse("die(" + this.getTucsonAgentId().getLocalName()
                     + ")");
             while (!this.die) {
                 this.say("Checking termination...");
@@ -215,7 +204,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
         } catch (final OperationTimeOutException e) {
             this.say("ERROR: Endless timeout expired!");
         } catch (final TucsonInvalidAgentIdException e1) {
-            this.say("ERROR: Given ID is not a valid agent ID!");
+            this.say("ERROR: Given Identifier is not a valid agent Identifier!");
         }
     }
 

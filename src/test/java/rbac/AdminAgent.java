@@ -27,25 +27,42 @@ package rbac;
 
 import java.util.logging.Logger;
 
-import alice.respect.api.exceptions.OperationNotAllowedException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.TucsonOperation;
-import alice.tucson.api.acc.AdminACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.rbac.AuthorisedAgent;
-import alice.tucson.rbac.Permission;
-import alice.tucson.rbac.Policy;
-import alice.tucson.rbac.Role;
-import alice.tucson.rbac.TucsonAuthorisedAgent;
-import alice.tucson.rbac.TucsonPermission;
-import alice.tucson.rbac.TucsonPolicy;
-import alice.tucson.rbac.TucsonRBACStructure;
-import alice.tucson.rbac.TucsonRole;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.respect.api.exceptions.OperationNotAllowedException;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.acc.AdminACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.rbac.AuthorisedAgent;
+import alice.tuplecentre.tucson.rbac.Permission;
+import alice.tuplecentre.tucson.rbac.Policy;
+import alice.tuplecentre.tucson.rbac.Role;
+import alice.tuplecentre.tucson.rbac.TucsonAuthorisedAgent;
+import alice.tuplecentre.tucson.rbac.TucsonPermission;
+import alice.tuplecentre.tucson.rbac.TucsonPolicy;
+import alice.tuplecentre.tucson.rbac.TucsonRBACStructure;
+import alice.tuplecentre.tucson.rbac.TucsonRole;
+import alice.tuplecentre.tucson.service.TucsonInfo;
+import alice.tuplecentre.respect.api.exceptions.OperationNotAllowedException;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.acc.AdminACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.rbac.AuthorisedAgent;
+import alice.tuplecentre.tucson.rbac.Permission;
+import alice.tuplecentre.tucson.rbac.Policy;
+import alice.tuplecentre.tucson.rbac.Role;
+import alice.tuplecentre.tucson.rbac.TucsonAuthorisedAgent;
+import alice.tuplecentre.tucson.rbac.TucsonPermission;
+import alice.tuplecentre.tucson.rbac.TucsonPolicy;
+import alice.tuplecentre.tucson.rbac.TucsonRBACStructure;
+import alice.tuplecentre.tucson.rbac.TucsonRole;
 
 /**
  * The administrator agent, configuring the RBAC properties.
@@ -53,11 +70,11 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
  * @author Stefano Mariani (mailto: s.mariani@unibo.it)
  *
  */
-public final class AdminAgent extends AbstractTucsonAgent {
+public final class AdminAgent extends AbstractTucsonAgent<AdminACC> {
 
     /**
      * @param id
-     *            the ID of this TuCSoN agent
+     *            the Identifier of this TuCSoN agent
      * @param netid
      *            the IP address of the TuCSoN node it is willing to interact
      *            with
@@ -66,45 +83,28 @@ public final class AdminAgent extends AbstractTucsonAgent {
      *            interact with
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent
-     *             ID
+     *             Identifier
      */
     public AdminAgent(final String id, final String netid, final int p)
             throws TucsonInvalidAgentIdException {
         super(id, netid, p);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
+    protected AdminACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
         /*
-         * Not used atm
+         * An administrator ACC should be acquired in order to gain
+         * administrative access to TuCSoN-RBAC.
          */
+
+        Logger.getLogger("AdminAgent").info("AdminACC acquiring");
+        return TucsonMetaACC.getAdminContext(aid, networkAddress, portNumber, "admin", "psw");
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tucson.
-     * api.TucsonOperation)
-     */
-    @Override
-    public void operationCompleted(final TucsonOperation op) {
-        /*
-         * Not used atm
-         */
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see alice.tucson.api.AbstractTucsonAgent#main()
-     */
     @Override
     protected void main() {
+        Logger.getLogger("AdminAgent").info("AdminACC acquired");
+
         /*
          * Atm, TuCSoN RBAC permissions are simply the name of a TuCSoN
          * primitive, indicating that an agent may invoke such operation.
@@ -178,32 +178,26 @@ public final class AdminAgent extends AbstractTucsonAgent {
         rbac.requireLogin(false);
         Logger.getLogger("AdminAgent").info(
                 "Acquiring AdminACC from TuCSoN Node installed on TCP port "
-                        + this.myport());
-        /*
-         * An administrator ACC should be acquired in order to gain
-         * administrative access to TuCSoN-RBAC.
-         */
-        AdminACC adminACC = TucsonMetaACC.getAdminContext(
-                this.getTucsonAgentId(), "localhost", 20504, "admin", "psw");
-        Logger.getLogger("AdminAgent").info("AdminACC acquired");
+                        + this.myPort());
+
         try {
             Logger.getLogger("AdminAgent")
                     .info("Installing RBAC configuration");
-            adminACC.install(rbac);
+            getACC().install(rbac);
             Logger.getLogger("AdminAgent").info("RBAC configuration installed");
             Logger.getLogger("AdminAgent").info("Removing policy 'policyrd'");
-            adminACC.removePolicy("policyrd");
+            getACC().removePolicy("policyrd");
             Logger.getLogger("AdminAgent").info("Policy 'policyrd' removed");
             Logger.getLogger("AdminAgent").info("Removing role 'roleRd'");
-            adminACC.removeRole("roleRead");
+            getACC().removeRole("roleRead");
             Logger.getLogger("AdminAgent").info("Role 'roleRd' removed");
             Logger.getLogger("AdminAgent").info(
                     "Changing basic agent class to 'yetAnotherBasicClass'");
-            adminACC.setBasicAgentClass("yetAnotherBasicClass");
+            getACC().setBasicAgentClass("yetAnotherBasicClass");
             Logger.getLogger("AdminAgent").info(
                     "Basic agent class changed to 'yetAnotherBasicClass'");
-            Logger.getLogger("AdminAgent").info("Releasing AdminACC"); 
-            adminACC.exit();
+            Logger.getLogger("AdminAgent").info("Releasing AdminACC");
+            getACC().exit();
             Logger.getLogger("AdminAgent").info("AdminACC released, bye!");
         } catch (TucsonOperationNotPossibleException | UnreachableNodeException
                 | OperationTimeOutException | OperationNotAllowedException e) {
@@ -216,7 +210,7 @@ public final class AdminAgent extends AbstractTucsonAgent {
      *            program arguments: args[0] is TuCSoN Node TCP port number.
      */
     public static void main(final String[] args) {
-        int portno = 20504;
+        int portno = TucsonInfo.getDefaultPortNumber();
         if (args.length == 1) {
             portno = Integer.parseInt(args[0]);
         }

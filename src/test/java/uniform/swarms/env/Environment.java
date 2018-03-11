@@ -1,23 +1,25 @@
 package uniform.swarms.env;
 
 import java.io.IOException;
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.acc.EnhancedSyncACC;
-import alice.tucson.api.acc.NegotiationACC;
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.utilities.Utils;
+
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.utilities.Utils;
 
 /**
  * @author Stefano Mariani (mailto: s [dot] mariani [at] unibo [dot] it)
- *
  */
 public final class Environment {
 
@@ -57,19 +59,17 @@ public final class Environment {
         TucsonTupleCentreId tcid;
         try {
             Environment.log("Configuring <food>...");
-            tcid = new TucsonTupleCentreId("food", "localhost", "20504");
+            tcid = new TucsonTupleCentreIdDefault("food", "localhost", "20504");
             Environment.acc
                     .outAll(tcid,
-                            LogicTuple
-                                    .parse("[nbr(short@localhost:20506),nbr(long2@localhost:20505)]"),
+                            LogicTuples.parse("[nbr(short@localhost:20506),nbr(long2@localhost:20505)]"),
                             null);
             Environment.acc
                     .outAll(tcid,
-                            LogicTuple
-                                    .parse("[anthill(short@localhost:20506),anthill(short@localhost:20506),anthill(long2@localhost:20505)]"),
+                            LogicTuples.parse("[anthill(short@localhost:20506),anthill(short@localhost:20506),anthill(long2@localhost:20505)]"),
                             null);
             for (int i = 0; i < 1000; i++) {
-                Environment.acc.out(tcid, LogicTuple.parse("food"), null);
+                Environment.acc.out(tcid, LogicTuples.parse("food"), null);
             }
         } catch (final InvalidLogicTupleException e) {
             Environment.err("Invalid tuple given: " + e.getCause());
@@ -97,16 +97,15 @@ public final class Environment {
         TucsonTupleCentreId tcid;
         try {
             Environment.log("Configuring <long1>...");
-            tcid = new TucsonTupleCentreId("long1", "localhost", "20507");
+            tcid = new TucsonTupleCentreIdDefault("long1", "localhost", "20507");
             Environment.acc
                     .outAll(tcid,
-                            LogicTuple
-                                    .parse("[nbr(anthill@localhost:20508),nbr(long2@localhost:20505)]"),
+                            LogicTuples.parse("[nbr(anthill@localhost:20508),nbr(long2@localhost:20505)]"),
                             null);
             Environment.acc.out(tcid,
-                    LogicTuple.parse("anthill(anthill@localhost:20508)"), null);
+                    LogicTuples.parse("anthill(anthill@localhost:20508)"), null);
             Environment.acc.setS(tcid, spec, null);
-            Environment.acc.out(tcid, LogicTuple.parse("'$start_evaporation'"),
+            Environment.acc.out(tcid, LogicTuples.parse("'$start_evaporation'"),
                     null);
         } catch (final InvalidLogicTupleException e) {
             Environment.err("Invalid tuple given: " + e.getCause());
@@ -128,16 +127,15 @@ public final class Environment {
 
         try {
             Environment.log("Configuring <long2>...");
-            tcid = new TucsonTupleCentreId("long2", "localhost", "20505");
+            tcid = new TucsonTupleCentreIdDefault("long2", "localhost", "20505");
             Environment.acc
                     .outAll(tcid,
-                            LogicTuple
-                                    .parse("[nbr(long1@localhost:20507),nbr(food@localhost:20504)]"),
+                            LogicTuples.parse("[nbr(long1@localhost:20507),nbr(food@localhost:20504)]"),
                             null);
             Environment.acc.out(tcid,
-                    LogicTuple.parse("anthill(long1@localhost:20507)"), null);
+                    LogicTuples.parse("anthill(long1@localhost:20507)"), null);
             Environment.acc.setS(tcid, spec, null);
-            Environment.acc.out(tcid, LogicTuple.parse("'$start_evaporation'"),
+            Environment.acc.out(tcid, LogicTuples.parse("'$start_evaporation'"),
                     null);
         } catch (final InvalidLogicTupleException e) {
             Environment.err("Invalid tuple given: " + e.getCause());
@@ -165,16 +163,15 @@ public final class Environment {
         TucsonTupleCentreId tcid;
         try {
             Environment.log("Configuring <short>...");
-            tcid = new TucsonTupleCentreId("short", "localhost", "20506");
+            tcid = new TucsonTupleCentreIdDefault("short", "localhost", "20506");
             Environment.acc
                     .outAll(tcid,
-                            LogicTuple
-                                    .parse("[nbr(anthill@localhost:20508),nbr(food@localhost:20504)]"),
+                            LogicTuples.parse("[nbr(anthill@localhost:20508),nbr(food@localhost:20504)]"),
                             null);
             Environment.acc.out(tcid,
-                    LogicTuple.parse("anthill(anthill@localhost:20508)"), null);
+                    LogicTuples.parse("anthill(anthill@localhost:20508)"), null);
             Environment.acc.setS(tcid, spec, null);
-            Environment.acc.out(tcid, LogicTuple.parse("'$start_evaporation'"),
+            Environment.acc.out(tcid, LogicTuples.parse("'$start_evaporation'"),
                     null);
         } catch (final InvalidLogicTupleException e) {
             Environment.err("Invalid tuple given: " + e.getCause());
@@ -202,14 +199,13 @@ public final class Environment {
         TucsonTupleCentreId tcid;
         try {
             Environment.log("Configuring <anthill>...");
-            tcid = new TucsonTupleCentreId("anthill", "localhost", "20508");
+            tcid = new TucsonTupleCentreIdDefault("anthill", "localhost", "20508");
             Environment.acc
                     .outAll(tcid,
-                            LogicTuple
-                                    .parse("[nbr(short@localhost:20506),nbr(long1@localhost:20507)]"),
+                            LogicTuples.parse("[nbr(short@localhost:20506),nbr(long1@localhost:20507)]"),
                             null);
             Environment.acc.setS(tcid, spec, null);
-            Environment.acc.out(tcid, LogicTuple.parse("'$start_evaporation'"),
+            Environment.acc.out(tcid, LogicTuples.parse("'$start_evaporation'"),
                     null);
         } catch (final InvalidLogicTupleException e) {
             Environment.err("Invalid tuple given: " + e.getCause());
@@ -249,7 +245,7 @@ public final class Environment {
      */
     private static void acquireACC() {
         try {
-            Environment.me = new TucsonAgentId("env");
+            Environment.me = new TucsonAgentIdDefault("env");
             Environment.negAcc = TucsonMetaACC
                     .getNegotiationContext(Environment.me);
             Environment.acc = Environment.negAcc.playDefaultRole();

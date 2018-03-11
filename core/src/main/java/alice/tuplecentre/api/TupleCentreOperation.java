@@ -2,7 +2,9 @@ package alice.tuplecentre.api;
 
 import java.util.List;
 
-import alice.logictuple.LogicTuple;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.Tuple;
+import alice.tuple.TupleTemplate;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.OperationCompletionListener;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -20,7 +22,7 @@ public interface TupleCentreOperation {
      *
      * @return Operation identifier
      */
-    long getId(); //TODO replace return type with TupleOperationID (to be created) (will be implemented by TucsonOpId class)
+    OperationIdentifier getId();
 
     /**
      * @return the type code of the operation

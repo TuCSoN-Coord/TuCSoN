@@ -26,9 +26,10 @@
 package rbac;
 
 import java.util.logging.Logger;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.network.exceptions.DialogInitializationException;
-import alice.tucson.service.TucsonNodeService;
+
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
+import alice.tuplecentre.tucson.service.TucsonNodeService;
 
 /**
  * Example showcasing RBAC in TuCSoN. A TuCSoN node is configured with a set of
@@ -112,7 +113,7 @@ public final class RBACLauncher {
         Logger.getLogger("RBACLauncher").info(
                 "Launching an authorised agent...");
         try {
-            new AuthorisedAgent("authorised", "localhost", portno).go();
+            new AuthorisedAgentImpl("authorised", "localhost", portno).go();
         } catch (TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
