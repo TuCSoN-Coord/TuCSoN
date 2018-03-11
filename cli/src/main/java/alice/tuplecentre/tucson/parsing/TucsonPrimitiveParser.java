@@ -3,25 +3,20 @@ package alice.tuplecentre.tucson.parsing;
 import alice.tuplecentre.tucson.service.TucsonCmd;
 
 /**
- *
  * @author ste (mailto: s.mariani@unibo.it)
- *
  */
 public class TucsonPrimitiveParser {
 
     private final String input;
 
     /**
-     *
-     * @param in
-     *            the String representation of the TuCSoN primitive to be parsed
+     * @param in the String representation of the TuCSoN primitive to be parsed
      */
     public TucsonPrimitiveParser(final String in) {
         this.input = in;
     }
 
     /**
-     *
      * @return the Object representing the TuCSoN command parsed
      */
     public TucsonCmd parse() {

@@ -48,27 +48,22 @@ public abstract class AbstractRespectAgent {
         }
     }
 
-    private static final Object[] ARGS = new Object[] {};
+    private static final Object[] ARGS = new Object[]{};
     @SuppressWarnings("unchecked")
-    private static final Class<? extends Object>[] ARGS_CLASS = new Class[] {};
+    private static final Class<? extends Object>[] ARGS_CLASS = new Class[]{};
     private final AgentId id;
     private IRespectTC tc;
 
     /**
-     *
-     * @param aid
-     *            the identifier of this agent
+     * @param aid the identifier of this agent
      */
     protected AbstractRespectAgent(final AgentId aid) {
         this.id = aid;
     }
 
     /**
-     *
-     * @param aid
-     *            the identifier of this agent
-     * @param rtc
-     *            the ReSpecT tuple centre this agent wants to operate on
+     * @param aid the identifier of this agent
+     * @param rtc the ReSpecT tuple centre this agent wants to operate on
      */
     protected AbstractRespectAgent(final AgentId aid, final IRespectTC rtc) {
         this.id = aid;
@@ -76,7 +71,6 @@ public abstract class AbstractRespectAgent {
     }
 
     /**
-     *
      * @return the identifier of this agent
      */
     public AgentId getId() {
@@ -98,17 +92,14 @@ public abstract class AbstractRespectAgent {
     }
 
     /**
-     * @param rtc
-     *            the tc to set
+     * @param rtc the tc to set
      */
     public void setTc(final IRespectTC rtc) {
         this.tc = rtc;
     }
 
     /**
-     *
-     * @param name
-     *            the full name of the Java class to execute as the agent plan
+     * @param name the full name of the Java class to execute as the agent plan
      */
     protected final void execPlan(final String name) {
         Method m = null;

@@ -15,11 +15,11 @@ import alice.tuplecentre.respect.core.InternalEvent;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.tucson.network.TucsonMsgRequest;
 import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
+import alice.tuplecentre.tucson.network.messages.TucsonMsgRequest;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMsg;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMsgDefault;
-import alice.tuplecentre.tucson.service.InputEventMsg;
 import alice.tuplecentre.tucson.service.OperationHandler;
 import alice.tuplecentre.tucson.service.TucsonOperationDefault;
 
@@ -35,28 +35,38 @@ import alice.tuplecentre.tucson.service.TucsonOperationDefault;
 
 // !!! Nel metodo "exit" l'inputEventMsg ha null come "position"
 public abstract class AbstractTransducer implements
-TransducerStandardInterface, TucsonOperationCompletionListener {
+        TransducerStandardInterface, TucsonOperationCompletionListener {
 
-    /** 'sensing' operation ('getEnv') */
+    /**
+     * 'sensing' operation ('getEnv')
+     */
     public static final int GET_MODE = 0;
-    /** 'acting' operation ('setEnv') */
+    /**
+     * 'acting' operation ('setEnv')
+     */
     public static final int SET_MODE = 1;
-    /** Class used to perform requested operation to the tuple centre **/
+    /**
+     * Class used to perform requested operation to the tuple centre
+     **/
     protected OperationHandler executor;
-    /** Transducer's identifier **/
+    /**
+     * Transducer's identifier
+     **/
     protected TransducerId id;
-    /** List of probes associated to the transducer **/
+    /**
+     * List of probes associated to the transducer
+     **/
     protected Map<ProbeIdentifier, Object> probes;
-    /** Identifier of the tuple centre associated **/
+    /**
+     * Identifier of the tuple centre associated
+     **/
     protected TupleCentreIdentifier tcId;
 
     /**
      * Constructs a transducer
      *
-     * @param i
-     *            the transducer's identifier
-     * @param tc
-     *            the associated tuple centre's identifier
+     * @param i  the transducer's identifier
+     * @param tc the associated tuple centre's identifier
      */
     public AbstractTransducer(final TransducerId i, final TupleCentreIdentifier tc) {
         this.id = i;
@@ -70,10 +80,8 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
      * Adds a new probe. If the probe's name is already recorded, the probe will
      * not be registered.
      *
-     * @param i
-     *            probe's identifier
-     * @param probe
-     *            the probe itself
+     * @param i     probe's identifier
+     * @param probe the probe itself
      */
     public void addProbe(final ProbeIdentifier i, final Object probe) {
         if (!this.probes.containsKey(i)) {
@@ -115,8 +123,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
     /**
      * The behavior of the transducer when a getEnv operation is required
      *
-     * @param key
-     *            the environmental property key whose associated value should
+     * @param key the environmental property key whose associated value should
      *            be percevied
      * @return true if the operation has been successfully executed
      */
@@ -158,20 +165,14 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
     }
 
     /**
-     *
      * Notifies an events from a probe to the tuple centre.
      *
-     * @param key
-     *            the name of the value
-     * @param value
-     *            the value to communicate.
-     * @param mod
-     *            wether the environmental events is about an action operation or
-     *            a sensing operation
-     * @throws UnreachableNodeException
-     *             if the target TuCSoN node cannot be reached over the network
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be successfully carried out
+     * @param key   the name of the value
+     * @param value the value to communicate.
+     * @param mod   wether the environmental events is about an action operation or
+     *              a sensing operation
+     * @throws UnreachableNodeException            if the target TuCSoN node cannot be reached over the network
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be successfully carried out
      */
     @Override
     public void notifyEnvEvent(final String key, final int value, final int mod)
@@ -192,15 +193,14 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
 
     /**
      * Notifies an events from the tuple centre.
-     *
+     * <p>
      * Events to the transducer should be only getEnv or setEnv ones. The
      * response to each events is specified in getEnv and setEnv methods of the
      * transducer.
      *
-     * @param ev
-     *            internal events from the tuple centre
+     * @param ev internal events from the tuple centre
      * @return true if the operation required is getEnv or setEnv and it's been
-     *         successfully executed.
+     * successfully executed.
      */
     @Override
     public boolean notifyOutput(final InternalEvent ev) {
@@ -220,8 +220,7 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
     /**
      * Removes a probe from the probe list associated to the transducer if exist
      *
-     * @param i
-     *            probe's identifier
+     * @param i probe's identifier
      */
     public void removeProbe(final ProbeIdentifier i) {
         final Object[] keySet = this.probes.keySet().toArray();
@@ -237,10 +236,8 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
     /**
      * The behavior of the transducer when a setEnv operation is required
      *
-     * @param key
-     *            name of the parameter to set
-     * @param value
-     *            value of the parameter to set
+     * @param key   name of the parameter to set
+     * @param value value of the parameter to set
      * @return true if the operation has been successfully executed
      */
     public abstract boolean setEnv(String key, int value);
@@ -251,20 +248,18 @@ TransducerStandardInterface, TucsonOperationCompletionListener {
      * ==================================
      * =======================================================
      */
+
     /**
      * Utility methods used to communicate an output message to the console.
      *
-     * @param msg
-     *            message to print.
+     * @param msg message to print.
      */
     protected void speak(final String msg) {
         System.out.println("....[" + this.id + "]: " + msg);
     }
 
     /**
-     *
-     * @param msg
-     *            the message to show on standard error
+     * @param msg the message to show on standard error
      */
     protected void speakErr(final String msg) {
         System.err.println("....[" + this.id.toString() + "]: " + msg);

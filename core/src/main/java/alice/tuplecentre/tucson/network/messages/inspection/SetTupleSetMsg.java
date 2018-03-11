@@ -13,13 +13,12 @@
  */
 package alice.tuplecentre.tucson.network.messages.inspection;
 
-import alice.tucson.api.TucsonAgentId;
-import alice.tuplecentre.api.Tuple;
+
+import alice.tuple.Tuple;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
- *
  * @author Unknown...
- *
  */
 public class SetTupleSetMsg extends NodeMsg {
 
@@ -27,14 +26,11 @@ public class SetTupleSetMsg extends NodeMsg {
     private java.util.List<? extends Tuple> tupleSet;
 
     /**
-     *
-     * @param id
-     *            the agent id of the sender
-     * @param ts
-     *            the list of tuples to overwrite the tuple set with
+     * @param id the agent id of the sender
+     * @param ts the list of tuples to overwrite the tuple set with
      */
     public SetTupleSetMsg(final TucsonAgentId id,
-            final java.util.List<? extends Tuple> ts) {
+                          final java.util.List<? extends Tuple> ts) {
         super(id, "setTupleSet");
         this.tupleSet = ts;
     }
@@ -47,8 +43,7 @@ public class SetTupleSetMsg extends NodeMsg {
     }
 
     /**
-     * @param set
-     *            the tupleSet to set
+     * @param set the tupleSet to set
      */
     public void setTupleSet(final java.util.List<? extends Tuple> set) {
         this.tupleSet = set;

@@ -7,9 +7,7 @@ import alice.tuprolog.event.OutputEvent;
 import alice.tuprolog.event.OutputListener;
 
 /**
- *
  * @author ste (mailto: s.mariani@unibo.it)
- *
  */
 public class Spawn2PSolver extends Thread {
 
@@ -17,11 +15,8 @@ public class Spawn2PSolver extends Thread {
     private final Prolog solver;
 
     /**
-     *
-     * @param s
-     *            the Prolog engine to be used
-     * @param g
-     *            the goal to solve
+     * @param s the Prolog engine to be used
+     * @param g the goal to solve
      */
     public Spawn2PSolver(final Prolog s, final Term g) {
         super();

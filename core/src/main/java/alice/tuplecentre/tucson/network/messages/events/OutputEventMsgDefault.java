@@ -4,14 +4,13 @@ package alice.tuplecentre.tucson.network.messages.events;
 import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.core.TupleCentreOpType;
-import alice.tuplecentre.tucson.service.OutputEventMsg;
 
 /**
  * // TODO add documentation
  *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  */
-public class OutputEventMsgDefault implements OutputEventMsg ,EventMsg{
+public class OutputEventMsgDefault implements OutputEventMsg, EventMsg {
 
     private final boolean allowed;
     private final OperationIdentifier opId;

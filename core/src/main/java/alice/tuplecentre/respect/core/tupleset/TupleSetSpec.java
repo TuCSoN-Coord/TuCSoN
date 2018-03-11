@@ -22,7 +22,6 @@ import alice.tuplecentre.respect.core.collection.DoubleKeyMVMap;
  * Class representing a Tuple Set.
  *
  * @author Saverio Cicora
- *
  */
 public class TupleSetSpec extends AbstractTupleSet {
 
@@ -30,6 +29,7 @@ public class TupleSetSpec extends AbstractTupleSet {
     // lista?
     // due normali tuple devono rimanere distinte anche se sono identiche, ma
     // per le reaction potrebbe essere un problema.
+
     /**
      *
      */

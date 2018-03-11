@@ -17,9 +17,7 @@ package alice.tuplecentre.tucson.network.messages.inspection;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
- *
  * @author Unknown...
- *
  */
 public class GetSnapshotMsg extends NodeMsg {
 
@@ -35,11 +33,8 @@ public class GetSnapshotMsg extends NodeMsg {
     private byte what;
 
     /**
-     *
-     * @param id
-     *            the agent identifier
-     * @param w
-     *            the set to retrieve
+     * @param id the agent identifier
+     * @param w  the set to retrieve
      */
     public GetSnapshotMsg(final TucsonAgentId id, final byte w) {
         super(id, "getSnapshot");
@@ -54,8 +49,7 @@ public class GetSnapshotMsg extends NodeMsg {
     }
 
     /**
-     * @param w
-     *            the what to set
+     * @param w the what to set
      */
     public void setWhat(final byte w) {
         this.what = w;

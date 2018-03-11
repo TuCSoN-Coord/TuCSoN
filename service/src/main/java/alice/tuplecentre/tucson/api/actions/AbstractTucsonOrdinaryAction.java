@@ -28,7 +28,6 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
  *
  * @author Luca Sangiorgi (mailto: luca.sangiorgi6@studio.unibo.it)
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public abstract class AbstractTucsonOrdinaryAction extends AbstractTucsonAction {
 
@@ -40,14 +39,12 @@ public abstract class AbstractTucsonOrdinaryAction extends AbstractTucsonAction 
     /**
      * Builds a TuCSoN action whose target is the given tuple centre and whose
      * argument is the given tuple
-     * 
-     * @param tc
-     *            the Identifier of the TuCSoN tuple centre target of the operation
-     * @param t
-     *            the logic tuple argument of the operation
+     *
+     * @param tc the Identifier of the TuCSoN tuple centre target of the operation
+     * @param t  the logic tuple argument of the operation
      */
     public AbstractTucsonOrdinaryAction(final TucsonTupleCentreId tc,
-            final LogicTuple t) {
+                                        final LogicTuple t) {
         super(tc);
         this.tuple = t;
     }

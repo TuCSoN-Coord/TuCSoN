@@ -31,7 +31,6 @@ import alice.tuplecentre.tucson.service.tools.TucsonACCTool;
  *
  * @author Emanuele Buccelli
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public class NegotiationACCProxyAgentSide implements NegotiationACC {
 
@@ -63,12 +62,9 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
     /**
      * Builds a Negotiation ACC given the associated agent Identifier or name
      *
-     * @param aid
-     *            the associated agent Identifier or name (String)
-     * @throws TucsonInvalidAgentIdException
-     *             if the given agent Identifier is NOT valid
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre Identifier is NOT valid
+     * @param aid the associated agent Identifier or name (String)
+     * @throws TucsonInvalidAgentIdException       if the given agent Identifier is NOT valid
+     * @throws TucsonInvalidTupleCentreIdException if the given tuple centre Identifier is NOT valid
      */
     public NegotiationACCProxyAgentSide(final Object aid)
             throws TucsonInvalidAgentIdException,
@@ -81,19 +77,14 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
      * address of the TuCSoN node the agent is willing to interact with, and the
      * TCP port also.
      *
-     * @param aid
-     *            the associated agent Identifier or name (String)
-     * @param n
-     *            the IP address of the target TuCSoN node
-     * @param p
-     *            the TCP port of the target TuCSoN node
-     * @throws TucsonInvalidAgentIdException
-     *             if the given agent Identifier is NOT valid
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre Identifier is NOT valid
+     * @param aid the associated agent Identifier or name (String)
+     * @param n   the IP address of the target TuCSoN node
+     * @param p   the TCP port of the target TuCSoN node
+     * @throws TucsonInvalidAgentIdException       if the given agent Identifier is NOT valid
+     * @throws TucsonInvalidTupleCentreIdException if the given tuple centre Identifier is NOT valid
      */
     public NegotiationACCProxyAgentSide(final Object aid, final String n,
-            final int p) throws TucsonInvalidAgentIdException,
+                                        final int p) throws TucsonInvalidAgentIdException,
             TucsonInvalidTupleCentreIdException {
         this.internalACC = new ACCProxyAgentSide(
                 NegotiationACCProxyAgentSide.TC_AGENT, n, p);
@@ -222,9 +213,9 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
     @Override
     public synchronized EnhancedACC playRoleWithPermissions(
             final List<String> permissionsId, final Long l)
-                    throws TucsonOperationNotPossibleException,
-                    UnreachableNodeException, OperationTimeOutException,
-                    TucsonInvalidAgentIdException, AgentNotAllowedException {
+            throws TucsonOperationNotPossibleException,
+            UnreachableNodeException, OperationTimeOutException,
+            TucsonInvalidAgentIdException, AgentNotAllowedException {
 
         if (!this.isRBACInstalled(this.tid)) {
             return new ACCProxyAgentSide(this.agentAid, this.node, this.port);

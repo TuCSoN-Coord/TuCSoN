@@ -3,14 +3,12 @@ package alice.tuplecentre.respect.api.geolocation;
 import java.util.Properties;
 
 /**
- * 
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
- * 
  */
 public final class PlatformUtils {
     /**
      * Gets the current execution platform
-     * 
+     *
      * @return an int value representing the current execution platform
      */
     public static int getPlatform() {
@@ -39,7 +37,7 @@ public final class PlatformUtils {
 
     private PlatformUtils() {
         /*
-         * 
+         *
          */
     }
 }

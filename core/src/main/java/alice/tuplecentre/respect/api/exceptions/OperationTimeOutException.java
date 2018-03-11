@@ -25,9 +25,7 @@ public class OperationTimeOutException extends RespectException {
     private final RespectOperation op;
 
     /**
-     *
-     * @param rop
-     *            the operation whose timeout expired
+     * @param rop the operation whose timeout expired
      */
     public OperationTimeOutException(final RespectOperation rop) {
         super();
@@ -35,7 +33,6 @@ public class OperationTimeOutException extends RespectException {
     }
 
     /**
-     *
      * @return the operation whose timeout expired
      */
     public RespectOperation getOperation() {

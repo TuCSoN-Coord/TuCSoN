@@ -15,67 +15,51 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
  * transducers.
  *
  * @author Steven Maraldi
- *
  */
 public interface TransducerStandardInterface {
 
     /**
-     *
      * @return the identifier of the transducer
      */
     TransducerId getIdentifier();
 
     /**
-     *
      * @return the list of Probes for which this tranduces is responsible for
      */
     ProbeIdentifier[] getProbes();
 
     /**
-     *
      * @return the identifier of the TuCSoN tuple centre this transducer works
-     *         with
+     * with
      */
     TupleCentreIdentifier getTCId();
 
     /**
-     *
-     * @param key
-     *            the <code>key</code> of the environmental property change to
-     *            be notified
-     * @param value
-     *            the <code>value</code> of the environmental property change to
-     *            be notified
-     * @param mode
-     *            if the notification regards a 'sensing' operation or an
-     *            'action' operation ('getEnv' and 'setEnv' primitives
-     *            respectively)
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be performed for some
-     *             reason
-     * @throws UnreachableNodeException
-     *             if the TuCSoN tuple centre target of the notification cannot
-     *             be reached over the network
-     * @throws OperationTimeOutException
-     *             if the notification operation expires timeout
+     * @param key   the <code>key</code> of the environmental property change to
+     *              be notified
+     * @param value the <code>value</code> of the environmental property change to
+     *              be notified
+     * @param mode  if the notification regards a 'sensing' operation or an
+     *              'action' operation ('getEnv' and 'setEnv' primitives
+     *              respectively)
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
+     *                                             reason
+     * @throws UnreachableNodeException            if the TuCSoN tuple centre target of the notification cannot
+     *                                             be reached over the network
+     * @throws OperationTimeOutException           if the notification operation expires timeout
      */
     void notifyEnvEvent(String key, int value, int mode)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException;
 
     /**
-     *
-     * @param ev
-     *            the ReSpecT events to be notified
+     * @param ev the ReSpecT events to be notified
      * @return wether the events has been succesfully notified
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be performed for some
-     *             reason
-     * @throws UnreachableNodeException
-     *             if the TuCSoN tuple centre target of the notification cannot
-     *             be reached over the network
-     * @throws OperationTimeOutException
-     *             if the notification operation expires timeout
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
+     *                                             reason
+     * @throws UnreachableNodeException            if the TuCSoN tuple centre target of the notification cannot
+     *                                             be reached over the network
+     * @throws OperationTimeOutException           if the notification operation expires timeout
      */
     boolean notifyOutput(InternalEvent ev)
             throws TucsonOperationNotPossibleException,

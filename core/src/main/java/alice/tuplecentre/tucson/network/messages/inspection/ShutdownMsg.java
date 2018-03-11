@@ -13,21 +13,18 @@
  */
 package alice.tuplecentre.tucson.network.messages.inspection;
 
-import alice.tucson.api.TucsonAgentId;
+
+import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
- *
  * @author Unknown...
- *
  */
 public class ShutdownMsg extends NodeMsg {
 
     private static final long serialVersionUID = -745435883778999790L;
 
     /**
-     *
-     * @param id
-     *            the agent id of the sender
+     * @param id the agent id of the sender
      */
     public ShutdownMsg(final TucsonAgentId id) {
         super(id, "exit");

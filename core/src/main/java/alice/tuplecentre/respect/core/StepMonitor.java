@@ -18,7 +18,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author Roberto D'Elia
- *
  */
 public class StepMonitor {
 
@@ -31,8 +30,7 @@ public class StepMonitor {
     }
 
     /**
-     * @throws InterruptedException
-     *             if the synchronisation wait gets interrupted
+     * @throws InterruptedException if the synchronisation wait gets interrupted
      */
     public void awaitEvent() throws InterruptedException {
         this.lock.lock();

@@ -8,7 +8,6 @@ import alice.tuplecentre.respect.core.tupleset.ITupleSet;
 /**
  * @author Lorenzo Pontellini, Vincenzo Scafuto
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public class PersistencyData {
 
@@ -24,7 +23,7 @@ public class PersistencyData {
     }
 
     public PersistencyData(final ITupleSet tSet, final ITupleSet tSpecSet,
-            final TupleSet pPrologPred, final List<String> tUpdates) {
+                           final TupleSet pPrologPred, final List<String> tUpdates) {
         this.setTupleSet(tSet);
         this.setTupleSpecSet(tSpecSet);
         this.setPrologPredicates(pPrologPred);
@@ -32,7 +31,7 @@ public class PersistencyData {
     }
 
     public PersistencyData(final List<String> ts, final List<String> sts,
-            final List<String> pps, final List<String> us) {
+                           final List<String> pps, final List<String> us) {
         this.setTuples(ts);
         this.setSpecTuples(sts);
         this.setPredicates(pps);

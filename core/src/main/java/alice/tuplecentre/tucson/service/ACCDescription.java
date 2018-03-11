@@ -22,23 +22,16 @@ import alice.tuplecentre.tucson.rbac.Role;
 
 /**
  * Agent Coordination Context Description class.
- *
+ * <p>
  * It is meant to store information about the current ACC "session" held by a
  * TuCSoN Agent (such as its identity, role, etc.) toward the TuCSoN Node
  * Service. It is responsible to establish the connection between the user agent
  * proxy {@link ACCProxyAgentSide agent} and the TuCSoN
- * Node Service proxy {@link ACCProxyNodeSide node}. It
- * actually triggers the latter proxy creation by the ACC Provider
- * {@link ACCProvider provider} spawned by the Tucson Node
- * Service {@link alice.tuplecentre.tucson.service.TucsonNodeService TuCSoN}
- *
- * @see ACCProxyAgentSide ACCProxyAgentSide
- * @see ACCProxyNodeSide ACCProxyNodeSide
- * @see ACCProvider ACCProvider
- * @see alice.tuplecentre.tucson.service.TucsonNodeService TucsonNodeService
+ * Node Service proxy. It actually triggers the latter proxy creation by the ACC Provider
+ * spawned by the Tucson Node Service
  *
  * @author Alessandro Ricci
- *
+ * @see ACCProxyAgentSide ACCProxyAgentSide
  */
 public class ACCDescription implements Serializable {
 
@@ -60,8 +53,7 @@ public class ACCDescription implements Serializable {
     /**
      * Creates an ACCDescription using the Java Properties instance passed.
      *
-     * @param p
-     *            Java Properties map to be used for initialization
+     * @param p Java Properties map to be used for initialization
      * @see java.util.Properties Properties
      */
     public ACCDescription(final Properties p) {
@@ -78,8 +70,7 @@ public class ACCDescription implements Serializable {
     /**
      * Gets the named property from the Java Properties map
      *
-     * @param name
-     *            Named property to be retrieved
+     * @param name Named property to be retrieved
      * @return Value of the property retrieved
      * @see java.util.Properties Properties
      */
@@ -110,10 +101,8 @@ public class ACCDescription implements Serializable {
     /**
      * Sets a new Java Property map entry using the Strings passed
      *
-     * @param name
-     *            Name of the property to store
-     * @param value
-     *            Value of the property to store
+     * @param name  Name of the property to store
+     * @param value Value of the property to store
      * @see java.util.Properties Properties
      */
     public void setProperty(final String name, final String value) {

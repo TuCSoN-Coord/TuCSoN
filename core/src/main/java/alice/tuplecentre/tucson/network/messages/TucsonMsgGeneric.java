@@ -3,12 +3,10 @@ package alice.tuplecentre.tucson.network.messages;
 import alice.tuplecentre.tucson.network.messages.events.EventMsg;
 
 /**
- *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Saverio Cicora
  * @author (contributor) Piscaglia Nicola
- *
  */
 public class TucsonMsgGeneric implements TucsonMsg {
 

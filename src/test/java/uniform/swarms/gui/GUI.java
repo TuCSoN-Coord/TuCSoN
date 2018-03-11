@@ -3,8 +3,10 @@
  */
 package uniform.swarms.gui;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  * @author ste

@@ -21,17 +21,16 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import alice.tuplecentre.tucson.network.messages.inspection.GetSnapshotMsg;
-import alice.tuplecentre.tucson.introspection.InspectorProtocol;
-import alice.tuplecentre.tucson.network.exceptions.DialogSendException;import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
+import alice.tuplecentre.tucson.introspection.InspectorProtocol;
+import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
+import alice.tuplecentre.tucson.network.messages.inspection.GetSnapshotMsg;
 
 /**
- *
  * @author Unknown...
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 public class TupleViewer extends javax.swing.JFrame {
 
@@ -58,8 +57,7 @@ public class TupleViewer extends javax.swing.JFrame {
     /**
      * Creates new form TupleForm
      *
-     * @param mf
-     *            the inspector GUI
+     * @param mf the inspector GUI
      */
     public TupleViewer(final InspectorGUI mf) {
         super();
@@ -82,36 +80,28 @@ public class TupleViewer extends javax.swing.JFrame {
     }
 
     /**
-     *
-     * @param l
-     *            the local time
+     * @param l the local time
      */
     public void setLocalTime(final long l) {
         this.outputTime.setText(String.valueOf(l));
     }
 
     /**
-     *
-     * @param l
-     *            the number of items inspected
+     * @param l the number of items inspected
      */
     public void setNItems(final long l) {
         this.outputNoItems.setText(String.valueOf(l));
     }
 
     /**
-     *
-     * @param st
-     *            the message to show
+     * @param st the message to show
      */
     public void setText(final String st) {
         this.tupleArea.setText(st);
     }
 
     /**
-     *
-     * @param l
-     *            the VM time
+     * @param l the VM time
      */
     public void setVMTime(final long l) {
         this.outputVmTime.setText(String.valueOf(l));
@@ -284,7 +274,7 @@ public class TupleViewer extends javax.swing.JFrame {
         this.radioReactive
                 .addActionListener(new java.awt.event.ActionListener() {
 
-            @Override
+                    @Override
                     public void actionPerformed(
                             final java.awt.event.ActionEvent evt) {
                         TupleViewer.this.radioReactiveActionPerformed();
@@ -304,7 +294,7 @@ public class TupleViewer extends javax.swing.JFrame {
         this.radioProactive
                 .addActionListener(new java.awt.event.ActionListener() {
 
-            @Override
+                    @Override
                     public void actionPerformed(
                             final java.awt.event.ActionEvent evt) {
                         TupleViewer.this.radioProactiveActionPerformed();
@@ -351,7 +341,7 @@ public class TupleViewer extends javax.swing.JFrame {
         this.checkFilterView
                 .addActionListener(new java.awt.event.ActionListener() {
 
-            @Override
+                    @Override
                     public void actionPerformed(
                             final java.awt.event.ActionEvent evt) {
                         TupleViewer.this.checkFilterViewActionPerformed();
@@ -369,7 +359,7 @@ public class TupleViewer extends javax.swing.JFrame {
         this.buttonAcceptPattern
                 .addActionListener(new java.awt.event.ActionListener() {
 
-            @Override
+                    @Override
                     public void actionPerformed(
                             final java.awt.event.ActionEvent evt) {
                         TupleViewer.this.buttonAcceptPatternActionPerformed();
@@ -407,7 +397,7 @@ public class TupleViewer extends javax.swing.JFrame {
         this.checkFilterLog
                 .addActionListener(new java.awt.event.ActionListener() {
 
-            @Override
+                    @Override
                     public void actionPerformed(
                             final java.awt.event.ActionEvent evt) {
                         TupleViewer.this.checkFilterLogActionPerformed();
@@ -425,7 +415,7 @@ public class TupleViewer extends javax.swing.JFrame {
         this.buttonAcceptFilterLog
                 .addActionListener(new java.awt.event.ActionListener() {
 
-            @Override
+                    @Override
                     public void actionPerformed(
                             final java.awt.event.ActionEvent evt) {
                         TupleViewer.this.buttonAcceptFilterLogActionPerformed();
@@ -468,7 +458,7 @@ public class TupleViewer extends javax.swing.JFrame {
         this.inputFileLog
                 .addActionListener(new java.awt.event.ActionListener() {
 
-            @Override
+                    @Override
                     public void actionPerformed(
                             final java.awt.event.ActionEvent evt) {
                         TupleViewer.this.inputFileLogActionPerformed();
@@ -497,7 +487,7 @@ public class TupleViewer extends javax.swing.JFrame {
         this.checkLogEnable
                 .addActionListener(new java.awt.event.ActionListener() {
 
-            @Override
+                    @Override
                     public void actionPerformed(
                             final java.awt.event.ActionEvent evt) {
                         TupleViewer.this.checkLogEnableActionPerformed();

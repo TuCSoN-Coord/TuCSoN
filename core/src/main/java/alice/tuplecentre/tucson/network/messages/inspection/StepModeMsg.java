@@ -13,19 +13,18 @@
  */
 package alice.tuplecentre.tucson.network.messages.inspection;
 
-import alice.tucson.api.TucsonAgentId;
+
+import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
  * @author Roberto D'Elia
- *
  */
 public class StepModeMsg extends NodeMsg {
 
     private static final long serialVersionUID = -6748034977696183466L;
 
     /**
-     * @param id
-     *            the agent id of the sender
+     * @param id the agent id of the sender
      */
     public StepModeMsg(final TucsonAgentId id) {
         super(id, "stepMode");

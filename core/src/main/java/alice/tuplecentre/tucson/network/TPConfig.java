@@ -13,7 +13,6 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
  *
  * @author Saverio Cicora
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 // To break dependency with service module, this class is no more used, assuming that the only used protocol will be TCP/IP
 public final class TPConfig {
@@ -59,8 +58,7 @@ public final class TPConfig {
      * TODO CICORA: Set the TCP port: only one set is permitted, the second one
      * will be ignored
      *
-     * @param portNumber
-     *            the TCP listening port
+     * @param portNumber the TCP listening port
      */
     public synchronized void setTcpPort(final int portNumber) {
         if (portNumber < 1 || portNumber > TPConfig.MAX_UNBOUND_PORT) {

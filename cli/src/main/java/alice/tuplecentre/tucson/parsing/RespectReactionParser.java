@@ -5,9 +5,7 @@ import alice.tuple.logic.TupleArgument;
 import alice.util.Tools;
 
 /**
- *
  * @author ste (mailto: s.mariani@unibo.it)
- *
  */
 public class RespectReactionParser {
 
@@ -50,9 +48,7 @@ public class RespectReactionParser {
     private final LogicTuple t;
 
     /**
-     *
-     * @param lt
-     *            the logic tuple representation of the ReSpecT reaction
+     * @param lt the logic tuple representation of the ReSpecT reaction
      */
     public RespectReactionParser(final LogicTuple lt) {
         this.t = lt;
@@ -63,9 +59,8 @@ public class RespectReactionParser {
     }
 
     /**
-     *
      * @return the String representation of the ReSpecT reaction given to the
-     *         parser
+     * parser
      */
     public String parse() {
         if ("[]".equals(this.t.getName())) {

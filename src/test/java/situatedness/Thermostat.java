@@ -103,9 +103,9 @@ public final class Thermostat {
                     TupleArguments.newInstance(sensorTc.toTerm()),
                     TupleArguments.newValueArgument(
                             "alice.tuplecentre.tucson.examples.situatedness.SensorTransducer"),
-                            TupleArguments.newValueArgument("sensorTransducer"), TupleArguments.newValueArgument(
-                    "alice.tuplecentre.tucson.examples.situatedness.ActualSensor"),
-                                    TupleArguments.newValueArgument("sensor"));
+                    TupleArguments.newValueArgument("sensorTransducer"), TupleArguments.newValueArgument(
+                            "alice.tuplecentre.tucson.examples.situatedness.ActualSensor"),
+                    TupleArguments.newValueArgument("sensor"));
             acc.out(configTc, sensorTuple, null);
             /* Set up actuator */
             Thermostat.log(aid.toString(), "Set up actuator...");
@@ -125,10 +125,10 @@ public final class Thermostat {
                     TupleArguments.newInstance(actuatorTc.toTerm()),
                     TupleArguments.newValueArgument(
                             "alice.tuplecentre.tucson.examples.situatedness.ActuatorTransducer"),
-                            TupleArguments.newValueArgument("actuatorTransducer"),
-                            TupleArguments.newValueArgument(
-                                    "alice.tuplecentre.tucson.examples.situatedness.ActualActuator"),
-                                    TupleArguments.newValueArgument("actuator"));
+                    TupleArguments.newValueArgument("actuatorTransducer"),
+                    TupleArguments.newValueArgument(
+                            "alice.tuplecentre.tucson.examples.situatedness.ActualActuator"),
+                    TupleArguments.newValueArgument("actuator"));
             acc.out(configTc, actuatorTuple, null);
             /* Start perception-reason-action loop */
             Thermostat.log(aid.toString(),

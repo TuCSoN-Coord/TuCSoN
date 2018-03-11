@@ -5,22 +5,19 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import alice.tuplecentre.respect.core.collection.DoubleKeyMVMap;
-import alice.tuplecentre.respect.core.collection.MVMap;import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
+import alice.tuplecentre.respect.core.collection.DoubleKeyMVMap;
+import alice.tuplecentre.respect.core.collection.MVMap;
 import alice.tuprolog.Var;
 
 /**
- *
  * @author Saverio Cicora
- *
  */
 public abstract class AbstractTupleSet implements ITupleSet {
 
     /**
-     *
      * @author Saverio Cicora
-     *
      */
     protected class LTEntry {
 
@@ -35,7 +32,6 @@ public abstract class AbstractTupleSet implements ITupleSet {
         }
 
         /**
-         *
          * @return the String representation of the first key (K)
          */
         public String getKey1() {
@@ -43,7 +39,6 @@ public abstract class AbstractTupleSet implements ITupleSet {
         }
 
         /**
-         *
          * @return the String representation of the second key (Q)
          */
         public String getKey2() {
@@ -51,7 +46,6 @@ public abstract class AbstractTupleSet implements ITupleSet {
         }
 
         /**
-         *
          * @return the LogicTuple value
          */
         public LogicTuple getValue() {
@@ -229,17 +223,13 @@ public abstract class AbstractTupleSet implements ITupleSet {
     }
 
     /**
-     *
-     * @param t
-     *            the LogicTuple whose first key should be retrieved
+     * @param t the LogicTuple whose first key should be retrieved
      * @return the String representation of the retrieved key
      */
     protected abstract String getTupleKey1(LogicTuple t);
 
     /**
-     *
-     * @param t
-     *            the LogicTuple whose second key should be retrieved
+     * @param t the LogicTuple whose second key should be retrieved
      * @return the String representation of the retrieved key
      */
     protected abstract String getTupleKey2(LogicTuple t);

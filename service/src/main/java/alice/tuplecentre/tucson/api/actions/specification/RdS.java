@@ -33,30 +33,24 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * <code>rd_s</code> TuCSoN primitive.
- * 
- * @see SpecificationAsyncACC
  *
  * @author Luca Sangiorgi (mailto: luca.sangiorgi6@studio.unibo.it)
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
+ * @see SpecificationAsyncACC
  */
 public class RdS extends AbstractTucsonSpecificationAction {
 
     /**
      * Builds the TuCSoN {@code rd_s} action given its target tuple centre
-     * 
-     * @param tc
-     *            the Identifier of the TuCSoN tuple centre target of this coordination
-     *            operation
-     * @param e
-     *            the logic tuple representing the triggering events of the
-     *            ReSpecT specification tuple
-     * @param g
-     *            the logic tuple representing the guards of the ReSpecT
-     *            specification tuple
-     * @param r
-     *            the logic tuple representing the reaction body of the ReSpecT
-     *            specification tuple
+     *
+     * @param tc the Identifier of the TuCSoN tuple centre target of this coordination
+     *           operation
+     * @param e  the logic tuple representing the triggering events of the
+     *           ReSpecT specification tuple
+     * @param g  the logic tuple representing the guards of the ReSpecT
+     *           specification tuple
+     * @param r  the logic tuple representing the reaction body of the ReSpecT
+     *           specification tuple
      */
     public RdS(final TucsonTupleCentreId tc, final LogicTuple e,
                final LogicTuple g, final LogicTuple r) {

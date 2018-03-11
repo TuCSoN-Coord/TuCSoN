@@ -1,6 +1,3 @@
-/**
- * JTuple.java
- */
 package alice.tuple.java.impl;
 
 import java.util.ArrayList;
@@ -14,7 +11,6 @@ import alice.tuplecentre.api.exceptions.InvalidTupleException;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014
- *
  */
 public class JTupleDefault implements Iterable<JVal>, JTuple {
 
@@ -23,15 +19,12 @@ public class JTupleDefault implements Iterable<JVal>, JTuple {
     private List<JVal> args;
 
     /**
-     *
-     * @param arg
-     *            the JVal to add to this JTuple
-     * @throws InvalidTupleException
-     *             if the given JVal is invalid (e.g. null)
+     * @param arg the JVal to add to this JTuple
+     * @throws InvalidTupleException if the given JVal is invalid (e.g. null)
      */
     public JTupleDefault(final JVal arg) throws InvalidTupleException {
         if (arg != null) {
-            this.args = new ArrayList<JVal>(JTupleDefault.AVG_CAP);
+            this.args = new ArrayList<>(JTupleDefault.AVG_CAP);
             this.args.add(arg);
         } else {
             throw new InvalidTupleException("Null value");
@@ -80,7 +73,7 @@ public class JTupleDefault implements Iterable<JVal>, JTuple {
      */
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer(JTupleDefault.AVG_CAP
+        final StringBuilder sb = new StringBuilder(JTupleDefault.AVG_CAP
                 * JTupleDefault.AVG_CHARS);
         sb.append("< ");
         for (final JVal arg : this.args) {

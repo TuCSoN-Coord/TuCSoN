@@ -14,9 +14,7 @@
 package alice.tuplecentre.tucson.api.exceptions;
 
 /**
- *
  * @author Alessandro Ricci
- *
  */
 public class TucsonGenericException extends Exception {
 
@@ -24,9 +22,7 @@ public class TucsonGenericException extends Exception {
     private final String msg;
 
     /**
-     *
-     * @param m
-     *            the String message explaining the Exception thrown
+     * @param m the String message explaining the Exception thrown
      */
     public TucsonGenericException(final String m) {
         super();
@@ -34,7 +30,6 @@ public class TucsonGenericException extends Exception {
     }
 
     /**
-     *
      * @return the String message explaining the Exception thrown
      */
     public String getMsg() {

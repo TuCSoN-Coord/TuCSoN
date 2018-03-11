@@ -12,7 +12,6 @@ import alice.tuplecentre.tucson.service.tools.TucsonACCTool;
  *
  * @author Emanuele Buccelli
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public class TucsonAuthorisedAgent implements AuthorisedAgent {
 
@@ -24,7 +23,7 @@ public class TucsonAuthorisedAgent implements AuthorisedAgent {
     public static LogicTuple asLogicTuple(final AuthorisedAgent agent) {
         return LogicTuples.newInstance("authorised_agent", TupleArguments.newValueArgument(agent.getUsername()
                 + ":" + TucsonACCTool.encrypt(agent.getPassword())), TupleArguments.newValueArgument(
-                        agent.getAgentClass()));
+                agent.getAgentClass()));
     }
 
     private final String agentClass;
@@ -34,15 +33,12 @@ public class TucsonAuthorisedAgent implements AuthorisedAgent {
     /**
      * Builds the authorised agent representation.
      *
-     * @param ac
-     *            the agent class
-     * @param uname
-     *            the agent user name
-     * @param psw
-     *            the agent password
+     * @param ac    the agent class
+     * @param uname the agent user name
+     * @param psw   the agent password
      */
     public TucsonAuthorisedAgent(final String ac, final String uname,
-            final String psw) {
+                                 final String psw) {
         this.agentClass = ac;
         this.username = uname;
         this.password = psw;

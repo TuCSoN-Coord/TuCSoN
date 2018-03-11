@@ -4,14 +4,13 @@ import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.api.geolocation.Position;
-import alice.tuplecentre.tucson.service.InputEventMsg;
 
 /**
  * //TODO add description
  *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  */
-public class InputEventMsgDefault implements InputEventMsg , EventMsg {
+public class InputEventMsgDefault implements InputEventMsg, EventMsg {
     private static final long serialVersionUID = 6617714748018050950L;
     private final OperationIdentifier opId;
     private final TupleCentreOpType opType;

@@ -21,7 +21,7 @@ import alice.tuplecentre.core.InputEvent;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
+ * michele.bombardi@studio.unibo.it)
  */
 public class InternalEvent extends alice.tuplecentre.core.AbstractEvent {
 
@@ -30,11 +30,8 @@ public class InternalEvent extends alice.tuplecentre.core.AbstractEvent {
     private final InternalOperation internalOperation;
 
     /**
-     *
-     * @param ev
-     *            the input events direct cause of this internal events
-     * @param op
-     *            the ReSpecT operation generating this internal events
+     * @param ev the input events direct cause of this internal events
+     * @param op the ReSpecT operation generating this internal events
      */
     public InternalEvent(final InputEvent ev, final InternalOperation op) {
         super(ev.getSource(), ev.getSimpleTCEvent(), ev.getReactingTC(), ev
@@ -44,7 +41,6 @@ public class InternalEvent extends alice.tuplecentre.core.AbstractEvent {
     }
 
     /**
-     *
      * @return the input events direct cause of this internal events
      */
     public InputEvent getInputEvent() {
@@ -52,7 +48,6 @@ public class InternalEvent extends alice.tuplecentre.core.AbstractEvent {
     }
 
     /**
-     *
      * @return the ReSpecT operation generating this internal events
      */
     public InternalOperation getInternalOperation() {

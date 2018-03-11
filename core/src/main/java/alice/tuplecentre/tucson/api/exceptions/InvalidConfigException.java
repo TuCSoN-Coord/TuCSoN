@@ -14,9 +14,7 @@
 package alice.tuplecentre.tucson.api.exceptions;
 
 /**
- *
  * @author Unknown...
- *
  */
 public class InvalidConfigException extends Exception {
 

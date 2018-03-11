@@ -7,7 +7,6 @@ package alice.tuplecentre.respect.situatedness;
  * sensors, all methods but the 'readValue' for actuators.
  *
  * @author Steven Maraldi
- *
  */
 public interface ISimpleProbe {
 
@@ -29,9 +28,7 @@ public interface ISimpleProbe {
      * Reads the probe's value. A read request should force an events from the
      * device
      *
-     * @param key
-     *            the parameter to read
-     *
+     * @param key the parameter to read
      * @return true if success
      */
     boolean readValue(String key);
@@ -39,18 +36,15 @@ public interface ISimpleProbe {
     /**
      * Sets the transducer which the probe will communicate with.
      *
-     * @param tId
-     *            transducer's identifier
+     * @param tId transducer's identifier
      */
     void setTransducer(TransducerId tId);
 
     /**
      * Set the specific value of a parameter of the probe
      *
-     * @param key
-     *            the parameter to set
-     * @param value
-     *            value to be set.
+     * @param key   the parameter to set
+     * @param value value to be set.
      * @return true if the operation has been successfully executed.
      */
     boolean writeValue(String key, int value);

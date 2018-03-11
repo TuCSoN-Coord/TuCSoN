@@ -40,8 +40,10 @@ public abstract class AbstractEvent implements java.io.Serializable {
      */
     private final Position place;
     /*** the current tuple centre (VM) where this events is managed **/
-    private TupleCentreIdentifier reactingTC;/**
-    * the operation (primitive + tuple) associated with this events **/
+    private TupleCentreIdentifier reactingTC;
+    /**
+     * the operation (primitive + tuple) associated with this events
+     **/
     private AbstractTupleCentreOperation simpleTCEvent;
     /**
      * the entitiy executing the operation
@@ -173,8 +175,8 @@ public abstract class AbstractEvent implements java.io.Serializable {
 
     /**
      *
-      @param tc
-                 the identifier of the tuple centre currently reacting to the
+     @param tc
+     the identifier of the tuple centre currently reacting to the
      *            events
      */
     public void setReactingTC(final TupleCentreIdentifier tc) {

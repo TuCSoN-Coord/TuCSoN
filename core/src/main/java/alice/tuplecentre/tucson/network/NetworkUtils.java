@@ -4,19 +4,16 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * 
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
- * 
  */
 public final class NetworkUtils {
     /**
      * Gets the decimal representation of the netmask of the address specified
      * as input
-     * 
-     * @param addr
-     *            the complete address, specified in the form IP/Netmask
+     *
+     * @param addr the complete address, specified in the form IP/Netmask
      * @return the decimal representation of the netmask of the address
-     *         specified as input
+     * specified as input
      */
     public static String getDecimalNetmask(final String addr) {
         final String[] parts = addr.split("/");
@@ -30,9 +27,9 @@ public final class NetworkUtils {
         // System.out.println("Prefix=" + prefix);
         // System.out.println("Address=" + ip);
         final int value = mask;
-        final byte[] bytes = new byte[] { (byte) (value >>> 24),
+        final byte[] bytes = new byte[]{(byte) (value >>> 24),
                 (byte) (value >> 16 & 0xff), (byte) (value >> 8 & 0xff),
-                (byte) (value & 0xff) };
+                (byte) (value & 0xff)};
         InetAddress netAddr = null;
         try {
             netAddr = InetAddress.getByAddress(bytes);
@@ -46,9 +43,8 @@ public final class NetworkUtils {
 
     /**
      * Gets the IP address part of the address specified as input
-     * 
-     * @param addr
-     *            the complete address, specified in the form IP/Netmask
+     *
+     * @param addr the complete address, specified in the form IP/Netmask
      * @return the IP address part of the address specified as input
      */
     public static String getIp(final String addr) {
@@ -58,9 +54,8 @@ public final class NetworkUtils {
 
     /**
      * Gets the Netmask address part of the address specified as input
-     * 
-     * @param addr
-     *            the complete address, specified in the form IP/Netmask
+     *
+     * @param addr the complete address, specified in the form IP/Netmask
      * @return the Netmask address part of the address specified as input
      */
     public static int getNetmask(final String addr) {
@@ -70,18 +65,15 @@ public final class NetworkUtils {
 
     /**
      * Check if two IP addresses are in the same network
-     * 
-     * @param ip1
-     *            the first IP address
-     * @param ip2
-     *            the second IP address
-     * @param mask
-     *            the network netmask
+     *
+     * @param ip1  the first IP address
+     * @param ip2  the second IP address
+     * @param mask the network netmask
      * @return <code>true</code> if two IP addresses are in the same network
-     *         according to the specified netmask
+     * according to the specified netmask
      */
     public static boolean sameNetwork(final String ip1, final String ip2,
-            final String mask) {
+                                      final String mask) {
         try {
             final byte[] a1 = InetAddress.getByName(ip1).getAddress();
             final byte[] a2 = InetAddress.getByName(ip2).getAddress();
@@ -99,7 +91,7 @@ public final class NetworkUtils {
 
     private NetworkUtils() {
         /*
-         * 
+         *
          */
     }
 }

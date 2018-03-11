@@ -25,8 +25,7 @@ import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.tucson.api.actions.AbstractTucsonAction;
 
 /**
- * Queue storing pending operations delegated to
- * {@link alice.tuplecentre.tucson.asynchSupport.AsynchOpsHelper}.
+ * Queue storing pending operations delegated to AsynchOpsHelper.
  *
  * @author Fabio Consalici, Riccardo Drudi
  * @author (contributor) ste (mailto: s.mariani@unibo.it)

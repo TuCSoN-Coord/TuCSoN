@@ -8,9 +8,7 @@ import alice.tuplecentre.respect.api.ILinkContext;
 import alice.tuplecentre.respect.api.IRemoteLinkProvider;
 
 /**
- *
  * @author Alessandro Ricci
- *
  */
 public class RemoteLinkProvider implements IRemoteLinkProvider {
 

@@ -22,26 +22,22 @@ import alice.tuplecentre.api.TupleCentreOperation;
  * TucsonOperation interface, to access the data about TuCSoN operations
  * outcome.
  *
- * @see TupleCentreOperation TupleCentreOperation
- *
  * @author ste (mailto: s.mariani@unibo.it)
+ * @see TupleCentreOperation TupleCentreOperation
  */
 public interface TucsonOperation extends TupleCentreOperation {
 
     /**
-     *
      * @return the JTuple argument of this TuCSoN operation
      */
     Tuple getJTupleArgument();
 
     /**
-     *
      * @return the list if JTuples result of this TuCSoN operation
      */
     List<Tuple> getJTupleListResult();
 
     /**
-     *
      * @return the JTuple result of this TuCSoN operation
      */
     Tuple getJTupleResult();

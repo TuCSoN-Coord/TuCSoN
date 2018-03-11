@@ -30,36 +30,44 @@ import alice.tuplecentre.tucson.network.messages.inspection.GetSnapshotMsg;
 import alice.tuplecentre.tucson.network.messages.inspection.IsActiveStepModeMsg;
 import alice.tuplecentre.tucson.network.messages.inspection.NewInspectorMsg;
 import alice.tuplecentre.tucson.network.messages.inspection.NextStepMsg;
+import alice.tuplecentre.tucson.network.messages.inspection.SetEventSetMsg;
+import alice.tuplecentre.tucson.network.messages.inspection.SetProtocolMsg;
+import alice.tuplecentre.tucson.network.messages.inspection.SetTupleSetMsg;
+import alice.tuplecentre.tucson.network.messages.inspection.ShutdownMsg;
+import alice.tuplecentre.tucson.network.messages.inspection.StepModeMsg;
 import alice.tuplecentre.tucson.service.ACCDescription;
 
 /**
- *
  * @author Unknown...
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 public class InspectorContextStub implements InspectorContext {
 
-    /** listeners registrated for virtual machine output events */
+    /**
+     * listeners registrated for virtual machine output events
+     */
     private final List<InspectorContextListener> contextListeners = new ArrayList<InspectorContextListener>();
     private TucsonProtocol dialog;
     private boolean exitFlag;
-    /** user id */
+    /**
+     * user id
+     */
     private final TucsonAgentId id;
     private final ACCDescription profile;
-    /** current observation protocol */
+    /**
+     * current observation protocol
+     */
     private InspectorProtocol protocol;
-    /** id of the tuple centre to be observed */
+    /**
+     * id of the tuple centre to be observed
+     */
     protected TucsonTupleCentreId tid;
 
     /**
-     * @param i
-     *            the agent identifier to be used by this inspector
-     * @param tc
-     *            the identifier of the tuple centre to inspect
-     * @param forGui
-     *            whether the inspector is the Gui version (see Dradi MoK
-     *            project 2014/2015)
+     * @param i      the agent identifier to be used by this inspector
+     * @param tc     the identifier of the tuple centre to inspect
+     * @param forGui whether the inspector is the Gui version (see Dradi MoK
+     *               project 2014/2015)
      */
     public InspectorContextStub(final TucsonAgentId i,
                                 final TucsonTupleCentreId tc, final boolean forGui) {
@@ -82,7 +90,7 @@ public class InspectorContextStub implements InspectorContext {
     }
 
     public InspectorContextStub(final TucsonAgentId i,
-            final TucsonTupleCentreId tc) {
+                                final TucsonTupleCentreId tc) {
         this(i, tc, false);
     }
 
@@ -206,8 +214,7 @@ public class InspectorContextStub implements InspectorContext {
     /**
      * resolve information about a tuple centre
      *
-     * @param titcd
-     *            the identifier of the tuple centre to be resolved
+     * @param titcd the identifier of the tuple centre to be resolved
      */
     protected void resolveTupleCentreInfo(final TucsonTupleCentreId titcd) {
         try {

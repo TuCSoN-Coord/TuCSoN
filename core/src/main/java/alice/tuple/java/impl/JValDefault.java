@@ -1,16 +1,12 @@
-/**
- * JArg.java
- */
 package alice.tuple.java.impl;
 
-import alice.tuple.java.api.JVal;
-import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuple.java.api.JArgType;
+import alice.tuple.java.api.JVal;
 import alice.tuple.java.exceptions.InvalidJValException;
+import alice.tuplecentre.api.exceptions.InvalidOperationException;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014
- *
  */
 public class JValDefault implements JVal {
 
@@ -18,9 +14,7 @@ public class JValDefault implements JVal {
     private final JArgType type;
 
     /**
-     *
-     * @param v
-     *            the double value of this JVal
+     * @param v the double value of this JVal
      */
     public JValDefault(final double v) {
         this.type = JArgType.DOUBLE;
@@ -28,9 +22,7 @@ public class JValDefault implements JVal {
     }
 
     /**
-     *
-     * @param v
-     *            the float value of this JVal
+     * @param v the float value of this JVal
      */
     public JValDefault(final float v) {
         this.type = JArgType.FLOAT;
@@ -38,9 +30,7 @@ public class JValDefault implements JVal {
     }
 
     /**
-     *
-     * @param v
-     *            the int value of this JVal
+     * @param v the int value of this JVal
      */
     public JValDefault(final int v) {
         this.type = JArgType.INT;
@@ -48,9 +38,7 @@ public class JValDefault implements JVal {
     }
 
     /**
-     *
-     * @param v
-     *            the long value of this JVal
+     * @param v the long value of this JVal
      */
     public JValDefault(final long v) {
         this.type = JArgType.LONG;
@@ -58,11 +46,8 @@ public class JValDefault implements JVal {
     }
 
     /**
-     *
-     * @param v
-     *            the literal (Java String) value of this JVal
-     * @throws InvalidJValException
-     *             if the given literal (Java String) is invalid (e.g. null)
+     * @param v the literal (Java String) value of this JVal
+     * @throws InvalidJValException if the given literal (Java String) is invalid (e.g. null)
      */
     public JValDefault(final String v) throws InvalidJValException {
         if (v != null) {

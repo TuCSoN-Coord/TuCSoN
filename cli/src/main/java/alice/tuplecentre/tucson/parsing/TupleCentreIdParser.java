@@ -5,9 +5,7 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 
 /**
- *
  * @author ste (mailto: s.mariani@unibo.it)
- *
  */
 public class TupleCentreIdParser {
 
@@ -16,27 +14,21 @@ public class TupleCentreIdParser {
     private final String node;
 
     /**
-     *
-     * @param in
-     *            the String representation of the tuple centre id to parse
-     * @param n
-     *            the String representation of the default TuCSoN node
-     * @param port
-     *            the String representation of the default TuCSoN listening port
+     * @param in   the String representation of the tuple centre id to parse
+     * @param n    the String representation of the default TuCSoN node
+     * @param port the String representation of the default TuCSoN listening port
      */
     public TupleCentreIdParser(final String in, final String n,
-            final String port) {
+                               final String port) {
         this.input = in;
         this.node = n;
         this.defPort = port;
     }
 
     /**
-     *
      * @return the identifier of the tuple centre parsed
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the id of the tuple centre target of the operation is not
-     *             a valid TuCSoN tuple centre id
+     * @throws TucsonInvalidTupleCentreIdException if the id of the tuple centre target of the operation is not
+     *                                             a valid TuCSoN tuple centre id
      */
     public TucsonTupleCentreId parse()
             throws TucsonInvalidTupleCentreIdException {

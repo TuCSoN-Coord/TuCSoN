@@ -43,10 +43,8 @@ import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.util.Tools;
 
 /**
- *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 public class ACCProvider {
 
@@ -62,11 +60,8 @@ public class ACCProvider {
     private final TucsonNodeService node;
 
     /**
-     *
-     * @param n
-     *            the TuCSoN node whose ACC should reference
-     * @param tid
-     *            the identifier of the tuple centre used for internal
+     * @param n   the TuCSoN node whose ACC should reference
+     * @param tid the identifier of the tuple centre used for internal
      *            configuration purpose
      */
     public ACCProvider(final TucsonNodeService n, final TucsonTupleCentreId tid) {
@@ -83,23 +78,16 @@ public class ACCProvider {
     }
 
     /**
-     *
-     * @param profile
-     *            the Object decribing a request for an ACC
-     * @param dialog
-     *            the network protocol used to dialog with the (possibly) given
-     *            ACC
+     * @param profile the Object decribing a request for an ACC
+     * @param dialog  the network protocol used to dialog with the (possibly) given
+     *                ACC
      * @return wether the request has been accepted (therefore the ACC given) or
-     *         not
-     * @throws DialogReceiveException
-     *             if there is something wrong in the reception stream
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
-     *             message, does not represent a valid TuCSoN identifier
-     *
-     * @throws TucsonInvalidAgentIdException
-     *             if the ACCDescription's "agent-identity" property does not
-     *             represent a valid TuCSoN identifier
+     * not
+     * @throws DialogReceiveException              if there is something wrong in the reception stream
+     * @throws TucsonInvalidTupleCentreIdException if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
+     *                                             message, does not represent a valid TuCSoN identifier
+     * @throws TucsonInvalidAgentIdException       if the ACCDescription's "agent-identity" property does not
+     *                                             represent a valid TuCSoN identifier
      */
     // exception handling is a mess, need to review it...
     public synchronized boolean processContextRequest(
@@ -205,9 +193,7 @@ public class ACCProvider {
     }
 
     /**
-     *
-     * @throws InterruptedException
-     *             if this provider is interrupted during termination
+     * @throws InterruptedException if this provider is interrupted during termination
      */
     public void shutdown() throws InterruptedException {
         ACCProvider.log("Shutdown interrupt received, shutting down...");
@@ -221,16 +207,13 @@ public class ACCProvider {
     }
 
     /**
-     *
-     * @param ctxId
-     *            the numeric, progressive identifier of the ACC given
-     * @param id
-     *            the identifier of the agent requiring shutdown
+     * @param ctxId the numeric, progressive identifier of the ACC given
+     * @param id    the identifier of the agent requiring shutdown
      * @return wether shutdown can be carried out or not
      */
     // exception handling is a mess, need to review it...
     public synchronized boolean shutdownContext(final int ctxId,
-            final TucsonAgentId id) {
+                                                final TucsonAgentId id) {
         LogicTuple req = null;
         try {
             req = LogicTuples.newInstance("context_shutdown", TupleArguments.newValueArgument(ctxId),

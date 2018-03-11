@@ -13,13 +13,12 @@
  */
 package alice.tuplecentre.tucson.network.messages.inspection;
 
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.introspection.InspectorProtocol;
+
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 
 /**
- *
  * @author Unknown...
- *
  */
 public class SetProtocolMsg extends NodeMsg {
 
@@ -27,11 +26,8 @@ public class SetProtocolMsg extends NodeMsg {
     private InspectorProtocol info;
 
     /**
-     *
-     * @param id
-     *            the agent id of the sender
-     * @param p
-     *            the inspection protocol to be used
+     * @param id the agent id of the sender
+     * @param p  the inspection protocol to be used
      */
     public SetProtocolMsg(final TucsonAgentId id, final InspectorProtocol p) {
         super(id, "setProtocol");
@@ -46,8 +42,7 @@ public class SetProtocolMsg extends NodeMsg {
     }
 
     /**
-     * @param i
-     *            the info to set
+     * @param i the info to set
      */
     public void setInfo(final InspectorProtocol i) {
         this.info = i;

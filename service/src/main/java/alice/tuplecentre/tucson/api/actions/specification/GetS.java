@@ -33,20 +33,17 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 /**
  * <code>get_s</code> TuCSoN primitive.
  *
- * @see SpecificationAsyncACC
- *
  * @author Luca Sangiorgi (mailto: luca.sangiorgi6@studio.unibo.it)
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
+ * @see SpecificationAsyncACC
  */
 public class GetS extends AbstractTucsonSpecificationAction {
 
     /**
      * Builds the TuCSoN {@code get_s} action given its target tuple centre
-     * 
-     * @param tc
-     *            the Identifier of the TuCSoN tuple centre target of this coordination
-     *            operation
+     *
+     * @param tc the Identifier of the TuCSoN tuple centre target of this coordination
+     *           operation
      */
     public GetS(final TucsonTupleCentreId tc) {
         super(tc, null, null, null);

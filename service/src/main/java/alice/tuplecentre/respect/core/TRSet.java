@@ -41,10 +41,8 @@ public class TRSet {
     }
 
     /**
-     *
-     * @param t
-     *            the ReSpecT triggered reaction to add to the triggered
-     *            reaction set
+     * @param t the ReSpecT triggered reaction to add to the triggered
+     *          reaction set
      */
     public void add(final TriggeredReaction t) {
         this.trigs.add(t);
@@ -70,10 +68,8 @@ public class TRSet {
     }
 
     /**
-     *
-     * @param commit
-     *            wether the just terminated transaction has to be successfully
-     *            commited or not
+     * @param commit wether the just terminated transaction has to be successfully
+     *               commited or not
      */
     public void endTransaction(final boolean commit) {
         if (!commit) {
@@ -92,7 +88,6 @@ public class TRSet {
     }
 
     /**
-     *
      * @return the first triggered reaction of this list
      */
     public TriggeredReaction get() {
@@ -100,7 +95,6 @@ public class TRSet {
     }
 
     /**
-     *
      * @return a Java iterator through this triggered reactions list
      */
     public Iterator<? extends TriggeredReaction> getIterator() {
@@ -108,7 +102,6 @@ public class TRSet {
     }
 
     /**
-     *
      * @return wether this triggered reactions list is empty or not
      */
     public boolean isEmpty() {
@@ -116,9 +109,7 @@ public class TRSet {
     }
 
     /**
-     *
-     * @param t
-     *            the triggered reaction to remove from this list
+     * @param t the triggered reaction to remove from this list
      */
     public void remove(final TriggeredReaction t) {
         this.trigs.remove(t);
@@ -128,7 +119,6 @@ public class TRSet {
     }
 
     /**
-     *
      * @return the Java array representation of this triggered reaction list
      */
     public TriggeredReaction[] toArray() {

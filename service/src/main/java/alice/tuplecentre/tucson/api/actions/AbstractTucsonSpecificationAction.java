@@ -28,7 +28,6 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
  *
  * @author Luca Sangiorgi (mailto: luca.sangiorgi6@studio.unibo.it)
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public abstract class AbstractTucsonSpecificationAction extends
         AbstractTucsonAction {
@@ -42,18 +41,14 @@ public abstract class AbstractTucsonSpecificationAction extends
     /**
      * Builds a TuCSoN action whose target is the given tuple centre and whose
      * argument is the given ReSpecT specification tuple
-     * 
-     * @param t
-     *            the Identifier of the TuCSoN tuple centre target of the operation
-     * @param e
-     *            the logic tuple representing the triggering events of the
-     *            ReSpecT specification tuple
-     * @param g
-     *            the logic tuple representing the guards of the ReSpecT
-     *            specification tuple
-     * @param r
-     *            the logic tuple representing the reaction body of the ReSpecT
-     *            specification tuple
+     *
+     * @param t the Identifier of the TuCSoN tuple centre target of the operation
+     * @param e the logic tuple representing the triggering events of the
+     *          ReSpecT specification tuple
+     * @param g the logic tuple representing the guards of the ReSpecT
+     *          specification tuple
+     * @param r the logic tuple representing the reaction body of the ReSpecT
+     *          specification tuple
      */
     public AbstractTucsonSpecificationAction(final TucsonTupleCentreId t,
                                              final LogicTuple e, final LogicTuple g, final LogicTuple r) {

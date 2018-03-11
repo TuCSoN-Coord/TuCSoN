@@ -34,7 +34,7 @@ public class InvalidLogicTupleException extends LogicTupleException {
     }
 
     public InvalidLogicTupleException(final String message,
-            final Throwable cause) {
+                                      final Throwable cause) {
         super(message, cause);
     }
 

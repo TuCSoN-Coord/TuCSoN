@@ -9,10 +9,8 @@ import alice.tuplecentre.respect.api.ITCRegistry;
 import alice.tuplecentre.respect.api.exceptions.InstantiationNotPossibleException;
 
 /**
- *
  * @author Alessandro Ricci
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public class RespectLocalRegistry implements ITCRegistry {
 
@@ -44,7 +42,6 @@ public class RespectLocalRegistry implements ITCRegistry {
     }
 
     /**
-     *
      * @return the size of the ReSpecT local registry
      */
     public int getSize() {

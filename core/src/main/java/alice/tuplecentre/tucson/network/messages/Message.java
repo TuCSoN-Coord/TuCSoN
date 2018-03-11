@@ -1,8 +1,9 @@
-package alice.tuplecentre.tucson.network;
+package alice.tuplecentre.tucson.network.messages;
 
 import java.io.Serializable;
 
 /**
  * Flag interface
  */
-public interface Message extends Serializable{}
+public interface Message extends Serializable {
+}

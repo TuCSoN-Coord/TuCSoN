@@ -49,6 +49,11 @@ import alice.tuplecentre.tucson.network.messages.inspection.IsActiveStepModeMsg;
 import alice.tuplecentre.tucson.network.messages.inspection.NewInspectorMsg;
 import alice.tuplecentre.tucson.network.messages.inspection.NextStepMsg;
 import alice.tuplecentre.tucson.network.messages.inspection.NodeMsg;
+import alice.tuplecentre.tucson.network.messages.inspection.SetEventSetMsg;
+import alice.tuplecentre.tucson.network.messages.inspection.SetProtocolMsg;
+import alice.tuplecentre.tucson.network.messages.inspection.SetTupleSetMsg;
+import alice.tuplecentre.tucson.network.messages.inspection.ShutdownMsg;
+import alice.tuplecentre.tucson.network.messages.inspection.StepModeMsg;
 import alice.tuplecentre.tucson.service.ACCDescription;
 import alice.tuplecentre.tucson.service.ACCProvider;
 import alice.tuplecentre.tucson.service.AbstractACCProxyNodeSide;
@@ -57,12 +62,10 @@ import alice.tuplecentre.tucson.service.TucsonTCUsers;
 import alice.tuplecentre.tucson.service.TupleCentreContainer;
 
 /**
- *
  * @author Unknown...
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
- *
+ * michele.bombardi@studio.unibo.it)
  */
 public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         InspectableEventListener {
@@ -72,31 +75,24 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
     protected final TucsonProtocol dialog;
     private final ACCProvider manager;
     private boolean nStep;
-    /** current observation protocol */
+    /**
+     * current observation protocol
+     */
     protected InspectorProtocol protocol;
     private boolean shutdown = false;
     protected final TucsonTupleCentreId tcId;
 
     /**
-     *
-     * @param man
-     *            the ACC provider distributing ACCs
-     * @param d
-     *            the TuCSoN protocol to be used
-     * @param node
-     *            the TuCSoN node service to communicate with
-     * @param p
-     *            the ACC properties descriptor
-     * @throws TucsonGenericException
-     *             if the tuple centre to inspect cannot be resolved
-     * @throws TucsonInvalidAgentIdException
-     *             if the ACCDescription's "agent-identity" property does not
-     *             represent a valid TuCSoN identifier
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
-     *             message, does not represent a valid TuCSoN identifier
-     * @throws DialogReceiveException
-     *             if something goes wrong in the underlying network
+     * @param man  the ACC provider distributing ACCs
+     * @param d    the TuCSoN protocol to be used
+     * @param node the TuCSoN node service to communicate with
+     * @param p    the ACC properties descriptor
+     * @throws TucsonGenericException              if the tuple centre to inspect cannot be resolved
+     * @throws TucsonInvalidAgentIdException       if the ACCDescription's "agent-identity" property does not
+     *                                             represent a valid TuCSoN identifier
+     * @throws TucsonInvalidTupleCentreIdException if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
+     *                                             message, does not represent a valid TuCSoN identifier
+     * @throws DialogReceiveException              if something goes wrong in the underlying network
      */
     public InspectorContextSkel(final ACCProvider man,
                                 final TucsonProtocol d, final TucsonNodeService node,
@@ -129,8 +125,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
     /**
      * get a tuple centre set (T set, W set,...) snapshot
      *
-     * @param m
-     *            the snapshot message
+     * @param m the snapshot message
      */
     public void getSnapshot(final GetSnapshotMsg m) {
         final InspectorContextEventDefault msg = new InspectorContextEventDefault();
@@ -169,8 +164,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
     /**
      * verify if VM step mode is already active
      *
-     * @param m
-     *            the IsActiveStepModeMsg
+     * @param m the IsActiveStepModeMsg
      */
     public void isStepMode(final IsActiveStepModeMsg m) {
         final boolean isActive = (Boolean) TupleCentreContainer
@@ -188,8 +182,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
     /**
      * ask a new step for a tuple centre vm during step mode
      *
-     * @param m
-     *            the NxtStepMsg
+     * @param m the NxtStepMsg
      */
     public void nextStep(final NextStepMsg m) {
         TupleCentreContainer.doManagementOperation(
@@ -312,8 +305,8 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                 final NodeMsg msg = this.dialog.receiveNodeMsg();
                 final Class<?> cl = msg.getClass();
                 final Method m = this.getClass().getMethod(msg.getAction(),
-                        new Class[] { cl });
-                m.invoke(this, new Object[] { msg });
+                        new Class[]{cl});
+                m.invoke(this, new Object[]{msg});
             }
             this.dialog.end();
             TupleCentreContainer.doManagementOperation(
@@ -337,8 +330,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
     /**
      * set a new tuple set
      *
-     * @param m
-     *            the set InQ message
+     * @param m the set InQ message
      */
     public synchronized void setEventSet(final SetEventSetMsg m) {
         TupleCentreContainer.doManagementOperation(
@@ -348,8 +340,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
     /**
      * setting new observation protocol
      *
-     * @param msg
-     *            the set protocol message
+     * @param msg the set protocol message
      */
     public synchronized void setProtocol(final SetProtocolMsg msg) {
         final boolean wasTracing = this.protocol.isTracing();
@@ -366,8 +357,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
     /**
      * set a new tuple set
      *
-     * @param m
-     *            the set tuples message
+     * @param m the set tuples message
      */
     public synchronized void setTupleSet(final SetTupleSetMsg m) {
         try {
@@ -393,8 +383,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
     /**
      * enable/disable VM step Mode
      *
-     * @param m
-     *            the step mode message
+     * @param m the step mode message
      */
     public void stepMode(final StepModeMsg m) {
         TupleCentreContainer.doManagementOperation(
@@ -418,7 +407,6 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
     }
 
     /**
-     *
      * @return InspectorContextSke dialog
      */
     private TucsonProtocol getDialog() {
@@ -426,9 +414,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
     }
 
     /**
-     *
-     * @param st
-     *            the String to log
+     * @param st the String to log
      */
     protected void log(final String st) {
         System.out.println("[InspectorContextSkel]: " + st);

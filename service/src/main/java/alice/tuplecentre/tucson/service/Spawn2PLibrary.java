@@ -20,11 +20,9 @@ import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 
 /**
- *
- *
  * @author ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
+ * michele.bombardi@studio.unibo.it)
  */
 public class Spawn2PLibrary extends Library {
 
@@ -33,14 +31,12 @@ public class Spawn2PLibrary extends Library {
     /**
      * Utility to convert a list of tuple into a tuple list of tuples
      *
-     * @param list
-     *            the list of tuples to convert
-     *
+     * @param list the list of tuples to convert
      * @return the tuple list of tuples result of the conversion
      */
-    private static Term list2tuple(final List<?extends Tuple> list) {
+    private static Term list2tuple(final List<? extends Tuple> list) {
         final Term[] termArray = new Term[list.size()];
-        final Iterator<?extends Tuple> it = list.iterator();
+        final Iterator<? extends Tuple> it = list.iterator();
         int i = 0;
         while (it.hasNext()) {
             termArray[i] = ((LogicTuple) it.next()).toTerm();
@@ -58,8 +54,8 @@ public class Spawn2PLibrary extends Library {
      * hence we need to handle both.
      *
      * @return the "spawner" id (actually, a generic wrapper hosting either a
-     *         TucsonAgentId or a TucsonTupleCentreId, accessible with method
-     *         <code> getId() </code>)
+     * TucsonAgentId or a TucsonTupleCentreId, accessible with method
+     * <code> getId() </code>)
      */
     public final TucsonIdWrapper<?> getSpawnerId() {
         if (this.aid == null) {
@@ -69,7 +65,6 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     *
      * @return the tuple centre identifier of the target tuple centre
      */
     public final TucsonTupleCentreId getTargetTC() {
@@ -89,9 +84,7 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the tuple template argument of the operation
+     * @param arg0 the tuple template argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean in_1(final Term arg0) {
@@ -99,7 +92,7 @@ public class Spawn2PLibrary extends Library {
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
-            	// Operation Make
+                // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.IN, arg, null);
                 // InputEvent Creation
@@ -113,12 +106,12 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         } else {
             try {
-            	// Operation Make
+                // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.IN, arg, null);
                 // InputEvent Creation
@@ -132,9 +125,9 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         op.waitForOperationCompletion();
         if (op.isResultSuccess()) {
@@ -145,11 +138,8 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the tuple template argument of the operation
-     * @param arg1
-     *            the tuple result of the operation
+     * @param arg0 the tuple template argument of the operation
+     * @param arg1 the tuple result of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean in_all_2(final Term arg0, final Term arg1) {
@@ -157,7 +147,7 @@ public class Spawn2PLibrary extends Library {
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
-            	// Operation Make
+                // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.IN_ALL, arg, null);
                 // InputEvent Creation
@@ -171,12 +161,12 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         } else {
             try {
-            	// Operation Make
+                // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.IN_ALL, arg, null);
                 // InputEvent Creation
@@ -190,9 +180,9 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         op.waitForOperationCompletion();
         if (op.isResultSuccess()) {
@@ -203,9 +193,7 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the tuple template argument of the operation
+     * @param arg0 the tuple template argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean inp_1(final Term arg0) {
@@ -213,7 +201,7 @@ public class Spawn2PLibrary extends Library {
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
-            	// Operation Make
+                // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.INP, arg, null);
                 // InputEvent Creation
@@ -227,12 +215,12 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         } else {
             try {
-            	// Operation Make
+                // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.INP, arg, null);
                 // InputEvent Creation
@@ -246,9 +234,9 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         op.waitForOperationCompletion();
         if (op.isResultSuccess()) {
@@ -259,9 +247,7 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the tuple template argument of the operation
+     * @param arg0 the tuple template argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean no_1(final Term arg0) {
@@ -269,7 +255,7 @@ public class Spawn2PLibrary extends Library {
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
-            	// Operation Make
+                // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.NO, arg, null);
                 // InputEvent Creation
@@ -283,12 +269,12 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         } else {
             try {
-            	// Operation Make
+                // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.NO, arg, null);
                 // InputEvent Creation
@@ -302,9 +288,9 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         op.waitForOperationCompletion();
         if (op.isResultSuccess()) {
@@ -316,11 +302,8 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the tuple template argument of the operation
-     * @param arg1
-     *            the tuple result of the operation
+     * @param arg0 the tuple template argument of the operation
+     * @param arg1 the tuple result of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean no_all_2(final Term arg0, final Term arg1) {
@@ -328,7 +311,7 @@ public class Spawn2PLibrary extends Library {
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
-            	// Operation Make
+                // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.NO_ALL, arg, null);
                 // InputEvent Creation
@@ -342,12 +325,12 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         } else {
             try {
-            	// Operation Make
+                // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.NO_ALL, arg, null);
                 // InputEvent Creation
@@ -361,9 +344,9 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         op.waitForOperationCompletion();
         if (op.isResultSuccess()) {
@@ -374,9 +357,7 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the tuple template argument of the operation
+     * @param arg0 the tuple template argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean nop_1(final Term arg0) {
@@ -384,7 +365,7 @@ public class Spawn2PLibrary extends Library {
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
-            	// Operation Make
+                // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.NOP, arg, null);
                 // InputEvent Creation
@@ -398,12 +379,12 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         } else {
             try {
-            	// Operation Make
+                // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.NOP, arg, null);
                 // InputEvent Creation
@@ -417,9 +398,9 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         op.waitForOperationCompletion();
         if (op.isResultSuccess()) {
@@ -431,9 +412,7 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the tuple argument of the operation
+     * @param arg0 the tuple argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean out_1(final Term arg0) {
@@ -441,7 +420,7 @@ public class Spawn2PLibrary extends Library {
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
-            	// Operation Make
+                // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.OUT, arg, null);
                 // InputEvent Creation
@@ -455,12 +434,12 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         } else {
             try {
-            	final RespectOperationDefault opRequested = RespectOperationDefault.make(
+                final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.OUT, arg, null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
@@ -473,18 +452,16 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         op.waitForOperationCompletion();
         return true;
     }
 
     /**
-     * 
-     * @param arg0
-     *            the tuple argument of the operation
+     * @param arg0 the tuple argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean out_all_1(final Term arg0) {
@@ -542,9 +519,7 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     * 
-     * @param arg0
-     *            the tuple template argument of the operation
+     * @param arg0 the tuple template argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean rd_1(final Term arg0) {
@@ -606,11 +581,8 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     * 
-     * @param arg0
-     *            the tuple template argument of the operation
-     * @param arg1
-     *            the tuple result of the operation
+     * @param arg0 the tuple template argument of the operation
+     * @param arg1 the tuple result of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean rd_all_2(final Term arg0, final Term arg1) {
@@ -672,9 +644,7 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     * 
-     * @param arg0
-     *            the tuple template argument of the operation
+     * @param arg0 the tuple template argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean rdp_1(final Term arg0) {
@@ -736,9 +706,7 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     *
-     * @param id
-     *            the identifier of the agent whose behalf this spawn behaves on
+     * @param id the identifier of the agent whose behalf this spawn behaves on
      */
     public final void setSpawnerId(final TucsonAgentId id) {
         this.aid = id;
@@ -746,10 +714,8 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     *
-     * @param id
-     *            the identifier of the tuple centre whose behalf this spawn
-     *            behaves on
+     * @param id the identifier of the tuple centre whose behalf this spawn
+     *           behaves on
      */
     public final void setSpawnerId(final TucsonTupleCentreId id) {
         this.aid = null;
@@ -757,18 +723,14 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     *
-     * @param id
-     *            the identifier of the tuple centre this spawn is operating on
+     * @param id the identifier of the tuple centre this spawn is operating on
      */
     public final void setTargetTC(final TucsonTupleCentreId id) {
         this.target = id;
     }
 
     /**
-     * 
-     * @param arg0
-     *            the tuple template argument of the operation
+     * @param arg0 the tuple template argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean uin_1(final Term arg0) {
@@ -830,9 +792,7 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     * 
-     * @param arg0
-     *            the tuple template argument of the operation
+     * @param arg0 the tuple template argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean uinp_1(final Term arg0) {
@@ -894,9 +854,7 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     * 
-     * @param arg0
-     *            the tuple template argument of the operation
+     * @param arg0 the tuple template argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean uno_1(final Term arg0) {
@@ -959,9 +917,7 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     * 
-     * @param arg0
-     *            the tuple template argument of the operation
+     * @param arg0 the tuple template argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean unop_1(final Term arg0) {
@@ -1024,9 +980,7 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     * 
-     * @param arg0
-     *            the tuple template argument of the operation
+     * @param arg0 the tuple template argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean urd_1(final Term arg0) {
@@ -1088,9 +1042,7 @@ public class Spawn2PLibrary extends Library {
     }
 
     /**
-     * 
-     * @param arg0
-     *            the tuple template argument of the operation
+     * @param arg0 the tuple template argument of the operation
      * @return wether the operation has been succesfully completed or not
      */
     public boolean urdp_1(final Term arg0) {

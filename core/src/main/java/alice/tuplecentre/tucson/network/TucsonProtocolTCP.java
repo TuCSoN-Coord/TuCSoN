@@ -30,21 +30,27 @@ import alice.tuplecentre.tucson.network.exceptions.DialogCloseException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
+import alice.tuplecentre.tucson.network.messages.TucsonMsgGeneric;
+import alice.tuplecentre.tucson.network.messages.TucsonMsgReply;
+import alice.tuplecentre.tucson.network.messages.TucsonMsgRequest;
+import alice.tuplecentre.tucson.network.messages.inspection.NewInspectorMsg;
+import alice.tuplecentre.tucson.network.messages.inspection.NodeMsg;
 
 /*
  * TODO CICORA: e' necessario separare la classe usata server side e la classe
  * usata client side anche in vista di una separazione delle librerie agent-node
  */
+
 /**
- *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Saverio Cicora
- *
  */
 public class TucsonProtocolTCP extends AbstractTucsonProtocol {
 
-    /** serialVersionUID **/
+    /**
+     * serialVersionUID
+     **/
     private static final long serialVersionUID = 1L;
     private ObjectInputStream inStream;
     private ServerSocket mainSocket;
@@ -56,13 +62,11 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * This constructor is typically used node side: it builds a new access
      * point to which an external agent can engage a new dialog. After the
      * creation of this object usually is invoked the method acceptNewDialog()
-     *
+     * <p>
      * It make a new ServerSocket binded at port specified by port parameter.
      *
-     * @param port
-     *            the listening port where to bind
-     * @throws DialogInitializationException
-     *             if something goes wrong in the udenrlying network
+     * @param port the listening port where to bind
+     * @throws DialogInitializationException if something goes wrong in the udenrlying network
      */
     public TucsonProtocolTCP(final int port)
             throws DialogInitializationException {
@@ -81,18 +85,14 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * This constructor create a new dialog whit a specific host that identified
      * by host/port pair. This constructor is typically used from external agent
      * who want start a new dialogue with the node.
-     *
+     * <p>
      * It make a new socket and init I/O streams. The streams are bufferized.
      *
-     * @param host
-     *            the host where to bound
-     * @param port
-     *            the listening port where to bound
-     * @throws UnreachableNodeException
-     *             if the given host is unknown or no process is listening on
-     *             the given port
-     * @throws DialogInitializationException
-     *             if some network problems arise
+     * @param host the host where to bound
+     * @param port the listening port where to bound
+     * @throws UnreachableNodeException      if the given host is unknown or no process is listening on
+     *                                       the given port
+     * @throws DialogInitializationException if some network problems arise
      */
     public TucsonProtocolTCP(final String host, final int port)
             throws UnreachableNodeException, DialogInitializationException {
@@ -122,11 +122,8 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
     }
 
     /**
-     *
-     * @param s
-     *            the socket to bound
-     * @throws DialogInitializationException
-     *             if some network problems arise
+     * @param s the socket to bound
+     * @throws DialogInitializationException if some network problems arise
      */
     private TucsonProtocolTCP(final Socket s)
             throws DialogInitializationException {

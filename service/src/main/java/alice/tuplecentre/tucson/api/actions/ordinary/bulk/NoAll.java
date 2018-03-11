@@ -33,24 +33,20 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * <code>no_all</code> TuCSoN primitive.
- * 
- * @see BulkAsyncACC
  *
  * @author Luca Sangiorgi (mailto: luca.sangiorgi6@studio.unibo.it)
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
+ * @see BulkAsyncACC
  */
 public class NoAll extends AbstractTucsonOrdinaryAction {
 
     /**
      * Builds the TuCSoN {@code no_all} action given its target tuple centre and
      * its tuple argument
-     * 
-     * @param tc
-     *            the Identifier of the TuCSoN tuple centre target of this coordination
-     *            operation
-     * @param t
-     *            the logic tuple argument of this coordination operation
+     *
+     * @param tc the Identifier of the TuCSoN tuple centre target of this coordination
+     *           operation
+     * @param t  the logic tuple argument of this coordination operation
      */
     public NoAll(final TucsonTupleCentreId tc, final LogicTuple t) {
         super(tc, t);

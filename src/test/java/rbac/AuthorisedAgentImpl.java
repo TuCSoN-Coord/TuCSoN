@@ -50,24 +50,19 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
 /**
  * An authorised agent. It is "known" by TuCSoN-RBAC, thanks to administrators
  * configuration, thus may login to play roles different from the default one.
- * 
- * @author Stefano Mariani (mailto: s.mariani@unibo.it)
  *
+ * @author Stefano Mariani (mailto: s.mariani@unibo.it)
  */
 public final class AuthorisedAgentImpl extends AbstractTucsonAgent<RootACC> {
 
     /**
-     * @param id
-     *            the Identifier of this TuCSoN agent
-     * @param netid
-     *            the IP address of the TuCSoN node it is willing to interact
-     *            with
-     * @param p
-     *            the TCP port number of the TuCSoN node it is willing to
-     *            interact with
-     * @throws TucsonInvalidAgentIdException
-     *             if the given String does not represent a valid TuCSoN agent
-     *             Identifier
+     * @param id    the Identifier of this TuCSoN agent
+     * @param netid the IP address of the TuCSoN node it is willing to interact
+     *              with
+     * @param p     the TCP port number of the TuCSoN node it is willing to
+     *              interact with
+     * @throws TucsonInvalidAgentIdException if the given String does not represent a valid TuCSoN agent
+     *                                       Identifier
      */
     public AuthorisedAgentImpl(final String id, final String netid, final int p)
             throws TucsonInvalidAgentIdException {
@@ -132,8 +127,7 @@ public final class AuthorisedAgentImpl extends AbstractTucsonAgent<RootACC> {
     }
 
     /**
-     * @param args
-     *            program arguments: args[0] is TuCSoN Node TCP port number.
+     * @param args program arguments: args[0] is TuCSoN Node TCP port number.
      */
     public static void main(final String[] args) {
         int portno = TucsonInfo.getDefaultPortNumber();

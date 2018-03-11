@@ -65,7 +65,7 @@ class ValueArgument extends TupleArgumentDefault {
      *
      * @param v the String value to initialize this argument
      */
-    ValueArgument(final String v){
+    ValueArgument(final String v) {
         super(new alice.tuprolog.Struct(v));
     }
 

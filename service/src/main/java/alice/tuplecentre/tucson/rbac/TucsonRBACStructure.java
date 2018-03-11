@@ -10,7 +10,6 @@ import java.util.Map;
  *
  * @author Emanuele Buccelli
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public class TucsonRBACStructure implements RBACStructure {
 
@@ -29,8 +28,7 @@ public class TucsonRBACStructure implements RBACStructure {
     /**
      * Builds a empty RBAC structure.
      *
-     * @param org
-     *            the name of the organisation represented by this RBAC
+     * @param org the name of the organisation represented by this RBAC
      *            structure
      */
     public TucsonRBACStructure(final String org) {

@@ -29,7 +29,6 @@ import alice.tuprolog.Var;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Saverio Cicora
- *
  */
 public class TupleSet {
 
@@ -49,9 +48,7 @@ public class TupleSet {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple to add to this tuple list
+     * @param t the tuple to add to this tuple list
      */
     public void add(final LogicTuple t) {
         this.tuples.add(t);
@@ -62,7 +59,7 @@ public class TupleSet {
 
     /**
      * Begins a transaction section
-     *
+     * <p>
      * Every operation on multiset can be undone
      */
     public void beginTransaction() {
@@ -82,10 +79,9 @@ public class TupleSet {
      * Ends a transaction section specifying if operations must be committed or
      * undone
      *
-     * @param commit
-     *            if <code>true</code> the operations are committed, else they
-     *            are undone and the multiset is rolled back to the state before
-     *            the <code>beginTransaction</code> invocation
+     * @param commit if <code>true</code> the operations are committed, else they
+     *               are undone and the multiset is rolled back to the state before
+     *               the <code>beginTransaction</code> invocation
      */
     public void endTransaction(final boolean commit) {
         if (!commit) {
@@ -104,7 +100,6 @@ public class TupleSet {
     }
 
     /**
-     *
      * @return a Java iterator through this tuples list
      */
     public Iterator<LogicTuple> getIterator() {
@@ -112,12 +107,10 @@ public class TupleSet {
     }
 
     /**
-     *
-     * @param templ
-     *            the tuple template to be used to retrieve matching tuples from
-     *            this set
+     * @param templ the tuple template to be used to retrieve matching tuples from
+     *              this set
      * @return the tuple non deterministically selected as a result of the
-     *         matching process (which is consumed)
+     * matching process (which is consumed)
      */
     public LogicTuple getMatchingTuple(final LogicTuple templ) {
         if (templ == null) {
@@ -139,7 +132,6 @@ public class TupleSet {
     }
 
     /**
-     *
      * @return wether this tuples set is empty or not
      */
     public boolean isEmpty() {
@@ -151,7 +143,7 @@ public class TupleSet {
      * transaction
      *
      * @return true if the ongoing transaction made any changes to the tuple
-     *         multi-set
+     * multi-set
      */
     public boolean operationsPending() {
         if (this.tAdded.isEmpty() && this.tRemoved.isEmpty()) {
@@ -161,12 +153,10 @@ public class TupleSet {
     }
 
     /**
-     *
-     * @param templ
-     *            the tuple template to be used to retrieve matching tuples from
-     *            this set
+     * @param templ the tuple template to be used to retrieve matching tuples from
+     *              this set
      * @return the tuple non deterministically selected as a result of the
-     *         matching process (which is NOT consumed)
+     * matching process (which is NOT consumed)
      */
     public LogicTuple readMatchingTuple(final LogicTuple templ) {
         if (templ == null) {
@@ -184,7 +174,6 @@ public class TupleSet {
     }
 
     /**
-     *
      * @return the length of this tuple set
      */
     public int size() {
@@ -192,7 +181,6 @@ public class TupleSet {
     }
 
     /**
-     *
      * @return the Java array representation of this tuple set
      */
     public LogicTuple[] toArray() {

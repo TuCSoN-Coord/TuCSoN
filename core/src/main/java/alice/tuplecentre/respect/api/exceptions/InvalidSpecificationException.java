@@ -13,7 +13,6 @@
 package alice.tuplecentre.respect.api.exceptions;
 
 /**
- *
  * Exception thrown when an invalid ReSpecT specification is created or used
  *
  * @author Alessandro Ricci

@@ -15,18 +15,14 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.introspection.WSetEvent;
 
 /**
- *
  * @author Alessandro Ricci
- *
  */
 public class ManagementContext implements IManagementContext {
 
     private final RespectVM vm;
 
     /**
-     *
-     * @param rvm
-     *            the ReSpecT VM this context refers to
+     * @param rvm the ReSpecT VM this context refers to
      */
     public ManagementContext(final RespectVM rvm) {
         this.vm = rvm;
@@ -55,7 +51,7 @@ public class ManagementContext implements IManagementContext {
      */
     @Override
     public void disablePersistency(final String path,
-            final TucsonTupleCentreId fileName) {
+                                   final TucsonTupleCentreId fileName) {
         this.vm.disablePersistency(path, fileName);
     }
 
@@ -67,7 +63,7 @@ public class ManagementContext implements IManagementContext {
      */
     @Override
     public void enablePersistency(final String path,
-            final TucsonTupleCentreId fileName) {
+                                  final TucsonTupleCentreId fileName) {
         this.vm.enablePersistency(path, fileName);
     }
 
@@ -129,7 +125,7 @@ public class ManagementContext implements IManagementContext {
      */
     @Override
     public void recoveryPersistent(final String path, final String file,
-            final TucsonTupleCentreId tcName) {
+                                   final TucsonTupleCentreId tcName) {
         this.vm.recoveryPersistent(path, file, tcName);
     }
 

@@ -3,15 +3,22 @@
  */
 package helloWorld;
 
-import alice.tuprolog.*;
-import alice.tuprolog.event.OutputEvent;
-import alice.tuprolog.event.OutputListener;
-
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import alice.tuprolog.InvalidLibraryException;
+import alice.tuprolog.InvalidTheoryException;
+import alice.tuprolog.MalformedGoalException;
+import alice.tuprolog.NoMoreSolutionException;
+import alice.tuprolog.NoSolutionException;
+import alice.tuprolog.Prolog;
+import alice.tuprolog.SolveInfo;
+import alice.tuprolog.Theory;
+import alice.tuprolog.event.OutputEvent;
+import alice.tuprolog.event.OutputListener;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it)

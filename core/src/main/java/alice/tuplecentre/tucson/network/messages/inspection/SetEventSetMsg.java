@@ -14,13 +14,13 @@
 package alice.tuplecentre.tucson.network.messages.inspection;
 
 import java.util.List;
-import alice.tucson.api.TucsonAgentId;
-import alice.tuplecentre.api.Tuple;
+
+import alice.tuple.Tuple;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+
 
 /**
- *
  * @author Unknown...
- *
  */
 public class SetEventSetMsg extends NodeMsg {
 
@@ -28,12 +28,9 @@ public class SetEventSetMsg extends NodeMsg {
     private java.util.List<? extends Tuple> eventWnSet;
 
     /**
-     *
-     * @param id
-     *            the agent id of the sender
-     * @param ts
-     *            the list of tuples representing events to overwrite the InQ
-     *            with
+     * @param id the agent id of the sender
+     * @param ts the list of tuples representing events to overwrite the InQ
+     *           with
      */
     public SetEventSetMsg(final TucsonAgentId id, final List<? extends Tuple> ts) {
         super(id, "setEventSet");
@@ -48,8 +45,7 @@ public class SetEventSetMsg extends NodeMsg {
     }
 
     /**
-     * @param set
-     *            the eventWnSet to set
+     * @param set the eventWnSet to set
      */
     public void setEventWnSet(final java.util.List<? extends Tuple> set) {
         this.eventWnSet = set;

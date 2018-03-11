@@ -27,7 +27,6 @@ import alice.tuplecentre.tucson.api.actions.AbstractTucsonAction;
  *
  * @author Fabio Consalici, Riccardo Drudi
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- * 
  */
 public class CompletedOpsQueue extends SearchableOpsQueue {
 

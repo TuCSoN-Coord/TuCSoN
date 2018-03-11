@@ -3,32 +3,31 @@ package alice.tuplecentre.tucson.network.messages;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMsg;
 
 /**
- * 
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Saverio Cicora
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
+ * michele.bombardi@studio.unibo.it)
  * @author (contributor) Piscaglia Nicola
- * 
  */
 public class TucsonMsgRequest extends TucsonMsgGeneric {
-    /** serialVersionUID **/
+    /**
+     * serialVersionUID
+     **/
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
-     * @param ev
-     *            the events to transmit
+     * @param ev the events to transmit
      */
     public TucsonMsgRequest(final InputEventMsg ev) {
         this.event = ev;
     }
 
     /**
-     * 
+     *
      */
-    public TucsonMsgRequest() {}
+    public TucsonMsgRequest() {
+    }
 
     @Override
     public InputEventMsg getEventMsg() {

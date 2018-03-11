@@ -70,7 +70,7 @@ import alice.util.Tools;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
+ * michele.bombardi@studio.unibo.it)
  */
 public class Respect2PLibrary extends alice.tuprolog.Library {
 
@@ -150,37 +150,30 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     private final static LogicTupleOpManager opMan = new LogicTupleOpManager();
 
     /**
-     *
-     * @param time
-     *            the time that should have passed
+     * @param time the time that should have passed
      * @return <code>true</code> if the given time passed
      */
     public boolean after_1(final Term time) {
         return !this.before_1(time);
     }
-    
+
     /**
-     * 
-     * @param space
-     *            type of node position. It can be specified as either its
-     *            absolute physical position (S=ph), its IP number (S=ip), its
-     *            domain name (S=dns), its geographical location (S=map), or its
-     *            organisational position (S=org).
-     * @param position
-     *            the expected position.
+     * @param space    type of node position. It can be specified as either its
+     *                 absolute physical position (S=ph), its IP number (S=ip), its
+     *                 domain name (S=dns), its geographical location (S=map), or its
+     *                 organisational position (S=org).
+     * @param position the expected position.
      * @return <code>true</code> if the tuple centre is currently executing at
-     *         the given position, specified according to the given space term.
+     * the given position, specified according to the given space term.
      */
     public boolean at_2(final Term space, final Term position) {
         return this.near_3(space, position, this.vm.getDistanceTollerance());
     }
 
     /**
-     * @param time
-     *            the time to compare.
-     *
+     * @param time the time to compare.
      * @return true if the ReSpecT reaction has been triggered before the given
-     *         time.
+     * time.
      */
     public boolean before_1(final Term time) {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
@@ -194,11 +187,8 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param time1
-     *            the time that should have passed
-     * @param time2
-     *            the time that should not have passed
+     * @param time1 the time that should have passed
+     * @param time2 the time that should not have passed
      * @return <code>true</code> if the time is between given values
      */
     public boolean between_2(final Term time1, final Term time2) {
@@ -206,7 +196,6 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
      * @return <code>true</code> if ReSpecT VM is in the completion phase
      */
     public boolean compl_0() {
@@ -214,25 +203,21 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
      * @return <code>true</code> if ReSpecT VM is in the completion phase
      */
     public boolean completion_0() {
-    	return this.response_0();
+        return this.response_0();
     }
-    
+
     /**
-     * 
-     * @param space
-     *            type of node position. It can be specified as either its
-     *            absolute physical position (S=ph), its IP number (S=ip), its
-     *            domain name (S=dns), its geographical location (S=map), or its
-     *            organisational position (S=org).
-     * @param position
-     *            the expected position.
+     * @param space    type of node position. It can be specified as either its
+     *                 absolute physical position (S=ph), its IP number (S=ip), its
+     *                 domain name (S=dns), its geographical location (S=map), or its
+     *                 organisational position (S=org).
+     * @param position the expected position.
      * @return <code>true</code> if the given position, specified according to
-     *         the given space term, unifies with the position of the node which
-     *         the tuple centre belongs to.
+     * the given space term, unifies with the position of the node which
+     * the tuple centre belongs to.
      */
     public boolean current_place_2(final Term space, final Term position) {
         final Position vmPosition = this.vm.getPosition();
@@ -248,18 +233,16 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             // variability
         }
         return this.unify(position, vmPosTerm); // if S=map, S=org, S=ip or
-                                                // S=dns the position must
-                                                // match exactly
+        // S=dns the position must
+        // match exactly
     }
 
     /**
-     * @param predicate
-     *            the expected ReSpecT predicate currently under solving
-     *            process.
-     *
+     * @param predicate the expected ReSpecT predicate currently under solving
+     *                  process.
      * @return true if the actual ReSpecT predicate currently under solving
-     *         process is the expected ReSpecT predicate currently under solving
-     *         process.
+     * process is the expected ReSpecT predicate currently under solving
+     * process.
      */
     public boolean current_predicate_1(final Term predicate) {
         return this.unify(predicate, new Struct("current_predicate("
@@ -267,13 +250,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param source
-     *            the expected tuplecentre which is responsible for the
-     *            generation of the currently processing ReSpecT reaction.
-     *
+     * @param source the expected tuplecentre which is responsible for the
+     *               generation of the currently processing ReSpecT reaction.
      * @return true if the actual tuplecentre is the expected tuplecentre which
-     *         is responsible for the generation of the currently processing
-     *         ReSpecT reaction.
+     * is responsible for the generation of the currently processing
+     * ReSpecT reaction.
      */
     public boolean current_source_1(final Term source) {
         // final Term t = ((TupleCentreIdentifier) this.vm.getId()).toTerm();
@@ -283,11 +264,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param target
-     *            the expected target of the current operation
-     *
+     * @param target the expected target of the current operation
      * @return <code>true</code> if the given term unifies with the current
-     *         target
+     * target
      */
     public boolean current_target_1(final Term target) {
         // final Term t = ((TupleCentreIdentifier) this.vm.getId()).toTerm();
@@ -298,9 +277,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param time
-     *            the expected time we're at.
-     *
+     * @param time the expected time we're at.
      * @return <code>true</code> if the given term unifies with the current time
      */
     public boolean current_time_1(final Term time) {
@@ -309,35 +286,29 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param tuple
-     *            the expected logic tuple which directly started the current
-     *            ReSpecT computation.
-     *
+     * @param tuple the expected logic tuple which directly started the current
+     *              ReSpecT computation.
      * @return true if the actual logic tuple which directly started the current
-     *         ReSpecT computation is the expected logic tuple which directly
-     *         started the current ReSpecT computation.
+     * ReSpecT computation is the expected logic tuple which directly
+     * started the current ReSpecT computation.
      */
     public boolean current_tuple_1(final Term tuple) {
         return this.unify(tuple, new Var());
     }
 
     /**
-     *
      * @return <code>true</code> if the current ReSpecT events is coming from
-     *         this tuple centre
+     * this tuple centre
      */
     public boolean endo_0() {
         return !this.exo_0();
     }
 
     /**
-     *
-     * @param key
-     *            the term representing the environmental property to be tested
-     * @param value
-     *            the term representing the value of the environmental property
+     * @param key   the term representing the environmental property to be tested
+     * @param value the term representing the value of the environmental property
      * @return <code>true</code> if the environmental property given has the
-     *         given value
+     * given value
      */
     public boolean env_2(final Term key, final Term value) {
         if (value instanceof alice.tuprolog.Var) {
@@ -350,19 +321,16 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         }
         return false;
     }
-    
+
     /**
-     * 
-     * @param space
-     *            type of node position. It can be specified as either its
-     *            absolute physical position (S=ph), its IP number (S=ip), its
-     *            domain name (S=dns), its geographical location (S=map), or its
-     *            organisational position (S=org).
-     * @param position
-     *            the expected position.
+     * @param space    type of node position. It can be specified as either its
+     *                 absolute physical position (S=ph), its IP number (S=ip), its
+     *                 domain name (S=dns), its geographical location (S=map), or its
+     *                 organisational position (S=org).
+     * @param position the expected position.
      * @return <code>true</code> if the given position, specified according to
-     *         the given space term, unifies with the position of the node where
-     *         the triggering events was originated.
+     * the given space term, unifies with the position of the node where
+     * the triggering events was originated.
      */
     public boolean event_place_2(final Term space, final Term position) {
         /**
@@ -382,11 +350,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param predicate
-     *            the predicate direct cause of current ReSpecT events
+     * @param predicate the predicate direct cause of current ReSpecT events
      * @return <code>true</code> if the current ReSpecT events has the given
-     *         direct cause
+     * direct cause
      */
     public boolean event_predicate_1(final Term predicate) {
         return this
@@ -394,11 +360,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param source
-     *            the identifier of the direct cause source of the events
-     *
+     * @param source the identifier of the direct cause source of the events
      * @return <code>true</code> if current ReSpecT events direct cause has the
-     *         given source
+     * given source
      */
     public boolean event_source_1(final Term source) {
         final EmitterIdentifier id = this.vm.getCurrentReactionEvent().getSource();
@@ -418,11 +382,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param target
-     *            the identifier of the direct cause target
+     * @param target the identifier of the direct cause target
      * @return <code>true</code> if current ReSpecT events direct cause has the
-     *         given target
+     * given target
      */
     public boolean event_target_1(final Term target) {
         final EmitterIdentifier id = this.vm.getCurrentReactionEvent().getTarget();
@@ -442,13 +404,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param time
-     *            the expected time at which the current ReSpecT computation has
-     *            been triggered.
-     *
+     * @param time the expected time at which the current ReSpecT computation has
+     *             been triggered.
      * @return true if the actual time at which the current ReSpecT computation
-     *         has been triggered is the expected time at which the current
-     *         ReSpecT computation has been triggered.
+     * has been triggered is the expected time at which the current
+     * ReSpecT computation has been triggered.
      */
     public boolean event_time_1(final Term time) {
         final long reTime = this.vm.getCurrentReactionEvent().getTime();
@@ -456,11 +416,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the direct cause predicate
-     *
+     * @param tuple the tuple argument of the direct cause predicate
      * @return <code>true</code> if the direct cause tuple argument has the
-     *         given tuple
+     * given tuple
      */
     public boolean event_tuple_1(final Term tuple) {
         final Term t = this.vm.getCurrentReactionTerm().getArg(0);
@@ -469,7 +427,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @return true if the initial requestor of the ReSpecT operation IS NOT the
-     *         currently reacting tuplecentre.
+     * currently reacting tuplecentre.
      */
     public boolean exo_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
@@ -498,7 +456,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @return true if the initial requestor of the ReSpecT operation is an
-     *         agent (either Java or tuProlog or whatever).
+     * agent (either Java or tuProlog or whatever).
      */
     public boolean from_agent_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
@@ -513,17 +471,16 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      * Situated ReSpecT extension: still to test.
      ********************************************************************/
     /**
-     *
      * @return <code>true</code> if the triggering events has been generated by
-     *         the environment
+     * the environment
      */
     public boolean from_env_0() {
-    	return this.vm.getCurrentReactionEvent().getSource().isEnv();
+        return this.vm.getCurrentReactionEvent().getSource().isEnv();
     }
 
     /**
      * @return true if the initial requestor of the ReSpecT operation is a
-     *         ReSpecT tuplecentre.
+     * ReSpecT tuplecentre.
      */
     public boolean from_tc_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
@@ -535,15 +492,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean get_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -589,16 +542,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
-     *
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean get_s_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -648,22 +596,15 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param env
-     *            the identifier of the target environmental resource
-     * @param key
-     *            the environmental property to sense
-     * @param val
-     *            the value sensed
-     * @throws OperationTimeOutException
-     *             if the notification operation expires timeout
-     * @throws UnreachableNodeException
-     *             if the TuCSoN tuple centre target of the notification cannot
-     *             be reached over the network
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be performed for some
-     *             reason
+     * @param env the identifier of the target environmental resource
+     * @param key the environmental property to sense
+     * @param val the value sensed
      * @return <code>true</code> if the operation is successfull
+     * @throws OperationTimeOutException           if the notification operation expires timeout
+     * @throws UnreachableNodeException            if the TuCSoN tuple centre target of the notification cannot
+     *                                             be reached over the network
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
+     *                                             reason
      */
     public boolean getEnv_3(final Term env, final Term key, final Term val)
             throws TucsonOperationNotPossibleException,
@@ -699,7 +640,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      * ReSpecT theory to interface with Prolog.
      *
      * @return the String representation of the Prolog theory usable by tuProlog
-     *         agents
+     * agents
      */
     @Override
     public String getTheory() {
@@ -775,15 +716,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean in_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -823,20 +760,13 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the tuple template to be used
-     *
-     * @param arg1
-     *            the Prolog variable to unify the result with
-     * @param arg2
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg2 (tuple centre's id) is not a well-formed ground logic
-     *             term
-     * @throws InvalidLogicTupleException
-     *             if the text does not represent a valid logic tuple
+     * @param arg0 the tuple template to be used
+     * @param arg1 the Prolog variable to unify the result with
+     * @param arg2 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg2 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
+     * @throws InvalidLogicTupleException    if the text does not represent a valid logic tuple
      */
     public boolean in_all_3(final Term arg0, final Term arg1, final Term arg2)
             throws InvalidTupleCentreIdException, InvalidLogicTupleException {
@@ -872,26 +802,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param ev
-     *            the triggering events of a ReSpecT specification
-     * @param g
-     *            the guard of a ReSpecT specification
-     * @param r
-     *            the body of a ReSpecT specification
-     * @param tc
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if tc (tuple centre's id) is not a well-formed ground logic
-     *             term
-     * @throws InvalidTupleArgumentException
-     *             if is not possible to create a valid Prolog Term with the
-     *             specified values for ev, g and r
+     * @param ev the triggering events of a ReSpecT specification
+     * @param g  the guard of a ReSpecT specification
+     * @param r  the body of a ReSpecT specification
+     * @param tc the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
-     *
+     * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
+     *                                       term
+     * @throws InvalidTupleArgumentException if is not possible to create a valid Prolog Term with the
+     *                                       specified values for ev, g and r
      */
     public boolean in_s_4(final Term ev, final Term g, final Term r,
-            final Term tc) throws InvalidTupleCentreIdException,
+                          final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
         String tcName = null;
         TupleCentreIdentifier tid = null;
@@ -944,24 +866,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      * ReSpecT guard predicates.
      ********************************************************************/
     /**
-     *
-     * @param m
-     *            the ReSpecT VM this tuProlog library interfaces to
+     * @param m the ReSpecT VM this tuProlog library interfaces to
      */
     public void init(final RespectVMContext m) {
         this.vm = m;
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean inp_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -1001,25 +917,17 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param ev
-     *            the triggering events of a ReSpecT specification
-     * @param g
-     *            the guard of a ReSpecT specification
-     * @param r
-     *            the body of a ReSpecT specification
-     * @param tc
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if tc (tuple centre's id) is not a well-formed ground logic
-     *             term
-     * @throws InvalidTupleArgumentException
-     *             if an invalid tuple argument is used
+     * @param ev the triggering events of a ReSpecT specification
+     * @param g  the guard of a ReSpecT specification
+     * @param r  the body of a ReSpecT specification
+     * @param tc the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
-     *
+     * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
+     *                                       term
+     * @throws InvalidTupleArgumentException if an invalid tuple argument is used
      */
     public boolean inp_s_4(final Term ev, final Term g, final Term r,
-            final Term tc) throws InvalidTupleCentreIdException,
+                           final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
         String tcName = null;
         TupleCentreIdentifier tid = null;
@@ -1069,27 +977,25 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
      * @return <code>true</code> if the triggering events has not this tuple
-     *         centre as target
+     * centre as target
      */
     public boolean inter_0() {
         return !this.intra_0();
     }
 
     /**
-     *
      * @return <code>true</code> if the triggering events has being generated by
-     *         this tc and target to this same tc
+     * this tc and target to this same tc
      */
     public boolean internal_0() {
-    	return this.from_tc_0() && this.to_tc_0() && this.endo_0()
+        return this.from_tc_0() && this.to_tc_0() && this.endo_0()
                 && this.intra_0();
     }
 
     /**
      * @return true if the final target of the ReSpecT operation is the
-     *         currently reacting tuplecentre.
+     * currently reacting tuplecentre.
      */
     public boolean intra_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
@@ -1108,27 +1014,24 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
      * @return <code>true</code> if the ReSpecT VM is currently in the
-     *         invocation phase
+     * invocation phase
      */
     public boolean inv_0() {
         return this.request_0();
     }
 
     /**
-     *
      * @return <code>true</code> if the ReSpecT VM is currently in the
-     *         invocation phase
+     * invocation phase
      */
     public boolean invocation_0() {
         return this.request_0();
     }
 
     /**
-     *
      * @return <code>true</code> if the triggering events is coming from a
-     *         different tuple centre
+     * different tuple centre
      */
     public boolean link_in_0() {
         return this.from_tc_0() && this.to_tc_0() && this.exo_0()
@@ -1136,29 +1039,24 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
      * @return <code>true</code> if the triggering events is originating from
-     *         this tuple centre toward a different one
+     * this tuple centre toward a different one
      */
     public boolean link_out_0() {
         return this.from_tc_0() && this.to_tc_0() && this.endo_0()
                 && this.inter_0();
     }
-    
+
     /**
-     * 
-     * @param space
-     *            type of node position. It can be specified as either its
-     *            absolute physical position (S=ph), its IP number (S=ip), its
-     *            domain name (S=dns), its geographical location (S=map), or its
-     *            organisational position (S=org).
-     * @param center
-     *            the center point of the spatial region.
-     * @param radius
-     *            the radius of the spatial ragion (in meters).
+     * @param space  type of node position. It can be specified as either its
+     *               absolute physical position (S=ph), its IP number (S=ip), its
+     *               domain name (S=dns), its geographical location (S=map), or its
+     *               organisational position (S=org).
+     * @param center the center point of the spatial region.
+     * @param radius the radius of the spatial ragion (in meters).
      * @return <code>true</code> if the tuple centre is currently executing at
-     *         the position included in the spatial region with the given center
-     *         and radius, specified according to the given space term.
+     * the position included in the spatial region with the given center
+     * and radius, specified according to the given space term.
      */
     public boolean near_3(final Term space, final Term center, final Term radius) {
         final Position vmPosition = this.vm.getPosition();
@@ -1181,8 +1079,8 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                     .toDegrees(((alice.tuprolog.Number) radius).floatValue());
             return Math.pow(vmX - cX, 2) + Math.pow(vmY - cY, 2) <= Math.pow(
                     radiusN, 2); // check if the current node position is
-                                 // inside a circle having given center and
-                                 // radius
+            // inside a circle having given center and
+            // radius
         } else if (this.unify(space, Term.createTerm(Position.MAP))) {
             final GeolocationServiceManager geolocationManager = GeolocationServiceManager
                     .getGeolocationManager();
@@ -1247,15 +1145,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean no_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -1293,20 +1187,13 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the tuple template to be used
-     *
-     * @param arg1
-     *            the Prolog variable to unify the result with
-     * @param arg2
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg2 (tuple centre's id) is not a well-formed ground logic
-     *             term
-     * @throws InvalidLogicTupleException
-     *             if the text does not represent a valid logic tuple
+     * @param arg0 the tuple template to be used
+     * @param arg1 the Prolog variable to unify the result with
+     * @param arg2 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg2 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
+     * @throws InvalidLogicTupleException    if the text does not represent a valid logic tuple
      */
     public boolean no_all_3(final Term arg0, final Term arg1, final Term arg2)
             throws InvalidTupleCentreIdException, InvalidLogicTupleException {
@@ -1342,26 +1229,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param ev
-     *            the triggering events of a ReSpecT specification
-     * @param g
-     *            the guard of a ReSpecT specification
-     * @param r
-     *            the body of a ReSpecT specification
-     * @param tc
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if tc (tuple centre's id) is not a well-formed ground logic
-     *             term
-     * @throws InvalidTupleArgumentException
-     *             if is not possible to create a valid Prolog Term with the
-     *             specified values for ev, g and r
+     * @param ev the triggering events of a ReSpecT specification
+     * @param g  the guard of a ReSpecT specification
+     * @param r  the body of a ReSpecT specification
+     * @param tc the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
-     *
+     * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
+     *                                       term
+     * @throws InvalidTupleArgumentException if is not possible to create a valid Prolog Term with the
+     *                                       specified values for ev, g and r
      */
     public boolean no_s_4(final Term ev, final Term g, final Term r,
-            final Term tc) throws InvalidTupleCentreIdException,
+                          final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
         String tcName = null;
         TupleCentreIdentifier tid = null;
@@ -1409,15 +1288,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean nop_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -1455,26 +1330,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param ev
-     *            the triggering events of a ReSpecT specification
-     * @param g
-     *            the guard of a ReSpecT specification
-     * @param r
-     *            the body of a ReSpecT specification
-     * @param tc
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if tc (tuple centre's id) is not a well-formed ground logic
-     *             term
-     * @throws InvalidTupleArgumentException
-     *             if is not possible to create a valid Prolog Term with the
-     *             specified values for ev, g and r
+     * @param ev the triggering events of a ReSpecT specification
+     * @param g  the guard of a ReSpecT specification
+     * @param r  the body of a ReSpecT specification
+     * @param tc the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
-     *
+     * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
+     *                                       term
+     * @throws InvalidTupleArgumentException if is not possible to create a valid Prolog Term with the
+     *                                       specified values for ev, g and r
      */
     public boolean nop_s_4(final Term ev, final Term g, final Term r,
-            final Term tc) throws InvalidTupleCentreIdException,
+                           final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
         String tcName = null;
         TupleCentreIdentifier tid = null;
@@ -1525,9 +1392,8 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      * ReSpecT composite guard predicates.
      ********************************************************************/
     /**
-     *
      * @return <code>true</code> if the triggering events comes from an agent and
-     *         is directed toward a tuple centre
+     * is directed toward a tuple centre
      */
     public boolean operation_0() {
         return this.from_agent_0() && this.to_tc_0();
@@ -1537,15 +1403,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      * ReSpecT primitives provided as Java methods.
      ********************************************************************/
     /**
-     *
-     * @param arg0
-     *            the tuple to inject in the tuple centre
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the tuple to inject in the tuple centre
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean out_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -1599,15 +1461,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the list of tuples to injectin the tuple centre
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the list of tuples to injectin the tuple centre
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean out_all_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -1643,26 +1501,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param ev
-     *            the triggering events of a ReSpecT specification
-     * @param g
-     *            the guard of a ReSpecT specification
-     * @param r
-     *            the body of a ReSpecT specification
-     * @param tc
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if tc (tuple centre's id) is not a well-formed ground logic
-     *             term
-     * @throws InvalidTupleArgumentException
-     *             if is not possible to create a valid Prolog Term with the
-     *             specified values for ev, g and r
+     * @param ev the triggering events of a ReSpecT specification
+     * @param g  the guard of a ReSpecT specification
+     * @param r  the body of a ReSpecT specification
+     * @param tc the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
-     *
+     * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
+     *                                       term
+     * @throws InvalidTupleArgumentException if is not possible to create a valid Prolog Term with the
+     *                                       specified values for ev, g and r
      */
     public boolean out_s_4(final Term ev, final Term g, final Term r,
-            final Term tc) throws InvalidTupleCentreIdException,
+                           final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
         String tcName = null;
         TupleCentreIdentifier tid = null;
@@ -1706,7 +1556,6 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
      * @return <code>true</code> if the ReSpecT VM is in the completion phase
      */
     public boolean post_0() {
@@ -1714,7 +1563,6 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
      * @return <code>true</code> if the ReSpecT VM is in the invocation phase
      */
     public boolean pre_0() {
@@ -1722,15 +1570,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean rd_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -1770,20 +1614,13 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the tuple template to be used
-     *
-     * @param arg1
-     *            the Prolog variable to unify the result with
-     * @param arg2
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg2 (tuple centre's id) is not a well-formed ground logic
-     *             term
-     * @throws InvalidLogicTupleException
-     *             if the text does not represent a valid logic tuple
+     * @param arg0 the tuple template to be used
+     * @param arg1 the Prolog variable to unify the result with
+     * @param arg2 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg2 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
+     * @throws InvalidLogicTupleException    if the text does not represent a valid logic tuple
      */
     public boolean rd_all_3(final Term arg0, final Term arg1, final Term arg2)
             throws InvalidTupleCentreIdException, InvalidLogicTupleException {
@@ -1819,26 +1656,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param ev
-     *            the triggering events of a ReSpecT specification
-     * @param g
-     *            the guard of a ReSpecT specification
-     * @param r
-     *            the body of a ReSpecT specification
-     * @param tc
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if tc (tuple centre's id) is not a well-formed ground logic
-     *             term
-     * @throws InvalidTupleArgumentException
-     *             if is not possible to create a valid Prolog Term with the
-     *             specified values for ev, g and r
+     * @param ev the triggering events of a ReSpecT specification
+     * @param g  the guard of a ReSpecT specification
+     * @param r  the body of a ReSpecT specification
+     * @param tc the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
-     *
+     * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
+     *                                       term
+     * @throws InvalidTupleArgumentException if is not possible to create a valid Prolog Term with the
+     *                                       specified values for ev, g and r
      */
     public boolean rd_s_4(final Term ev, final Term g, final Term r,
-            final Term tc) throws InvalidTupleCentreIdException,
+                          final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
         String tcName = null;
         TupleCentreIdentifier tid = null;
@@ -1888,15 +1717,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean rdp_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -1939,26 +1764,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      * ReSpecT reaction observation predicates.
      ********************************************************************/
     /**
-     *
-     * @param ev
-     *            the triggering events of a ReSpecT specification
-     * @param g
-     *            the guard of a ReSpecT specification
-     * @param r
-     *            the body of a ReSpecT specification
-     * @param tc
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if tc (tuple centre's id) is not a well-formed ground logic
-     *             term
-     * @throws InvalidTupleArgumentException
-     *             if is not possible to create a valid Prolog Term with the
-     *             specified values for ev, g and r
+     * @param ev the triggering events of a ReSpecT specification
+     * @param g  the guard of a ReSpecT specification
+     * @param r  the body of a ReSpecT specification
+     * @param tc the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
-     *
+     * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
+     *                                       term
+     * @throws InvalidTupleArgumentException if is not possible to create a valid Prolog Term with the
+     *                                       specified values for ev, g and r
      */
     public boolean rdp_s_4(final Term ev, final Term g, final Term r,
-            final Term tc) throws InvalidTupleCentreIdException,
+                           final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
         String tcName = null;
         TupleCentreIdentifier tid = null;
@@ -2008,7 +1825,6 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
      * @return <code>true</code> if the ReSpecT VM is in the invocation phase
      */
     public boolean req_0() {
@@ -2025,7 +1841,6 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
      * @return <code>true</code> if the ReSpecT VM is in the completion phase
      */
     public boolean resp_0() {
@@ -2043,22 +1858,15 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param env
-     *            the identifier of the target environmental resource
-     * @param key
-     *            the environmental property to modify
-     * @param val
-     *            the value modified
-     * @throws OperationTimeOutException
-     *             if the notification operation expires timeout
-     * @throws UnreachableNodeException
-     *             if the TuCSoN tuple centre target of the notification cannot
-     *             be reached over the network
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be performed for some
-     *             reason
+     * @param env the identifier of the target environmental resource
+     * @param key the environmental property to modify
+     * @param val the value modified
      * @return <code>true</code> if the operation is successfull
+     * @throws OperationTimeOutException           if the notification operation expires timeout
+     * @throws UnreachableNodeException            if the TuCSoN tuple centre target of the notification cannot
+     *                                             be reached over the network
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
+     *                                             reason
      */
     public boolean setEnv_3(final Term env, final Term key, final Term val)
             throws TucsonOperationNotPossibleException,
@@ -2091,15 +1899,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Java class full name or tuProlog theory file path to spawn
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Java class full name or tuProlog theory file path to spawn
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean spawn_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -2132,19 +1936,16 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         this.vm.addTemporaryOutputEvent(outEv);
         return true;
     }
-    
+
     /**
-     * 
-     * @param space
-     *            type of node position. It can be specified as either its
-     *            absolute physical position (S=ph), its IP number (S=ip), its
-     *            domain name (S=dns), its geographical location (S=map), or its
-     *            organisational position (S=org).
-     * @param place
-     *            the expected position.
+     * @param space type of node position. It can be specified as either its
+     *              absolute physical position (S=ph), its IP number (S=ip), its
+     *              domain name (S=dns), its geographical location (S=map), or its
+     *              organisational position (S=org).
+     * @param place the expected position.
      * @return <code>true</code> if the given position, specified according to
-     *         the given space term, unifies with the position of the node where
-     *         the events chain that led to the triggering events was originated.
+     * the given space term, unifies with the position of the node where
+     * the events chain that led to the triggering events was originated.
      */
     public boolean start_place_2(final Term space, final Term place) {
         /**
@@ -2167,18 +1968,16 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 //         startEvPosTerm =
 //         oe.getInputEvent().getPosition().getPlace(space).toTerm();
 //         }
-    	
+
         final Term startEvPosTerm = this.vm.getCurrentEvent().getPosition()
                 .getPlace(space).toTerm();
         return this.unify(place, startEvPosTerm);
     }
 
     /**
-     *
-     * @param predicate
-     *            the predicate prime cause of current ReSpecT events
+     * @param predicate the predicate prime cause of current ReSpecT events
      * @return <code>true</code> if the current ReSpecT events has the given
-     *         prime cause
+     * prime cause
      */
     public boolean start_predicate_1(final Term predicate) {
         final AbstractEvent e = this.vm.getCurrentReactionEvent();
@@ -2199,12 +1998,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param source
-     *            the identifier of the prime cause source of the events
-     *
+     * @param source the identifier of the prime cause source of the events
      * @return <code>true</code> if current ReSpecT events prime cause has the
-     *         given source
+     * given source
      */
     public boolean start_source_1(final Term source) {
         final AbstractEvent e = this.vm.getCurrentReactionEvent();
@@ -2259,11 +2055,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param target
-     *            the identifier of the prime cause target
+     * @param target the identifier of the prime cause target
      * @return <code>true</code> if current ReSpecT events prime cause has the
-     *         given target
+     * given target
      */
     public boolean start_target_1(final Term target) {
         final AbstractEvent e = this.vm.getCurrentReactionEvent();
@@ -2318,14 +2112,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param time
-     *            the expected time at which the current ReSpecT computation has
-     *            been triggered.
-     *
+     * @param time the expected time at which the current ReSpecT computation has
+     *             been triggered.
      * @return true if the actual time at which the current ReSpecT computation
-     *         has been triggered is the expected time at which the current
-     *         ReSpecT computation has been triggered.
+     * has been triggered is the expected time at which the current
+     * ReSpecT computation has been triggered.
      */
     public boolean start_time_1(final Term time) {
         final AbstractEvent e = this.vm.getCurrentReactionEvent();
@@ -2343,12 +2134,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param tuple
-     *            the tuple argument of the direct cause predicate
-     *
+     * @param tuple the tuple argument of the direct cause predicate
      * @return <code>true</code> if the direct cause tuple argument has the
-     *         given tuple
+     * given tuple
      */
     public boolean start_tuple_1(final Term tuple) {
         final AbstractEvent e = this.vm.getCurrentReactionEvent();
@@ -2377,7 +2165,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @return true if the final target of the ReSpecT operation is an agent
-     *         (either Java or tuProlog or whatever).
+     * (either Java or tuProlog or whatever).
      */
     public boolean to_agent_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
@@ -2389,9 +2177,8 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
      * @return <code>true</code> if the triggering events was directed toward the
-     *         environment
+     * environment
      */
     public boolean to_env_0() {
         return this.vm.getCurrentReactionEvent().getTarget().isEnv();
@@ -2399,7 +2186,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @return true if the final target of the ReSpecT operation is a ReSpecT
-     *         tuplecentre.
+     * tuplecentre.
      */
     public boolean to_tc_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
@@ -2411,15 +2198,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean uin_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -2459,15 +2242,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean uinp_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -2507,15 +2286,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean uno_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -2555,15 +2330,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean unop_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -2603,15 +2374,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean urd_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
@@ -2651,15 +2418,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     *
-     * @param arg0
-     *            the Prolog variable to unify the result with
-     * @param arg1
-     *            the identifier of the target tuple centre
-     * @throws InvalidTupleCentreIdException
-     *             if arg1 (tuple centre's id) is not a well-formed ground logic
-     *             term
+     * @param arg0 the Prolog variable to unify the result with
+     * @param arg1 the identifier of the target tuple centre
      * @return <code>true</code> if the operation is successfull
+     * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
+     *                                       term
      */
     public boolean urdp_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {

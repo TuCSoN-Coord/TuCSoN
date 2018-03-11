@@ -85,13 +85,12 @@ import alice.tuprolog.Var;
  * This class defines a ReSpecT Context as a specialization of a tuple centre VM
  * context (defining VM specific structures)
  *
- * @see alice.tuplecentre.core.AbstractTupleCentreVMContext
- *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Saverio Cicora
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
+ * michele.bombardi@studio.unibo.it)
+ * @see alice.tuplecentre.core.AbstractTupleCentreVMContext
  */
 public class RespectVMContext extends AbstractTupleCentreVMContext {
 

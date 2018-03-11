@@ -3,7 +3,6 @@ package alice.tuplecentre.tucson.network.messages.events;
 import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.core.TupleCentreOpType;
-import alice.tuplecentre.tucson.network.messages.events.EventMsg;
 
 /**
  * Output Event on a TupleCentre related to an operation

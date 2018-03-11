@@ -35,22 +35,21 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.tucson.network.TucsonMsgReply;
-import alice.tuplecentre.tucson.network.TucsonMsgRequest;
 import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.TucsonProtocolTCP;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
+import alice.tuplecentre.tucson.network.messages.TucsonMsgReply;
+import alice.tuplecentre.tucson.network.messages.TucsonMsgRequest;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMsgDefault;
+import alice.tuplecentre.tucson.network.messages.events.OutputEventMsg;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.lib.InvalidObjectIdException;
 
 /**
- *
  * @author ste (mailto: s.mariani@unibo.it)
- *
  */
-public class InterTupleCentreACCProxy implements InterTupleCentreACC,
-OperationCompletionListener {
+public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationCompletionListener {
 
     /**
      *
@@ -62,7 +61,6 @@ OperationCompletionListener {
         private boolean stop;
 
         /**
-         *
          * @param d
          */
         Controller(final TucsonProtocol d) {
@@ -229,12 +227,9 @@ OperationCompletionListener {
     protected Position place;
 
     /**
-     *
-     * @param id
-     *            tuplecentre source
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Object is not a valid identifier of a tuple
-     *             centre
+     * @param id tuplecentre source
+     * @throws TucsonInvalidTupleCentreIdException if the given Object is not a valid identifier of a tuple
+     *                                             centre
      */
     public InterTupleCentreACCProxy(final Object id)
             throws TucsonInvalidTupleCentreIdException {
@@ -295,8 +290,8 @@ OperationCompletionListener {
                 exception = true;
                 throw new UnreachableNodeException();
             } catch (DialogInitializationException e) {
-				e.printStackTrace();
-			}
+                e.printStackTrace();
+            }
             final OperationIdentifier tucsonOpId = new TucsonOpId(this.opId);
             this.operations.put(tucsonOpId, op);
             final TupleCentreOpType type = op.getType();
@@ -338,15 +333,14 @@ OperationCompletionListener {
         } while (nTry < InterTupleCentreACCProxy.TRIES);
         throw new UnreachableNodeException();
     }
-    
+
     /**
-     * 
      * @return the Position of the tuple centre behind this proxy
      */
     public Position getPosition() {
         return this.place;
     }
-    
+
     @Override
     public void operationCompleted(final AbstractTupleCentreOperation op) {
         // FIXME What to do here?
@@ -420,7 +414,7 @@ OperationCompletionListener {
                     // .getLoopbackAddress().getHostAddress()
                     // .concat(String.valueOf(p)));
                     this.controllerSessions
-                    .get("127.0.0.1".concat(String.valueOf(port)));
+                            .get("127.0.0.1".concat(String.valueOf(port)));
         }
         // if (InetAddress.getLoopbackAddress().getHostAddress().equals(opNode))
         // {
@@ -430,7 +424,7 @@ OperationCompletionListener {
                     // .getLoopbackAddress().getHostName()
                     // .concat(String.valueOf(p)));
                     this.controllerSessions
-                    .get("localhost".concat(String.valueOf(port)));
+                            .get("localhost".concat(String.valueOf(port)));
         }
         if (tc != null) {
             return tc.getSession();
@@ -469,7 +463,7 @@ OperationCompletionListener {
             this.events.notifyAll();
         }
     }
-    
+
     private void setPosition() {
         this.place = new Position();
     }

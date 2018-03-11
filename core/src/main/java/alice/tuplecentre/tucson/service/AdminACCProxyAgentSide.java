@@ -33,7 +33,6 @@ import alice.tuplecentre.tucson.utilities.Utils;
  *
  * @author Emanuele Buccelli
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
         AdminACC {
@@ -45,12 +44,9 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
     /**
      * Builds an Administrator ACC given the associated agent Identifier or name
      *
-     * @param aid
-     *            the associated agent Identifier or name (String)
-     * @throws TucsonInvalidAgentIdException
-     *             if the given agent Identifier is NOT valid
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre Identifier is NOT valid
+     * @param aid the associated agent Identifier or name (String)
+     * @throws TucsonInvalidAgentIdException       if the given agent Identifier is NOT valid
+     * @throws TucsonInvalidTupleCentreIdException if the given tuple centre Identifier is NOT valid
      */
     public AdminACCProxyAgentSide(final Object aid)
             throws TucsonInvalidAgentIdException,
@@ -63,19 +59,14 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
      * address of the TuCSoN node the agent is willing to interact with, and the
      * TCP port also.
      *
-     * @param aid
-     *            the associated agent Identifier or name (String)
-     * @param node
-     *            the IP address of the target TuCSoN node
-     * @param port
-     *            the TCP port of the target TuCSoN node
-     * @throws TucsonInvalidAgentIdException
-     *             if the given agent Identifier is NOT valid
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre Identifier is NOT valid
+     * @param aid  the associated agent Identifier or name (String)
+     * @param node the IP address of the target TuCSoN node
+     * @param port the TCP port of the target TuCSoN node
+     * @throws TucsonInvalidAgentIdException       if the given agent Identifier is NOT valid
+     * @throws TucsonInvalidTupleCentreIdException if the given tuple centre Identifier is NOT valid
      */
     public AdminACCProxyAgentSide(final Object aid, final String node,
-            final int port) throws TucsonInvalidAgentIdException,
+                                  final int port) throws TucsonInvalidAgentIdException,
             TucsonInvalidTupleCentreIdException {
         this(aid, node, port, "", "");
     }
@@ -85,23 +76,16 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
      * address of the TuCSoN node the agent is willing to interact with, the TCP
      * port also, as well as the agent username and (encrypted) password.
      *
-     * @param aid
-     *            the associated agent Identifier or name (String)
-     * @param node
-     *            the IP address of the target TuCSoN node
-     * @param port
-     *            the TCP port of the target TuCSoN node
-     * @param uname
-     *            the associated agent user name
-     * @param psw
-     *            the associated agent (encrypted) password
-     * @throws TucsonInvalidAgentIdException
-     *             if the given agent Identifier is NOT valid
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given tuple centre Identifier is NOT valid
+     * @param aid   the associated agent Identifier or name (String)
+     * @param node  the IP address of the target TuCSoN node
+     * @param port  the TCP port of the target TuCSoN node
+     * @param uname the associated agent user name
+     * @param psw   the associated agent (encrypted) password
+     * @throws TucsonInvalidAgentIdException       if the given agent Identifier is NOT valid
+     * @throws TucsonInvalidTupleCentreIdException if the given tuple centre Identifier is NOT valid
      */
     public AdminACCProxyAgentSide(final Object aid, final String node,
-            final int port, final String uname, final String psw)
+                                  final int port, final String uname, final String psw)
             throws TucsonInvalidAgentIdException,
             TucsonInvalidTupleCentreIdException {
         super(aid, node, port);
@@ -166,7 +150,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
 
     @Override
     public void install(final RBACStructure rbac, final Long timeout,
-            final String n, final int p)
+                        final String n, final int p)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException,
             OperationNotAllowedException {
@@ -415,7 +399,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
     }
 
     private void addRolePolicy(final Policy policy, final String roleName,
-            final Long l) throws TucsonOperationNotPossibleException,
+                               final Long l) throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
 
         final LogicTuple policyTuple = LogicTuples.newInstance("role_policy", TupleArguments.newValueArgument(
@@ -442,22 +426,22 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
             tmpNode = this.node;
             tmpPort = this.port;
         }
-        
+
         if (!tmpNode.equals("localhost")) {
-        	if (!tmpNode.equals("127.0.0.1")) {
+            if (!tmpNode.equals("127.0.0.1")) {
        /* if (tmpNode.equalsIgnoreCase("localhost")
                 || tmpNode.equalsIgnoreCase("127.0.0.1")
                 || tmpNode.equalsIgnoreCase("'127.0.0.1'")) { */
-	            InetAddress localhost;
-	            try {
-	                localhost = InetAddress.getLocalHost();
-	                final String localNodeAddress = localhost.getHostAddress();
-	                tmpNode = localNodeAddress;
-	            } catch (final UnknownHostException e) {
+                InetAddress localhost;
+                try {
+                    localhost = InetAddress.getLocalHost();
+                    final String localNodeAddress = localhost.getHostAddress();
+                    tmpNode = localNodeAddress;
+                } catch (final UnknownHostException e) {
                     return new TucsonTupleCentreIdDefault(TC_ORG, "'"
-	                        + tmpNode + "'", "" + tmpPort);
-	            } 
-	        }
+                            + tmpNode + "'", "" + tmpPort);
+                }
+            }
         }
         return new TucsonTupleCentreIdDefault(TC_ORG, "'" + tmpNode
                 + "'", "" + tmpPort);

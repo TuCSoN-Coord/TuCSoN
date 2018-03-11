@@ -3,13 +3,12 @@
  */
 package alice.tuple.java.impl;
 
-import alice.tuple.java.api.JVar;
 import alice.tuple.java.api.JArgType;
+import alice.tuple.java.api.JVar;
 import alice.tuple.java.exceptions.InvalidJVarException;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014
- *
  */
 public class JVarDefault implements JVar {
 
@@ -17,12 +16,10 @@ public class JVarDefault implements JVar {
     private final JArgType type;
 
     // private JVal val;
+
     /**
-     *
-     * @param t
-     *            the JArgType of this JVar
-     * @throws InvalidJVarException
-     *             if the given type or name are invalid (e.g. null)
+     * @param t the JArgType of this JVar
+     * @throws InvalidJVarException if the given type or name are invalid (e.g. null)
      */
     public JVarDefault(final JArgType t) throws InvalidJVarException {
         if (t != null) {

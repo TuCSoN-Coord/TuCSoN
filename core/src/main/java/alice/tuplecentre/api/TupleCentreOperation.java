@@ -2,9 +2,9 @@ package alice.tuplecentre.api;
 
 import java.util.List;
 
-import alice.tuple.logic.LogicTuple;
 import alice.tuple.Tuple;
 import alice.tuple.TupleTemplate;
+import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.OperationCompletionListener;
 import alice.tuplecentre.core.TupleCentreOpType;

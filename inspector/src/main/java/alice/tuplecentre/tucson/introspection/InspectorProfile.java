@@ -18,23 +18,18 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.service.ACCDescription;
 
 /**
- *
  * @author Unknown...
- *
  */
 public class InspectorProfile extends ACCDescription {
 
     private static final long serialVersionUID = 4542989407611049869L;
 
     /**
-     *
-     * @param aid
-     *            the agent identifier used by the inspector
-     * @param tid
-     *            the identifier of the tuple centre under inspection
+     * @param aid the agent identifier used by the inspector
+     * @param tid the identifier of the tuple centre under inspection
      */
     public InspectorProfile(final TucsonAgentId aid,
-            final TucsonTupleCentreId tid) {
+                            final TucsonTupleCentreId tid) {
         super();
         this.setProperty("context-name", "inspector");
         this.setProperty("agent-identity", aid.toString());

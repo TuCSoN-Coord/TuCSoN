@@ -18,7 +18,7 @@ import alice.tuple.logic.TupleArguments;
 
 /**
  * Represents an internal operation of a ReSpecT virtual machine.
- *
+ * <p>
  * The possible argument of the operation is represented by a logic tuple
  *
  * @author Alessandro Ricci
@@ -50,9 +50,7 @@ public final class InternalOperation {
     private static final int OPTYPE_URDR = 8;
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeGetEnv(final LogicTuple t) {
@@ -60,9 +58,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeGetR(final LogicTuple t) {
@@ -70,9 +66,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeGetSR(final LogicTuple t) {
@@ -80,9 +74,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeInAllR(final LogicTuple t) {
@@ -90,9 +82,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeInR(final LogicTuple t) {
@@ -100,9 +90,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeInSR(final LogicTuple t) {
@@ -110,9 +98,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeNoAllR(final LogicTuple t) {
@@ -120,9 +106,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeNoR(final LogicTuple t) {
@@ -130,9 +114,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeNoSR(final LogicTuple t) {
@@ -140,9 +122,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeOutAllR(final LogicTuple t) {
@@ -150,9 +130,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeOutR(final LogicTuple t) {
@@ -160,9 +138,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeOutSR(final LogicTuple t) {
@@ -170,9 +146,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeRdAllR(final LogicTuple t) {
@@ -180,9 +154,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeRdR(final LogicTuple t) {
@@ -190,9 +162,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeRdSR(final LogicTuple t) {
@@ -200,9 +170,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeSetEnv(final LogicTuple t) {
@@ -210,9 +178,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeSetR(final LogicTuple t) {
@@ -220,9 +186,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeSetSR(final LogicTuple t) {
@@ -230,9 +194,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeSpawnR(final LogicTuple t) {
@@ -240,9 +202,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeUinR(final LogicTuple t) {
@@ -250,9 +210,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeUnoR(final LogicTuple t) {
@@ -260,9 +218,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple argument of this internal operation
+     * @param t the tuple argument of this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeUrdR(final LogicTuple t) {
@@ -279,7 +235,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return the tuple argument of this internal operation
      */
     public LogicTuple getArgument() {
@@ -287,7 +242,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return the tuple result of this internal operation
      */
     public LogicTuple getResult() {
@@ -295,7 +249,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a get_env
      */
     public boolean isGetEnv() {
@@ -303,7 +256,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a get
      */
     public boolean isGetR() {
@@ -311,7 +263,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a get_s
      */
     public boolean isGetSR() {
@@ -319,7 +270,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a in_all
      */
     public boolean isInAllR() {
@@ -327,7 +277,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a in
      */
     public boolean isInR() {
@@ -335,7 +284,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a in_s
      */
     public boolean isInSR() {
@@ -343,7 +291,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a no_all
      */
     public boolean isNoAllR() {
@@ -351,7 +298,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a no
      */
     public boolean isNoR() {
@@ -359,7 +305,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a no_s
      */
     public boolean isNoSR() {
@@ -367,7 +312,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a out_all
      */
     public boolean isOutAllR() {
@@ -375,7 +319,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a out
      */
     public boolean isOutR() {
@@ -383,7 +326,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a out_s
      */
     public boolean isOutSR() {
@@ -391,7 +333,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a rd_all
      */
     public boolean isRdAllR() {
@@ -399,7 +340,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a rd
      */
     public boolean isRdR() {
@@ -407,7 +347,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a rd_s
      */
     public boolean isRdSR() {
@@ -415,7 +354,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a set_env
      */
     public boolean isSetEnv() {
@@ -423,7 +361,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a set
      */
     public boolean isSetR() {
@@ -431,7 +368,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a set_s
      */
     public boolean isSetSR() {
@@ -439,7 +375,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a spawn
      */
     public boolean isSpawnR() {
@@ -447,7 +382,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a uin
      */
     public boolean isUinR() {
@@ -455,7 +389,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a uno
      */
     public boolean isUnoR() {
@@ -463,7 +396,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return <code>true</code> if this is a urd
      */
     public boolean isUrdR() {
@@ -471,9 +403,7 @@ public final class InternalOperation {
     }
 
     /**
-     *
-     * @param t
-     *            the tuple result of this internal operation
+     * @param t the tuple result of this internal operation
      */
     public void setResult(final LogicTuple t) {
         this.result = t;
@@ -485,7 +415,6 @@ public final class InternalOperation {
     }
 
     /**
-     *
      * @return the tuple representation of this internal operation
      */
     public LogicTuple toTuple() {

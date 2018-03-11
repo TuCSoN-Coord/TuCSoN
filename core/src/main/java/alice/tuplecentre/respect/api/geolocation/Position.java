@@ -13,9 +13,7 @@ import alice.tuplecentre.respect.api.place.PhPlace;
 import alice.tuprolog.Term;
 
 /**
- * 
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
- * 
  */
 public class Position implements Serializable {
     public static final String DNS = "dns";
@@ -34,7 +32,7 @@ public class Position implements Serializable {
     private IPlace phPlace; // lat, lng
 
     /**
-     * 
+     *
      */
     public Position() {
         this.phPlace = new PhPlace("coords(Lat,Lng)");
@@ -45,7 +43,6 @@ public class Position implements Serializable {
     }
 
     /**
-     * 
      * @return the DNS position
      */
     public IPlace getDnsPlace() {
@@ -53,7 +50,6 @@ public class Position implements Serializable {
     }
 
     /**
-     * 
      * @return the IP position
      */
     public IPlace getIpPlace() {
@@ -61,7 +57,6 @@ public class Position implements Serializable {
     }
 
     /**
-     * 
      * @return the MAP position
      */
     public IPlace getMapPlace() {
@@ -69,7 +64,6 @@ public class Position implements Serializable {
     }
 
     /**
-     * 
      * @return the ORG position
      */
     public IPlace getOrgPlace() {
@@ -77,7 +71,6 @@ public class Position implements Serializable {
     }
 
     /**
-     * 
      * @return the PH position
      */
     public IPlace getPhPlace() {
@@ -85,9 +78,7 @@ public class Position implements Serializable {
     }
 
     /**
-     * 
-     * @param space
-     *            the space whose correspondant position should be retrieved
+     * @param space the space whose correspondant position should be retrieved
      * @return the position in the specified space
      */
     public IPlace getPlace(final String space) {
@@ -106,9 +97,7 @@ public class Position implements Serializable {
     }
 
     /**
-     * 
-     * @param space
-     *            the space whose correspondant position should be retrieved
+     * @param space the space whose correspondant position should be retrieved
      * @return the position in the specified space
      */
     public IPlace getPlace(final Term space) {
@@ -128,65 +117,50 @@ public class Position implements Serializable {
     }
 
     /**
-     * 
-     * @param dns
-     *            the String representation of the DNS place to set
+     * @param dns the String representation of the DNS place to set
      */
     public void setDnsPlace(final String dns) {
         this.dnsPlace = new DnsPlace(dns);
     }
 
     /**
-     * 
-     * @param ip
-     *            the String representation of the IP place to set
+     * @param ip the String representation of the IP place to set
      */
     public void setIpPlace(final String ip) {
         this.ipPlace = new IpPlace(ip);
     }
 
     /**
-     * 
-     * @param map
-     *            the String representation of the MAP place to set
+     * @param map the String representation of the MAP place to set
      */
     public void setMapPlace(final String map) {
         this.mapPlace = new MapPlace(map);
     }
 
     /**
-     * 
-     * @param org
-     *            the String representation of the ORG place to set
+     * @param org the String representation of the ORG place to set
      */
     public void setOrgPlace(final String org) {
         this.orgPlace = new OrgPlace(org);
     }
 
     /**
-     * 
-     * @param lat
-     *            the latitude of the PH place to set
-     * @param lng
-     *            the longitude of the PH place to set
+     * @param lat the latitude of the PH place to set
+     * @param lng the longitude of the PH place to set
      */
     public void setPhPlace(final double lat, final double lng) {
         this.phPlace = new PhPlace("coords(" + lat + "," + lng + ")");
     }
 
     /**
-     * 
-     * @param latLng
-     *            the String representation of the PH place to set
+     * @param latLng the String representation of the PH place to set
      */
     public void setPhPlace(final String latLng) {
         this.phPlace = new PhPlace(latLng);
     }
 
     /**
-     * 
-     * @param place
-     *            the place to set
+     * @param place the place to set
      */
     public void setPlace(final IPlace place) {
         if (place.isPhysical()) {
@@ -209,11 +183,8 @@ public class Position implements Serializable {
     }
 
     /**
-     * 
-     * @param space
-     *            the String representation of the sort of space to consider
-     * @param place
-     *            the String representation of the place to set
+     * @param space the String representation of the sort of space to consider
+     * @param place the String representation of the place to set
      */
     public void setPlace(final String space, final String place) {
         if (Position.PH.equals(space)) {

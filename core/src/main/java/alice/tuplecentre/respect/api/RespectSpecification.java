@@ -24,9 +24,7 @@ public class RespectSpecification extends AbstractBehaviourSpecification {
     private final String spec;
 
     /**
-     *
-     * @param s
-     *            the String representation of the ReSpecT specification
+     * @param s the String representation of the ReSpecT specification
      */
     public RespectSpecification(final String s) {
         super();

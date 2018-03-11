@@ -38,20 +38,19 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidSpecificationExcepti
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.tucson.introspection.ShutdownMsg;
-import alice.tuplecentre.tucson.network.TucsonMsgReply;
-import alice.tuplecentre.tucson.network.TucsonMsgRequest;
 import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
+import alice.tuplecentre.tucson.network.messages.TucsonMsgReply;
+import alice.tuplecentre.tucson.network.messages.TucsonMsgRequest;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMsg;
 import alice.tuplecentre.tucson.network.messages.events.OutputEventMsgDefault;
+import alice.tuplecentre.tucson.network.messages.inspection.ShutdownMsg;
 
 /**
- *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
- *
+ * michele.bombardi@studio.unibo.it)
  */
 public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
 
@@ -67,25 +66,17 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     private TucsonTupleCentreId tcId;
 
     /**
-     *
-     * @param man
-     *            the ACC provider who created this ACC Proxy at TuCSoN node
+     * @param man the ACC provider who created this ACC Proxy at TuCSoN node
      *            side
-     * @param d
-     *            the network protocol used by this ACC Proxy at TuCSoN node
+     * @param d   the network protocol used by this ACC Proxy at TuCSoN node
      *            side
-     * @param n
-     *            the TuCSoN node this ACC Proxy at TuCSoN node side belongs to
-     * @param p
-     *            the object describing the request of entering the TuCSoN
+     * @param n   the TuCSoN node this ACC Proxy at TuCSoN node side belongs to
+     * @param p   the object describing the request of entering the TuCSoN
      *            system
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
-     *             message, does not represent a valid TuCSoN identifier
-     *
-     * @throws TucsonInvalidAgentIdException
-     *             if the ACCDescription's "agent-identity" property does not
-     *             represent a valid TuCSoN identifier
+     * @throws TucsonInvalidTupleCentreIdException if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
+     *                                             message, does not represent a valid TuCSoN identifier
+     * @throws TucsonInvalidAgentIdException       if the ACCDescription's "agent-identity" property does not
+     *                                             represent a valid TuCSoN identifier
      */
     public ACCProxyNodeSide(final ACCProvider man,
                             final TucsonProtocol d, final TucsonNodeService n,
@@ -117,8 +108,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     }
 
     /**
-     * @param op
-     *            the operation just completed
+     * @param op the operation just completed
      */
     @Override
     public void operationCompleted(final AbstractTupleCentreOperation op) {
@@ -162,7 +152,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     }
 
     /**
-     * 
+     *
      */
     @Override
     public void run() {
@@ -207,7 +197,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
             // } catch (InstantiationNotPossibleException e) {
             // e.printStackTrace();
             // }
-            
+
             // Operation Make
             final RespectOperationDefault opRequested = this.makeOperation(
                     evMsg.getOpType(), evMsg.getTuple());
@@ -503,9 +493,8 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
         System.out.println("..[ACCProxyNodeSide (" + this.node.getTCPPort()
                 + ", " + this.ctxId + ", " + this.agentName + ")]: " + st);
     }
-    
+
     /**
-     *
      * @param opType
      * @param tuple
      * @return
@@ -519,22 +508,22 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     || opType == TupleCentreOpType.SET
                     || opType == TupleCentreOpType.SET_S) {
                 op = RespectOperationDefault.make(opType, tuple, null); // blocking
-                                                                       // operation,
-                                                                       // no
-                                                                       // need
-                                                                       // for
-                                                                       // operation
-                                                                       // completion
-                                                                       // listener
+                // operation,
+                // no
+                // need
+                // for
+                // operation
+                // completion
+                // listener
             } else {
                 op = RespectOperationDefault.make(opType, tuple, this); // non
-                                                                       // blocking
-                                                                       // operation,
-                                                                       // need
-                                                                       // for
-                                                                       // operation
-                                                                       // completion
-                                                                       // listener
+                // blocking
+                // operation,
+                // need
+                // for
+                // operation
+                // completion
+                // listener
             }
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();
