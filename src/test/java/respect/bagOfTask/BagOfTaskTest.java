@@ -1,6 +1,6 @@
 package respect.bagOfTask;
 
-import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
 
 /**
  * NOT configured to run multiple masters. How to do so? Does it run

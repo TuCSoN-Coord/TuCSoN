@@ -2,24 +2,24 @@ package helloWorld;
 
 import alice.logictuple.LogicTuple;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tucson.api.TucsonMetaACC;
+import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
-import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
-import alice.tuplecentre.tucson.api.TucsonMetaACC;
-import alice.tuplecentre.tucson.api.TucsonOperation;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.acc.NegotiationACC;
-import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
-import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /*
- * 1) Extend alice.tuplecentre.tucson.api.AbstractTucsonAgent class.
+ * 1) Extend alice.tucson.api.AbstractTucsonAgent class.
  */
 /**
- * Java TuCSoN Agent extending alice.tuplecentre.tucson.api.TucsonAgent base class.
+ * Java TuCSoN Agent extending alice.tucson.api.TucsonAgent base class.
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */

@@ -4,24 +4,23 @@
 package persistency;
 
 import java.io.IOException;
-
 import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tucson.api.acc.EnhancedACC;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonMetaACC;
+import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tucson.network.exceptions.DialogInitializationException;
+import alice.tucson.service.TucsonNodeService;
+import alice.tucson.utilities.Utils;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.tucson.api.TucsonAgentId;
-import alice.tuplecentre.tucson.api.TucsonMetaACC;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.acc.EnhancedACC;
-import alice.tuplecentre.tucson.api.acc.NegotiationACC;
-import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
-import alice.tuplecentre.tucson.service.TucsonNodeService;
-import alice.tuplecentre.tucson.utilities.Utils;
 
 /**
  * @author ste

@@ -17,11 +17,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import alice.respect.core.RespectOperationDefault;
+import alice.respect.core.RespectVMContext;
 import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.Tuple;
 import alice.tuplecentre.api.exceptions.InvalidCoordinationOperationException;
-import alice.tuplecentre.respect.core.RespectOperationDefault;
-import alice.tuplecentre.respect.core.RespectVMContext;
 
 
 /**

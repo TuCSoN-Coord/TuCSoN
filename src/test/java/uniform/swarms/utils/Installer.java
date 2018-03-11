@@ -3,7 +3,7 @@
  */
 package uniform.swarms.utils;
 
-import alice.tuplecentre.tucson.service.TucsonNodeService;
+import alice.tucson.service.TucsonNodeService;
 
 /**
  * @author ste

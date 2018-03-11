@@ -23,26 +23,25 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import alice.logictuple.LogicTuple;
 import alice.logictuple.Value;
 import alice.logictuple.Var;
 import alice.logictuple.exceptions.InvalidLogicTupleException;
+import alice.tucson.api.AbstractTucsonAgent;
+import alice.tucson.api.TucsonOperation;
+import alice.tucson.api.acc.EnhancedSyncACC;
+import alice.tucson.api.acc.NegotiationACC;
+import alice.tucson.api.TucsonAgentId;
+import alice.tucson.api.TucsonMetaACC;
+import alice.tucson.api.TucsonTupleCentreId;
+import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tucson.network.exceptions.DialogInitializationException;
+import alice.tucson.service.TucsonNodeService;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
-import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
-import alice.tuplecentre.tucson.api.TucsonAgentId;
-import alice.tuplecentre.tucson.api.TucsonMetaACC;
-import alice.tuplecentre.tucson.api.TucsonOperation;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
-import alice.tuplecentre.tucson.api.acc.NegotiationACC;
-import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
-import alice.tuplecentre.tucson.service.TucsonNodeService;
 
 /**
  * @author Stefano Mariani (mailto: s [dot] mariani [at] unibo [dot] it)
@@ -125,7 +124,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
 
     /*
      * (non-Javadoc)
-     * @see alice.tuplecentre.tucson.api.AbstractTucsonAgent#main()
+     * @see alice.tucson.api.AbstractTucsonAgent#main()
      */
     @Override
     protected void main() {
@@ -218,7 +217,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
     /*
      * (non-Javadoc)
      * @see
-     * alice.tuplecentre.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
+     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
      * .core.AbstractTupleCentreOperation)
      */
     @Override
@@ -231,7 +230,7 @@ public final class DicePlayer extends AbstractTucsonAgent {
     /*
      * (non-Javadoc)
      * @see
-     * alice.tuplecentre.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre.tucson.
+     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tucson.
      * api.TucsonOperation)
      */
     @Override
