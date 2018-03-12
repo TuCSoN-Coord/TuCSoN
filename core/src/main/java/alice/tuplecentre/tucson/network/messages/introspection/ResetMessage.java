@@ -17,6 +17,8 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 
 /**
+ * // TODO: 12/03/2018 add documentation
+ *
  * @author Unknown...
  */
 public class ResetMessage extends AbstractNodeMessage {

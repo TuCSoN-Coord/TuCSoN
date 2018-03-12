@@ -13,22 +13,38 @@
  */
 package alice.tuplecentre.tucson.network.messages.introspection;
 
-import alice.tuplecentre.tucson.api.TucsonAgentId;
+import java.util.List;
 
+import alice.tuple.Tuple;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
  * // TODO: 12/03/2018 add documentation
  *
  * @author Unknown...
  */
-public class NewNodeInspectorMessage extends AbstractNodeMessage {
+public class SetEventSetMessageDefault extends AbstractNodeMessage implements SetEventSetMessage {
 
-    private static final long serialVersionUID = 6582272720835623886L;
+    private List<Tuple> eventWnSet;
 
     /**
-     * @param i the agent id of the sender
+     * @param id the agent id of the sender
+     * @param ts the list of tuples representing events to overwrite the InQ
+     *           with
      */
-    public NewNodeInspectorMessage(final TucsonAgentId i) {
-        super(i, "newNodeInspector");
+    public SetEventSetMessageDefault(final TucsonAgentId id, final List<? extends Tuple> ts) {
+        super(id, "setEventSet");
+        this.eventWnSet.addAll(ts);
+    }
+
+    @Override
+    public List<Tuple> getEventWnSet() {
+        return this.eventWnSet;
+    }
+
+    @Override
+    public void setEventWnSet(final List<? extends Tuple> set) {
+        this.eventWnSet.clear();
+        this.eventWnSet.addAll(set);
     }
 }

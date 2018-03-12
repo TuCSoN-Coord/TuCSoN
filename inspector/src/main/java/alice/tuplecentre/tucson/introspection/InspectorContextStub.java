@@ -29,10 +29,11 @@ import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMessageDefault;
 import alice.tuplecentre.tucson.network.messages.introspection.IsActiveStepModeMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessageDefault;
 import alice.tuplecentre.tucson.network.messages.introspection.NextStepMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.ResetMessage;
-import alice.tuplecentre.tucson.network.messages.introspection.SetEventSetMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.SetEventSetMessageDefault;
 import alice.tuplecentre.tucson.network.messages.introspection.SetProtocolMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.SetTupleSetMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMessage;
@@ -158,7 +159,7 @@ public class InspectorContextStub implements InspectorContext {
 
     @Override
     public void setEventSet(final List<Tuple> wset) throws DialogSendException {
-        this.dialog.sendNodeMsg(new SetEventSetMessage(this.id, wset));
+        this.dialog.sendNodeMsg(new SetEventSetMessageDefault(this.id, wset));
     }
 
     @Override
@@ -202,7 +203,7 @@ public class InspectorContextStub implements InspectorContext {
             this.dialog.receiveEnterRequestAnswer();
             if (this.dialog.isEnterRequestAccepted()) {
                 this.protocol = new InspectorProtocolDefault();
-                final NewInspectorMessageDefault msg = new NewInspectorMessageDefault(this.id,
+                final NewInspectorMessage msg = new NewInspectorMessageDefault(this.id,
                         tc.toString(), this.protocol);
                 this.dialog.sendInspectorMsg(msg);
                 return this.dialog;

@@ -7,7 +7,7 @@ import alice.tuplecentre.tucson.introspection.InspectorProtocol;
  *
  * @author Enrico Siboni
  */
-interface NewInspectorMessage extends NodeMessage {
+public interface NewInspectorMessage extends NodeMessage {
 
     /**
      * @return the info
