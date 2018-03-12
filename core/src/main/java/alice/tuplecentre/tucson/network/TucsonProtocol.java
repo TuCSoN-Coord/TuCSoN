@@ -10,8 +10,8 @@ import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.network.messages.TucsonMessage;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
-import alice.tuplecentre.tucson.network.messages.introspection.AbstractNodeMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.NodeMessage;
 import alice.tuplecentre.tucson.service.ACCDescription;
 
 /**
@@ -103,7 +103,7 @@ public interface TucsonProtocol extends Serializable {
      * @return the node message received over the network
      * @throws DialogReceiveException if something goes wrong in the underlying network
      */
-    AbstractNodeMessage receiveNodeMsg() throws DialogReceiveException;
+    NodeMessage receiveNodeMsg() throws DialogReceiveException;
 
     /**
      * @param ctx the ACC profile to be associated to this protocol
@@ -160,5 +160,5 @@ public interface TucsonProtocol extends Serializable {
      * @param msg the message to send over the network
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void sendNodeMsg(final AbstractNodeMessage msg) throws DialogSendException;
+    void sendNodeMsg(final NodeMessage msg) throws DialogSendException;
 }

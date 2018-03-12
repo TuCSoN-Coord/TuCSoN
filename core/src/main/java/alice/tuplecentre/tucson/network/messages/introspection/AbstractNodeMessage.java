@@ -14,17 +14,15 @@
 package alice.tuplecentre.tucson.network.messages.introspection;
 
 import alice.tuplecentre.tucson.api.TucsonAgentId;
-import alice.tuplecentre.tucson.network.messages.Message;
 
 
 /**
- * // TODO: 12/03/2018 add documentation... and maybe change class name
+ * // TODO: 12/03/2018 add documentation... and maybe change class name to a more evocative
  *
  * @author Unknown...
  */
-public abstract class AbstractNodeMessage implements Message {
+public abstract class AbstractNodeMessage implements NodeMessage {
 
-    private static final long serialVersionUID = -3499870079832457223L;
     private String action;
     private TucsonAgentId aid;
 
@@ -44,38 +42,27 @@ public abstract class AbstractNodeMessage implements Message {
         this.action = act;
     }
 
-    /**
-     *
-     */
     protected AbstractNodeMessage() {
         super();
     }
 
-    /**
-     * @return the action
-     */
+    @Override
     public String getAction() {
         return this.action;
     }
 
-    /**
-     * @return the aid
-     */
-    public TucsonAgentId getAid() {
+    @Override
+    public TucsonAgentId getAgentIdentifier() {
         return this.aid;
     }
 
-    /**
-     * @param a the action to set
-     */
+    @Override
     public void setAction(final String a) {
         this.action = a;
     }
 
-    /**
-     * @param id the aid to set
-     */
-    public void setAid(final TucsonAgentId id) {
+    @Override
+    public void setAgentIdentifier(final TucsonAgentId id) {
         this.aid = id;
     }
 }

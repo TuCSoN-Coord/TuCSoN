@@ -102,7 +102,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
 
     @Override
     public synchronized void exit(final ShutdownMsg msg) {
-        this.log("Shutdown request received from <" + msg.getAid() + ">...");
+        this.log("Shutdown request received from <" + msg.getAgentIdentifier() + ">...");
         this.ex = true;
         this.notify();
     }

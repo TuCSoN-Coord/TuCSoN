@@ -44,11 +44,11 @@ import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
-import alice.tuplecentre.tucson.network.messages.introspection.AbstractNodeMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMsg;
 import alice.tuplecentre.tucson.network.messages.introspection.IsActiveStepModeMsg;
 import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMsg;
 import alice.tuplecentre.tucson.network.messages.introspection.NextStepMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.NodeMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.SetEventSetMsg;
 import alice.tuplecentre.tucson.network.messages.introspection.SetProtocolMsg;
 import alice.tuplecentre.tucson.network.messages.introspection.SetTupleSetMsg;
@@ -118,7 +118,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
 
     @Override
     public void exit(final ShutdownMsg msg) {
-        this.log("Shutdown request received from <" + msg.getAid() + ">...");
+        this.log("Shutdown request received from <" + msg.getAgentIdentifier() + ">...");
         this.shutdown = true;
     }
 
@@ -302,7 +302,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
             TupleCentreContainer.doManagementOperation(
                     TupleCentreOpType.ADD_INSP, this.tcId, this);
             while (!this.shutdown) {
-                final AbstractNodeMessage msg = this.dialog.receiveNodeMsg();
+                final NodeMessage msg = this.dialog.receiveNodeMsg();
                 final Class<?> cl = msg.getClass();
                 final Method m = this.getClass().getMethod(msg.getAction(),
                         new Class[]{cl});
