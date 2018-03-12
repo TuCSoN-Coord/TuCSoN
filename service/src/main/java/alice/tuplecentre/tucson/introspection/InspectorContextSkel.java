@@ -46,7 +46,7 @@ import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.IsActiveStepModeMessage;
-import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessageDefault;
 import alice.tuplecentre.tucson.network.messages.introspection.NextStepMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.NodeMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.SetEventSetMessage;
@@ -102,7 +102,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         super();
         this.dialog = d;
         this.manager = man;
-        NewInspectorMessage msg = null;
+        NewInspectorMessageDefault msg = null;
         this.ctxId = Integer.parseInt(p.getProperty("context-id"));
         final String name = p.getProperty("agent-identity");
         this.agentId = new TucsonAgentIdDefault(name);

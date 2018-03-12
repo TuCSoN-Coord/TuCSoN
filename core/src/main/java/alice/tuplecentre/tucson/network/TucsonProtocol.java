@@ -10,7 +10,7 @@ import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.network.messages.TucsonMessage;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
-import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessageDefault;
 import alice.tuplecentre.tucson.network.messages.introspection.NodeMessage;
 import alice.tuplecentre.tucson.service.ACCDescription;
 
@@ -79,7 +79,7 @@ public interface TucsonProtocol extends Serializable {
      * @return the Inspector message received over the network
      * @throws DialogReceiveException if something goes wrong in the underlying network
      */
-    NewInspectorMessage receiveInspectorMsg() throws DialogReceiveException;
+    NewInspectorMessageDefault receiveInspectorMsg() throws DialogReceiveException;
 
     /**
      * @return the TuCSoN message received over the network
@@ -131,7 +131,7 @@ public interface TucsonProtocol extends Serializable {
      * @param msg the message to send over the network
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void sendInspectorMsg(final NewInspectorMessage msg) throws DialogSendException;
+    void sendInspectorMsg(final NewInspectorMessageDefault msg) throws DialogSendException;
 
     /**
      * @param msg the message to send over the network

@@ -29,7 +29,7 @@ import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMessageDefault;
 import alice.tuplecentre.tucson.network.messages.introspection.IsActiveStepModeMessage;
-import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessageDefault;
 import alice.tuplecentre.tucson.network.messages.introspection.NextStepMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.ResetMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.SetEventSetMessage;
@@ -202,7 +202,7 @@ public class InspectorContextStub implements InspectorContext {
             this.dialog.receiveEnterRequestAnswer();
             if (this.dialog.isEnterRequestAccepted()) {
                 this.protocol = new InspectorProtocolDefault();
-                final NewInspectorMessage msg = new NewInspectorMessage(this.id,
+                final NewInspectorMessageDefault msg = new NewInspectorMessageDefault(this.id,
                         tc.toString(), this.protocol);
                 this.dialog.sendInspectorMsg(msg);
                 return this.dialog;

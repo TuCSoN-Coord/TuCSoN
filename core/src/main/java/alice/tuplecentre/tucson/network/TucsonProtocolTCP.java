@@ -33,7 +33,7 @@ import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.network.messages.TucsonMessage;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
-import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessageDefault;
 import alice.tuplecentre.tucson.network.messages.introspection.NodeMessage;
 
 /*
@@ -202,10 +202,10 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * @see alice.tuplecentre.tucson.network.AbstractTucsonProtocol#receiveInspectorMsg()
      */
     @Override
-    public NewInspectorMessage receiveInspectorMsg() throws DialogReceiveException {
-        NewInspectorMessage msg;
+    public NewInspectorMessageDefault receiveInspectorMsg() throws DialogReceiveException {
+        NewInspectorMessageDefault msg;
         try {
-            msg = (NewInspectorMessage) this.inStream.readObject();
+            msg = (NewInspectorMessageDefault) this.inStream.readObject();
         } catch (final IOException e) {
             throw new DialogReceiveException(e);
         } catch (final ClassNotFoundException e) {
@@ -291,10 +291,10 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * (non-Javadoc)
      * @see
      * alice.tuplecentre.tucson.network.AbstractTucsonProtocol#sendInspectorMsg(alice.tuplecentre.tucson
-     * .introspection.NewInspectorMessage)
+     * .introspection.NewInspectorMessageDefault)
      */
     @Override
-    public void sendInspectorMsg(final NewInspectorMessage msg)
+    public void sendInspectorMsg(final NewInspectorMessageDefault msg)
             throws DialogSendException {
         try {
             this.outStream.writeObject(msg);
