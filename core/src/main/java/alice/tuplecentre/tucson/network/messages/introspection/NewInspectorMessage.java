@@ -20,7 +20,7 @@ import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 /**
  * @author Unknown...
  */
-public class NewInspectorMsg extends AbstractNodeMessage {
+public class NewInspectorMessage extends AbstractNodeMessage {
 
     private static final long serialVersionUID = -8887997708884852194L;
     private InspectorProtocol info;
@@ -31,8 +31,8 @@ public class NewInspectorMsg extends AbstractNodeMessage {
      * @param tcn the identifier of the tuple centre under inspection
      * @param i   the inspection protocol used
      */
-    public NewInspectorMsg(final TucsonAgentId id, final String tcn,
-                           final InspectorProtocol i) {
+    public NewInspectorMessage(final TucsonAgentId id, final String tcn,
+                               final InspectorProtocol i) {
         super(id, "newInspector");
         this.tcName = tcn;
         this.info = i;

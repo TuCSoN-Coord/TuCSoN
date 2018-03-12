@@ -26,15 +26,16 @@ import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.TucsonProtocolTCP;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
-import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMsg;
-import alice.tuplecentre.tucson.network.messages.introspection.IsActiveStepModeMsg;
-import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMsg;
-import alice.tuplecentre.tucson.network.messages.introspection.NextStepMsg;
-import alice.tuplecentre.tucson.network.messages.introspection.SetEventSetMsg;
-import alice.tuplecentre.tucson.network.messages.introspection.SetProtocolMsg;
-import alice.tuplecentre.tucson.network.messages.introspection.SetTupleSetMsg;
-import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMsg;
-import alice.tuplecentre.tucson.network.messages.introspection.StepModeMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.IsActiveStepModeMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.NextStepMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.ResetMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.SetEventSetMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.SetProtocolMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.SetTupleSetMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.StepModeMessage;
 import alice.tuplecentre.tucson.service.ACCDescription;
 
 /**
@@ -117,12 +118,12 @@ public class InspectorContextStub implements InspectorContext {
     @Override
     public void exit() throws DialogSendException {
         this.exitFlag = true;
-        this.dialog.sendNodeMsg(new ShutdownMsg(this.id));
+        this.dialog.sendNodeMsg(new ShutdownMessage(this.id));
     }
 
     @Override
     public void getSnapshot(final byte snapshotMsg) throws DialogSendException {
-        this.dialog.sendNodeMsg(new GetSnapshotMsg(this.id, snapshotMsg));
+        this.dialog.sendNodeMsg(new GetSnapshotMessage(this.id, snapshotMsg));
     }
 
     @Override
@@ -133,7 +134,7 @@ public class InspectorContextStub implements InspectorContext {
     @Override
     public void isStepMode() {
         try {
-            this.dialog.sendNodeMsg(new IsActiveStepModeMsg(this.id));
+            this.dialog.sendNodeMsg(new IsActiveStepModeMessage(this.id));
         } catch (final DialogException e) {
             e.printStackTrace();
         }
@@ -141,7 +142,7 @@ public class InspectorContextStub implements InspectorContext {
 
     @Override
     public void nextStep() throws DialogSendException {
-        this.dialog.sendNodeMsg(new NextStepMsg(this.id));
+        this.dialog.sendNodeMsg(new NextStepMessage(this.id));
     }
 
     @Override
@@ -151,12 +152,12 @@ public class InspectorContextStub implements InspectorContext {
 
     @Override
     public void reset() throws DialogSendException {
-        this.dialog.sendNodeMsg(new ResetMsg(this.id));
+        this.dialog.sendNodeMsg(new ResetMessage(this.id));
     }
 
     @Override
     public void setEventSet(final List<Tuple> wset) throws DialogSendException {
-        this.dialog.sendNodeMsg(new SetEventSetMsg(this.id, wset));
+        this.dialog.sendNodeMsg(new SetEventSetMessage(this.id, wset));
     }
 
     @Override
@@ -170,18 +171,18 @@ public class InspectorContextStub implements InspectorContext {
         newp.setPendingQueryObservType(p.getPendingQueryObservType());
         newp.setReactionsObservType(p.getReactionsObservType());
         newp.setStepModeObservType(p.getStepModeObservType());
-        this.dialog.sendNodeMsg(new SetProtocolMsg(this.id, newp));
+        this.dialog.sendNodeMsg(new SetProtocolMessage(this.id, newp));
         this.protocol = p;
     }
 
     @Override
     public void setTupleSet(final List<Tuple> tset) throws DialogSendException {
-        this.dialog.sendNodeMsg(new SetTupleSetMsg(this.id, tset));
+        this.dialog.sendNodeMsg(new SetTupleSetMessage(this.id, tset));
     }
 
     @Override
     public void vmStepMode() throws DialogSendException {
-        this.dialog.sendNodeMsg(new StepModeMsg(this.id));
+        this.dialog.sendNodeMsg(new StepModeMessage(this.id));
     }
 
     /**
@@ -200,7 +201,7 @@ public class InspectorContextStub implements InspectorContext {
             this.dialog.receiveEnterRequestAnswer();
             if (this.dialog.isEnterRequestAccepted()) {
                 this.protocol = new InspectorProtocolDefault();
-                final NewInspectorMsg msg = new NewInspectorMsg(this.id,
+                final NewInspectorMessage msg = new NewInspectorMessage(this.id,
                         tc.toString(), this.protocol);
                 this.dialog.sendInspectorMsg(msg);
                 return this.dialog;

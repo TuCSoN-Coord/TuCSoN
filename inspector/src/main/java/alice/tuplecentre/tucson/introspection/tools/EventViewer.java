@@ -26,7 +26,7 @@ import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
-import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMessage;
 
 /**
  * @author Unknown...
@@ -160,7 +160,7 @@ public class EventViewer extends javax.swing.JFrame {
 
     private void buttonGetActionPerformed() {
         try {
-            this.context.getSnapshot(GetSnapshotMsg.WSET);
+            this.context.getSnapshot(GetSnapshotMessage.WSET);
         } catch (final DialogSendException e) {
             this.outputState.setText(e.toString());
         }

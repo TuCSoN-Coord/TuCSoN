@@ -13,41 +13,39 @@
  */
 package alice.tuplecentre.tucson.network.messages.introspection;
 
-import java.util.List;
 
 import alice.tuple.Tuple;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
-
 /**
  * @author Unknown...
  */
-public class SetEventSetMsg extends AbstractNodeMessage {
+public class SetTupleSetMessage extends AbstractNodeMessage {
 
-    private static final long serialVersionUID = -3946179149619833984L;
-    private java.util.List<? extends Tuple> eventWnSet;
+    private static final long serialVersionUID = 3683932175338169242L;
+    private java.util.List<? extends Tuple> tupleSet;
 
     /**
      * @param id the agent id of the sender
-     * @param ts the list of tuples representing events to overwrite the InQ
-     *           with
+     * @param ts the list of tuples to overwrite the tuple set with
      */
-    public SetEventSetMsg(final TucsonAgentId id, final List<? extends Tuple> ts) {
-        super(id, "setEventSet");
-        this.eventWnSet = ts;
+    public SetTupleSetMessage(final TucsonAgentId id,
+                              final java.util.List<? extends Tuple> ts) {
+        super(id, "setTupleSet");
+        this.tupleSet = ts;
     }
 
     /**
-     * @return the eventWnSet
+     * @return the tupleSet
      */
-    public java.util.List<? extends Tuple> getEventWnSet() {
-        return this.eventWnSet;
+    public java.util.List<? extends Tuple> getTupleSet() {
+        return this.tupleSet;
     }
 
     /**
-     * @param set the eventWnSet to set
+     * @param set the tupleSet to set
      */
-    public void setEventWnSet(final java.util.List<? extends Tuple> set) {
-        this.eventWnSet = set;
+    public void setTupleSet(final java.util.List<? extends Tuple> set) {
+        this.tupleSet = set;
     }
 }

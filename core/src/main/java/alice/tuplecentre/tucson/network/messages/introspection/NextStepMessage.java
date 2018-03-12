@@ -15,36 +15,18 @@ package alice.tuplecentre.tucson.network.messages.introspection;
 
 
 import alice.tuplecentre.tucson.api.TucsonAgentId;
-import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 
 /**
  * @author Unknown...
  */
-public class SetProtocolMsg extends AbstractNodeMessage {
+public class NextStepMessage extends AbstractNodeMessage {
 
-    private static final long serialVersionUID = 7284025970406889712L;
-    private InspectorProtocol info;
+    private static final long serialVersionUID = 3967973492584768476L;
 
     /**
      * @param id the agent id of the sender
-     * @param p  the inspection protocol to be used
      */
-    public SetProtocolMsg(final TucsonAgentId id, final InspectorProtocol p) {
-        super(id, "setProtocol");
-        this.info = p;
-    }
-
-    /**
-     * @return the info
-     */
-    public InspectorProtocol getInfo() {
-        return this.info;
-    }
-
-    /**
-     * @param i the info to set
-     */
-    public void setInfo(final InspectorProtocol i) {
-        this.info = i;
+    public NextStepMessage(final TucsonAgentId id) {
+        super(id, "nextStep");
     }
 }

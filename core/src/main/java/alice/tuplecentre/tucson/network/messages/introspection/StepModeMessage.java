@@ -17,41 +17,16 @@ package alice.tuplecentre.tucson.network.messages.introspection;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
- * @author Unknown...
+ * @author Roberto D'Elia
  */
-public class GetSnapshotMsg extends AbstractNodeMessage {
+public class StepModeMessage extends AbstractNodeMessage {
+
+    private static final long serialVersionUID = -6748034977696183466L;
 
     /**
-     *
+     * @param id the agent id of the sender
      */
-    public static final byte TSET = 1;
-    /**
-     *
-     */
-    public static final byte WSET = 2;
-    private static final long serialVersionUID = -7715943663646624722L;
-    private byte what;
-
-    /**
-     * @param id the agent identifier
-     * @param w  the set to retrieve
-     */
-    public GetSnapshotMsg(final TucsonAgentId id, final byte w) {
-        super(id, "getSnapshot");
-        this.what = w;
-    }
-
-    /**
-     * @return the what
-     */
-    public byte getWhat() {
-        return this.what;
-    }
-
-    /**
-     * @param w the what to set
-     */
-    public void setWhat(final byte w) {
-        this.what = w;
+    public StepModeMessage(final TucsonAgentId id) {
+        super(id, "stepMode");
     }
 }

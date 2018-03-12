@@ -17,20 +17,23 @@ package alice.tuplecentre.tucson.network.messages.introspection;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
- * @author Roberto D'Elia
- * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
+ * @author Unknown...
  */
-public class IsActiveStepModeMsg extends AbstractNodeMessage {
+public class ShutdownMessage extends AbstractNodeMessage {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = -13483265125297485L;
+    private static final long serialVersionUID = -745435883778999790L;
 
     /**
      * @param id the agent id of the sender
      */
-    public IsActiveStepModeMsg(final TucsonAgentId id) {
-        super(id, "isStepMode");
+    public ShutdownMessage(final TucsonAgentId id) {
+        super(id, "exit");
+    }
+
+    /**
+     *
+     */
+    protected ShutdownMessage() {
+        super();
     }
 }

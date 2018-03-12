@@ -13,20 +13,20 @@
  */
 package alice.tuplecentre.tucson.network.messages.introspection;
 
-
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+
 
 /**
  * @author Unknown...
  */
-public class NextStepMsg extends AbstractNodeMessage {
+public class NewNodeInspectorMessage extends AbstractNodeMessage {
 
-    private static final long serialVersionUID = 3967973492584768476L;
+    private static final long serialVersionUID = 6582272720835623886L;
 
     /**
-     * @param id the agent id of the sender
+     * @param i the agent id of the sender
      */
-    public NextStepMsg(final TucsonAgentId id) {
-        super(id, "nextStep");
+    public NewNodeInspectorMessage(final TucsonAgentId i) {
+        super(i, "newNodeInspector");
     }
 }

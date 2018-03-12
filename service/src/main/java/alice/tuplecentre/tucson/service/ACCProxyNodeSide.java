@@ -44,7 +44,7 @@ import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMessage;
 import alice.tuplecentre.tucson.network.messages.events.OutputEventMessageDefault;
-import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMessage;
 
 /**
  * @author Alessandro Ricci
@@ -101,7 +101,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     }
 
     @Override
-    public synchronized void exit(final ShutdownMsg msg) {
+    public synchronized void exit(final ShutdownMessage msg) {
         this.log("Shutdown request received from <" + msg.getAgentIdentifier() + ">...");
         this.ex = true;
         this.notify();

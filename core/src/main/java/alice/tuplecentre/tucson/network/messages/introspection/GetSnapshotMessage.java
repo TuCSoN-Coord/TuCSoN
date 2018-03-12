@@ -14,38 +14,44 @@
 package alice.tuplecentre.tucson.network.messages.introspection;
 
 
-import alice.tuple.Tuple;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
  * @author Unknown...
  */
-public class SetTupleSetMsg extends AbstractNodeMessage {
-
-    private static final long serialVersionUID = 3683932175338169242L;
-    private java.util.List<? extends Tuple> tupleSet;
+public class GetSnapshotMessage extends AbstractNodeMessage {
 
     /**
-     * @param id the agent id of the sender
-     * @param ts the list of tuples to overwrite the tuple set with
+     *
      */
-    public SetTupleSetMsg(final TucsonAgentId id,
-                          final java.util.List<? extends Tuple> ts) {
-        super(id, "setTupleSet");
-        this.tupleSet = ts;
+    public static final byte TSET = 1;
+    /**
+     *
+     */
+    public static final byte WSET = 2;
+    private static final long serialVersionUID = -7715943663646624722L;
+    private byte what;
+
+    /**
+     * @param id the agent identifier
+     * @param w  the set to retrieve
+     */
+    public GetSnapshotMessage(final TucsonAgentId id, final byte w) {
+        super(id, "getSnapshot");
+        this.what = w;
     }
 
     /**
-     * @return the tupleSet
+     * @return the what
      */
-    public java.util.List<? extends Tuple> getTupleSet() {
-        return this.tupleSet;
+    public byte getWhat() {
+        return this.what;
     }
 
     /**
-     * @param set the tupleSet to set
+     * @param w the what to set
      */
-    public void setTupleSet(final java.util.List<? extends Tuple> set) {
-        this.tupleSet = set;
+    public void setWhat(final byte w) {
+        this.what = w;
     }
 }

@@ -14,7 +14,7 @@
 package alice.tuplecentre.tucson.service;
 
 import alice.tuplecentre.core.OperationCompletionListener;
-import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMessage;
 
 /**
  * @author Alessandro Ricci
@@ -25,5 +25,5 @@ public abstract class AbstractACCProxyNodeSide extends Thread implements Operati
     /**
      * @param msg the shutdown message
      */
-    public abstract void exit(final ShutdownMsg msg);
+    public abstract void exit(final ShutdownMessage msg);
 }
