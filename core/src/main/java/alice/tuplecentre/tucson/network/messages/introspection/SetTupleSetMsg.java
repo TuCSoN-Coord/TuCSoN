@@ -20,7 +20,7 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 /**
  * @author Unknown...
  */
-public class SetTupleSetMsg extends NodeMsg {
+public class SetTupleSetMsg extends AbstractNodeMessage {
 
     private static final long serialVersionUID = 3683932175338169242L;
     private java.util.List<? extends Tuple> tupleSet;

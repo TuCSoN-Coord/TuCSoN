@@ -33,8 +33,8 @@ import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.network.messages.TucsonMessage;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
+import alice.tuplecentre.tucson.network.messages.introspection.AbstractNodeMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMsg;
-import alice.tuplecentre.tucson.network.messages.introspection.NodeMsg;
 
 /*
  * TODO CICORA: e' necessario separare la classe usata server side e la classe
@@ -258,10 +258,10 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * @see alice.tuplecentre.tucson.network.AbstractTucsonProtocol#receiveNodeMsg()
      */
     @Override
-    public NodeMsg receiveNodeMsg() throws DialogReceiveException {
-        NodeMsg msg;
+    public AbstractNodeMessage receiveNodeMsg() throws DialogReceiveException {
+        AbstractNodeMessage msg;
         try {
-            msg = (NodeMsg) this.inStream.readObject();
+            msg = (AbstractNodeMessage) this.inStream.readObject();
         } catch (final IOException e) {
             throw new DialogReceiveException(e);
         } catch (final ClassNotFoundException e) {
@@ -340,10 +340,10 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * (non-Javadoc)
      * @see
      * alice.tuplecentre.tucson.network.AbstractTucsonProtocol#sendNodeMsg(alice.tuplecentre.tucson.
-     * introspection.NodeMsg)
+     * introspection.AbstractNodeMessage)
      */
     @Override
-    public void sendNodeMsg(final NodeMsg msg) throws DialogSendException {
+    public void sendNodeMsg(final AbstractNodeMessage msg) throws DialogSendException {
         try {
             this.outStream.writeObject(msg);
             this.outStream.flush();

@@ -22,7 +22,7 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 /**
  * @author Unknown...
  */
-public class SetEventSetMsg extends NodeMsg {
+public class SetEventSetMsg extends AbstractNodeMessage {
 
     private static final long serialVersionUID = -3946179149619833984L;
     private java.util.List<? extends Tuple> eventWnSet;

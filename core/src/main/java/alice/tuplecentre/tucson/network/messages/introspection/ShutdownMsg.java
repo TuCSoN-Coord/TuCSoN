@@ -19,7 +19,7 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 /**
  * @author Unknown...
  */
-public class ShutdownMsg extends NodeMsg {
+public class ShutdownMsg extends AbstractNodeMessage {
 
     private static final long serialVersionUID = -745435883778999790L;
 

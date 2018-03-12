@@ -20,7 +20,7 @@ import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 /**
  * @author Unknown...
  */
-public class SetProtocolMsg extends NodeMsg {
+public class SetProtocolMsg extends AbstractNodeMessage {
 
     private static final long serialVersionUID = 7284025970406889712L;
     private InspectorProtocol info;

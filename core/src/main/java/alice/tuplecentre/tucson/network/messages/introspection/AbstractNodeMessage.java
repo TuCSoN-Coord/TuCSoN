@@ -13,15 +13,16 @@
  */
 package alice.tuplecentre.tucson.network.messages.introspection;
 
-import java.io.Serializable;
-
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.network.messages.Message;
 
 
 /**
+ * // TODO: 12/03/2018 add documentation... and maybe change class name
+ *
  * @author Unknown...
  */
-public class NodeMsg implements Serializable {
+public abstract class AbstractNodeMessage implements Message {
 
     private static final long serialVersionUID = -3499870079832457223L;
     private String action;
@@ -30,7 +31,7 @@ public class NodeMsg implements Serializable {
     /**
      * @param id the agent id of the sender
      */
-    public NodeMsg(final TucsonAgentId id) {
+    public AbstractNodeMessage(final TucsonAgentId id) {
         this.aid = id;
     }
 
@@ -38,7 +39,7 @@ public class NodeMsg implements Serializable {
      * @param id  the agent id of the sender
      * @param act the action to perform
      */
-    public NodeMsg(final TucsonAgentId id, final String act) {
+    public AbstractNodeMessage(final TucsonAgentId id, final String act) {
         this.aid = id;
         this.action = act;
     }
@@ -46,7 +47,7 @@ public class NodeMsg implements Serializable {
     /**
      *
      */
-    protected NodeMsg() {
+    protected AbstractNodeMessage() {
         super();
     }
 

@@ -19,7 +19,7 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 /**
  * @author Unknown...
  */
-public class NextStepMsg extends NodeMsg {
+public class NextStepMsg extends AbstractNodeMessage {
 
     private static final long serialVersionUID = 3967973492584768476L;
 

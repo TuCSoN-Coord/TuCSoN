@@ -20,7 +20,7 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
  * @author Roberto D'Elia
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
  */
-public class IsActiveStepModeMsg extends NodeMsg {
+public class IsActiveStepModeMsg extends AbstractNodeMessage {
 
     /**
      *

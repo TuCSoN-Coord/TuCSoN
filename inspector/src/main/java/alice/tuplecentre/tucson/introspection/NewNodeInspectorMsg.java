@@ -14,13 +14,13 @@
 package alice.tuplecentre.tucson.introspection;
 
 import alice.tuplecentre.tucson.api.TucsonAgentId;
-import alice.tuplecentre.tucson.network.messages.introspection.NodeMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.AbstractNodeMessage;
 
 
 /**
  * @author Unknown...
  */
-public class NewNodeInspectorMsg extends NodeMsg {
+public class NewNodeInspectorMsg extends AbstractNodeMessage {
 
     private static final long serialVersionUID = 6582272720835623886L;
 

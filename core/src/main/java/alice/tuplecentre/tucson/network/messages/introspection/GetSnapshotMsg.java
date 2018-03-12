@@ -19,7 +19,7 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 /**
  * @author Unknown...
  */
-public class GetSnapshotMsg extends NodeMsg {
+public class GetSnapshotMsg extends AbstractNodeMessage {
 
     /**
      *
