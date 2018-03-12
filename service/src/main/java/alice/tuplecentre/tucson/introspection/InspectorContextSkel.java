@@ -50,7 +50,7 @@ import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessa
 import alice.tuplecentre.tucson.network.messages.introspection.NextStepMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.NodeMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.SetEventSetMessage;
-import alice.tuplecentre.tucson.network.messages.introspection.SetProtocolMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.SetProtocolMessageDefault;
 import alice.tuplecentre.tucson.network.messages.introspection.SetTupleSetMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.StepModeMessage;
@@ -342,7 +342,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      *
      * @param msg the set protocol message
      */
-    public synchronized void setProtocol(final SetProtocolMessage msg) {
+    public synchronized void setProtocol(final SetProtocolMessageDefault msg) {
         final boolean wasTracing = this.protocol.isTracing();
         this.protocol = msg.getInfo();
         if (wasTracing) {
