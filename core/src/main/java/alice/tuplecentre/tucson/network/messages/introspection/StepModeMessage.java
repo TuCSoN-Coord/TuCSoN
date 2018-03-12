@@ -11,32 +11,24 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tuplecentre.tucson.introspection;
+package alice.tuplecentre.tucson.network.messages.introspection;
+
 
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
+ * // TODO: 12/03/2018 add documentation
  *
- * @author Unknown...
- *
+ * @author Roberto D'Elia
  */
-public class ShutdownMsg extends NodeMsg {
+public class StepModeMessage extends AbstractNodeMessage {
 
-    private static final long serialVersionUID = -745435883778999790L;
-
-    /**
-     *
-     * @param id
-     *            the agent id of the sender
-     */
-    public ShutdownMsg(final TucsonAgentId id) {
-        super(id, "exit");
-    }
+    private static final long serialVersionUID = -6748034977696183466L;
 
     /**
-     *
+     * @param id the agent id of the sender
      */
-    protected ShutdownMsg() {
-        super();
+    public StepModeMessage(final TucsonAgentId id) {
+        super(id, "stepMode");
     }
 }

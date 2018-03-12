@@ -39,7 +39,6 @@ import alice.tuplecentre.tucson.introspection.InspectorProtocolDefault;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 
 /**
- *
  * @author Unknown...
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
@@ -48,11 +47,7 @@ public class InspectorGUI extends javax.swing.JFrame {
     private static final long serialVersionUID = -3765811664087552414L;
 
     /**
-     *
-     *
-     * @param args
-     *            the arguments to launch the inspector
-     *
+     * @param args the arguments to launch the inspector
      */
     public static void main(final String[] args) {
         System.out.println("[Inspector]: Booting...");
@@ -114,7 +109,9 @@ public class InspectorGUI extends javax.swing.JFrame {
         System.exit(0);
     }
 
-    /** if we do a quit in inspector, this flag became true */
+    /**
+     * if we do a quit in inspector, this flag became true
+     */
     private boolean afterQuit = false;
     private final JRadioButton agentStepMode = new JRadioButton();
     private final TucsonAgentId aid;
@@ -155,10 +152,8 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Called when no default tuplecentre to monitor is given.
      *
-     * @param id
-     *            the name of the Inspector agent.
-     * @param isVisible
-     *            whether the Inspector should immediatley display the GUI
+     * @param id        the name of the Inspector agent.
+     * @param isVisible whether the Inspector should immediatley display the GUI
      */
     public InspectorGUI(final TucsonAgentId id, final boolean isVisible) {
         super();
@@ -172,12 +167,9 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Called when a default tuplecentre to inspect is given.
      *
-     * @param id
-     *            the name of the Inspector agent.
-     * @param tc
-     *            the fullname of the tuplecentre to inspect.
-     * @param isVisible
-     *            whether the Inspector should immediatley display the GUI
+     * @param id        the name of the Inspector agent.
+     * @param tc        the fullname of the tuplecentre to inspect.
+     * @param isVisible whether the Inspector should immediatley display the GUI
      */
     public InspectorGUI(final TucsonAgentId id, final TucsonTupleCentreId tc,
                         final boolean isVisible) {
@@ -191,7 +183,7 @@ public class InspectorGUI extends javax.swing.JFrame {
     }
 
     /**
-     * 
+     *
      */
     public void showTupleCenter() {
         this.protocol
@@ -332,7 +324,6 @@ public class InspectorGUI extends javax.swing.JFrame {
 
     /**
      * Close all open forms on exit (Inspector itself too).
-     *
      */
     private void exitForm() {
         if (this.isSessionOpen) {
@@ -709,7 +700,6 @@ public class InspectorGUI extends javax.swing.JFrame {
 
     /**
      * Handles 'pending query' button.
-     *
      */
     private void pendingBtnActionPerformed() {
         this.protocol
@@ -724,7 +714,6 @@ public class InspectorGUI extends javax.swing.JFrame {
 
     /**
      * Handles 'edit specification space' button.
-     *
      */
     private void specBtnActionPerformed() {
         this.specForm.setVisible(true);
@@ -733,8 +722,7 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Handles 'type stepMode inspection' radioButton.
      *
-     * @param evt
-     *            'pending' button pushing event.
+     * @param evt 'pending' button pushing events.
      */
     private void stepObModeActionPerformed(final ActionEvent evt) {
         if (evt.getActionCommand().equals("Inspect Like The Tuple Space")) {
@@ -758,7 +746,6 @@ public class InspectorGUI extends javax.swing.JFrame {
 
     /**
      * Handles 'inspect triggered reactions' button.
-     *
      */
     private void trigReactsBtnActionPerformed() {
         this.protocol
@@ -773,7 +760,6 @@ public class InspectorGUI extends javax.swing.JFrame {
 
     /**
      * Handles 'inspect tuples' button.
-     *
      */
     private void tuplesBtnActionPerformed() {
         this.protocol
@@ -788,7 +774,6 @@ public class InspectorGUI extends javax.swing.JFrame {
 
     /**
      * Handles 'vm step' button.
-     *
      */
     private void vmStepBtnActionPerformed() {
         try {

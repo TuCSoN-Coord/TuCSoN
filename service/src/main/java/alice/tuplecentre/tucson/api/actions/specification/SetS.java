@@ -33,23 +33,19 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * <code>set_s</code> TuCSoN primitive.
- * 
- * @see SpecificationAsyncACC
  *
  * @author Luca Sangiorgi (mailto: luca.sangiorgi6@studio.unibo.it)
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
+ * @see SpecificationAsyncACC
  */
 public class SetS extends AbstractTucsonSpecificationAction {
 
     /**
      * Builds the TuCSoN {@code set_s} action given its target tuple centre
-     * 
-     * @param tc
-     *            the Identifier of the TuCSoN tuple centre target of this coordination
-     *            operation
-     * @param spec
-     *            the logic tuple representing the whole ReSpecT specification
+     *
+     * @param tc   the Identifier of the TuCSoN tuple centre target of this coordination
+     *             operation
+     * @param spec the logic tuple representing the whole ReSpecT specification
      */
     public SetS(final TucsonTupleCentreId tc, final LogicTuple spec) {
         super(tc, null, null, spec);

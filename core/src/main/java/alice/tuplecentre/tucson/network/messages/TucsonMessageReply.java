@@ -1,59 +1,46 @@
-package alice.tuplecentre.tucson.network;
+package alice.tuplecentre.tucson.network.messages;
 
-import java.io.Serializable;
-
-import alice.tuplecentre.tucson.service.OutputEventMsg;
+import alice.tuplecentre.tucson.network.messages.events.OutputEventMessage;
 
 /**
- * 
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Saverio Cicora
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
- * 
+ * michele.bombardi@studio.unibo.it)
  */
-public class TucsonMsgReply implements Serializable {
-    /** serialVersionUID **/
+public class TucsonMessageReply extends AbstractTucsonMessage {
+
+    /**
+     * serialVersionUID
+     **/
     private static final long serialVersionUID = 1L;
-    private OutputEventMsg outputEvent;
 
     /**
-     * 
-     * @param ev
-     *            the event to transmit
+     * @param ev the events to transmit
      */
-    public TucsonMsgReply(final OutputEventMsg ev) {
-        this.outputEvent = ev;
+    public TucsonMessageReply(final OutputEventMessage ev) {
+        setEventMsg(ev);
     }
 
-    /**
-     * 
-     */
-    protected TucsonMsgReply() {
-        /*
-         * 
-         */
+    public TucsonMessageReply() {
     }
 
-    /**
-     * 
-     * @return the OutputEvent this message veichles
-     */
-    public OutputEventMsg getOutputEvent() {
-        return this.outputEvent;
+    @Override
+    public OutputEventMessage getEventMsg() {
+        return (OutputEventMessage) super.getEventMsg();
     }
 
     @Override
     public String toString() {
         final StringBuilder s = new StringBuilder(87);
-        final OutputEventMsg oEv = this.getOutputEvent();
-        s.append("Identifier: ");
+        final OutputEventMessage oEv = this.getEventMsg();
+        s.append("ID: ");
         s.append(oEv.getOpId());
         s.append("; Type: ");
         s.append(oEv.getOpType());
         s.append("; Tuple Requested: ");
-        s.append(oEv.getTupleRequested());
+        s.append(oEv.getTuple());
         s.append("; Tuple Result: ");
         s.append(oEv.getTupleResult());
         s.append("; Allowed: ");

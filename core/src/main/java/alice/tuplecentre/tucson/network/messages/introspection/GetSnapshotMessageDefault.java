@@ -11,48 +11,36 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tuplecentre.tucson.introspection;
+package alice.tuplecentre.tucson.network.messages.introspection;
 
-import java.util.List;
 
-import alice.tuple.Tuple;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
+ * // TODO: 12/03/2018 add documentation
  *
  * @author Unknown...
- *
  */
-public class SetEventSetMsg extends NodeMsg {
+public class GetSnapshotMessageDefault extends AbstractNodeMessage implements GetSnapshotMessage {
 
-    private static final long serialVersionUID = -3946179149619833984L;
-    private java.util.List<? extends Tuple> eventWnSet;
+    private SetType what;
 
     /**
-     *
-     * @param id
-     *            the agent id of the sender
-     * @param ts
-     *            the list of tuples representing events to overwrite the InQ
-     *            with
+     * @param id      the agent identifier
+     * @param setType the set to retrieve
      */
-    public SetEventSetMsg(final TucsonAgentId id, final List<? extends Tuple> ts) {
-        super(id, "setEventSet");
-        this.eventWnSet = ts;
+    public GetSnapshotMessageDefault(final TucsonAgentId id, final SetType setType) {
+        super(id, "getSnapshot");
+        this.what = setType;
     }
 
-    /**
-     * @return the eventWnSet
-     */
-    public java.util.List<? extends Tuple> getEventWnSet() {
-        return this.eventWnSet;
+    @Override
+    public SetType getWhat() {
+        return this.what;
     }
 
-    /**
-     * @param set
-     *            the eventWnSet to set
-     */
-    public void setEventWnSet(final java.util.List<? extends Tuple> set) {
-        this.eventWnSet = set;
+    @Override
+    public void setWhat(final SetType setType) {
+        this.what = setType;
     }
 }

@@ -3,13 +3,13 @@
  */
 package uniform.swarms.launchers;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import uniform.swarms.ants.Swarm;
 import uniform.swarms.env.Environment;
 import uniform.swarms.gui.GUI;
 import uniform.swarms.utils.Topology;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author ste

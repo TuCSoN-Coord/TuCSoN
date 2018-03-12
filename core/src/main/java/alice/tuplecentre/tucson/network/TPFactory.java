@@ -29,18 +29,12 @@ public final class TPFactory {
     private static final int MAX_UNBOUND_PORT = 64000;
 
     /**
-     *
-     * @param tucsonProtocolType
-     *            the type code of the TuCSoN protocol to be used
-     * @param tid
-     *            the identifier of the tuple centre to connect to
+     * @param tucsonProtocolType the type code of the TuCSoN protocol to be used
+     * @param tid                the identifier of the tuple centre to connect to
      * @return the connection protocol hosting communications
-     * @throws DialogInitializationException
-     *             if something goes wrong in the underlying network
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is unreachable
-     * @throws InvalidProtocolTypeException
-     *             if the protocol type used is not DIALOG_TYPE_TCP
+     * @throws DialogInitializationException if something goes wrong in the underlying network
+     * @throws UnreachableNodeException      if the target tuple centre is unreachable
+     * @throws InvalidProtocolTypeException  if the protocol type used is not DIALOG_TYPE_TCP
      */
     public static TucsonProtocol getDialogAgentSide(
             final int tucsonProtocolType, final TucsonTupleCentreId tid)
@@ -65,14 +59,10 @@ public final class TPFactory {
     }
 
     /**
-     *
-     * @param tid
-     *            the identifier of the tuple centre to connect to
+     * @param tid the identifier of the tuple centre to connect to
      * @return the connection protocol hosting communications
-     * @throws DialogInitializationException
-     *             if something goes wrong in the underlying network
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is unreachable
+     * @throws DialogInitializationException if something goes wrong in the underlying network
+     * @throws UnreachableNodeException      if the target tuple centre is unreachable
      */
     public static TucsonProtocol getDialogAgentSide(
             final TucsonTupleCentreId tid) throws UnreachableNodeException,
@@ -100,15 +90,11 @@ public final class TPFactory {
     /**
      * Instantiate a new TucsonProtocol based on type specified by parameter.
      *
-     * @param tucsonProtocolType
-     *            the type code of the TuCSoN protocol to be used
-     * @param portno
-     *            the port where the TuCSoN node to contact is listening to
+     * @param tucsonProtocolType the type code of the TuCSoN protocol to be used
+     * @param portno             the port where the TuCSoN node to contact is listening to
      * @return the TucsonProtocol class
-     * @throws DialogInitializationException
-     *             if something goes wrong in the underlying network
-     * @throws InvalidProtocolTypeException
-     *             if the protocol type used is not DIALOG_TYPE_TCP
+     * @throws DialogInitializationException if something goes wrong in the underlying network
+     * @throws InvalidProtocolTypeException  if the protocol type used is not DIALOG_TYPE_TCP
      */
     public static TucsonProtocol getDialogNodeSide(
             final int tucsonProtocolType, final int portno)

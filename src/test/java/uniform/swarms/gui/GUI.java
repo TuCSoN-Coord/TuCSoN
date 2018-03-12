@@ -3,8 +3,10 @@
  */
 package uniform.swarms.gui;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 /**
  * @author ste
@@ -17,7 +19,7 @@ public final class GUI {
      */
     public static void init() {
         /*
-         * Schedule a job for the event-dispatching thread: creating and showing
+         * Schedule a job for the events-dispatching thread: creating and showing
          * this application's GUI.
          */
         javax.swing.SwingUtilities.invokeLater(new Runnable() {

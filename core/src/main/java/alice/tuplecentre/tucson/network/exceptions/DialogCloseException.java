@@ -7,7 +7,6 @@ package alice.tuplecentre.tucson.network.exceptions;
  * @author Alessia Papini (mailto: alessia.papini@studio.unibo.it)
  * @author Mattia Balducci (mailto: mattia.balducci@studio.unibo.it)
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public class DialogCloseException extends DialogException {
 

@@ -3,12 +3,15 @@ package alice.tuplecentre.tucson.network;
 import java.io.Serializable;
 
 import alice.tuplecentre.tucson.introspection.InspectorContextEvent;
-import alice.tuplecentre.tucson.introspection.NewInspectorMsg;
-import alice.tuplecentre.tucson.introspection.NodeMsg;
 import alice.tuplecentre.tucson.network.exceptions.DialogAcceptException;
 import alice.tuplecentre.tucson.network.exceptions.DialogCloseException;
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
+import alice.tuplecentre.tucson.network.messages.TucsonMessage;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
+import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.NodeMessage;
 import alice.tuplecentre.tucson.service.ACCDescription;
 
 /**
@@ -76,37 +79,37 @@ public interface TucsonProtocol extends Serializable {
      * @return the Inspector message received over the network
      * @throws DialogReceiveException if something goes wrong in the underlying network
      */
-    NewInspectorMsg receiveInspectorMsg() throws DialogReceiveException;
+    NewInspectorMessage receiveInspectorMsg() throws DialogReceiveException;
 
     /**
      * @return the TuCSoN message received over the network
      * @throws DialogReceiveException if something goes wrong in the underlying network
      */
-    TucsonMsg receiveMsg() throws DialogReceiveException;
+    TucsonMessage receiveMsg() throws DialogReceiveException;
 
     /**
      * @return the TuCSoN message reply event received over the network
      * @throws DialogReceiveException if something goes wrong in the underlying network
      */
-    TucsonMsgReply receiveMsgReply() throws DialogReceiveException;
+    TucsonMessageReply receiveMsgReply() throws DialogReceiveException;
 
     /**
      * @return the TuCSoN message request received over the network
      * @throws DialogReceiveException if something goes wrong in the underlying network
      */
-    TucsonMsgRequest receiveMsgRequest() throws DialogReceiveException;
+    TucsonMessageRequest receiveMsgRequest() throws DialogReceiveException;
 
     /**
      * @return the node message received over the network
      * @throws DialogReceiveException if something goes wrong in the underlying network
      */
-    NodeMsg receiveNodeMsg() throws DialogReceiveException;
+    NodeMessage receiveNodeMsg() throws DialogReceiveException;
 
     /**
      * @param ctx the ACC profile to be associated to this protocol
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void sendEnterRequest(ACCDescription ctx) throws DialogSendException;
+    void sendEnterRequest(final ACCDescription ctx) throws DialogSendException;
 
     /**
      * @throws DialogSendException if something goes wrong in the underlying network
@@ -122,33 +125,31 @@ public interface TucsonProtocol extends Serializable {
      * @param msg the message to send over the network
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void sendInspectorEvent(InspectorContextEvent msg) throws DialogSendException;
+    void sendInspectorEvent(final InspectorContextEvent msg) throws DialogSendException;
 
     /**
      * @param msg the message to send over the network
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void sendInspectorMsg(NewInspectorMsg msg) throws DialogSendException;
+    void sendInspectorMsg(final NewInspectorMessage msg) throws DialogSendException;
 
     /**
      * @param msg the message to send over the network
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void sendMsg(TucsonMsg msg) throws DialogSendException;
+    void sendMsg(final TucsonMessage msg) throws DialogSendException;
 
     /**
      * @param reply the message to send over the network
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void sendMsgReply(TucsonMsgReply reply)
-            throws DialogSendException;
+    void sendMsgReply(final TucsonMessageReply reply) throws DialogSendException;
 
     /**
      * @param request the message to send over the network
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void sendMsgRequest(TucsonMsgRequest request)
-            throws DialogSendException;
+    void sendMsgRequest(final TucsonMessageRequest request) throws DialogSendException;
 
     /**
      * @throws DialogSendException if something goes wrong in the underlying network
@@ -159,5 +160,5 @@ public interface TucsonProtocol extends Serializable {
      * @param msg the message to send over the network
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void sendNodeMsg(NodeMsg msg) throws DialogSendException;
+    void sendNodeMsg(final NodeMessage msg) throws DialogSendException;
 }

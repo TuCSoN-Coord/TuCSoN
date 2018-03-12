@@ -33,7 +33,6 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
  *
  * @author Fabio Consalici, Riccardo Drudi
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 public class TucsonOpWrapper {
 
@@ -46,16 +45,13 @@ public class TucsonOpWrapper {
     /**
      * Builds the wrapper to a TuCSoN operation.
      *
-     * @param eaacc
-     *            the ACC through which the operation should be executed
-     * @param a
-     *            the TuCSoN operation to execute
-     * @param l
-     *            the TuCSoN listener handling operation completion
+     * @param eaacc the ACC through which the operation should be executed
+     * @param a     the TuCSoN operation to execute
+     * @param l     the TuCSoN listener handling operation completion
      */
     public TucsonOpWrapper(final EnhancedAsyncACC eaacc,
-            final AbstractTucsonAction a,
-            final TucsonOperationCompletionListener l) {
+                           final AbstractTucsonAction a,
+                           final TucsonOperationCompletionListener l) {
         this.action = a;
         this.listener = l;
         this.acc = eaacc;
@@ -64,19 +60,15 @@ public class TucsonOpWrapper {
     /**
      * Builds the wrapper to a TuCSoN operation.
      *
-     * @param eaacc
-     *            the ACC through which the operation should be executed
-     * @param a
-     *            the TuCSoN operation to execute
-     * @param l
-     *            the TuCSoN listener handling operation completion
-     * @param timeout
-     *            the maximum waiting time for operation completion (not used
-     *            atm)
+     * @param eaacc   the ACC through which the operation should be executed
+     * @param a       the TuCSoN operation to execute
+     * @param l       the TuCSoN listener handling operation completion
+     * @param timeout the maximum waiting time for operation completion (not used
+     *                atm)
      */
     public TucsonOpWrapper(final EnhancedAsyncACC eaacc,
-            final AbstractTucsonAction a,
-            final TucsonOperationCompletionListener l, final long timeout) {
+                           final AbstractTucsonAction a,
+                           final TucsonOperationCompletionListener l, final long timeout) {
         this.action = a;
         this.listener = l;
         this.acc = eaacc;
@@ -86,11 +78,9 @@ public class TucsonOpWrapper {
      * Executes the operation.
      *
      * @return TucsonOperation the TuCSoN operation executed
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be performed
-     * @throws UnreachableNodeException
-     *             if the TuCSoN node target of the operation is not
-     *             network-reachable
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed
+     * @throws UnreachableNodeException            if the TuCSoN node target of the operation is not
+     *                                             network-reachable
      */
     public final TucsonOperation execute()
             throws TucsonOperationNotPossibleException,
@@ -100,7 +90,7 @@ public class TucsonOpWrapper {
 
     /**
      * Gets the TuCSoN action to execute
-     * 
+     *
      * @return the TuCSoN action to execute
      */
     public final AbstractTucsonAction getAction() {
@@ -109,7 +99,7 @@ public class TucsonOpWrapper {
 
     /**
      * Gets the TuCSoN operation to execute
-     * 
+     *
      * @return the TuCSoN operation to execute
      */
     public AbstractTupleCentreOperation getOp() {
@@ -119,9 +109,9 @@ public class TucsonOpWrapper {
     /**
      * Checks whether this operation has been removed from the list of pending
      * operations
-     * 
+     *
      * @return {@code true} or {@code false} depending on whether this operation
-     *         has been removed from the list of pending operations
+     * has been removed from the list of pending operations
      */
     public boolean hasBeenRemoved() {
         return this.hasBeenRemoved;
@@ -130,10 +120,9 @@ public class TucsonOpWrapper {
     /**
      * Checks whether this operation has been removed from the list of pending
      * operations
-     * 
-     * @param removed
-     *            whether this operation has been removed from the list of
-     *            pending operations
+     *
+     * @param removed whether this operation has been removed from the list of
+     *                pending operations
      */
     public void setHasBeenRemoved(final boolean removed) {
         this.hasBeenRemoved = removed;
@@ -141,9 +130,8 @@ public class TucsonOpWrapper {
 
     /**
      * Sets the TuCSoN operation to perform
-     * 
-     * @param a
-     *            the TuCSoN operation to perform
+     *
+     * @param a the TuCSoN operation to perform
      */
     public void setOp(final AbstractTupleCentreOperation a) {
         this.op = a;

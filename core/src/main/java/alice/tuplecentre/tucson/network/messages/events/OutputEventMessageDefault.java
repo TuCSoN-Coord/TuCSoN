@@ -1,4 +1,4 @@
-package alice.tuplecentre.tucson.service;
+package alice.tuplecentre.tucson.network.messages.events;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.OperationIdentifier;
@@ -9,12 +9,9 @@ import alice.tuplecentre.core.TupleCentreOpType;
  *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  */
-public class OutputEventMsgDefault implements OutputEventMsg {
+public class OutputEventMessageDefault extends AbstractEventMessage implements OutputEventMessage {
 
     private final boolean allowed;
-    private final OperationIdentifier opId;
-    private final TupleCentreOpType opType;
-    private final LogicTuple reqTuple;
     private final Object resTuple;
     private final boolean resultSuccess;
     private final boolean success;
@@ -26,13 +23,11 @@ public class OutputEventMsgDefault implements OutputEventMsg {
      * @param completed wether the operation completed
      * @param succeeded wether the operation succeeded
      */
-    public OutputEventMsgDefault(final OperationIdentifier opId, final TupleCentreOpType opType, final boolean allowed,
-                                 final boolean completed, final boolean succeeded) {
-        this.opId = opId;
-        this.opType = opType;
+    public OutputEventMessageDefault(final OperationIdentifier opId, final TupleCentreOpType opType, final boolean allowed,
+                                     final boolean completed, final boolean succeeded) {
+        super(opType, null, opId);
         this.allowed = allowed;
         this.success = completed;
-        this.reqTuple = null;
         this.resTuple = null;
         this.resultSuccess = succeeded;
     }
@@ -47,31 +42,14 @@ public class OutputEventMsgDefault implements OutputEventMsg {
      * @param res       the object result of the operation (can be a tuple or a list
      *                  of tuples)
      */
-    public OutputEventMsgDefault(final OperationIdentifier opId, final TupleCentreOpType opType, final boolean allowed,
-                                 final boolean completed, final boolean succeeded, final LogicTuple req,
-                                 final Object res) {
-        this.opId = opId;
-        this.opType = opType;
+    public OutputEventMessageDefault(final OperationIdentifier opId, final TupleCentreOpType opType, final boolean allowed,
+                                     final boolean completed, final boolean succeeded, final LogicTuple req,
+                                     final Object res) {
+        super(opType, req, opId);
         this.success = completed;
         this.allowed = allowed;
-        this.reqTuple = req;
         this.resTuple = res;
         this.resultSuccess = succeeded;
-    }
-
-    @Override
-    public OperationIdentifier getOpId() {
-        return this.opId;
-    }
-
-    @Override
-    public TupleCentreOpType getOpType() {
-        return this.opType;
-    }
-
-    @Override
-    public LogicTuple getTupleRequested() {
-        return this.reqTuple;
     }
 
     @Override
@@ -96,10 +74,10 @@ public class OutputEventMsgDefault implements OutputEventMsg {
 
     @Override
     public String toString() {
-        return "[ op: " + "( " + this.opId + "," + this.opType + " ), "
+        return "[ op: " + "( " + getOpId() + "," + getOpType() + " ), "
                 + "allowed: " + this.isAllowed() + ", " + "success: "
                 + this.isSuccess() + ", " + "result success: "
-                + this.resultSuccess + ", " + "req: " + this.reqTuple + ", "
+                + this.resultSuccess + ", " + "req: " + getTuple() + ", "
                 + "res: " + this.resTuple + "]";
     }
 }

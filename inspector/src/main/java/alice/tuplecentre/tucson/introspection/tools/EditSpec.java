@@ -34,10 +34,8 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
 
 /**
- *
  * @author Unknown...
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 public class EditSpec extends javax.swing.JFrame {
 
@@ -52,8 +50,7 @@ public class EditSpec extends javax.swing.JFrame {
     /**
      * Creates new form GUIEditTheory
      *
-     * @param t
-     *            the identifier of the tuple centre under inspection
+     * @param t the identifier of the tuple centre under inspection
      */
     public EditSpec(final TucsonTupleCentreId t) {
         super();
@@ -75,22 +72,22 @@ public class EditSpec extends javax.swing.JFrame {
 
             @Override
             public void caretUpdate(final javax.swing.event.CaretEvent evt) {
-            	JTextArea editArea = (JTextArea)evt.getSource();
+                JTextArea editArea = (JTextArea) evt.getSource();
 
                 int linenum = 1;
                 int columnnum = 1;
 
-                    int caretpos = editArea.getCaretPosition();
-                    try {
-						linenum = editArea.getLineOfOffset(caretpos);
-	                    columnnum = caretpos - editArea.getLineStartOffset(linenum);
+                int caretpos = editArea.getCaretPosition();
+                try {
+                    linenum = editArea.getLineOfOffset(caretpos);
+                    columnnum = caretpos - editArea.getLineStartOffset(linenum);
 
-	                    linenum += 1;
-	                    
-	                    caretPosition.setText(String.format("%s | %s", linenum, columnnum));
-					} catch (BadLocationException e) {
-						caretPosition.setText("- | -");
-					}
+                    linenum += 1;
+
+                    caretPosition.setText(String.format("%s | %s", linenum, columnnum));
+                } catch (BadLocationException e) {
+                    caretPosition.setText("- | -");
+                }
 
             }
         });
@@ -343,8 +340,7 @@ public class EditSpec extends javax.swing.JFrame {
     /**
      * reports the result of get operation in SpecWorker
      *
-     * @param spec
-     *            the ReSpecT specification read
+     * @param spec the ReSpecT specification read
      */
     protected void getCompletion(final StringBuffer spec) {
         SwingUtilities.invokeLater(new Runnable() {

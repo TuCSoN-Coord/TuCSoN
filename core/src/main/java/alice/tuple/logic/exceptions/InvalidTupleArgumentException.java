@@ -34,7 +34,7 @@ public class InvalidTupleArgumentException extends LogicTupleException {
     }
 
     public InvalidTupleArgumentException(final String message,
-            final Throwable cause) {
+                                         final Throwable cause) {
         super(message, cause);
     }
 }

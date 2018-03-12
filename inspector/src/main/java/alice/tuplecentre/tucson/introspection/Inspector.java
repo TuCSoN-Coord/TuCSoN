@@ -21,10 +21,8 @@ import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 
 /**
- *
  * @author Unknown...
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 public class Inspector extends Thread implements InspectorContextListener {
 
@@ -38,14 +36,10 @@ public class Inspector extends Thread implements InspectorContextListener {
     protected boolean q;
 
     /**
-     *
-     * @param id
-     *            the agent identifier this inspector should use
-     * @param tid
-     *            the identifier of the tuple centre under inspection
-     * @param forGui
-     *            whether the inspector is the Gui version (see Dradi MoK
-     *            project 2014/2015)
+     * @param id     the agent identifier this inspector should use
+     * @param tid    the identifier of the tuple centre under inspection
+     * @param forGui whether the inspector is the Gui version (see Dradi MoK
+     *               project 2014/2015)
      */
     public Inspector(final TucsonAgentId id, final TucsonTupleCentreId tid,
                      boolean forGui) {
@@ -60,7 +54,6 @@ public class Inspector extends Thread implements InspectorContextListener {
     }
 
     /**
-     *
      * @return the inspection context used by this inspector
      */
     public InspectorContext getContext() {

@@ -13,9 +13,9 @@
  */
 package alice.tuplecentre.api;
 
-import alice.tuplecentre.core.InspectableEvent;
-
 import java.util.EventListener;
+
+import alice.tuplecentre.core.InspectableEvent;
 
 /**
  * Defines listeners of tuple centre virtual machine observable events (actually
@@ -28,10 +28,10 @@ public interface InspectableEventListener extends EventListener {
 
     /**
      * Method triggered by the tuple centre virtual machine when an observable
-     * event is observed inside the VM
+     * events is observed inside the VM
      *
      * @param e
-     *            the observed event
+     *            the observed events
      */
-    void onInspectableEvent(InspectableEvent e);
+    void onInspectableEvent(final InspectableEvent e);
 }

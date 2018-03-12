@@ -9,18 +9,14 @@ import alice.tuplecentre.respect.api.RespectOperation;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 
 /**
- * 
  * @author ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
- * 
+ * michele.bombardi@studio.unibo.it)
  */
 public class OrdinaryAsynchInterface extends RootInterface implements
         IOrdinaryAsynchInterface {
     /**
-     * 
-     * @param core
-     *            the ReSpecT tuple centre this context refers to
+     * @param core the ReSpecT tuple centre this context refers to
      */
     public OrdinaryAsynchInterface(final IRespectTC core) {
         super(core);

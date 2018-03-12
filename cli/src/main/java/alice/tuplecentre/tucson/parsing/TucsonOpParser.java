@@ -8,9 +8,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdExcepti
 import alice.tuplecentre.tucson.service.TucsonCmd;
 
 /**
- *
  * @author ste (mailto: s.mariani@unibo.it)
- *
  */
 public class TucsonOpParser {
 
@@ -30,15 +28,11 @@ public class TucsonOpParser {
     private TupleCentreIdParser tidParser;
 
     /**
-     *
-     * @param in
-     *            the String representation of the TuCSoN operation to parse
-     * @param n
-     *            the String representation of the default TuCSoN node of
-     *            reference
-     * @param port
-     *            the String representation of the default TuCSoN listening port
-     *            of reference
+     * @param in   the String representation of the TuCSoN operation to parse
+     * @param n    the String representation of the default TuCSoN node of
+     *             reference
+     * @param port the String representation of the default TuCSoN listening port
+     *             of reference
      */
     public TucsonOpParser(final String in, final String n, final int port) {
         this.input = in;
@@ -51,7 +45,6 @@ public class TucsonOpParser {
     }
 
     /**
-     *
      * @return the TuCSoN command part of the TuCSoN operation
      */
     public TucsonCmd getCmd() {
@@ -59,7 +52,6 @@ public class TucsonOpParser {
     }
 
     /**
-     *
      * @return the id of the tuple centre involved in the operation
      */
     public TucsonTupleCentreId getTid() {
@@ -67,10 +59,8 @@ public class TucsonOpParser {
     }
 
     /**
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the id of the tuple centre target of the operation is not
-     *             a valid TuCSoN tuple centre id
+     * @throws TucsonInvalidTupleCentreIdException if the id of the tuple centre target of the operation is not
+     *                                             a valid TuCSoN tuple centre id
      */
     public void parse() throws TucsonInvalidTupleCentreIdException {
         String cmd = this.input.trim();
@@ -79,7 +69,7 @@ public class TucsonOpParser {
         final int iBra = this.input.indexOf('(');
         if (iOp != -1
                 && !TucsonOpParser.insideReaction(this.input.substring(0, iOp)
-                        .trim())) {
+                .trim())) {
             if (iBra != -1 && iBra < iOp) {
                 cmd = this.input.substring(iOp + 1, this.input.length()).trim();
                 tc = this.input.substring(0, iOp).trim();

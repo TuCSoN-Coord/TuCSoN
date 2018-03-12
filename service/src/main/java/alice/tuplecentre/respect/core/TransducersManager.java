@@ -22,17 +22,17 @@ import alice.tuprolog.Term;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 04/nov/2013
- *
  */
 public enum TransducersManager {
-    /** The singleton istance of this enum type */
+    /**
+     * The singleton istance of this enum type
+     */
     INSTANCE;
 
     /**
      * Utility methods used to communicate an output message to the console.
      *
-     * @param msg
-     *            message to print.
+     * @param msg message to print.
      */
     private static void speak(final String msg) {
         System.out.println("..[TransducerManager]: " + msg);
@@ -42,11 +42,17 @@ public enum TransducersManager {
         System.err.println("..[TransducerManager]: " + msg);
     }
 
-    /** List of the associations transducer/probes **/
+    /**
+     * List of the associations transducer/probes
+     **/
     private Map<TransducerId, List<ProbeIdentifier>> probesToTransducersMap;
-    /** List of all the transducers on a single node **/
+    /**
+     * List of all the transducers on a single node
+     **/
     private Map<TransducerId, AbstractTransducer> transducersList;
-    /** List of the associations tuple centre/transducers **/
+    /**
+     * List of the associations tuple centre/transducers
+     **/
     private Map<TupleCentreIdentifier, List<TransducerId>> transducersToTupleCentresMap;
 
     private TransducersManager() {
@@ -58,12 +64,9 @@ public enum TransducersManager {
     /**
      * Adds a new resource and associate it to the transducer tId.
      *
-     * @param id
-     *            new environment resource identifier
-     * @param tId
-     *            transducer associated
-     * @param probe
-     *            the probe itself
+     * @param id    new environment resource identifier
+     * @param tId   transducer associated
+     * @param probe the probe itself
      * @return wether the resource has been successfully added
      */
     public synchronized boolean addProbe(final ProbeIdentifier id,
@@ -89,28 +92,18 @@ public enum TransducersManager {
     /**
      * Creates a new transducer
      *
-     * @param className
-     *            name of the concrete implementative class of transducer
-     * @param id
-     *            the transducer's identifier
-     * @param tcId
-     *            the tuple center with which the transducer will interact
-     * @param probeId
-     *            resource's identifier associated to the transducer
+     * @param className name of the concrete implementative class of transducer
+     * @param id        the transducer's identifier
+     * @param tcId      the tuple center with which the transducer will interact
+     * @param probeId   resource's identifier associated to the transducer
      * @return wether the transducer has been successfully created
-     *
-     * @throws ClassNotFoundException
-     *             if the given Java full class name cannot be found within
-     *             known paths
-     * @throws NoSuchMethodException
-     *             if the Java method name cannot be found
-     * @throws InstantiationException
-     *             if the given Java class cannot be instantiated
-     * @throws IllegalAccessException
-     *             if the caller has no rights to access class, methods, or
-     *             fields
-     * @throws InvocationTargetException
-     *             if the callee cannot be found
+     * @throws ClassNotFoundException    if the given Java full class name cannot be found within
+     *                                   known paths
+     * @throws NoSuchMethodException     if the Java method name cannot be found
+     * @throws InstantiationException    if the given Java class cannot be instantiated
+     * @throws IllegalAccessException    if the caller has no rights to access class, methods, or
+     *                                   fields
+     * @throws InvocationTargetException if the callee cannot be found
      */
     public synchronized boolean createTransducer(final String className,
                                                  final TransducerId id, final TupleCentreIdentifier tcId,
@@ -135,10 +128,10 @@ public enum TransducersManager {
         final String normClassName = className.substring(1,
                 className.length() - 1);
         final Class<?> c = Class.forName(normClassName);
-        final Constructor<?> ctor = c.getConstructor(new Class[] {
+        final Constructor<?> ctor = c.getConstructor(new Class[]{
                 TransducerId.class, TupleCentreIdentifier.class});
         final AbstractTransducer t = (AbstractTransducer) ctor
-                .newInstance(new Object[] { id, tcId });
+                .newInstance(new Object[]{id, tcId});
         this.transducersList.put(id, t);
         // Adding probe to the transducer
         final ArrayList<ProbeIdentifier> probes = new ArrayList<ProbeIdentifier>();
@@ -153,8 +146,7 @@ public enum TransducersManager {
     /**
      * Returns the resource list associated to the transducer identified by tId
      *
-     * @param tId
-     *            the transducer's identifier
+     * @param tId the transducer's identifier
      * @return a resource list as a ProbeId array.
      */
     // FIXME Check correctness (synchronization needed?)
@@ -175,8 +167,7 @@ public enum TransducersManager {
     /**
      * Returns the transducer identified by tId
      *
-     * @param tId
-     *            the transducer's name
+     * @param tId the transducer's name
      * @return the transducer
      */
     // FIXME Check correctness (synchronization needed?)
@@ -193,8 +184,7 @@ public enum TransducersManager {
     /**
      * Returns the transducer's identifier associated to the input resource
      *
-     * @param probe
-     *            resource associated to the transducer
+     * @param probe resource associated to the transducer
      * @return the transducer identifier
      */
     // FIXME Check correctness (synchronization needed?)
@@ -219,8 +209,7 @@ public enum TransducersManager {
      * Gets the list of transducer ids associated to the tuple centre identified
      * by tcId
      *
-     * @param tcId
-     *            the tuple centre's identifier
+     * @param tcId the tuple centre's identifier
      * @return list of transducer id associated to tcId
      */
     // FIXME Check correctness (synchronization needed?)
@@ -241,15 +230,14 @@ public enum TransducersManager {
         TransducersManager
                 .speakErr("There's no transducer associated to tuple centre '"
                         + tcId + "' yet (or it doesn't exist at all)!");
-        return new TransducerId[] {};
+        return new TransducerId[]{};
     }
 
     /**
      * Returns the identifier of the tuple centre associated to the transducer
      * identified by tId
      *
-     * @param tId
-     *            the transducer's identifier
+     * @param tId the transducer's identifier
      * @return the tuple centre's identifier
      */
     // FIXME Check correctness (synchronization needed?)
@@ -267,8 +255,7 @@ public enum TransducersManager {
     /**
      * Removes a probe from the resource list
      *
-     * @param probe
-     *            the resource's identifier to remove
+     * @param probe the resource's identifier to remove
      * @return wether the resource has been succesfully removed
      */
     public synchronized boolean removeProbe(final ProbeIdentifier probe) {
@@ -296,8 +283,7 @@ public enum TransducersManager {
     /**
      * Stops and removes the transducer identified by id
      *
-     * @param id
-     *            the transducer identifier
+     * @param id the transducer identifier
      */
     public synchronized void stopTransducer(final TransducerId id) {
         if (!this.transducersList.containsKey(id)) {

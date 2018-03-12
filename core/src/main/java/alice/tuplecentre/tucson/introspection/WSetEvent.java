@@ -6,12 +6,10 @@ import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.EmitterIdentifier;
 
 /**
- *
  * //TODO add documentation
  *
  * @author Unknown...
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 public class WSetEvent implements Serializable {
 
@@ -24,13 +22,9 @@ public class WSetEvent implements Serializable {
     private EmitterIdentifier target;
 
     /**
-     *
-     * @param lt
-     *            the tuple representing the event
-     * @param s
-     *            the identifier of the event source
-     * @param t
-     *            the identifier of the event target
+     * @param lt the tuple representing the events
+     * @param s  the identifier of the events source
+     * @param t  the identifier of the events target
      */
     public WSetEvent(final LogicTuple lt, final EmitterIdentifier s, final EmitterIdentifier t) {
         this.op = lt;
@@ -60,24 +54,21 @@ public class WSetEvent implements Serializable {
     }
 
     /**
-     * @param o
-     *            the op to set
+     * @param o the op to set
      */
     public void setOp(final LogicTuple o) {
         this.op = o;
     }
 
     /**
-     * @param s
-     *            the source to set
+     * @param s the source to set
      */
     public void setSource(final EmitterIdentifier s) {
         this.source = s;
     }
 
     /**
-     * @param t
-     *            the target to set
+     * @param t the target to set
      */
     public void setTarget(final EmitterIdentifier t) {
         this.target = t;

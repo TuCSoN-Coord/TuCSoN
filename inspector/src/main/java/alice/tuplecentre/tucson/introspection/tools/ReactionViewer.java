@@ -21,10 +21,8 @@ import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
 /**
- *
  * @author Unknown...
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 public class ReactionViewer extends javax.swing.JFrame {
 
@@ -39,8 +37,7 @@ public class ReactionViewer extends javax.swing.JFrame {
     /**
      * Creates new form TupleForm
      *
-     * @param mf
-     *            the inspector GUI
+     * @param mf the inspector GUI
      */
     public ReactionViewer(final InspectorGUI mf) {
         super();
@@ -58,9 +55,7 @@ public class ReactionViewer extends javax.swing.JFrame {
     }
 
     /**
-     *
-     * @param st
-     *            the message to append
+     * @param st the message to append
      */
     public void appendText(final String st) {
         this.outputArea.append(st);
@@ -88,7 +83,9 @@ public class ReactionViewer extends javax.swing.JFrame {
         }
     }
 
-    /** Exit the Application */
+    /**
+     * Exit the Application
+     */
     private void exitForm() {
         this.mainForm.onReactionViewerExit();
     }
@@ -144,7 +141,7 @@ public class ReactionViewer extends javax.swing.JFrame {
         this.inputFileLog
                 .addActionListener(new java.awt.event.ActionListener() {
 
-            @Override
+                    @Override
                     public void actionPerformed(
                             final java.awt.event.ActionEvent evt) {
                         ReactionViewer.this.inputFileLogActionPerformed();
@@ -173,7 +170,7 @@ public class ReactionViewer extends javax.swing.JFrame {
         this.checkLogEnable
                 .addActionListener(new java.awt.event.ActionListener() {
 
-            @Override
+                    @Override
                     public void actionPerformed(
                             final java.awt.event.ActionEvent evt) {
                         ReactionViewer.this.checkLogEnableActionPerformed();

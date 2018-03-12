@@ -11,78 +11,58 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tuplecentre.tucson.introspection;
-
-import java.io.Serializable;
+package alice.tuplecentre.tucson.network.messages.introspection;
 
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
+
 /**
+ * // TODO: 12/03/2018 add documentation... and maybe change class name to a more evocative
  *
  * @author Unknown...
- *
  */
-public class NodeMsg implements Serializable {
+public abstract class AbstractNodeMessage implements NodeMessage {
 
-    private static final long serialVersionUID = -3499870079832457223L;
     private String action;
     private TucsonAgentId aid;
 
     /**
-     *
-     * @param id
-     *            the agent id of the sender
+     * @param id the agent id of the sender
      */
-    public NodeMsg(final TucsonAgentId id) {
+    public AbstractNodeMessage(final TucsonAgentId id) {
         this.aid = id;
     }
 
     /**
-     *
-     * @param id
-     *            the agent id of the sender
-     * @param act
-     *            the action to perform
+     * @param id  the agent id of the sender
+     * @param action the action to perform
      */
-    public NodeMsg(final TucsonAgentId id, final String act) {
+    public AbstractNodeMessage(final TucsonAgentId id, final String action) {
         this.aid = id;
-        this.action = act;
+        this.action = action;
     }
 
-    /**
-     *
-     */
-    protected NodeMsg() {
+    protected AbstractNodeMessage() {
         super();
     }
 
-    /**
-     * @return the action
-     */
+    @Override
     public String getAction() {
         return this.action;
     }
 
-    /**
-     * @return the aid
-     */
-    public TucsonAgentId getAid() {
+    @Override
+    public TucsonAgentId getAgentIdentifier() {
         return this.aid;
     }
 
-    /**
-     * @param a
-     *            the action to set
-     */
-    public void setAction(final String a) {
-        this.action = a;
+    @Override
+    public void setAction(final String action) {
+        this.action = action;
     }
 
-    /**
-     * @param id
-     *            the aid to set
-     */
-    public void setAid(final TucsonAgentId id) {
+    @Override
+    public void setAgentIdentifier(final TucsonAgentId id) {
         this.aid = id;
     }
 }

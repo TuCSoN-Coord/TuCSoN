@@ -38,19 +38,19 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidSpecificationExcepti
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.tucson.introspection.ShutdownMsg;
-import alice.tuplecentre.tucson.network.TucsonMsgReply;
-import alice.tuplecentre.tucson.network.TucsonMsgRequest;
 import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMessage;
+import alice.tuplecentre.tucson.network.messages.events.OutputEventMessageDefault;
+import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMessage;
 
 /**
- *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
- *
+ * michele.bombardi@studio.unibo.it)
  */
 public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
 
@@ -62,29 +62,21 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     private final ACCProvider manager;
     private final TucsonNodeService node;
     private final Map<OperationIdentifier, OperationIdentifier> opVsReq;
-    private final Map<OperationIdentifier, TucsonMsgRequest> requests;
+    private final Map<OperationIdentifier, TucsonMessageRequest> requests;
     private TucsonTupleCentreId tcId;
 
     /**
-     *
-     * @param man
-     *            the ACC provider who created this ACC Proxy at TuCSoN node
+     * @param man the ACC provider who created this ACC Proxy at TuCSoN node
      *            side
-     * @param d
-     *            the network protocol used by this ACC Proxy at TuCSoN node
+     * @param d   the network protocol used by this ACC Proxy at TuCSoN node
      *            side
-     * @param n
-     *            the TuCSoN node this ACC Proxy at TuCSoN node side belongs to
-     * @param p
-     *            the object describing the request of entering the TuCSoN
+     * @param n   the TuCSoN node this ACC Proxy at TuCSoN node side belongs to
+     * @param p   the object describing the request of entering the TuCSoN
      *            system
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
-     *             message, does not represent a valid TuCSoN identifier
-     *
-     * @throws TucsonInvalidAgentIdException
-     *             if the ACCDescription's "agent-identity" property does not
-     *             represent a valid TuCSoN identifier
+     * @throws TucsonInvalidTupleCentreIdException if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
+     *                                             message, does not represent a valid TuCSoN identifier
+     * @throws TucsonInvalidAgentIdException       if the ACCDescription's "agent-identity" property does not
+     *                                             represent a valid TuCSoN identifier
      */
     public ACCProxyNodeSide(final ACCProvider man,
                             final TucsonProtocol d, final TucsonNodeService n,
@@ -109,46 +101,45 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     }
 
     @Override
-    public synchronized void exit(final ShutdownMsg msg) {
-        this.log("Shutdown request received from <" + msg.getAid() + ">...");
+    public synchronized void exit(final ShutdownMessage msg) {
+        this.log("Shutdown request received from <" + msg.getAgentIdentifier() + ">...");
         this.ex = true;
         this.notify();
     }
 
     /**
-     * @param op
-     *            the operation just completed
+     * @param op the operation just completed
      */
     @Override
     public void operationCompleted(final AbstractTupleCentreOperation op) {
         OperationIdentifier reqId;
-        TucsonMsgRequest msg;
+        TucsonMessageRequest msg;
         synchronized (this.requests) {
             reqId = this.opVsReq.remove(op.getId());
             msg = this.requests.remove(reqId);
         }
-        final InputEventMsg evMsg = msg.getInputEventMsg();
-        TucsonMsgReply reply = null;
+        final InputEventMessage evMsg = msg.getEventMsg();
+        TucsonMessageReply reply = null;
         if (op.getType() == TupleCentreOpType.IN_ALL || op.getType() == TupleCentreOpType.RD_ALL || op.getType() == TupleCentreOpType.NO_ALL || op.getType() == TupleCentreOpType.OUT_ALL) {
             if (op.getTupleListResult() == null) {
                 op.setTupleListResult(new LinkedList<Tuple>());
             }
             if (op.isResultSuccess()) {
-                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         evMsg.getOpType(), true, true, true, evMsg.getTuple(),
                         op.getTupleListResult()));
             } else {
-                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         evMsg.getOpType(), true, true, false, evMsg.getTuple(),
                         op.getTupleListResult()));
             }
         } else {
             if (op.isResultSuccess()) {
-                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         evMsg.getOpType(), true, true, true, evMsg.getTuple(),
                         op.getTupleResult()));
             } else {
-                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         evMsg.getOpType(), true, true, false, evMsg.getTuple(),
                         op.getTupleResult()));
             }
@@ -161,13 +152,13 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     }
 
     /**
-     * 
+     *
      */
     @Override
     public void run() {
         this.node.addAgent(this.agentId);
-        TucsonMsgRequest msg;
-        TucsonMsgReply reply;
+        TucsonMessageRequest msg;
+        TucsonMessageReply reply;
         TucsonTupleCentreId tid;
         final LogicTuple res = null;
         List<LogicTuple> resList;
@@ -180,10 +171,10 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                 break;
             }
             // final int msgType = msg.getType();
-            final InputEventMsg evMsg = msg.getInputEventMsg();
+            final InputEventMessage evMsg = msg.getEventMsg();
             final TupleCentreOpType msgType = evMsg.getOpType();
             if (msgType == TupleCentreOpType.EXIT) {
-                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         TupleCentreOpType.EXIT, true, true, true));
                 try {
                     this.dialog.sendMsgReply(reply);
@@ -206,7 +197,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
             // } catch (InstantiationNotPossibleException e) {
             // e.printStackTrace();
             // }
-            
+
             // Operation Make
             final RespectOperationDefault opRequested = this.makeOperation(
                     evMsg.getOpType(), evMsg.getTuple());
@@ -251,7 +242,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         msgType, true, true, true, evMsg.getTuple(), resList));
                 try {
                     this.dialog.sendMsgReply(reply);
@@ -286,7 +277,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         msgType, true, true, true, res, resList));
                 try {
                     this.dialog.sendMsgReply(reply);
@@ -318,7 +309,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         msgType, true, true, true, null, resList));
                 try {
                     this.dialog.sendMsgReply(reply);
@@ -353,7 +344,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-                reply = new TucsonMsgReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         msgType, true, true, true, null, resList));
                 try {
                     this.dialog.sendMsgReply(reply);
@@ -459,11 +450,11 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     try {
                         if (this.tcId == null) {
                             op = TupleCentreContainer.doEnvironmentalOperation(
-                                    msgType, this.agentId, tid, msg.getInputEventMsg().getTuple(),
+                                    msgType, this.agentId, tid, msg.getEventMsg().getTuple(),
                                     this);
                         } else {
                             op = TupleCentreContainer.doEnvironmentalOperation(
-                                    msgType, this.tcId, tid, msg.getInputEventMsg().getTuple(),
+                                    msgType, this.tcId, tid, msg.getEventMsg().getTuple(),
                                     this);
                         }
                     } catch (final TucsonOperationNotPossibleException e) {
@@ -477,8 +468,8 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                         break;
                     }
                 }
-                this.requests.put(msg.getInputEventMsg().getOpId(), msg);
-                this.opVsReq.put(op.getId(), msg.getInputEventMsg().getOpId());
+                this.requests.put(msg.getEventMsg().getOpId(), msg);
+                this.opVsReq.put(op.getId(), msg.getEventMsg().getOpId());
             }
         }
         try {
@@ -502,9 +493,8 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
         System.out.println("..[ACCProxyNodeSide (" + this.node.getTCPPort()
                 + ", " + this.ctxId + ", " + this.agentName + ")]: " + st);
     }
-    
+
     /**
-     *
      * @param opType
      * @param tuple
      * @return
@@ -518,22 +508,22 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     || opType == TupleCentreOpType.SET
                     || opType == TupleCentreOpType.SET_S) {
                 op = RespectOperationDefault.make(opType, tuple, null); // blocking
-                                                                       // operation,
-                                                                       // no
-                                                                       // need
-                                                                       // for
-                                                                       // operation
-                                                                       // completion
-                                                                       // listener
+                // operation,
+                // no
+                // need
+                // for
+                // operation
+                // completion
+                // listener
             } else {
                 op = RespectOperationDefault.make(opType, tuple, this); // non
-                                                                       // blocking
-                                                                       // operation,
-                                                                       // need
-                                                                       // for
-                                                                       // operation
-                                                                       // completion
-                                                                       // listener
+                // blocking
+                // operation,
+                // need
+                // for
+                // operation
+                // completion
+                // listener
             }
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();

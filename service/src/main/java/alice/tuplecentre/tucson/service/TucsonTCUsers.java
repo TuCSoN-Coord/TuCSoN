@@ -21,9 +21,7 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 
 /**
- *
  * @author Alessandro Ricci
- *
  */
 public class TucsonTCUsers {
 
@@ -32,9 +30,7 @@ public class TucsonTCUsers {
     private final TucsonTupleCentreId tid;
 
     /**
-     *
-     * @param id
-     *            the identifier of the tuple centre this register refers to
+     * @param id the identifier of the tuple centre this register refers to
      */
     public TucsonTCUsers(final TucsonTupleCentreId id) {
         this.tid = id;
@@ -43,9 +39,7 @@ public class TucsonTCUsers {
     }
 
     /**
-     *
-     * @param aid
-     *            the identifier of the agent to add to this register
+     * @param aid the identifier of the agent to add to this register
      */
     public void addUser(final TucsonAgentId aid) {
         synchronized (this.currentAidUsers) {
@@ -56,7 +50,6 @@ public class TucsonTCUsers {
     }
 
     /**
-     *
      * @return the date this register was created
      */
     public Date getCreationDate() {
@@ -64,7 +57,6 @@ public class TucsonTCUsers {
     }
 
     /**
-     *
      * @return the identifier of the tuple centre this register refers to
      */
     public TucsonTupleCentreId getTucsonTupleCentreId() {
@@ -72,7 +64,6 @@ public class TucsonTCUsers {
     }
 
     /**
-     *
      * @return the list of user agents (their identifiers) currently registered
      */
     public List<TucsonAgentId> getUsers() {
@@ -82,9 +73,7 @@ public class TucsonTCUsers {
     }
 
     /**
-     *
-     * @param aid
-     *            the identifier of the agent to remove from this register
+     * @param aid the identifier of the agent to remove from this register
      */
     public void removeUser(final TucsonAgentId aid) {
         synchronized (this.currentAidUsers) {

@@ -11,25 +11,41 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tuplecentre.tucson.introspection;
+package alice.tuplecentre.tucson.network.messages.introspection;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import alice.tuple.Tuple;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
+ * // TODO: 12/03/2018 add documentation
  *
  * @author Unknown...
- *
  */
-public class NextStepMsg extends NodeMsg {
+public class SetEventSetMessageDefault extends AbstractNodeMessage implements SetEventSetMessage {
 
-    private static final long serialVersionUID = 3967973492584768476L;
+    private List<Tuple> eventWnSet;
 
     /**
-     *
-     * @param id
-     *            the agent id of the sender
+     * @param id the agent id of the sender
+     * @param ts the list of tuples representing events to overwrite the InQ
+     *           with
      */
-    public NextStepMsg(final TucsonAgentId id) {
-        super(id, "nextStep");
+    public SetEventSetMessageDefault(final TucsonAgentId id, final List<? extends Tuple> ts) {
+        super(id, "setEventSet");
+        this.eventWnSet = new ArrayList<>(ts);
+    }
+
+    @Override
+    public List<Tuple> getEventWnSet() {
+        return this.eventWnSet;
+    }
+
+    @Override
+    public void setEventWnSet(final List<? extends Tuple> set) {
+        this.eventWnSet.clear();
+        this.eventWnSet.addAll(set);
     }
 }

@@ -41,9 +41,8 @@ import alice.tuprolog.Term;
  * available to Java agents and human agents (through the CLI tool) are thus
  * made available to tuProlog agents too.
  *
- * @see alice.tuprolog.Agent Agent
- *
  * @author ste (mailto: s.mariani@unibo.it)
+ * @see alice.tuprolog.Agent Agent
  */
 public class Tucson2PLibrary extends Library {
 
@@ -52,9 +51,7 @@ public class Tucson2PLibrary extends Library {
     /**
      * Utility to convert a list of tuple into a tuple list of tuples
      *
-     * @param list
-     *            the list of tuples to convert
-     *
+     * @param list the list of tuples to convert
      * @return the tuple list of tuples result of the conversion
      */
     private static Term list2tuple(final List<LogicTuple> list) {
@@ -77,16 +74,12 @@ public class Tucson2PLibrary extends Library {
      * To be enabled to interact with any TuCSoN system, an ACC must be acquired
      * first.
      *
-     * @param id
-     *            the TucsonAgentId of the tuProlog agent willing to interact
-     *            with TuCSoN
-     *
+     * @param id the TucsonAgentId of the tuProlog agent willing to interact
+     *           with TuCSoN
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidAgentIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     *
+     * otherwise
+     * @throws TucsonInvalidAgentIdException if the given Term does not represent a valid TuCSoN
+     *                                       identifier
      * @see EnhancedACC EnhancedACC
      * @see TucsonAgentId TucsonAgentId
      */
@@ -102,60 +95,52 @@ public class Tucson2PLibrary extends Library {
             }
         }
         agentId = new TucsonAgentIdDefault(id.getTerm().toString());
-        
+
         if (!nodeHost.isGround() || !portTerm.isGround()) {
-        	return false;
+            return false;
         }
-        
+
         final String netId = nodeHost.getTerm().toString();
         final String portString = portTerm.getTerm().toString();
         final int port;
-        
-		try {
-			port = Integer.parseInt(portString);
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-			return false;
-		}
+
+        try {
+            port = Integer.parseInt(portString);
+        } catch (NumberFormatException e) {
+            e.printStackTrace();
+            return false;
+        }
         this.context = TucsonMetaACC.getContext(agentId, netId, port);
         try {
-			this.context.enterACC();
-		} catch (UnreachableNodeException | TucsonOperationNotPossibleException
-				| TucsonInvalidTupleCentreIdException e) {
-			e.printStackTrace();
-			return false;
-		}
+            this.context.enterACC();
+        } catch (UnreachableNodeException | TucsonOperationNotPossibleException
+                | TucsonInvalidTupleCentreIdException e) {
+            e.printStackTrace();
+            return false;
+        }
 
         this.aid = agentId.getLocalName();
         this.netid = netId;
         if (this.netid.charAt(0) == '\'' && this.netid.charAt(this.netid.length() - 1) == '\'')
-        	this.netid = this.netid.substring(1,  this.netid.length() - 1);
+            this.netid = this.netid.substring(1, this.netid.length() - 1);
         this.port = port;
-        
+
         return true;
     }
 
     /**
      * <code>get</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to store the result
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to store the result
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see OrdinaryAsyncACC OrdinaryAsyncACC
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -180,24 +165,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>get_s</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to store the specification result
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to store the specification result
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see SpecificationAsyncACC SpecificationAsyncACC
      * @see SpecificationSyncACC SpecificationSyncACC
      */
@@ -226,8 +203,7 @@ public class Tucson2PLibrary extends Library {
      * specify the full name of the target tuplecentre.
      *
      * @return the String representation of the tuProlog theory usable by
-     *         tuProlog agents
-     *
+     * tuProlog agents
      * @see alice.tuprolog.Theory Theory
      * @see TucsonTupleCentreId TucsonTupleCentreId
      */
@@ -301,24 +277,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>in</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to retrieve
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to retrieve
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see OrdinaryAsyncACC OrdinaryAsyncACC
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -342,26 +310,17 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>in_all</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to retrieve
-     * @param arg1
-     *            the tuple to store the result
-     * @param arg2
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to retrieve
+     * @param arg1 the tuple to store the result
+     * @param arg2 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see BulkAsyncACC BulkAsyncACC
      * @see BulkSyncACC BulkSyncACC
      */
@@ -387,36 +346,26 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>in_s</code> TuCSoN primitive.
      *
-     * @param event
-     *            the template for the TuCSoN primitive to react to
-     * @param guards
-     *            the template for the guard predicates to be checked for
-     *            satisfaction so to actually trigger the body of the ReSpecT
-     *            reaction
-     * @param reactionBody
-     *            the template for the computation to be done in response to the
-     *            <code>event</code>
-     * @param arg3
-     *            the tuplecentre target
-     *
+     * @param event        the template for the TuCSoN primitive to react to
+     * @param guards       the template for the guard predicates to be checked for
+     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     reaction
+     * @param reactionBody the template for the computation to be done in response to the
+     *                     <code>events</code>
+     * @param arg3         the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see SpecificationAsyncACC SpecificationAsyncACC
      * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean in_s_4(final Term event, final Term guards,
-            final Term reactionBody, final Term arg3)
+                          final Term reactionBody, final Term arg3)
             throws TucsonInvalidTupleCentreIdException,
             TucsonOperationNotPossibleException, UnreachableNodeException,
             OperationTimeOutException {
@@ -438,24 +387,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>inp</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to retrieve
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to retrieve
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see OrdinaryAsyncACC OrdinaryAsyncACC
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -479,36 +420,26 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>inp_s</code> TuCSoN primitive.
      *
-     * @param event
-     *            the template for the TuCSoN primitive to react to
-     * @param guards
-     *            the template for the guard predicates to be checked for
-     *            satisfaction so to actually trigger the body of the ReSpecT
-     *            reaction
-     * @param reactionBody
-     *            the template for the computation to be done in response to the
-     *            <code>event</code>
-     * @param arg3
-     *            the tuplecentre target
-     *
+     * @param event        the template for the TuCSoN primitive to react to
+     * @param guards       the template for the guard predicates to be checked for
+     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     reaction
+     * @param reactionBody the template for the computation to be done in response to the
+     *                     <code>events</code>
+     * @param arg3         the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see SpecificationAsyncACC SpecificationAsyncACC
      * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean inp_s_4(final Term event, final Term guards,
-            final Term reactionBody, final Term arg3)
+                           final Term reactionBody, final Term arg3)
             throws TucsonInvalidTupleCentreIdException,
             TucsonOperationNotPossibleException, UnreachableNodeException,
             OperationTimeOutException {
@@ -530,24 +461,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>no</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to check for absence
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to check for absence
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see OrdinaryAsyncACC OrdinaryAsyncACC
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -571,26 +494,17 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>no_all</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to check for absence
-     * @param arg1
-     *            the tuple to store the result
-     * @param arg2
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to check for absence
+     * @param arg1 the tuple to store the result
+     * @param arg2 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see BulkAsyncACC BulkAsyncACC
      * @see BulkSyncACC BulkSyncACC
      */
@@ -616,36 +530,26 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>no_s</code> TuCSoN primitive.
      *
-     * @param event
-     *            the template for the TuCSoN primitive to react to
-     * @param guards
-     *            the template for the guard predicates to be checked for
-     *            satisfaction so to actually trigger the body of the ReSpecT
-     *            reaction
-     * @param reactionBody
-     *            the template for the computation to be done in response to the
-     *            <code>event</code>
-     * @param arg3
-     *            the tuplecentre target
-     *
+     * @param event        the template for the TuCSoN primitive to react to
+     * @param guards       the template for the guard predicates to be checked for
+     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     reaction
+     * @param reactionBody the template for the computation to be done in response to the
+     *                     <code>events</code>
+     * @param arg3         the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see SpecificationAsyncACC SpecificationAsyncACC
      * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean no_s_4(final Term event, final Term guards,
-            final Term reactionBody, final Term arg3)
+                          final Term reactionBody, final Term arg3)
             throws TucsonInvalidTupleCentreIdException,
             TucsonOperationNotPossibleException, UnreachableNodeException,
             OperationTimeOutException {
@@ -667,24 +571,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>nop</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to check for absence
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to check for absence
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see OrdinaryAsyncACC OrdinaryAsyncACC
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -708,36 +604,26 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>nop_s</code> TuCSoN primitive.
      *
-     * @param event
-     *            the template for the TuCSoN primitive to react to
-     * @param guards
-     *            the template for the guard predicates to be checked for
-     *            satisfaction so to actually trigger the body of the ReSpecT
-     *            reaction
-     * @param reactionBody
-     *            the template for the computation to be done in response to the
-     *            <code>event</code>
-     * @param arg3
-     *            the tuplecentre target
-     *
+     * @param event        the template for the TuCSoN primitive to react to
+     * @param guards       the template for the guard predicates to be checked for
+     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     reaction
+     * @param reactionBody the template for the computation to be done in response to the
+     *                     <code>events</code>
+     * @param arg3         the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see SpecificationAsyncACC SpecificationAsyncACC
      * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean nop_s_4(final Term event, final Term guards,
-            final Term reactionBody, final Term arg3)
+                           final Term reactionBody, final Term arg3)
             throws TucsonInvalidTupleCentreIdException,
             TucsonOperationNotPossibleException, UnreachableNodeException,
             OperationTimeOutException {
@@ -759,24 +645,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>out</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to insert
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to insert
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see OrdinaryAsyncACC OrdinaryAsyncACC
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -797,24 +675,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>out_all</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple list of tuples to insert
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple list of tuples to insert
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see BulkAsyncACC BulkAsyncACC
      * @see BulkSyncACC BulkSyncACC
      */
@@ -836,36 +706,25 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>out_s</code> TuCSoN primitive.
      *
-     * @param event
-     *            the TuCSoN primitive to react to
-     * @param guards
-     *            the guard predicates to be checked for satisfaction so to
-     *            actually trigger the body of the ReSpecT reaction
-     * @param reactionBody
-     *            the computation to be done in response to the
-     *            <code>event</code>
-     * @param arg3
-     *            the tuplecentre target
-     *
+     * @param event        the TuCSoN primitive to react to
+     * @param guards       the guard predicates to be checked for satisfaction so to
+     *                     actually trigger the body of the ReSpecT reaction
+     * @param reactionBody the computation to be done in response to the
+     *                     <code>events</code>
+     * @param arg3         the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see SpecificationAsyncACC SpecificationAsyncACC
      * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean out_s_4(final Term event, final Term guards,
-            final Term reactionBody, final Term arg3)
+                           final Term reactionBody, final Term arg3)
             throws TucsonInvalidTupleCentreIdException,
             TucsonOperationNotPossibleException, UnreachableNodeException,
             OperationTimeOutException {
@@ -884,23 +743,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>rd</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to read (w/o removing)
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to read (w/o removing)
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see OrdinaryAsyncACC OrdinaryAsyncACC
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -924,26 +776,17 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>rd_all</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to read (w/o removing)
-     * @param arg1
-     *            the tuple to store the result
-     * @param arg2
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to read (w/o removing)
+     * @param arg1 the tuple to store the result
+     * @param arg2 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see BulkAsyncACC BulkAsyncACC
      * @see BulkSyncACC BulkSyncACC
      */
@@ -969,37 +812,26 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>rd_s</code> TuCSoN primitive.
      *
-     * @param event
-     *            the template for the TuCSoN primitive to react to
-     * @param guards
-     *            the template for the guard predicates to be checked for
-     *            satisfaction so to actually trigger the body of the ReSpecT
-     *            reaction
-     * @param reactionBody
-     *            the template for the computation to be done in response to the
-     *            <code>event</code>
-     * @param arg3
-     *            the tuplecentre target
-     *
+     * @param event        the template for the TuCSoN primitive to react to
+     * @param guards       the template for the guard predicates to be checked for
+     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     reaction
+     * @param reactionBody the template for the computation to be done in response to the
+     *                     <code>events</code>
+     * @param arg3         the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see SpecificationAsyncACC SpecificationAsyncACC
      * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean rd_s_4(final Term event, final Term guards,
-            final Term reactionBody, final Term arg3)
+                          final Term reactionBody, final Term arg3)
             throws TucsonInvalidTupleCentreIdException,
             TucsonOperationNotPossibleException, UnreachableNodeException,
             OperationTimeOutException {
@@ -1021,25 +853,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>rdp</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to read (w/o removing)
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to read (w/o removing)
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see OrdinaryAsyncACC OrdinaryAsyncACC
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -1063,37 +886,26 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>rdp_s</code> TuCSoN primitive.
      *
-     * @param event
-     *            the template for the TuCSoN primitive to react to
-     * @param guards
-     *            the template for the guard predicates to be checked for
-     *            satisfaction so to actually trigger the body of the ReSpecT
-     *            reaction
-     * @param reactionBody
-     *            the template for the computation to be done in response to the
-     *            <code>event</code>
-     * @param arg3
-     *            the tuplecentre target
-     *
+     * @param event        the template for the TuCSoN primitive to react to
+     * @param guards       the template for the guard predicates to be checked for
+     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     reaction
+     * @param reactionBody the template for the computation to be done in response to the
+     *                     <code>events</code>
+     * @param arg3         the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see SpecificationAsyncACC SpecificationAsyncACC
      * @see SpecificationSyncACC SpecificationSyncACC
      */
     public boolean rdp_s_4(final Term event, final Term guards,
-            final Term reactionBody, final Term arg3)
+                           final Term reactionBody, final Term arg3)
             throws TucsonInvalidTupleCentreIdException,
             TucsonOperationNotPossibleException, UnreachableNodeException,
             OperationTimeOutException {
@@ -1117,10 +929,8 @@ public class Tucson2PLibrary extends Library {
      * its ACC.
      *
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
+     * otherwise
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      */
     public boolean release_acc_0() throws TucsonOperationNotPossibleException {
         this.context.exit();
@@ -1130,27 +940,27 @@ public class Tucson2PLibrary extends Library {
         this.port = 0;
         return true;
     }
-    
+
     public boolean acc_3(Term aid, Term netid, Term port) throws TucsonOperationNotPossibleException {
 
-		if (this.aid != null) {
-			this.unify(aid, new Struct(this.aid));
-		} else {
-			return false;
-		}
-		
-		if (this.netid != null) {
-			this.unify(netid, new Struct(this.netid));
-		} else {
-			return false;
-		}
-		
-		if (this.port > 0) {
-			this.unify(port, new alice.tuprolog.Int(this.port));
-		} else {
-			return false;
-		}
-    	
+        if (this.aid != null) {
+            this.unify(aid, new Struct(this.aid));
+        } else {
+            return false;
+        }
+
+        if (this.netid != null) {
+            this.unify(netid, new Struct(this.netid));
+        } else {
+            return false;
+        }
+
+        if (this.port > 0) {
+            this.unify(port, new alice.tuprolog.Int(this.port));
+        } else {
+            return false;
+        }
+
         return true;
     }
 
@@ -1158,25 +968,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>set</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple list of tuples to overwrite the space
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple list of tuples to overwrite the space
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see OrdinaryAsyncACC OrdinaryAsyncACC
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -1197,26 +998,17 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>set_s</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple list of ReSpecT specification tuples to overwrite
-     *            the specification space
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple list of ReSpecT specification tuples to overwrite
+     *             the specification space
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see SpecificationAsyncACC SpecificationAsyncACC
      * @see SpecificationSyncACC SpecificationSyncACC
      */
@@ -1238,25 +1030,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>spawn</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the activity to spawn
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the activity to spawn
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see OrdinaryAsyncACC OrdinaryAsyncACC
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -1278,25 +1061,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>uin</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to probabilistically retrieve
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to probabilistically retrieve
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see UniformAsyncACC UniformAsyncACC
      * @see UniformSyncACC UniformSyncACC
      */
@@ -1320,25 +1094,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>uinp</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to probabilistically retrieve
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to probabilistically retrieve
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see UniformAsyncACC UniformAsyncACC
      * @see UniformSyncACC UniformSyncACC
      */
@@ -1363,25 +1128,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>uno</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to probabilistically check for absence
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to probabilistically check for absence
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see UniformAsyncACC UniformAsyncACC
      * @see UniformSyncACC UniformSyncACC
      */
@@ -1405,25 +1161,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>unop</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to probabilistically check for absence
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to probabilistically check for absence
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see UniformAsyncACC UniformAsyncACC
      * @see UniformSyncACC UniformSyncACC
      */
@@ -1448,25 +1195,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>urd</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to probabilistically read (w/o removing)
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to probabilistically read (w/o removing)
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see UniformAsyncACC UniformAsyncACC
      * @see UniformSyncACC UniformSyncACC
      */
@@ -1490,25 +1228,16 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>urdp</code> TuCSoN primitive.
      *
-     * @param arg0
-     *            the tuple to probabilistically read (w/o removing)
-     * @param arg1
-     *            the tuplecentre target
-     *
+     * @param arg0 the tuple to probabilistically read (w/o removing)
+     * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
-     *         otherwise
-     *
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Term does not represent a valid TuCSoN
-     *             identifier
-     * @throws TucsonOperationNotPossibleException
-     *             if the requested operation cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target tuple centre is not reachable over the network
-     * @throws OperationTimeOutException
-     *             if the operation timeout expired prior to operation
-     *             completion
-     *
+     * otherwise
+     * @throws TucsonInvalidTupleCentreIdException if the given Term does not represent a valid TuCSoN
+     *                                             identifier
+     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+     * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
+     * @throws OperationTimeOutException           if the operation timeout expired prior to operation
+     *                                             completion
      * @see UniformAsyncACC UniformAsyncACC
      * @see UniformSyncACC UniformSyncACC
      */

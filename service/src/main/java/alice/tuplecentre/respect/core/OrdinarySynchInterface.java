@@ -30,14 +30,13 @@ import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 
 /**
- * 
  * A Blocking Context wraps the access to a tuple centre virtual machine for a
  * specific thread of control, providing a blocking interface.
- * 
+ *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
+ * michele.bombardi@studio.unibo.it)
  */
 public class OrdinarySynchInterface extends RootInterface implements
         IOrdinarySynchInterface {
@@ -53,9 +52,7 @@ public class OrdinarySynchInterface extends RootInterface implements
     }
 
     /**
-     * 
-     * @param core
-     *            the ReSpecT tuple centre this context refers to
+     * @param core the ReSpecT tuple centre this context refers to
      */
     public OrdinarySynchInterface(final IRespectTC core) {
         super(core);
@@ -106,9 +103,9 @@ public class OrdinarySynchInterface extends RootInterface implements
                             .getLogicTupleListResult())));
             return op.getLogicTupleListResult();
         }
-       // } catch (final InvalidLogicTupleOperationException e2) {
-         //   throw new OperationNotPossibleException();
-      //  }
+        // } catch (final InvalidLogicTupleOperationException e2) {
+        //   throw new OperationNotPossibleException();
+        //  }
         return op.getLogicTupleListResult();
     }
 
@@ -159,9 +156,9 @@ public class OrdinarySynchInterface extends RootInterface implements
                             .getLogicTupleListResult())));
             return op.getLogicTupleListResult();
         }
-       // } catch (final InvalidLogicTupleOperationException e2) {
-       //     throw new OperationNotPossibleException();
-      //  }
+        // } catch (final InvalidLogicTupleOperationException e2) {
+        //     throw new OperationNotPossibleException();
+        //  }
         return op.getLogicTupleListResult();
     }
 
@@ -221,7 +218,7 @@ public class OrdinarySynchInterface extends RootInterface implements
         TupleArgument arg = null;
         final AbstractTupleCentreOperation inOp = ev.getSimpleTCEvent();
         final LogicTuple t = (LogicTuple) inOp.getTemplateArgument();
-       // try {
+        // try {
         if (t == null) {
             throw new InvalidLogicTupleException();
         }
@@ -235,9 +232,9 @@ public class OrdinarySynchInterface extends RootInterface implements
                             .getLogicTupleListResult())));
             return op.getLogicTupleListResult();
         }
-       // } catch (final InvalidLogicTupleOperationException e2) {
-          //  throw new OperationNotPossibleException();
-       // }
+        // } catch (final InvalidLogicTupleOperationException e2) {
+        //  throw new OperationNotPossibleException();
+        // }
         return op.getLogicTupleListResult();
     }
 

@@ -65,7 +65,7 @@ public final class PersistencyTester {
             }
             // snapshot test
             acc.out(ttcidOrg, LogicTuples.newInstance("cmd", TupleArguments.newValueArgument(
-                            "enable_persistency", TupleArguments.newValueArgument("def", TupleArguments.newValueArgument(1)))),
+                    "enable_persistency", TupleArguments.newValueArgument("def", TupleArguments.newValueArgument(1)))),
                     Long.MAX_VALUE);
             // spec addition
             spec = Utils
@@ -88,7 +88,7 @@ public final class PersistencyTester {
                     Long.MAX_VALUE);
             // disable persistency test
             acc.out(ttcidOrg, LogicTuples.newInstance("cmd", TupleArguments.newValueArgument(
-                            "disable_persistency", TupleArguments.newValueArgument("def", TupleArguments.newValueArgument(1)))),
+                    "disable_persistency", TupleArguments.newValueArgument("def", TupleArguments.newValueArgument(1)))),
                     Long.MAX_VALUE);
             // tuples addition
             for (; i < 2000; i++) {
@@ -97,7 +97,7 @@ public final class PersistencyTester {
             }
             // snapshot test n. 2
             acc.out(ttcidOrg, LogicTuples.newInstance("cmd", TupleArguments.newValueArgument(
-                            "enable_persistency", TupleArguments.newValueArgument("def", TupleArguments.newVarArgument()))),
+                    "enable_persistency", TupleArguments.newValueArgument("def", TupleArguments.newVarArgument()))),
                     Long.MAX_VALUE);
             // tuples addition
             for (; i < 3000; i++) {

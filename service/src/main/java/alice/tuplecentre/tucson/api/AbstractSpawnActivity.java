@@ -24,10 +24,10 @@ import alice.tuplecentre.tucson.service.TupleCentreContainer;
  * CANNOT access a remote space. Furthermore, the programmer is strongly
  * encouraged not to put communications, locks or other potentially
  * "extra-algorithmic" features in its SpawnActivity.
- * 
+ *
  * @author ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
+ * michele.bombardi@studio.unibo.it)
  */
 public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     private static final long serialVersionUID = -6354837455366449916L;
@@ -37,7 +37,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
 
     /**
      * Checks if the activity to spawn has been correctly instantiated.
-     * 
+     *
      * @return true if instantiation is complete, false otherwise.
      */
     public final boolean checkInstantiation() {
@@ -55,11 +55,10 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     /**
      * Both agents and the coordination medium itself can <code>spawn</code> a
      * computation, hence we need to handle both.
-     * 
-     * @return the "spawner" id (actually, a generic wrapper hosting either a
-     *         TucsonAgentId or a TucsonTupleCentreId, accessible with method
-     *         <code>getId()</code>)
      *
+     * @return the "spawner" id (actually, a generic wrapper hosting either a
+     * TucsonAgentId or a TucsonTupleCentreId, accessible with method
+     * <code>getId()</code>)
      * @see alice.tuplecentre.tucson.service.TucsonIdWrapper TucsonIdWrapper
      */
     public final TucsonIdWrapper<?> getSpawnerId() {
@@ -71,7 +70,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
 
     /**
      * Gets the tuplecentre identifier hosting the spawned activity.
-     * 
+     *
      * @return the identifier of the tuplecentre hosting the spawned activity.
      */
     public final TucsonTupleCentreId getTargetTC() {
@@ -91,9 +90,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     /**
      * Linda operations used in the spawned activity are performed ON BEHALF of
      * the agent who issued the <code>spawn</code> (its "owner").
-     * 
-     * @param id
-     *            the identifier of the agent "owner" of the spawned activity.
+     *
+     * @param id the identifier of the agent "owner" of the spawned activity.
      */
     public final void setSpawnerId(final TucsonAgentId id) {
         this.aid = id;
@@ -103,10 +101,9 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     /**
      * Linda operations used in the spawned activity are performed ON BEHALF of
      * the tuplecentre who issued the <code>spawn</code> (its "owner").
-     * 
-     * @param id
-     *            the identifier of the tuplecentre "owner" of the spawned
-     *            activity.
+     *
+     * @param id the identifier of the tuplecentre "owner" of the spawned
+     *           activity.
      */
     public final void setSpawnerId(final TucsonTupleCentreId id) {
         this.aid = null;
@@ -116,18 +113,16 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     /**
      * The tuplecentre target, which will "host" the spawned computation. It is
      * automagically set by the ReSpecT engine.
-     * 
-     * @param id
-     *            the identifier of the tuplecentre target of the spawned
-     *            activity.
+     *
+     * @param id the identifier of the tuplecentre target of the spawned
+     *           activity.
      */
     public final void setTargetTC(final TucsonTupleCentreId id) {
         this.target = id;
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the tuple result of the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -176,8 +171,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the list of tuples result of the operation
      * @see BulkSyncACC BulkSyncACC
      */
@@ -227,8 +221,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the tuple result of the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -279,9 +272,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
 
     /**
      * Standard output log utility.
-     * 
-     * @param msg
-     *            the message to log on standard output.
+     *
+     * @param msg the message to log on standard output.
      */
     protected void log(final String msg) {
         if (this.aid != null) {
@@ -294,8 +286,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the tuple result of the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -344,8 +335,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the list of tuples result of the operation
      * @see BulkSyncACC BulkSyncACC
      */
@@ -395,8 +385,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the tuple result of the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -446,8 +435,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the tuple result of the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -497,8 +485,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the list of tuples result of the operation
      * @see BulkSyncACC BulkSyncACC
      */
@@ -548,8 +535,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the tuple result of the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -598,8 +584,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the list of tuples result of the operation
      * @see BulkSyncACC BulkSyncACC
      */
@@ -649,8 +634,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the tuple result of the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
@@ -700,8 +684,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the tuple result of the operation
      * @see UniformSyncACC UniformSyncACC
      */
@@ -751,8 +734,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the tuple result of the operation
      * @see UniformSyncACC UniformSyncACC
      */
@@ -802,8 +784,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the tuple result of the operation
      * @see UniformSyncACC UniformSyncACC
      */
@@ -853,8 +834,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the tuple result of the operation
      * @see UniformSyncACC UniformSyncACC
      */
@@ -904,8 +884,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the tuple result of the operation
      * @see UniformSyncACC UniformSyncACC
      */
@@ -955,8 +934,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple
-     *            the tuple argument of the operation
+     * @param tuple the tuple argument of the operation
      * @return the tuple result of the operation
      * @see UniformSyncACC UniformSyncACC
      */

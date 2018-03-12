@@ -64,7 +64,9 @@ public class SpecWorker extends Thread {
     private final EnhancedACC context;
     private final EditSpec form;
     private final JTextArea inputSpec;
-    /** Kind of operation */
+    /**
+     * Kind of operation
+     */
     private final String operation;
     private final TucsonTupleCentreId tid;
 

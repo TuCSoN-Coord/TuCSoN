@@ -33,7 +33,6 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
  *
  * @author Luca Sangiorgi (mailto: luca.sangiorgi6@studio.unibo.it)
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public abstract class AbstractTucsonAction {
 
@@ -48,9 +47,8 @@ public abstract class AbstractTucsonAction {
 
     /**
      * Builds a TuCSoN action whose target is the given tuple centre
-     * 
-     * @param tc
-     *            the Identifier of the TuCSoN tuple centre target of the operation
+     *
+     * @param tc the Identifier of the TuCSoN tuple centre target of the operation
      */
     public AbstractTucsonAction(final TucsonTupleCentreId tc) {
         this.tcid = tc;
@@ -61,17 +59,13 @@ public abstract class AbstractTucsonAction {
      * without blocking the caller until operation completion, regardless of the
      * operation suspensive/predicative semantics (e.g., a {@code in} without
      * matching tuples does not cause blocking the caller agent)
-     * 
-     * @param acc
-     *            the TuCSoN ACC in charge of action execution
-     * @param listener
-     *            the TuCSoN listener responsible for handling completion
-     *            notifications
+     *
+     * @param acc      the TuCSoN ACC in charge of action execution
+     * @param listener the TuCSoN listener responsible for handling completion
+     *                 notifications
      * @return the TuCSoN operation requested
-     * @throws TucsonOperationNotPossibleException
-     *             if the coordination operation request cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target TuCSoN node is not available on the network
+     * @throws TucsonOperationNotPossibleException if the coordination operation request cannot be carried out
+     * @throws UnreachableNodeException            if the target TuCSoN node is not available on the network
      */
     public abstract TucsonOperation executeAsynch(EnhancedAsyncACC acc,
                                                   TucsonOperationCompletionListener listener)
@@ -84,19 +78,14 @@ public abstract class AbstractTucsonAction {
      * without matching tuples does cause blocking the caller agent). This
      * method is mainly conceived for usage within TuCSoN4JADE bridge component:
      * see more at http://bitbucket.org/smariani/tucson4jade
-     * 
-     * @param acc
-     *            the TuCSoN ACC in charge of action execution
-     * @param timeout
-     *            the maximum timeout the caller is willing to wait
+     *
+     * @param acc     the TuCSoN ACC in charge of action execution
+     * @param timeout the maximum timeout the caller is willing to wait
      * @return the TuCSoN operation requested
-     * @throws TucsonOperationNotPossibleException
-     *             if the coordination operation request cannot be carried out
-     * @throws UnreachableNodeException
-     *             if the target TuCSoN node is not available on the network
-     * @throws OperationTimeOutException
-     *             if the chosen timeout elapses prior to completion
-     *             notification
+     * @throws TucsonOperationNotPossibleException if the coordination operation request cannot be carried out
+     * @throws UnreachableNodeException            if the target TuCSoN node is not available on the network
+     * @throws OperationTimeOutException           if the chosen timeout elapses prior to completion
+     *                                             notification
      */
     public abstract TucsonOperation executeSynch(EnhancedSyncACC acc,
                                                  Long timeout) throws TucsonOperationNotPossibleException,

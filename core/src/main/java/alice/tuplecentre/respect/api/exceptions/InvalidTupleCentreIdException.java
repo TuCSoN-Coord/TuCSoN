@@ -14,7 +14,7 @@ package alice.tuplecentre.respect.api.exceptions;
 
 /**
  * This exception is thrown when an invalid tuple centre identifier is used
- *
+ * <p>
  * Tuple centre identifier must be ground logic term
  *
  * @author Alessandro Ricci

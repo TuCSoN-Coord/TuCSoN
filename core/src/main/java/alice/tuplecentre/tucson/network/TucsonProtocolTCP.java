@@ -25,28 +25,32 @@ import java.net.UnknownHostException;
 
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.introspection.InspectorContextEvent;
-import alice.tuplecentre.tucson.introspection.NewInspectorMsg;
-import alice.tuplecentre.tucson.introspection.NodeMsg;
 import alice.tuplecentre.tucson.network.exceptions.DialogAcceptException;
 import alice.tuplecentre.tucson.network.exceptions.DialogCloseException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
+import alice.tuplecentre.tucson.network.messages.TucsonMessage;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
+import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.NodeMessage;
 
 /*
  * TODO CICORA: e' necessario separare la classe usata server side e la classe
  * usata client side anche in vista di una separazione delle librerie agent-node
  */
+
 /**
- *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Saverio Cicora
- *
  */
 public class TucsonProtocolTCP extends AbstractTucsonProtocol {
 
-    /** serialVersionUID **/
+    /**
+     * serialVersionUID
+     **/
     private static final long serialVersionUID = 1L;
     private ObjectInputStream inStream;
     private ServerSocket mainSocket;
@@ -58,13 +62,11 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * This constructor is typically used node side: it builds a new access
      * point to which an external agent can engage a new dialog. After the
      * creation of this object usually is invoked the method acceptNewDialog()
-     *
+     * <p>
      * It make a new ServerSocket binded at port specified by port parameter.
      *
-     * @param port
-     *            the listening port where to bind
-     * @throws DialogInitializationException
-     *             if something goes wrong in the udenrlying network
+     * @param port the listening port where to bind
+     * @throws DialogInitializationException if something goes wrong in the udenrlying network
      */
     public TucsonProtocolTCP(final int port)
             throws DialogInitializationException {
@@ -83,18 +85,14 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * This constructor create a new dialog whit a specific host that identified
      * by host/port pair. This constructor is typically used from external agent
      * who want start a new dialogue with the node.
-     *
+     * <p>
      * It make a new socket and init I/O streams. The streams are bufferized.
      *
-     * @param host
-     *            the host where to bound
-     * @param port
-     *            the listening port where to bound
-     * @throws UnreachableNodeException
-     *             if the given host is unknown or no process is listening on
-     *             the given port
-     * @throws DialogInitializationException
-     *             if some network problems arise
+     * @param host the host where to bound
+     * @param port the listening port where to bound
+     * @throws UnreachableNodeException      if the given host is unknown or no process is listening on
+     *                                       the given port
+     * @throws DialogInitializationException if some network problems arise
      */
     public TucsonProtocolTCP(final String host, final int port)
             throws UnreachableNodeException, DialogInitializationException {
@@ -124,11 +122,8 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
     }
 
     /**
-     *
-     * @param s
-     *            the socket to bound
-     * @throws DialogInitializationException
-     *             if some network problems arise
+     * @param s the socket to bound
+     * @throws DialogInitializationException if some network problems arise
      */
     private TucsonProtocolTCP(final Socket s)
             throws DialogInitializationException {
@@ -207,10 +202,10 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * @see alice.tuplecentre.tucson.network.AbstractTucsonProtocol#receiveInspectorMsg()
      */
     @Override
-    public NewInspectorMsg receiveInspectorMsg() throws DialogReceiveException {
-        NewInspectorMsg msg;
+    public NewInspectorMessage receiveInspectorMsg() throws DialogReceiveException {
+        NewInspectorMessage msg;
         try {
-            msg = (NewInspectorMsg) this.inStream.readObject();
+            msg = (NewInspectorMessage) this.inStream.readObject();
         } catch (final IOException e) {
             throw new DialogReceiveException(e);
         } catch (final ClassNotFoundException e) {
@@ -220,10 +215,10 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
     }
 
     @Override
-    public TucsonMsg receiveMsg() throws DialogReceiveException {
-        TucsonMsg msg;
+    public TucsonMessage receiveMsg() throws DialogReceiveException {
+        TucsonMessage msg;
         try {
-            msg = (TucsonMsg) this.inStream.readObject();
+            msg = (TucsonMessage) this.inStream.readObject();
         } catch (final IOException e) {
             throw new DialogReceiveException(e);
         } catch (final ClassNotFoundException e) {
@@ -233,10 +228,10 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
     }
 
     @Override
-    public TucsonMsgReply receiveMsgReply() throws DialogReceiveException {
-        TucsonMsgReply msg = new TucsonMsgReply();
+    public TucsonMessageReply receiveMsgReply() throws DialogReceiveException {
+        TucsonMessageReply msg = new TucsonMessageReply();
         try {
-            msg = (TucsonMsgReply) this.inStream.readObject();
+            msg = (TucsonMessageReply) this.inStream.readObject();
         } catch (final IOException e) {
             throw new DialogReceiveException(e);
         } catch (final ClassNotFoundException e) {
@@ -246,10 +241,10 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
     }
 
     @Override
-    public TucsonMsgRequest receiveMsgRequest() throws DialogReceiveException {
-        TucsonMsgRequest msg = new TucsonMsgRequest();
+    public TucsonMessageRequest receiveMsgRequest() throws DialogReceiveException {
+        TucsonMessageRequest msg = new TucsonMessageRequest();
         try {
-            msg = (TucsonMsgRequest) this.inStream.readObject();
+            msg = (TucsonMessageRequest) this.inStream.readObject();
         } catch (final IOException e) {
             throw new DialogReceiveException(e);
         } catch (final ClassNotFoundException e) {
@@ -263,10 +258,10 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * @see alice.tuplecentre.tucson.network.AbstractTucsonProtocol#receiveNodeMsg()
      */
     @Override
-    public NodeMsg receiveNodeMsg() throws DialogReceiveException {
-        NodeMsg msg;
+    public NodeMessage receiveNodeMsg() throws DialogReceiveException {
+        NodeMessage msg;
         try {
-            msg = (NodeMsg) this.inStream.readObject();
+            msg = (NodeMessage) this.inStream.readObject();
         } catch (final IOException e) {
             throw new DialogReceiveException(e);
         } catch (final ClassNotFoundException e) {
@@ -296,10 +291,10 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * (non-Javadoc)
      * @see
      * alice.tuplecentre.tucson.network.AbstractTucsonProtocol#sendInspectorMsg(alice.tuplecentre.tucson
-     * .introspection.NewInspectorMsg)
+     * .introspection.NewInspectorMessageDefault)
      */
     @Override
-    public void sendInspectorMsg(final NewInspectorMsg msg)
+    public void sendInspectorMsg(final NewInspectorMessage msg)
             throws DialogSendException {
         try {
             this.outStream.writeObject(msg);
@@ -310,7 +305,7 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
     }
 
     @Override
-    public void sendMsg(final TucsonMsg msg) throws DialogSendException {
+    public void sendMsg(final TucsonMessage msg) throws DialogSendException {
         try {
             this.outStream.writeObject(msg);
             this.outStream.flush();
@@ -320,7 +315,7 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
     }
 
     @Override
-    public void sendMsgReply(final TucsonMsgReply reply)
+    public void sendMsgReply(final TucsonMessageReply reply)
             throws DialogSendException {
         try {
             this.outStream.writeObject(reply);
@@ -331,7 +326,7 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
     }
 
     @Override
-    public void sendMsgRequest(final TucsonMsgRequest request)
+    public void sendMsgRequest(final TucsonMessageRequest request)
             throws DialogSendException {
         try {
             this.outStream.writeObject(request);
@@ -345,10 +340,10 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
      * (non-Javadoc)
      * @see
      * alice.tuplecentre.tucson.network.AbstractTucsonProtocol#sendNodeMsg(alice.tuplecentre.tucson.
-     * introspection.NodeMsg)
+     * introspection.AbstractNodeMessage)
      */
     @Override
-    public void sendNodeMsg(final NodeMsg msg) throws DialogSendException {
+    public void sendNodeMsg(final NodeMessage msg) throws DialogSendException {
         try {
             this.outStream.writeObject(msg);
             this.outStream.flush();

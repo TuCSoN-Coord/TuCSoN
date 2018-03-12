@@ -13,9 +13,8 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
  * This class represent the generic geolocation service and implements some of
  * common behaviors of services. To define a geolocation service like google
  * maps, an exension of this class must be defined.
- * 
+ *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
- * 
  */
 public abstract class AbstractGeolocationService implements GeoLocationService {
     /**
@@ -46,13 +45,10 @@ public abstract class AbstractGeolocationService implements GeoLocationService {
 
     /**
      * Constructs a service
-     * 
-     * @param p
-     *            the platform code of the host platform
-     * @param sid
-     *            the service identifier
-     * @param ttci
-     *            the associated tuple centre identifier
+     *
+     * @param p    the platform code of the host platform
+     * @param sid  the service identifier
+     * @param ttci the associated tuple centre identifier
      */
     public AbstractGeolocationService(final Integer p, final GeoServiceIdentifier sid,
                                       final TucsonTupleCentreId ttci) {

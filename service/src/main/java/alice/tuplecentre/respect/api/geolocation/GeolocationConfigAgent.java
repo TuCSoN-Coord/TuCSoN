@@ -30,12 +30,13 @@ import alice.tuprolog.InvalidTermException;
 /**
  * Geolocation configuration support agent. It checks for requests on
  * geolocationConfigTC and delegates them to the GeolocationServiceManager.
- * 
+ *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
- * 
  */
 public class GeolocationConfigAgent extends Thread {
-    /** Geolocation service request's type **/
+    /**
+     * Geolocation service request's type
+     **/
     private static final String CREATE_GEOLOCATION_SERVICE = "createGeolocationService";
     private static final String DESTROY_GEOLOCATION_SERVICE = "destroyGeolocationService";
 
@@ -49,16 +50,14 @@ public class GeolocationConfigAgent extends Thread {
 
     /**
      * Construct a GeolocationConfigAgent
-     * 
-     * @param conf
-     *            represents the IP address on which the associated tuple centre
-     *            is running
-     * @param n
-     *            represents the port number on which the associated tuple
-     *            centre is listening
+     *
+     * @param conf represents the IP address on which the associated tuple centre
+     *             is running
+     * @param n    represents the port number on which the associated tuple
+     *             centre is listening
      */
     public GeolocationConfigAgent(final TucsonTupleCentreId conf,
-            final TucsonNodeService n) {
+                                  final TucsonNodeService n) {
         super();
         try {
             this.nodeManAid = new TucsonAgentIdDefault("geolocationConfigAgent");
@@ -83,7 +82,7 @@ public class GeolocationConfigAgent extends Thread {
                         null);
                 cmd = TupleCentreContainer.doBlockingOperation(ev);
                 if (cmd != null) {
-                    this.execCmd(((LogicTuple)cmd).getArg(0));
+                    this.execCmd(((LogicTuple) cmd).getArg(0));
                 } else {
                     throw new InterruptedException();
                 }
@@ -129,12 +128,12 @@ public class GeolocationConfigAgent extends Thread {
             e.printStackTrace();
             this.node.removeNodeAgent(this);
         } catch (InvalidVarNameException e) {
-			e.printStackTrace();
-			this.node.removeNodeAgent(this);
-		} catch (InvalidLogicTupleOperationException e) {
-			e.printStackTrace();
-			this.node.removeNodeAgent(this);
-		}
+            e.printStackTrace();
+            this.node.removeNodeAgent(this);
+        } catch (InvalidLogicTupleOperationException e) {
+            e.printStackTrace();
+            this.node.removeNodeAgent(this);
+        }
     }
 
     private void execCmd(final TupleArgument cmd)

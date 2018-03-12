@@ -36,26 +36,21 @@ import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuprolog.Prolog;
 
 /**
- *
  * A ReSpecT tuple centre.
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
+ * michele.bombardi@studio.unibo.it)
  */
 public class RespectTC implements IRespectTC {
     private final RespectVM vm;
     private final Thread vmThread;
 
     /**
-     *
-     * @param tid
-     *            the identifier of the tuple centre
-     * @param container
-     *            the ReSpecT wrapper this tuple centre refers to
-     * @param qSize
-     *            the maximum size of the input queue
+     * @param tid       the identifier of the tuple centre
+     * @param container the ReSpecT wrapper this tuple centre refers to
+     * @param qSize     the maximum size of the input queue
      */
     public RespectTC(final TupleCentreIdentifier tid,
                      final RespectTCContainer container, final int qSize) {
@@ -72,7 +67,6 @@ public class RespectTC implements IRespectTC {
     }
 
     /**
-     *
      * @return the environment context toward this tuple centre
      */
     public IEnvironmentContext getEnvironmentContext() {
@@ -121,7 +115,6 @@ public class RespectTC implements IRespectTC {
     }
 
     /**
-     *
      * @return the tuProlog engine behind this tuple centre
      */
     public Prolog getProlog() {
@@ -145,7 +138,6 @@ public class RespectTC implements IRespectTC {
     }
 
     /**
-     *
      * @return the specification, asynchronous context toward this tuple centre
      */
     public ISpecificationAsynchInterface getSpecificationAsynchInterface() {
@@ -176,9 +168,8 @@ public class RespectTC implements IRespectTC {
     }
 
     /**
-     *
      * @return the Java thread executing the ReSpecT VM managing this tuple
-     *         centre
+     * centre
      */
     public Thread getVMThread() {
         return this.vmThread;

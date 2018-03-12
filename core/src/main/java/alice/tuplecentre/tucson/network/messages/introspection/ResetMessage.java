@@ -11,25 +11,24 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tuplecentre.tucson.introspection;
+package alice.tuplecentre.tucson.network.messages.introspection;
 
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
+
 /**
+ * // TODO: 12/03/2018 add documentation
  *
  * @author Unknown...
- *
  */
-public class NewNodeInspectorMsg extends NodeMsg {
+public class ResetMessage extends AbstractNodeMessage {
 
-    private static final long serialVersionUID = 6582272720835623886L;
+    private static final long serialVersionUID = 5161921319537355981L;
 
     /**
-     *
-     * @param i
-     *            the agent id of the sender
+     * @param id the agent id of the sender
      */
-    public NewNodeInspectorMsg(final TucsonAgentId i) {
-        super(i, "newNodeInspector");
+    public ResetMessage(final TucsonAgentId id) {
+        super(id, "reset");
     }
 }

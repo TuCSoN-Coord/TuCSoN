@@ -1,6 +1,3 @@
-/**
- *
- */
 package uniform.swarms.utils;
 
 import alice.tuplecentre.tucson.service.TucsonNodeService;

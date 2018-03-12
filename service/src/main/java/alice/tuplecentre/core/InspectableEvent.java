@@ -33,17 +33,17 @@ public class InspectableEvent extends EventObject {
      */
     public static final int TYPE_NEWSTATE = 1;
     private static final long serialVersionUID = 5564085406606810969L;
-    /** virtual machine time at which the event has been observed */
+    /** virtual machine time at which the events has been observed */
     private final long time;
-    /** observable event type */
+    /** observable events type */
     private final int type;
 
     /**
      *
      * @param src
-     *            the source of the event
+     *            the source of the events
      * @param t
-     *            the type code of the inspectable event
+     *            the type code of the inspectable events
      */
     public InspectableEvent(final Object src, final int t) {
         super(src);
@@ -52,19 +52,19 @@ public class InspectableEvent extends EventObject {
     }
 
     /**
-     * Gets the time at which the event has been observed inside the tuple
+     * Gets the time at which the events has been observed inside the tuple
      * centre VM
      *
-     * @return the time at which this inspectable event occurred
+     * @return the time at which this inspectable events occurred
      */
     public long getTime() {
         return this.time;
     }
 
     /**
-     * Gets observable event type
+     * Gets observable events type
      *
-     * @return the type code of this inspectable event
+     * @return the type code of this inspectable events
      */
     public int getType() {
         return this.type;

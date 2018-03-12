@@ -162,7 +162,6 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
         if (TupleCentreOpType.getStandardOperationTypes().contains(this.type)) {
 
 
-
             return LogicTuples.newInstance(this.type.name().toLowerCase());
         } else {
             return null;

@@ -14,9 +14,7 @@
 package alice.tuplecentre.tucson.api.exceptions;
 
 /**
- *
  * @author ste (mailto: s.mariani@unibo.it)
- *
  */
 public class TucsonInvalidCommandException extends Exception {
 

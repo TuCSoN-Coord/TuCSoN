@@ -30,27 +30,22 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Emanuele Buccelli
- *
  */
 public final class TucsonMetaACC {
 
     // TODO: Controllo password
+
     /**
      * Acquires an Administrative ACC from the TuCSoN node. Valid username and
      * password are required.
      *
-     * @param aid
-     *            the Identifier of the agent willing to obtain adminstrative access
-     * @param netid
-     *            the IP address of the TuCSoN node to contact
-     * @param portno
-     *            the TCP port number of the TuCSoN node to contact
-     * @param username
-     *            the username of the administrative agent
-     * @param password
-     *            the (encrypted) password of the administrative agent
+     * @param aid      the Identifier of the agent willing to obtain adminstrative access
+     * @param netid    the IP address of the TuCSoN node to contact
+     * @param portno   the TCP port number of the TuCSoN node to contact
+     * @param username the username of the administrative agent
+     * @param password the (encrypted) password of the administrative agent
      * @return the Administrative ACC if given credentials are valid,
-     *         {@code null} otherwise
+     * {@code null} otherwise
      */
     public static AdminACC getAdminContext(final TucsonAgentId aid,
                                            final String netid, final int portno, final String username,
@@ -89,9 +84,7 @@ public final class TucsonMetaACC {
      * Gets the available most-comprehensive ACC from the TuCSoN Node Service
      * active on the default host ("localhost") on the default port (20504).
      *
-     * @param aid
-     *            Who demand for the ACC
-     *
+     * @param aid Who demand for the ACC
      * @return The DefaultACC (which is the most powerful at the moment)
      */
     public static EnhancedACC getContext(final TucsonAgentId aid) {
@@ -103,17 +96,13 @@ public final class TucsonMetaACC {
      * Gets the available most-comprehensive ACC from the TuCSoN Node Service
      * active on the specified pair node:port where node is the ip address.
      *
-     * @param aid
-     *            Who demand for the ACC
-     * @param netid
-     *            The ip address of the target TuCSoN Node Service
-     * @param portno
-     *            The listening port of the target TuCSoN Node Service
-     *
+     * @param aid    Who demand for the ACC
+     * @param netid  The ip address of the target TuCSoN Node Service
+     * @param portno The listening port of the target TuCSoN Node Service
      * @return The DefaultACC (which is the most powerful at the moment)
      */
     public static EnhancedACC getContext(final TucsonAgentId aid,
-            final String netid, final int portno) {
+                                         final String netid, final int portno) {
         EnhancedACC acc = null;
         try {
             acc = new ACCProxyAgentSide(aid.toString(), netid, portno);
@@ -130,9 +119,7 @@ public final class TucsonMetaACC {
      * Gets the available most-comprehensive ACC from the TuCSoN Node Service
      * active on the default host ("localhost") on the default port (20504).
      *
-     * @param aid
-     *            Who demands for the ACC
-     *
+     * @param aid Who demands for the ACC
      * @return The DefaultACC (which is the most powerful at the moment)
      */
     public static NegotiationACC getNegotiationContext(final String aid) {
@@ -145,16 +132,13 @@ public final class TucsonMetaACC {
      * to RBAC policies. If no RBAC policies are installed, method
      * {@link NegotiationACC#playDefaultRole()} is available.
      *
-     * @param aid
-     *            the Identifier of the agent demanding for the ACC
-     * @param netid
-     *            the IP address of the TuCSoN node to contact
-     * @param portno
-     *            the TCP port number of the TuCSoN node to contact
+     * @param aid    the Identifier of the agent demanding for the ACC
+     * @param netid  the IP address of the TuCSoN node to contact
+     * @param portno the TCP port number of the TuCSoN node to contact
      * @return the Negotiation ACC requested
      */
     public static NegotiationACC getNegotiationContext(final String aid,
-            final String netid, final int portno) {
+                                                       final String netid, final int portno) {
         NegotiationACC acc = null;
         try {
             acc = new NegotiationACCProxyAgentSide(new TucsonAgentIdDefault(aid),
@@ -175,8 +159,7 @@ public final class TucsonMetaACC {
     /**
      * Acquires the Negotiation ACC from the default TuCSoN node.
      *
-     * @param aid
-     *            the Identifier of the agent demanding for the ACC
+     * @param aid the Identifier of the agent demanding for the ACC
      * @return the Negotiation ACC requested
      */
     public static NegotiationACC getNegotiationContext(final TucsonAgentId aid) {
@@ -187,16 +170,13 @@ public final class TucsonMetaACC {
      * Acquires the Negotiation ACC from the TuCSoN node installed on the given
      * {@code netid:portno} IP:TCP address.
      *
-     * @param aid
-     *            the Identifier of the agent demanding for the ACC
-     * @param netid
-     *            the IP address of the TuCSoN node to contact
-     * @param portno
-     *            the TCP port number of the TuCSoN node to contact
+     * @param aid    the Identifier of the agent demanding for the ACC
+     * @param netid  the IP address of the TuCSoN node to contact
+     * @param portno the TCP port number of the TuCSoN node to contact
      * @return the Negotiation ACC requested
      */
     public static NegotiationACC getNegotiationContext(final TucsonAgentId aid,
-            final String netid, final int portno) {
+                                                       final String netid, final int portno) {
         return getNegotiationContext(aid.toString(), netid,
                 portno);
     }

@@ -14,7 +14,7 @@ package alice.tuplecentre.respect.api.exceptions;
 
 /**
  * This exception is thrown when an invalid agent identifier is used
- *
+ * <p>
  * Agent identifier must be ground logic term.
  *
  * @author Alessandro Ricci

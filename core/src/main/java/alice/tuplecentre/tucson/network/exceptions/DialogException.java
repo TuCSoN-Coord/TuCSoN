@@ -1,11 +1,9 @@
 package alice.tuplecentre.tucson.network.exceptions;
 
 /**
- *
  * Dialog root base Exception class
  *
  * @author Saverio Cicora
- *
  */
 public class DialogException extends Exception {
 

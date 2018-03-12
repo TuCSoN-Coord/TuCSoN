@@ -26,13 +26,13 @@ public class OutputEvent extends AbstractEvent {
 
     private static final long serialVersionUID = -5521129200850527503L;
     private boolean isLnk;
-    /** the input event this output event is consequence of */
+    /** the input events this output events is consequence of */
     protected final InputEvent inputEvent;
 
     /**
      *
      * @param ev
-     *            the input event this output event refers to
+     *            the input events this output events refers to
      */
     public OutputEvent(final InputEvent ev) {
         super(ev.getSource(), ev.getSimpleTCEvent(), ev.getReactingTC(), ev
@@ -43,7 +43,7 @@ public class OutputEvent extends AbstractEvent {
 
     /**
      *
-     * @return the input event this output event refers to
+     * @return the input events this output events refers to
      */
     public InputEvent getInputEvent() {
         return this.inputEvent;
@@ -61,7 +61,7 @@ public class OutputEvent extends AbstractEvent {
 
     /**
      *
-     * @return wether this event is a linking event
+     * @return wether this events is a linking events
      */
     public boolean isLinking() {
         return this.isLnk;
@@ -75,7 +75,7 @@ public class OutputEvent extends AbstractEvent {
     /**
      *
      * @param flag
-     *            wether this event is a linking event
+     *            wether this events is a linking events
      */
     public void setIsLinking(final boolean flag) {
         this.isLnk = flag;

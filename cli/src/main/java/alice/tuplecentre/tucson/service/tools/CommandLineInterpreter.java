@@ -31,16 +31,13 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
- *
  */
 public final class CommandLineInterpreter {
 
     private static final int DEF_PORT = 20504;
 
     /**
-     *
-     * @param args
-     *            the arguments to be given to the CLI
+     * @param args the arguments to be given to the CLI
      */
     public static void main(final String[] args) {
         CommandLineInterpreter

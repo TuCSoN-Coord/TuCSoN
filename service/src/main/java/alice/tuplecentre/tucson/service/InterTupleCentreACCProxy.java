@@ -35,22 +35,21 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.tucson.network.TucsonMsgReply;
-import alice.tuplecentre.tucson.network.TucsonMsgRequest;
 import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.TucsonProtocolTCP;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMessageDefault;
+import alice.tuplecentre.tucson.network.messages.events.OutputEventMessage;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.lib.InvalidObjectIdException;
 
 /**
- *
  * @author ste (mailto: s.mariani@unibo.it)
- *
  */
-public class InterTupleCentreACCProxy implements InterTupleCentreACC,
-OperationCompletionListener {
+public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationCompletionListener {
 
     /**
      *
@@ -62,7 +61,6 @@ OperationCompletionListener {
         private boolean stop;
 
         /**
-         *
          * @param d
          */
         Controller(final TucsonProtocol d) {
@@ -84,7 +82,7 @@ OperationCompletionListener {
         public void run() {
             TucsonOpCompletionEvent ev = null;
             while (!this.isStopped()) {
-                TucsonMsgReply msg = null;
+                TucsonMessageReply msg = null;
                 try {
                     msg = this.dialog.receiveMsgReply();
                 } catch (final DialogException e) {
@@ -93,7 +91,7 @@ OperationCompletionListener {
                     this.setStop();
                     break;
                 }
-                final OutputEventMsg oEv = msg.getOutputEvent();
+                final OutputEventMessage oEv = msg.getEventMsg();
                 final boolean ok = oEv.isAllowed();
                 if (ok) {
                     final TupleCentreOpType type = oEv.getOpType();
@@ -117,7 +115,7 @@ OperationCompletionListener {
                             || type == TupleCentreOpType.RDP_S) {
                         final boolean succeeded = oEv.isSuccess();
                         if (succeeded) {
-                            final LogicTuple tupleReq = oEv.getTupleRequested();
+                            final LogicTuple tupleReq = oEv.getTuple();
                             final LogicTuple tupleRes = (LogicTuple) oEv
                                     .getTupleResult();
                             final LogicTuple res = this.unify(tupleReq,
@@ -229,12 +227,9 @@ OperationCompletionListener {
     protected Position place;
 
     /**
-     *
-     * @param id
-     *            tuplecentre source
-     * @throws TucsonInvalidTupleCentreIdException
-     *             if the given Object is not a valid identifier of a tuple
-     *             centre
+     * @param id tuplecentre source
+     * @throws TucsonInvalidTupleCentreIdException if the given Object is not a valid identifier of a tuple
+     *                                             centre
      */
     public InterTupleCentreACCProxy(final Object id)
             throws TucsonInvalidTupleCentreIdException {
@@ -295,37 +290,37 @@ OperationCompletionListener {
                 exception = true;
                 throw new UnreachableNodeException();
             } catch (DialogInitializationException e) {
-				e.printStackTrace();
-			}
+                e.printStackTrace();
+            }
             final OperationIdentifier tucsonOpId = new TucsonOpId(this.opId);
             this.operations.put(tucsonOpId, op);
             final TupleCentreOpType type = op.getType();
-            TucsonMsgRequest msg;
+            TucsonMessageRequest msg;
             if (type == TupleCentreOpType.OUT
                     || type == TupleCentreOpType.OUT_S
                     || type == TupleCentreOpType.SET_S
                     || type == TupleCentreOpType.SET
                     || type == TupleCentreOpType.OUT_ALL
                     || type == TupleCentreOpType.SPAWN) {
-                msg = new TucsonMsgRequest(new InputEventMsgDefault(
+                msg = new TucsonMessageRequest(new InputEventMessageDefault(
                         this.aid.toString(), tucsonOpId, type,
                         (LogicTuple) op.getTupleArgument(), tcid.toString(),
                         System.currentTimeMillis(), this.getPosition()));
-                // new TucsonMsgRequest(this.opId, type, tcid.toString(),
+                // new TucsonMessageRequest(this.opId, type, tcid.toString(),
                 // (LogicTuple) op.getTupleArgument());
             } else {
-                msg = new TucsonMsgRequest(new InputEventMsgDefault(
+                msg = new TucsonMessageRequest(new InputEventMessageDefault(
                         this.aid.toString(), tucsonOpId, type,
                         (LogicTuple) op.getTemplateArgument(), tcid.toString(),
                         System.currentTimeMillis(), this.getPosition()));
-                // new TucsonMsgRequest(this.opId, type, tcid.toString(),
+                // new TucsonMessageRequest(this.opId, type, tcid.toString(),
                 // (LogicTuple) op.getTemplateArgument());
             }
             InterTupleCentreACCProxy.log("sending msg "
-                    + msg.getInputEventMsg().getOpId() + ", op = "
-                    + msg.getInputEventMsg().getOpType() + ", "
-                    + msg.getInputEventMsg().getTuple() + ", "
-                    + msg.getInputEventMsg().getTarget());
+                    + msg.getEventMsg().getOpId() + ", op = "
+                    + msg.getEventMsg().getOpType() + ", "
+                    + msg.getEventMsg().getTuple() + ", "
+                    + msg.getEventMsg().getTarget());
             try {
                 session.sendMsgRequest(msg);
             } catch (final DialogException e) {
@@ -338,15 +333,14 @@ OperationCompletionListener {
         } while (nTry < InterTupleCentreACCProxy.TRIES);
         throw new UnreachableNodeException();
     }
-    
+
     /**
-     * 
      * @return the Position of the tuple centre behind this proxy
      */
     public Position getPosition() {
         return this.place;
     }
-    
+
     @Override
     public void operationCompleted(final AbstractTupleCentreOperation op) {
         // FIXME What to do here?
@@ -420,7 +414,7 @@ OperationCompletionListener {
                     // .getLoopbackAddress().getHostAddress()
                     // .concat(String.valueOf(p)));
                     this.controllerSessions
-                    .get("127.0.0.1".concat(String.valueOf(port)));
+                            .get("127.0.0.1".concat(String.valueOf(port)));
         }
         // if (InetAddress.getLoopbackAddress().getHostAddress().equals(opNode))
         // {
@@ -430,7 +424,7 @@ OperationCompletionListener {
                     // .getLoopbackAddress().getHostName()
                     // .concat(String.valueOf(p)));
                     this.controllerSessions
-                    .get("localhost".concat(String.valueOf(port)));
+                            .get("localhost".concat(String.valueOf(port)));
         }
         if (tc != null) {
             return tc.getSession();
@@ -469,7 +463,7 @@ OperationCompletionListener {
             this.events.notifyAll();
         }
     }
-    
+
     private void setPosition() {
         this.place = new Position();
     }

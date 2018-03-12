@@ -8,7 +8,7 @@ import alice.tuplecentre.respect.api.place.IPlace;
 /**
  * A Spatial Context wraps the access to a tuple centre virtual machine for a
  * specific thread of control, providing a spatial interface.
- * 
+ *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  */
 public class SpatialContext implements ISpatialContext {
@@ -19,9 +19,8 @@ public class SpatialContext implements ISpatialContext {
 
     /**
      * Constructs a new spatial context
-     * 
-     * @param rvmc
-     *            the ReSpecT VM context
+     *
+     * @param rvmc the ReSpecT VM context
      */
     public SpatialContext(final RespectVMContext rvmc) {
         this.vm = rvmc;
@@ -29,7 +28,7 @@ public class SpatialContext implements ISpatialContext {
 
     /**
      * Gets the current ReSpecT VM local time
-     * 
+     *
      * @return the vm local time
      */
     @Override
@@ -39,7 +38,7 @@ public class SpatialContext implements ISpatialContext {
 
     /**
      * Gets the current ReSpecT VM position
-     * 
+     *
      * @return the vm position
      */
     @Override
@@ -48,10 +47,9 @@ public class SpatialContext implements ISpatialContext {
     }
 
     /**
-     * Notifies a new input environment (spatial) event
-     * 
-     * @param ev
-     *            the event to handle
+     * Notifies a new input environment (spatial) events
+     *
+     * @param ev the events to handle
      */
     @Override
     public void notifyInputEnvEvent(final InputEvent ev) {
@@ -60,9 +58,8 @@ public class SpatialContext implements ISpatialContext {
 
     /**
      * Sets a specified place in the ReSpecT vm position
-     * 
-     * @param place
-     *            the new place
+     *
+     * @param place the new place
      */
     @Override
     public void setPosition(final IPlace place) {

@@ -24,11 +24,10 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuprolog.InvalidTermException;
 
 /**
- *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Michele Bombardi (mailto:
- *         michele.bombardi@studio.unibo.it)
+ * michele.bombardi@studio.unibo.it)
  */
 public class NodeManagementAgent extends Thread {
 
@@ -41,15 +40,12 @@ public class NodeManagementAgent extends Thread {
     private TucsonAgentId nodeManAid;
 
     /**
-     *
-     * @param conf
-     *            the identifier of the tuple centre to be used for
-     *            configuration
-     * @param n
-     *            the TuCSoN node this management agent belongs to
+     * @param conf the identifier of the tuple centre to be used for
+     *             configuration
+     * @param n    the TuCSoN node this management agent belongs to
      */
     public NodeManagementAgent(final TucsonTupleCentreId conf,
-            final TucsonNodeService n) {
+                               final TucsonNodeService n) {
         super();
         try {
             this.nodeManAid = new TucsonAgentIdDefault("node_management_agent");
@@ -63,7 +59,7 @@ public class NodeManagementAgent extends Thread {
     }
 
     /**
-     * 
+     *
      */
     @Override
     public void run() {
@@ -110,11 +106,11 @@ public class NodeManagementAgent extends Thread {
             e.printStackTrace();
             this.node.removeNodeAgent(this);
         } catch (InvalidVarNameException e) {
-			e.printStackTrace();
-			this.node.removeNodeAgent(this);
-		}
+            e.printStackTrace();
+            this.node.removeNodeAgent(this);
+        }
     }
-    
+
     private void execCmd(final TupleArgument cmd)
             throws InvalidLogicTupleOperationException,
             TucsonInvalidLogicTupleException,
@@ -165,8 +161,8 @@ public class NodeManagementAgent extends Thread {
             }
         } else if ("enable_persistency".equals(name)) {
             try {
-            	NodeManagementAgent.log("Enabling persistency...");
-            	this.node.enablePersistency(LogicTuples.newInstance(cmd.getArg(0)));
+                NodeManagementAgent.log("Enabling persistency...");
+                this.node.enablePersistency(LogicTuples.newInstance(cmd.getArg(0)));
                 // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.OUT, LogicTuples.newInstance(
@@ -185,7 +181,7 @@ public class NodeManagementAgent extends Thread {
             // cmd, TupleArguments.newValueArgument("ok")));
         } else if ("disable_persistency".equals(name)) {
             try {
-            	NodeManagementAgent.log("Disabling persistency...");
+                NodeManagementAgent.log("Disabling persistency...");
                 this.node.disablePersistency(LogicTuples.newInstance(cmd.getArg(0)));
                 // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(

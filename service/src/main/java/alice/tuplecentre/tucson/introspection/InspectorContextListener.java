@@ -19,14 +19,11 @@ import java.util.EventListener;
  * Context
  *
  * @author Unknown...
- *
  */
 public interface InspectorContextListener extends EventListener {
 
     /**
-     *
-     * @param msg
-     *            the inspection event generated
+     * @param msg the inspection events generated
      */
     void onContextEvent(InspectorContextEvent msg);
 }

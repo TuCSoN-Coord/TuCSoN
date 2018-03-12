@@ -24,29 +24,41 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
 
 /**
- *
  * Environment configuration agent.
- *
+ * <p>
  * It checks for requests on '$ENV' and delegates them to the TransducerManager.
  *
  * @author Steven Maraldi
- *
  */
 public class EnvConfigAgent {
 
-    /** Add an actuator request's type **/
+    /**
+     * Add an actuator request's type
+     **/
     private static final String ADD_ACTUATOR = "addActuator";
-    /** Add a sensor request's type **/
+    /**
+     * Add a sensor request's type
+     **/
     private static final String ADD_SENSOR = "addSensor";
-    /** Change the transducer associated to a resource request's type **/
+    /**
+     * Change the transducer associated to a resource request's type
+     **/
     private static final String CHANGE_TRANSDUCER = "changeTransducer";
-    /** Create transducer actuator request's type **/
+    /**
+     * Create transducer actuator request's type
+     **/
     private static final String CREATE_TRANSDUCER_ACTUATOR = "createTransducerActuator";
-    /** Create transducer sensor request's type **/
+    /**
+     * Create transducer sensor request's type
+     **/
     private static final String CREATE_TRANSDUCER_SENSOR = "createTransducerSensor";
-    /** Remove a resource request's type **/
+    /**
+     * Remove a resource request's type
+     **/
     private static final String REMOVE_RESOURCE = "removeResource";
-    /** The tuple centre used for environment configuration **/
+    /**
+     * The tuple centre used for environment configuration
+     **/
     private TupleCentreIdentifier idEnvTC;
     private boolean iteraction = true;
 
@@ -56,16 +68,12 @@ public class EnvConfigAgent {
     private final int nodeToConfigPortNumber;
 
     /**
-     *
-     * @param ipAddress
-     *            the netid of the TuCSoN Node this environment configuration
-     *            agent works with
-     * @param portno
-     *            the listening port of the TuCSoN Node this environment
-     *            configuration agent works with
-     * @throws TucsonInvalidAgentIdException
-     *             this cannot actually happen, since this agent identifier is
-     *             given, then well-formed
+     * @param ipAddress the netid of the TuCSoN Node this environment configuration
+     *                  agent works with
+     * @param portno    the listening port of the TuCSoN Node this environment
+     *                  configuration agent works with
+     * @throws TucsonInvalidAgentIdException this cannot actually happen, since this agent identifier is
+     *                                       given, then well-formed
      */
     public EnvConfigAgent(final String ipAddress, final int portno)
             throws TucsonInvalidAgentIdException {

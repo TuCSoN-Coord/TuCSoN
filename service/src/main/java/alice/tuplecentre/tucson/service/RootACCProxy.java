@@ -5,7 +5,6 @@ import java.util.UUID;
 import alice.tuplecentre.tucson.api.acc.RootACC;
 
 /**
- *
  * @author ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Emanuele Buccelli
  */

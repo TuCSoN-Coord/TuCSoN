@@ -40,9 +40,7 @@ public class LogicReaction implements alice.tuplecentre.core.Reaction,
     }
 
     /**
-     *
-     * @param t
-     *            the Prolog struct representing this reaction
+     * @param t the Prolog struct representing this reaction
      */
     public LogicReaction(final Struct t) {
         final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
@@ -50,15 +48,13 @@ public class LogicReaction implements alice.tuplecentre.core.Reaction,
     }
 
     /**
-     *
-     * @return the Prolog term representing the trigger event
+     * @return the Prolog term representing the trigger events
      */
     public Term getReactionTerm() {
         return this.reaction.getArg(0);
     }
 
     /**
-     *
      * @return the Prolog struct representing this reaction
      */
     public Struct getStructReaction() {

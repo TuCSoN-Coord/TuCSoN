@@ -28,7 +28,7 @@ public interface OutputEventListener {
      * dispatch output events) when a new output communication is produced
      *
      * @param ev
-     *            the output event to notify
+     *            the output events to notify
      */
     void notify(OutputEvent ev);
 }

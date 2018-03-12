@@ -82,7 +82,7 @@ public interface GeoLocationService {
     void notifyLocationChanged(final IPlace place);
 
     /**
-     * Notifies to listeners that the movement is started (from event)
+     * Notifies to listeners that the movement is started (from events)
      *
      * @param lat latitude coordinate
      * @param lng longitude coordinate
@@ -90,7 +90,7 @@ public interface GeoLocationService {
     void notifyStartMovement(final double lat, final double lng);
 
     /**
-     * Notifies to listeners that the movement is started (from event)
+     * Notifies to listeners that the movement is started (from events)
      *
      * @param space type of node position. It can be specified as either its
      *              absolute physical position (S=ph), its IP number (S=ip), its
@@ -101,7 +101,7 @@ public interface GeoLocationService {
     void notifyStartMovement(final String space, final IPlace place);
 
     /**
-     * Notifies to listeners that the movement is terminated (to event)
+     * Notifies to listeners that the movement is terminated (to events)
      *
      * @param lat latitude coordinate
      * @param lng longitude coordinate
@@ -109,7 +109,7 @@ public interface GeoLocationService {
     void notifyStopMovement(final double lat, final double lng);
 
     /**
-     * Notifies to listeners that the movement is terminated (to event)
+     * Notifies to listeners that the movement is terminated (to events)
      *
      * @param space type of node position. It can be specified as either its
      *              absolute physical position (S=ph), its IP number (S=ip), its

@@ -711,7 +711,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 }
                 LogicTuple lt = null;
                 lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
-                        .getLogicTupleArgument().toTerm()),
+                                .getLogicTupleArgument().toTerm()),
                         TupleArguments.newInstance(new Struct(tl)));
                 return lt;
             }
@@ -724,7 +724,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 }
                 LogicTuple lt = null;
                 lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
-                        .getLogicTupleArgument().toTerm()),
+                                .getLogicTupleArgument().toTerm()),
                         TupleArguments.newInstance(new Struct(tl)));
                 return lt;
             }
@@ -737,7 +737,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 }
                 LogicTuple lt = null;
                 lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
-                        .getLogicTupleArgument().toTerm()),
+                                .getLogicTupleArgument().toTerm()),
                         TupleArguments.newInstance(new Struct(tl)));
                 return lt;
             }
@@ -750,7 +750,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 }
                 LogicTuple lt = null;
                 lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
-                        .getLogicTupleArgument().toTerm()),
+                                .getLogicTupleArgument().toTerm()),
                         TupleArguments.newInstance(new Struct(tl)));
                 return lt;
             }

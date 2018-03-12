@@ -1,9 +1,7 @@
 package alice.tuplecentre.respect.api.exceptions;
 
 /**
- *
  * @author Alessandro Ricci
- *
  */
 public class InstantiationNotPossibleException extends RespectException {
 

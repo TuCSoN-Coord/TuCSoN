@@ -34,23 +34,19 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 /**
  * <code>inp</code> TuCSoN primitive.
  *
- * @see OrdinaryAsyncACC
- *
  * @author Luca Sangiorgi (mailto: luca.sangiorgi6@studio.unibo.it)
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
+ * @see OrdinaryAsyncACC
  */
 public class Inp extends AbstractTucsonOrdinaryAction {
 
     /**
      * Builds the TuCSoN {@code inp} action given its target tuple centre and
      * its tuple argument
-     * 
-     * @param tc
-     *            the Identifier of the TuCSoN tuple centre target of this coordination
-     *            operation
-     * @param t
-     *            the logic tuple argument of this coordination operation
+     *
+     * @param tc the Identifier of the TuCSoN tuple centre target of this coordination
+     *           operation
+     * @param t  the logic tuple argument of this coordination operation
      */
     public Inp(final TucsonTupleCentreId tc, final LogicTuple t) {
         super(tc, t);

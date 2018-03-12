@@ -14,9 +14,7 @@
 package alice.tuplecentre.tucson.api.exceptions;
 
 /**
- *
  * @author Alessandro Ricci
- *
  */
 public class TucsonInvalidSpecificationException extends Exception {
 

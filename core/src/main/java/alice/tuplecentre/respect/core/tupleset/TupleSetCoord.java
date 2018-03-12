@@ -19,9 +19,7 @@ import alice.tuple.logic.TupleArgument;
 import alice.tuplecentre.respect.core.collection.DoubleKeyMVMap;
 
 /**
- *
  * @author Saverio Cicora
- *
  */
 public class TupleSetCoord extends AbstractTupleSet {
 
@@ -53,7 +51,7 @@ public class TupleSetCoord extends AbstractTupleSet {
      * Returns the second level key. This key is based on the first term of the
      * LogicTuple if exist, return an empty String otherwise. The variable are
      * stored whit a special key.
-     * */
+     */
     @Override
     public String getTupleKey2(final LogicTuple t) {
         TupleArgument tArg = t.getVarValue(null);

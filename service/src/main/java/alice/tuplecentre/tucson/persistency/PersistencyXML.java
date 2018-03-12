@@ -31,10 +31,8 @@ import alice.tuplecentre.respect.core.RespectVMContext.ModType;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 
 /**
- *
  * @author Lorenzo Pontellini, Vincenzo Scafuto
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public class PersistencyXML {
 
@@ -111,7 +109,7 @@ public class PersistencyXML {
     }
 
     public ArrayList<String> listByRemoving(final List<String> updates,
-            final String value) {
+                                            final String value) {
         boolean found = false;
         String search = null;
         if (value.equals(PersistencyXML.TUPLE_NODE)) {
@@ -131,11 +129,11 @@ public class PersistencyXML {
                         .contains("(et)"))
                         && value.equals(PersistencyXML.TUPLE_NODE)
                         || (obj.contains("(+s)") || obj.contains("(-s)") || obj
-                                .contains("(es)"))
-                                && value.equals(PersistencyXML.SPEC_NODE)
-                                || (obj.contains("(+p)") || obj.contains("(-p)") || obj
-                                        .contains("(ep)"))
-                                        && value.equals(PersistencyXML.PREDICATE_NODE)) {
+                        .contains("(es)"))
+                        && value.equals(PersistencyXML.SPEC_NODE)
+                        || (obj.contains("(+p)") || obj.contains("(-p)") || obj
+                        .contains("(ep)"))
+                        && value.equals(PersistencyXML.PREDICATE_NODE)) {
                     updates.remove(i);
                 }
             }
@@ -233,8 +231,8 @@ public class PersistencyXML {
                                 + file.getName() + "' has been deleted");
                     } else {
                         System.err
-                        .println("....error while deleting old persistency file '"
-                                + file.getName() + "' :/");
+                                .println("....error while deleting old persistency file '"
+                                        + file.getName() + "' :/");
                     }
                 }
             }

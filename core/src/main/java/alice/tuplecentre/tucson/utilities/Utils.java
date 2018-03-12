@@ -21,13 +21,10 @@ public final class Utils {
     }
 
     /**
-     *
-     * @param path
-     *            the filepath toward the file to be read
+     * @param path the filepath toward the file to be read
      * @return the String representation of the content of the read file
-     * @throws IOException
-     *             if the file cannot be found or access permissions do not
-     *             allow reading
+     * @throws IOException if the file cannot be found or access permissions do not
+     *                     allow reading
      */
     public static String fileToString(final String path) throws IOException {
         try (BufferedInputStream br = new BufferedInputStream(Utils.class.getClassLoader().getResourceAsStream(path))) {

@@ -28,25 +28,19 @@ import alice.tuplecentre.tucson.rbac.TucsonRole;
  *
  * @author Emanuele Buccelli
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
- *
  */
 public final class TucsonACCTool {
 
     /**
      * Activates a coordination context for a given agent.
      *
-     * @param agentAid
-     *            the Identifier of the agent
-     * @param agentUUID
-     *            the UUID assigned to the agent
-     * @param agentClass
-     *            the RBAC agent class of the agent
-     * @param tid
-     *            the tuple centre bookeeping activations
-     * @param acc
-     *            the ACC used to perform the activation
+     * @param agentAid   the Identifier of the agent
+     * @param agentUUID  the UUID assigned to the agent
+     * @param agentClass the RBAC agent class of the agent
+     * @param tid        the tuple centre bookeeping activations
+     * @param acc        the ACC used to perform the activation
      * @return {@code true} or {@code false} depending on whether activation is
-     *         successful or not
+     * successful or not
      */
     public static boolean activateContext(final String agentAid,
                                           final UUID agentUUID, final String agentClass,
@@ -83,26 +77,19 @@ public final class TucsonACCTool {
     /**
      * Activates a given role for the given agent.
      *
-     * @param agentAid
-     *            the Identifier of the agent
-     * @param accUUID
-     *            the UUID assigned to the agent
-     * @param agentClass
-     *            the RBAC agent class of the agent
-     * @param roleName
-     *            the name of the role to activate
-     * @param tid
-     *            the tuple centre bookeeping activations
-     * @param acc
-     *            the ACC used to perform the activation
+     * @param agentAid   the Identifier of the agent
+     * @param accUUID    the UUID assigned to the agent
+     * @param agentClass the RBAC agent class of the agent
+     * @param roleName   the name of the role to activate
+     * @param tid        the tuple centre bookeeping activations
+     * @param acc        the ACC used to perform the activation
      * @return the RBAC role activated
-     * @throws AgentNotAllowedException
-     *             if the agent is not allowed to activate the given role
+     * @throws AgentNotAllowedException if the agent is not allowed to activate the given role
      */
     public static Role activateRole(final String agentAid, final UUID accUUID,
                                     final String agentClass, final String roleName,
                                     final TupleCentreIdentifier tid, final EnhancedACC acc)
-                    throws AgentNotAllowedException {
+            throws AgentNotAllowedException {
         if (!TucsonACCTool.activateContext(agentAid, accUUID, agentClass, tid,
                 acc)) {
             return null;
@@ -146,18 +133,12 @@ public final class TucsonACCTool {
     /**
      * Activates a RBAC role given its policy for a given agent.
      *
-     * @param agentAid
-     *            the Identifier of the agent
-     * @param accUUID
-     *            the UUID assigned to the agent
-     * @param agentClass
-     *            the RBAC agent class of the agent
-     * @param policy
-     *            the policy whose role should be activated
-     * @param tid
-     *            the tuple centre bookeeping activations
-     * @param acc
-     *            the ACC used to perform the activation
+     * @param agentAid   the Identifier of the agent
+     * @param accUUID    the UUID assigned to the agent
+     * @param agentClass the RBAC agent class of the agent
+     * @param policy     the policy whose role should be activated
+     * @param tid        the tuple centre bookeeping activations
+     * @param acc        the ACC used to perform the activation
      * @return the RBAC role activated
      */
     public static Role activateRoleWithPolicy(final String agentAid,
@@ -179,8 +160,8 @@ public final class TucsonACCTool {
                 final LogicTuple template = LogicTuples.newInstance(
                         "role_activation_request", TupleArguments.newValueArgument(
                                 agentAid.toString()), TupleArguments.newValueArgument(
-                                        accUUID.toString()), TupleArguments.newValueArgument(roleName),
-                                        TupleArguments.newVarArgument("Result"));
+                                accUUID.toString()), TupleArguments.newValueArgument(roleName),
+                        TupleArguments.newVarArgument("Result"));
                 op = acc.inp(tid, template, (Long) null);
                 if (op.isResultSuccess()) {
                     res = op.getLogicTupleResult();
@@ -208,8 +189,7 @@ public final class TucsonACCTool {
      * Encrypts the given String using standard Java security library and
      * cryptography algorithms, such as SHA-256.
      *
-     * @param password
-     *            the String to encrypt
+     * @param password the String to encrypt
      * @return the encrypted String
      */
     public static String encrypt(final String password) {
@@ -235,13 +215,10 @@ public final class TucsonACCTool {
     /**
      * Gets the list of policies available for the given RBAC agent class.
      *
-     * @param agentClass
-     *            the RBAC agent class whose associated policies should be
-     *            retrieved
-     * @param tid
-     *            the tuple centre bookeeping associations
-     * @param acc
-     *            the ACC used to perform the query
+     * @param agentClass the RBAC agent class whose associated policies should be
+     *                   retrieved
+     * @param tid        the tuple centre bookeeping associations
+     * @param acc        the ACC used to perform the query
      * @return the list of policies available for the given RBAC agent class
      */
     public static List<Policy> getPoliciesList(final String agentClass,

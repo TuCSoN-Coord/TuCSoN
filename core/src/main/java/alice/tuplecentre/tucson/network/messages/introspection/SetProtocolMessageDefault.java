@@ -11,25 +11,37 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tuplecentre.tucson.introspection;
+package alice.tuplecentre.tucson.network.messages.introspection;
+
 
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 
 /**
+ * // TODO: 12/03/2018 add documentation
  *
  * @author Unknown...
- *
  */
-public class ResetMsg extends NodeMsg {
+public class SetProtocolMessageDefault extends AbstractNodeMessage implements SetProtocolMessage {
 
-    private static final long serialVersionUID = 5161921319537355981L;
+    private InspectorProtocol info;
 
     /**
-     *
-     * @param id
-     *            the agent id of the sender
+     * @param id the agent id of the sender
+     * @param p  the inspection protocol to be used
      */
-    public ResetMsg(final TucsonAgentId id) {
-        super(id, "reset");
+    public SetProtocolMessageDefault(final TucsonAgentId id, final InspectorProtocol p) {
+        super(id, "setProtocol");
+        this.info = p;
+    }
+
+    @Override
+    public InspectorProtocol getInfo() {
+        return this.info;
+    }
+
+    @Override
+    public void setInfo(final InspectorProtocol i) {
+        this.info = i;
     }
 }

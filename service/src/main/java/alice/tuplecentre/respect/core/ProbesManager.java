@@ -15,17 +15,17 @@ import alice.tuplecentre.respect.situatedness.TransducerId;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 04/nov/2013
- *
  */
 public enum ProbesManager {
-    /** the singleton instance of this probes manager */
+    /**
+     * the singleton instance of this probes manager
+     */
     INSTANCE;
 
     /**
      * Utility method used to communicate an output message to the console.
      *
-     * @param msg
-     *            message to print
+     * @param msg message to print
      */
     private static void speak(final String msg) {
         System.out.println("..[ResourceManager]: " + msg);
@@ -35,7 +35,9 @@ public enum ProbesManager {
         System.err.println("..[ResourceManager]: " + msg);
     }
 
-    /** List of all probes on a single node **/
+    /**
+     * List of all probes on a single node
+     **/
     private final Map<ProbeIdentifier, ISimpleProbe> probesList;
 
     private ProbesManager() {
@@ -45,24 +47,16 @@ public enum ProbesManager {
     /**
      * Creates a resource
      *
-     * @param className
-     *            the concrete implementative class of the resource
-     * @param id
-     *            the identifier of the resource
+     * @param className the concrete implementative class of the resource
+     * @param id        the identifier of the resource
      * @return wether the Resource has been succesfully created.
-     *
-     * @throws ClassNotFoundException
-     *             if the given Java full class name cannot be found within
-     *             known paths
-     * @throws NoSuchMethodException
-     *             if the Java method name cannot be found
-     * @throws InstantiationException
-     *             if the given Java class cannot be instantiated
-     * @throws IllegalAccessException
-     *             if the caller has no rights to access class, methods, or
-     *             fields
-     * @throws InvocationTargetException
-     *             if the callee cannot be found
+     * @throws ClassNotFoundException    if the given Java full class name cannot be found within
+     *                                   known paths
+     * @throws NoSuchMethodException     if the Java method name cannot be found
+     * @throws InstantiationException    if the given Java class cannot be instantiated
+     * @throws IllegalAccessException    if the caller has no rights to access class, methods, or
+     *                                   fields
+     * @throws InvocationTargetException if the callee cannot be found
      */
     public synchronized boolean createProbe(final String className,
                                             final ProbeIdentifier id) throws ClassNotFoundException,
@@ -77,9 +71,9 @@ public enum ProbesManager {
                 className.length() - 1);
         final Class<?> c = Class.forName(normClassName);
         final Constructor<?> ctor = c
-                .getConstructor(new Class[] { AbstractProbeId.class });
+                .getConstructor(new Class[]{AbstractProbeId.class});
         final ISimpleProbe probe = (ISimpleProbe) ctor
-                .newInstance(new Object[] { id });
+                .newInstance(new Object[]{id});
         this.probesList.put(id, probe);
         ProbesManager.speak("Resource '" + id.getLocalName()
                 + "' has been registered.");
@@ -89,8 +83,7 @@ public enum ProbesManager {
     /**
      * Gets the resource by its identifier
      *
-     * @param id
-     *            the resource's identifier
+     * @param id the resource's identifier
      * @return an interface toward the resource whose identifier has been given
      */
     // FIXME Check correctness (synchronization needed?)
@@ -106,10 +99,9 @@ public enum ProbesManager {
     /**
      * Gets the resource by its local name
      *
-     * @param name
-     *            resource's local name
+     * @param name resource's local name
      * @return an interface toward the resource whose logical name has been
-     *         given
+     * given
      */
     // FIXME Check correctness (synchronization needed?)
     public ISimpleProbe getProbeByName(final String name) {
@@ -126,8 +118,7 @@ public enum ProbesManager {
     /**
      * Removes a resource from the list
      *
-     * @param id
-     *            the identifier of the resource to remove
+     * @param id the identifier of the resource to remove
      * @return wether the resource has been successfully removed
      */
     public synchronized boolean removeProbe(final ProbeIdentifier id) {
@@ -146,10 +137,8 @@ public enum ProbesManager {
     /**
      * Sets the transducer which the probe will communicate with.
      *
-     * @param pId
-     *            the probe's identifier
-     * @param tId
-     *            the transducer's identifier
+     * @param pId the probe's identifier
+     * @param tId the transducer's identifier
      */
     public void setTransducer(final ProbeIdentifier pId, final TransducerId tId) {
         this.getProbe(pId).setTransducer(tId);

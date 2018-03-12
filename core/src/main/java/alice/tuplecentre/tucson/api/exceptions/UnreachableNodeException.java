@@ -14,12 +14,10 @@
 package alice.tuplecentre.tucson.api.exceptions;
 
 /**
- *
  * Exception thrown when the target TuCSoN node cannot be reached over the
  * network (e.g. unknown host )
  *
  * @author Alessandro Ricci
- *
  */
 public class UnreachableNodeException extends Exception {
 

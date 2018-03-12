@@ -25,11 +25,9 @@ import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.network.exceptions.InvalidProtocolTypeException;
 
 /**
- *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @author (contributor) Saverio Cicora
- *
  */
 public class WelcomeAgent extends Thread {
 
@@ -43,12 +41,9 @@ public class WelcomeAgent extends Thread {
     private boolean shut;
 
     /**
-     *
-     * @param n
-     *            the TuCSoN node this internal agent refers to
-     * @param cm
-     *            the ACC provider this internal agent should delegate ACC
-     *            requests to
+     * @param n  the TuCSoN node this internal agent refers to
+     * @param cm the ACC provider this internal agent should delegate ACC
+     *           requests to
      */
     public WelcomeAgent(final TucsonNodeService n, final ACCProvider cm) {
         super();
@@ -110,12 +105,12 @@ public class WelcomeAgent extends Thread {
         } catch (final DialogSendException e) {
             e.printStackTrace();
         } catch (TucsonInvalidAgentIdException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (TucsonInvalidTupleCentreIdException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (TucsonInvalidTupleCentreIdException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         this.node.removeNodeAgent(this);
     }
 

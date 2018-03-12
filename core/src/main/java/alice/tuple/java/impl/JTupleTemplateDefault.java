@@ -1,23 +1,19 @@
-/**
- * JTupleTemplate.java
- */
 package alice.tuple.java.impl;
-
-import alice.tuple.Tuple;
-import alice.tuple.java.api.JTupleTemplate;
-import alice.tuple.java.api.JVal;
-import alice.tuplecentre.api.exceptions.InvalidOperationException;
-import alice.tuplecentre.api.exceptions.InvalidTupleException;
-import alice.tuple.java.api.JArg;
-import alice.tuple.java.api.JTuple;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import alice.tuple.Tuple;
+import alice.tuple.java.api.JArg;
+import alice.tuple.java.api.JTuple;
+import alice.tuple.java.api.JTupleTemplate;
+import alice.tuple.java.api.JVal;
+import alice.tuplecentre.api.exceptions.InvalidOperationException;
+import alice.tuplecentre.api.exceptions.InvalidTupleException;
+
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 21/feb/2014
- *
  */
 public class JTupleTemplateDefault implements Iterable<JArg>, JTupleTemplate {
 
@@ -26,15 +22,12 @@ public class JTupleTemplateDefault implements Iterable<JArg>, JTupleTemplate {
     private List<JArg> args;
 
     /**
-     *
-     * @param arg
-     *            the JArg to add to this JTupleTemplate
-     * @throws InvalidTupleException
-     *             if the given JArg is invalid (e.g. null)
+     * @param arg the JArg to add to this JTupleTemplate
+     * @throws InvalidTupleException if the given JArg is invalid (e.g. null)
      */
     public JTupleTemplateDefault(final JArg arg) throws InvalidTupleException {
         if (arg != null) {
-            this.args = new ArrayList<JArg>(JTupleTemplateDefault.AVG_CAP);
+            this.args = new ArrayList<>(JTupleTemplateDefault.AVG_CAP);
             this.args.add(arg);
         } else {
             throw new InvalidTupleException("Null value");
@@ -123,7 +116,7 @@ public class JTupleTemplateDefault implements Iterable<JArg>, JTupleTemplate {
 
     @Override
     public String toString() {
-        final StringBuffer sb = new StringBuffer(JTupleTemplateDefault.AVG_CAP
+        final StringBuilder sb = new StringBuilder(JTupleTemplateDefault.AVG_CAP
                 * JTupleTemplateDefault.AVG_CHARS);
         sb.append("< ");
         for (final JArg arg : this.args) {

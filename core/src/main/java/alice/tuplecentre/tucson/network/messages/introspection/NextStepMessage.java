@@ -11,52 +11,24 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tuplecentre.tucson.introspection;
+package alice.tuplecentre.tucson.network.messages.introspection;
+
 
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
+ * // TODO: 12/03/2018 add documentation
  *
  * @author Unknown...
- *
  */
-public class GetSnapshotMsg extends NodeMsg {
+public class NextStepMessage extends AbstractNodeMessage {
+
+    private static final long serialVersionUID = 3967973492584768476L;
 
     /**
-     *
+     * @param id the agent id of the sender
      */
-    public static final byte TSET = 1;
-    /**
-     *
-     */
-    public static final byte WSET = 2;
-    private static final long serialVersionUID = -7715943663646624722L;
-    private byte what;
-
-    /**
-     *
-     * @param id
-     *            the agent identifier
-     * @param w
-     *            the set to retrieve
-     */
-    public GetSnapshotMsg(final TucsonAgentId id, final byte w) {
-        super(id, "getSnapshot");
-        this.what = w;
-    }
-
-    /**
-     * @return the what
-     */
-    public byte getWhat() {
-        return this.what;
-    }
-
-    /**
-     * @param w
-     *            the what to set
-     */
-    public void setWhat(final byte w) {
-        this.what = w;
+    public NextStepMessage(final TucsonAgentId id) {
+        super(id, "nextStep");
     }
 }
