@@ -11,7 +11,7 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tuplecentre.tucson.network.messages.inspection;
+package alice.tuplecentre.tucson.network.messages.introspection;
 
 
 import alice.tuplecentre.tucson.api.TucsonAgentId;

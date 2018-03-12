@@ -26,15 +26,15 @@ import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.TucsonProtocolTCP;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
-import alice.tuplecentre.tucson.network.messages.inspection.GetSnapshotMsg;
-import alice.tuplecentre.tucson.network.messages.inspection.IsActiveStepModeMsg;
-import alice.tuplecentre.tucson.network.messages.inspection.NewInspectorMsg;
-import alice.tuplecentre.tucson.network.messages.inspection.NextStepMsg;
-import alice.tuplecentre.tucson.network.messages.inspection.SetEventSetMsg;
-import alice.tuplecentre.tucson.network.messages.inspection.SetProtocolMsg;
-import alice.tuplecentre.tucson.network.messages.inspection.SetTupleSetMsg;
-import alice.tuplecentre.tucson.network.messages.inspection.ShutdownMsg;
-import alice.tuplecentre.tucson.network.messages.inspection.StepModeMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.IsActiveStepModeMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.NextStepMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.SetEventSetMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.SetProtocolMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.SetTupleSetMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.StepModeMsg;
 import alice.tuplecentre.tucson.service.ACCDescription;
 
 /**

@@ -44,7 +44,7 @@ import alice.tuplecentre.tucson.network.messages.TucsonMsgReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMsgRequest;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMsg;
 import alice.tuplecentre.tucson.network.messages.events.OutputEventMsgDefault;
-import alice.tuplecentre.tucson.network.messages.inspection.ShutdownMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMsg;
 
 /**
  * @author Alessandro Ricci

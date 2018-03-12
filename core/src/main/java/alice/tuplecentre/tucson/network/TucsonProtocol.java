@@ -11,8 +11,8 @@ import alice.tuplecentre.tucson.network.messages.TucsonMsg;
 import alice.tuplecentre.tucson.network.messages.TucsonMsgGeneric;
 import alice.tuplecentre.tucson.network.messages.TucsonMsgReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMsgRequest;
-import alice.tuplecentre.tucson.network.messages.inspection.NewInspectorMsg;
-import alice.tuplecentre.tucson.network.messages.inspection.NodeMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.NodeMsg;
 import alice.tuplecentre.tucson.service.ACCDescription;
 
 /**

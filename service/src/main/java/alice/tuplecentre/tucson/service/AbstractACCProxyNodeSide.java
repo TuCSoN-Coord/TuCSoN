@@ -14,7 +14,7 @@
 package alice.tuplecentre.tucson.service;
 
 import alice.tuplecentre.core.OperationCompletionListener;
-import alice.tuplecentre.tucson.network.messages.inspection.ShutdownMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMsg;
 
 /**
  * @author Alessandro Ricci

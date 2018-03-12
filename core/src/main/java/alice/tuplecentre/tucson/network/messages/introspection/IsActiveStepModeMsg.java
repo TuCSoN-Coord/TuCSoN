@@ -11,22 +11,26 @@
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package alice.tuplecentre.tucson.network.messages.inspection;
+package alice.tuplecentre.tucson.network.messages.introspection;
 
 
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
  * @author Roberto D'Elia
+ * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
  */
-public class StepModeMsg extends NodeMsg {
+public class IsActiveStepModeMsg extends NodeMsg {
 
-    private static final long serialVersionUID = -6748034977696183466L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = -13483265125297485L;
 
     /**
      * @param id the agent id of the sender
      */
-    public StepModeMsg(final TucsonAgentId id) {
-        super(id, "stepMode");
+    public IsActiveStepModeMsg(final TucsonAgentId id) {
+        super(id, "isStepMode");
     }
 }

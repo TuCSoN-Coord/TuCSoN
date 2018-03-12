@@ -26,7 +26,7 @@ import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
-import alice.tuplecentre.tucson.network.messages.inspection.GetSnapshotMsg;
+import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMsg;
 
 /**
  * @author Unknown...
