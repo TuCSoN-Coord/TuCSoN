@@ -7,10 +7,10 @@ import alice.tuplecentre.tucson.network.exceptions.DialogAcceptException;
 import alice.tuplecentre.tucson.network.exceptions.DialogCloseException;
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
+import alice.tuplecentre.tucson.network.messages.AbstractTucsonMessage;
 import alice.tuplecentre.tucson.network.messages.TucsonMessage;
-import alice.tuplecentre.tucson.network.messages.TucsonMsgGeneric;
-import alice.tuplecentre.tucson.network.messages.TucsonMsgReply;
-import alice.tuplecentre.tucson.network.messages.TucsonMsgRequest;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
 import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMsg;
 import alice.tuplecentre.tucson.network.messages.introspection.NodeMsg;
 import alice.tuplecentre.tucson.service.ACCDescription;
@@ -92,13 +92,13 @@ public interface TucsonProtocol extends Serializable {
      * @return the TuCSoN message reply event received over the network
      * @throws DialogReceiveException if something goes wrong in the underlying network
      */
-    TucsonMsgReply receiveMsgReply() throws DialogReceiveException;
+    TucsonMessageReply receiveMsgReply() throws DialogReceiveException;
 
     /**
      * @return the TuCSoN message request received over the network
      * @throws DialogReceiveException if something goes wrong in the underlying network
      */
-    TucsonMsgRequest receiveMsgRequest() throws DialogReceiveException;
+    TucsonMessageRequest receiveMsgRequest() throws DialogReceiveException;
 
     /**
      * @return the node message received over the network
@@ -138,19 +138,19 @@ public interface TucsonProtocol extends Serializable {
      * @param msg the message to send over the network
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void sendMsg(final TucsonMsgGeneric msg) throws DialogSendException;
+    void sendMsg(final AbstractTucsonMessage msg) throws DialogSendException;
 
     /**
      * @param reply the message to send over the network
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void sendMsgReply(final TucsonMsgReply reply) throws DialogSendException;
+    void sendMsgReply(final TucsonMessageReply reply) throws DialogSendException;
 
     /**
      * @param request the message to send over the network
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void sendMsgRequest(final TucsonMsgRequest request) throws DialogSendException;
+    void sendMsgRequest(final TucsonMessageRequest request) throws DialogSendException;
 
     /**
      * @throws DialogSendException if something goes wrong in the underlying network

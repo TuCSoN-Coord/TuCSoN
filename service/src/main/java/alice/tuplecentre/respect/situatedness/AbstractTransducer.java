@@ -17,7 +17,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
-import alice.tuplecentre.tucson.network.messages.TucsonMsgRequest;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMsg;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMsgDefault;
 import alice.tuplecentre.tucson.service.OperationHandler;
@@ -99,7 +99,7 @@ public abstract class AbstractTransducer implements
         TucsonProtocol info;
         OperationHandler.Controller contr;
         TucsonOperationDefault op;
-        TucsonMsgRequest exit;
+        TucsonMessageRequest exit;
         while (it.hasNext()) {
             cs = it.next();
             info = cs.getSession();
@@ -111,7 +111,7 @@ public abstract class AbstractTransducer implements
             final InputEventMsg ev = new InputEventMsgDefault(this.id.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(), null,
                     System.currentTimeMillis(), null);
-            exit = new TucsonMsgRequest(ev);
+            exit = new TucsonMessageRequest(ev);
             try {
                 info.sendMsgRequest(exit);
             } catch (final DialogException e) {

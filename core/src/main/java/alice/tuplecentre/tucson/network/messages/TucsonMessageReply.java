@@ -9,7 +9,7 @@ import alice.tuplecentre.tucson.network.messages.events.OutputEventMsg;
  * @author (contributor) Michele Bombardi (mailto:
  * michele.bombardi@studio.unibo.it)
  */
-public class TucsonMsgReply extends TucsonMsgGeneric {
+public class TucsonMessageReply extends AbstractTucsonMessage {
     /**
      * serialVersionUID
      **/
@@ -18,11 +18,11 @@ public class TucsonMsgReply extends TucsonMsgGeneric {
     /**
      * @param ev the events to transmit
      */
-    public TucsonMsgReply(final OutputEventMsg ev) {
+    public TucsonMessageReply(final OutputEventMsg ev) {
         this.event = ev;
     }
 
-    public TucsonMsgReply() {
+    public TucsonMessageReply() {
     }
 
     @Override

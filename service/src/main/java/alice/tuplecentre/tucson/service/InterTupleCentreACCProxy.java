@@ -39,8 +39,8 @@ import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.TucsonProtocolTCP;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
-import alice.tuplecentre.tucson.network.messages.TucsonMsgReply;
-import alice.tuplecentre.tucson.network.messages.TucsonMsgRequest;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMsgDefault;
 import alice.tuplecentre.tucson.network.messages.events.OutputEventMsg;
 import alice.tuprolog.Prolog;
@@ -82,7 +82,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
         public void run() {
             TucsonOpCompletionEvent ev = null;
             while (!this.isStopped()) {
-                TucsonMsgReply msg = null;
+                TucsonMessageReply msg = null;
                 try {
                     msg = this.dialog.receiveMsgReply();
                 } catch (final DialogException e) {
@@ -295,25 +295,25 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
             final OperationIdentifier tucsonOpId = new TucsonOpId(this.opId);
             this.operations.put(tucsonOpId, op);
             final TupleCentreOpType type = op.getType();
-            TucsonMsgRequest msg;
+            TucsonMessageRequest msg;
             if (type == TupleCentreOpType.OUT
                     || type == TupleCentreOpType.OUT_S
                     || type == TupleCentreOpType.SET_S
                     || type == TupleCentreOpType.SET
                     || type == TupleCentreOpType.OUT_ALL
                     || type == TupleCentreOpType.SPAWN) {
-                msg = new TucsonMsgRequest(new InputEventMsgDefault(
+                msg = new TucsonMessageRequest(new InputEventMsgDefault(
                         this.aid.toString(), tucsonOpId, type,
                         (LogicTuple) op.getTupleArgument(), tcid.toString(),
                         System.currentTimeMillis(), this.getPosition()));
-                // new TucsonMsgRequest(this.opId, type, tcid.toString(),
+                // new TucsonMessageRequest(this.opId, type, tcid.toString(),
                 // (LogicTuple) op.getTupleArgument());
             } else {
-                msg = new TucsonMsgRequest(new InputEventMsgDefault(
+                msg = new TucsonMessageRequest(new InputEventMsgDefault(
                         this.aid.toString(), tucsonOpId, type,
                         (LogicTuple) op.getTemplateArgument(), tcid.toString(),
                         System.currentTimeMillis(), this.getPosition()));
-                // new TucsonMsgRequest(this.opId, type, tcid.toString(),
+                // new TucsonMessageRequest(this.opId, type, tcid.toString(),
                 // (LogicTuple) op.getTemplateArgument());
             }
             InterTupleCentreACCProxy.log("sending msg "

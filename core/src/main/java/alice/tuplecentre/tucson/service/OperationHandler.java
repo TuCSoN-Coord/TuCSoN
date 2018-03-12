@@ -32,8 +32,8 @@ import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
-import alice.tuplecentre.tucson.network.messages.TucsonMsgReply;
-import alice.tuplecentre.tucson.network.messages.TucsonMsgRequest;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMsg;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMsgDefault;
 import alice.tuprolog.Prolog;
@@ -86,7 +86,7 @@ public class OperationHandler {
                         OperationHandler.this.operations.remove(opId);
                     }
                 }
-                TucsonMsgReply msg = null;
+                TucsonMessageReply msg = null;
                 try {
                     msg = this.dialog.receiveMsgReply();
                 } catch (final DialogReceiveException e) {
@@ -461,7 +461,7 @@ public class OperationHandler {
      * Then, a Tucson Operation {@link TucsonOperationDefault op}
      * storing any useful information about the TuCSoN primitive invocation is
      * created and packed into a Tucson Message Request
-     * {@link TucsonMsgRequest} to be possibly sent over
+     * {@link TucsonMessageRequest} to be possibly sent over
      * the wire toward the target tuplecentre.
      * <p>
      * Notice that a listener is needed, who is the proxy itself, wichever was
@@ -538,10 +538,10 @@ public class OperationHandler {
                     op.getId(), op.getType(), op.getLogicTupleArgument(),
                     tcid.toString(), System.currentTimeMillis(), position);
 
-            final TucsonMsgRequest msg = new TucsonMsgRequest(ev);
+            final TucsonMessageRequest msg = new TucsonMessageRequest(ev);
 
             /*
-             * final TucsonMsgRequest msg = new TucsonMsgRequest(op.getId(),
+             * final TucsonMessageRequest msg = new TucsonMessageRequest(op.getId(),
              * op.getType(), tcid.toString(), op.getLogicTupleArgument());
              */
             this.log("requesting op " + msg.getEventMsg().getOpType()

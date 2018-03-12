@@ -50,8 +50,8 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
-import alice.tuplecentre.tucson.network.messages.TucsonMsgReply;
-import alice.tuplecentre.tucson.network.messages.TucsonMsgRequest;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
+import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMsg;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMsgDefault;
 import alice.tuplecentre.tucson.service.tools.TucsonACCTool;
@@ -66,8 +66,8 @@ import alice.tuprolog.Parser;
  * . Essentially, it implements every method exposed in the Default ACC
  * Interface {@link DefaultACC default} offered to the agent,
  * maps each of them into TuCSoN Request Messages
- * {@link TucsonMsgRequest req}, then waits for TuCSoN Node
- * Services replies {@link TucsonMsgReply reply} forwarding
+ * {@link TucsonMessageRequest req}, then waits for TuCSoN Node
+ * Services replies {@link TucsonMessageReply reply} forwarding
  * them to the agent.
  * <p>
  * It also is in charge of establishing the first connection toward the TuCSoN
@@ -84,8 +84,8 @@ import alice.tuprolog.Parser;
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  * @see DefaultACC DefaultACC
- * @see TucsonMsgRequest TucsonMsgRequest
- * @see TucsonMsgReply TucsonMsgReply
+ * @see TucsonMessageRequest TucsonMessageRequest
+ * @see TucsonMessageReply TucsonMessageReply
  * @see TucsonMetaACC TucsonMetaACC
  */
 public class ACCProxyAgentSide implements EnhancedACC {
@@ -245,7 +245,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
         TucsonProtocol info;
         OperationHandler.Controller contr;
         TucsonOperationDefault op;
-        TucsonMsgRequest exit;
+        TucsonMessageRequest exit;
         while (it.hasNext()) {
             cs = it.next();
             info = cs.getSession();
@@ -260,7 +260,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             final InputEventMsg ev = new InputEventMsgDefault(this.aid.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(), null,
                     System.currentTimeMillis(), this.getPosition());
-            exit = new TucsonMsgRequest(ev);
+            exit = new TucsonMessageRequest(ev);
             try {
                 info.sendMsgRequest(exit);
             } catch (final DialogException e) {
