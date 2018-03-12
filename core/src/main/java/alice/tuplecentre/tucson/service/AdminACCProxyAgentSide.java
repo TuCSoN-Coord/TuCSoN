@@ -34,12 +34,10 @@ import alice.tuplecentre.tucson.utilities.Utils;
  * @author Emanuele Buccelli
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
  */
-public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
-        AdminACC {
+public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminACC {
 
-    private static final int DEF_PORT = 20504;
-    private boolean isAdminAuth;
     private final TupleCentreIdentifier tid;
+    private boolean isAdminAuth;
 
     /**
      * Builds an Administrator ACC given the associated agent Identifier or name
@@ -51,7 +49,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements
     public AdminACCProxyAgentSide(final Object aid)
             throws TucsonInvalidAgentIdException,
             TucsonInvalidTupleCentreIdException {
-        this(aid, "localhost", AdminACCProxyAgentSide.DEF_PORT);
+        this(aid, "localhost", TucsonInfo.getDefaultPortNumber());
     }
 
     /**

@@ -12,6 +12,7 @@ public final class TucsonInfo {
      * Field containing the TuCSoN version stringified
      */
     private static final String VERSION = "TuCSoN-1.13.0.0301-beta";
+
     /**
      * Field containing TuCSoN default port number
      */

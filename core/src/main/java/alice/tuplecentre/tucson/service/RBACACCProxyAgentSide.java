@@ -32,7 +32,6 @@ import alice.tuprolog.Parser;
  */
 public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
 
-    private static final int DEF_PORT = 20504;
     private List<String> permissions;
     private Role role;
 
@@ -47,7 +46,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
      */
     public RBACACCProxyAgentSide(final Object aid, final Role r,
                                  final UUID agentUUID) throws TucsonInvalidAgentIdException {
-        this(aid, "localhost", RBACACCProxyAgentSide.DEF_PORT, r, agentUUID);
+        this(aid, "localhost", TucsonInfo.getDefaultPortNumber(), r, agentUUID);
     }
 
     /**

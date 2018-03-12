@@ -17,6 +17,7 @@ import java.io.Serializable;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.tuplecentre.respect.core.TupleCentreIdOperatorManager;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
@@ -31,7 +32,6 @@ import alice.tuprolog.Term;
  */
 public class TupleCentreId implements TupleCentreIdentifier, Serializable {
 
-    private static final int DEFAULT_PORT = 20504; //TODO replace with a TucsonInfo.getDefaultPort() call
     private static TupleCentreIdOperatorManager opManager = new TupleCentreIdOperatorManager();
     private static final long serialVersionUID = 1L;
 
@@ -165,7 +165,7 @@ public class TupleCentreId implements TupleCentreIdentifier, Serializable {
                         .getArg(1).getTerm().toString()));
             }
         }
-        return TupleCentreId.DEFAULT_PORT;
+        return TucsonInfo.getDefaultPortNumber();
     }
 
     /*
