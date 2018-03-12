@@ -160,7 +160,7 @@ public class TupleViewer extends javax.swing.JFrame {
 
     private void buttonGetActionPerformed() {
         try {
-            this.context.getSnapshot(GetSnapshotMessage.TSET);
+            this.context.getSnapshot(GetSnapshotMessage.SetType.TSET);
             this.outputState.setText("Observation done.");
         } catch (final DialogSendException e) {
             this.outputState.setText(e.toString());

@@ -20,6 +20,7 @@ import alice.tuple.Tuple;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
+import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMessage;
 
 /**
  * Defines the basic context for TuCSoN Inspector
@@ -43,7 +44,7 @@ public interface InspectorContext {
      *
      * @param l the listener of inspection events to add
      */
-    void addInspectorContextListener(InspectorContextListener l);
+    void addInspectorContextListener(final InspectorContextListener l);
 
     /**
      * shutdown inspector
@@ -58,7 +59,7 @@ public interface InspectorContext {
      * @param snapshotType the type of snapshot the inspector wants to receive
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void getSnapshot(byte snapshotType) throws DialogSendException;
+    void getSnapshot(final GetSnapshotMessage.SetType snapshotType) throws DialogSendException;
 
     /**
      * @return the identifier of the tuple centre under inspection
@@ -82,7 +83,7 @@ public interface InspectorContext {
      *
      * @param l the listener of inspection events to remove
      */
-    void removeInspectorContextListener(InspectorContextListener l);
+    void removeInspectorContextListener(final InspectorContextListener l);
 
     /**
      * resets the tuple centre
@@ -98,7 +99,7 @@ public interface InspectorContext {
      *             InQ with
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void setEventSet(List<Tuple> tset) throws DialogSendException;
+    void setEventSet(final List<Tuple> tset) throws DialogSendException;
 
     /**
      * specifies the protocol used by the inspector
@@ -106,7 +107,7 @@ public interface InspectorContext {
      * @param p the inspection protocol to be used
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void setProtocol(InspectorProtocol p) throws DialogSendException;
+    void setProtocol(final InspectorProtocol p) throws DialogSendException;
 
     /**
      * sets the entire content of the tuple set
@@ -114,7 +115,7 @@ public interface InspectorContext {
      * @param tset the list of tuples to overwrite current tuple set with
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void setTupleSet(List<Tuple> tset) throws DialogSendException;
+    void setTupleSet(final List<Tuple> tset) throws DialogSendException;
 
     /**
      * do the next step of the VM

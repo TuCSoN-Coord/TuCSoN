@@ -27,6 +27,7 @@ import alice.tuplecentre.tucson.network.TucsonProtocolTCP;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.GetSnapshotMessageDefault;
 import alice.tuplecentre.tucson.network.messages.introspection.IsActiveStepModeMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.NextStepMessage;
@@ -122,8 +123,8 @@ public class InspectorContextStub implements InspectorContext {
     }
 
     @Override
-    public void getSnapshot(final byte snapshotMsg) throws DialogSendException {
-        this.dialog.sendNodeMsg(new GetSnapshotMessage(this.id, snapshotMsg));
+    public void getSnapshot(final GetSnapshotMessage.SetType snapshotMsg) throws DialogSendException {
+        this.dialog.sendNodeMsg(new GetSnapshotMessageDefault(this.id, snapshotMsg));
     }
 
     @Override

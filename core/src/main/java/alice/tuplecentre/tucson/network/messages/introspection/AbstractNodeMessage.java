@@ -35,11 +35,11 @@ public abstract class AbstractNodeMessage implements NodeMessage {
 
     /**
      * @param id  the agent id of the sender
-     * @param act the action to perform
+     * @param action the action to perform
      */
-    public AbstractNodeMessage(final TucsonAgentId id, final String act) {
+    public AbstractNodeMessage(final TucsonAgentId id, final String action) {
         this.aid = id;
-        this.action = act;
+        this.action = action;
     }
 
     protected AbstractNodeMessage() {
@@ -57,8 +57,8 @@ public abstract class AbstractNodeMessage implements NodeMessage {
     }
 
     @Override
-    public void setAction(final String a) {
-        this.action = a;
+    public void setAction(final String action) {
+        this.action = action;
     }
 
     @Override

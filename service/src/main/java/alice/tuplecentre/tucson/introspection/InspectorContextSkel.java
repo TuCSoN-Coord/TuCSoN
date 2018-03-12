@@ -131,7 +131,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         final InspectorContextEventDefault msg = new InspectorContextEventDefault();
         msg.setVmTime(System.currentTimeMillis());
         msg.setLocalTime(System.currentTimeMillis());
-        if (m.getWhat() == GetSnapshotMessage.TSET) {
+        if (m.getWhat() == GetSnapshotMessage.SetType.TSET) {
             msg.setTuples(new LinkedList<LogicTuple>());
             LogicTuple[] tSet = null;
             tSet = (LogicTuple[]) TupleCentreContainer.doManagementOperation(
@@ -142,7 +142,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                     msg.getTuples().add(lt);
                 }
             }
-        } else if (m.getWhat() == GetSnapshotMessage.WSET) {
+        } else if (m.getWhat() == GetSnapshotMessage.SetType.WSET) {
             WSetEvent[] ltSet = null;
             ltSet = (WSetEvent[]) TupleCentreContainer.doManagementOperation(
                     TupleCentreOpType.GET_WSET, this.tcId,

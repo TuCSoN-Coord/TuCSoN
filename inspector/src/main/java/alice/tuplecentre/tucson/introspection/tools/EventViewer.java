@@ -160,7 +160,7 @@ public class EventViewer extends javax.swing.JFrame {
 
     private void buttonGetActionPerformed() {
         try {
-            this.context.getSnapshot(GetSnapshotMessage.WSET);
+            this.context.getSnapshot(GetSnapshotMessage.SetType.WSET);
         } catch (final DialogSendException e) {
             this.outputState.setText(e.toString());
         }
