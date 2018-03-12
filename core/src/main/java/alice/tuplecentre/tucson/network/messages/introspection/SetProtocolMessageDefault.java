@@ -15,20 +15,33 @@ package alice.tuplecentre.tucson.network.messages.introspection;
 
 
 import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 
 /**
  * // TODO: 12/03/2018 add documentation
  *
- * @author Roberto D'Elia
+ * @author Unknown...
  */
-public class StepModeMessage extends AbstractNodeMessage {
+public class SetProtocolMessageDefault extends AbstractNodeMessage implements SetProtocolMessage {
 
-    private static final long serialVersionUID = -6748034977696183466L;
+    private InspectorProtocol info;
 
     /**
      * @param id the agent id of the sender
+     * @param p  the inspection protocol to be used
      */
-    public StepModeMessage(final TucsonAgentId id) {
-        super(id, "stepMode");
+    public SetProtocolMessageDefault(final TucsonAgentId id, final InspectorProtocol p) {
+        super(id, "setProtocol");
+        this.info = p;
+    }
+
+    @Override
+    public InspectorProtocol getInfo() {
+        return this.info;
+    }
+
+    @Override
+    public void setInfo(final InspectorProtocol i) {
+        this.info = i;
     }
 }

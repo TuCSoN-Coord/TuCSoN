@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.tucson.network.messages.introspection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import alice.tuple.Tuple;
@@ -34,7 +35,7 @@ public class SetEventSetMessageDefault extends AbstractNodeMessage implements Se
      */
     public SetEventSetMessageDefault(final TucsonAgentId id, final List<? extends Tuple> ts) {
         super(id, "setEventSet");
-        this.eventWnSet.addAll(ts);
+        this.eventWnSet = new ArrayList<>(ts);
     }
 
     @Override

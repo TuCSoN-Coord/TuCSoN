@@ -14,21 +14,39 @@
 package alice.tuplecentre.tucson.network.messages.introspection;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+import alice.tuple.Tuple;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
  * // TODO: 12/03/2018 add documentation
  *
- * @author Roberto D'Elia
+ * @author Unknown...
  */
-public class StepModeMessage extends AbstractNodeMessage {
+public class SetTupleSetMessageDefault extends AbstractNodeMessage implements SetTupleSetMessage {
 
-    private static final long serialVersionUID = -6748034977696183466L;
+    private static final long serialVersionUID = 3683932175338169242L;
+    private List<Tuple> tupleSet;
 
     /**
      * @param id the agent id of the sender
+     * @param ts the list of tuples to overwrite the tuple set with
      */
-    public StepModeMessage(final TucsonAgentId id) {
-        super(id, "stepMode");
+    public SetTupleSetMessageDefault(final TucsonAgentId id, final List<? extends Tuple> ts) {
+        super(id, "setTupleSet");
+        this.tupleSet = new ArrayList<>(ts);
+    }
+
+    @Override
+    public List<Tuple> getTupleSet() {
+        return this.tupleSet;
+    }
+
+    @Override
+    public void setTupleSet(final List<? extends Tuple> set) {
+        this.tupleSet.clear();
+        this.tupleSet.addAll(set);
     }
 }

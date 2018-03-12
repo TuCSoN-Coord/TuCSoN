@@ -34,8 +34,8 @@ import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessa
 import alice.tuplecentre.tucson.network.messages.introspection.NextStepMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.ResetMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.SetEventSetMessageDefault;
-import alice.tuplecentre.tucson.network.messages.introspection.SetProtocolMessage;
-import alice.tuplecentre.tucson.network.messages.introspection.SetTupleSetMessage;
+import alice.tuplecentre.tucson.network.messages.introspection.SetProtocolMessageDefault;
+import alice.tuplecentre.tucson.network.messages.introspection.SetTupleSetMessageDefault;
 import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.StepModeMessage;
 import alice.tuplecentre.tucson.service.ACCDescription;
@@ -173,13 +173,13 @@ public class InspectorContextStub implements InspectorContext {
         newp.setPendingQueryObservType(p.getPendingQueryObservType());
         newp.setReactionsObservType(p.getReactionsObservType());
         newp.setStepModeObservType(p.getStepModeObservType());
-        this.dialog.sendNodeMsg(new SetProtocolMessage(this.id, newp));
+        this.dialog.sendNodeMsg(new SetProtocolMessageDefault(this.id, newp));
         this.protocol = p;
     }
 
     @Override
     public void setTupleSet(final List<Tuple> tset) throws DialogSendException {
-        this.dialog.sendNodeMsg(new SetTupleSetMessage(this.id, tset));
+        this.dialog.sendNodeMsg(new SetTupleSetMessageDefault(this.id, tset));
     }
 
     @Override

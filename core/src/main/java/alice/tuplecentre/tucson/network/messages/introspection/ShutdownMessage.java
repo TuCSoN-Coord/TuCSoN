@@ -17,6 +17,8 @@ package alice.tuplecentre.tucson.network.messages.introspection;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 
 /**
+ * // TODO: 12/03/2018 add documentation
+ *
  * @author Unknown...
  */
 public class ShutdownMessage extends AbstractNodeMessage {
@@ -28,12 +30,5 @@ public class ShutdownMessage extends AbstractNodeMessage {
      */
     public ShutdownMessage(final TucsonAgentId id) {
         super(id, "exit");
-    }
-
-    /**
-     *
-     */
-    protected ShutdownMessage() {
-        super();
     }
 }
