@@ -1,6 +1,6 @@
 package alice.tuplecentre.tucson.network.messages;
 
-import alice.tuplecentre.tucson.network.messages.events.InputEventMsg;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMessage;
 
 /**
  * @author Alessandro Ricci
@@ -20,7 +20,7 @@ public class TucsonMessageRequest extends AbstractTucsonMessage {
     /**
      * @param ev the events to transmit
      */
-    public TucsonMessageRequest(final InputEventMsg ev) {
+    public TucsonMessageRequest(final InputEventMessage ev) {
         setEventMsg(ev);
     }
 
@@ -28,14 +28,14 @@ public class TucsonMessageRequest extends AbstractTucsonMessage {
     }
 
     @Override
-    public InputEventMsg getEventMsg() {
-        return (InputEventMsg) super.getEventMsg();
+    public InputEventMessage getEventMsg() {
+        return (InputEventMessage) super.getEventMsg();
     }
 
     @Override
     public String toString() {
         final StringBuilder s = new StringBuilder(45);
-        final InputEventMsg iEv = this.getEventMsg();
+        final InputEventMessage iEv = this.getEventMsg();
         s.append("ID: ");
         s.append(iEv.getOpId());
         s.append("; Type: ");

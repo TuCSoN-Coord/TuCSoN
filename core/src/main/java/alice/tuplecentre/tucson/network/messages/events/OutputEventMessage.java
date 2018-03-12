@@ -7,7 +7,7 @@ package alice.tuplecentre.tucson.network.messages.events;
  *
  * @author Enrico Siboni
  */
-public interface OutputEventMsg extends EventMessage {
+public interface OutputEventMessage extends EventMessage {
 
     /**
      * @return the effect of the event

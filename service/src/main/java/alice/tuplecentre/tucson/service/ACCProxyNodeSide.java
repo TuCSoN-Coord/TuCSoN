@@ -42,8 +42,8 @@ import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
-import alice.tuplecentre.tucson.network.messages.events.InputEventMsg;
-import alice.tuplecentre.tucson.network.messages.events.OutputEventMsgDefault;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMessage;
+import alice.tuplecentre.tucson.network.messages.events.OutputEventMessageDefault;
 import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMsg;
 
 /**
@@ -118,28 +118,28 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
             reqId = this.opVsReq.remove(op.getId());
             msg = this.requests.remove(reqId);
         }
-        final InputEventMsg evMsg = msg.getEventMsg();
+        final InputEventMessage evMsg = msg.getEventMsg();
         TucsonMessageReply reply = null;
         if (op.getType() == TupleCentreOpType.IN_ALL || op.getType() == TupleCentreOpType.RD_ALL || op.getType() == TupleCentreOpType.NO_ALL || op.getType() == TupleCentreOpType.OUT_ALL) {
             if (op.getTupleListResult() == null) {
                 op.setTupleListResult(new LinkedList<Tuple>());
             }
             if (op.isResultSuccess()) {
-                reply = new TucsonMessageReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         evMsg.getOpType(), true, true, true, evMsg.getTuple(),
                         op.getTupleListResult()));
             } else {
-                reply = new TucsonMessageReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         evMsg.getOpType(), true, true, false, evMsg.getTuple(),
                         op.getTupleListResult()));
             }
         } else {
             if (op.isResultSuccess()) {
-                reply = new TucsonMessageReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         evMsg.getOpType(), true, true, true, evMsg.getTuple(),
                         op.getTupleResult()));
             } else {
-                reply = new TucsonMessageReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         evMsg.getOpType(), true, true, false, evMsg.getTuple(),
                         op.getTupleResult()));
             }
@@ -171,10 +171,10 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                 break;
             }
             // final int msgType = msg.getType();
-            final InputEventMsg evMsg = msg.getEventMsg();
+            final InputEventMessage evMsg = msg.getEventMsg();
             final TupleCentreOpType msgType = evMsg.getOpType();
             if (msgType == TupleCentreOpType.EXIT) {
-                reply = new TucsonMessageReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         TupleCentreOpType.EXIT, true, true, true));
                 try {
                     this.dialog.sendMsgReply(reply);
@@ -242,7 +242,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-                reply = new TucsonMessageReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         msgType, true, true, true, evMsg.getTuple(), resList));
                 try {
                     this.dialog.sendMsgReply(reply);
@@ -277,7 +277,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-                reply = new TucsonMessageReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         msgType, true, true, true, res, resList));
                 try {
                     this.dialog.sendMsgReply(reply);
@@ -309,7 +309,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-                reply = new TucsonMessageReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         msgType, true, true, true, null, resList));
                 try {
                     this.dialog.sendMsgReply(reply);
@@ -344,7 +344,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     e.printStackTrace();
                     break;
                 }
-                reply = new TucsonMessageReply(new OutputEventMsgDefault(evMsg.getOpId(),
+                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
                         msgType, true, true, true, null, resList));
                 try {
                     this.dialog.sendMsgReply(reply);

@@ -34,8 +34,8 @@ import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
-import alice.tuplecentre.tucson.network.messages.events.InputEventMsg;
-import alice.tuplecentre.tucson.network.messages.events.InputEventMsgDefault;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMessage;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMessageDefault;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.lib.InvalidObjectIdException;
 
@@ -534,7 +534,7 @@ public class OperationHandler {
             // TODO: 02/03/2018  isn't that operation added twice ????????
             this.addOperation(op);
             // TODO: 02/03/2018 CHECK
-            final InputEventMsg ev = new InputEventMsgDefault(aid.toString(),
+            final InputEventMessage ev = new InputEventMessageDefault(aid.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(),
                     tcid.toString(), System.currentTimeMillis(), position);
 

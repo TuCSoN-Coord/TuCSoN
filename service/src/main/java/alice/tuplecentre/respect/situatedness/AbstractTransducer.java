@@ -18,8 +18,8 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
-import alice.tuplecentre.tucson.network.messages.events.InputEventMsg;
-import alice.tuplecentre.tucson.network.messages.events.InputEventMsgDefault;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMessage;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMessageDefault;
 import alice.tuplecentre.tucson.service.OperationHandler;
 import alice.tuplecentre.tucson.service.TucsonOperationDefault;
 
@@ -108,7 +108,7 @@ public abstract class AbstractTransducer implements
             op = new TucsonOperationDefault(TupleCentreOpType.EXIT,
                     (TupleTemplate) null, null, this.executor);
             this.executor.addOperation(op);
-            final InputEventMsg ev = new InputEventMsgDefault(this.id.toString(),
+            final InputEventMessage ev = new InputEventMessageDefault(this.id.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(), null,
                     System.currentTimeMillis(), null);
             exit = new TucsonMessageRequest(ev);

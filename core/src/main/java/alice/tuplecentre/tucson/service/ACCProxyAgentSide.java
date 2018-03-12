@@ -52,8 +52,8 @@ import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
-import alice.tuplecentre.tucson.network.messages.events.InputEventMsg;
-import alice.tuplecentre.tucson.network.messages.events.InputEventMsgDefault;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMessage;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMessageDefault;
 import alice.tuplecentre.tucson.service.tools.TucsonACCTool;
 import alice.tuprolog.Parser;
 
@@ -257,7 +257,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             op = new TucsonOperationDefault(TupleCentreOpType.EXIT,
                     (TupleTemplate) null, null, this.executor /* this */);
             this.executor.addOperation(op);
-            final InputEventMsg ev = new InputEventMsgDefault(this.aid.toString(),
+            final InputEventMessage ev = new InputEventMessageDefault(this.aid.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(), null,
                     System.currentTimeMillis(), this.getPosition());
             exit = new TucsonMessageRequest(ev);

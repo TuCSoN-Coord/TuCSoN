@@ -41,8 +41,8 @@ import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
-import alice.tuplecentre.tucson.network.messages.events.InputEventMsgDefault;
-import alice.tuplecentre.tucson.network.messages.events.OutputEventMsg;
+import alice.tuplecentre.tucson.network.messages.events.InputEventMessageDefault;
+import alice.tuplecentre.tucson.network.messages.events.OutputEventMessage;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.lib.InvalidObjectIdException;
 
@@ -91,7 +91,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
                     this.setStop();
                     break;
                 }
-                final OutputEventMsg oEv = msg.getEventMsg();
+                final OutputEventMessage oEv = msg.getEventMsg();
                 final boolean ok = oEv.isAllowed();
                 if (ok) {
                     final TupleCentreOpType type = oEv.getOpType();
@@ -302,14 +302,14 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
                     || type == TupleCentreOpType.SET
                     || type == TupleCentreOpType.OUT_ALL
                     || type == TupleCentreOpType.SPAWN) {
-                msg = new TucsonMessageRequest(new InputEventMsgDefault(
+                msg = new TucsonMessageRequest(new InputEventMessageDefault(
                         this.aid.toString(), tucsonOpId, type,
                         (LogicTuple) op.getTupleArgument(), tcid.toString(),
                         System.currentTimeMillis(), this.getPosition()));
                 // new TucsonMessageRequest(this.opId, type, tcid.toString(),
                 // (LogicTuple) op.getTupleArgument());
             } else {
-                msg = new TucsonMessageRequest(new InputEventMsgDefault(
+                msg = new TucsonMessageRequest(new InputEventMessageDefault(
                         this.aid.toString(), tucsonOpId, type,
                         (LogicTuple) op.getTemplateArgument(), tcid.toString(),
                         System.currentTimeMillis(), this.getPosition()));

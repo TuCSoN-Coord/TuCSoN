@@ -9,7 +9,7 @@ import alice.tuplecentre.respect.api.geolocation.Position;
  *
  * @author Enrico Siboni
  */
-public interface InputEventMsg extends EventMessage {
+public interface InputEventMessage extends EventMessage {
 
     /**
      * @return the Position where this event was generated
