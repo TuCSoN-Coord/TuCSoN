@@ -22,9 +22,6 @@ public class TucsonMsgReply extends TucsonMsgGeneric {
         this.event = ev;
     }
 
-    /**
-     *
-     */
     public TucsonMsgReply() {
     }
 
@@ -35,7 +32,7 @@ public class TucsonMsgReply extends TucsonMsgGeneric {
 
     @Override
     public String toString() {
-        final StringBuffer s = new StringBuffer(87);
+        final StringBuilder s = new StringBuilder(87);
         final OutputEventMsg oEv = this.getEventMsg();
         s.append("ID: ");
         s.append(oEv.getOpId());

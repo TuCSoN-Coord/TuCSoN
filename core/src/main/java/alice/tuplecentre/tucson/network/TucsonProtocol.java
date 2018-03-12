@@ -7,7 +7,7 @@ import alice.tuplecentre.tucson.network.exceptions.DialogAcceptException;
 import alice.tuplecentre.tucson.network.exceptions.DialogCloseException;
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
-import alice.tuplecentre.tucson.network.messages.TucsonMsg;
+import alice.tuplecentre.tucson.network.messages.TucsonMessage;
 import alice.tuplecentre.tucson.network.messages.TucsonMsgGeneric;
 import alice.tuplecentre.tucson.network.messages.TucsonMsgReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMsgRequest;
@@ -86,7 +86,7 @@ public interface TucsonProtocol extends Serializable {
      * @return the TuCSoN message received over the network
      * @throws DialogReceiveException if something goes wrong in the underlying network
      */
-    TucsonMsg receiveMsg() throws DialogReceiveException;
+    TucsonMessage receiveMsg() throws DialogReceiveException;
 
     /**
      * @return the TuCSoN message reply event received over the network

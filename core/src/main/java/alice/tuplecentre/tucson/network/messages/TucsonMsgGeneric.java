@@ -8,7 +8,7 @@ import alice.tuplecentre.tucson.network.messages.events.EventMsg;
  * @author (contributor) Saverio Cicora
  * @author (contributor) Piscaglia Nicola
  */
-public class TucsonMsgGeneric implements TucsonMsg {
+public abstract class TucsonMsgGeneric implements TucsonMessage {
 
     private static final long serialVersionUID = 1L;
 
