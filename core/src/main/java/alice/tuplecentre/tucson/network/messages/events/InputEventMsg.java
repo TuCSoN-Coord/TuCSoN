@@ -1,8 +1,5 @@
 package alice.tuplecentre.tucson.network.messages.events;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuplecentre.api.OperationIdentifier;
-import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.api.geolocation.Position;
 
 /**
@@ -12,17 +9,7 @@ import alice.tuplecentre.respect.api.geolocation.Position;
  *
  * @author Enrico Siboni
  */
-public interface InputEventMsg extends EventMsg {
-
-    /**
-     * @return the id of the operation which caused this event
-     */
-    OperationIdentifier getOpId();
-
-    /**
-     * @return the type code of the operation which caused this event
-     */
-    TupleCentreOpType getOpType();
+public interface InputEventMsg extends EventMessage {
 
     /**
      * @return the Position where this event was generated
@@ -50,8 +37,4 @@ public interface InputEventMsg extends EventMsg {
      */
     long getTime();
 
-    /**
-     * @return the logic tuple argument of the operation which caused this event
-     */
-    LogicTuple getTuple();
 }

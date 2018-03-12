@@ -11,6 +11,7 @@ import alice.tuplecentre.tucson.network.messages.events.InputEventMsg;
  * @author (contributor) Piscaglia Nicola
  */
 public class TucsonMessageRequest extends AbstractTucsonMessage {
+
     /**
      * serialVersionUID
      **/
@@ -20,7 +21,7 @@ public class TucsonMessageRequest extends AbstractTucsonMessage {
      * @param ev the events to transmit
      */
     public TucsonMessageRequest(final InputEventMsg ev) {
-        this.event = ev;
+        setEventMsg(ev);
     }
 
     public TucsonMessageRequest() {
@@ -28,7 +29,7 @@ public class TucsonMessageRequest extends AbstractTucsonMessage {
 
     @Override
     public InputEventMsg getEventMsg() {
-        return (InputEventMsg) event;
+        return (InputEventMsg) super.getEventMsg();
     }
 
     @Override

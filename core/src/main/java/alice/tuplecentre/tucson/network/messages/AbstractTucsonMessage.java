@@ -1,6 +1,6 @@
 package alice.tuplecentre.tucson.network.messages;
 
-import alice.tuplecentre.tucson.network.messages.events.EventMsg;
+import alice.tuplecentre.tucson.network.messages.events.EventMessage;
 
 /**
  * @author Alessandro Ricci
@@ -8,11 +8,11 @@ import alice.tuplecentre.tucson.network.messages.events.EventMsg;
  * @author (contributor) Saverio Cicora
  * @author (contributor) Piscaglia Nicola
  */
-public abstract class AbstractTucsonMessage implements TucsonMessage {
+abstract class AbstractTucsonMessage implements TucsonMessage {
 
     private static final long serialVersionUID = 1L;
 
-    protected EventMsg event;
+    private EventMessage event;
 
     @Override
     public String toString() {
@@ -20,7 +20,14 @@ public abstract class AbstractTucsonMessage implements TucsonMessage {
     }
 
     @Override
-    public EventMsg getEventMsg() {
+    public EventMessage getEventMsg() {
         return event;
+    }
+
+    /**
+     * @param event the EventMessage to set
+     */
+    void setEventMsg(final EventMessage event) {
+        this.event = event;
     }
 }

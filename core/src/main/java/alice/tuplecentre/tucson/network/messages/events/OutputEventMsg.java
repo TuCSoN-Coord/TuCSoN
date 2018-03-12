@@ -1,9 +1,5 @@
 package alice.tuplecentre.tucson.network.messages.events;
 
-import alice.tuple.logic.LogicTuple;
-import alice.tuplecentre.api.OperationIdentifier;
-import alice.tuplecentre.core.TupleCentreOpType;
-
 /**
  * Output Event on a TupleCentre related to an operation
  * <p>
@@ -11,22 +7,7 @@ import alice.tuplecentre.core.TupleCentreOpType;
  *
  * @author Enrico Siboni
  */
-public interface OutputEventMsg extends EventMsg {
-
-    /**
-     * @return the id of the operation which caused the event
-     */
-    OperationIdentifier getOpId();
-
-    /**
-     * @return the type code of the operation which caused the event
-     */
-    TupleCentreOpType getOpType();
-
-    /**
-     * @return the logic tuple argument of the operation which caused the event
-     */
-    LogicTuple getTupleRequested();
+public interface OutputEventMsg extends EventMessage {
 
     /**
      * @return the effect of the event

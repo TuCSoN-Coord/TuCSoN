@@ -7,7 +7,6 @@ import alice.tuplecentre.tucson.network.exceptions.DialogAcceptException;
 import alice.tuplecentre.tucson.network.exceptions.DialogCloseException;
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
-import alice.tuplecentre.tucson.network.messages.AbstractTucsonMessage;
 import alice.tuplecentre.tucson.network.messages.TucsonMessage;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
@@ -138,7 +137,7 @@ public interface TucsonProtocol extends Serializable {
      * @param msg the message to send over the network
      * @throws DialogSendException if something goes wrong in the underlying network
      */
-    void sendMsg(final AbstractTucsonMessage msg) throws DialogSendException;
+    void sendMsg(final TucsonMessage msg) throws DialogSendException;
 
     /**
      * @param reply the message to send over the network

@@ -10,6 +10,7 @@ import alice.tuplecentre.tucson.network.messages.events.OutputEventMsg;
  * michele.bombardi@studio.unibo.it)
  */
 public class TucsonMessageReply extends AbstractTucsonMessage {
+
     /**
      * serialVersionUID
      **/
@@ -19,7 +20,7 @@ public class TucsonMessageReply extends AbstractTucsonMessage {
      * @param ev the events to transmit
      */
     public TucsonMessageReply(final OutputEventMsg ev) {
-        this.event = ev;
+        setEventMsg(ev);
     }
 
     public TucsonMessageReply() {
@@ -27,7 +28,7 @@ public class TucsonMessageReply extends AbstractTucsonMessage {
 
     @Override
     public OutputEventMsg getEventMsg() {
-        return (OutputEventMsg) event;
+        return (OutputEventMsg) super.getEventMsg();
     }
 
     @Override
@@ -39,7 +40,7 @@ public class TucsonMessageReply extends AbstractTucsonMessage {
         s.append("; Type: ");
         s.append(oEv.getOpType());
         s.append("; Tuple Requested: ");
-        s.append(oEv.getTupleRequested());
+        s.append(oEv.getTuple());
         s.append("; Tuple Result: ");
         s.append(oEv.getTupleResult());
         s.append("; Allowed: ");

@@ -121,7 +121,7 @@ public class OperationHandler {
                                 .isSuccess();
                         if (succeeded) {
                             final LogicTuple tupleReq = msg.getEventMsg()
-                                    .getTupleRequested();
+                                    .getTuple();
                             final LogicTuple tupleRes = (LogicTuple) msg
                                     .getEventMsg().getTupleResult();
                             // log("tupleReq="+tupleReq+", tupleRes="+tupleRes);

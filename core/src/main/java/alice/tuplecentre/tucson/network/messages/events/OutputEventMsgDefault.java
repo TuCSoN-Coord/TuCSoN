@@ -10,7 +10,7 @@ import alice.tuplecentre.core.TupleCentreOpType;
  *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  */
-public class OutputEventMsgDefault implements OutputEventMsg, EventMsg {
+public class OutputEventMsgDefault implements OutputEventMsg {
 
     private final boolean allowed;
     private final OperationIdentifier opId;
@@ -71,7 +71,7 @@ public class OutputEventMsgDefault implements OutputEventMsg, EventMsg {
     }
 
     @Override
-    public LogicTuple getTupleRequested() {
+    public LogicTuple getTuple() {
         return this.reqTuple;
     }
 

@@ -115,7 +115,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
                             || type == TupleCentreOpType.RDP_S) {
                         final boolean succeeded = oEv.isSuccess();
                         if (succeeded) {
-                            final LogicTuple tupleReq = oEv.getTupleRequested();
+                            final LogicTuple tupleReq = oEv.getTuple();
                             final LogicTuple tupleRes = (LogicTuple) oEv
                                     .getTupleResult();
                             final LogicTuple res = this.unify(tupleReq,

@@ -10,7 +10,7 @@ import alice.tuplecentre.respect.api.geolocation.Position;
  *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  */
-public class InputEventMsgDefault implements InputEventMsg, EventMsg {
+public class InputEventMsgDefault implements InputEventMsg {
     private static final long serialVersionUID = 6617714748018050950L;
     private final OperationIdentifier opId;
     private final TupleCentreOpType opType;
