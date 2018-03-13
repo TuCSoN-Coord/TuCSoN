@@ -33,8 +33,8 @@ import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
  */
 public class TucsonListenerWrapper implements TucsonOperationCompletionListener {
 
-    private AsynchOpsHelper helper;
-    private TucsonOperationCompletionListener listener;
+    private final AsynchOpsHelper helper;
+    private final TucsonOperationCompletionListener listener;
     private TucsonOpWrapper op;
 
     /**

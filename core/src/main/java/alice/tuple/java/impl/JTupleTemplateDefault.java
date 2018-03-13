@@ -87,10 +87,7 @@ public class JTupleTemplateDefault implements Iterable<JArg>, JTupleTemplate {
      */
     @Override
     public boolean match(final Tuple t) {
-        if (t instanceof JTuple) {
-            return JTuplesEngine.match(this, (JTuple) t);
-        }
-        return false;
+        return t instanceof JTuple && JTuplesEngine.match(this, (JTuple) t);
     }
 
     /*

@@ -145,7 +145,7 @@ public abstract class AbstractTupleSet implements ITupleSet {
                 if (this.transaction) {
                     this.tRemoved.add(this.createEntry(tu));
                 }
-                final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+                final AbstractMap<Var, Var> v = new LinkedHashMap<>();
                 return LogicTuples.newInstance(tu.toTerm().copyGoal(v, 0));
             }
         }
@@ -159,10 +159,7 @@ public abstract class AbstractTupleSet implements ITupleSet {
 
     @Override
     public boolean operationsPending() {
-        if (this.tAdded.isEmpty() && this.tRemoved.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !this.tAdded.isEmpty() || !this.tRemoved.isEmpty();
     }
 
     @Override
@@ -186,7 +183,7 @@ public abstract class AbstractTupleSet implements ITupleSet {
         while (l.hasNext()) {
             final LogicTuple tu = l.next();
             if (templ.match(tu)) {
-                final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+                final AbstractMap<Var, Var> v = new LinkedHashMap<>();
                 return LogicTuples.newInstance(tu.toTerm().copyGoal(v, 0));
             }
         }

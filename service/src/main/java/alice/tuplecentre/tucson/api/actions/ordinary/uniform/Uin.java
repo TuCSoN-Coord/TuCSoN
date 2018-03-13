@@ -53,11 +53,11 @@ public class Uin extends AbstractTucsonOrdinaryAction {
     }
 
     @Override
-    public TucsonOperation executeAsynch(final EnhancedAsyncACC acc,
-                                         final TucsonOperationCompletionListener listener)
+    public void executeAsynch(final EnhancedAsyncACC acc,
+                              final TucsonOperationCompletionListener listener)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
-        return acc.uin(this.tcid, this.tuple, listener);
+        acc.uin(this.tcid, this.tuple, listener);
     }
 
     @Override

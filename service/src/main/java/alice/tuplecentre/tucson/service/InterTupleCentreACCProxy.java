@@ -13,11 +13,7 @@
  */
 package alice.tuplecentre.tucson.service;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import alice.tuple.Tuple;
 import alice.tuple.TupleTemplate;
@@ -81,8 +77,9 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
         @Override
         public void run() {
             TucsonOpCompletionEvent ev = null;
+            label:
             while (!this.isStopped()) {
-                TucsonMessageReply msg = null;
+                TucsonMessageReply msg;
                 try {
                     msg = this.dialog.receiveMsgReply();
                 } catch (final DialogException e) {
@@ -95,58 +92,62 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
                 final boolean ok = oEv.isAllowed();
                 if (ok) {
                     final TupleCentreOpType type = oEv.getOpType();
-                    if (type == TupleCentreOpType.NO
-                            || type == TupleCentreOpType.NO_S
-                            || type == TupleCentreOpType.NOP
-                            || type == TupleCentreOpType.NOP_S
-                            || type == TupleCentreOpType.IN
-                            || type == TupleCentreOpType.RD
-                            || type == TupleCentreOpType.INP
-                            || type == TupleCentreOpType.RDP
-                            || type == TupleCentreOpType.UIN
-                            || type == TupleCentreOpType.URD
-                            || type == TupleCentreOpType.UINP
-                            || type == TupleCentreOpType.URDP
-                            || type == TupleCentreOpType.UNO
-                            || type == TupleCentreOpType.UNOP
-                            || type == TupleCentreOpType.IN_S
-                            || type == TupleCentreOpType.RD_S
-                            || type == TupleCentreOpType.INP_S
-                            || type == TupleCentreOpType.RDP_S) {
-                        final boolean succeeded = oEv.isSuccess();
-                        if (succeeded) {
-                            final LogicTuple tupleReq = oEv.getTuple();
-                            final LogicTuple tupleRes = (LogicTuple) oEv
+                    switch (type) {
+                        case NO:
+                        case NO_S:
+                        case NOP:
+                        case NOP_S:
+                        case IN:
+                        case RD:
+                        case INP:
+                        case RDP:
+                        case UIN:
+                        case URD:
+                        case UINP:
+                        case URDP:
+                        case UNO:
+                        case UNOP:
+                        case IN_S:
+                        case RD_S:
+                        case INP_S:
+                        case RDP_S:
+                            final boolean succeeded = oEv.isSuccess();
+                            if (succeeded) {
+                                final LogicTuple tupleReq = oEv.getTuple();
+                                final LogicTuple tupleRes = (LogicTuple) oEv
+                                        .getTupleResult();
+                                final LogicTuple res = this.unify(tupleReq,
+                                        tupleRes);
+                                ev = new TucsonOpCompletionEvent(
+                                        oEv.getOpId(), true, true, oEv.isResultSuccess(), res);
+                            } else {
+                                ev = new TucsonOpCompletionEvent(
+                                        oEv.getOpId(), true, false, oEv.isResultSuccess());
+                            }
+                            break;
+                        case SET:
+                        case SET_S:
+                        case OUT:
+                        case OUT_S:
+                        case OUT_ALL:
+                        case SPAWN:
+                            ev = new TucsonOpCompletionEvent(
+                                    oEv.getOpId(), true, oEv.isSuccess(), oEv.isResultSuccess());
+                            break;
+                        case IN_ALL:
+                        case RD_ALL:
+                        case NO_ALL:
+                        case GET:
+                        case GET_S:
+                            final List<LogicTuple> tupleSetRes = (List<LogicTuple>) oEv
                                     .getTupleResult();
-                            final LogicTuple res = this.unify(tupleReq,
-                                    tupleRes);
                             ev = new TucsonOpCompletionEvent(
-                                    oEv.getOpId(), ok, true, oEv.isResultSuccess(), res);
-                        } else {
-                            ev = new TucsonOpCompletionEvent(
-                                    oEv.getOpId(), ok, false, oEv.isResultSuccess());
-                        }
-                    } else if (type == TupleCentreOpType.SET
-                            || type == TupleCentreOpType.SET_S
-                            || type == TupleCentreOpType.OUT
-                            || type == TupleCentreOpType.OUT_S
-                            || type == TupleCentreOpType.OUT_ALL
-                            || type == TupleCentreOpType.SPAWN) {
-                        ev = new TucsonOpCompletionEvent(
-                                oEv.getOpId(), ok, oEv.isSuccess(), oEv.isResultSuccess());
-                    } else if (type == TupleCentreOpType.IN_ALL
-                            || type == TupleCentreOpType.RD_ALL
-                            || type == TupleCentreOpType.NO_ALL
-                            || type == TupleCentreOpType.GET
-                            || type == TupleCentreOpType.GET_S) {
-                        final List<LogicTuple> tupleSetRes = (List<LogicTuple>) oEv
-                                .getTupleResult();
-                        ev = new TucsonOpCompletionEvent(
-                                oEv.getOpId(), ok, oEv.isSuccess(), oEv.isResultSuccess(),
-                                tupleSetRes);
-                    } else if (type == TupleCentreOpType.EXIT) {
-                        this.setStop();
-                        break;
+                                    oEv.getOpId(), true, oEv.isSuccess(), oEv.isResultSuccess(),
+                                    tupleSetRes);
+                            break;
+                        case EXIT:
+                            this.setStop();
+                            break label;
                     }
                 } else {
                     ev = new TucsonOpCompletionEvent(
@@ -233,13 +234,16 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
      */
     public InterTupleCentreACCProxy(final Object id)
             throws TucsonInvalidTupleCentreIdException {
-        if ("alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault".equals(id.getClass()
-                .getName())) {
-            this.aid = (TucsonTupleCentreId) id;
-        } else if ("java.lang.String".equals(id.getClass().getName())) {
-            this.aid = new TucsonTupleCentreIdDefault((String) id);
-        } else {
-            throw new TucsonInvalidTupleCentreIdException();
+        switch (id.getClass()
+                .getName()) {
+            case "alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault":
+                this.aid = (TucsonTupleCentreId) id;
+                break;
+            case "java.lang.String":
+                this.aid = new TucsonTupleCentreIdDefault((String) id);
+                break;
+            default:
+                throw new TucsonInvalidTupleCentreIdException();
         }
         this.profile = new ACCDescription();
         this.events = new LinkedList<>();
@@ -250,32 +254,35 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
     }
 
     @Override
-    public synchronized OperationIdentifier doOperation(final Object tid,
-                                                        final AbstractTupleCentreOperation op)
+    public synchronized void doOperation(final Object tid,
+                                         final AbstractTupleCentreOperation op)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
         TucsonTupleCentreId tcid = null;
-        if ("alice.tuplecentre.respect.api.TupleCentreId".equals(tid.getClass().getName())) {
-            final TupleCentreIdentifier id = (TupleCentreIdentifier) tid;
-            try {
-                tcid = new TucsonTupleCentreIdDefault(id.getLocalName(), id.getNode(),
-                        String.valueOf(id.getPort()));
-            } catch (final TucsonInvalidTupleCentreIdException e) {
-                e.printStackTrace();
-            }
-        } else if ("alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault".equals(tid.getClass()
-                .getName())) {
-            tcid = (TucsonTupleCentreId) tid;
-        } else if ("java.lang.String".equals(tid.getClass().getName())) {
-            try {
-                tcid = new TucsonTupleCentreIdDefault((String) tid);
-            } catch (final TucsonInvalidTupleCentreIdException e) {
+        switch (tid.getClass().getName()) {
+            case "alice.tuplecentre.respect.api.TupleCentreId":
+                final TupleCentreIdentifier id = (TupleCentreIdentifier) tid;
+                try {
+                    tcid = new TucsonTupleCentreIdDefault(id.getLocalName(), id.getNode(),
+                            String.valueOf(id.getPort()));
+                } catch (final TucsonInvalidTupleCentreIdException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault":
+                tcid = (TucsonTupleCentreId) tid;
+                break;
+            case "java.lang.String":
+                try {
+                    tcid = new TucsonTupleCentreIdDefault((String) tid);
+                } catch (final TucsonInvalidTupleCentreIdException e) {
+                    throw new TucsonOperationNotPossibleException();
+                }
+                break;
+            default:
+                // DEBUG
+                System.err.println("Invalid Class: " + tid.getClass().getName());
                 throw new TucsonOperationNotPossibleException();
-            }
-        } else {
-            // DEBUG
-            System.err.println("Invalid Class: " + tid.getClass().getName());
-            throw new TucsonOperationNotPossibleException();
         }
         int nTry = 0;
         boolean exception;
@@ -285,9 +292,8 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
             exception = false;
             TucsonProtocol session = null;
             try {
-                session = this.getSession(tcid);
+                session = this.getSession(Objects.requireNonNull(tcid));
             } catch (final UnreachableNodeException ex2) {
-                exception = true;
                 throw new UnreachableNodeException();
             } catch (DialogInitializationException e) {
                 e.printStackTrace();
@@ -322,13 +328,13 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
                     + msg.getEventMsg().getTuple() + ", "
                     + msg.getEventMsg().getTarget());
             try {
-                session.sendMsgRequest(msg);
+                Objects.requireNonNull(session).sendMsgRequest(msg);
             } catch (final DialogException e) {
                 exception = true;
                 e.printStackTrace();
             }
             if (!exception) {
-                return tucsonOpId;
+                return;
             }
         } while (nTry < InterTupleCentreACCProxy.TRIES);
         throw new UnreachableNodeException();
@@ -431,7 +437,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
         }
         this.profile.setProperty("tc-identity", this.aid.toString());
         this.profile.setProperty("agent-role", "user");
-        TucsonProtocol dialog = null;
+        TucsonProtocol dialog;
         boolean isEnterReqAcpt = false;
         dialog = new TucsonProtocolTCP(opNode, port);
         try {

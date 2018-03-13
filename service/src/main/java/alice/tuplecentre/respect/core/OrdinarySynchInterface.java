@@ -85,8 +85,8 @@ public class OrdinarySynchInterface extends RootInterface implements
     @Override
     public List<LogicTuple> inAll(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
-        RespectOperation op = null;
-        TupleArgument arg = null;
+        RespectOperation op;
+        TupleArgument arg;
         final AbstractTupleCentreOperation inOp = ev.getSimpleTCEvent();
         final LogicTuple t = (LogicTuple) inOp.getTemplateArgument();
         //try {
@@ -138,8 +138,8 @@ public class OrdinarySynchInterface extends RootInterface implements
     @Override
     public List<LogicTuple> noAll(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
-        RespectOperation op = null;
-        TupleArgument arg = null;
+        RespectOperation op;
+        TupleArgument arg;
         final AbstractTupleCentreOperation inOp = ev.getSimpleTCEvent();
         final LogicTuple t = (LogicTuple) inOp.getTemplateArgument();
         //try {
@@ -214,8 +214,8 @@ public class OrdinarySynchInterface extends RootInterface implements
     @Override
     public List<LogicTuple> rdAll(final InputEvent ev)
             throws InvalidLogicTupleException, OperationNotPossibleException {
-        RespectOperation op = null;
-        TupleArgument arg = null;
+        RespectOperation op;
+        TupleArgument arg;
         final AbstractTupleCentreOperation inOp = ev.getSimpleTCEvent();
         final LogicTuple t = (LogicTuple) inOp.getTemplateArgument();
         // try {
@@ -253,7 +253,7 @@ public class OrdinarySynchInterface extends RootInterface implements
 
     @Override
     public List<LogicTuple> set(final InputEvent ev)
-            throws OperationNotPossibleException, InvalidLogicTupleException {
+            throws OperationNotPossibleException {
         final RespectOperation op = this.getCore().set(ev);
         op.waitForOperationCompletion();
         return op.getLogicTupleListResult();

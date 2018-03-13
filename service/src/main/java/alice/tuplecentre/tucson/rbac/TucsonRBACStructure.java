@@ -32,9 +32,9 @@ public class TucsonRBACStructure implements RBACStructure {
      *            structure
      */
     public TucsonRBACStructure(final String org) {
-        this.roles = new HashMap<String, Role>();
-        this.policies = new HashMap<String, Policy>();
-        this.authorisedAgents = new ArrayList<AuthorisedAgent>();
+        this.roles = new HashMap<>();
+        this.policies = new HashMap<>();
+        this.authorisedAgents = new ArrayList<>();
         this.orgName = org;
         this.isLoginRequired = false;
         this.isInspectionAuthorised = false;
@@ -90,12 +90,12 @@ public class TucsonRBACStructure implements RBACStructure {
 
     @Override
     public List<Policy> getPolicies() {
-        return new ArrayList<Policy>(this.policies.values());
+        return new ArrayList<>(this.policies.values());
     }
 
     @Override
     public List<Role> getRoles() {
-        return new ArrayList<Role>(this.roles.values());
+        return new ArrayList<>(this.roles.values());
     }
 
     @Override

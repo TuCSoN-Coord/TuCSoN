@@ -1,13 +1,13 @@
 package alice.tuplecentre.respect.api.geolocation;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
-import alice.tuple.logic.exceptions.InvalidLogicTupleOperationException;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -25,7 +25,6 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdExcepti
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.service.TucsonNodeService;
 import alice.tuplecentre.tucson.service.TupleCentreContainer;
-import alice.tuprolog.InvalidTermException;
 
 /**
  * Geolocation configuration support agent. It checks for requests on
@@ -72,6 +71,7 @@ public class GeolocationConfigAgent extends Thread {
     @Override
     public void run() {
         try {
+            //noinspection InfiniteLoopStatement
             while (true) {
                 Object cmd;
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
@@ -87,57 +87,18 @@ public class GeolocationConfigAgent extends Thread {
                     throw new InterruptedException();
                 }
             }
-        } catch (final InvalidTermException e) {
+        } catch (final InvalidVarNameException | InvocationTargetException | IllegalAccessException | InstantiationException | NoSuchMethodException | ClassNotFoundException | TucsonInvalidTupleCentreIdException | IllegalArgumentException | SecurityException | InvalidLogicTupleException | TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException e) {
             e.printStackTrace();
             this.node.removeNodeAgent(this);
         } catch (final InterruptedException e) {
             GeolocationConfigAgent
                     .log("Shutdown interrupt received, shutting down...");
             this.node.removeNodeAgent(this);
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-            this.node.removeNodeAgent(this);
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-            this.node.removeNodeAgent(this);
-        } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
-            this.node.removeNodeAgent(this);
-        } catch (final SecurityException e) {
-            e.printStackTrace();
-            this.node.removeNodeAgent(this);
-        } catch (final IllegalArgumentException e) {
-            e.printStackTrace();
-            this.node.removeNodeAgent(this);
-        } catch (final TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
-            this.node.removeNodeAgent(this);
-        } catch (final ClassNotFoundException e) {
-            e.printStackTrace();
-            this.node.removeNodeAgent(this);
-        } catch (final NoSuchMethodException e) {
-            e.printStackTrace();
-            this.node.removeNodeAgent(this);
-        } catch (final InstantiationException e) {
-            e.printStackTrace();
-            this.node.removeNodeAgent(this);
-        } catch (final IllegalAccessException e) {
-            e.printStackTrace();
-            this.node.removeNodeAgent(this);
-        } catch (final InvocationTargetException e) {
-            e.printStackTrace();
-            this.node.removeNodeAgent(this);
-        } catch (InvalidVarNameException e) {
-            e.printStackTrace();
-            this.node.removeNodeAgent(this);
-        } catch (InvalidLogicTupleOperationException e) {
-            e.printStackTrace();
-            this.node.removeNodeAgent(this);
         }
     }
 
     private void execCmd(final TupleArgument cmd)
-            throws InvalidLogicTupleOperationException,
+            throws
             TucsonInvalidLogicTupleException,
             TucsonOperationNotPossibleException, InvalidLogicTupleException,
             TucsonInvalidTupleCentreIdException, SecurityException,
@@ -146,7 +107,7 @@ public class GeolocationConfigAgent extends Thread {
             IllegalAccessException, InvocationTargetException {
         final String name = cmd.getName();
         GeolocationConfigAgent.log("Executing command " + name);
-        LogicTuple t = null;
+        LogicTuple t;
         if (GeolocationConfigAgent.CREATE_GEOLOCATION_SERVICE.equals(name)) {
             t = LogicTuples.parse("createGeolocationService(Sid,Sclass,Stcid)");
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
@@ -154,7 +115,7 @@ public class GeolocationConfigAgent extends Thread {
             final InputEvent ev = new InputEvent(this.nodeManAid, opRequested,
                     this.config, System.currentTimeMillis(), null);
             t = (LogicTuple) TupleCentreContainer.doBlockingOperation(ev);
-            final GeoServiceIdentifier sId = new GeoServiceId(t.getArg(0).getName());
+            final GeoServiceIdentifier sId = new GeoServiceId(Objects.requireNonNull(t).getArg(0).getName());
             // Building service
             final String[] sTcId = t.getArg(2).toString().split(":"); // '@'(name,':'(node,port))
             final String tcName = sTcId[0].substring(sTcId[0].indexOf('(') + 1,
@@ -181,7 +142,7 @@ public class GeolocationConfigAgent extends Thread {
             final InputEvent ev = new InputEvent(this.nodeManAid, opRequested,
                     this.config, System.currentTimeMillis(), null);
             t = (LogicTuple) TupleCentreContainer.doBlockingOperation(ev);
-            final GeoServiceIdentifier sId = new GeoServiceId(t.getArg(0).getName());
+            final GeoServiceIdentifier sId = new GeoServiceId(Objects.requireNonNull(t).getArg(0).getName());
             GeolocationConfigAgent
                     .log("Serving destroy android geolocation service request. EmitterIdentifier: "
                             + sId.getLocalName());

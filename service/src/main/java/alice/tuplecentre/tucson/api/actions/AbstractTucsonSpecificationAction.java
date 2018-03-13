@@ -36,7 +36,9 @@ public abstract class AbstractTucsonSpecificationAction extends
      * The tuples representing, respectively, the events, guards and body of a
      * ReSpecT specification tuple
      */
-    protected LogicTuple event, guards, reaction;
+    protected final LogicTuple event;
+    protected final LogicTuple guards;
+    protected final LogicTuple reaction;
 
     /**
      * Builds a TuCSoN action whose target is the given tuple centre and whose

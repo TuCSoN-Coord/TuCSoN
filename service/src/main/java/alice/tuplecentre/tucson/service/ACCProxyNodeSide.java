@@ -18,12 +18,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import alice.tuple.Tuple;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.api.TupleCentreOperation;
-import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -37,7 +35,6 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidSpecificationException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
@@ -119,10 +116,10 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
             msg = this.requests.remove(reqId);
         }
         final InputEventMessage evMsg = msg.getEventMsg();
-        TucsonMessageReply reply = null;
+        TucsonMessageReply reply;
         if (op.getType() == TupleCentreOpType.IN_ALL || op.getType() == TupleCentreOpType.RD_ALL || op.getType() == TupleCentreOpType.NO_ALL || op.getType() == TupleCentreOpType.OUT_ALL) {
             if (op.getTupleListResult() == null) {
-                op.setTupleListResult(new LinkedList<Tuple>());
+                op.setTupleListResult(new LinkedList<>());
             }
             if (op.isResultSuccess()) {
                 reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
@@ -202,7 +199,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
             final RespectOperationDefault opRequested = this.makeOperation(
                     evMsg.getOpType(), evMsg.getTuple());
             // InputEvent Creation
-            InputEvent ev = null;
+            InputEvent ev;
             if (this.tcId != null) {
                 ev = new InputEvent(this.tcId, opRequested, tid,
                         evMsg.getTime(), evMsg.getPlace());
@@ -214,262 +211,244 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
             this.log("Serving TucsonOperationDefault request < id=" + evOp.getId()
                     + ", type=" + evOp.getType() + ", tuple="
                     + evMsg.getTuple() + " >...");
-            if (msgType == TupleCentreOpType.SET_S) {
-                this.node.resolveCore(tid.getLocalName());
-                this.node.addTCAgent(this.agentId, tid);
-                try {
-                    resList = (List<LogicTuple>) TupleCentreContainer
-                            .doBlockingSpecOperation(ev, evMsg.getTuple());
-                    // if (this.tcId == null) {
-                    // resList =
-                    // (List<LogicTuple>) TupleCentreContainer
-                    // .doBlockingSpecOperation(msgType,
-                    // this.agentId, tid,
-                    // (LogicTuple)ev.getSimpleTCEvent().getTupleArgument(),
-                    // ev);
-                    // } else {
-                    // resList =
-                    // (List<LogicTuple>) TupleCentreContainer
-                    // .doBlockingSpecOperation(msgType,
-                    // this.tcId, tid,
-                    // (LogicTuple)ev.getSimpleTCEvent().getTupleArgument(),
-                    // ev);
-                    // }
-                } catch (final TucsonOperationNotPossibleException e) {
-                    e.printStackTrace();
-                    break;
-                } catch (final TucsonInvalidSpecificationException e) {
-                    e.printStackTrace();
-                    break;
-                }
-                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
-                        msgType, true, true, true, evMsg.getTuple(), resList));
-                try {
-                    this.dialog.sendMsgReply(reply);
-                } catch (final DialogException e) {
-                    e.printStackTrace();
-                    break;
-                }
-            } else if (msgType == TupleCentreOpType.SET) {
-                this.node.resolveCore(tid.getLocalName());
-                this.node.addTCAgent(this.agentId, tid);
-                try {
-                    resList = (List<LogicTuple>) TupleCentreContainer
-                            .doBlockingOperation(ev);
-                    // if (this.tcId == null) {
-                    // resList =
-                    // (List<LogicTuple>) TupleCentreContainer
-                    // .doBlockingOperation(msgType,
-                    // this.agentId, tid,
-                    // (LogicTuple)ev.getSimpleTCEvent().getTupleArgument(),
-                    // ev);
-                    // resList =
-                    // (List<LogicTuple>) TupleCentreContainer
-                    // .doBlockingOperation(msgType,
-                    // this.tcId, tid,
-                    // (LogicTuple)ev.getSimpleTCEvent().getTupleArgument(),
-                    // ev);
-                    // }
-                } catch (final TucsonOperationNotPossibleException e) {
-                    e.printStackTrace();
-                    break;
-                } catch (final TucsonInvalidLogicTupleException e) {
-                    e.printStackTrace();
-                    break;
-                }
-                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
-                        msgType, true, true, true, res, resList));
-                try {
-                    this.dialog.sendMsgReply(reply);
-                } catch (final DialogException e) {
-                    e.printStackTrace();
-                    break;
-                }
-            } else if (msgType == TupleCentreOpType.GET) {
-                this.node.resolveCore(tid.getLocalName());
-                this.node.addTCAgent(this.agentId, tid);
-                try {
-                    resList = (List<LogicTuple>) TupleCentreContainer
-                            .doBlockingOperation(ev);
-                    // if (this.tcId == null) {
-                    // resList =
-                    // (List<LogicTuple>) TupleCentreContainer
-                    // .doBlockingOperation(msgType,
-                    // this.agentId, tid, null, ev);
-                    // } else {
-                    // resList =
-                    // (List<LogicTuple>) TupleCentreContainer
-                    // .doBlockingOperation(msgType,
-                    // this.tcId, tid, null, ev);
-                    // }
-                } catch (final TucsonOperationNotPossibleException e) {
-                    e.printStackTrace();
-                    break;
-                } catch (final TucsonInvalidLogicTupleException e) {
-                    e.printStackTrace();
-                    break;
-                }
-                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
-                        msgType, true, true, true, null, resList));
-                try {
-                    this.dialog.sendMsgReply(reply);
-                } catch (final DialogException e) {
-                    e.printStackTrace();
-                    break;
-                }
-            } else if (msgType == TupleCentreOpType.GET_S) {
-                this.node.resolveCore(tid.getLocalName());
-                this.node.addTCAgent(this.agentId, tid);
-                try {
-                    resList = (List<LogicTuple>) TupleCentreContainer
-                            .doBlockingSpecOperation(ev, evMsg.getTuple());
-                    // if (this.tcId == null) {
-                    // resList =
-                    // (List<LogicTuple>) TupleCentreContainer
-                    // .doBlockingSpecOperation(msgType,
-                    // this.agentId, tid, null, ev);
-                    // } else {
-                    // resList =
-                    // (List<LogicTuple>) TupleCentreContainer
-                    // .doBlockingSpecOperation(msgType,
-                    // this.tcId, tid, null, ev);
-                    // }
-                    if (resList == null) {
-                        resList = new LinkedList<LogicTuple>();
-                    }
-                } catch (final TucsonOperationNotPossibleException e) {
-                    e.printStackTrace();
-                    break;
-                } catch (final TucsonInvalidSpecificationException e) {
-                    e.printStackTrace();
-                    break;
-                }
-                reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
-                        msgType, true, true, true, null, resList));
-                try {
-                    this.dialog.sendMsgReply(reply);
-                } catch (final DialogException e) {
-                    e.printStackTrace();
-                    break;
-                }
-            } else if (msgType == TupleCentreOpType.NO
-                    || msgType == TupleCentreOpType.NOP
-                    || msgType == TupleCentreOpType.OUT
-                    || msgType == TupleCentreOpType.OUT_ALL
-                    || msgType == TupleCentreOpType.IN
-                    || msgType == TupleCentreOpType.INP
-                    || msgType == TupleCentreOpType.RD
-                    || msgType == TupleCentreOpType.RDP
-                    || msgType == TupleCentreOpType.UIN
-                    || msgType == TupleCentreOpType.UINP
-                    || msgType == TupleCentreOpType.URD
-                    || msgType == TupleCentreOpType.URDP
-                    || msgType == TupleCentreOpType.UNO
-                    || msgType == TupleCentreOpType.UNOP
-                    || msgType == TupleCentreOpType.IN_ALL
-                    || msgType == TupleCentreOpType.RD_ALL
-                    || msgType == TupleCentreOpType.NO_ALL
-                    || msgType == TupleCentreOpType.SPAWN) {
-                this.node.resolveCore(tid.getLocalName());
-                this.node.addTCAgent(this.agentId, tid);
-                TupleCentreOperation op;
-                synchronized (this.requests) {
+            switch (msgType) {
+                case SET_S:
+                    this.node.resolveCore(tid.getLocalName());
+                    this.node.addTCAgent(this.agentId, tid);
                     try {
-                        op = TupleCentreContainer.doNonBlockingOperation(ev);
+                        resList = (List<LogicTuple>) TupleCentreContainer
+                                .doBlockingSpecOperation(ev, evMsg.getTuple());
                         // if (this.tcId == null) {
-                        // op =
-                        // TupleCentreContainer
-                        // .doNonBlockingOperation(msgType,
+                        // resList =
+                        // (List<LogicTuple>) TupleCentreContainer
+                        // .doBlockingSpecOperation(msgType,
                         // this.agentId, tid,
                         // (LogicTuple)ev.getSimpleTCEvent().getTupleArgument(),
-                        // this, ev);
+                        // ev);
                         // } else {
-                        // op =
-                        // TupleCentreContainer
-                        // .doNonBlockingOperation(msgType,
+                        // resList =
+                        // (List<LogicTuple>) TupleCentreContainer
+                        // .doBlockingSpecOperation(msgType,
                         // this.tcId, tid,
                         // (LogicTuple)ev.getSimpleTCEvent().getTupleArgument(),
-                        // this, ev);
+                        // ev);
                         // }
-                    } catch (final TucsonOperationNotPossibleException e) {
-                        e.printStackTrace();
-                        break;
-                    } catch (final TucsonInvalidLogicTupleException e) {
+                    } catch (final TucsonOperationNotPossibleException | TucsonInvalidSpecificationException e) {
                         e.printStackTrace();
                         break;
                     }
-                    this.requests.put(evOp.getId(), msg);
-                    this.opVsReq.put(op.getId(),
-                            evOp.getId());
-                }
-            } else if (msgType == TupleCentreOpType.NO_S
-                    || msgType == TupleCentreOpType.NOP_S
-                    || msgType == TupleCentreOpType.OUT_S
-                    || msgType == TupleCentreOpType.IN_S
-                    || msgType == TupleCentreOpType.INP_S
-                    || msgType == TupleCentreOpType.RD_S
-                    || msgType == TupleCentreOpType.RDP_S) {
-                this.node.resolveCore(tid.getLocalName());
-                this.node.addTCAgent(this.agentId, tid);
-                TupleCentreOperation op;
-                synchronized (this.requests) {
+                    reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
+                            msgType, true, true, true, evMsg.getTuple(), resList));
                     try {
-                        op = TupleCentreContainer
-                                .doNonBlockingSpecOperation(ev);
+                        this.dialog.sendMsgReply(reply);
+                    } catch (final DialogException e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                    break;
+                case SET:
+                    this.node.resolveCore(tid.getLocalName());
+                    this.node.addTCAgent(this.agentId, tid);
+                    try {
+                        resList = (List<LogicTuple>) TupleCentreContainer
+                                .doBlockingOperation(ev);
                         // if (this.tcId == null) {
-                        // op =
-                        // TupleCentreContainer
-                        // .doNonBlockingSpecOperation(
-                        // msgType, this.agentId, tid,
+                        // resList =
+                        // (List<LogicTuple>) TupleCentreContainer
+                        // .doBlockingOperation(msgType,
+                        // this.agentId, tid,
                         // (LogicTuple)ev.getSimpleTCEvent().getTupleArgument(),
-                        // this, ev);
-                        // } else {
-                        // op =
-                        // TupleCentreContainer
-                        // .doNonBlockingSpecOperation(
-                        // msgType, this.tcId, tid,
+                        // ev);
+                        // resList =
+                        // (List<LogicTuple>) TupleCentreContainer
+                        // .doBlockingOperation(msgType,
+                        // this.tcId, tid,
                         // (LogicTuple)ev.getSimpleTCEvent().getTupleArgument(),
-                        // this, ev);
+                        // ev);
                         // }
-                    } catch (final TucsonOperationNotPossibleException e) {
-                        e.printStackTrace();
-                        break;
-                    } catch (final TucsonInvalidLogicTupleException e) {
+                    } catch (final TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException e) {
                         e.printStackTrace();
                         break;
                     }
-                    this.requests.put(evOp.getId(), msg);
-                    this.opVsReq.put(op.getId(), evOp.getId());
-                }
-            } else if (msgType == TupleCentreOpType.GET_ENV
-                    || msgType == TupleCentreOpType.SET_ENV) {
-                this.node.resolveCore(tid.getLocalName());
-                this.node.addTCAgent(this.agentId, tid);
-                TupleCentreOperation op = null;
-                synchronized (this.requests) {
+                    reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
+                            msgType, true, true, true, res, resList));
                     try {
-                        if (this.tcId == null) {
-                            op = TupleCentreContainer.doEnvironmentalOperation(
-                                    msgType, this.agentId, tid, msg.getEventMsg().getTuple(),
-                                    this);
-                        } else {
-                            op = TupleCentreContainer.doEnvironmentalOperation(
-                                    msgType, this.tcId, tid, msg.getEventMsg().getTuple(),
-                                    this);
-                        }
-                    } catch (final TucsonOperationNotPossibleException e) {
-                        System.err.println("[ACCProxyNodeSide]: " + e);
-                        break;
-                    } catch (final OperationTimeOutException e) {
-                        System.err.println("[ACCProxyNodeSide]: " + e);
-                        break;
-                    } catch (final UnreachableNodeException e) {
-                        System.err.println("[ACCProxyNodeSide]: " + e);
+                        this.dialog.sendMsgReply(reply);
+                    } catch (final DialogException e) {
+                        e.printStackTrace();
                         break;
                     }
+                    break;
+                case GET:
+                    this.node.resolveCore(tid.getLocalName());
+                    this.node.addTCAgent(this.agentId, tid);
+                    try {
+                        resList = (List<LogicTuple>) TupleCentreContainer
+                                .doBlockingOperation(ev);
+                        // if (this.tcId == null) {
+                        // resList =
+                        // (List<LogicTuple>) TupleCentreContainer
+                        // .doBlockingOperation(msgType,
+                        // this.agentId, tid, null, ev);
+                        // } else {
+                        // resList =
+                        // (List<LogicTuple>) TupleCentreContainer
+                        // .doBlockingOperation(msgType,
+                        // this.tcId, tid, null, ev);
+                        // }
+                    } catch (final TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                    reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
+                            msgType, true, true, true, null, resList));
+                    try {
+                        this.dialog.sendMsgReply(reply);
+                    } catch (final DialogException e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                    break;
+                case GET_S:
+                    this.node.resolveCore(tid.getLocalName());
+                    this.node.addTCAgent(this.agentId, tid);
+                    try {
+                        resList = (List<LogicTuple>) TupleCentreContainer
+                                .doBlockingSpecOperation(ev, evMsg.getTuple());
+                        // if (this.tcId == null) {
+                        // resList =
+                        // (List<LogicTuple>) TupleCentreContainer
+                        // .doBlockingSpecOperation(msgType,
+                        // this.agentId, tid, null, ev);
+                        // } else {
+                        // resList =
+                        // (List<LogicTuple>) TupleCentreContainer
+                        // .doBlockingSpecOperation(msgType,
+                        // this.tcId, tid, null, ev);
+                        // }
+                        if (resList == null) {
+                            resList = new LinkedList<>();
+                        }
+                    } catch (final TucsonOperationNotPossibleException | TucsonInvalidSpecificationException e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                    reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
+                            msgType, true, true, true, null, resList));
+                    try {
+                        this.dialog.sendMsgReply(reply);
+                    } catch (final DialogException e) {
+                        e.printStackTrace();
+                        break;
+                    }
+                    break;
+                case NO:
+                case NOP:
+                case OUT:
+                case OUT_ALL:
+                case IN:
+                case INP:
+                case RD:
+                case RDP:
+                case UIN:
+                case UINP:
+                case URD:
+                case URDP:
+                case UNO:
+                case UNOP:
+                case IN_ALL:
+                case RD_ALL:
+                case NO_ALL:
+                case SPAWN: {
+                    this.node.resolveCore(tid.getLocalName());
+                    this.node.addTCAgent(this.agentId, tid);
+                    TupleCentreOperation op;
+                    synchronized (this.requests) {
+                        try {
+                            op = TupleCentreContainer.doNonBlockingOperation(ev);
+                            // if (this.tcId == null) {
+                            // op =
+                            // TupleCentreContainer
+                            // .doNonBlockingOperation(msgType,
+                            // this.agentId, tid,
+                            // (LogicTuple)ev.getSimpleTCEvent().getTupleArgument(),
+                            // this, ev);
+                            // } else {
+                            // op =
+                            // TupleCentreContainer
+                            // .doNonBlockingOperation(msgType,
+                            // this.tcId, tid,
+                            // (LogicTuple)ev.getSimpleTCEvent().getTupleArgument(),
+                            // this, ev);
+                            // }
+                        } catch (final TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException e) {
+                            e.printStackTrace();
+                            break;
+                        }
+                        this.requests.put(evOp.getId(), msg);
+                        this.opVsReq.put(op.getId(),
+                                evOp.getId());
+                    }
+                    break;
                 }
-                this.requests.put(msg.getEventMsg().getOpId(), msg);
-                this.opVsReq.put(op.getId(), msg.getEventMsg().getOpId());
+                case NO_S:
+                case NOP_S:
+                case OUT_S:
+                case IN_S:
+                case INP_S:
+                case RD_S:
+                case RDP_S: {
+                    this.node.resolveCore(tid.getLocalName());
+                    this.node.addTCAgent(this.agentId, tid);
+                    TupleCentreOperation op;
+                    synchronized (this.requests) {
+                        try {
+                            op = TupleCentreContainer
+                                    .doNonBlockingSpecOperation(ev);
+                            // if (this.tcId == null) {
+                            // op =
+                            // TupleCentreContainer
+                            // .doNonBlockingSpecOperation(
+                            // msgType, this.agentId, tid,
+                            // (LogicTuple)ev.getSimpleTCEvent().getTupleArgument(),
+                            // this, ev);
+                            // } else {
+                            // op =
+                            // TupleCentreContainer
+                            // .doNonBlockingSpecOperation(
+                            // msgType, this.tcId, tid,
+                            // (LogicTuple)ev.getSimpleTCEvent().getTupleArgument(),
+                            // this, ev);
+                            // }
+                        } catch (final TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException e) {
+                            e.printStackTrace();
+                            break;
+                        }
+                        this.requests.put(evOp.getId(), msg);
+                        this.opVsReq.put(op.getId(), evOp.getId());
+                    }
+                    break;
+                }
+                case GET_ENV:
+                case SET_ENV: {
+                    this.node.resolveCore(tid.getLocalName());
+                    this.node.addTCAgent(this.agentId, tid);
+                    TupleCentreOperation op;
+                    synchronized (this.requests) {
+                            if (this.tcId == null) {
+                                op = TupleCentreContainer.doEnvironmentalOperation(
+                                        msgType, this.agentId, tid, msg.getEventMsg().getTuple(),
+                                        this);
+                            } else {
+                                op = TupleCentreContainer.doEnvironmentalOperation(
+                                        msgType, this.tcId, tid, msg.getEventMsg().getTuple(),
+                                        this);
+                            }
+                    }
+                    this.requests.put(msg.getEventMsg().getOpId(), msg);
+                    this.opVsReq.put(op.getId(), msg.getEventMsg().getOpId());
+                    break;
+                }
             }
         }
         try {

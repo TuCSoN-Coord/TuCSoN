@@ -78,8 +78,8 @@ public class TimedContext extends RootInterface implements ITimedContext {
     public LogicTuple inAll(final InputEvent ev, final long ms)
             throws InvalidLogicTupleException, OperationNotPossibleException,
             OperationTimeOutException {
-        RespectOperation op = null;
-        TupleArgument arg = null;
+        RespectOperation op;
+        TupleArgument arg;
         final AbstractTupleCentreOperation inOp = ev.getSimpleTCEvent();
         final LogicTuple t = (LogicTuple) inOp.getTemplateArgument();
         if (t == null) {
@@ -140,8 +140,8 @@ public class TimedContext extends RootInterface implements ITimedContext {
     public LogicTuple noAll(final InputEvent ev, final long ms)
             throws InvalidLogicTupleException, OperationNotPossibleException,
             OperationTimeOutException {
-        RespectOperation op = null;
-        TupleArgument arg = null;
+        RespectOperation op;
+        TupleArgument arg;
         final AbstractTupleCentreOperation inOp = ev.getSimpleTCEvent();
         final LogicTuple t = (LogicTuple) inOp.getTemplateArgument();
         if (t == null) {
@@ -236,8 +236,8 @@ public class TimedContext extends RootInterface implements ITimedContext {
     public LogicTuple rdAll(final InputEvent ev, final long ms)
             throws InvalidLogicTupleException, OperationNotPossibleException,
             OperationTimeOutException {
-        RespectOperation op = null;
-        TupleArgument arg = null;
+        RespectOperation op;
+        TupleArgument arg;
         final AbstractTupleCentreOperation inOp = ev.getSimpleTCEvent();
         final LogicTuple t = (LogicTuple) inOp.getTemplateArgument();
         if (t == null) {
@@ -278,7 +278,7 @@ public class TimedContext extends RootInterface implements ITimedContext {
 
     @Override
     public List<LogicTuple> set(final InputEvent ev, final long ms)
-            throws OperationNotPossibleException, InvalidLogicTupleException,
+            throws OperationNotPossibleException,
             OperationTimeOutException {
         final RespectOperation op = this.getCore().set(ev);
         try {

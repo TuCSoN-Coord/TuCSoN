@@ -82,16 +82,17 @@ public class Position implements Serializable {
      * @return the position in the specified space
      */
     public IPlace getPlace(final String space) {
-        if (Position.PH.equals(space)) {
-            return this.phPlace;
-        } else if (Position.MAP.equals(space)) {
-            return this.mapPlace;
-        } else if (Position.ORG.equals(space)) {
-            return this.orgPlace;
-        } else if (Position.IP.equals(space)) {
-            return this.ipPlace;
-        } else if (Position.DNS.equals(space)) {
-            return this.dnsPlace;
+        switch (space) {
+            case Position.PH:
+                return this.phPlace;
+            case Position.MAP:
+                return this.mapPlace;
+            case Position.ORG:
+                return this.orgPlace;
+            case Position.IP:
+                return this.ipPlace;
+            case Position.DNS:
+                return this.dnsPlace;
         }
         return null;
     }
@@ -102,16 +103,17 @@ public class Position implements Serializable {
      */
     public IPlace getPlace(final Term space) {
         final String s = space.toString();
-        if (Position.PH.equals(s)) {
-            return this.phPlace;
-        } else if (Position.MAP.equals(s)) {
-            return this.mapPlace;
-        } else if (Position.ORG.equals(s)) {
-            return this.orgPlace;
-        } else if (Position.IP.equals(s)) {
-            return this.ipPlace;
-        } else if (Position.DNS.equals(s)) {
-            return this.dnsPlace;
+        switch (s) {
+            case Position.PH:
+                return this.phPlace;
+            case Position.MAP:
+                return this.mapPlace;
+            case Position.ORG:
+                return this.orgPlace;
+            case Position.IP:
+                return this.ipPlace;
+            case Position.DNS:
+                return this.dnsPlace;
         }
         return null;
     }
@@ -187,16 +189,22 @@ public class Position implements Serializable {
      * @param place the String representation of the place to set
      */
     public void setPlace(final String space, final String place) {
-        if (Position.PH.equals(space)) {
-            this.phPlace = new PhPlace(place);
-        } else if (Position.MAP.equals(space)) {
-            this.mapPlace = new MapPlace(place);
-        } else if (Position.ORG.equals(space)) {
-            this.orgPlace = new OrgPlace(place);
-        } else if (Position.IP.equals(space)) {
-            this.ipPlace = new IpPlace(place);
-        } else if (Position.DNS.equals(space)) {
-            this.dnsPlace = new DnsPlace(place);
+        switch (space) {
+            case Position.PH:
+                this.phPlace = new PhPlace(place);
+                break;
+            case Position.MAP:
+                this.mapPlace = new MapPlace(place);
+                break;
+            case Position.ORG:
+                this.orgPlace = new OrgPlace(place);
+                break;
+            case Position.IP:
+                this.ipPlace = new IpPlace(place);
+                break;
+            case Position.DNS:
+                this.dnsPlace = new DnsPlace(place);
+                break;
         }
     }
 }

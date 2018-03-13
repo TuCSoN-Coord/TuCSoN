@@ -14,6 +14,7 @@ package alice.tuplecentre.tucson.api;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
@@ -87,12 +88,7 @@ public class Tucson2PLibrary extends Library {
             throws TucsonInvalidAgentIdException {
         TucsonAgentId agentId;
         if (this.context != null) {
-            try {
                 this.context.exit();
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            }
         }
         agentId = new TucsonAgentIdDefault(id.getTerm().toString());
 
@@ -112,9 +108,8 @@ public class Tucson2PLibrary extends Library {
         }
         this.context = TucsonMetaACC.getContext(agentId, netId, port);
         try {
-            this.context.enterACC();
-        } catch (UnreachableNodeException | TucsonOperationNotPossibleException
-                | TucsonInvalidTupleCentreIdException e) {
+            Objects.requireNonNull(this.context).enterACC();
+        } catch (UnreachableNodeException | TucsonInvalidTupleCentreIdException e) {
             e.printStackTrace();
             return false;
         }
@@ -932,7 +927,7 @@ public class Tucson2PLibrary extends Library {
      * otherwise
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      */
-    public boolean release_acc_0() throws TucsonOperationNotPossibleException {
+    public boolean release_acc_0() {
         this.context.exit();
         this.context = null;
         this.aid = null;
@@ -941,7 +936,7 @@ public class Tucson2PLibrary extends Library {
         return true;
     }
 
-    public boolean acc_3(Term aid, Term netid, Term port) throws TucsonOperationNotPossibleException {
+    public boolean acc_3(Term aid, Term netid, Term port) {
 
         if (this.aid != null) {
             this.unify(aid, new Struct(this.aid));

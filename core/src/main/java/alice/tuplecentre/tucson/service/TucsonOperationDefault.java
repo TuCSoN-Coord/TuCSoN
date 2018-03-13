@@ -23,7 +23,7 @@ import alice.tuplecentre.tucson.api.TucsonOperation;
  */
 public class TucsonOperationDefault extends AbstractTupleCentreOperation implements TucsonOperation {
 
-    private OperationHandler context;
+    private final OperationHandler context;
 
     /**
      * @param type the type code of the operation

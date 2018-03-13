@@ -49,7 +49,7 @@ public final class TPFactory {
             throw new IllegalPortNumberException(
                     "Port number out of bounds. Port number: " + port);
         }
-        TucsonProtocol tp = null;
+        TucsonProtocol tp;
         if (tucsonProtocolType == TPFactory.DIALOG_TYPE_TCP) {
             tp = new TucsonProtocolTCP(node, port);
         } else {
@@ -99,7 +99,7 @@ public final class TPFactory {
     public static TucsonProtocol getDialogNodeSide(
             final int tucsonProtocolType, final int portno)
             throws InvalidProtocolTypeException, DialogInitializationException {
-        TucsonProtocol tp = null;
+        TucsonProtocol tp;
         if (tucsonProtocolType == TPFactory.DIALOG_TYPE_TCP) {
             /*final TPConfig config = TucsonNodeService.getNode(portno)
                     .getTPConfig();*/

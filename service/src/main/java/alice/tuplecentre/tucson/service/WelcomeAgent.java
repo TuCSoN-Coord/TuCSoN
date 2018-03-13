@@ -70,7 +70,7 @@ public class WelcomeAgent extends Thread {
             // Cannot happen
             e.printStackTrace();
         }
-        TucsonProtocol dialog = null;
+        TucsonProtocol dialog;
         try {
             while (!this.isShutdown()) {
                 WelcomeAgent.log("Listening to incoming connections...");
@@ -100,15 +100,7 @@ public class WelcomeAgent extends Thread {
                     dialog.sendNodeActiveReply();
                 }
             }
-        } catch (final DialogReceiveException e) {
-            e.printStackTrace();
-        } catch (final DialogSendException e) {
-            e.printStackTrace();
-        } catch (TucsonInvalidAgentIdException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (TucsonInvalidTupleCentreIdException e) {
-            // TODO Auto-generated catch block
+        } catch (final DialogReceiveException | TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException | DialogSendException e) {
             e.printStackTrace();
         }
         this.node.removeNodeAgent(this);

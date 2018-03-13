@@ -16,6 +16,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -147,13 +148,10 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 final alice.tuprolog.Theory thspec = new alice.tuprolog.Theory(co);
                 core.setTheory(thspec);
             } else {
-                core = null;
                 return LogicTuples.newInstance("invalid", TupleArguments.newVarArgument());
             }
-            core = null;
             return LogicTuples.newInstance("valid");
         } catch (final alice.tuprolog.InvalidTheoryException ex) {
-            core = null;
             return LogicTuples.newInstance("invalid", TupleArguments.newValueArgument(ex.line));
         }
     }
@@ -235,7 +233,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
     public RespectVMContext(final RespectVM rvm, final TupleCentreIdentifier tid, final int queueSize,
                             final IRespectTC respectTC) {
         super(rvm, tid, queueSize, respectTC);
-        this.timers = new ArrayList<Timer>();
+        this.timers = new ArrayList<>();
         this.semaphore = new Object();
         this.tSet = new TupleSetCoord();
         this.tSpecSet = new TupleSetSpec();
@@ -244,7 +242,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
         this.zSet = new TRSet();
         this.timeSet = new TRSet();
         this.vm = rvm;
-        this.temporaryOutputEventList = new ArrayList<AbstractEvent>();
+        this.temporaryOutputEventList = new ArrayList<>();
         this.core = new Prolog();
         final alice.tuprolog.event.OutputListener l = new alice.tuprolog.event.OutputListener() {
 
@@ -276,7 +274,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
 
     @Override
     public List<Tuple> addListTuple(final Tuple t) {
-        final List<Tuple> list = new LinkedList<Tuple>();
+        final List<Tuple> list = new LinkedList<>();
         LogicTuple tuple = (LogicTuple) t;
         LogicTuple toAdd;
         while (!"[]".equals(tuple.toString())) {
@@ -298,7 +296,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
 
     @Override
     public void addSpecTuple(final Tuple t) {
-        Tuple tuple = null;
+        Tuple tuple;
         if (",".equals(((LogicTuple) t).getName())) {
             tuple = LogicTuples.newInstance("reaction", ((LogicTuple) t).getArg(0), ((LogicTuple) t).getArg(1).getArg(0),
                     ((LogicTuple) t).getArg(1).getArg(1));
@@ -330,30 +328,11 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
         }
     }
 
-    /*
-     * TODO: delete useless
-     */
-    public void closePersistencyUpdates() {
-        if (this.isPersistent) {
-            /*
-             * final File f = new File(this.pPath, "tc_" + this.pFileName + "_" + this.pDate
-             * + ".dat"); final long now = System.currentTimeMillis(); final Date d = new
-             * Date(now); final SimpleDateFormat sdf = new SimpleDateFormat(
-             * "yyyy-MM-dd HH:mm:ss"); final String ds = sdf.format(d); PrintWriter pw =
-             * null; try { pw = new PrintWriter(new FileWriter(f, true), true);
-             * pw.printf("</updates time=%s>%n", ds); pw.flush(); pw.close(); } catch (final
-             * IOException e) { e.printStackTrace(); } finally { if (pw != null) {
-             * pw.close(); } }
-             */
-        }
-    }
-
     /**
      * @param path     the path where persistency information is stored
      * @param fileName the name of the file where persistency information is stored
      */
     public void disablePersistency(final String path, final TucsonTupleCentreId fileName) {
-        this.closePersistencyUpdates();
         this.isPersistent = false;
     }
 
@@ -432,8 +411,8 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 /* Dradi */
             }
             final int n = this.temporaryOutputEventList.size();
-            for (int i = 0; i < n; i++) {
-                final InputEvent curr = (alice.tuplecentre.core.InputEvent) this.temporaryOutputEventList.get(i);
+            for (AbstractEvent aTemporaryOutputEventList : this.temporaryOutputEventList) {
+                final InputEvent curr = (InputEvent) aTemporaryOutputEventList;
                 this.log("outgoing link: " + curr);
                 this.addPendingQueryEvent(curr);
             }
@@ -458,13 +437,13 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
 
     @Override
     public void fetchTimedReactions(final AbstractEvent ev) {
-        if (((RespectOperationDefault) ev.getSimpleTCEvent()).getLogicTupleArgument() != null) {
+        if (ev.getSimpleTCEvent().getLogicTupleArgument() != null) {
             try {
-                final Term timed = ((RespectOperationDefault) ev.getSimpleTCEvent()).getLogicTupleArgument().toTerm();
+                final Term timed = ev.getSimpleTCEvent().getLogicTupleArgument().toTerm();
                 final Struct tev = new Struct("reaction", timed, new alice.tuprolog.Var("G"),
                         new alice.tuprolog.Var("R"));
                 SolveInfo info = this.trigCore.solve(tev);
-                alice.tuprolog.Term guard = null;
+                alice.tuprolog.Term guard;
                 while (info.isSuccess()) {
                     guard = info.getVarValue("G");
                     this.currentReactionEvent = ev;
@@ -485,9 +464,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                     this.trigCore.solve("retract(reaction( " + timed + ", (G),(" + info.getVarValue("R") + "))) .");
                     this.trigCore.solveEnd();
                 }
-            } catch (final NoMoreSolutionException e) {
-                this.trigCore.solveEnd();
-            } catch (final NoSolutionException e) {
+            } catch (final NoMoreSolutionException | NoSolutionException e) {
                 this.trigCore.solveEnd();
             } catch (final MalformedGoalException e) {
                 this.notifyException("INTERNAL ERROR: fetchTimedReactions " + ev);
@@ -937,12 +914,12 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                     }
                 }
                 if (this.currentReactionTerm != null) {
-                    final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+                    final AbstractMap<Var, Var> v = new LinkedHashMap<>();
                     this.currentReactionTerm = (Struct) this.currentReactionTerm.copyGoal(v, 0);
                     final Struct tev = new Struct("reaction", this.currentReactionTerm, new alice.tuprolog.Var("G"),
                             new alice.tuprolog.Var("R"));
                     SolveInfo info = this.trigCore.solve(tev);
-                    alice.tuprolog.Term guard = null;
+                    alice.tuprolog.Term guard;
                     while (info.isSuccess()) {
                         guard = info.getVarValue("G");
                         this.currentReactionEvent = ev;
@@ -961,9 +938,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                         this.trigCore.solveEnd();
                     }
                 }
-            } catch (final NoSolutionException e) {
-                this.trigCore.solveEnd();
-            } catch (final NoMoreSolutionException e) {
+            } catch (final NoSolutionException | NoMoreSolutionException e) {
                 this.trigCore.solveEnd();
             }
         }
@@ -974,7 +949,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
      * found
      */
     public Iterator<Term> findFromReactions() {
-        final List<Term> foundReactions = new ArrayList<Term>();
+        final List<Term> foundReactions = new ArrayList<>();
         try {
             final Struct from = new Struct("from", new alice.tuprolog.Var("S"), new alice.tuprolog.Var("P"));
             final Struct fev = new Struct("reaction", from, new alice.tuprolog.Var("G"), new alice.tuprolog.Var("R"));
@@ -999,11 +974,10 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
      * @return a Java iterator through the list of timed reactions possibly found
      */
     public Iterator<Term> findTimeReactions() {
-        final List<Term> foundReactions = new ArrayList<Term>();
+        final List<Term> foundReactions = new ArrayList<>();
         try {
             final Struct timed = new Struct("time", new alice.tuprolog.Var("Time"));
             final Struct tev = new Struct("reaction", timed, new alice.tuprolog.Var("G"), new alice.tuprolog.Var("R"));
-            // log("theory = " + this.trigCore.getTheory());
             SolveInfo info = this.trigCore.solve(tev);
             while (info.isSuccess()) {
                 foundReactions.add(info.getVarValue("Time"));
@@ -1014,10 +988,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 }
                 this.trigCore.solveEnd();
             }
-        } catch (final NoMoreSolutionException e) {
-            this.notifyException("INTERNAL ERROR: fetchTimedReactions ");
-            this.trigCore.solveEnd();
-        } catch (final NoSolutionException e) {
+        } catch (final NoMoreSolutionException | NoSolutionException e) {
             this.notifyException("INTERNAL ERROR: fetchTimedReactions ");
             this.trigCore.solveEnd();
         }
@@ -1029,7 +1000,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
      * found
      */
     public Iterator<Term> findToReactions() {
-        final List<Term> foundReactions = new ArrayList<Term>();
+        final List<Term> foundReactions = new ArrayList<>();
         try {
             final Struct to = new Struct("to", new alice.tuprolog.Var("S"), new alice.tuprolog.Var("P"));
             final Struct tev = new Struct("reaction", to, new alice.tuprolog.Var("G"), new alice.tuprolog.Var("R"));
@@ -1052,7 +1023,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
 
     @Override
     public List<Tuple> getAllTuples() {
-        final List<Tuple> tl = new LinkedList<Tuple>();
+        final List<Tuple> tl = new LinkedList<>();
         final Iterator<LogicTuple> it = this.tSet.getIterator();
         while (it.hasNext()) {
             tl.add(it.next());
@@ -1136,7 +1107,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
      */
     public LogicTuple[] getTSet(final LogicTuple filter) {
         final LogicTuple[] ltSet = this.tSet.toArray();
-        final ArrayList<LogicTuple> supportList = new ArrayList<LogicTuple>();
+        final ArrayList<LogicTuple> supportList = new ArrayList<>();
         if (filter == null) {
             return ltSet;
         }
@@ -1159,7 +1130,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
      */
     public WSetEvent[] getWSet(final LogicTuple filter) {
         final AbstractEvent[] ev = this.wSet.toArray();
-        final ArrayList<WSetEvent> events = new ArrayList<WSetEvent>();
+        final ArrayList<WSetEvent> events = new ArrayList<>();
         if (filter == null) {
             for (final AbstractEvent e : ev) {
                 events.add(new WSetEvent(((RespectOperationDefault) e.getSimpleTCEvent()).toTuple(), e.getSource(),
@@ -1184,7 +1155,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
 
     @Override
     public List<Tuple> inAllTuples(final TupleTemplate t) {
-        final List<Tuple> tl = new LinkedList<Tuple>();
+        final List<Tuple> tl = new LinkedList<>();
         TupleTemplate t2 = t;
         Tuple tuple = this.removeMatchingTuple(t2, true);
         while (tuple != null) {
@@ -1244,7 +1215,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
 
     @Override
     public List<Tuple> readAllTuples(final TupleTemplate t) {
-        final List<Tuple> tl = new LinkedList<Tuple>();
+        final List<Tuple> tl = new LinkedList<>();
         TupleTemplate t2 = t;
         Tuple tuple = this.removeMatchingTuple(t2, false);
         while (tuple != null) {
@@ -1252,10 +1223,8 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             tl.add(tuple);
             tuple = this.removeMatchingTuple(t2, false);
         }
-        final List<Tuple> tl2 = tl;
-        final Iterator<Tuple> it = tl2.iterator();
-        while (it.hasNext()) {
-            this.addTuple(it.next(), false);
+        for (Tuple aTl2 : tl) {
+            this.addTuple(aTl2, false);
         }
         return tl;
     }
@@ -1272,7 +1241,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
 
     @Override
     public Tuple readUniformTuple(final TupleTemplate t) {
-        List<Tuple> tl = new LinkedList<Tuple>();
+        List<Tuple> tl;
         tl = this.readAllTuples(t);
         if (tl == null || tl.isEmpty()) {
             return null;
@@ -1287,43 +1256,12 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
      * @param tcName the name of the tuple centre to be recovered
      */
     public void recoveryPersistent(final String path, final String file, final TucsonTupleCentreId tcName) {
-        // BufferedReader br = null;
         try {
             final File f = new File(path.concat(file));
-            List<String> tuples = null;
-            List<String> specs = null;
-            List<String> predicates = null;
-            List<String> updates = null;
-            /*
-             * br = new BufferedReader(new FileReader(f)); String line = br.readLine();
-             * final long now = System.currentTimeMillis(); final Date d = new Date(now);
-             * final SimpleDateFormat sdf = new SimpleDateFormat( "yyyy-MM-dd_HH.mm.ss");
-             * final String date = sdf.format(d); final String logFileName =
-             * path.concat(date + ".log"); // read snapshot if (line != null &&
-             * line.startsWith("<snapshot")) { this.log(">>> Snapshot begins!"); line =
-             * br.readLine(); // read tuples if (line != null &&
-             * line.startsWith("\t<tuples>")) { this.log(">>> Tuples begin!"); tuples = new
-             * LinkedList<String>(); line = br.readLine(); while (line != null &&
-             * !line.startsWith("\t</tuples>")) { tuples.add(line.trim()); line =
-             * br.readLine(); } this.log(">>> Tuples end!"); line = br.readLine(); // skip
-             * "\t</tuples>" line } // read specs if (line != null &&
-             * line.startsWith("\t<specTuples>")) { this.log(">>> Specs begin!"); specs =
-             * new LinkedList<String>(); line = br.readLine(); while (line != null &&
-             * !line.startsWith("\t</specTuples>")) { specs.add(line.trim()); line =
-             * br.readLine(); } this.log(">>> Specs end!"); line = br.readLine(); // skip
-             * "\t</specTuples>" line } // read predicates if (line != null &&
-             * line.startsWith("\t<predicates>")) { this.log(">>> Predicates begin!");
-             * predicates = new LinkedList<String>(); line = br.readLine(); while (line !=
-             * null && !line.startsWith("\t</predicates>")) { predicates.add(line.trim());
-             * line = br.readLine(); } this.log(">>> Predicates end!"); line =
-             * br.readLine(); // skip "\t</predicates>" line }
-             * this.log(">>> Snapshot end!"); line = br.readLine(); // skip
-             * "</snapshot ...>" line // read updates while (line != null &&
-             * line.startsWith("<updates")) { this.log(">>> Updates begin!"); updates = new
-             * LinkedList<String>(); line = br.readLine(); while (line != null &&
-             * !line.startsWith("</updates")) { updates.add(line.trim()); line =
-             * br.readLine(); } this.log(">>> Updates end!"); } } br.close();
-             */
+            List<String> tuples;
+            List<String> specs;
+            List<String> predicates;
+            List<String> updates;
             this.pXML = new PersistencyXML(path.concat(file));
             final PersistencyData recoveredData = this.pXML.parse();
             tuples = recoveredData.getTuples();
@@ -1359,35 +1297,41 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             // recover updates
             if (updates != null && !updates.isEmpty()) {
                 this.log(">>> Recovering updates...");
-                String[] split = null;
+                String[] split;
                 for (final String p : updates) {
                     split = p.trim().split(" ");
-                    // this.log("split[0] = " + split[0]);
-                    // if (split.length == 2) {
-                    // this.log("split[1] = " + split[1]);
-                    // }
-                    if ("(+t)".equals(split[0])) {
-                        if (!split[1].startsWith("is_persistent")) {
-                            this.addTuple(LogicTuples.parse(split[1]), true);
-                        }
-                    } else if ("(-t)".equals(split[0])) {
-                        if (!split[1].startsWith("is_persistent")) {
-                            this.removeMatchingTuple(LogicTuples.parse(split[1]), true);
-                        }
-                    } else if ("(+s)".equals(split[0])) {
-                        this.addSpecTuple(LogicTuples.parse(split[1]));
-                    } else if ("(-s)".equals(split[0])) {
-                        this.removeMatchingSpecTuple(LogicTuples.parse(split[1]));
-                    } else if ("(+p)".equals(split[0])) {
-                        this.prologPredicates.add(LogicTuples.parse(split[1]));
-                    } else if ("(-p)".equals(split[0])) {
-                        this.prologPredicates.getMatchingTuple(LogicTuples.parse(split[1]));
-                    } else if ("(et)".equals(split[0])) {
-                        this.emptyTupleSet();
-                    } else if ("(ep)".equals(split[0])) {
-                        this.prologPredicates.empty();
-                    } else if ("(es)".equals(split[0])) {
-                        this.removeReactionSpec();
+                    switch (split[0]) {
+                        case "(+t)":
+                            if (!split[1].startsWith("is_persistent")) {
+                                this.addTuple(LogicTuples.parse(split[1]), true);
+                            }
+                            break;
+                        case "(-t)":
+                            if (!split[1].startsWith("is_persistent")) {
+                                this.removeMatchingTuple(LogicTuples.parse(split[1]), true);
+                            }
+                            break;
+                        case "(+s)":
+                            this.addSpecTuple(LogicTuples.parse(split[1]));
+                            break;
+                        case "(-s)":
+                            this.removeMatchingSpecTuple(LogicTuples.parse(split[1]));
+                            break;
+                        case "(+p)":
+                            this.prologPredicates.add(LogicTuples.parse(split[1]));
+                            break;
+                        case "(-p)":
+                            this.prologPredicates.getMatchingTuple(LogicTuples.parse(split[1]));
+                            break;
+                        case "(et)":
+                            this.emptyTupleSet();
+                            break;
+                        case "(ep)":
+                            this.prologPredicates.empty();
+                            break;
+                        case "(es)":
+                            this.removeReactionSpec();
+                            break;
                     }
                 }
                 this.log(">>> ...updates recovered!");
@@ -1399,11 +1343,6 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
         } catch (final InvalidLogicTupleException e) {
             e.printStackTrace();
         }
-        /*
-         * catch (final FileNotFoundException e) { e.printStackTrace(); } catch (final
-         * IOException e) { e.printStackTrace(); } finally { if (br != null) { try {
-         * br.close(); } catch (final IOException e) { e.printStackTrace(); } } }
-         */
     }
 
     @Override
@@ -1478,7 +1417,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
 
     @Override
     public Tuple removeUniformTuple(final TupleTemplate t) {
-        List<Tuple> tl = new LinkedList<Tuple>();
+        List<Tuple> tl;
         tl = this.readAllTuples(t);
         if (tl == null || tl.isEmpty()) {
             return null;
@@ -1581,6 +1520,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             try {
                 alice.tuprolog.SolveInfo info = this.core.solve("reaction(X,Y,Z).");
                 LogicTuple st;
+                //noinspection InfiniteLoopStatement
                 while (true) {
                     final alice.tuprolog.Term solution = info.getSolution();
                     st = LogicTuples.newInstance(solution);
@@ -1613,26 +1553,22 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             final String opKind = operation.substring(0, 2);
             if ("rd".equals(opKind)) {
                 final String tupla = operation.substring(3, operation.length() - 1);
-                LogicTuple logicTuple = null;
+                LogicTuple logicTuple;
                 try {
                     logicTuple = LogicTuples.parse(tupla);
                     final RespectOperationDefault op = RespectOperationDefault.makeRd(logicTuple, null);
                     this.vm.doOperation(null, op);
-                } catch (final InvalidLogicTupleException e) {
-                    e.printStackTrace();
-                } catch (final OperationNotPossibleException e) {
+                } catch (final InvalidLogicTupleException | OperationNotPossibleException e) {
                     e.printStackTrace();
                 }
             } else if ("in".equals(opKind)) {
                 final String tupla = operation.substring(3, operation.length() - 1);
-                LogicTuple logicTuple = null;
+                LogicTuple logicTuple;
                 try {
                     logicTuple = LogicTuples.parse(tupla);
                     final RespectOperationDefault op = RespectOperationDefault.makeIn(logicTuple, null);
                     this.vm.doOperation(null, op);
-                } catch (final InvalidLogicTupleException e) {
-                    e.printStackTrace();
-                } catch (final OperationNotPossibleException e) {
+                } catch (final InvalidLogicTupleException | OperationNotPossibleException e) {
                     e.printStackTrace();
                 }
             }
@@ -1653,120 +1589,105 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 this.log("spawn argument must be a tuple with functor name 'exec' or 'solve'");
                 return false;
             }
-            if (t.getArity() == 2) {
-                this.log("Prolog theory expected");
-                if (!"solve".equals(t.getName())) {
-                    this.log("Prolog spawn argument must be a tuple with functor name 'solve'");
-                    return false;
-                }
-                final String theoryPath = alice.util.Tools.removeApices(t.getArg(0).toString());
-                final Term goal = t.getArg(1).toTerm();
-                if (theoryPath.endsWith(".pl")) {
-                    final Prolog solver = new Prolog();
-                    final Spawn2PLibrary s2pLib = new Spawn2PLibrary();
-                    if (owner.isAgent()) {
-                        final TucsonAgentId aid = new TucsonAgentIdDefault(((AgentIdentifier) owner).toString());
-                        this.log("spawnActivity.aid = " + aid);
-                        s2pLib.setSpawnerId(aid);
-                    } else {
-                        final TucsonTupleCentreId tcid = new TucsonTupleCentreIdDefault(((TupleCentreIdentifier) owner).getLocalName(),
-                                ((TupleCentreIdentifier) owner).getNode(), String.valueOf(((TupleCentreIdentifier) owner).getPort()));
-                        this.log("spawnActivity.tcid = " + tcid);
-                        s2pLib.setSpawnerId(tcid);
+            switch (t.getArity()) {
+                case 2:
+                    this.log("Prolog theory expected");
+                    if (!"solve".equals(t.getName())) {
+                        this.log("Prolog spawn argument must be a tuple with functor name 'solve'");
+                        return false;
                     }
-                    TucsonTupleCentreId target;
-                    if (targetTC instanceof TucsonTupleCentreIdDefault) {
-                        target = (TucsonTupleCentreId) targetTC;
-                    } else {
-                        target = new TucsonTupleCentreIdDefault(((TupleCentreIdentifier) targetTC).getLocalName(),
-                                ((TupleCentreIdentifier) targetTC).getNode(),
-                                String.valueOf(((TupleCentreIdentifier) targetTC).getPort()));
-                    }
-                    this.log("spawnActivity.target = " + target);
-                    s2pLib.setTargetTC(target);
-                    solver.loadLibrary(s2pLib);
-                    // theoryPath should be a pathname but it is not now!!
-                    final InputStream is = cl.getResourceAsStream(theoryPath);
-                    final Theory toSpawn = new Theory(new BufferedInputStream(is));
-                    solver.setTheory(toSpawn);
-                    // final String[] libs = solver.getCurrentLibraries();
-                    // this.log("Known libs:");
-                    // for (final String lib : libs) {
-                    // System.out.println("\t" + lib);
-                    // }
-                    new Spawn2PSolver(solver, goal).start();
-                    return true;
-                }
-                this.log("Prolog theory file must end with .pl extension");
-                return false;
-            } else if (t.getArity() == 1) {
-                this.log("Java class expected");
-                if (!"exec".equals(t.getName())) {
-                    this.log("Java spawn argument must be a tuple with functor name 'exec'");
-                    return false;
-                }
-                final String className = alice.util.Tools.removeApices(t.getArg(0).toString());
-                if (className.endsWith(".class")) {
-                    final Class<?> toSpawn = cl.loadClass(className.substring(0, className.length() - 6));
-                    if (AbstractSpawnActivity.class.isAssignableFrom(toSpawn)) {
-                        final AbstractSpawnActivity instance = (AbstractSpawnActivity) toSpawn.newInstance();
+                    final String theoryPath = alice.util.Tools.removeApices(t.getArg(0).toString());
+                    final Term goal = t.getArg(1).toTerm();
+                    if (theoryPath.endsWith(".pl")) {
+                        final Prolog solver = new Prolog();
+                        final Spawn2PLibrary s2pLib = new Spawn2PLibrary();
                         if (owner.isAgent()) {
-                            final TucsonAgentId aid = new TucsonAgentIdDefault(((AgentIdentifier) owner).toString());
+                            final TucsonAgentId aid = new TucsonAgentIdDefault(owner.toString());
                             this.log("spawnActivity.aid = " + aid);
-                            instance.setSpawnerId(aid);
+                            s2pLib.setSpawnerId(aid);
                         } else {
-                            final TucsonTupleCentreId tcid = new TucsonTupleCentreIdDefault(((TupleCentreIdentifier) owner).getLocalName(),
-                                    ((TupleCentreIdentifier) owner).getNode(),
-                                    String.valueOf(((TupleCentreIdentifier) owner).getPort()));
+                            final TucsonTupleCentreId tcid = new TucsonTupleCentreIdDefault(owner.getLocalName(),
+                                    ((TupleCentreIdentifier) owner).getNode(), String.valueOf(((TupleCentreIdentifier) owner).getPort()));
                             this.log("spawnActivity.tcid = " + tcid);
-                            instance.setSpawnerId(tcid);
+                            s2pLib.setSpawnerId(tcid);
                         }
                         TucsonTupleCentreId target;
                         if (targetTC instanceof TucsonTupleCentreIdDefault) {
                             target = (TucsonTupleCentreId) targetTC;
                         } else {
-                            target = new TucsonTupleCentreIdDefault(((TupleCentreIdentifier) targetTC).getLocalName(),
+                            target = new TucsonTupleCentreIdDefault(targetTC.getLocalName(),
                                     ((TupleCentreIdentifier) targetTC).getNode(),
                                     String.valueOf(((TupleCentreIdentifier) targetTC).getPort()));
                         }
                         this.log("spawnActivity.target = " + target);
-                        instance.setTargetTC(target);
-                        if (instance.checkInstantiation()) {
-                            new Thread(instance).start();
-                            return true;
-                        }
-                    } else {
-                        this.log("Java class to spawn must be assignable from SpawnActivity.class");
+                        s2pLib.setTargetTC(target);
+                        solver.loadLibrary(s2pLib);
+                        // theoryPath should be a pathname but it is not now!!
+                        final InputStream is = cl.getResourceAsStream(theoryPath);
+                        final Theory toSpawn = new Theory(new BufferedInputStream(is));
+                        solver.setTheory(toSpawn);
+                        // final String[] libs = solver.getCurrentLibraries();
+                        // this.log("Known libs:");
+                        // for (final String lib : libs) {
+                        // System.out.println("\t" + lib);
+                        // }
+                        new Spawn2PSolver(solver, goal).start();
+                        return true;
+                    }
+                    this.log("Prolog theory file must end with .pl extension");
+                    return false;
+                case 1:
+                    this.log("Java class expected");
+                    if (!"exec".equals(t.getName())) {
+                        this.log("Java spawn argument must be a tuple with functor name 'exec'");
                         return false;
                     }
-                } else {
-                    this.log("Java class file must end with .class extension");
+                    final String className = alice.util.Tools.removeApices(t.getArg(0).toString());
+                    if (className.endsWith(".class")) {
+                        final Class<?> toSpawn = cl.loadClass(className.substring(0, className.length() - 6));
+                        if (AbstractSpawnActivity.class.isAssignableFrom(toSpawn)) {
+                            final AbstractSpawnActivity instance = (AbstractSpawnActivity) toSpawn.getConstructors()[0]
+                                    .newInstance();
+                            if (owner.isAgent()) {
+                                final TucsonAgentId aid = new TucsonAgentIdDefault(owner.toString());
+                                this.log("spawnActivity.aid = " + aid);
+                                instance.setSpawnerId(aid);
+                            } else {
+                                final TucsonTupleCentreId tcid = new TucsonTupleCentreIdDefault(owner.getLocalName(),
+                                        ((TupleCentreIdentifier) owner).getNode(),
+                                        String.valueOf(((TupleCentreIdentifier) owner).getPort()));
+                                this.log("spawnActivity.tcid = " + tcid);
+                                instance.setSpawnerId(tcid);
+                            }
+                            TucsonTupleCentreId target;
+                            if (targetTC instanceof TucsonTupleCentreIdDefault) {
+                                target = (TucsonTupleCentreId) targetTC;
+                            } else {
+                                target = new TucsonTupleCentreIdDefault(targetTC.getLocalName(),
+                                        ((TupleCentreIdentifier) targetTC).getNode(),
+                                        String.valueOf(((TupleCentreIdentifier) targetTC).getPort()));
+                            }
+                            this.log("spawnActivity.target = " + target);
+                            instance.setTargetTC(target);
+                            if (instance.checkInstantiation()) {
+                                new Thread(instance).start();
+                                return true;
+                            }
+                        } else {
+                            this.log("Java class to spawn must be assignable from SpawnActivity.class");
+                            return false;
+                        }
+                    } else {
+                        this.log("Java class file must end with .class extension");
+                        return false;
+                    }
+                    break;
+                default:
+                    this.log(
+                            "Prolog predicate arity must be 1 (Java class name) or 2 (Prolog theory filepath, goal to solve)");
                     return false;
-                }
-            } else {
-                this.log(
-                        "Prolog predicate arity must be 1 (Java class name) or 2 (Prolog theory filepath, goal to solve)");
-                return false;
             }
-        } catch (final ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        } catch (final InstantiationException e) {
-            e.printStackTrace();
-            return false;
-        } catch (final IllegalAccessException e) {
-            e.printStackTrace();
-            return false;
-        } catch (final TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
-            return false;
-        } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
-            return false;
-        } catch (final InvalidLibraryException e) {
-            e.printStackTrace();
-            return false;
-        } catch (final IOException e) {
+        } catch (final ClassNotFoundException | IOException | InvalidLibraryException | TucsonInvalidAgentIdException | TucsonInvalidTupleCentreIdException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
             return false;
         } catch (final InvalidTheoryException e) {
@@ -1774,6 +1695,8 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                     "[RespectVMContext]: InvalidTheoryException @ c: " + e.clause + ", l: " + e.line + ", p: " + e.pos);
             e.printStackTrace();
             return false;
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
         return false;
     }
@@ -1886,7 +1809,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                     final Iterator<Term> fit = this.findFromReactions();
                     final Iterator<Term> tit = this.findToReactions();
                     if (fit.hasNext() || tit.hasNext()) {
-                        if (!geoService.isRunning()) {
+                        if (geoService.isNotRunning()) {
                             geoService.start();
                         }
                         geoService.generateSpatialEvents(true);
@@ -1984,7 +1907,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                     final Iterator<Term> fit = this.findFromReactions();
                     final Iterator<Term> tit = this.findToReactions();
                     if (fit.hasNext() || tit.hasNext()) {
-                        if (!geoService.isRunning()) {
+                        if (geoService.isNotRunning()) {
                             geoService.start();
                         }
                         geoService.generateSpatialEvents(true);

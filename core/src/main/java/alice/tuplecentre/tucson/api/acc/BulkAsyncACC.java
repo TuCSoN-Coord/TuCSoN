@@ -55,8 +55,8 @@ public interface BulkAsyncACC extends AsyncACC {
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    TucsonOperation inAll(final TupleCentreIdentifier tid, final Tuple tuple,
-                          final TucsonOperationCompletionListener l)
+    void inAll(final TupleCentreIdentifier tid, final Tuple tuple,
+               final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 
@@ -81,8 +81,8 @@ public interface BulkAsyncACC extends AsyncACC {
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    TucsonOperation noAll(final TupleCentreIdentifier tid, final Tuple tuple,
-                          final TucsonOperationCompletionListener l)
+    void noAll(final TupleCentreIdentifier tid, final Tuple tuple,
+               final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 
@@ -104,8 +104,8 @@ public interface BulkAsyncACC extends AsyncACC {
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    TucsonOperation outAll(final TupleCentreIdentifier tid, final Tuple tuple,
-                           final TucsonOperationCompletionListener l)
+    void outAll(final TupleCentreIdentifier tid, final Tuple tuple,
+                final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 
@@ -128,8 +128,8 @@ public interface BulkAsyncACC extends AsyncACC {
      * @see TucsonOperation TucsonOperation
      * @see alice.tuprolog.Struct Struct
      */
-    TucsonOperation rdAll(final TupleCentreIdentifier tid, final Tuple tuple,
-                          final TucsonOperationCompletionListener l)
+    void rdAll(final TupleCentreIdentifier tid, final Tuple tuple,
+               final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 }

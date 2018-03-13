@@ -36,7 +36,7 @@ public interface InspectorContext {
      * @throws IOException            if some I/O error occurs
      * @throws DialogException        if the inspected node disconnets unexpectedly
      */
-    void acceptVMEvent() throws ClassNotFoundException, IOException,
+    void acceptVMEvent() throws
             DialogException;
 
     /**

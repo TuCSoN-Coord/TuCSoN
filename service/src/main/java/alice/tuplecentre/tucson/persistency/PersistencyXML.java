@@ -9,18 +9,13 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -68,7 +63,7 @@ public class PersistencyXML {
     }
 
     public List<String> getNodeInfo(final Node node, final String childName) {
-        final List<String> nodeInfo = new LinkedList<String>();
+        final List<String> nodeInfo = new LinkedList<>();
         final NodeList childs = node.getChildNodes();
         for (int i = 0; i < childs.getLength(); i++) {
             final Node n = childs.item(i);
@@ -87,12 +82,16 @@ public class PersistencyXML {
                 .getAttribute(PersistencyXML.SUBJECT_ATTRIBUTE);
         final String body = elem.getTextContent();
         String subject = null;
-        if (attrSubject.equals(PersistencyXML.TUPLE_NODE)) {
-            subject = "t";
-        } else if (attrSubject.equals(PersistencyXML.SPEC_NODE)) {
-            subject = "s";
-        } else if (attrSubject.equals(PersistencyXML.PREDICATE_NODE)) {
-            subject = "p";
+        switch (attrSubject) {
+            case PersistencyXML.TUPLE_NODE:
+                subject = "t";
+                break;
+            case PersistencyXML.SPEC_NODE:
+                subject = "s";
+                break;
+            case PersistencyXML.PREDICATE_NODE:
+                subject = "p";
+                break;
         }
         String operation = null;
         if (attrAction.equals(PersistencyXML.ADD_OPERATION)) {
@@ -112,16 +111,20 @@ public class PersistencyXML {
                                             final String value) {
         boolean found = false;
         String search = null;
-        if (value.equals(PersistencyXML.TUPLE_NODE)) {
-            search = "(et)";
-        } else if (value.equals(PersistencyXML.SPEC_NODE)) {
-            search = "(es)";
-        } else if (value.equals(PersistencyXML.PREDICATE_NODE)) {
-            search = "(ep)";
+        switch (value) {
+            case PersistencyXML.TUPLE_NODE:
+                search = "(et)";
+                break;
+            case PersistencyXML.SPEC_NODE:
+                search = "(es)";
+                break;
+            case PersistencyXML.PREDICATE_NODE:
+                search = "(ep)";
+                break;
         }
         for (int i = updates.size() - 1; i > 0; i--) {
             final String obj = updates.get(i);
-            if (obj.contains(search)) {
+            if (obj.contains(Objects.requireNonNull(search))) {
                 found = true;
             }
             if (found) {
@@ -138,15 +141,15 @@ public class PersistencyXML {
                 }
             }
         }
-        return new ArrayList<String>(updates);
+        return new ArrayList<>(updates);
     }
 
     public PersistencyData parse() {
         PersistencyData pData = new PersistencyData();
-        List<String> tuples = new ArrayList<String>();
-        List<String> specTuple = new ArrayList<String>();
-        List<String> predicates = new ArrayList<String>();
-        List<String> updates = new ArrayList<String>();
+        List<String> tuples = new ArrayList<>();
+        List<String> specTuple = new ArrayList<>();
+        List<String> predicates = new ArrayList<>();
+        List<String> updates = new ArrayList<>();
         try {
             final DocumentBuilderFactory factory = DocumentBuilderFactory
                     .newInstance();
@@ -161,17 +164,19 @@ public class PersistencyXML {
                 final Node node = snapshotChilds.item(i);
                 if (node.getNodeType() == Node.ELEMENT_NODE) {
                     final Element elem = (Element) node;
-                    if (elem.getNodeName().equals(PersistencyXML.TUPLES_NODE)) {
-                        tuples = this.getNodeInfo(node,
-                                PersistencyXML.TUPLE_NODE);
-                    } else if (elem.getNodeName().equals(
-                            PersistencyXML.SPEC_TUPLES_NODE)) {
-                        specTuple = this.getNodeInfo(node,
-                                PersistencyXML.SPEC_NODE);
-                    } else if (elem.getNodeName().equals(
-                            PersistencyXML.PREDICATES_NODE)) {
-                        predicates = this.getNodeInfo(node,
-                                PersistencyXML.PREDICATE_NODE);
+                    switch (elem.getNodeName()) {
+                        case PersistencyXML.TUPLES_NODE:
+                            tuples = this.getNodeInfo(node,
+                                    PersistencyXML.TUPLE_NODE);
+                            break;
+                        case PersistencyXML.SPEC_TUPLES_NODE:
+                            specTuple = this.getNodeInfo(node,
+                                    PersistencyXML.SPEC_NODE);
+                            break;
+                        case PersistencyXML.PREDICATES_NODE:
+                            predicates = this.getNodeInfo(node,
+                                    PersistencyXML.PREDICATE_NODE);
+                            break;
                     }
                 }
             }
@@ -197,13 +202,7 @@ public class PersistencyXML {
             updates = this.listByRemoving(updates,
                     PersistencyXML.PREDICATE_NODE);
             pData = new PersistencyData(tuples, specTuple, predicates, updates);
-        } catch (final ParserConfigurationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final SAXException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final IOException e) {
+        } catch (final ParserConfigurationException | IOException | SAXException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -224,7 +223,7 @@ public class PersistencyXML {
             // Delete old persistency file
             final File dir = new File(this.pPath);
             final File[] files = dir.listFiles();
-            for (final File file : files) {
+            for (final File file : Objects.requireNonNull(files)) {
                 if (file.getName().startsWith("tc_" + pXMLFileName)) {
                     if (file.delete()) {
                         System.out.println("....old persistency file '"
@@ -299,10 +298,7 @@ public class PersistencyXML {
             // Output to console for testing
             // StreamResult result = new StreamResult(System.out);
             transformer.transform(source, result);
-        } catch (final ParserConfigurationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final TransformerException e) {
+        } catch (final ParserConfigurationException | TransformerException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
@@ -409,19 +405,7 @@ public class PersistencyXML {
             final DOMSource source = new DOMSource(doc);
             final StreamResult result = new StreamResult(this.xmlFile);
             transformer.transform(source, result);
-        } catch (final TransformerConfigurationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final TransformerException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final ParserConfigurationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final SAXException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final IOException e) {
+        } catch (final IOException | SAXException | ParserConfigurationException | TransformerException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

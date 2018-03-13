@@ -128,7 +128,7 @@ public class JValDefault implements JVal {
     @Override
     public double toDouble() {
         if (this.type == JArgType.DOUBLE) {
-            return ((Double) this.arg).doubleValue();
+            return (Double) this.arg;
         }
         throw new InvalidOperationException("The JVal is not a Double");
     }
@@ -140,7 +140,7 @@ public class JValDefault implements JVal {
     @Override
     public float toFloat() {
         if (this.type == JArgType.FLOAT) {
-            return ((Float) this.arg).floatValue();
+            return (Float) this.arg;
         }
         throw new InvalidOperationException("The JVal is not a Float");
     }
@@ -152,7 +152,7 @@ public class JValDefault implements JVal {
     @Override
     public int toInt() {
         if (this.type == JArgType.INT) {
-            return ((Integer) this.arg).intValue();
+            return (Integer) this.arg;
         }
         throw new InvalidOperationException("The JVal is not an Int");
     }
@@ -176,7 +176,7 @@ public class JValDefault implements JVal {
     @Override
     public long toLong() {
         if (this.type == JArgType.LONG) {
-            return ((Long) this.arg).longValue();
+            return (Long) this.arg;
         }
         throw new InvalidOperationException("The JVal is not a Long");
     }

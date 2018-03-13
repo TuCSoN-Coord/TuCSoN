@@ -13,8 +13,6 @@
  */
 package alice.tuplecentre.tucson.introspection;
 
-import java.io.IOException;
-
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
@@ -29,7 +27,7 @@ public class Inspector extends Thread implements InspectorContextListener {
     /**
      *
      */
-    protected InspectorContext context;
+    protected final InspectorContext context;
     /**
      *
      */
@@ -89,12 +87,6 @@ public class Inspector extends Thread implements InspectorContextListener {
         while (!this.q) {
             try {
                 this.context.acceptVMEvent();
-            } catch (final ClassNotFoundException e) {
-                e.printStackTrace();
-                break;
-            } catch (final IOException e) {
-                e.printStackTrace();
-                break;
             } catch (final DialogException e) {
                 System.err.println("TuCSoN node "
                         + this.context.getTid().getLocalName() + "@"

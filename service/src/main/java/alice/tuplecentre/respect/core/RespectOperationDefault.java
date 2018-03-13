@@ -435,21 +435,20 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         if ("[]".equals(t.toString())) {
             return new RespectOperationDefault(
                     SET,
-                    new LinkedList<Tuple>(), l);
+                    new LinkedList<>(), l);
         }
-        final List<Tuple> list = new LinkedList<Tuple>();
-        LogicTuple cpy = null;
+        final List<Tuple> list = new LinkedList<>();
+        LogicTuple cpy;
         cpy = LogicTuples.newInstance(t);
         TupleArgument arg;
         arg = cpy.getArg(0);
         while (arg != null) {
-            if (!arg.isList()) {
+            if (arg.isNotList()) {
                 final LogicTuple t1 = LogicTuples.newInstance(arg);
                 list.add(t1);
                 arg = cpy.getArg(1);
             } else {
-                final LogicTuple t2 = LogicTuples.newInstance(arg);
-                cpy = t2;
+                cpy = LogicTuples.newInstance(arg);
                 if (!"[]".equals(cpy.toString())) {
                     arg = cpy.getArg(0);
                 } else {
@@ -457,9 +456,8 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 }
             }
         }
-        final RespectOperationDefault temp = new RespectOperationDefault(
+        return new RespectOperationDefault(
                 SET, list, l);
-        return temp;
     }
 
     /**
@@ -484,21 +482,20 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         if ("[]".equals(t.toString())) {
             return new RespectOperationDefault(
                     SET_S,
-                    new LinkedList<Tuple>(), l);
+                    new LinkedList<>(), l);
         }
-        final List<Tuple> list = new LinkedList<Tuple>();
-        LogicTuple cpy = null;
+        final List<Tuple> list = new LinkedList<>();
+        LogicTuple cpy;
         cpy = LogicTuples.newInstance(t);
         TupleArgument arg;
         arg = cpy.getArg(0);
         while (arg != null) {
-            if (!arg.isList()) {
+            if (arg.isNotList()) {
                 final LogicTuple t1 = LogicTuples.newInstance(arg);
                 list.add(t1);
                 arg = cpy.getArg(1);
             } else {
-                final LogicTuple t2 = LogicTuples.newInstance(arg);
-                cpy = t2;
+                cpy = LogicTuples.newInstance(arg);
                 if (!"[]".equals(cpy.toString())) {
                     arg = cpy.getArg(0);
                 } else {
@@ -506,9 +503,8 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 }
             }
         }
-        final RespectOperationDefault temp = new RespectOperationDefault(
+        return new RespectOperationDefault(
                 SET_S, list, l);
-        return temp;
     }
 
     /**
@@ -709,7 +705,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 for (int i = 0; i < tupleL.length; i++) {
                     tl[i] = tupleL[i].toTerm();
                 }
-                LogicTuple lt = null;
+                LogicTuple lt;
                 lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
                                 .getLogicTupleArgument().toTerm()),
                         TupleArguments.newInstance(new Struct(tl)));
@@ -722,7 +718,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 for (int i = 0; i < tupleL.length; i++) {
                     tl[i] = tupleL[i].toTerm();
                 }
-                LogicTuple lt = null;
+                LogicTuple lt;
                 lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
                                 .getLogicTupleArgument().toTerm()),
                         TupleArguments.newInstance(new Struct(tl)));
@@ -735,7 +731,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 for (int i = 0; i < tupleL.length; i++) {
                     tl[i] = tupleL[i].toTerm();
                 }
-                LogicTuple lt = null;
+                LogicTuple lt;
                 lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
                                 .getLogicTupleArgument().toTerm()),
                         TupleArguments.newInstance(new Struct(tl)));
@@ -748,7 +744,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 for (int i = 0; i < tupleL.length; i++) {
                     tl[i] = tupleL[i].toTerm();
                 }
-                LogicTuple lt = null;
+                LogicTuple lt;
                 lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
                                 .getLogicTupleArgument().toTerm()),
                         TupleArguments.newInstance(new Struct(tl)));

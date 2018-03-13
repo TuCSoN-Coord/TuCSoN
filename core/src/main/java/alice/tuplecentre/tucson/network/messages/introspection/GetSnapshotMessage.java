@@ -22,7 +22,7 @@ public interface GetSnapshotMessage extends NodeMessage {
      *
      * @author Enrico Siboni
      */
-    public enum SetType {
+    enum SetType {
         // TODO: 12/03/2018 due to external usages, maybe should be moved out this class
         TSET, WSET
     }

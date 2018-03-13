@@ -59,11 +59,7 @@ public class ObservationService implements NodeServiceListener {
             // this.obsAid, this.obsContext,
             // LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(), TupleArguments.newValueArgument(
             // "new_agent", TupleArguments.newValueArgument(aid.toString()))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -84,11 +80,7 @@ public class ObservationService implements NodeServiceListener {
             // this.obsAid, this.obsContext,
             // LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(), TupleArguments.newValueArgument(
             // "exit_agent", TupleArguments.newValueArgument(aid.toString()))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -102,8 +94,8 @@ public class ObservationService implements NodeServiceListener {
                     TupleCentreOpType.OUT,
                     LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(), TupleArguments.newValueArgument(
                             "completed_getSpec", TupleArguments.newInstance(
-                                    ((TucsonTupleCentreId) tid).toTerm()),
-                            TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
+                                    tid.toTerm()),
+                            TupleArguments.newValueArgument(id.toString()),
                             TupleArguments.newValueArgument(spec))), null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.obsAid, opRequested,
@@ -116,11 +108,7 @@ public class ObservationService implements NodeServiceListener {
             // ((TucsonTupleCentreId) tid).toTerm()),
             // TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
             // TupleArguments.newValueArgument(spec))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -133,8 +121,8 @@ public class ObservationService implements NodeServiceListener {
                     TupleCentreOpType.OUT,
                     LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(), TupleArguments.newValueArgument(
                             "requested_getSpec", TupleArguments.newInstance(
-                                    ((TucsonTupleCentreId) tid).toTerm()),
-                            TupleArguments.newValueArgument(((TucsonAgentId) id).toString()))), null);
+                                    tid.toTerm()),
+                            TupleArguments.newValueArgument(id.toString()))), null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.obsAid, opRequested,
                     this.obsContext, System.currentTimeMillis(), null);
@@ -145,11 +133,7 @@ public class ObservationService implements NodeServiceListener {
             // "requested_getSpec", TupleArguments.newInstance(
             // ((TucsonTupleCentreId) tid).toTerm()),
             // TupleArguments.newValueArgument(((TucsonAgentId) id).toString()))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -162,8 +146,8 @@ public class ObservationService implements NodeServiceListener {
                     TupleCentreOpType.OUT,
                     LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(), TupleArguments.newValueArgument(
                             "completed_in", TupleArguments.newInstance(
-                                    ((TucsonTupleCentreId) tid).toTerm()),
-                            TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
+                                    tid.toTerm()),
+                            TupleArguments.newValueArgument(id.toString()),
                             TupleArguments.newInstance(((LogicTuple) t).toTerm()))),
                     null);
             // InputEvent Creation
@@ -177,11 +161,7 @@ public class ObservationService implements NodeServiceListener {
             // ((TucsonTupleCentreId) tid).toTerm()),
             // TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
             // TupleArguments.newInstance(((LogicTuple) t).toTerm()))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -191,13 +171,13 @@ public class ObservationService implements NodeServiceListener {
                              final Tuple t) {
         try {
             // Operation Make
-            RespectOperationDefault opRequested = null;
+            RespectOperationDefault opRequested;
             if (t != null) {
                 opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.OUT, LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(),
                                 TupleArguments.newValueArgument("completed_inp", TupleArguments.newInstance(
-                                        ((TucsonTupleCentreId) tid).toTerm()),
-                                        TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
+                                        tid.toTerm()),
+                                        TupleArguments.newValueArgument(id.toString()),
                                         TupleArguments.newValueArgument("succeeded", TupleArguments.newInstance(
                                                 ((LogicTuple) t).toTerm())))), null);
                 // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
@@ -212,8 +192,8 @@ public class ObservationService implements NodeServiceListener {
                 opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.OUT, LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(),
                                 TupleArguments.newValueArgument("completed_inp", TupleArguments.newInstance(
-                                        ((TucsonTupleCentreId) tid).toTerm()),
-                                        TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
+                                        tid.toTerm()),
+                                        TupleArguments.newValueArgument(id.toString()),
                                         TupleArguments.newValueArgument("failed"))), null);
                 // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                 // .outCode(), this.obsAid, this.obsContext,
@@ -227,11 +207,7 @@ public class ObservationService implements NodeServiceListener {
             final InputEvent ev = new InputEvent(this.obsAid, opRequested,
                     this.obsContext, System.currentTimeMillis(), null);
             TupleCentreContainer.doBlockingOperation(ev);
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | TucsonInvalidLogicTupleException e) {
             e.printStackTrace();
         }
     }
@@ -245,8 +221,8 @@ public class ObservationService implements NodeServiceListener {
                     TupleCentreOpType.OUT,
                     LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(), TupleArguments.newValueArgument(
                             "requested_inp", TupleArguments.newInstance(
-                                    ((TucsonTupleCentreId) tid).toTerm()),
-                            TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
+                                    tid.toTerm()),
+                            TupleArguments.newValueArgument(id.toString()),
                             TupleArguments.newInstance(((LogicTuple) t).toTerm()))),
                     null);
             // InputEvent Creation
@@ -260,11 +236,7 @@ public class ObservationService implements NodeServiceListener {
             // ((TucsonTupleCentreId) tid).toTerm()),
             // TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
             // TupleArguments.newInstance(((LogicTuple) t).toTerm()))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -278,8 +250,8 @@ public class ObservationService implements NodeServiceListener {
                     TupleCentreOpType.OUT,
                     LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(), TupleArguments.newValueArgument(
                             "requested_in", TupleArguments.newInstance(
-                                    ((TucsonTupleCentreId) tid).toTerm()),
-                            TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
+                                    tid.toTerm()),
+                            TupleArguments.newValueArgument(id.toString()),
                             TupleArguments.newInstance(((LogicTuple) t).toTerm()))),
                     null);
             // InputEvent Creation
@@ -293,11 +265,7 @@ public class ObservationService implements NodeServiceListener {
             // ((TucsonTupleCentreId) tid).toTerm()),
             // TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
             // TupleArguments.newInstance(((LogicTuple) t).toTerm()))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -311,8 +279,8 @@ public class ObservationService implements NodeServiceListener {
                     TupleCentreOpType.OUT,
                     LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(), TupleArguments.newValueArgument(
                             "done_out", TupleArguments.newInstance(
-                                    ((TucsonTupleCentreId) tid).toTerm()),
-                            TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
+                                    tid.toTerm()),
+                            TupleArguments.newValueArgument(id.toString()),
                             TupleArguments.newInstance(((LogicTuple) t).toTerm()))),
                     null);
             // InputEvent Creation
@@ -326,11 +294,7 @@ public class ObservationService implements NodeServiceListener {
             // ((TucsonTupleCentreId) tid).toTerm()),
             // TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
             // TupleArguments.newInstance(((LogicTuple) t).toTerm()))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -343,8 +307,8 @@ public class ObservationService implements NodeServiceListener {
                     TupleCentreOpType.OUT,
                     LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(), TupleArguments.newValueArgument(
                             "completed_rd", TupleArguments.newInstance(
-                                    ((TucsonTupleCentreId) tid).toTerm()),
-                            TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
+                                    tid.toTerm()),
+                            TupleArguments.newValueArgument(id.toString()),
                             TupleArguments.newInstance(((LogicTuple) t).toTerm()))),
                     null);
             // InputEvent Creation
@@ -358,11 +322,7 @@ public class ObservationService implements NodeServiceListener {
             // ((TucsonTupleCentreId) tid).toTerm()),
             // TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
             // TupleArguments.newInstance(((LogicTuple) t).toTerm()))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -372,13 +332,13 @@ public class ObservationService implements NodeServiceListener {
                              final Tuple t) {
         try {
             // Operation Make
-            RespectOperationDefault opRequested = null;
+            RespectOperationDefault opRequested;
             if (t != null) {
                 opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.OUT, LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(),
                                 TupleArguments.newValueArgument("completed_rdp", TupleArguments.newInstance(
-                                        ((TucsonTupleCentreId) tid).toTerm()),
-                                        TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
+                                        tid.toTerm()),
+                                        TupleArguments.newValueArgument(id.toString()),
                                         TupleArguments.newValueArgument("succeeded", TupleArguments.newInstance(
                                                 ((LogicTuple) t).toTerm())))), null);
                 // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
@@ -393,8 +353,8 @@ public class ObservationService implements NodeServiceListener {
                 opRequested = RespectOperationDefault.make(
                         TupleCentreOpType.OUT, LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(),
                                 TupleArguments.newValueArgument("completed_rdp", TupleArguments.newInstance(
-                                        ((TucsonTupleCentreId) tid).toTerm()),
-                                        TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
+                                        tid.toTerm()),
+                                        TupleArguments.newValueArgument(id.toString()),
                                         TupleArguments.newValueArgument("failed"))), null);
                 // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                 // .outCode(), this.obsAid, this.obsContext,
@@ -408,11 +368,7 @@ public class ObservationService implements NodeServiceListener {
             final InputEvent ev = new InputEvent(this.obsAid, opRequested,
                     this.obsContext, System.currentTimeMillis(), null);
             TupleCentreContainer.doBlockingOperation(ev);
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | TucsonInvalidLogicTupleException e) {
             e.printStackTrace();
         }
     }
@@ -426,8 +382,8 @@ public class ObservationService implements NodeServiceListener {
                     TupleCentreOpType.OUT,
                     LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(), TupleArguments.newValueArgument(
                             "requested_rdp", TupleArguments.newInstance(
-                                    ((TucsonTupleCentreId) tid).toTerm()),
-                            TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
+                                    tid.toTerm()),
+                            TupleArguments.newValueArgument(id.toString()),
                             TupleArguments.newInstance(((LogicTuple) t).toTerm()))),
                     null);
             // InputEvent Creation
@@ -441,11 +397,7 @@ public class ObservationService implements NodeServiceListener {
             // ((TucsonTupleCentreId) tid).toTerm()),
             // TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
             // TupleArguments.newInstance(((LogicTuple) t).toTerm()))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -459,8 +411,8 @@ public class ObservationService implements NodeServiceListener {
                     TupleCentreOpType.OUT,
                     LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(), TupleArguments.newValueArgument(
                             "requested_rd", TupleArguments.newInstance(
-                                    ((TucsonTupleCentreId) tid).toTerm()),
-                            TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
+                                    tid.toTerm()),
+                            TupleArguments.newValueArgument(id.toString()),
                             TupleArguments.newInstance(((LogicTuple) t).toTerm()))),
                     null);
             // InputEvent Creation
@@ -474,11 +426,7 @@ public class ObservationService implements NodeServiceListener {
             // ((TucsonTupleCentreId) tid).toTerm()),
             // TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
             // TupleArguments.newInstance(((LogicTuple) t).toTerm()))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -491,8 +439,8 @@ public class ObservationService implements NodeServiceListener {
                     TupleCentreOpType.OUT,
                     LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(), TupleArguments.newValueArgument(
                             "completed_setSpec", TupleArguments.newInstance(
-                                    ((TucsonTupleCentreId) tid).toTerm()),
-                            TupleArguments.newValueArgument(((TucsonAgentId) id).toString()))), null);
+                                    tid.toTerm()),
+                            TupleArguments.newValueArgument(id.toString()))), null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.obsAid, opRequested,
                     this.obsContext, System.currentTimeMillis(), null);
@@ -503,11 +451,7 @@ public class ObservationService implements NodeServiceListener {
             // "completed_setSpec", TupleArguments.newInstance(
             // ((TucsonTupleCentreId) tid).toTerm()),
             // TupleArguments.newValueArgument(((TucsonAgentId) id).toString()))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -521,8 +465,8 @@ public class ObservationService implements NodeServiceListener {
                     TupleCentreOpType.OUT,
                     LogicTuples.newInstance("node_event", TupleArguments.newVarArgument(), TupleArguments.newValueArgument(
                             "requested_setSpec", TupleArguments.newInstance(
-                                    ((TucsonTupleCentreId) tid).toTerm()),
-                            TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
+                                    tid.toTerm()),
+                            TupleArguments.newValueArgument(id.toString()),
                             TupleArguments.newValueArgument(spec))), null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.obsAid, opRequested,
@@ -535,11 +479,7 @@ public class ObservationService implements NodeServiceListener {
             // ((TucsonTupleCentreId) tid).toTerm()),
             // TupleArguments.newValueArgument(((TucsonAgentId) id).toString()),
             // TupleArguments.newValueArgument(spec))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -560,11 +500,7 @@ public class ObservationService implements NodeServiceListener {
             // this.obsAid, this.obsContext, LogicTuples.newInstance("node_event",
             // TupleArguments.newVarArgument(), TupleArguments.newValueArgument("new_tc", TupleArguments.newInstance(
             // tid.toTerm()))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -585,11 +521,7 @@ public class ObservationService implements NodeServiceListener {
             // this.obsAid, this.obsContext, LogicTuples.newInstance("node_event",
             // TupleArguments.newVarArgument(), TupleArguments.newValueArgument("destoyed_tc",
             // TupleArguments.newInstance(tid.toTerm()))));
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }

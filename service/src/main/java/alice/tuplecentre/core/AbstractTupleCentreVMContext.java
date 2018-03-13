@@ -89,8 +89,8 @@ public abstract class AbstractTupleCentreVMContext implements
         this.management = false;
         this.stepMode = false;
         this.step = new StepMonitor();
-        this.inputEvents = new LinkedList<AbstractEvent>();
-        this.inputEnvEvents = new LinkedList<AbstractEvent>();
+        this.inputEvents = new LinkedList<>();
+        this.inputEnvEvents = new LinkedList<>();
         this.tid = id;
         this.maxPendingInputEventNumber = ieSize;
         final AbstractTupleCentreVMState resetState = new ResetState(this);
@@ -101,7 +101,7 @@ public abstract class AbstractTupleCentreVMContext implements
         final AbstractTupleCentreVMState fetchEnvState = new FetchEnvState(this);
         final AbstractTupleCentreVMState reactingState = new ReactingState(this);
         final AbstractTupleCentreVMState speakingState = new SpeakingState(this);
-        this.states = new HashMap<String, AbstractTupleCentreVMState>();
+        this.states = new HashMap<>();
         this.states.put("ResetState", resetState);
         this.states.put("IdleState", idleState);
         this.states.put("ListeningState", listeningState);
@@ -109,10 +109,8 @@ public abstract class AbstractTupleCentreVMContext implements
         this.states.put("FetchEnvState", fetchEnvState);
         this.states.put("ReactingState", reactingState);
         this.states.put("SpeakingState", speakingState);
-        final Iterator<AbstractTupleCentreVMState> it = this.states.values()
-                .iterator();
-        while (it.hasNext()) {
-            it.next().resolveLinks();
+        for (AbstractTupleCentreVMState abstractTupleCentreVMState : this.states.values()) {
+            abstractTupleCentreVMState.resolveLinks();
         }
         this.currentState = resetState;
         this.respectTC = rtc;
@@ -691,7 +689,7 @@ public abstract class AbstractTupleCentreVMContext implements
             final int platform = PlatformUtils.getPlatform();
             final GeoLocationService geoService = GeolocationServiceManager
                     .getGeolocationManager().getAppositeService(platform);
-            if (geoService != null && !geoService.isRunning()) {
+            if (geoService != null && geoService.isNotRunning()) {
                 geoService.start();
             }
         }

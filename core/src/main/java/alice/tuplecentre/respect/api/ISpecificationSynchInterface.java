@@ -105,5 +105,5 @@ public interface ISpecificationSynchInterface {
      * @throws InvalidSpecificationException if the given ReSpecT specification is not valid
      */
     List<LogicTuple> setS(final RespectSpecification spec, final InputEvent ev)
-            throws OperationNotPossibleException, InvalidSpecificationException;
+            throws InvalidSpecificationException;
 }

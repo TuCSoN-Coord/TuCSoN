@@ -29,10 +29,7 @@ public class RespectOpId extends AbstractOperationId {
             return false;
         }
         final RespectOpId other = (RespectOpId) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+        return this.id == other.id;
     }
 
     @Override

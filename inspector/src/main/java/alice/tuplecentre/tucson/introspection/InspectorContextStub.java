@@ -49,7 +49,7 @@ public class InspectorContextStub implements InspectorContext {
     /**
      * listeners registrated for virtual machine output events
      */
-    private final List<InspectorContextListener> contextListeners = new ArrayList<InspectorContextListener>();
+    private final List<InspectorContextListener> contextListeners = new ArrayList<>();
     private TucsonProtocol dialog;
     private boolean exitFlag;
     /**
@@ -64,7 +64,7 @@ public class InspectorContextStub implements InspectorContext {
     /**
      * id of the tuple centre to be observed
      */
-    protected TucsonTupleCentreId tid;
+    protected final TucsonTupleCentreId tid;
 
     /**
      * @param i      the agent identifier to be used by this inspector
@@ -84,9 +84,7 @@ public class InspectorContextStub implements InspectorContext {
         this.tid = tc;
         try {
             this.getTupleCentreInfo(tc);
-        } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
-        } catch (final OperationNotAllowedException e) {
+        } catch (final UnreachableNodeException | OperationNotAllowedException e) {
             e.printStackTrace();
         }
         this.exitFlag = false;
@@ -102,8 +100,8 @@ public class InspectorContextStub implements InspectorContext {
         try {
             final InspectorContextEvent msg = this.dialog
                     .receiveInspectorEvent();
-            for (int i = 0; i < this.contextListeners.size(); i++) {
-                this.contextListeners.get(i).onContextEvent(msg);
+            for (InspectorContextListener contextListener : this.contextListeners) {
+                contextListener.onContextEvent(msg);
             }
         } catch (final DialogException e) {
             if (!this.exitFlag) {
@@ -192,7 +190,7 @@ public class InspectorContextStub implements InspectorContext {
      * daemon providing the tuple centre otherwise return the already
      * established connection
      */
-    private TucsonProtocol getTupleCentreInfo(
+    private void getTupleCentreInfo(
             final TucsonTupleCentreId tc) throws UnreachableNodeException,
             OperationNotAllowedException {
         try {
@@ -206,7 +204,7 @@ public class InspectorContextStub implements InspectorContext {
                 final NewInspectorMessage msg = new NewInspectorMessageDefault(this.id,
                         tc.toString(), this.protocol);
                 this.dialog.sendInspectorMsg(msg);
-                return this.dialog;
+                return;
             }
         } catch (final DialogException e) {
             e.printStackTrace();
@@ -222,9 +220,7 @@ public class InspectorContextStub implements InspectorContext {
     protected void resolveTupleCentreInfo(final TucsonTupleCentreId titcd) {
         try {
             this.getTupleCentreInfo(titcd);
-        } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
-        } catch (final OperationNotAllowedException e) {
+        } catch (final UnreachableNodeException | OperationNotAllowedException e) {
             e.printStackTrace();
         }
     }

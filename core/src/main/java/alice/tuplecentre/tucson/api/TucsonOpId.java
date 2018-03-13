@@ -47,10 +47,7 @@ public class TucsonOpId extends AbstractOperationId {
             return false;
         }
         final TucsonOpId other = (TucsonOpId) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+        return this.id == other.id;
     }
 
     @Override

@@ -112,7 +112,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
              */
             e.printStackTrace();
         }
-        final List<Role> roles = new ArrayList<Role>();
+        final List<Role> roles = new ArrayList<>();
         if (op != null && op.isResultSuccess()) {
             final LogicTuple res = op.getLogicTupleResult();
             if (res.getArg(1).getName().equalsIgnoreCase("ok")) {
@@ -141,7 +141,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
     public boolean login(final String username, final String password)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
-        LogicTuple loginTuple = null;
+        LogicTuple loginTuple;
         TucsonOperation op = null;
         try {
             loginTuple = LogicTuples.newInstance("login_request", TupleArguments.newValueArgument(username
@@ -154,10 +154,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
         if (op != null && op.isResultSuccess()) {
             final TupleArgument reply = op.getLogicTupleResult().getArg(1);
             this.setAgentClass(reply.getArg(0).toString());
-            if (reply.getName().equals("ok")) {
-                return true;
-            }
-            return false;
+            return reply.getName().equals("ok");
         }
         return false;
     }
@@ -167,7 +164,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException,
             TucsonInvalidAgentIdException {
-        if (!this.isRBACInstalled(this.tid)) {
+        if (this.isNotRBACInstalled(this.tid)) {
             return new ACCProxyAgentSide(this.agentAid, this.node, this.port);
         }
         return null;
@@ -187,7 +184,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
             UnreachableNodeException, OperationTimeOutException,
             TucsonInvalidAgentIdException, AgentNotAllowedException {
 
-        if (!this.isRBACInstalled(this.tid)) {
+        if (this.isNotRBACInstalled(this.tid)) {
             return new ACCProxyAgentSide(this.agentAid, this.node, this.port);
         }
         final UUID agentUUID = UUID.randomUUID();
@@ -217,7 +214,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
             UnreachableNodeException, OperationTimeOutException,
             TucsonInvalidAgentIdException, AgentNotAllowedException {
 
-        if (!this.isRBACInstalled(this.tid)) {
+        if (this.isNotRBACInstalled(this.tid)) {
             return new ACCProxyAgentSide(this.agentAid, this.node, this.port);
         }
         final List<Policy> policies = TucsonACCTool.getPoliciesList(
@@ -243,7 +240,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
         return this.agentClass;
     }
 
-    private boolean isRBACInstalled(final TupleCentreIdentifier tcid)
+    private boolean isNotRBACInstalled(final TupleCentreIdentifier tcid)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
         LogicTuple rbacInstalled = null;
@@ -256,11 +253,9 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
                 (Long) null);
         if (op.isResultSuccess()) {
             final LogicTuple res = op.getLogicTupleResult();
-            if (res.getArg(0).toString().equals("yes")) {
-                return true;
-            }
+            return !res.getArg(0).toString().equals("yes");
         }
-        return false;
+        return true;
     }
 
     private void setAgentClass(final String agClass) {
@@ -278,13 +273,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
                         .toString();
                 this.setAgentClass(baseClass);
             }
-        } catch (final InvalidVarNameException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
-        } catch (final OperationTimeOutException e) {
+        } catch (final InvalidVarNameException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
 

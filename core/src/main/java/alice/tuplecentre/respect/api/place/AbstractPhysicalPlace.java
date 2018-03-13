@@ -15,7 +15,7 @@ public abstract class AbstractPhysicalPlace implements IPlace, Serializable {
     /**
      * The tuProlog term storing the place representation
      */
-    protected Term place;
+    protected final Term place;
 
     /**
      * @param p the String representation of the place

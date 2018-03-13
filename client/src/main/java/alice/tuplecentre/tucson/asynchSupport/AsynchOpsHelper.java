@@ -89,7 +89,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
         if (this.isSoftStopped || this.isHardStopped) {
             return false;
         }
-        TucsonOpWrapper op = null;
+        TucsonOpWrapper op;
         final TucsonListenerWrapper wol = new TucsonListenerWrapper(listener,
                 this);
         op = new TucsonOpWrapper(getACC(), action, wol);
@@ -184,7 +184,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
 
     @Override
     protected final void main() {
-        TucsonOpWrapper op = null;
+        TucsonOpWrapper op;
         AsynchOpsHelper.log(this.getTucsonAgentId(), "started");
         // this is the loop that executes the operation until user stop command
         while (!this.isHardStopped && !this.isSoftStopped) {
@@ -197,11 +197,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
                             + op.toString());
                     op.execute();
                 }
-            } catch (final InterruptedException e) {
-                e.printStackTrace();
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-            } catch (final UnreachableNodeException e) {
+            } catch (final InterruptedException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
             }
         }
@@ -239,11 +235,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
                                 "doing op " + op.toString());
                         op.execute();
                     }
-                } catch (final InterruptedException e) {
-                    e.printStackTrace();
-                } catch (final TucsonOperationNotPossibleException e) {
-                    e.printStackTrace();
-                } catch (final UnreachableNodeException e) {
+                } catch (final InterruptedException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
                     e.printStackTrace();
                 }
             }

@@ -20,7 +20,6 @@
 package alice.tuplecentre.tucson.asynchSupport;
 
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
-import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.acc.EnhancedAsyncACC;
 import alice.tuplecentre.tucson.api.actions.AbstractTucsonAction;
@@ -82,10 +81,10 @@ public class TucsonOpWrapper {
      * @throws UnreachableNodeException            if the TuCSoN node target of the operation is not
      *                                             network-reachable
      */
-    public final TucsonOperation execute()
+    public final void execute()
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
-        return this.action.executeAsynch(this.acc, this.listener);
+        this.action.executeAsynch(this.acc, this.listener);
     }
 
     /**

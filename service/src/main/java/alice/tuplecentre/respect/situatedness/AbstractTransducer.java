@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.UUID;
 
-import alice.tuple.TupleTemplate;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArguments;
@@ -48,19 +47,19 @@ public abstract class AbstractTransducer implements
     /**
      * Class used to perform requested operation to the tuple centre
      **/
-    protected OperationHandler executor;
+    protected final OperationHandler executor;
     /**
      * Transducer's identifier
      **/
-    protected TransducerId id;
+    protected final TransducerId id;
     /**
      * List of probes associated to the transducer
      **/
-    protected Map<ProbeIdentifier, Object> probes;
+    protected final Map<ProbeIdentifier, Object> probes;
     /**
      * Identifier of the tuple centre associated
      **/
-    protected TupleCentreIdentifier tcId;
+    protected final TupleCentreIdentifier tcId;
 
     /**
      * Constructs a transducer
@@ -106,7 +105,7 @@ public abstract class AbstractTransducer implements
             contr = cs.getController();
             contr.setStop();
             op = new TucsonOperationDefault(TupleCentreOpType.EXIT,
-                    (TupleTemplate) null, null, this.executor);
+                    null, null, this.executor);
             this.executor.addOperation(op);
             final InputEventMessage ev = new InputEventMessageDefault(this.id.toString(),
                     op.getId(), op.getType(), op.getLogicTupleArgument(), null,

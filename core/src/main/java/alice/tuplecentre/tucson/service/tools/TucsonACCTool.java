@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import alice.tuple.logic.LogicTuple;
@@ -42,6 +43,7 @@ public final class TucsonACCTool {
      * @return {@code true} or {@code false} depending on whether activation is
      * successful or not
      */
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean activateContext(final String agentAid,
                                           final UUID agentUUID, final String agentClass,
                                           final TupleCentreIdentifier tid, final EnhancedACC acc) {
@@ -62,13 +64,7 @@ public final class TucsonACCTool {
                     return true;
                 }
             }
-        } catch (final InvalidVarNameException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
-        } catch (final OperationTimeOutException e) {
+        } catch (final InvalidVarNameException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
         return false;
@@ -97,7 +93,7 @@ public final class TucsonACCTool {
         Role newRole = null;
         try {
             final LogicTuple template = LogicTuples.newInstance(
-                    "role_activation_request", TupleArguments.newValueArgument(agentAid.toString()),
+                    "role_activation_request", TupleArguments.newValueArgument(agentAid),
                     TupleArguments.newValueArgument(accUUID.toString()), TupleArguments.newValueArgument(roleName),
                     TupleArguments.newVarArgument("Result"));
             final TucsonOperation op = acc.inp(tid, template, (Long) null);
@@ -118,13 +114,7 @@ public final class TucsonACCTool {
                     throw new AgentNotAllowedException();
                 }
             }
-        } catch (final InvalidVarNameException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
-        } catch (final OperationTimeOutException e) {
+        } catch (final InvalidVarNameException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
         return newRole;
@@ -159,7 +149,7 @@ public final class TucsonACCTool {
                 final String roleName = res.getArg(1).toString();
                 final LogicTuple template = LogicTuples.newInstance(
                         "role_activation_request", TupleArguments.newValueArgument(
-                                agentAid.toString()), TupleArguments.newValueArgument(
+                                agentAid), TupleArguments.newValueArgument(
                                 accUUID.toString()), TupleArguments.newValueArgument(roleName),
                         TupleArguments.newVarArgument("Result"));
                 op = acc.inp(tid, template, (Long) null);
@@ -173,13 +163,7 @@ public final class TucsonACCTool {
                     }
                 }
             }
-        } catch (final InvalidVarNameException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
-        } catch (final OperationTimeOutException e) {
+        } catch (final InvalidVarNameException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
         return newRole;
@@ -202,9 +186,9 @@ public final class TucsonACCTool {
              */
             e.printStackTrace();
         }
-        md.update(password.getBytes());
+        Objects.requireNonNull(md).update(password.getBytes());
         final byte[] byteData = md.digest();
-        final StringBuffer sb = new StringBuffer();
+        final StringBuilder sb = new StringBuilder();
         for (final byte element : byteData) {
             sb.append(Integer.toString((element & 0xff) + 0x100, 16).substring(
                     1));
@@ -223,7 +207,7 @@ public final class TucsonACCTool {
      */
     public static List<Policy> getPoliciesList(final String agentClass,
                                                final TupleCentreIdentifier tid, final EnhancedACC acc) {
-        final List<Policy> policies = new ArrayList<Policy>();
+        final List<Policy> policies = new ArrayList<>();
         try {
             final LogicTuple policyListTuple = LogicTuples.newInstance(
                     "policies_list_request", TupleArguments.newValueArgument(agentClass), TupleArguments.newVarArgument(
@@ -244,13 +228,7 @@ public final class TucsonACCTool {
                     }
                 }
             }
-        } catch (final InvalidVarNameException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
-        } catch (final OperationTimeOutException e) {
+        } catch (final InvalidVarNameException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
         return policies;

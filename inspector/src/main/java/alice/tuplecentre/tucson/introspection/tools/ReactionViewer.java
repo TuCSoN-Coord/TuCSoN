@@ -13,7 +13,7 @@
  */
 package alice.tuplecentre.tucson.introspection.tools;
 
-import java.awt.Color;
+import java.awt.*;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -113,7 +113,7 @@ public class ReactionViewer extends javax.swing.JFrame {
             }
         });
         this.outputArea.setEditable(false);
-        this.outputArea.setFont(new java.awt.Font("Courier New", 0, 12));
+        this.outputArea.setFont(new java.awt.Font("Courier New", Font.PLAIN, 12));
         this.jScrollPane1.setViewportView(this.outputArea);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -123,13 +123,13 @@ public class ReactionViewer extends javax.swing.JFrame {
         gridBagConstraints.weightx = 100.0;
         gridBagConstraints.weighty = 100.0;
         this.getContentPane().add(this.jScrollPane1, gridBagConstraints);
-        jTabbedPane1.setFont(new java.awt.Font("Arial", 0, 11));
+        jTabbedPane1.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         jPanel5.setLayout(new java.awt.GridBagLayout());
         jPanel7.setLayout(new java.awt.GridBagLayout());
         jPanel7.setBorder(new javax.swing.border.TitledBorder(
                 new javax.swing.border.EtchedBorder(), "store"));
-        jPanel7.setFont(new java.awt.Font("Arial", 0, 11));
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 11));
+        jPanel7.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
+        jLabel1.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel1.setText("dump observations on file: ");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -153,7 +153,7 @@ public class ReactionViewer extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 100.0;
         jPanel7.add(this.inputFileLog, gridBagConstraints);
-        buttonBrowse.setFont(new java.awt.Font("Arial", 0, 11));
+        buttonBrowse.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         buttonBrowse.setText("Browse");
         buttonBrowse.addActionListener(new java.awt.event.ActionListener() {
 

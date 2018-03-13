@@ -53,11 +53,11 @@ public class Rdp extends AbstractTucsonOrdinaryAction {
     }
 
     @Override
-    public TucsonOperation executeAsynch(final EnhancedAsyncACC acc,
-                                         final TucsonOperationCompletionListener listener)
+    public void executeAsynch(final EnhancedAsyncACC acc,
+                              final TucsonOperationCompletionListener listener)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
-        return acc.rdp(this.tcid, this.tuple, listener);
+        acc.rdp(this.tcid, this.tuple, listener);
     }
 
     @Override

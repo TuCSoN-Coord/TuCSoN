@@ -59,7 +59,7 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation getS(final TupleCentreIdentifier tid, final TucsonOperationCompletionListener l)
+    void getS(final TupleCentreIdentifier tid, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -87,9 +87,9 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation inpS(final TupleCentreIdentifier tid, final LogicTuple event,
-                         final LogicTuple guards, final LogicTuple reactionBody,
-                         final TucsonOperationCompletionListener l)
+    void inpS(final TupleCentreIdentifier tid, final LogicTuple event,
+              final LogicTuple guards, final LogicTuple reactionBody,
+              final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -119,9 +119,9 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation inS(final TupleCentreIdentifier tid, final LogicTuple event,
-                        final LogicTuple guards, final LogicTuple reactionBody,
-                        final TucsonOperationCompletionListener l)
+    void inS(final TupleCentreIdentifier tid, final LogicTuple event,
+             final LogicTuple guards, final LogicTuple reactionBody,
+             final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -149,9 +149,9 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation nopS(final TupleCentreIdentifier tid, final LogicTuple event,
-                         final LogicTuple guards, final LogicTuple reactionBody,
-                         final TucsonOperationCompletionListener l)
+    void nopS(final TupleCentreIdentifier tid, final LogicTuple event,
+              final LogicTuple guards, final LogicTuple reactionBody,
+              final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -181,9 +181,9 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation noS(final TupleCentreIdentifier tid, final LogicTuple event,
-                        final LogicTuple guards, final LogicTuple reactionBody,
-                        final TucsonOperationCompletionListener l)
+    void noS(final TupleCentreIdentifier tid, final LogicTuple event,
+             final LogicTuple guards, final LogicTuple reactionBody,
+             final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -210,9 +210,9 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation outS(final TupleCentreIdentifier tid, final LogicTuple event,
-                         final LogicTuple guards, final LogicTuple reactionBody,
-                         final TucsonOperationCompletionListener l)
+    void outS(final TupleCentreIdentifier tid, final LogicTuple event,
+              final LogicTuple guards, final LogicTuple reactionBody,
+              final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -241,9 +241,9 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation rdpS(final TupleCentreIdentifier tid, final LogicTuple event,
-                         final LogicTuple guards, final LogicTuple reactionBody,
-                         final TucsonOperationCompletionListener l)
+    void rdpS(final TupleCentreIdentifier tid, final LogicTuple event,
+              final LogicTuple guards, final LogicTuple reactionBody,
+              final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -274,9 +274,9 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation rdS(final TupleCentreIdentifier tid, final LogicTuple event,
-                        final LogicTuple guards, final LogicTuple reactionBody,
-                        final TucsonOperationCompletionListener l)
+    void rdS(final TupleCentreIdentifier tid, final LogicTuple event,
+             final LogicTuple guards, final LogicTuple reactionBody,
+             final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -298,8 +298,8 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation setS(final TupleCentreIdentifier tid, final LogicTuple spec,
-                         final TucsonOperationCompletionListener l)
+    void setS(final TupleCentreIdentifier tid, final LogicTuple spec,
+              final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**

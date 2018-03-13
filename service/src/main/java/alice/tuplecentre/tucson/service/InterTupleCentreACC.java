@@ -36,9 +36,9 @@ public interface InterTupleCentreACC {
      * @throws TucsonInvalidTupleCentreIdException if the given Object is not a valid identifier of a tuple
      *                                             centre
      */
-    OperationIdentifier doOperation(final Object tid, final AbstractTupleCentreOperation op)
+    void doOperation(final Object tid, final AbstractTupleCentreOperation op)
             throws TucsonOperationNotPossibleException,
-            UnreachableNodeException, TucsonInvalidTupleCentreIdException;
+            UnreachableNodeException;
 
     /**
      * @param id the identifier of the operation requested

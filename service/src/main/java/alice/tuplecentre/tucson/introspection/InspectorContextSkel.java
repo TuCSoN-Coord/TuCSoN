@@ -17,6 +17,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Objects;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
@@ -102,7 +103,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         super();
         this.dialog = d;
         this.manager = man;
-        NewInspectorMessage msg = null;
+        NewInspectorMessage msg;
         this.ctxId = Integer.parseInt(p.getProperty("context-id"));
         final String name = p.getProperty("agent-identity");
         this.agentId = new TucsonAgentIdDefault(name);
@@ -132,8 +133,8 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         msg.setVmTime(System.currentTimeMillis());
         msg.setLocalTime(System.currentTimeMillis());
         if (m.getWhat() == GetSnapshotMessage.SetType.TSET) {
-            msg.setTuples(new LinkedList<LogicTuple>());
-            LogicTuple[] tSet = null;
+            msg.setTuples(new LinkedList<>());
+            LogicTuple[] tSet;
             tSet = (LogicTuple[]) TupleCentreContainer.doManagementOperation(
                     TupleCentreOpType.GET_TSET, this.tcId,
                     this.protocol.getTsetFilter());
@@ -143,11 +144,11 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                 }
             }
         } else if (m.getWhat() == GetSnapshotMessage.SetType.WSET) {
-            WSetEvent[] ltSet = null;
+            WSetEvent[] ltSet;
             ltSet = (WSetEvent[]) TupleCentreContainer.doManagementOperation(
                     TupleCentreOpType.GET_WSET, this.tcId,
                     this.protocol.getWsetFilter());
-            msg.setWnEvents(new LinkedList<WSetEvent>());
+            msg.setWnEvents(new LinkedList<>());
             if (ltSet != null) {
                 for (final WSetEvent lt : ltSet) {
                     msg.getWnEvents().add(lt);
@@ -206,7 +207,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                             .doManagementOperation(
                                     TupleCentreOpType.GET_TSET, this.tcId,
                                     this.protocol.getTsetFilter());
-                    msg.setTuples(new LinkedList<LogicTuple>());
+                    msg.setTuples(new LinkedList<>());
                     if (ltSet != null) {
                         for (final LogicTuple lt : ltSet) {
                             msg.getTuples().add(lt);
@@ -218,7 +219,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                             .doManagementOperation(
                                     TupleCentreOpType.GET_WSET, this.tcId,
                                     this.protocol.getWsetFilter());
-                    msg.setWnEvents(new LinkedList<WSetEvent>());
+                    msg.setWnEvents(new LinkedList<>());
                     if (ltSet != null) {
                         for (final WSetEvent lt : ltSet) {
                             msg.getWnEvents().add(lt);
@@ -234,7 +235,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                             .doManagementOperation(
                                     TupleCentreOpType.GET_TSET, this.tcId,
                                     this.protocol.getTsetFilter());
-                    msg.setTuples(new LinkedList<LogicTuple>());
+                    msg.setTuples(new LinkedList<>());
                     if (ltSet != null) {
                         for (final LogicTuple lt : ltSet) {
                             msg.getTuples().add(lt);
@@ -246,7 +247,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                             .doManagementOperation(
                                     TupleCentreOpType.GET_WSET, this.tcId,
                                     this.protocol.getWsetFilter());
-                    msg.setWnEvents(new LinkedList<WSetEvent>());
+                    msg.setWnEvents(new LinkedList<>());
                     if (ltSet != null) {
                         for (final WSetEvent lt : ltSet) {
                             msg.getWnEvents().add(lt);
@@ -305,23 +306,13 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                 final NodeMessage msg = this.dialog.receiveNodeMsg();
                 final Class<?> cl = msg.getClass();
                 final Method m = this.getClass().getMethod(msg.getAction(),
-                        new Class[]{cl});
-                m.invoke(this, new Object[]{msg});
+                        cl);
+                m.invoke(this, msg);
             }
             this.dialog.end();
             TupleCentreContainer.doManagementOperation(
                     TupleCentreOpType.RMV_INSP, this.tcId, this);
-        } catch (final NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (final SecurityException e) {
-            e.printStackTrace();
-        } catch (final IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (final IllegalArgumentException e) {
-            e.printStackTrace();
-        } catch (final InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (final DialogException e) {
+        } catch (final NoSuchMethodException | DialogException | InvocationTargetException | IllegalArgumentException | IllegalAccessException | SecurityException e) {
             e.printStackTrace();
         }
         this.manager.shutdownContext(this.ctxId, this.agentId);
@@ -371,11 +362,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
             TupleCentreContainer.doBlockingOperation(ev);
             // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.SET,
             // this.agentId, this.tcId, m.getTupleSet());
-        } catch (final TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }
@@ -391,7 +378,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         final ArrayList<InspectableEventListener> inspectors = (ArrayList<InspectableEventListener>) TupleCentreContainer
                 .doManagementOperation(TupleCentreOpType.GET_INSPS,
                         this.tcId, null);
-        for (final InspectableEventListener insp : inspectors) {
+        for (final InspectableEventListener insp : Objects.requireNonNull(inspectors)) {
             final InspectorContextSkel skel = (InspectorContextSkel) insp;
             if (skel.getId() == this.getId()) {
                 continue;

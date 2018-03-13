@@ -16,12 +16,7 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.util.AbstractMap;
-import java.util.Enumeration;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 import alice.tuple.Tuple;
 import alice.tuple.logic.LogicMatchingEngine;
@@ -89,10 +84,8 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         }
         if (source instanceof TucsonTupleCentreIdDefault) {
             final TucsonTupleCentreId ttcid = (TucsonTupleCentreId) source;
-            if (alice.util.Tools.removeApices(ttcid.getNode()).equals(
-                    Respect2PLibrary.getFirstActiveIP())) {
-                return true;
-            }
+            return Tools.removeApices(ttcid.getNode()).equals(
+                    Respect2PLibrary.getFirstActiveIP());
         }
         return false;
     }
@@ -180,10 +173,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final long evtTime = ev.getTime();
         long compareTime;
         compareTime = ((alice.tuprolog.Number) time).longValue();
-        if (evtTime <= compareTime) {
-            return true;
-        }
-        return false;
+        return evtTime <= compareTime;
     }
 
     /**
@@ -314,10 +304,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if (value instanceof alice.tuprolog.Var) {
             final String res = this.vm.getCurrentReactionEvent().getEventProp(
                     key.getTerm().toString());
-            if (res == null) {
-                return false;
-            }
-            return this.unify(value, new Struct(res));
+            return res != null && this.unify(value, new Struct(res));
         }
         return false;
     }
@@ -340,7 +327,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
          * posizione del tc (dunque del nodo).
          */
         final InputEvent ev = this.vm.getCurrentEvent();
-        Term ePlaceTerm = null;
+        Term ePlaceTerm;
         if (ev.isLinking()) {
             ePlaceTerm = this.vm.getPosition().getPlace(space).toTerm();
         } else {
@@ -436,13 +423,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             return true;
         }
         final EmitterIdentifier currentTc = this.vm.getId();
-        if (currentTc.toString().equals(source.toString())) {
-            return false;
-        }
-        if (Respect2PLibrary.checkIP(source)) {
-            return false;
-        }
-        return true;
+        return !currentTc.toString().equals(source.toString()) && !Respect2PLibrary.checkIP(source);
     }
 
     /**
@@ -461,10 +442,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     public boolean from_agent_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
         final EmitterIdentifier source = ev.getSource();
-        if (source.isAgent()) {
-            return true;
-        }
-        return false;
+        return source.isAgent();
     }
 
     /********************************************************************
@@ -485,10 +463,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     public boolean from_tc_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
         final EmitterIdentifier source = ev.getSource();
-        if (source.isTC()) {
-            return true;
-        }
-        return false;
+        return source.isTC();
     }
 
     /**
@@ -500,11 +475,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean get_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local get triggered...");
             final List<Tuple> list = this.vm.getAllTuples();
@@ -550,15 +525,15 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean get_s_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local get_s triggered...");
             final Iterator<LogicTuple> it = this.vm.getSpecTupleSetIterator();
-            final List<Tuple> list = new LinkedList<Tuple>();
+            final List<Tuple> list = new LinkedList<>();
             while (it.hasNext()) {
                 list.add(it.next());
             }
@@ -606,12 +581,10 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
      *                                             reason
      */
-    public boolean getEnv_3(final Term env, final Term key, final Term val)
-            throws TucsonOperationNotPossibleException,
-            UnreachableNodeException, OperationTimeOutException {
+    public boolean getEnv_3(final Term env, final Term key, final Term val) {
         // Get engine's copy of key and val
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
-        final AbstractMap<Var, Var> v1 = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
+        final AbstractMap<Var, Var> v1 = new LinkedHashMap<>();
         final LogicTuple lt = LogicTuples.newInstance("getEnv", TupleArguments.newInstance(
                 key.copyGoal(v, 0)), TupleArguments.newInstance(val.copyGoal(v1, 0)));
         // Building internal events
@@ -629,7 +602,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final TransducersManager tm = TransducersManager.INSTANCE;
         // Getting the transducer from the transducer manager
         final TransducerId tId = tm.getTransducerId(envId);
-        if (tm.getTransducer(tId.getLocalName()).notifyOutput(internalEv)) {
+        if (Objects.requireNonNull(tm.getTransducer(tId.getLocalName())).notifyOutput(internalEv)) {
             this.vm.fetchTriggeredReactions(internalEv);
             return true;
         }
@@ -724,12 +697,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean in_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local in triggered...");
             final Tuple tuple = this.vm
@@ -770,12 +743,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean in_all_3(final Term arg0, final Term arg1, final Term arg2)
             throws InvalidTupleCentreIdException, InvalidLogicTupleException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg2);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local in_all triggered...");
             final List<Tuple> tuples = this.vm
@@ -790,7 +763,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote in_all triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final String tuple = arg0.getTerm().toString() + "," + arg1;
-        LogicTuple resultArg = null;
+        LogicTuple resultArg;
         resultArg = LogicTuples.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeInAll(resultArg, null), tid,
@@ -815,11 +788,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     public boolean in_s_4(final Term ev, final Term g, final Term r,
                           final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(tc);
         tcName = tid.getLocalName();
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         Term goal;
         try {
             goal = Term.createTerm(
@@ -881,12 +854,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean inp_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local inp triggered...");
             final Tuple tuple = this.vm
@@ -929,11 +902,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     public boolean inp_s_4(final Term ev, final Term g, final Term r,
                            final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(tc);
         tcName = tid.getLocalName();
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         Term goal;
         try {
             goal = Term.createTerm(
@@ -1004,13 +977,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             return false;
         }
         final EmitterIdentifier currentTc = this.vm.getId();
-        if (currentTc.toString().equals(target.toString())) {
-            return true;
-        }
-        if (Respect2PLibrary.checkIP(target)) {
-            return true;
-        }
-        return false;
+        return currentTc.toString().equals(target.toString()) || Respect2PLibrary.checkIP(target);
     }
 
     /**
@@ -1111,10 +1078,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             final String centerIp = NetworkUtils.getIp(centerIpS);
             final int mask = NetworkUtils.getNetmask(centerIpS);
             final String decMask = NetworkUtils.getDecimalNetmask(centerIpS);
-            if (vmMask <= mask + radiusN && vmMask >= mask - radiusN) {
-                return NetworkUtils.sameNetwork(vmIp, centerIp, decMask);
-            }
-            return false;
+            return vmMask <= mask + radiusN && vmMask >= mask - radiusN && NetworkUtils.sameNetwork(vmIp, centerIp, decMask);
         } else if (this.unify(space, Term.createTerm(Position.DNS))) {
             final float radiusN = ((alice.tuprolog.Number) radius).floatValue();
             final String vmDnsS = Tools.removeApices(vmPosTerm.toString());
@@ -1128,8 +1092,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             StringBuffer toCheck = new StringBuffer(centerDnsParts.length);
             for (int i = centerDnsParts.length - 1; i >= 0; i--) {
                 for (int j = i; j < centerDnsParts.length; j++) {
-                    toCheck.append(centerDnsParts[j]
-                            + (j < centerDnsParts.length - 1 ? "." : ""));
+                    toCheck.append(centerDnsParts[j]).append(j < centerDnsParts.length - 1 ? "." : "");
                 }
                 if (vmDnsS.contains(toCheck)) {
                     for (int k = (int) radiusN; k > 0; k--) {
@@ -1153,12 +1116,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean no_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local no triggered...");
             final Tuple tuple = this.vm
@@ -1197,18 +1160,18 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean no_all_3(final Term arg0, final Term arg1, final Term arg2)
             throws InvalidTupleCentreIdException, InvalidLogicTupleException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg2);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local no_all triggered...");
             final List<Tuple> tuples = this.vm
                     .readAllTuples(tuArg);
             if (tuples == null) {
-                final Term term = Respect2PLibrary.list2tuple(tuples);
+                final Term term = Respect2PLibrary.list2tuple(Objects.requireNonNull(tuples));
                 this.unify(arg1, term.copyGoal(v, 0));
                 return true;
             }
@@ -1217,7 +1180,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote no_all triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final String tuple = arg0.getTerm().toString() + "," + arg1;
-        LogicTuple resultArg = null;
+        LogicTuple resultArg;
         resultArg = LogicTuples.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeNoAll(resultArg, null), tid,
@@ -1242,11 +1205,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     public boolean no_s_4(final Term ev, final Term g, final Term r,
                           final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(tc);
         tcName = tid.getLocalName();
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         Term goal;
         try {
             goal = Term.createTerm(
@@ -1296,12 +1259,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean nop_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local nop triggered...");
             final Tuple tuple = this.vm
@@ -1343,11 +1306,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     public boolean nop_s_4(final Term ev, final Term g, final Term r,
                            final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(tc);
         tcName = tid.getLocalName();
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         Term goal;
         try {
             goal = Term.createTerm(
@@ -1411,11 +1374,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean out_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local out triggered...");
             final Term newArg = arg0.copyGoal(v, 0);
@@ -1469,11 +1432,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean out_all_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local out_all triggered...");
             final Term newArg = arg0.copyGoal(v, 0);
@@ -1514,11 +1477,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     public boolean out_s_4(final Term ev, final Term g, final Term r,
                            final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(tc);
         tcName = tid.getLocalName();
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         Term goal;
         try {
             goal = Term.createTerm(
@@ -1578,12 +1541,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean rd_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rd triggered...");
             final Tuple tuple = this.vm
@@ -1624,12 +1587,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean rd_all_3(final Term arg0, final Term arg1, final Term arg2)
             throws InvalidTupleCentreIdException, InvalidLogicTupleException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg2);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rd_all triggered...");
             final List<Tuple> tuples = this.vm
@@ -1644,7 +1607,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote rd_all triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final String tuple = arg0.getTerm().toString() + "," + arg1;
-        LogicTuple resultArg = null;
+        LogicTuple resultArg;
         resultArg = LogicTuples.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeRdAll(resultArg, null), tid,
@@ -1669,11 +1632,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     public boolean rd_s_4(final Term ev, final Term g, final Term r,
                           final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(tc);
         tcName = tid.getLocalName();
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         Term goal;
         try {
             goal = Term.createTerm(
@@ -1725,12 +1688,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean rdp_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rdp triggered...");
             final Tuple tuple = this.vm
@@ -1777,11 +1740,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     public boolean rdp_s_4(final Term ev, final Term g, final Term r,
                            final Term tc) throws InvalidTupleCentreIdException,
             InvalidTupleArgumentException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(tc);
         tcName = tid.getLocalName();
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         Term goal;
         try {
             goal = Term.createTerm(
@@ -1868,12 +1831,10 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
      *                                             reason
      */
-    public boolean setEnv_3(final Term env, final Term key, final Term val)
-            throws TucsonOperationNotPossibleException,
-            UnreachableNodeException, OperationTimeOutException {
+    public boolean setEnv_3(final Term env, final Term key, final Term val) {
         // Get engine's copy of key and val
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
-        final AbstractMap<Var, Var> v1 = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
+        final AbstractMap<Var, Var> v1 = new LinkedHashMap<>();
         final LogicTuple lt = LogicTuples.newInstance("setEnv", TupleArguments.newInstance(
                 key.copyGoal(v, 0)), TupleArguments.newInstance(val.copyGoal(v1, 0)));
         // Building internal events
@@ -1891,7 +1852,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final TransducersManager tm = TransducersManager.INSTANCE;
         // Getting the transducer from the transducer manager
         final TransducerId tId = tm.getTransducerId(envId);
-        if (tm.getTransducer(tId.getLocalName()).notifyOutput(internalEv)) {
+        if (Objects.requireNonNull(tm.getTransducer(tId.getLocalName())).notifyOutput(internalEv)) {
             this.vm.fetchTriggeredReactions(internalEv);
             return true;
         }
@@ -1907,11 +1868,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean spawn_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local spawn triggered...");
             final Term newArg = arg0.copyGoal(v, 0);
@@ -2170,10 +2131,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     public boolean to_agent_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
         final EmitterIdentifier target = ev.getTarget();
-        if (target.isAgent()) {
-            return true;
-        }
-        return false;
+        return target.isAgent();
     }
 
     /**
@@ -2191,10 +2149,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     public boolean to_tc_0() {
         final AbstractEvent ev = this.vm.getCurrentReactionEvent();
         final EmitterIdentifier target = ev.getTarget();
-        if (target.isTC()) {
-            return true;
-        }
-        return false;
+        return target.isTC();
     }
 
     /**
@@ -2206,12 +2161,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean uin_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local uin triggered...");
             final Tuple tuple = this.vm
@@ -2250,12 +2205,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean uinp_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local uinp triggered...");
             final Tuple tuple = this.vm
@@ -2294,12 +2249,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean uno_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local uno triggered...");
             final Tuple tuple = this.vm
@@ -2338,12 +2293,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean unop_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local unop triggered...");
             final Tuple tuple = this.vm
@@ -2382,12 +2337,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean urd_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local urd triggered...");
             final Tuple tuple = this.vm
@@ -2426,12 +2381,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      */
     public boolean urdp_2(final Term arg0, final Term arg1)
             throws InvalidTupleCentreIdException {
-        String tcName = null;
-        TupleCentreIdentifier tid = null;
+        String tcName;
+        TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
         final LogicTuple tuArg = LogicTuples.newInstance(arg0);
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local urdp triggered...");
             final Tuple tuple = this.vm

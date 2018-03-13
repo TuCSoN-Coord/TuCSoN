@@ -126,11 +126,7 @@ public class Worker extends AbstractTucsonAgent<RootACC> {
             e.printStackTrace();
         } finally {
             if (acc != null) {
-                try {
-                    acc.exit();
-                } catch (final TucsonOperationNotPossibleException e) {
-                    e.printStackTrace();
-                }
+                acc.exit();
             }
         }
     }

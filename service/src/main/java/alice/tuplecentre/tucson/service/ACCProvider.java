@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.tucson.service;
 
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -90,7 +91,7 @@ public class ACCProvider {
      *                                             represent a valid TuCSoN identifier
      */
     // exception handling is a mess, need to review it...
-    public synchronized boolean processContextRequest(
+    public synchronized void processContextRequest(
             final ACCDescription profile, final TucsonProtocol dialog)
             throws DialogReceiveException, TucsonInvalidAgentIdException,
             TucsonInvalidTupleCentreIdException {
@@ -132,7 +133,7 @@ public class ACCProvider {
                 } catch (DialogSendException e) {
                     e.printStackTrace();
                 }
-                return false;
+                return;
             }
             final TupleArgument res = result.getArg(1);
             if ("failed".equals(res.getName())) {
@@ -142,7 +143,7 @@ public class ACCProvider {
                 } catch (DialogSendException e) {
                     e.printStackTrace();
                 }
-                return false;
+                return;
             }
             final TupleArgument ctxId = res.getArg(0);
             profile.setProperty("context-id", ctxId.toString());
@@ -154,41 +155,34 @@ public class ACCProvider {
                 e.printStackTrace();
             }
             final String agentRole = profile.getProperty("agent-role");
-            if ("$inspector".equals(agentRole)) {
-                final AbstractACCProxyNodeSide skel = new InspectorContextSkel(
-                        this, dialog, this.node, profile);
-                this.node.addNodeAgent(skel);
-                skel.start();
-            } else if ("$inspector4gui".equals(agentRole)) {
-                final AbstractACCProxyNodeSide skel = new Inspector4GuiContextSkel(
-                        this, dialog, this.node, profile);
-                this.node.addNodeAgent(skel);
-                this.node.addInspectorAgent((InspectorContextSkel) skel);
-                skel.start();
-            } else {
-                // should I pass here the TuCSoN node port?
-                final AbstractACCProxyNodeSide skel = new ACCProxyNodeSide(
-                        this, dialog, this.node, profile);
-                this.node.addNodeAgent(skel);
-                this.exec.execute(skel);
+            switch (agentRole) {
+                case "$inspector": {
+                    final AbstractACCProxyNodeSide skel = new InspectorContextSkel(
+                            this, dialog, this.node, profile);
+                    this.node.addNodeAgent(skel);
+                    skel.start();
+                    break;
+                }
+                case "$inspector4gui": {
+                    final AbstractACCProxyNodeSide skel = new Inspector4GuiContextSkel(
+                            this, dialog, this.node, profile);
+                    this.node.addNodeAgent(skel);
+                    this.node.addInspectorAgent((InspectorContextSkel) skel);
+                    skel.start();
+                    break;
+                }
+                default: {
+                    // should I pass here the TuCSoN node port?
+                    final AbstractACCProxyNodeSide skel = new ACCProxyNodeSide(
+                            this, dialog, this.node, profile);
+                    this.node.addNodeAgent(skel);
+                    this.exec.execute(skel);
+                    break;
+                }
             }
-            return true;
-        } catch (final LogicTupleException e) {
+        } catch (final LogicTupleException | TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException | TucsonGenericException e) {
             profile.setProperty("failure", "generic");
             e.printStackTrace();
-            return false;
-        } catch (final TucsonGenericException e) {
-            profile.setProperty("failure", "generic");
-            e.printStackTrace();
-            return false;
-        } catch (final TucsonInvalidLogicTupleException e) {
-            profile.setProperty("failure", "generic");
-            e.printStackTrace();
-            return false;
-        } catch (final TucsonOperationNotPossibleException e) {
-            profile.setProperty("failure", "generic");
-            e.printStackTrace();
-            return false;
         }
     }
 
@@ -212,8 +206,8 @@ public class ACCProvider {
      * @return wether shutdown can be carried out or not
      */
     // exception handling is a mess, need to review it...
-    public synchronized boolean shutdownContext(final int ctxId,
-                                                final TucsonAgentId id) {
+    public synchronized void shutdownContext(final int ctxId,
+                                             final TucsonAgentId id) {
         LogicTuple req = null;
         try {
             req = LogicTuples.newInstance("context_shutdown", TupleArguments.newValueArgument(ctxId),
@@ -234,21 +228,12 @@ public class ACCProvider {
             // (LogicTuple) TupleCentreContainer.doBlockingOperation(
             // TupleCentreOpType.INP, this.aid, this.config,
             // req);
-        } catch (final TucsonInvalidLogicTupleException e) {
+        } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
-            return false;
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-            return false;
-        } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
-            return false;
+            return;
         }
         // try {
-        if ("ok".equals(result.getArg(2).getName())) {
-            return true;
-        }
-        return false;
+        "ok".equals(Objects.requireNonNull(result).getArg(2).getName());
         // } catch (final InvalidLogicTupleOperationException e) {
         // e.printStackTrace();
         // return false;

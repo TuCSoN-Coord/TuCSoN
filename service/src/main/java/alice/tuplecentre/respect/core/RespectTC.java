@@ -334,7 +334,7 @@ public class RespectTC implements IRespectTC {
         }
         final Iterator<LogicTuple> rit = this.vm.getRespectVMContext()
                 .getSpecTupleSetIterator();
-        final LinkedList<Tuple> reactionList = new LinkedList<Tuple>();
+        final LinkedList<Tuple> reactionList = new LinkedList<>();
         while (rit.hasNext()) {
             reactionList.add(rit.next());
         }

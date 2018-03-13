@@ -53,11 +53,11 @@ public class NoAll extends AbstractTucsonOrdinaryAction {
     }
 
     @Override
-    public TucsonOperation executeAsynch(final EnhancedAsyncACC acc,
-                                         final TucsonOperationCompletionListener listener)
+    public void executeAsynch(final EnhancedAsyncACC acc,
+                              final TucsonOperationCompletionListener listener)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
-        return acc.noAll(this.tcid, this.tuple, listener);
+        acc.noAll(this.tcid, this.tuple, listener);
     }
 
     @Override

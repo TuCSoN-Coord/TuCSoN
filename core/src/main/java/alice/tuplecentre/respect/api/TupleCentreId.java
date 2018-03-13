@@ -32,7 +32,7 @@ import alice.tuprolog.Term;
  */
 public class TupleCentreId implements TupleCentreIdentifier, Serializable {
 
-    private static TupleCentreIdOperatorManager opManager = new TupleCentreIdOperatorManager();
+    private static final TupleCentreIdOperatorManager opManager = new TupleCentreIdOperatorManager();
     private static final long serialVersionUID = 1L;
 
     private Term id;
@@ -114,13 +114,8 @@ public class TupleCentreId implements TupleCentreIdentifier, Serializable {
         }
         final TupleCentreId other = (TupleCentreId) obj;
         if (this.id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!this.id.equals(other.id)) {
-            return false;
-        }
-        return true;
+            return other.id == null;
+        } else return this.id.equals(other.id);
     }
 
     @Override

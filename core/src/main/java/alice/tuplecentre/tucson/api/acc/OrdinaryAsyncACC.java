@@ -56,7 +56,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation get(final TupleCentreIdentifier tid, final TucsonOperationCompletionListener l)
+    void get(final TupleCentreIdentifier tid, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -127,7 +127,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation no(final TupleCentreIdentifier tid, final Tuple tuple, final TucsonOperationCompletionListener l)
+    void no(final TupleCentreIdentifier tid, final Tuple tuple, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -150,7 +150,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation nop(final TupleCentreIdentifier tid, final Tuple tuple, final TucsonOperationCompletionListener l)
+    void nop(final TupleCentreIdentifier tid, final Tuple tuple, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -237,7 +237,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation set(final TupleCentreIdentifier tid, final Tuple tuple, final TucsonOperationCompletionListener l)
+    void set(final TupleCentreIdentifier tid, final Tuple tuple, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
@@ -268,6 +268,6 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * @see alice.tuprolog.Theory Theory
      * @see alice.tuprolog.Term Term
      */
-    TucsonOperation spawn(final TupleCentreIdentifier tid, final Tuple toSpawn, final TucsonOperationCompletionListener l)
+    void spawn(final TupleCentreIdentifier tid, final Tuple toSpawn, final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 }

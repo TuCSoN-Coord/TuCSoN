@@ -32,7 +32,7 @@ public class AgentId implements AgentIdentifier, Serializable {
 
     private Term id;
 
-    private static AgentIdOperatorManager opManager = new AgentIdOperatorManager();
+    private static final AgentIdOperatorManager opManager = new AgentIdOperatorManager();
 
     private static final long serialVersionUID = 1L;
 

@@ -2,6 +2,7 @@ package alice.tuplecentre.tucson.service;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 
 import alice.tuple.Tuple;
 import alice.tuple.logic.LogicTuple;
@@ -99,10 +100,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -118,10 +116,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -129,7 +124,7 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
             }
         }
-        op.waitForOperationCompletion();
+        Objects.requireNonNull(op).waitForOperationCompletion();
         if (op.isResultSuccess()) {
             final Term term = ((LogicTuple) op.getTupleResult()).toTerm();
             return this.unify(arg0, term);
@@ -154,10 +149,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -173,10 +165,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -184,12 +173,8 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
             }
         }
-        op.waitForOperationCompletion();
-        if (op.isResultSuccess()) {
-            return this.unify(arg1,
-                    Spawn2PLibrary.list2tuple(op.getTupleListResult()));
-        }
-        return false;
+        Objects.requireNonNull(op).waitForOperationCompletion();
+        return op.isResultSuccess() && this.unify(arg1, Spawn2PLibrary.list2tuple(op.getTupleListResult()));
     }
 
     /**
@@ -208,10 +193,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -227,10 +209,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -238,7 +217,7 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
             }
         }
-        op.waitForOperationCompletion();
+        Objects.requireNonNull(op).waitForOperationCompletion();
         if (op.isResultSuccess()) {
             final Term term = ((LogicTuple) op.getTupleResult()).toTerm();
             return this.unify(arg0, term);
@@ -262,10 +241,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -281,10 +257,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -292,7 +265,7 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
             }
         }
-        op.waitForOperationCompletion();
+        Objects.requireNonNull(op).waitForOperationCompletion();
         if (op.isResultSuccess()) {
             return true;
         }
@@ -318,10 +291,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -337,10 +307,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -348,12 +315,8 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
             }
         }
-        op.waitForOperationCompletion();
-        if (op.isResultSuccess()) {
-            return this.unify(arg1,
-                    Spawn2PLibrary.list2tuple(op.getTupleListResult()));
-        }
-        return false;
+        Objects.requireNonNull(op).waitForOperationCompletion();
+        return op.isResultSuccess() && this.unify(arg1, Spawn2PLibrary.list2tuple(op.getTupleListResult()));
     }
 
     /**
@@ -372,10 +335,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -391,10 +351,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -402,7 +359,7 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
             }
         }
-        op.waitForOperationCompletion();
+        Objects.requireNonNull(op).waitForOperationCompletion();
         if (op.isResultSuccess()) {
             return true;
         }
@@ -427,10 +384,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.aid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -445,10 +399,7 @@ public class Spawn2PLibrary extends Library {
                 final InputEvent ev = new InputEvent(this.tcid, opRequested,
                         this.target, System.currentTimeMillis(), null);
                 op = TupleCentreContainer.doNonBlockingOperation(ev);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             } catch (InvalidLogicTupleException e) {
@@ -456,7 +407,7 @@ public class Spawn2PLibrary extends Library {
                 e.printStackTrace();
             }
         }
-        op.waitForOperationCompletion();
+        Objects.requireNonNull(op).waitForOperationCompletion();
         return true;
     }
 
@@ -465,7 +416,7 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean out_all_1(final Term arg0) {
-        TupleCentreOperation op = null;
+        TupleCentreOperation op;
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
@@ -480,13 +431,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.OUT_ALL, this.aid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -503,13 +448,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.OUT_ALL, this.tcid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -523,7 +462,7 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean rd_1(final Term arg0) {
-        TupleCentreOperation op = null;
+        TupleCentreOperation op;
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
@@ -538,13 +477,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.RD, this.aid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -561,13 +494,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.RD, this.tcid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -586,7 +513,7 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean rd_all_2(final Term arg0, final Term arg1) {
-        TupleCentreOperation op = null;
+        TupleCentreOperation op;
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
@@ -601,13 +528,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.RD_ALL, this.aid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -624,23 +545,13 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.RD_ALL, this.tcid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
         }
         op.waitForOperationCompletion();
-        if (op.isResultSuccess()) {
-            return this.unify(arg1,
-                    Spawn2PLibrary.list2tuple(op.getTupleListResult()));
-        }
-        return false;
+        return op.isResultSuccess() && this.unify(arg1, Spawn2PLibrary.list2tuple(op.getTupleListResult()));
     }
 
     /**
@@ -648,7 +559,7 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean rdp_1(final Term arg0) {
-        TupleCentreOperation op = null;
+        TupleCentreOperation op;
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
@@ -663,13 +574,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.RDP, this.aid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -686,13 +591,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.RDP, this.tcid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -734,7 +633,7 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean uin_1(final Term arg0) {
-        TupleCentreOperation op = null;
+        TupleCentreOperation op;
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
@@ -749,13 +648,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.UIN, this.aid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -772,13 +665,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.UIN, this.tcid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -796,7 +683,7 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean uinp_1(final Term arg0) {
-        TupleCentreOperation op = null;
+        TupleCentreOperation op;
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
@@ -811,13 +698,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.UINP, this.aid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -834,13 +715,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.UINP, this.tcid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -858,7 +733,7 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean uno_1(final Term arg0) {
-        TupleCentreOperation op = null;
+        TupleCentreOperation op;
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
@@ -873,13 +748,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.UNO, this.aid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -896,13 +765,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.UNO, this.tcid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -921,7 +784,7 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean unop_1(final Term arg0) {
-        TupleCentreOperation op = null;
+        TupleCentreOperation op;
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
@@ -936,13 +799,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.UNOP, this.aid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -959,13 +816,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.UNOP, this.tcid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -984,7 +835,7 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean urd_1(final Term arg0) {
-        TupleCentreOperation op = null;
+        TupleCentreOperation op;
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
@@ -999,13 +850,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.URD, this.aid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -1022,13 +867,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.URD, this.tcid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -1046,7 +885,7 @@ public class Spawn2PLibrary extends Library {
      * @return wether the operation has been succesfully completed or not
      */
     public boolean urdp_1(final Term arg0) {
-        TupleCentreOperation op = null;
+        TupleCentreOperation op;
         final LogicTuple arg = LogicTuples.newInstance(arg0);
         if (this.aid != null) {
             try {
@@ -1061,13 +900,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.URDP, this.aid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -1084,13 +917,7 @@ public class Spawn2PLibrary extends Library {
                 // TupleCentreContainer.doNonBlockingOperation(
                 // TupleCentreOpType.URDP, this.tcid,
                 // this.target, arg, null);
-            } catch (final TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-                return false;
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
                 return false;
             }

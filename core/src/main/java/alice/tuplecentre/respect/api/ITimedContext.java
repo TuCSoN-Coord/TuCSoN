@@ -155,7 +155,7 @@ public interface ITimedContext {
      * @throws OperationTimeOutException     if the given timeout expired prior to operation completion
      */
     List<LogicTuple> set(InputEvent ev, long ms)
-            throws InvalidLogicTupleException, OperationNotPossibleException,
+            throws OperationNotPossibleException,
             OperationTimeOutException;
 
     /**

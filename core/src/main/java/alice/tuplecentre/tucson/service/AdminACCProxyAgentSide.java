@@ -98,7 +98,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
     public void add(final AuthorisedAgent agent)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
-        this.addAuthorisedAgent(agent, (Long) null);
+        this.addAuthorisedAgent(agent, null);
     }
 
     // TODO: Non funziona l'inserimento in lista
@@ -135,7 +135,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
     public void add(final Policy policy)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
-        this.addPolicy(policy, (Long) null);
+        this.addPolicy(policy, null);
     }
 
     @Override
@@ -173,7 +173,6 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
             final LogicTuple basicAgClassTuple = LogicTuples.newInstance(
                     "set_basic_agent_class", TupleArguments.newValueArgument(
                             rbac.getBasicAgentClass()));
-            op = this.inp(this.tid, basicAgClassTuple, timeout);
             for (final Role role : rbac.getRoles()) {
                 this.addRole(role, timeout);
             }
@@ -183,14 +182,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
             for (final AuthorisedAgent authAgent : rbac.getAuthorisedAgents()) {
                 this.addAuthorisedAgent(authAgent, timeout);
             }
-            LogicTuple loginTuple = null;
-            if (rbac.isLoginRequired()) {
-                loginTuple = LogicTuples.newInstance("set_login", TupleArguments.newValueArgument("yes"));
-            } else {
-                loginTuple = LogicTuples.newInstance("set_login", TupleArguments.newValueArgument("no"));
-            }
-            op = this.inp(this.tid, loginTuple, timeout);
-            LogicTuple inspectorsTuple = null;
+            LogicTuple inspectorsTuple;
             if (rbac.isInspectionAllowed()) {
                 inspectorsTuple = LogicTuples.newInstance("authorise_inspection",
                         TupleArguments.newValueArgument("yes"));
@@ -216,7 +208,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
     public void add(final Role role)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
-        this.addRole(role, (Long) null);
+        this.addRole(role, null);
     }
 
     @Override
@@ -352,17 +344,17 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
 
-        String permissions = "[";
+        StringBuilder permissions = new StringBuilder("[");
         for (final Permission perm : policy.getPermissions()) {
-            permissions += perm.getPermissionName() + ",";
+            permissions.append(perm.getPermissionName()).append(",");
         }
-        permissions = permissions.substring(0, permissions.length() - 1);
-        permissions += "]";
-        LogicTuple policyTuple = null;
+        permissions = new StringBuilder(permissions.substring(0, permissions.length() - 1));
+        permissions.append("]");
+        LogicTuple policyTuple;
         TucsonOperation op = null;
         try {
             policyTuple = LogicTuples.newInstance("policy", TupleArguments.newValueArgument(
-                    policy.getPolicyName()), TupleArguments.parse(permissions));
+                    policy.getPolicyName()), TupleArguments.parse(permissions.toString()));
             op = this.out(this.tid, policyTuple, l);
         } catch (final InvalidTupleArgumentException e) {
             // TODO Auto-generated catch block
@@ -433,8 +425,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
                 InetAddress localhost;
                 try {
                     localhost = InetAddress.getLocalHost();
-                    final String localNodeAddress = localhost.getHostAddress();
-                    tmpNode = localNodeAddress;
+                    tmpNode = localhost.getHostAddress();
                 } catch (final UnknownHostException e) {
                     return new TucsonTupleCentreIdDefault(TC_ORG, "'"
                             + tmpNode + "'", "" + tmpPort);
@@ -478,13 +469,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
                     this.isAdminAuth = true;
                 }
             }
-        } catch (final InvalidVarNameException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
-        } catch (final OperationTimeOutException e) {
+        } catch (final InvalidVarNameException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
         }
     }

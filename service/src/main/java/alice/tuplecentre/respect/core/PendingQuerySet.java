@@ -30,9 +30,9 @@ public class PendingQuerySet {
      *
      */
     public PendingQuerySet() {
-        this.events = new LinkedList<AbstractEvent>();
-        this.evAdded = new LinkedList<AbstractEvent>();
-        this.evRemoved = new LinkedList<AbstractEvent>();
+        this.events = new LinkedList<>();
+        this.evAdded = new LinkedList<>();
+        this.evRemoved = new LinkedList<>();
         this.transaction = false;
     }
 

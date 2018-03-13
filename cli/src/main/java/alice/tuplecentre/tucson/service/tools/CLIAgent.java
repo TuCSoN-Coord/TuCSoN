@@ -119,15 +119,10 @@ public class CLIAgent extends alice.util.Automaton {
             CLIAgent.error(st);
         } else if ("quit".equals(cmd.getPrimitive())
                 || "exit".equals(cmd.getPrimitive())) {
-            try {
-                CLIAgent.log("Releasing ACC held (if any)...");
-                this.context.exit();
-            } catch (final TucsonOperationNotPossibleException ex) {
-                System.err.println("[CLI]: " + ex);
-            } finally {
-                CLIAgent.log("I'm done, have a nice day :)");
-                this.become("end");
-            }
+            CLIAgent.log("Releasing ACC held (if any)...");
+            this.context.exit();
+            CLIAgent.log("I'm done, have a nice day :)");
+            this.become("end");
         } else {
             /**
              * Tokenize TuCSoN primitive & involved argument
@@ -522,13 +517,7 @@ public class CLIAgent extends alice.util.Automaton {
                 } else {
                     CLIAgent.error(methodName);
                 }
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-            } catch (final UnreachableNodeException e) {
-                e.printStackTrace();
-            } catch (final OperationTimeOutException e) {
-                e.printStackTrace();
-            } catch (final InvalidLogicTupleException e) {
+            } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException e) {
                 e.printStackTrace();
             }
         }
