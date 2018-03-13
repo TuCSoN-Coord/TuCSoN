@@ -77,8 +77,6 @@ public abstract class AbstractTucsonProtocol implements TucsonProtocol {
             profile.setProperty("agent-uuid", agentUUID);
             profile.setProperty("tuple-centre", tcName);
             this.context = new ACCDescription(profile);
-        } catch (final ClassNotFoundException e) {
-            throw new DialogReceiveException(e);
         } catch (final IOException e) {
             throw new DialogReceiveException(e);
         }
@@ -196,7 +194,7 @@ public abstract class AbstractTucsonProtocol implements TucsonProtocol {
      * @throws ClassNotFoundException if the received object's class cannot be found
      * @throws IOException            if some network problems arise
      */
-    protected abstract String receiveString() throws ClassNotFoundException,
+    protected abstract String receiveString() throws
             IOException;
 
     /**

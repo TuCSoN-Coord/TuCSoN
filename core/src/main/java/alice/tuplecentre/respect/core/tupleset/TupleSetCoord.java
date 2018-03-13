@@ -28,9 +28,9 @@ public class TupleSetCoord extends AbstractTupleSet {
      */
     public TupleSetCoord() {
         super();
-        this.tuples = new DoubleKeyMVMap<String, String, LogicTuple>();
-        this.tAdded = new LinkedList<LTEntry>();
-        this.tRemoved = new LinkedList<LTEntry>();
+        this.tuples = new DoubleKeyMVMap<>();
+        this.tAdded = new LinkedList<>();
+        this.tRemoved = new LinkedList<>();
         this.transaction = false;
     }
 

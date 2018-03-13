@@ -7,6 +7,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import alice.tuplecentre.respect.situatedness.AbstractProbeId;
 import alice.tuplecentre.respect.situatedness.ISimpleProbe;
@@ -40,7 +41,7 @@ public enum ProbesManager {
      **/
     private final Map<ProbeIdentifier, ISimpleProbe> probesList;
 
-    private ProbesManager() {
+    ProbesManager() {
         this.probesList = new HashMap<>();
     }
 
@@ -58,26 +59,25 @@ public enum ProbesManager {
      *                                   fields
      * @throws InvocationTargetException if the callee cannot be found
      */
-    public synchronized boolean createProbe(final String className,
-                                            final ProbeIdentifier id) throws ClassNotFoundException,
+    public synchronized void createProbe(final String className,
+                                         final ProbeIdentifier id) throws ClassNotFoundException,
             NoSuchMethodException, InstantiationException,
             IllegalAccessException, InvocationTargetException {
         if (this.probesList.containsKey(id)) {
             ProbesManager.speakErr("Probe '" + id.getLocalName()
                     + "' already exists!");
-            return false;
+            return;
         }
         final String normClassName = className.substring(1,
                 className.length() - 1);
         final Class<?> c = Class.forName(normClassName);
         final Constructor<?> ctor = c
-                .getConstructor(new Class[]{AbstractProbeId.class});
+                .getConstructor(AbstractProbeId.class);
         final ISimpleProbe probe = (ISimpleProbe) ctor
                 .newInstance(new Object[]{id});
         this.probesList.put(id, probe);
         ProbesManager.speak("Resource '" + id.getLocalName()
                 + "' has been registered.");
-        return true;
     }
 
     /**
@@ -121,17 +121,16 @@ public enum ProbesManager {
      * @param id the identifier of the resource to remove
      * @return wether the resource has been successfully removed
      */
-    public synchronized boolean removeProbe(final ProbeIdentifier id) {
+    public synchronized void removeProbe(final ProbeIdentifier id) {
         ProbesManager.speak("Removing probe '" + id.getLocalName() + "'...");
         if (!this.probesList.containsKey(id)) {
             ProbesManager.speakErr("Resource '" + id.getLocalName()
                     + "' doesn't exist!");
-            return false;
+            return;
         }
         final TransducersManager tm = TransducersManager.INSTANCE;
         tm.removeProbe(id);
         this.probesList.remove(id);
-        return true;
     }
 
     /**
@@ -141,7 +140,7 @@ public enum ProbesManager {
      * @param tId the transducer's identifier
      */
     public void setTransducer(final ProbeIdentifier pId, final TransducerId tId) {
-        this.getProbe(pId).setTransducer(tId);
+        Objects.requireNonNull(this.getProbe(pId)).setTransducer(tId);
         if (tId != null) {
             ProbesManager.speak("...transducer '" + tId.getLocalName()
                     + "' set to probe '" + pId.getLocalName() + "'.");

@@ -15,7 +15,7 @@ public abstract class AbstractVirtualPlace implements IPlace, Serializable {
     /**
      * The tuProlog Term representing a place of any sort
      */
-    protected Term place;
+    protected final Term place;
 
     /**
      * @param p the String representation of the place

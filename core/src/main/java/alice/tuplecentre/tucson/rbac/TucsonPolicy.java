@@ -49,13 +49,13 @@ public class TucsonPolicy implements Policy {
     }
 
     public TucsonPolicy(final String polName) {
-        this(polName, new ArrayList<Permission>());
+        this(polName, new ArrayList<>());
     }
 
     @Override
     public void addPermission(final Permission permission) {
         if (this.permissions == null) {
-            this.permissions = new ArrayList<Permission>();
+            this.permissions = new ArrayList<>();
         }
         if (!this.permissions.contains(permission)) {
             this.permissions.add(permission);

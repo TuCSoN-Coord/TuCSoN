@@ -14,13 +14,13 @@
 package alice.tuplecentre.tucson.service.tools;
 
 import java.util.Date;
+import java.util.Objects;
 
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.service.TucsonInfo;
 
@@ -48,8 +48,8 @@ public final class CommandLineInterpreter {
             CommandLineInterpreter
                     .log("Arguments: {-aid <agent_identifier>} {-netid <node_address>} {-portno <portno>} {-? | -help}");
         } else {
-            String aid = null;
-            String node = null;
+            String aid;
+            String node;
             int port;
             if (alice.util.Tools.isOpt(args, "-aid")) {
                 aid = alice.util.Tools.getOpt(args, "-aid");
@@ -79,20 +79,15 @@ public final class CommandLineInterpreter {
             try {
                 context = TucsonMetaACC.getContext(new TucsonAgentIdDefault(aid),
                         node, port);
-                context.enterACC();
-            } catch (final TucsonInvalidAgentIdException | UnreachableNodeException | TucsonOperationNotPossibleException | TucsonInvalidTupleCentreIdException e) {
+                Objects.requireNonNull(context).enterACC();
+            } catch (final TucsonInvalidAgentIdException | UnreachableNodeException | TucsonInvalidTupleCentreIdException e) {
                 e.printStackTrace();
                 System.exit(-1);
             }
-            if (context != null) {
-                CommandLineInterpreter.log("Spawning CLI TuCSoN agent...");
-                CommandLineInterpreter
-                        .log("--------------------------------------------------------------------------------");
-                new Thread(new CLIAgent(context, node, port)).start();
-            } else {
-                System.err
-                        .println("[CommandLineInterpreter]: Context not available now, please re-try.");
-            }
+            CommandLineInterpreter.log("Spawning CLI TuCSoN agent...");
+            CommandLineInterpreter
+                    .log("--------------------------------------------------------------------------------");
+            new Thread(new CLIAgent(context, node, port)).start();
         }
     }
 

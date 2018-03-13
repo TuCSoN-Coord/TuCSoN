@@ -41,9 +41,9 @@ public class TupleSet {
      *
      */
     public TupleSet() {
-        this.tuples = new LinkedList<LogicTuple>();
-        this.tAdded = new LinkedList<LogicTuple>();
-        this.tRemoved = new LinkedList<LogicTuple>();
+        this.tuples = new LinkedList<>();
+        this.tAdded = new LinkedList<>();
+        this.tRemoved = new LinkedList<>();
         this.transaction = false;
     }
 
@@ -112,9 +112,9 @@ public class TupleSet {
      * @return the tuple non deterministically selected as a result of the
      * matching process (which is consumed)
      */
-    public LogicTuple getMatchingTuple(final LogicTuple templ) {
+    public void getMatchingTuple(final LogicTuple templ) {
         if (templ == null) {
-            return null;
+            return;
         }
         final ListIterator<LogicTuple> l = this.tuples.listIterator();
         while (l.hasNext()) {
@@ -124,11 +124,11 @@ public class TupleSet {
                 if (this.transaction) {
                     this.tRemoved.add(tu);
                 }
-                final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
-                return LogicTuples.newInstance(tu.toTerm().copyGoal(v, 0));
+                final AbstractMap<Var, Var> v = new LinkedHashMap<>();
+                LogicTuples.newInstance(tu.toTerm().copyGoal(v, 0));
+                return;
             }
         }
-        return null;
     }
 
     /**
@@ -146,10 +146,7 @@ public class TupleSet {
      * multi-set
      */
     public boolean operationsPending() {
-        if (this.tAdded.isEmpty() && this.tRemoved.isEmpty()) {
-            return false;
-        }
-        return true;
+        return !this.tAdded.isEmpty() || !this.tRemoved.isEmpty();
     }
 
     /**
@@ -162,11 +159,9 @@ public class TupleSet {
         if (templ == null) {
             return null;
         }
-        final ListIterator<LogicTuple> l = this.tuples.listIterator();
-        while (l.hasNext()) {
-            final LogicTuple tu = l.next();
+        for (LogicTuple tu : this.tuples) {
             if (templ.match(tu)) {
-                final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+                final AbstractMap<Var, Var> v = new LinkedHashMap<>();
                 return LogicTuples.newInstance(tu.toTerm().copyGoal(v, 0));
             }
         }

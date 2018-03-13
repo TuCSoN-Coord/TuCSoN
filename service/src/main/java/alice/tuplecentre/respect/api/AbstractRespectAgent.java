@@ -38,11 +38,7 @@ public abstract class AbstractRespectAgent {
         public void run() {
             try {
                 this.activity.invoke(this.agent, AbstractRespectAgent.ARGS);
-            } catch (final IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (final IllegalArgumentException e) {
-                e.printStackTrace();
-            } catch (final InvocationTargetException e) {
+            } catch (final IllegalAccessException | InvocationTargetException | IllegalArgumentException e) {
                 e.printStackTrace();
             }
         }
@@ -50,7 +46,7 @@ public abstract class AbstractRespectAgent {
 
     private static final Object[] ARGS = new Object[]{};
     @SuppressWarnings("unchecked")
-    private static final Class<? extends Object>[] ARGS_CLASS = new Class[]{};
+    private static final Class<?>[] ARGS_CLASS = new Class[]{};
     private final AgentId id;
     private IRespectTC tc;
 
@@ -106,9 +102,7 @@ public abstract class AbstractRespectAgent {
         try {
             m = this.getClass().getDeclaredMethod(name,
                     AbstractRespectAgent.ARGS_CLASS);
-        } catch (final NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (final SecurityException e) {
+        } catch (final NoSuchMethodException | SecurityException e) {
             e.printStackTrace();
         }
         if (m != null) {

@@ -517,7 +517,7 @@ public class DoubleKeyMVMap<K, Q, V> {
         private final K mapKey1;
 
         InnerMVMap(final K mapK1) {
-            this.innerMap = new HashMap<Q, List<V>>();
+            this.innerMap = new HashMap<>();
             this.mapKey1 = mapK1;
         }
 
@@ -648,10 +648,10 @@ public class DoubleKeyMVMap<K, Q, V> {
 
         @Override
         public String toString() {
-            final StringBuffer ret = new StringBuffer("[");
+            final StringBuilder ret = new StringBuilder("[");
             final Iterator<V> it = this.iterator();
             if (it.hasNext()) {
-                ret.append(" " + it.next().toString() + " ");
+                ret.append(" ").append(it.next().toString()).append(" ");
             }
             while (it.hasNext()) {
                 ret.append(", ");
@@ -680,7 +680,7 @@ public class DoubleKeyMVMap<K, Q, V> {
         }
 
         private List<V> newList() {
-            return new ArrayList<V>();
+            return new ArrayList<>();
         }
 
         /**
@@ -694,7 +694,7 @@ public class DoubleKeyMVMap<K, Q, V> {
         }
     } // InnerMap
 
-    private final Map<K, MVMap<Q, V>> outerMap = new HashMap<K, MVMap<Q, V>>();
+    private final Map<K, MVMap<Q, V>> outerMap = new HashMap<>();
     private int totalValuesSize = 0;
 
     /**
@@ -750,17 +750,17 @@ public class DoubleKeyMVMap<K, Q, V> {
      * @param v  the value
      * @return wether the operation was successfull
      */
-    public boolean put(final K k1, final Q k2, final V v) {
+    public void put(final K k1, final Q k2, final V v) {
         MVMap<Q, V> innerMap = this.outerMap.get(k1);
         if (innerMap == null) {
             innerMap = this.createMVMap(k1);
             if (innerMap.put(k2, v)) {
                 this.outerMap.put(k1, innerMap);
-                return true;
+                return;
             }
-            return false;
+            return;
         }
-        return innerMap.put(k2, v);
+        innerMap.put(k2, v);
     }
 
     /**
@@ -814,10 +814,10 @@ public class DoubleKeyMVMap<K, Q, V> {
 
     @Override
     public String toString() {
-        final StringBuffer ret = new StringBuffer();
+        final StringBuilder ret = new StringBuilder();
         final Iterator<V> it = this.iterator();
         while (it.hasNext()) {
-            ret.append(it.next().toString() + ".\n");
+            ret.append(it.next().toString()).append(".\n");
         }
         return ret.toString();
     }

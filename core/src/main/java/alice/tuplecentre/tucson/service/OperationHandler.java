@@ -1,11 +1,6 @@
 package alice.tuplecentre.tucson.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 import alice.tuple.Tuple;
 import alice.tuple.TupleTemplate;
@@ -76,6 +71,7 @@ public class OperationHandler {
         @Override
         public void run() {
             TucsonOpCompletionEvent ev = null;
+            label:
             while (!this.isStopped()) {
                 /*
                  * FIXME possibile errore di accesso concorrente a operations
@@ -86,7 +82,7 @@ public class OperationHandler {
                         OperationHandler.this.operations.remove(opId);
                     }
                 }
-                TucsonMessageReply msg = null;
+                TucsonMessageReply msg;
                 try {
                     msg = this.dialog.receiveMsgReply();
                 } catch (final DialogReceiveException e) {
@@ -99,69 +95,73 @@ public class OperationHandler {
                 final boolean ok = msg.getEventMsg().isAllowed();
                 if (ok) {
                     final TupleCentreOpType type = msg.getEventMsg().getOpType();
-                    if (type == TupleCentreOpType.UIN
-                            || type == TupleCentreOpType.UINP
-                            || type == TupleCentreOpType.URD
-                            || type == TupleCentreOpType.URDP
-                            || type == TupleCentreOpType.UNO
-                            || type == TupleCentreOpType.UNOP
-                            || type == TupleCentreOpType.NO
-                            || type == TupleCentreOpType.NO_S
-                            || type == TupleCentreOpType.NOP
-                            || type == TupleCentreOpType.NOP_S
-                            || type == TupleCentreOpType.IN
-                            || type == TupleCentreOpType.RD
-                            || type == TupleCentreOpType.INP
-                            || type == TupleCentreOpType.RDP
-                            || type == TupleCentreOpType.IN_S
-                            || type == TupleCentreOpType.RD_S
-                            || type == TupleCentreOpType.INP_S
-                            || type == TupleCentreOpType.RDP_S) {
-                        final boolean succeeded = msg.getEventMsg()
-                                .isSuccess();
-                        if (succeeded) {
-                            final LogicTuple tupleReq = msg.getEventMsg()
-                                    .getTuple();
-                            final LogicTuple tupleRes = (LogicTuple) msg
+                    switch (type) {
+                        case UIN:
+                        case UINP:
+                        case URD:
+                        case URDP:
+                        case UNO:
+                        case UNOP:
+                        case NO:
+                        case NO_S:
+                        case NOP:
+                        case NOP_S:
+                        case IN:
+                        case RD:
+                        case INP:
+                        case RDP:
+                        case IN_S:
+                        case RD_S:
+                        case INP_S:
+                        case RDP_S:
+                            final boolean succeeded = msg.getEventMsg()
+                                    .isSuccess();
+                            if (succeeded) {
+                                final LogicTuple tupleReq = msg.getEventMsg()
+                                        .getTuple();
+                                final LogicTuple tupleRes = (LogicTuple) msg
+                                        .getEventMsg().getTupleResult();
+                                // log("tupleReq="+tupleReq+", tupleRes="+tupleRes);
+                                final LogicTuple res = this.unify(tupleReq,
+                                        tupleRes);
+                                ev = new TucsonOpCompletionEvent(msg
+                                        .getEventMsg().getOpId(), true, true, msg
+                                        .getEventMsg().isResultSuccess(), res);
+                            } else {
+                                ev = new TucsonOpCompletionEvent(msg
+                                        .getEventMsg().getOpId(), true, false,
+                                        msg.getEventMsg().isResultSuccess());
+                            }
+                            break;
+                        case OUT:
+                        case OUT_ALL:
+                        case OUT_S:
+                        case SPAWN:
+                        case SET:
+                        case SET_S:
+                        case GET_ENV:
+                        case SET_ENV:
+                            ev = new TucsonOpCompletionEvent(msg
+                                    .getEventMsg().getOpId(), true, msg
+                                    .getEventMsg().isSuccess(), msg
+                                    .getEventMsg().isResultSuccess());
+                            break;
+                        case IN_ALL:
+                        case RD_ALL:
+                        case NO_ALL:
+                        case GET:
+                        case GET_S:
+                            final List<LogicTuple> tupleSetRes = (List<LogicTuple>) msg
                                     .getEventMsg().getTupleResult();
-                            // log("tupleReq="+tupleReq+", tupleRes="+tupleRes);
-                            final LogicTuple res = this.unify(tupleReq,
-                                    tupleRes);
                             ev = new TucsonOpCompletionEvent(msg
-                                    .getEventMsg().getOpId(), ok, true, msg
-                                    .getEventMsg().isResultSuccess(), res);
-                        } else {
-                            ev = new TucsonOpCompletionEvent(msg
-                                    .getEventMsg().getOpId(), ok, false,
-                                    msg.getEventMsg().isResultSuccess());
-                        }
-                    } else if (type == TupleCentreOpType.OUT
-                            || type == TupleCentreOpType.OUT_ALL
-                            || type == TupleCentreOpType.OUT_S
-                            || type == TupleCentreOpType.SPAWN
-                            || type == TupleCentreOpType.SET
-                            || type == TupleCentreOpType.SET_S
-                            || type == TupleCentreOpType.GET_ENV
-                            || type == TupleCentreOpType.SET_ENV) {
-                        ev = new TucsonOpCompletionEvent(msg
-                                .getEventMsg().getOpId(), ok, msg
-                                .getEventMsg().isSuccess(), msg
-                                .getEventMsg().isResultSuccess());
-                    } else if (type == TupleCentreOpType.IN_ALL
-                            || type == TupleCentreOpType.RD_ALL
-                            || type == TupleCentreOpType.NO_ALL
-                            || type == TupleCentreOpType.GET
-                            || type == TupleCentreOpType.GET_S) {
-                        final List<LogicTuple> tupleSetRes = (List<LogicTuple>) msg
-                                .getEventMsg().getTupleResult();
-                        ev = new TucsonOpCompletionEvent(msg
-                                .getEventMsg().getOpId(), ok, msg
-                                .getEventMsg().isSuccess(), msg
-                                .getEventMsg().isResultSuccess(),
-                                tupleSetRes);
-                    } else if (type == TupleCentreOpType.EXIT) {
-                        this.setStop();
-                        break;
+                                    .getEventMsg().getOpId(), true, msg
+                                    .getEventMsg().isSuccess(), msg
+                                    .getEventMsg().isResultSuccess(),
+                                    tupleSetRes);
+                            break;
+                        case EXIT:
+                            this.setStop();
+                            break label;
                     }
                 } else {
                     ev = new TucsonOpCompletionEvent(msg
@@ -262,28 +262,28 @@ public class OperationHandler {
     /**
      * UUID of the agent using this OperationHandler
      */
-    public UUID agentUUID;
+    public final UUID agentUUID;
     /**
      * Active sessions toward different nodes
      */
-    protected Map<String, ControllerSession> controllerSessions;
+    protected final Map<String, ControllerSession> controllerSessions;
     /**
      * TuCSoN requests completion events (node replies events)
      */
-    public List<TucsonOpCompletionEvent> events;
+    public final List<TucsonOpCompletionEvent> events;
     /**
      * Expired TuCSoN operations
      */
-    protected List<OperationIdentifier> operationExpiredIds;
+    protected final List<OperationIdentifier> operationExpiredIds;
     /**
      * Requested TuCSoN operations
      */
-    public Map<OperationIdentifier, TucsonOperation> operations;
+    public final Map<OperationIdentifier, TucsonOperation> operations;
 
     /**
      * Current ACC session description
      */
-    protected ACCDescription profile;
+    protected final ACCDescription profile;
 
     /**
      * @param uuid the Java UUID of the agent this handler serves.
@@ -347,24 +347,27 @@ public class OperationHandler {
                                                final Position position)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException, OperationTimeOutException {
-        TucsonTupleCentreId tcid = null;
-        if ("alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault".equals(tid.getClass()
-                .getName())) {
-            tcid = (TucsonTupleCentreId) tid;
-        } else if ("alice.tuplecentre.respect.api.TupleCentreId".equals(tid.getClass()
-                .getName())) {
-            tcid = new TucsonTupleCentreIdDefault((TupleCentreIdentifier) tid);
-        } else if ("java.lang.String".equals(tid.getClass().getName())) {
-            try {
-                tcid = new TucsonTupleCentreIdDefault((String) tid);
-            } catch (final TucsonInvalidTupleCentreIdException ex) {
-                System.err.println("[ACCProxyAgentSide]: " + ex);
-                return null;
-            }
-        } else {
-            throw new TucsonOperationNotPossibleException();
+        TucsonTupleCentreId tcid;
+        switch (tid.getClass()
+                .getName()) {
+            case "alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault":
+                tcid = (TucsonTupleCentreId) tid;
+                break;
+            case "alice.tuplecentre.respect.api.TupleCentreId":
+                tcid = new TucsonTupleCentreIdDefault((TupleCentreIdentifier) tid);
+                break;
+            case "java.lang.String":
+                try {
+                    tcid = new TucsonTupleCentreIdDefault((String) tid);
+                } catch (final TucsonInvalidTupleCentreIdException ex) {
+                    System.err.println("[ACCProxyAgentSide]: " + ex);
+                    return null;
+                }
+                break;
+            default:
+                throw new TucsonOperationNotPossibleException();
         }
-        TucsonOperation op = null;
+        TucsonOperation op;
         op = this.doOperation(aid, tcid, type, t, null, position);
         if (ms == null) {
             op.waitForOperationCompletion();
@@ -404,23 +407,26 @@ public class OperationHandler {
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
         // log("tid.class().name() = " + tid.getClass().getName());
-        TucsonTupleCentreId tcid = null;
-        if ("alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault".equals(tid.getClass()
-                .getName())) {
-            tcid = (TucsonTupleCentreId) tid;
-        } else if ("alice.tuplecentre.respect.api.TupleCentreId".equals(tid.getClass()
-                .getName())) {
-            tcid = new TucsonTupleCentreIdDefault((TupleCentreIdentifier) tid);
-            // log("tcid = " + tcid);
-        } else if ("java.lang.String".equals(tid.getClass().getName())) {
-            try {
-                tcid = new TucsonTupleCentreIdDefault((String) tid);
-            } catch (final TucsonInvalidTupleCentreIdException ex) {
-                System.err.println("[ACCProxyAgentSide]: " + ex);
-                return null;
-            }
-        } else {
-            throw new TucsonOperationNotPossibleException();
+        TucsonTupleCentreId tcid;
+        switch (tid.getClass()
+                .getName()) {
+            case "alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault":
+                tcid = (TucsonTupleCentreId) tid;
+                break;
+            case "alice.tuplecentre.respect.api.TupleCentreId":
+                tcid = new TucsonTupleCentreIdDefault((TupleCentreIdentifier) tid);
+                // log("tcid = " + tcid);
+                break;
+            case "java.lang.String":
+                try {
+                    tcid = new TucsonTupleCentreIdDefault((String) tid);
+                } catch (final TucsonInvalidTupleCentreIdException ex) {
+                    System.err.println("[ACCProxyAgentSide]: " + ex);
+                    return null;
+                }
+                break;
+            default:
+                throw new TucsonOperationNotPossibleException();
         }
         return this.doOperation(aid, tcid, type, t, l, position);
     }
@@ -508,14 +514,13 @@ public class OperationHandler {
         do {
             nTry++;
             exception = false;
-            TucsonProtocol session = null;
+            TucsonProtocol session;
             try {
                 session = this.getSession(tcid, aid);
             } catch (final UnreachableNodeException ex2) {
-                exception = true;
                 throw new UnreachableNodeException(ex2);
             }
-            TucsonOperationDefault op = null;
+            TucsonOperationDefault op;
             if (type == TupleCentreOpType.OUT
                     || type == TupleCentreOpType.OUT_S
                     || type == TupleCentreOpType.SET_S
@@ -620,7 +625,7 @@ public class OperationHandler {
         boolean isEnterReqAcpt = false;
         try {
             dialog = TPFactory.getDialogAgentSide(tid);
-            dialog.sendEnterRequest(this.profile);
+            Objects.requireNonNull(dialog).sendEnterRequest(this.profile);
             dialog.receiveEnterRequestAnswer();
             if (dialog.isEnterRequestAccepted()) {
                 isEnterReqAcpt = true;

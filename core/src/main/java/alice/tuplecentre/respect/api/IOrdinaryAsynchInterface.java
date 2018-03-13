@@ -22,7 +22,7 @@ public interface IOrdinaryAsynchInterface {
      * @throws OperationNotPossibleException if the operation requested cannot be carried out if the
      *                                       operation requested cannot be carried out
      */
-    RespectOperation get(InputEvent ev) throws InvalidLogicTupleException,
+    RespectOperation get(InputEvent ev) throws
             OperationNotPossibleException;
 
     /**

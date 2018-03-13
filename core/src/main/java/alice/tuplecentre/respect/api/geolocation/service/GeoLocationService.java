@@ -64,7 +64,7 @@ public interface GeoLocationService {
      *
      * @return <code>true</code> if the service is running
      */
-    boolean isRunning();
+    boolean isNotRunning();
 
     /**
      * Notifies to listeners that the physical absolute position is changed

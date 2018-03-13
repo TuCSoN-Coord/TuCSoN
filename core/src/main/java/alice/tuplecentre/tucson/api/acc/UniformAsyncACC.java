@@ -58,8 +58,8 @@ public interface UniformAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation uin(final TupleCentreIdentifier tid, final Tuple tuple,
-                        final TucsonOperationCompletionListener l)
+    void uin(final TupleCentreIdentifier tid, final Tuple tuple,
+             final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 
@@ -86,8 +86,8 @@ public interface UniformAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation uinp(final TupleCentreIdentifier tid, final Tuple tuple,
-                         final TucsonOperationCompletionListener l)
+    void uinp(final TupleCentreIdentifier tid, final Tuple tuple,
+              final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 
@@ -117,8 +117,8 @@ public interface UniformAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation uno(final TupleCentreIdentifier tid, final Tuple tuple,
-                        final TucsonOperationCompletionListener l)
+    void uno(final TupleCentreIdentifier tid, final Tuple tuple,
+             final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 
@@ -146,8 +146,8 @@ public interface UniformAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation unop(final TupleCentreIdentifier tid, final Tuple tuple,
-                         final TucsonOperationCompletionListener l)
+    void unop(final TupleCentreIdentifier tid, final Tuple tuple,
+              final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 
@@ -176,8 +176,8 @@ public interface UniformAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation urd(final TupleCentreIdentifier tid, final Tuple tuple,
-                        final TucsonOperationCompletionListener l)
+    void urd(final TupleCentreIdentifier tid, final Tuple tuple,
+             final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 
@@ -204,8 +204,8 @@ public interface UniformAsyncACC extends AsyncACC {
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
      */
-    TucsonOperation urdp(final TupleCentreIdentifier tid, final Tuple tuple,
-                         final TucsonOperationCompletionListener l)
+    void urdp(final TupleCentreIdentifier tid, final Tuple tuple,
+              final TucsonOperationCompletionListener l)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 }

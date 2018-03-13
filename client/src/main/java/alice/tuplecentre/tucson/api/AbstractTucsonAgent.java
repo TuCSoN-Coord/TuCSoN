@@ -15,7 +15,6 @@ package alice.tuplecentre.tucson.api;
 
 import alice.tuplecentre.tucson.api.acc.RootACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
@@ -187,13 +186,9 @@ public abstract class AbstractTucsonAgent<T extends RootACC> {
 
         @Override
         public void run() {
-            try {
-                this.agent.context = retrieveACC(agent.aid, agent.nodeIp, agent.portNumber);
-                this.agent.main();
-                this.agent.getACC().exit();
-            } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-            }
+            this.agent.context = retrieveACC(agent.aid, agent.nodeIp, agent.portNumber);
+            this.agent.main();
+            this.agent.getACC().exit();
         }
     }
 }

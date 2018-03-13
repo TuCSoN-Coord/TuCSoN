@@ -35,7 +35,7 @@ public class TucsonTCUsers {
     public TucsonTCUsers(final TucsonTupleCentreId id) {
         this.tid = id;
         this.creationDate = new Date();
-        this.currentAidUsers = new LinkedList<TucsonAgentId>();
+        this.currentAidUsers = new LinkedList<>();
     }
 
     /**

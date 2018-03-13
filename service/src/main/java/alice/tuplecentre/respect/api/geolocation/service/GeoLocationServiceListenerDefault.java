@@ -71,7 +71,7 @@ public class GeoLocationServiceListenerDefault implements GeoLocationServiceList
             final ISpatialContext context = RespectTCContainer
                     .getRespectTCContainer().getSpatialContext(
                             this.tcId.getInternalTupleCentreId());
-            LogicTuple tuple = null;
+            LogicTuple tuple;
             RespectOperationDefault op = null;
             if (type == TupleCentreOpType.FROM) {
                 tuple = LogicTuples.parse("from(" + space + "," + place.toTerm()

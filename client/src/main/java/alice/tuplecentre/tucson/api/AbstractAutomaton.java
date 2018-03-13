@@ -55,11 +55,10 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent<RootACC> {
     /**
      * To change state.
      *
-     * @param s the string representing the state to become
      */
-    protected void become(final String s) {
+    protected void become() {
         if (!"end".equals(this.state)) {
-            this.state = s;
+            this.state = "end";
             this.arguments = null;
         }
     }
@@ -87,7 +86,7 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent<RootACC> {
      *
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      */
-    protected void end() throws TucsonOperationNotPossibleException {
+    protected void end() {
         this.getACC().exit();
     }
 
@@ -95,7 +94,7 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent<RootACC> {
      * Error state.
      */
     protected void error() {
-        this.become("end");
+        this.become();
     }
 
     /**
@@ -121,19 +120,7 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent<RootACC> {
                                 (Class<?>[]) null);
                         m.setAccessible(true);
                         m.invoke(this, (Object[]) null);
-                    } catch (final SecurityException e) {
-                        e.printStackTrace();
-                        this.error();
-                    } catch (final NoSuchMethodException e) {
-                        e.printStackTrace();
-                        this.error();
-                    } catch (final IllegalArgumentException e) {
-                        e.printStackTrace();
-                        this.error();
-                    } catch (final IllegalAccessException e) {
-                        e.printStackTrace();
-                        this.error();
-                    } catch (final InvocationTargetException e) {
+                    } catch (final SecurityException | InvocationTargetException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException e) {
                         e.printStackTrace();
                         this.error();
                     }
@@ -144,30 +131,13 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent<RootACC> {
                                 AbstractAutomaton.argType);
                         m.setAccessible(true);
                         m.invoke(this, this.arguments);
-                    } catch (final SecurityException e) {
-                        e.printStackTrace();
-                        this.error();
-                    } catch (final NoSuchMethodException e) {
-                        e.printStackTrace();
-                        this.error();
-                    } catch (final IllegalArgumentException e) {
-                        e.printStackTrace();
-                        this.error();
-                    } catch (final IllegalAccessException e) {
-                        e.printStackTrace();
-                        this.error();
-                    } catch (final InvocationTargetException e) {
+                    } catch (final SecurityException | InvocationTargetException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException e) {
                         e.printStackTrace();
                         this.error();
                     }
                 }
             } else {
-                try {
-                    this.end();
-                } catch (final TucsonOperationNotPossibleException e) {
-                    e.printStackTrace();
-                    this.error();
-                }
+                this.end();
                 break;
             }
         }

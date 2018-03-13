@@ -151,12 +151,12 @@ public class SpecificationSynchInterface extends RootInterface implements
 
     @Override
     public List<LogicTuple> setS(final RespectSpecification spec,
-                                 final InputEvent ev) throws OperationNotPossibleException,
+                                 final InputEvent ev) throws
             InvalidSpecificationException {
         final RespectOperation op = this.getCore().setSsynch(ev, spec);
         if ("'$TucsonNodeService-Agent'".equals(ev.getSource().toString())
                 || ev.getSource().toString().startsWith("'$Inspector-'")) {
-            return new LinkedList<LogicTuple>();
+            return new LinkedList<>();
         }
         return op.getLogicTupleListResult();
     }

@@ -1,6 +1,7 @@
 package alice.tuplecentre.tucson.introspection4gui;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import alice.tuple.logic.LogicTuple;
@@ -56,9 +57,7 @@ public class Inspector4GuiContextSkel extends InspectorContextSkel {
             }
         }
         tuples.removeAll(tuplesToKeep);
-        for (LogicTuple tupleRemoved : tuples) {
-            currentRemovedTuples.add(tupleRemoved);
-        }
+        currentRemovedTuples.addAll(tuples);
         tuples = tuplesToKeep;
     }
 
@@ -82,7 +81,7 @@ public class Inspector4GuiContextSkel extends InspectorContextSkel {
                         .doManagementOperation(
                                 TupleCentreOpType.GET_TSET, this.tcId, this.protocol.getTsetFilter());
 
-                updateTuples(ltSet);
+                updateTuples(Objects.requireNonNull(ltSet));
                 fillMsg(msg);
                 this.dialog.sendInspectorEvent(msg);
             }
@@ -90,7 +89,7 @@ public class Inspector4GuiContextSkel extends InspectorContextSkel {
                 final LogicTuple[] ltSet = (LogicTuple[]) TupleCentreContainer
                         .doManagementOperation(
                                 TupleCentreOpType.GET_TSET, this.tcId, this.protocol.getTsetFilter());
-                updateTuples(ltSet);
+                updateTuples(Objects.requireNonNull(ltSet));
                 fillMsg(msg);
                 this.dialog.sendInspectorEvent(msg);
             } else if (ev.getType() == ObservableEventExt.TYPE_REACTIONOK) {

@@ -23,14 +23,12 @@ public final class NetworkUtils {
         } else {
             prefix = Integer.parseInt(parts[1]);
         }
-        final int mask = 0xffffffff << 32 - prefix;
         // System.out.println("Prefix=" + prefix);
         // System.out.println("Address=" + ip);
-        final int value = mask;
-        final byte[] bytes = new byte[]{(byte) (value >>> 24),
-                (byte) (value >> 16 & 0xff), (byte) (value >> 8 & 0xff),
-                (byte) (value & 0xff)};
-        InetAddress netAddr = null;
+        final byte[] bytes = new byte[]{(byte) (0xffffffff << 32 - prefix >>> 24),
+                (byte) (0xffffffff << 32 - prefix >> 16 & 0xff), (byte) (0xffffffff << 32 - prefix >> 8 & 0xff),
+                (byte) (0xffffffff << 32 - prefix & 0xff)};
+        InetAddress netAddr;
         try {
             netAddr = InetAddress.getByAddress(bytes);
             return netAddr.getHostAddress();

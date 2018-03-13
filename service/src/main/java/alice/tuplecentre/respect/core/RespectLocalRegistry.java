@@ -24,7 +24,7 @@ public class RespectLocalRegistry implements ITCRegistry {
      * Builds an empty registry
      */
     public RespectLocalRegistry() {
-        this.reg = new HashMap<String, IRespectTC>();
+        this.reg = new HashMap<>();
     }
 
     @Override
@@ -56,9 +56,8 @@ public class RespectLocalRegistry implements ITCRegistry {
             throw new InstantiationNotPossibleException("The string " + key
                     + " is not contained in the registry");
         }
-        final IRespectTC rtc = this.reg.get(key);
         // System.out.println("....[RespectLocalRegistry]: Got " + rtc.getId()
         // + " from key " + key);
-        return rtc;
+        return this.reg.get(key);
     }
 }

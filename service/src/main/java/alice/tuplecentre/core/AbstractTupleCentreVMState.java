@@ -24,7 +24,7 @@ public abstract class AbstractTupleCentreVMState {
     /**
      *
      */
-    protected AbstractTupleCentreVMContext vm;
+    protected final AbstractTupleCentreVMContext vm;
 
     /**
      *

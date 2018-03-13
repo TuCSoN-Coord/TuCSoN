@@ -418,7 +418,7 @@ public final class InternalOperation {
      * @return the tuple representation of this internal operation
      */
     public LogicTuple toTuple() {
-        LogicTuple t = null;
+        LogicTuple t;
         if (this.result != null) {
             t = this.getResult();
         } else {

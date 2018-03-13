@@ -13,10 +13,8 @@
 package alice.tuplecentre.respect.core;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import alice.tuple.Tuple;
 import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.InspectableEventListener;
@@ -55,11 +53,11 @@ public class RespectVM implements Runnable {
     /**
      * listener to VM inspectable events
      */
-    protected List<InspectableEventListener> inspectors;
+    protected final List<InspectableEventListener> inspectors;
     /**
      *
      */
-    protected List<ObservableEventListener> observers;
+    protected final List<ObservableEventListener> observers;
 
     /**
      * @param tid       the identifier of the tuple centre this VM should manage
@@ -74,8 +72,8 @@ public class RespectVM implements Runnable {
         this.context = new RespectVMContext(this, tid, qSize, respectTC);
         this.news = new EventMonitor();
         this.idle = new Object();
-        this.inspectors = new ArrayList<InspectableEventListener>();
-        this.observers = new ArrayList<ObservableEventListener>();
+        this.inspectors = new ArrayList<>();
+        this.observers = new ArrayList<>();
     }
 
     /**
@@ -271,10 +269,8 @@ public class RespectVM implements Runnable {
      * @param e the inpsectable events to notify to listeners
      */
     public void notifyInspectableEvent(final InspectableEvent e) {
-        final Iterator<? extends InspectableEventListener> it = this.inspectors
-                .iterator();
-        while (it.hasNext()) {
-            ((InspectableEventListener) it.next()).onInspectableEvent(e);
+        for (InspectableEventListener inspector : this.inspectors) {
+            (inspector).onInspectableEvent(e);
         }
     }
 
@@ -294,62 +290,62 @@ public class RespectVM implements Runnable {
         if (ev.isInput()) {
             switch (e.getSimpleTCEvent().getType()) {
                 case IN:
-                    for (int i = 0; i < size; i++) {
-                        this.observers.get(i).inRequested(
+                    for (ObservableEventListener observer6 : this.observers) {
+                        observer6.inRequested(
                                 this.getId(),
                                 ev.getSource(),
-                                ((RespectOperationDefault) ev.getSimpleTCEvent())
+                                ev.getSimpleTCEvent()
                                         .getLogicTupleArgument());
                     }
                     break;
                 case INP:
-                    for (int i = 0; i < size; i++) {
-                        this.observers.get(i).inpRequested(
+                    for (ObservableEventListener observer5 : this.observers) {
+                        observer5.inpRequested(
                                 this.getId(),
                                 ev.getSource(),
-                                ((RespectOperationDefault) ev.getSimpleTCEvent())
+                                ev.getSimpleTCEvent()
                                         .getLogicTupleArgument());
                     }
                     break;
                 case RD:
-                    for (int i = 0; i < size; i++) {
-                        this.observers.get(i).rdRequested(
+                    for (ObservableEventListener observer4 : this.observers) {
+                        observer4.rdRequested(
                                 this.getId(),
                                 ev.getSource(),
-                                ((RespectOperationDefault) ev.getSimpleTCEvent())
+                                ev.getSimpleTCEvent()
                                         .getLogicTupleArgument());
                     }
                     break;
                 case RDP:
-                    for (int i = 0; i < size; i++) {
-                        this.observers.get(i).rdpRequested(
+                    for (ObservableEventListener observer3 : this.observers) {
+                        observer3.rdpRequested(
                                 this.getId(),
                                 ev.getSource(),
-                                ((RespectOperationDefault) ev.getSimpleTCEvent())
+                                ev.getSimpleTCEvent()
                                         .getLogicTupleArgument());
                     }
                     break;
                 case OUT:
-                    for (int i = 0; i < size; i++) {
-                        this.observers.get(i).outRequested(
+                    for (ObservableEventListener observer2 : this.observers) {
+                        observer2.outRequested(
                                 this.getId(),
                                 ev.getSource(),
-                                ((RespectOperationDefault) ev.getSimpleTCEvent())
+                                ev.getSimpleTCEvent()
                                         .getLogicTupleArgument());
                     }
                     break;
                 case SET_S:
-                    for (int i = 0; i < size; i++) {
-                        this.observers.get(i).setSpecRequested(
+                    for (ObservableEventListener observer1 : this.observers) {
+                        observer1.setSpecRequested(
                                 this.getId(),
                                 ev.getSource(),
-                                ((Tuple) ((RespectOperationDefault) ev.getSimpleTCEvent())
-                                        .getLogicTupleArgument()).toString());
+                                ev.getSimpleTCEvent()
+                                        .getLogicTupleArgument().toString());
                     }
                     break;
                 case GET_S:
-                    for (int i = 0; i < size; i++) {
-                        this.observers.get(i).getSpecRequested(this.getId(),
+                    for (ObservableEventListener observer : this.observers) {
+                        observer.getSpecRequested(this.getId(),
                                 ev.getSource());
                     }
                     break;
@@ -357,54 +353,54 @@ public class RespectVM implements Runnable {
         } else {
             switch (e.getSimpleTCEvent().getType()) {
                 case IN:
-                    for (int i = 0; i < size; i++) {
-                        this.observers.get(i).inCompleted(
+                    for (ObservableEventListener observer5 : this.observers) {
+                        observer5.inCompleted(
                                 this.getId(),
                                 ev.getSource(),
-                                ((RespectOperationDefault) ev.getSimpleTCEvent())
+                                ev.getSimpleTCEvent()
                                         .getLogicTupleArgument());
                     }
                     break;
                 case INP:
-                    for (int i = 0; i < size; i++) {
-                        this.observers.get(i).inpCompleted(
+                    for (ObservableEventListener observer4 : this.observers) {
+                        observer4.inpCompleted(
                                 this.getId(),
                                 ev.getSource(),
-                                ((RespectOperationDefault) ev.getSimpleTCEvent())
+                                ev.getSimpleTCEvent()
                                         .getLogicTupleArgument());
                     }
                     break;
                 case RD:
-                    for (int i = 0; i < size; i++) {
-                        this.observers.get(i).rdCompleted(
+                    for (ObservableEventListener observer3 : this.observers) {
+                        observer3.rdCompleted(
                                 this.getId(),
                                 ev.getSource(),
-                                ((RespectOperationDefault) ev.getSimpleTCEvent())
+                                ev.getSimpleTCEvent()
                                         .getLogicTupleArgument());
                     }
                     break;
                 case RDP:
-                    for (int i = 0; i < size; i++) {
-                        this.observers.get(i).rdpCompleted(
+                    for (ObservableEventListener observer2 : this.observers) {
+                        observer2.rdpCompleted(
                                 this.getId(),
                                 ev.getSource(),
-                                ((RespectOperationDefault) ev.getSimpleTCEvent())
+                                ev.getSimpleTCEvent()
                                         .getLogicTupleArgument());
                     }
                     break;
                 case SET_S:
-                    for (int i = 0; i < size; i++) {
-                        this.observers.get(i).setSpecCompleted(this.getId(),
+                    for (ObservableEventListener observer1 : this.observers) {
+                        observer1.setSpecCompleted(this.getId(),
                                 ev.getSource());
                     }
                     break;
                 case GET_S:
-                    for (int i = 0; i < size; i++) {
-                        this.observers.get(i).getSpecCompleted(
+                    for (ObservableEventListener observer : this.observers) {
+                        observer.getSpecCompleted(
                                 this.getId(),
                                 ev.getSource(),
-                                ((Tuple) ((RespectOperationDefault) ev.getSimpleTCEvent())
-                                        .getLogicTupleArgument()).toString());
+                                ev.getSimpleTCEvent()
+                                        .getLogicTupleArgument().toString());
                     }
                     break;
             }

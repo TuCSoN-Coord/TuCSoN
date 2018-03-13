@@ -39,7 +39,7 @@ public abstract class AbstractTucsonAction {
     /**
      * The Identifier of the TuCSoN tuple centre target of the operation
      */
-    protected TucsonTupleCentreId tcid;
+    protected final TucsonTupleCentreId tcid;
     /**
      * The name of the TuCSoN tuple centre target of the operation
      */
@@ -67,8 +67,8 @@ public abstract class AbstractTucsonAction {
      * @throws TucsonOperationNotPossibleException if the coordination operation request cannot be carried out
      * @throws UnreachableNodeException            if the target TuCSoN node is not available on the network
      */
-    public abstract TucsonOperation executeAsynch(EnhancedAsyncACC acc,
-                                                  TucsonOperationCompletionListener listener)
+    public abstract void executeAsynch(EnhancedAsyncACC acc,
+                                       TucsonOperationCompletionListener listener)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException;
 

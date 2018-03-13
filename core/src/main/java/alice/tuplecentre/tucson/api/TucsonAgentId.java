@@ -13,7 +13,7 @@ public interface TucsonAgentId extends AgentIdentifier {
      * @return wether a UUID has been succesfully assigned to this agent
      * identifier
      */
-    boolean assignUUID();
+    void assignUUID();
 
     /**
      * @return the local agent identifier part of the full TuCSoN agent

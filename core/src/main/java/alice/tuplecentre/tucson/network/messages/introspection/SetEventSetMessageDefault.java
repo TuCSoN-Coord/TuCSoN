@@ -26,7 +26,7 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
  */
 public class SetEventSetMessageDefault extends AbstractNodeMessage implements SetEventSetMessage {
 
-    private List<Tuple> eventWnSet;
+    private final List<Tuple> eventWnSet;
 
     /**
      * @param id the agent id of the sender

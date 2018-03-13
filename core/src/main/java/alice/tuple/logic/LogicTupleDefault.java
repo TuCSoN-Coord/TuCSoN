@@ -39,7 +39,7 @@ class LogicTupleDefault implements LogicTuple, Serializable {
     /**
      * the information content of logic tuple
      */
-    private TupleArgument info;
+    private final TupleArgument info;
 
     /**
      * Constructs a logic tuple providing the tuple name and argument list

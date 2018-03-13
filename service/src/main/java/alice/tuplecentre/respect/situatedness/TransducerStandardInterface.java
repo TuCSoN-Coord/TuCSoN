@@ -50,7 +50,7 @@ public interface TransducerStandardInterface {
      */
     void notifyEnvEvent(String key, int value, int mode)
             throws TucsonOperationNotPossibleException,
-            UnreachableNodeException, OperationTimeOutException;
+            UnreachableNodeException;
 
     /**
      * @param ev the ReSpecT events to be notified
@@ -62,6 +62,5 @@ public interface TransducerStandardInterface {
      * @throws OperationTimeOutException           if the notification operation expires timeout
      */
     boolean notifyOutput(InternalEvent ev)
-            throws TucsonOperationNotPossibleException,
-            UnreachableNodeException, OperationTimeOutException;
+    ;
 }

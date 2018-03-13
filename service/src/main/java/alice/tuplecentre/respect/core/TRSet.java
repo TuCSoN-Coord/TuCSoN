@@ -34,9 +34,9 @@ public class TRSet {
      *
      */
     public TRSet() {
-        this.trigs = new LinkedList<TriggeredReaction>();
-        this.tRemoved = new LinkedList<TriggeredReaction>();
-        this.tAdded = new LinkedList<TriggeredReaction>();
+        this.trigs = new LinkedList<>();
+        this.tRemoved = new LinkedList<>();
+        this.tAdded = new LinkedList<>();
         this.transaction = false;
     }
 

@@ -30,7 +30,6 @@ import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
 
 /**
@@ -74,8 +73,8 @@ public class EditSpec extends javax.swing.JFrame {
             public void caretUpdate(final javax.swing.event.CaretEvent evt) {
                 JTextArea editArea = (JTextArea) evt.getSource();
 
-                int linenum = 1;
-                int columnnum = 1;
+                int linenum;
+                int columnnum;
 
                 int caretpos = editArea.getCaretPosition();
                 try {
@@ -108,11 +107,7 @@ public class EditSpec extends javax.swing.JFrame {
      *
      */
     public void exit() {
-        try {
-            this.context.exit();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        }
+        this.context.exit();
     }
 
     /**
@@ -224,7 +219,7 @@ public class EditSpec extends javax.swing.JFrame {
         this.getContentPane().add(this.outputState, gridBagConstraints);
         jPanel2.setLayout(new java.awt.GridBagLayout());
         jPanel1.setLayout(new java.awt.GridBagLayout());
-        bLoad.setFont(new java.awt.Font("Arial", 0, 11));
+        bLoad.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         bLoad.setText("Load");
         bLoad.setToolTipText("Load the specification from the chosen file");
         bLoad.setFocusPainted(false);
@@ -240,7 +235,7 @@ public class EditSpec extends javax.swing.JFrame {
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
         jPanel1.add(bLoad, gridBagConstraints);
-        bSave.setFont(new java.awt.Font("Arial", 0, 11));
+        bSave.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         bSave.setText("Save");
         bSave.setToolTipText("Save the specification to the previously (default) chosen file");
         bSave.setFocusPainted(false);
@@ -256,7 +251,7 @@ public class EditSpec extends javax.swing.JFrame {
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         jPanel1.add(bSave, gridBagConstraints);
-        bSaveAs.setFont(new java.awt.Font("Arial", 0, 11));
+        bSaveAs.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         bSaveAs.setText("Save As");
         bSaveAs.setToolTipText("Save the specification to the chosen file");
         bSaveAs.setFocusPainted(false);
@@ -278,7 +273,7 @@ public class EditSpec extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         jPanel2.add(jPanel1, gridBagConstraints);
         jPanel3.setLayout(new java.awt.GridBagLayout());
-        bOk.setFont(new java.awt.Font("Arial", 0, 11));
+        bOk.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         bOk.setText("< set_s >");
         bOk.setToolTipText("Sets the specification space of the tuplecentre");
         bOk.setFocusPainted(false);
@@ -294,7 +289,7 @@ public class EditSpec extends javax.swing.JFrame {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         jPanel3.add(bOk, gridBagConstraints);
-        bGet.setFont(new java.awt.Font("Arial", 0, 11));
+        bGet.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         bGet.setText("< get_s >");
         bGet.setToolTipText("Gets the specification space of the tuplecentre");
         bGet.setActionCommand("bRefresh");

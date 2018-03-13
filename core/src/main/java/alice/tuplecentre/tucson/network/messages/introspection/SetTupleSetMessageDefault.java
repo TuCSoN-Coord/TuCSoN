@@ -28,7 +28,7 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 public class SetTupleSetMessageDefault extends AbstractNodeMessage implements SetTupleSetMessage {
 
     private static final long serialVersionUID = 3683932175338169242L;
-    private List<Tuple> tupleSet;
+    private final List<Tuple> tupleSet;
 
     /**
      * @param id the agent id of the sender

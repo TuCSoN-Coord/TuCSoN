@@ -121,7 +121,7 @@ class TupleArgumentDefault implements Serializable, TupleArgument {
     public TupleArgument getVarValue(final String varName) {
         if (this.value instanceof alice.tuprolog.Var) {
             return new TupleArgumentDefault(
-                    ((alice.tuprolog.Var) this.value).getTerm());
+                    this.value.getTerm());
         } else if (!(this.value instanceof alice.tuprolog.Struct)) {
             return null;
         } else {
@@ -155,19 +155,19 @@ class TupleArgumentDefault implements Serializable, TupleArgument {
     @Override
     public boolean isDouble() {
         return this.value instanceof alice.tuprolog.Number
-                && (Number) this.value instanceof alice.tuprolog.Double;
+                && this.value instanceof alice.tuprolog.Double;
     }
 
     @Override
     public boolean isFloat() {
         return this.value instanceof alice.tuprolog.Number
-                && (Number) this.value instanceof alice.tuprolog.Float;
+                && this.value instanceof alice.tuprolog.Float;
     }
 
     @Override
     public boolean isInt() {
         return this.value instanceof alice.tuprolog.Number
-                && (Number) this.value instanceof alice.tuprolog.Int;
+                && this.value instanceof alice.tuprolog.Int;
     }
 
     @Override
@@ -177,14 +177,14 @@ class TupleArgumentDefault implements Serializable, TupleArgument {
     }
 
     @Override
-    public boolean isList() {
-        return this.value.isList();
+    public boolean isNotList() {
+        return !this.value.isList();
     }
 
     @Override
     public boolean isLong() {
         return this.value instanceof alice.tuprolog.Number
-                && (Number) this.value instanceof alice.tuprolog.Long;
+                && this.value instanceof alice.tuprolog.Long;
     }
 
     @Override
@@ -242,8 +242,8 @@ class TupleArgumentDefault implements Serializable, TupleArgument {
 
     @Override
     public TupleArgument[] toArray() {
-        if (this.isList()) {
-            final ArrayList<Term> list = new ArrayList<Term>();
+        if (!this.isNotList()) {
+            final ArrayList<Term> list = new ArrayList<>();
             final Iterator<? extends Term> it = ((Struct) this.value)
                     .listIterator();
             while (it.hasNext()) {
@@ -260,8 +260,8 @@ class TupleArgumentDefault implements Serializable, TupleArgument {
 
     @Override
     public List<Term> toList() {
-        if (this.isList()) {
-            final LinkedList<Term> list = new LinkedList<Term>();
+        if (!this.isNotList()) {
+            final LinkedList<Term> list = new LinkedList<>();
             final Iterator<? extends Term> it = ((Struct) this.value)
                     .listIterator();
             while (it.hasNext()) {

@@ -13,8 +13,7 @@
  */
 package alice.tuplecentre.tucson.introspection.tools;
 
-import java.awt.Color;
-import java.awt.GridBagLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
@@ -58,7 +57,7 @@ public class InspectorGUI extends javax.swing.JFrame {
                     .println("{-tname tuple centre name} {-netid ip address} {-portno listening port number} {-aid agent identifier} {-?}");
             System.exit(0);
         }
-        String stAid = null;
+        String stAid;
         if (alice.util.Tools.isOpt(args, "-aid")) {
             stAid = alice.util.Tools.getOpt(args, "-aid");
         } else {
@@ -92,7 +91,7 @@ public class InspectorGUI extends javax.swing.JFrame {
                     .println("[Inspector]: Please input an admissible tuplecentre "
                             + "name from the GUI...");
         }
-        InspectorGUI form = null;
+        InspectorGUI form;
         if (tid != null) {
             form = new InspectorGUI(aid, tid, true);
         } else {
@@ -143,7 +142,7 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Package-visible reference to the Inspector session.
      */
-    protected InspectorProtocol protocol = new InspectorProtocolDefault();
+    protected final InspectorProtocol protocol = new InspectorProtocolDefault();
     /**
      * Package-visible reference to the inspected tuplecentre.
      */
@@ -302,7 +301,7 @@ public class InspectorGUI extends javax.swing.JFrame {
                 " Input tuplecentre to inspect: ",
                 javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
                 javax.swing.border.TitledBorder.DEFAULT_POSITION,
-                new java.awt.Font("Arial", 0, 12)));
+                new java.awt.Font("Arial", Font.PLAIN, 12)));
         this.controlPanel.setVisible(false);
         this.imgPanel.setVisible(true);
     }
@@ -317,7 +316,7 @@ public class InspectorGUI extends javax.swing.JFrame {
                 " Now inspecting tuplecentre: ",
                 javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
                 javax.swing.border.TitledBorder.DEFAULT_POSITION,
-                new java.awt.Font("Arial", 0, 12)));
+                new java.awt.Font("Arial", Font.PLAIN, 12)));
         this.controlPanel.setVisible(true);
         this.imgPanel.setVisible(false);
     }
@@ -383,7 +382,7 @@ public class InspectorGUI extends javax.swing.JFrame {
                 InspectorGUI.this.exitForm();
             }
         });
-        this.controlPanel.setFont(new java.awt.Font("Arial", 0, 11));
+        this.controlPanel.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.controlPanel.setMaximumSize(new java.awt.Dimension(360, 120));
         this.controlPanel.setMinimumSize(new java.awt.Dimension(360, 120));
         this.controlPanel.setPreferredSize(new java.awt.Dimension(360, 120));
@@ -395,7 +394,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         stepModePanel.setLayout(new GridBagLayout());
         stepModePanel.setMinimumSize(new java.awt.Dimension(240, 100));
         stepModePanel.setPreferredSize(new java.awt.Dimension(240, 100));
-        tuplesBtn.setFont(new java.awt.Font("Arial", 0, 11));
+        tuplesBtn.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         tuplesBtn.setText("Tuple Space");
         tuplesBtn.setToolTipText("Inspect logic tuples set");
         tuplesBtn.setMaximumSize(new java.awt.Dimension(130, 25));
@@ -414,7 +413,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         gridBagConstraints.weightx = 30.0;
         gridBagConstraints.weighty = 100.0;
         respectSetsPanel.add(tuplesBtn, gridBagConstraints);
-        pendingBtn.setFont(new java.awt.Font("Arial", 0, 11));
+        pendingBtn.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         pendingBtn.setText("Pending Ops");
         pendingBtn.setToolTipText("Inspect pending TuCSoN operations set");
         pendingBtn.setMaximumSize(new java.awt.Dimension(130, 25));
@@ -433,7 +432,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         gridBagConstraints.weightx = 30.0;
         gridBagConstraints.weighty = 100.0;
         respectSetsPanel.add(pendingBtn, gridBagConstraints);
-        reactionsBtn.setFont(new java.awt.Font("Arial", 0, 11));
+        reactionsBtn.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         reactionsBtn.setText("ReSpecT Reactions");
         reactionsBtn.setToolTipText("Inspect triggered ReSpecT rections set");
         reactionsBtn.setMaximumSize(new java.awt.Dimension(130, 25));
@@ -452,7 +451,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         gridBagConstraints.weightx = 30.0;
         gridBagConstraints.weighty = 100.0;
         respectSetsPanel.add(reactionsBtn, gridBagConstraints);
-        this.specBtn.setFont(new java.awt.Font("Arial", 0, 11));
+        this.specBtn.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.specBtn.setText("Specification Space");
         this.specBtn.setToolTipText("Inspect ReSpecT specification tuples set");
         this.specBtn.setMaximumSize(new java.awt.Dimension(130, 25));
@@ -471,7 +470,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         gridBagConstraints.weightx = 50.0;
         gridBagConstraints.weighty = 100.0;
         respectSetsPanel.add(this.specBtn, gridBagConstraints);
-        this.vmStepCB.setFont(new java.awt.Font("Arial", 0, 11));
+        this.vmStepCB.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.vmStepCB.setText("Step Mode");
         this.vmStepCB.setToolTipText("Enable/Disable step mode");
         this.vmStepCB.setSelected(false);
@@ -507,7 +506,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         gridBagConstraints.weighty = 100.0;
         stepModePanel.add(this.vmStepCB, gridBagConstraints);
         this.vmStepBtn.setEnabled(false);
-        this.vmStepBtn.setFont(new java.awt.Font("Arial", 0, 11));
+        this.vmStepBtn.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.vmStepBtn.setText("Next Step");
         this.vmStepBtn.setEnabled(false);
         this.vmStepBtn.setToolTipText("Go to the next respect vm step");
@@ -528,7 +527,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         gridBagConstraints.weighty = 100.0;
         stepModePanel.add(this.vmStepBtn, gridBagConstraints);
         this.buttonGroup.add(this.tupleSpaceStepMode);
-        this.tupleSpaceStepMode.setFont(new java.awt.Font("Arial", 0, 11));
+        this.tupleSpaceStepMode.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.tupleSpaceStepMode.setText("Inspect Like The Tuple Space");
         this.tupleSpaceStepMode.setToolTipText("Defining Inspection Mode");
         this.tupleSpaceStepMode.setMaximumSize(new java.awt.Dimension(180, 25));
@@ -552,7 +551,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         gridBagConstraints.weighty = 100.0;
         stepModePanel.add(this.tupleSpaceStepMode, gridBagConstraints);
         this.buttonGroup.add(this.agentStepMode);
-        this.agentStepMode.setFont(new java.awt.Font("Arial", 0, 11));
+        this.agentStepMode.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.agentStepMode.setText("Inspect Like An Agent");
         this.agentStepMode.setToolTipText("Defining Inspection Mode");
         this.agentStepMode.setMaximumSize(new java.awt.Dimension(180, 25));
@@ -588,7 +587,7 @@ public class InspectorGUI extends javax.swing.JFrame {
                 " Input tuplecentre to inspect: ",
                 javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION,
                 javax.swing.border.TitledBorder.DEFAULT_POSITION,
-                new java.awt.Font("Arial", 0, 12)));
+                new java.awt.Font("Arial", Font.PLAIN, 12)));
         this.chooseTC.setMaximumSize(new java.awt.Dimension(360, 160));
         this.chooseTC.setMinimumSize(new java.awt.Dimension(360, 160));
         this.chooseTC.setPreferredSize(new java.awt.Dimension(360, 160));
@@ -646,7 +645,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         this.chooseTC.add(this.inputPort, gridBagConstraints);
-        this.buttonInspect.setFont(new java.awt.Font("Arial", 0, 11));
+        this.buttonInspect.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.buttonInspect.setText("Inspect!");
         this.buttonInspect
                 .addActionListener(new java.awt.event.ActionListener() {

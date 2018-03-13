@@ -54,11 +54,11 @@ public class Set extends AbstractTucsonOrdinaryAction {
     }
 
     @Override
-    public TucsonOperation executeAsynch(final EnhancedAsyncACC acc,
-                                         final TucsonOperationCompletionListener listener)
+    public void executeAsynch(final EnhancedAsyncACC acc,
+                              final TucsonOperationCompletionListener listener)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
-        return acc.set(this.tcid, this.tuple, listener);
+        acc.set(this.tcid, this.tuple, listener);
     }
 
     @Override

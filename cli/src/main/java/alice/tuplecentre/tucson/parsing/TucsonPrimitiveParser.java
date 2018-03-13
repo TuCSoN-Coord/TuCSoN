@@ -30,12 +30,9 @@ public class TucsonPrimitiveParser {
                 arg = this.input.substring(iLeftBra + 1, iRightBra).trim();
                 if (("get".equals(primitive) || "get_s".equals(primitive))
                         && !"".equals(arg)) {
-                    primitive = "";
-                    arg = "";
                     return null;
                 }
             } else {
-                primitive = "";
                 return null;
             }
         } else {
@@ -44,7 +41,6 @@ public class TucsonPrimitiveParser {
                     && !"help".equals(primitive) && !"man".equals(primitive)
                     && !"syntax".equals(primitive) && !"o/".equals(primitive)
                     && !"\\o".equals(primitive) && !"hi".equals(primitive)) {
-                primitive = "";
                 return null;
             }
         }

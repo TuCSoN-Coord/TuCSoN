@@ -43,7 +43,7 @@ public class LogicReaction implements alice.tuplecentre.core.Reaction,
      * @param t the Prolog struct representing this reaction
      */
     public LogicReaction(final Struct t) {
-        final AbstractMap<Var, Var> v = new LinkedHashMap<Var, Var>();
+        final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         this.reaction = (Struct) t.copyGoal(v, 0);
     }
 

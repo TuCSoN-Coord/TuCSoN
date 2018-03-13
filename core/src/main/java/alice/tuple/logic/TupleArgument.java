@@ -124,7 +124,7 @@ public interface TupleArgument {
      *
      * @return <code>true</code> if this argument is a list
      */
-    boolean isList();
+    boolean isNotList();
 
     /**
      * Tests if the argument is an long

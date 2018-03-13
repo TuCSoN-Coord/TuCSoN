@@ -50,11 +50,11 @@ public class GetS extends AbstractTucsonSpecificationAction {
     }
 
     @Override
-    public TucsonOperation executeAsynch(final EnhancedAsyncACC acc,
-                                         final TucsonOperationCompletionListener listener)
+    public void executeAsynch(final EnhancedAsyncACC acc,
+                              final TucsonOperationCompletionListener listener)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
-        return acc.getS(this.tcid, listener);
+        acc.getS(this.tcid, listener);
     }
 
     @Override

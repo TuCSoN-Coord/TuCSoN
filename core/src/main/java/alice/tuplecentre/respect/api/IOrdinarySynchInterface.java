@@ -128,8 +128,7 @@ public interface IOrdinarySynchInterface {
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
-    List<LogicTuple> set(final InputEvent ev) throws OperationNotPossibleException,
-            InvalidLogicTupleException;
+    List<LogicTuple> set(final InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * @param ev the events to handle

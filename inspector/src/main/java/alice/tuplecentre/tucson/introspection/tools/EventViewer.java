@@ -13,7 +13,7 @@
  */
 package alice.tuplecentre.tucson.introspection.tools;
 
-import java.awt.Color;
+import java.awt.*;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -129,13 +129,8 @@ public class EventViewer extends javax.swing.JFrame {
         try {
             final String st = this.inputFilterView.getText();
             final LogicTuple t = LogicTuples.parse(st);
-            if (t == null) {
-                this.outputState
-                        .setText("Given template is not an admissible Prolog term.");
-            } else {
-                this.mainForm.protocol.setWsetFilter(t);
-                this.context.setProtocol(this.mainForm.protocol);
-            }
+            this.mainForm.protocol.setWsetFilter(t);
+            this.context.setProtocol(this.mainForm.protocol);
             this.buttonGetActionPerformed();
         } catch (final InvalidLogicTupleException e) {
             this.outputState
@@ -249,7 +244,7 @@ public class EventViewer extends javax.swing.JFrame {
             }
         });
         this.outputArea.setEditable(false);
-        this.outputArea.setFont(new java.awt.Font("Courier New", 0, 12));
+        this.outputArea.setFont(new java.awt.Font("Courier New", Font.PLAIN, 12));
         jScrollPane1.setViewportView(this.outputArea);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -259,13 +254,13 @@ public class EventViewer extends javax.swing.JFrame {
         gridBagConstraints.weightx = 100.0;
         gridBagConstraints.weighty = 100.0;
         this.getContentPane().add(jScrollPane1, gridBagConstraints);
-        jTabbedPane1.setFont(new java.awt.Font("Arial", 0, 11));
+        jTabbedPane1.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         jPanel1.setLayout(new java.awt.GridBagLayout());
         jPanel2.setLayout(new java.awt.GridBagLayout());
         jPanel2.setBorder(new javax.swing.border.TitledBorder(
                 new javax.swing.border.EtchedBorder(), "type"));
-        jPanel2.setFont(new java.awt.Font("Arial", 0, 11));
-        this.radioReactive.setFont(new java.awt.Font("Arial", 0, 11));
+        jPanel2.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
+        this.radioReactive.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.radioReactive
                 .setText("REACTIVE: update observations only upon request.");
         this.radioReactive
@@ -285,7 +280,7 @@ public class EventViewer extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 30.0;
         jPanel2.add(this.radioReactive, gridBagConstraints);
-        this.radioProactive.setFont(new java.awt.Font("Arial", 0, 11));
+        this.radioProactive.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.radioProactive
                 .setText("PROACTIVE: update observations as soon as events happen.");
         this.radioProactive
@@ -306,7 +301,7 @@ public class EventViewer extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 100.0;
         jPanel2.add(this.radioProactive, gridBagConstraints);
-        this.buttonGet.setFont(new java.awt.Font("Arial", 0, 11));
+        this.buttonGet.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.buttonGet.setText("Observe!");
         this.buttonGet
                 .setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -334,7 +329,7 @@ public class EventViewer extends javax.swing.JFrame {
         jPanel4.setLayout(new java.awt.GridBagLayout());
         jPanel4.setBorder(new javax.swing.border.TitledBorder(
                 new javax.swing.border.EtchedBorder(), "filtering"));
-        this.checkFilterView.setFont(new java.awt.Font("Arial", 0, 11));
+        this.checkFilterView.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.checkFilterView
                 .setText("Filter observed tuples using the following template:");
         this.checkFilterView
@@ -353,7 +348,7 @@ public class EventViewer extends javax.swing.JFrame {
         gridBagConstraints.weightx = 100.0;
         gridBagConstraints.weighty = 10.0;
         jPanel4.add(this.checkFilterView, gridBagConstraints);
-        this.buttonAcceptPattern.setFont(new java.awt.Font("Arial", 0, 11));
+        this.buttonAcceptPattern.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.buttonAcceptPattern.setText("Match!");
         this.buttonAcceptPattern
                 .addActionListener(new java.awt.event.ActionListener() {
@@ -368,7 +363,7 @@ public class EventViewer extends javax.swing.JFrame {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         jPanel4.add(this.buttonAcceptPattern, gridBagConstraints);
-        this.inputFilterView.setFont(new java.awt.Font("Courier New", 0, 12));
+        this.inputFilterView.setFont(new java.awt.Font("Courier New", Font.PLAIN, 12));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -389,8 +384,8 @@ public class EventViewer extends javax.swing.JFrame {
         jPanel6.setLayout(new java.awt.GridBagLayout());
         jPanel6.setBorder(new javax.swing.border.TitledBorder(
                 new javax.swing.border.EtchedBorder(), "filtering"));
-        jPanel6.setFont(new java.awt.Font("Arial", 0, 11));
-        this.checkFilterLog.setFont(new java.awt.Font("Arial", 0, 11));
+        jPanel6.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
+        this.checkFilterLog.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.checkFilterLog
                 .setText("Filter observed tuples using the following template:");
         this.checkFilterLog
@@ -409,7 +404,7 @@ public class EventViewer extends javax.swing.JFrame {
         gridBagConstraints.weightx = 100.0;
         gridBagConstraints.weighty = 10.0;
         jPanel6.add(this.checkFilterLog, gridBagConstraints);
-        this.buttonAcceptFilterLog.setFont(new java.awt.Font("Arial", 0, 11));
+        this.buttonAcceptFilterLog.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         this.buttonAcceptFilterLog.setText("Match!");
         this.buttonAcceptFilterLog
                 .addActionListener(new java.awt.event.ActionListener() {
@@ -424,7 +419,7 @@ public class EventViewer extends javax.swing.JFrame {
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 1;
         jPanel6.add(this.buttonAcceptFilterLog, gridBagConstraints);
-        this.inputFilterLog.setFont(new java.awt.Font("Courier New", 0, 12));
+        this.inputFilterLog.setFont(new java.awt.Font("Courier New", Font.PLAIN, 12));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -443,8 +438,8 @@ public class EventViewer extends javax.swing.JFrame {
         jPanel8.setLayout(new java.awt.GridBagLayout());
         jPanel8.setBorder(new javax.swing.border.TitledBorder(
                 new javax.swing.border.EtchedBorder(), "store"));
-        jPanel8.setFont(new java.awt.Font("Arial", 0, 11));
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 11));
+        jPanel8.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
+        jLabel3.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("dump observations on file: ");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -453,7 +448,7 @@ public class EventViewer extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 10.0;
         jPanel8.add(jLabel3, gridBagConstraints);
-        this.inputFileLog.setFont(new java.awt.Font("Courier New", 0, 12));
+        this.inputFileLog.setFont(new java.awt.Font("Courier New", Font.PLAIN, 12));
         this.inputFileLog
                 .addActionListener(new java.awt.event.ActionListener() {
 
@@ -469,7 +464,7 @@ public class EventViewer extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 100.0;
         jPanel8.add(this.inputFileLog, gridBagConstraints);
-        buttonBrowse.setFont(new java.awt.Font("Arial", 0, 11));
+        buttonBrowse.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         buttonBrowse.setText("Browse");
         buttonBrowse.addActionListener(new java.awt.event.ActionListener() {
 
@@ -541,7 +536,7 @@ public class EventViewer extends javax.swing.JFrame {
         gridBagConstraints.weightx = 20.0;
         jPanel9.add(jLabel2, gridBagConstraints);
         this.outputNoItems.setEditable(false);
-        this.outputNoItems.setFont(new java.awt.Font("Courier New", 0, 12));
+        this.outputNoItems.setFont(new java.awt.Font("Courier New", Font.PLAIN, 12));
         this.outputNoItems
                 .setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         gridBagConstraints = new java.awt.GridBagConstraints();

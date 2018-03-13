@@ -50,7 +50,7 @@ public final class TucsonMetaACC {
     public static AdminACC getAdminContext(final TucsonAgentId aid,
                                            final String netid, final int portno, final String username,
                                            final String password) {
-        AdminACC acc = null;
+        AdminACC acc;
         try {
             acc = new AdminACCProxyAgentSide(aid, netid, portno, username,
                     password);
@@ -103,7 +103,7 @@ public final class TucsonMetaACC {
      */
     public static EnhancedACC getContext(final TucsonAgentId aid,
                                          final String netid, final int portno) {
-        EnhancedACC acc = null;
+        EnhancedACC acc;
         try {
             acc = new ACCProxyAgentSide(aid.toString(), netid, portno);
             aid.assignUUID();
@@ -139,7 +139,7 @@ public final class TucsonMetaACC {
      */
     public static NegotiationACC getNegotiationContext(final String aid,
                                                        final String netid, final int portno) {
-        NegotiationACC acc = null;
+        NegotiationACC acc;
         try {
             acc = new NegotiationACCProxyAgentSide(new TucsonAgentIdDefault(aid),
                     netid, portno);

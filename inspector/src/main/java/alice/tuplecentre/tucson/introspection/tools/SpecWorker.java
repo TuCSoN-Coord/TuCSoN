@@ -14,6 +14,7 @@
 package alice.tuplecentre.tucson.introspection.tools;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.swing.JTextArea;
 
@@ -34,7 +35,7 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 public class SpecWorker extends Thread {
 
     private static String format(final LogicTuple t) {
-        final StringBuffer res = new StringBuffer(21);
+        final StringBuilder res = new StringBuilder(21);
         try {
             res.append(t.getName()).append("(\n\t");
             res.append(t.getArg(0)).append(",\n\t");
@@ -47,7 +48,7 @@ public class SpecWorker extends Thread {
     }
 
     private static String predFormat(final LogicTuple t) {
-        final StringBuffer res = new StringBuffer();
+        final StringBuilder res = new StringBuilder();
         try {
             if (!":-".equals(t.getName())) {
                 res.append(t.toString()).append(".\n");
@@ -82,7 +83,7 @@ public class SpecWorker extends Thread {
 
     @Override
     public void run() {
-        if (this.operation == "get") {
+        if (Objects.equals(this.operation, "get")) {
             try {
                 final StringBuffer spec = new StringBuffer();
                 final List<LogicTuple> list = this.context.getS(this.tid,
@@ -95,18 +96,12 @@ public class SpecWorker extends Thread {
                     }
                 }
                 this.form.getCompletion(spec);
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonOperationNotPossibleException | OperationTimeOutException | UnreachableNodeException e) {
                 e.printStackTrace();
                 // EditSpec.outputState.setText(e.toString());
-            } catch (final UnreachableNodeException e) {
-                e.printStackTrace();
-                // EditSpec.outputState.setText("TuCSoN Node is unreachable.");
-            } catch (final OperationTimeOutException e) {
-                e.printStackTrace();
-                // EditSpec.outputState.setText("TuCSoN operation timeout exceeded.");
             }
         }
-        if (this.operation == "set") {
+        if (Objects.equals(this.operation, "set")) {
             final String spec = this.inputSpec.getText();
             try {
                 if (spec.isEmpty()) {
@@ -115,18 +110,9 @@ public class SpecWorker extends Thread {
                 } else {
                     this.context.setS(this.tid, spec, (Long) null);
                 }
-            } catch (final TucsonOperationNotPossibleException e) {
+            } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException e) {
                 e.printStackTrace();
                 // EditSpec.outputState.setText(e.toString());
-            } catch (final UnreachableNodeException e) {
-                e.printStackTrace();
-                // EditSpec.outputState.setText("TuCSoN Node is unreachable.");
-            } catch (final OperationTimeOutException e) {
-                e.printStackTrace();
-                // EditSpec.outputState.setText("TuCSoN operation timeout exceeded.");
-            } catch (final InvalidLogicTupleException e) {
-                e.printStackTrace();
-                // EditSpec.outputState.setText("Invalid ReSpecT specification given.");
             }
             this.form.setCompletion();
         }

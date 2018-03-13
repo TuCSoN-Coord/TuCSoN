@@ -106,16 +106,22 @@ public final class JTuplesEngine {
                 for (int i = 0; i < a; i++) {
                     ta = tuple.getArg(i);
                     if (ta.getArity() == 1) {
-                        if ("double".equals(ta.getName())) {
-                            vals[i] = new JValDefault(ta.getArg(0).doubleValue());
-                        } else if ("float".equals(ta.getName())) {
-                            vals[i] = new JValDefault(ta.getArg(0).floatValue());
-                        } else if ("int".equals(ta.getName())) {
-                            vals[i] = new JValDefault(ta.getArg(0).intValue());
-                        } else if ("literal".equals(ta.getName())) {
-                            vals[i] = new JValDefault(ta.getArg(0).toString());
-                        } else if ("long".equals(ta.getName())) {
-                            vals[i] = new JValDefault(ta.getArg(0).longValue());
+                        switch (ta.getName()) {
+                            case "double":
+                                vals[i] = new JValDefault(ta.getArg(0).doubleValue());
+                                break;
+                            case "float":
+                                vals[i] = new JValDefault(ta.getArg(0).floatValue());
+                                break;
+                            case "int":
+                                vals[i] = new JValDefault(ta.getArg(0).intValue());
+                                break;
+                            case "literal":
+                                vals[i] = new JValDefault(ta.getArg(0).toString());
+                                break;
+                            case "long":
+                                vals[i] = new JValDefault(ta.getArg(0).longValue());
+                                break;
                         }
                     } else {
                         throw new InvalidTupleException();
@@ -154,44 +160,59 @@ public final class JTuplesEngine {
         try {
             if ("javat".equals(template.getName())) {
                 final int a = template.getArity();
-                args = new ArrayList<JArg>(a);
+                args = new ArrayList<>(a);
                 for (int i = 0; i < a; i++) {
                     ta = template.getArg(i);
-                    if (ta.getArity() == 0) {
-                        if (ta.isVar()) {
-                            args.add(new JVarDefault(JArgType.ANY));
-                        } else {
+                    switch (ta.getArity()) {
+                        case 0:
+                            if (ta.isVar()) {
+                                args.add(new JVarDefault(JArgType.ANY));
+                            } else {
+                                throw new InvalidTupleException();
+                            }
+                            break;
+                        case 1:
+                            ta2 = ta.getArg(0);
+                            if (ta2.isVar()) {
+                                switch (ta.getName()) {
+                                    case "double":
+                                        args.add(new JVarDefault(JArgType.DOUBLE));
+                                        break;
+                                    case "float":
+                                        args.add(new JVarDefault(JArgType.FLOAT));
+                                        break;
+                                    case "int":
+                                        args.add(new JVarDefault(JArgType.INT));
+                                        break;
+                                    case "literal":
+                                        args.add(new JVarDefault(JArgType.LITERAL));
+                                        break;
+                                    case "long":
+                                        args.add(new JVarDefault(JArgType.LONG));
+                                        break;
+                                }
+                            } else {
+                                switch (ta.getName()) {
+                                    case "double":
+                                        args.add(new JValDefault(ta2.doubleValue()));
+                                        break;
+                                    case "float":
+                                        args.add(new JValDefault(ta2.floatValue()));
+                                        break;
+                                    case "int":
+                                        args.add(new JValDefault(ta2.intValue()));
+                                        break;
+                                    case "literal":
+                                        args.add(new JValDefault(ta2.toString()));
+                                        break;
+                                    case "long":
+                                        args.add(new JValDefault(ta2.longValue()));
+                                        break;
+                                }
+                            }
+                            break;
+                        default:
                             throw new InvalidTupleException();
-                        }
-                    } else if (ta.getArity() == 1) {
-                        ta2 = ta.getArg(0);
-                        if (ta2.isVar()) {
-                            if ("double".equals(ta.getName())) {
-                                args.add(new JVarDefault(JArgType.DOUBLE));
-                            } else if ("float".equals(ta.getName())) {
-                                args.add(new JVarDefault(JArgType.FLOAT));
-                            } else if ("int".equals(ta.getName())) {
-                                args.add(new JVarDefault(JArgType.INT));
-                            } else if ("literal".equals(ta.getName())) {
-                                args.add(new JVarDefault(JArgType.LITERAL));
-                            } else if ("long".equals(ta.getName())) {
-                                args.add(new JVarDefault(JArgType.LONG));
-                            }
-                        } else {
-                            if ("double".equals(ta.getName())) {
-                                args.add(new JValDefault(ta2.doubleValue()));
-                            } else if ("float".equals(ta.getName())) {
-                                args.add(new JValDefault(ta2.floatValue()));
-                            } else if ("int".equals(ta.getName())) {
-                                args.add(new JValDefault(ta2.intValue()));
-                            } else if ("literal".equals(ta.getName())) {
-                                args.add(new JValDefault(ta2.toString()));
-                            } else if ("long".equals(ta.getName())) {
-                                args.add(new JValDefault(ta2.longValue()));
-                            }
-                        }
-                    } else {
-                        throw new InvalidTupleException();
                     }
                 }
             } else {

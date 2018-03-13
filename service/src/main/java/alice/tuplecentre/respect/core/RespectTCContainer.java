@@ -62,9 +62,8 @@ public final class RespectTCContainer {
         this.registry = new RespectLocalRegistry();
         this.stub = null;
         try {
-            this.loopback = InetAddress.getLocalHost().getHostAddress()
-                    .toString();
-            this.hostname = InetAddress.getLocalHost().getHostName().toString();
+            this.loopback = InetAddress.getLocalHost().getHostAddress();
+            this.hostname = InetAddress.getLocalHost().getHostName();
         } catch (final UnknownHostException e) {
             e.printStackTrace();
             this.loopback = null;
@@ -78,7 +77,7 @@ public final class RespectTCContainer {
      */
     public void addStub(final IRemoteLinkProvider s) {
         if (s == null) {
-            this.stub = s;
+            this.stub = null;
         }
     }
 

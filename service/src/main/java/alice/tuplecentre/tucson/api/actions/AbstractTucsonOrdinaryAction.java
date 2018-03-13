@@ -34,7 +34,7 @@ public abstract class AbstractTucsonOrdinaryAction extends AbstractTucsonAction 
     /**
      * The tuple argument of the operation
      */
-    protected LogicTuple tuple;
+    protected final LogicTuple tuple;
 
     /**
      * Builds a TuCSoN action whose target is the given tuple centre and whose

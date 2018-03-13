@@ -58,11 +58,11 @@ public class OutS extends AbstractTucsonSpecificationAction {
     }
 
     @Override
-    public TucsonOperation executeAsynch(final EnhancedAsyncACC acc,
-                                         final TucsonOperationCompletionListener listener)
+    public void executeAsynch(final EnhancedAsyncACC acc,
+                              final TucsonOperationCompletionListener listener)
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
-        return acc.outS(this.tcid, this.event, this.guards, this.reaction,
+        acc.outS(this.tcid, this.event, this.guards, this.reaction,
                 listener);
     }
 

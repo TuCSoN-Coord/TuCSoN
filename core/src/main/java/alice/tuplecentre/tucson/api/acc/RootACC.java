@@ -39,7 +39,6 @@ public interface RootACC {
      *                                             centre Identifier
      */
     void enterACC() throws UnreachableNodeException, // galassi
-            TucsonOperationNotPossibleException,
             TucsonInvalidTupleCentreIdException;
 
     /**
@@ -57,7 +56,7 @@ public interface RootACC {
      *
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      */
-    void exit() throws TucsonOperationNotPossibleException;
+    void exit();
 
     /**
      * Gets the RBAC (Role-Based Access Control) username (if existing).

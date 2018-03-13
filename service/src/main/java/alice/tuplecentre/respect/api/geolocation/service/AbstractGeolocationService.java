@@ -29,7 +29,7 @@ public abstract class AbstractGeolocationService implements GeoLocationService {
     /**
      * List of listeners associated to the service
      */
-    protected List<GeoLocationServiceListener> listeners;
+    protected final List<GeoLocationServiceListener> listeners;
     /**
      * Represent the running status of the service
      */
@@ -37,11 +37,11 @@ public abstract class AbstractGeolocationService implements GeoLocationService {
     /**
      * Service identifier
      */
-    protected GeoServiceIdentifier serviceId;
+    protected final GeoServiceIdentifier serviceId;
     /**
      * Identifier of the associated tuple centre
      */
-    protected TucsonTupleCentreId tcId;
+    protected final TucsonTupleCentreId tcId;
 
     /**
      * Constructs a service
@@ -55,7 +55,7 @@ public abstract class AbstractGeolocationService implements GeoLocationService {
         this.platform = p;
         this.serviceId = sid;
         this.tcId = ttci;
-        this.listeners = new ArrayList<GeoLocationServiceListener>();
+        this.listeners = new ArrayList<>();
     }
 
     @Override
@@ -84,8 +84,8 @@ public abstract class AbstractGeolocationService implements GeoLocationService {
     }
 
     @Override
-    public synchronized boolean isRunning() {
-        return this.running;
+    public synchronized boolean isNotRunning() {
+        return !this.running;
     }
 
     @Override

@@ -73,7 +73,7 @@ public class TucsonAgentIdDefault implements TucsonAgentId, Serializable {
     }
 
     @Override
-    public boolean assignUUID() {
+    public void assignUUID() {
         if (this.uuid == null) {
             this.uuid = UUID.randomUUID();
             try {
@@ -84,7 +84,6 @@ public class TucsonAgentIdDefault implements TucsonAgentId, Serializable {
                 e.printStackTrace();
             }
         }
-        return true;
     }
 
     @Override

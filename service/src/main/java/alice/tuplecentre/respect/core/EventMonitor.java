@@ -31,7 +31,6 @@ public class EventMonitor {
                 this.canCompute.await();
             }
             this.event = false;
-            return;
         } finally {
             this.lock.unlock();
         }
