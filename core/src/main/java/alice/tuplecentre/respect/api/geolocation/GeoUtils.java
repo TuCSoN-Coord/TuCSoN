@@ -28,7 +28,7 @@ public final class GeoUtils {
                 * Math.sin(dLng / 2);
         final double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         final double dist = GeoUtils.EARTH_RADIUS * c;
-        return new Float(dist * GeoUtils.METER_CONVERSION).floatValue();
+        return (float) (dist * GeoUtils.METER_CONVERSION);
     }
 
     /**
