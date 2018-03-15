@@ -17,16 +17,16 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 import alice.tuplecentre.tucson.utilities.Utils;
 
 /**
- *
+ * TODO add documentation
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
 public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
 
-    private static final int DEF_PORT = 20504;
     private static final int N_PHILOSOPHERS = 10;
 
     /**
@@ -57,7 +57,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
             throws TucsonInvalidAgentIdException {
         super(aid);
         this.ip = "localhost";
-        this.port = DDiningPhilosophersTest.DEF_PORT;
+        this.port = TucsonInfo.getDefaultPortNumber();
     }
 
     @Override
@@ -80,7 +80,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
                         + seats[i].toString() + " >...");
                 acc.setS(
                         seats[i],
-                        Utils.fileToString("alice/tucson/examples/distributedDiningPhilos/seat.rsp"),
+                        Utils.fileToString("distributedDiningPhilos/seat.rsp"),
                         null);
                 acc.out(seats[i], LogicTuples.parse("philosopher(thinking)"),
                         null);
@@ -93,7 +93,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
                     + table.toString() + " >...");
             acc.setS(
                     table,
-                    Utils.fileToString("alice/tucson/examples/distributedDiningPhilos/table.rsp"),
+                    Utils.fileToString("distributedDiningPhilos/table.rsp"),
                     null);
             for (int i = 0; i < DDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
                 acc.out(table, LogicTuples.parse("chop(" + i + ")"), null);

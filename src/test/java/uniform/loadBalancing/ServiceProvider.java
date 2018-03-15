@@ -20,6 +20,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * Dummy Service Provider class to show some 'adaptive' features related to
@@ -80,10 +81,10 @@ public class ServiceProvider extends AbstractTucsonAgent<RootACC> {
      */
     public static void main(final String[] args) {
         try {
-            new ServiceProvider("provider1", "default@localhost:20504", 5000)
+            new ServiceProvider("provider1", "default@localhost" + TucsonInfo.getDefaultPortNumber(), 5000)
             .go();
-            new ServiceProvider("provider2", "default@localhost:20504", 3000).go();
-            new ServiceProvider("provider3", "default@localhost:20504", 1000)
+            new ServiceProvider("provider2", "default@localhost" + TucsonInfo.getDefaultPortNumber(), 3000).go();
+            new ServiceProvider("provider3", "default@localhost" + TucsonInfo.getDefaultPortNumber(), 1000)
             .go();
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();

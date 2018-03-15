@@ -46,6 +46,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * An unauthorised agent. It is NOT "known" by TuCSoN-RBAC, lacking
@@ -138,7 +139,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent<RootACC> {
      *            program arguments: args[0] is TuCSoN Node TCP port number.
      */
     public static void main(final String[] args) {
-        int portno = 20504;
+        int portno = TucsonInfo.getDefaultPortNumber();
         if (args.length == 1) {
             portno = Integer.parseInt(args[0]);
         }

@@ -23,7 +23,7 @@ import alice.tuplecentre.tucson.utilities.Utils;
  */
 public final class Environment {
 
-    private static final String PATH = "./alice/tucson/examples/uniform/swarms/env/evaporation.rsp";
+    private static final String PATH = "uniform/swarms/env/evaporation.rsp";
 
     private static TucsonAgentId me;
     private static NegotiationACC negAcc;

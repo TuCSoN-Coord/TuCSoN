@@ -23,6 +23,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * Master thread of a master-worker architecture. Given a list of TuCSoN Nodes
@@ -42,7 +43,7 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
      */
     public static void main(final String[] args) {
         final LinkedList<String> nodes = new LinkedList<String>();
-        nodes.add("default@localhost:20504");
+        nodes.add("default@localhost:" + TucsonInfo.getDefaultPortNumber());
         // nodes.add("default@localhost:20505");
         try {
             // new MasterAgent("walter", nodes, 10, 20).go();
@@ -173,7 +174,7 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
                         acc.spawn(
                                 next,
                                 LogicTuples
-                                        .parse("exec('alice.tuplecentre.tucson.examples.spawnedWorkers.SpawnedWorkingActivity.class')"),
+                                        .parse("exec('spawnedWorkers.SpawnedWorkingActivity.class')"),
                                 null);
                         /*
                          * Just to let you view something on the console.

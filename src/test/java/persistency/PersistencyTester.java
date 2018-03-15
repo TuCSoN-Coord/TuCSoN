@@ -21,6 +21,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdExcepti
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 import alice.tuplecentre.tucson.service.TucsonNodeService;
 import alice.tuplecentre.tucson.utilities.Utils;
 
@@ -34,10 +35,10 @@ public final class PersistencyTester {
      */
     public static void main(final String[] args) {
         try {
-            final TucsonNodeService tns = new TucsonNodeService(20504);
+            final TucsonNodeService tns = new TucsonNodeService(TucsonInfo.getDefaultPortNumber());
             tns.install();
             try {
-                while (!TucsonNodeService.isInstalled(20504, 5000)) {
+                while (!TucsonNodeService.isInstalled(TucsonInfo.getDefaultPortNumber(), 5000)) {
                     Thread.sleep(1000);
                 }
             } catch (final InterruptedException e) {
@@ -46,16 +47,16 @@ public final class PersistencyTester {
                 e.printStackTrace();
             }
             final TucsonTupleCentreId ttcid = new TucsonTupleCentreIdDefault(
-                    "def(1)@localhost:20504");
+                    "def(1)@localhost:" + TucsonInfo.getDefaultPortNumber());
             final TucsonTupleCentreId ttcidOrg = new TucsonTupleCentreIdDefault(
-                    "'$ORG'@localhost:20504");
+                    "'$ORG'@localhost:" + TucsonInfo.getDefaultPortNumber());
             final TucsonAgentId aid = new TucsonAgentIdDefault("'PersistencyTester'");
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(aid);
             final EnhancedACC acc = negAcc.playDefaultRole();
             // spec addition
             String spec = Utils
-                    .fileToString("alice/tucson/examples/persistency/aggregation.rsp");
+                    .fileToString("persistency/aggregation.rsp");
             acc.setS(ttcid, spec, Long.MAX_VALUE);
             // tuples addition
             int i = 0;
@@ -69,7 +70,7 @@ public final class PersistencyTester {
                     Long.MAX_VALUE);
             // spec addition
             spec = Utils
-                    .fileToString("alice/tucson/examples/persistency/repulsion.rsp");
+                    .fileToString("persistency/repulsion.rsp");
             acc.setS(ttcid, spec, Long.MAX_VALUE);
             // tuples addition
             for (; i < 2000; i++) {

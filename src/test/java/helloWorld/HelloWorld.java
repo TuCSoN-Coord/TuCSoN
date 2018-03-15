@@ -17,6 +17,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * Plain Java class exploiting TuCSoN library.
@@ -50,7 +51,7 @@ public final class HelloWorld {
              * 3) Define the tuplecentre target of your coordination operations.
              */
             final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
-                    "localhost", "20504");
+                    "localhost", String.valueOf(TucsonInfo.getDefaultPortNumber()));
             /*
              * 4) Build the tuple using the communication language.
              */

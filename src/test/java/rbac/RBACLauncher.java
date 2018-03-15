@@ -29,6 +29,7 @@ import java.util.logging.Logger;
 
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 import alice.tuplecentre.tucson.service.TucsonNodeService;
 
 /**
@@ -56,7 +57,7 @@ public final class RBACLauncher {
      *            program arguments: args[0] is TuCSoN Node TCP port number.
      */
     public static void main(final String[] args) {
-        int portno = 20504;
+        int portno = TucsonInfo.getDefaultPortNumber();
         if (args.length == 1) {
             portno = Integer.parseInt(args[0]);
         }

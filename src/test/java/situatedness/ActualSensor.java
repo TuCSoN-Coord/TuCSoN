@@ -25,6 +25,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * The 'actual' sensor probe deployed in this scenario. Although in this toy
@@ -37,7 +38,6 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 public class ActualSensor implements ISimpleProbe {
 
     private static final String DEFAULT_HOST = "localhost";
-    private static final String DEFAULT_PORT = "20504";
     private EnhancedSyncACC acc;
     private final ProbeIdentifier pid;
     private TucsonTupleCentreId tempTc;
@@ -49,9 +49,9 @@ public class ActualSensor implements ISimpleProbe {
         try {
             final TucsonAgentId aid = new TucsonAgentIdDefault("sensor");
             this.acc = TucsonMetaACC.getContext(aid, ActualSensor.DEFAULT_HOST,
-                    Integer.valueOf(ActualSensor.DEFAULT_PORT));
+                    TucsonInfo.getDefaultPortNumber());
             this.tempTc = new TucsonTupleCentreIdDefault("tempTc",
-                    ActualSensor.DEFAULT_HOST, ActualSensor.DEFAULT_PORT);
+                    ActualSensor.DEFAULT_HOST, String.valueOf(TucsonInfo.getDefaultPortNumber()));
         } catch (final TucsonInvalidTupleCentreIdException e) {
             e.printStackTrace();
         } catch (final TucsonInvalidAgentIdException e) {

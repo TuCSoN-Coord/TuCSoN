@@ -18,6 +18,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * Receiver thread of a two-thread synchronous conversation protocol. Given a
@@ -34,7 +35,7 @@ public class ReceiverAgent extends AbstractTucsonAgent<RootACC> {
      */
     public static void main(final String[] args) {
         try {
-            new ReceiverAgent("bob", "rob", "default@localhost:20504").go();
+            new ReceiverAgent("bob", "rob", "default@localhost:" + TucsonInfo.getDefaultPortNumber()).go();
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }

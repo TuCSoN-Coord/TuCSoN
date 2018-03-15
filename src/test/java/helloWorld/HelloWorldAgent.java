@@ -17,6 +17,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /*
  * 1) Extend alice.tuplecentre.tucson.api.AbstractTucsonAgent class.
@@ -89,7 +90,7 @@ public class HelloWorldAgent extends AbstractTucsonAgent<RootACC> {
              * 5) Define the tuplecentre target of your coordination operations.
              */
             final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
-                    "localhost", "20504");
+                    "localhost", String.valueOf(TucsonInfo.getDefaultPortNumber()));
             /*
              * 6) Build the tuple e.g. using TuCSoN parsing facilities.
              */

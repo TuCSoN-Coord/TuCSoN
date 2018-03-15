@@ -23,6 +23,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 import alice.tuplecentre.tucson.utilities.Utils;
 
 /**
@@ -52,7 +53,6 @@ import alice.tuplecentre.tucson.utilities.Utils;
 public final class Thermostat {
 
     private static final String DEFAULT_HOST = "localhost";
-    private static final String DEFAULT_PORT = "20504";
     private static final int HIGH = 22;
     private static final int ITERS = 10;
     private static final int LOW = 18;
@@ -66,7 +66,7 @@ public final class Thermostat {
             final TucsonAgentId aid = new TucsonAgentIdDefault("thermostat");
             final NegotiationACC negACC = TucsonMetaACC.getNegotiationContext(
                     aid, Thermostat.DEFAULT_HOST,
-                    Integer.valueOf(Thermostat.DEFAULT_PORT));
+                    TucsonInfo.getDefaultPortNumber());
             final EnhancedSyncACC acc = negACC.playDefaultRole();
             /*
              * final EnhancedSyncACC acc = TucsonMetaACC.getACC(aid,
@@ -74,10 +74,10 @@ public final class Thermostat {
              * Integer.valueOf(Thermostat.DEFAULT_PORT));
              */
             final TucsonTupleCentreId configTc = new TucsonTupleCentreIdDefault(
-                    "'$ENV'", Thermostat.DEFAULT_HOST, Thermostat.DEFAULT_PORT);
+                    "'$ENV'", Thermostat.DEFAULT_HOST, String.valueOf(TucsonInfo.getDefaultPortNumber()));
             /* Set up temperature */
             final TucsonTupleCentreId tempTc = new TucsonTupleCentreIdDefault(
-                    "tempTc", Thermostat.DEFAULT_HOST, Thermostat.DEFAULT_PORT);
+                    "tempTc", Thermostat.DEFAULT_HOST, String.valueOf(TucsonInfo.getDefaultPortNumber()));
             int bootT;
             do {
                 // 10 < bootT < LOW || HIGH < bootT < 30
@@ -88,12 +88,11 @@ public final class Thermostat {
             /* Set up sensor */
             Thermostat.log(aid.toString(), "Set up sensor...");
             final TucsonTupleCentreId sensorTc = new TucsonTupleCentreIdDefault(
-                    "sensorTc", Thermostat.DEFAULT_HOST,
-                    Thermostat.DEFAULT_PORT);
+                    "sensorTc", Thermostat.DEFAULT_HOST, String.valueOf(TucsonInfo.getDefaultPortNumber()));
             try {
                 acc.setS(
                         sensorTc,
-                        Utils.fileToString("alice/tucson/examples/situatedness/sensorSpec.rsp"),
+                        Utils.fileToString("situatedness/sensorSpec.rsp"),
                         null);
             } catch (final IOException e) {
                 e.printStackTrace();
@@ -102,20 +101,19 @@ public final class Thermostat {
                     "createTransducerSensor",
                     TupleArguments.newInstance(sensorTc.toTerm()),
                     TupleArguments.newValueArgument(
-                            "alice.tuplecentre.tucson.examples.situatedness.SensorTransducer"),
+                            "situatedness.SensorTransducer"),
                     TupleArguments.newValueArgument("sensorTransducer"), TupleArguments.newValueArgument(
-                            "alice.tuplecentre.tucson.examples.situatedness.ActualSensor"),
+                            "situatedness.ActualSensor"),
                     TupleArguments.newValueArgument("sensor"));
             acc.out(configTc, sensorTuple, null);
             /* Set up actuator */
             Thermostat.log(aid.toString(), "Set up actuator...");
             final TucsonTupleCentreId actuatorTc = new TucsonTupleCentreIdDefault(
-                    "actuatorTc", Thermostat.DEFAULT_HOST,
-                    Thermostat.DEFAULT_PORT);
+                    "actuatorTc", Thermostat.DEFAULT_HOST, String.valueOf(TucsonInfo.getDefaultPortNumber()));
             try {
                 acc.setS(
                         actuatorTc,
-                        Utils.fileToString("alice/tucson/examples/situatedness/actuatorSpec.rsp"),
+                        Utils.fileToString("situatedness/actuatorSpec.rsp"),
                         null);
             } catch (final IOException e) {
                 e.printStackTrace();
@@ -124,10 +122,10 @@ public final class Thermostat {
                     "createTransducerActuator",
                     TupleArguments.newInstance(actuatorTc.toTerm()),
                     TupleArguments.newValueArgument(
-                            "alice.tuplecentre.tucson.examples.situatedness.ActuatorTransducer"),
+                            "situatedness.ActuatorTransducer"),
                     TupleArguments.newValueArgument("actuatorTransducer"),
                     TupleArguments.newValueArgument(
-                            "alice.tuplecentre.tucson.examples.situatedness.ActualActuator"),
+                            "situatedness.ActualActuator"),
                     TupleArguments.newValueArgument("actuator"));
             acc.out(configTc, actuatorTuple, null);
             /* Start perception-reason-action loop */

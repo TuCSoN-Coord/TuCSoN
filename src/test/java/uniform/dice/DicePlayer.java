@@ -44,6 +44,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdExcepti
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 import alice.tuplecentre.tucson.service.TucsonNodeService;
 
 /**
@@ -68,7 +69,7 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
                     .getNegotiationContext(new TucsonAgentIdDefault("god"));
             final EnhancedSyncACC acc = negAcc.playDefaultRole();
             acc.outAll(
-                    new TucsonTupleCentreIdDefault("dice", "localhost", "20504"),
+                    new TucsonTupleCentreIdDefault("dice", "localhost", String.valueOf(TucsonInfo.getDefaultPortNumber())),
                     LogicTuples.parse("[face(1),face(2),face(3),face(4),face(5),face(6)]"),
                     Long.MAX_VALUE);
             Logger.getAnonymousLogger().log(Level.INFO,
@@ -105,7 +106,7 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
         super(aid);
         this.stop = false;
         try {
-            this.tcid = new TucsonTupleCentreIdDefault("dice", "localhost", "20504");
+            this.tcid = new TucsonTupleCentreIdDefault("dice", "localhost", String.valueOf(TucsonInfo.getDefaultPortNumber()));
         } catch (TucsonInvalidTupleCentreIdException e) {
             e.printStackTrace();
             System.exit(-1);

@@ -17,6 +17,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * Callee agent in a RPC scenario.
@@ -30,7 +31,7 @@ public class CalleeAgent extends AbstractTucsonAgent<RootACC> {
      */
     public static void main(final String[] args) {
         try {
-            new CalleeAgent("boris", "default@localhost:20504").go();
+            new CalleeAgent("boris", "default@localhost:" + TucsonInfo.getDefaultPortNumber()).go();
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }

@@ -31,10 +31,9 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
 public abstract class AbstractTucsonAgent<T extends RootACC> {
 
     private final TucsonAgentId aid;
-
-    private T context;
     private final String nodeIp;
     private final int portNumber;
+    private T context;
 
     /**
      * Most complete constructor, allows to specify the ip address where the
@@ -188,7 +187,9 @@ public abstract class AbstractTucsonAgent<T extends RootACC> {
         public void run() {
             this.agent.context = retrieveACC(agent.aid, agent.nodeIp, agent.portNumber);
             this.agent.main();
-            this.agent.getACC().exit();
+            if (this.agent.getACC() != null) {
+                this.agent.getACC().exit();
+            }
         }
     }
 }

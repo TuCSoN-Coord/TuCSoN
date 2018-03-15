@@ -17,6 +17,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 import alice.tuplecentre.tucson.utilities.Utils;
 
 /**
@@ -66,7 +67,7 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
          * hosting the 'table' tuple centre on a remote node.
          */
         this.ip = "localhost";
-        this.port = "20504";
+        this.port = String.valueOf(TucsonInfo.getDefaultPortNumber());
     }
 
     @Override
@@ -91,7 +92,7 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
              */
             acc.setS(
                     table,
-                    Utils.fileToString("alice/tucson/examples/diningPhilos/table.rsp"),
+                    Utils.fileToString("diningPhilos/table.rsp"),
                     null);
             for (int i = 0; i < DiningPhilosophersTest.N_PHILOSOPHERS; i++) {
                 /*
