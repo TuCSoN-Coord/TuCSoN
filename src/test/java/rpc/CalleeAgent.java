@@ -1,80 +1,64 @@
 package rpc;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * Callee agent in a RPC scenario.
  *
  * @author s.mariani@unibo.it
  */
-public class CalleeAgent extends AbstractTucsonAgent {
+public class CalleeAgent extends AbstractTucsonAgent<RootACC> {
 
     /**
-     * @param args
-     *            no args expected.
+     * @param args no args expected.
      */
     public static void main(final String[] args) {
         try {
-            new CalleeAgent("boris", "default@localhost:20504").go();
+            new CalleeAgent("boris", "default@localhost:" + TucsonInfo.getDefaultPortNumber()).go();
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
     }
 
-    private SynchACC acc;
+    private OrdinaryAndSpecificationSyncACC acc;
 
     private TucsonTupleCentreId tid;
 
     /**
-     * @param aid
-     *            the name of the callee agent.
-     * @param node
-     *            the node used for RPC synchronization.
-     *
-     * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     * @param aid  the name of the callee agent.
+     * @param node the node used for RPC synchronization.
+     * @throws TucsonInvalidAgentIdException if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public CalleeAgent(final String aid, final String node)
             throws TucsonInvalidAgentIdException {
         super(aid);
         try {
-            this.tid = new TucsonTupleCentreId(node);
+            this.tid = new TucsonTupleCentreIdDefault(node);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation arg0) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final ITucsonOperation arg0) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     private long computeFactorial(final int arg) {
@@ -91,7 +75,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
                 .getTucsonAgentId());
         try {
             this.acc = negAcc.playDefaultRole();
-            ITucsonOperation op;
+            TucsonOperation op;
             LogicTuple req;
             int arg;
             Long result;
@@ -103,8 +87,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
                  * Invocation phase (not TuCSoN invocation!).
                  */
                 this.say("Waiting for remote calls...");
-                op = this.acc.in(this.tid, LogicTuple
-                        .parse("factorial(caller(Who)," + "arg(N))"), null);
+                op = this.acc.in(this.tid, LogicTuples.parse("factorial(caller(Who)," + "arg(N))"), null);
                 req = op.getLogicTupleResult();
                 this.say("Call received from " + req.getArg("caller").getArg(0));
                 arg = req.getArg("arg").getArg(0).intValue();
@@ -119,7 +102,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
                 this.say("Call returns to " + req.getArg("caller").getArg(0));
                 this.acc.out(
                         this.tid,
-                        LogicTuple.parse("result(" + "caller("
+                        LogicTuples.parse("result(" + "caller("
                                 + req.getArg("caller").getArg(0) + "),"
                                 + "res(" + result + "))"), null);
             }
@@ -134,7 +117,7 @@ public class CalleeAgent extends AbstractTucsonAgent {
         } catch (final OperationTimeOutException e) {
             this.say("ERROR: Endless timeout expired!");
         } catch (final TucsonInvalidAgentIdException e) {
-            this.say("ERROR: Given ID is not a valid TuCSoN agent ID!");
+            this.say("ERROR: Given Identifier is not a valid TuCSoN agent Identifier!");
         }
     }
 

@@ -28,23 +28,25 @@ package rbac;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-import alice.logictuple.LogicTuple;
-import alice.logictuple.Value;
-import alice.logictuple.Var;
-import alice.logictuple.exceptions.InvalidVarNameException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.EnhancedACC;
-import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.AgentNotAllowedException;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
+
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.EnhancedACC;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
+import alice.tuplecentre.tucson.api.exceptions.AgentNotAllowedException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * An unauthorised agent. It is NOT "known" by TuCSoN-RBAC, lacking
@@ -54,11 +56,11 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
  * @author Stefano Mariani (mailto: s.mariani@unibo.it)
  *
  */
-public final class UnauthorisedAgent extends AbstractTucsonAgent {
+public final class UnauthorisedAgent extends AbstractTucsonAgent<RootACC> {
 
     /**
      * @param id
-     *            the ID of this TuCSoN agent
+     *            the Identifier of this TuCSoN agent
      * @param netid
      *            the IP address of the TuCSoN node it is willing to interact
      *            with
@@ -67,48 +69,23 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
      *            interact with
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent
-     *             ID
+     *             Identifier
      */
     public UnauthorisedAgent(final String id, final String netid, final int p)
             throws TucsonInvalidAgentIdException {
         super(id, netid, p);
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        /*
-         * Not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tucson.
-     * api.ITucsonOperation)
-     */
-    @Override
-    public void operationCompleted(final ITucsonOperation op) {
-        /*
-         * Not used atm
-         */
-    }
-
-    /*
-     * (non-Javadoc)
-     * @see alice.tucson.api.AbstractTucsonAgent#main()
-     */
     @Override
     protected void main() {
         Logger.getLogger("UnauthorisedAgent").info(
                 "Acquiring NegotiationACC from TuCSoN Node installed on TCP port "
-                        + this.myport());
+                        + this.myPort());
         NegotiationACC negACC = TucsonMetaACC
                 .getNegotiationContext("unauthorised");
         Logger.getLogger("UnauthorisedAgent").info("NegotiationACC acquired");
@@ -125,9 +102,9 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
             EnhancedACC acc = negACC.playRoleWithPermissions(permissions);
             Logger.getLogger("UnauthorisedAgent").info("Attempt successful");
             Logger.getLogger("UnauthorisedAgent").info("Trying 'rd' operation");
-            ITucsonOperation op = acc.rd(new TucsonTupleCentreId("default",
-                    this.myNode(), String.valueOf(this.myport())),
-                    new LogicTuple("test", new Var("Greet")), (Long) null);
+            TucsonOperation op = acc.rd(new TucsonTupleCentreIdDefault("default",
+                            this.myNode(), String.valueOf(this.myPort())),
+                    LogicTuples.newInstance("test", TupleArguments.newVarArgument("Greet")), (Long) null);
             if (op.isResultSuccess()) {
                 Logger.getLogger("UnauthorisedAgent").info(
                         "'rd' operation successful, got: "
@@ -136,9 +113,9 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
             Logger.getLogger("UnauthorisedAgent")
                     .info("Trying 'out' operation");
             try {
-                acc.out(new TucsonTupleCentreId("default", this.myNode(),
-                        String.valueOf(this.myport())), new LogicTuple("test",
-                        new Value("hi")), (Long) null);
+                acc.out(new TucsonTupleCentreIdDefault("default", this.myNode(),
+                        String.valueOf(this.myPort())), LogicTuples.newInstance("test",
+                        TupleArguments.newValueArgument("hi")), (Long) null);
             } catch (TucsonOperationNotPossibleException e) {
                 Logger.getLogger("UnauthorisedAgent").info("Operation failed!");
             }
@@ -162,7 +139,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent {
      *            program arguments: args[0] is TuCSoN Node TCP port number.
      */
     public static void main(final String[] args) {
-        int portno = 20504;
+        int portno = TucsonInfo.getDefaultPortNumber();
         if (args.length == 1) {
             portno = Integer.parseInt(args[0]);
         }

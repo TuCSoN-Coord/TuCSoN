@@ -3,25 +3,29 @@
  */
 package situatedness;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.respect.core.TransducersManager;
-import alice.respect.situatedness.AbstractProbeId;
-import alice.respect.situatedness.AbstractTransducer;
-import alice.respect.situatedness.ISimpleProbe;
-import alice.respect.situatedness.TransducerId;
-import alice.respect.situatedness.TransducerStandardInterface;
-import alice.tucson.api.EnhancedSynchACC;
-import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.TucsonAgentId;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
+import alice.tuplecentre.respect.core.TransducersManager;
+import alice.tuplecentre.respect.situatedness.AbstractTransducer;
+import alice.tuplecentre.respect.situatedness.ISimpleProbe;
+import alice.tuplecentre.respect.situatedness.ProbeIdentifier;
+import alice.tuplecentre.respect.situatedness.TransducerId;
+import alice.tuplecentre.respect.situatedness.TransducerStandardInterface;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * The 'actual' sensor probe deployed in this scenario. Although in this toy
@@ -34,21 +38,20 @@ import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 public class ActualSensor implements ISimpleProbe {
 
     private static final String DEFAULT_HOST = "localhost";
-    private static final String DEFAULT_PORT = "20504";
-    private EnhancedSynchACC acc;
-    private final AbstractProbeId pid;
+    private EnhancedSyncACC acc;
+    private final ProbeIdentifier pid;
     private TucsonTupleCentreId tempTc;
     private TransducerId tid;
     private TransducerStandardInterface transducer;
 
-    public ActualSensor(final AbstractProbeId i) {
+    public ActualSensor(final ProbeIdentifier i) {
         this.pid = i;
         try {
-            final TucsonAgentId aid = new TucsonAgentId("sensor");
+            final TucsonAgentId aid = new TucsonAgentIdDefault("sensor");
             this.acc = TucsonMetaACC.getContext(aid, ActualSensor.DEFAULT_HOST,
-                    Integer.valueOf(ActualSensor.DEFAULT_PORT));
-            this.tempTc = new TucsonTupleCentreId("tempTc",
-                    ActualSensor.DEFAULT_HOST, ActualSensor.DEFAULT_PORT);
+                    TucsonInfo.getDefaultPortNumber());
+            this.tempTc = new TucsonTupleCentreIdDefault("tempTc",
+                    ActualSensor.DEFAULT_HOST, String.valueOf(TucsonInfo.getDefaultPortNumber()));
         } catch (final TucsonInvalidTupleCentreIdException e) {
             e.printStackTrace();
         } catch (final TucsonInvalidAgentIdException e) {
@@ -58,16 +61,16 @@ public class ActualSensor implements ISimpleProbe {
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#getIdentifier()
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#getIdentifier()
      */
     @Override
-    public AbstractProbeId getIdentifier() {
+    public ProbeIdentifier getIdentifier() {
         return this.pid;
     }
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#getTransducer()
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#getTransducer()
      */
     @Override
     public TransducerId getTransducer() {
@@ -76,7 +79,7 @@ public class ActualSensor implements ISimpleProbe {
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#readValue(java.lang.String)
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#readValue(java.lang.String)
      */
     @Override
     public boolean readValue(final String key) {
@@ -91,7 +94,7 @@ public class ActualSensor implements ISimpleProbe {
         }
         if (this.transducer == null) {
             this.transducer = TransducersManager.INSTANCE
-                    .getTransducer(this.tid.getAgentName());
+                    .getTransducer(this.tid.getLocalName());
             if (this.transducer == null) {
                 System.err.println("[" + this.pid
                         + "]: Can't retrieve my transducer!");
@@ -99,8 +102,8 @@ public class ActualSensor implements ISimpleProbe {
             }
         }
         try {
-            final LogicTuple template = LogicTuple.parse("temp(_)");
-            final ITucsonOperation op = this.acc
+            final LogicTuple template = LogicTuples.parse("temp(_)");
+            final TucsonOperation op = this.acc
                     .rd(this.tempTc, template, null);
             if (op.isResultSuccess()) {
                 final int temp = op.getLogicTupleResult().getArg(0).intValue();
@@ -125,7 +128,7 @@ public class ActualSensor implements ISimpleProbe {
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#setTransducer(alice.respect.
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#setTransducer(alice.tuplecentre.respect.
      * situatedness.TransducerId)
      */
     @Override
@@ -135,7 +138,7 @@ public class ActualSensor implements ISimpleProbe {
 
     /*
      * (non-Javadoc)
-     * @see alice.respect.situatedness.ISimpleProbe#writeValue(java.lang.String,
+     * @see alice.tuplecentre.respect.situatedness.ISimpleProbe#writeValue(java.lang.String,
      * int)
      */
     @Override

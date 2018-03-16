@@ -4,8 +4,9 @@
 package uniform.swarms.utils;
 
 import java.util.Properties;
-import alice.tucson.network.exceptions.DialogInitializationException;
-import alice.tucson.service.TucsonNodeService;
+
+import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
+import alice.tuplecentre.tucson.service.TucsonNodeService;
 
 /**
  * @author ste

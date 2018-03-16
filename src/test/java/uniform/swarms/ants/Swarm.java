@@ -5,7 +5,8 @@ package uniform.swarms.ants;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
+
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 
 /**
  * @author ste

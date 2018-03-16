@@ -1,27 +1,31 @@
 package rpc;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * Caller agent in a RPC scenario.
  *
  * @author s.mariani@unibo.it
  */
-public class CallerAgent extends AbstractTucsonAgent {
+public class CallerAgent extends AbstractTucsonAgent<RootACC> {
 
     /**
      * @param args
@@ -29,13 +33,13 @@ public class CallerAgent extends AbstractTucsonAgent {
      */
     public static void main(final String[] args) {
         try {
-            new CallerAgent("vlad", "default@localhost:20504").go();
+            new CallerAgent("vlad", "default@localhost:" + TucsonInfo.getDefaultPortNumber()).go();
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
     }
 
-    private SynchACC acc;
+    private OrdinaryAndSpecificationSyncACC acc;
     private final int MAX_FACT = 20;
 
     private TucsonTupleCentreId tid;
@@ -47,36 +51,21 @@ public class CallerAgent extends AbstractTucsonAgent {
      *            the node used for RPC synchronization.
      *
      * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     *             if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public CallerAgent(final String aid, final String node)
             throws TucsonInvalidAgentIdException {
         super(aid);
         try {
-            this.tid = new TucsonTupleCentreId(node);
+            this.tid = new TucsonTupleCentreIdDefault(node);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation arg0) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final ITucsonOperation arg0) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     private int drawRandomInt() {
@@ -90,7 +79,7 @@ public class CallerAgent extends AbstractTucsonAgent {
                 .getTucsonAgentId());
         try {
             this.acc = negAcc.playDefaultRole();
-            ITucsonOperation op;
+            TucsonOperation op;
             LogicTuple reply;
             int arg;
             /*
@@ -104,14 +93,14 @@ public class CallerAgent extends AbstractTucsonAgent {
                 this.say("Calling factorial computation for " + arg + "...");
                 this.acc.out(
                         this.tid,
-                        LogicTuple.parse("factorial(caller(" + this.myName()
+                        LogicTuples.parse("factorial(caller(" + this.getTucsonAgentId().getLocalName()
                                 + ")," + "arg(" + arg + "))"), null);
                 /*
                  * Completion phase (not TuCSoN completion!).
                  */
                 op = this.acc.in(
                         this.tid,
-                        LogicTuple.parse("result(caller(" + this.myName()
+                        LogicTuples.parse("result(caller(" + this.getTucsonAgentId().getLocalName()
                                 + ")," + "res(R))"), null);
                 reply = op.getLogicTupleResult();
                 final TupleArgument res = reply.getArg("res").getArg(0);
@@ -140,7 +129,7 @@ public class CallerAgent extends AbstractTucsonAgent {
         } catch (final InterruptedException e) {
             this.say("ERROR: Sleep interrupted!");
         } catch (final TucsonInvalidAgentIdException e) {
-            this.say("ERROR: Given ID is not a valid TuCSoN agent ID!");
+            this.say("ERROR: Given Identifier is not a valid TuCSoN agent Identifier!");
         }
     }
 

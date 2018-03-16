@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import alice.tuplecentre.tucson.service.TucsonInfo;
 import alice.tuprolog.InvalidLibraryException;
 import alice.tuprolog.InvalidTheoryException;
 import alice.tuprolog.MalformedGoalException;
@@ -28,11 +30,11 @@ public final class PrologHelloWorld {
     /*
      * Remember the dot!
      */
-    private static final String DEFAULT_GOAL = "runHelloWorld(agent-test, default@localhost:20504).";
+    private static final String DEFAULT_GOAL = "runHelloWorld(agent-test, default@localhost:" + TucsonInfo.getDefaultPortNumber() + ").";
     /*
      * The necessary Tucson2PLibrary...
      */
-    private static final String DEFAULT_LIBRARY_NAME = "alice.tucson.api.Tucson2PLibrary";
+    private static final String DEFAULT_LIBRARY_NAME = "Tucson2PLibrary";
     /*
      * ...can be found within TuCSoN .jar, hence: "path/to/jar.jar" (here we
      * have direct access).
@@ -41,9 +43,8 @@ public final class PrologHelloWorld {
     /*
      * Relative path w.r.t. to running location (project root).
      */
-    private static final String DEFAULT_THEORY_PATH = "alice/tucson/examples/helloWorld/helloWorld.pl";
+    private static final String DEFAULT_THEORY_PATH = "helloWorld/helloWorld.pl";
     private static final String ME = "PrologHelloWorld";
-
     /**
      * @param args
      *            argument 0 can be the theory path, then argument 1 can be the

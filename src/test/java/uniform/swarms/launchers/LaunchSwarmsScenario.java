@@ -5,6 +5,7 @@ package uniform.swarms.launchers;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import uniform.swarms.ants.Swarm;
 import uniform.swarms.env.Environment;
 import uniform.swarms.gui.GUI;

@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import alice.tuplecentre.tucson.service.TucsonInfo;
 import alice.tuprolog.InvalidLibraryException;
 import alice.tuprolog.InvalidTheoryException;
 import alice.tuprolog.MalformedGoalException;
@@ -28,11 +30,11 @@ public final class PrologMasterAgent {
     /*
      * Remember the dot!
      */
-    private static final String DEFAULT_GOAL = "runMasterAgent(master-agent, [default@localhost:20504], 10, 5).";
+    private static final String DEFAULT_GOAL = "runMasterAgent(master-agent, [default@localhost:" + TucsonInfo.getDefaultPortNumber() + "], 10, 5).";
     /*
      * The necessary Tucson2PLibrary...
      */
-    private static final String DEFAULT_LIBRARY_NAME = "alice.tucson.api.Tucson2PLibrary";
+    private static final String DEFAULT_LIBRARY_NAME = "Tucson2PLibrary";
     /*
      * ...can be found within TuCSoN .jar
      */
@@ -40,7 +42,7 @@ public final class PrologMasterAgent {
     /*
      * Relative path w.r.t. to running location (project root).
      */
-    private static final String DEFAULT_THEORY_PATH = "alice/tucson/examples/spawnedWorkers/masterAgent.pl";
+    private static final String DEFAULT_THEORY_PATH = "spawnedWorkers/masterAgent.pl";
     private static final String ME = "PrologMasterAgent";
 
     /**

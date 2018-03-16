@@ -1,29 +1,33 @@
 package helloWorld;
 
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /*
- * 1) Extend alice.tucson.api.AbstractTucsonAgent class.
+ * 1) Extend alice.tuplecentre.tucson.api.AbstractTucsonAgent class.
  */
 /**
- * Java TuCSoN Agent extending alice.tucson.api.TucsonAgent base class.
+ * Java TuCSoN Agent extending alice.tuplecentre.tucson.api.TucsonAgent base class.
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public class HelloWorldAgent extends AbstractTucsonAgent {
+public class HelloWorldAgent extends AbstractTucsonAgent<RootACC> {
 
     /**
      * @param args
@@ -64,20 +68,8 @@ public class HelloWorldAgent extends AbstractTucsonAgent {
     }
 
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        /*
-         * not used atm
-         */
-    }
-
-    /*
-     * To override only for asynchronous coordination operations.
-     */
-    @Override
-    public void operationCompleted(final ITucsonOperation arg0) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     /*
@@ -93,21 +85,21 @@ public class HelloWorldAgent extends AbstractTucsonAgent {
              */
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());
-            final SynchACC acc = negAcc.playDefaultRole();
+            final OrdinaryAndSpecificationSyncACC acc = negAcc.playDefaultRole();
             /*
              * 5) Define the tuplecentre target of your coordination operations.
              */
-            final TucsonTupleCentreId tid = new TucsonTupleCentreId("default",
-                    "localhost", "20504");
+            final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
+                    "localhost", String.valueOf(TucsonInfo.getDefaultPortNumber()));
             /*
              * 6) Build the tuple e.g. using TuCSoN parsing facilities.
              */
-            final LogicTuple tuple = LogicTuple.parse("hello(world)");
+            final LogicTuple tuple = LogicTuples.parse("hello(world)");
             /*
              * 7) Perform the coordination operation using the preferred
              * coordination primitive.
              */
-            ITucsonOperation op = acc.out(tid, tuple, null);
+            TucsonOperation op = acc.out(tid, tuple, null);
             /*
              * 8) Check requested operation success.
              */
@@ -125,7 +117,7 @@ public class HelloWorldAgent extends AbstractTucsonAgent {
             /*
              * Another success test to be sure.
              */
-            final LogicTuple template = LogicTuple.parse("hello(Who)");
+            final LogicTuple template = LogicTuples.parse("hello(Who)");
             op = acc.rdp(tid, template, null);
             if (op.isResultSuccess()) {
                 res = op.getLogicTupleResult();

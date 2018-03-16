@@ -1,21 +1,25 @@
 package masterWorkers;
 
 import java.math.BigInteger;
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
+
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonOperation;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
  * Worker thread of a master-worker architecture. Given a TuCSoN Node (hopefully
@@ -41,7 +45,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
         }
     }
 
-    private SynchACC acc;
+    private OrdinaryAndSpecificationSyncACC acc;
     private boolean die;
 
     private TucsonTupleCentreId tid;
@@ -53,38 +57,23 @@ public class WorkerAgent extends AbstractTucsonAgent {
      *            node to contact for retrieving jobs
      *
      * @throws TucsonInvalidAgentIdException
-     *             if the chosen ID is not a valid TuCSoN agent ID
+     *             if the chosen Identifier is not a valid TuCSoN agent Identifier
      */
     public WorkerAgent(final String aid, final String node)
             throws TucsonInvalidAgentIdException {
         super(aid);
         this.die = false;
         try {
-            this.tid = new TucsonTupleCentreId(node);
+            this.tid = new TucsonTupleCentreIdDefault(node);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
             this.die = true;
         }
     }
 
-    /*
-     * (non-Javadoc)
-     * @see
-     * alice.tucson.api.AbstractTucsonAgent#operationCompleted(alice.tuplecentre
-     * .core.AbstractTupleCentreOperation)
-     */
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation arg0) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final ITucsonOperation op) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     private BigInteger computeFactorial(final TupleArgument varValue) {
@@ -107,7 +96,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());
             this.acc = negAcc.playDefaultRole();
-            ITucsonOperation op;
+            TucsonOperation op;
             LogicTuple job;
             LogicTuple templ;
             LogicTuple res;
@@ -115,7 +104,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
             while (!this.die) {
                 this.say("Checking termination...");
                 op = this.acc.inp(this.tid,
-                        LogicTuple.parse("die(" + this.myName() + ")"), null);
+                        LogicTuples.parse("die(" + this.getTucsonAgentId().getLocalName() + ")"), null);
                 /*
                  * Only upon success the searched tuple was found.
                  */
@@ -126,7 +115,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
                 /*
                  * Jobs collection phase.
                  */
-                templ = LogicTuple.parse("fact(master(M),num(N),reqID(R))");
+                templ = LogicTuples.parse("fact(master(M),num(N),reqID(R))");
                 this.say("Waiting for jobs...");
                 /*
                  * Watch out: it's a suspensive primitive! If no jobs are
@@ -143,7 +132,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
                 /*
                  * Result submission phase.
                  */
-                res = LogicTuple.parse("res(" + "master("
+                res = LogicTuples.parse("res(" + "master("
                         + job.getArg("master").getArg(0) + ")," + "fact("
                         + bigNum.toString() + ")," + "reqID("
                         + job.getArg("reqID").getArg(0) + ")" + ")");
@@ -168,7 +157,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
         } catch (final InterruptedException e) {
             this.say("ERROR: Sleep interrupted!");
         } catch (final TucsonInvalidAgentIdException e) {
-            this.say("ERROR: Given ID is not a valid TuCSoN agent ID!");
+            this.say("ERROR: Given Identifier is not a valid TuCSoN agent Identifier!");
         }
     }
 

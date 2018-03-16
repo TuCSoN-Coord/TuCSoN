@@ -1,21 +1,24 @@
 package diningPhilos;
 
 import java.io.IOException;
-import alice.logictuple.LogicTuple;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.AbstractTucsonAgent;
-import alice.tucson.api.ITucsonOperation;
-import alice.tucson.api.NegotiationACC;
-import alice.tucson.api.SynchACC;
-import alice.tucson.api.TucsonMetaACC;
-import alice.tucson.api.TucsonTupleCentreId;
-import alice.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import alice.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
-import alice.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tucson.api.exceptions.UnreachableNodeException;
-import alice.tucson.utilities.Utils;
+
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
+import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
+import alice.tuplecentre.tucson.api.TucsonAgentId;
+import alice.tuplecentre.tucson.api.TucsonMetaACC;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.acc.NegotiationACC;
+import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
+import alice.tuplecentre.tucson.api.acc.RootACC;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
+import alice.tuplecentre.tucson.utilities.Utils;
 
 /**
  * Classic Dining Philosophers coordination problem tackled by adopting a clear
@@ -24,7 +27,7 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public class DiningPhilosophersTest extends AbstractTucsonAgent {
+public class DiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
 
     /*
      * Max number of simultaneously eating philosophers should be
@@ -64,21 +67,12 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent {
          * hosting the 'table' tuple centre on a remote node.
          */
         this.ip = "localhost";
-        this.port = "20504";
+        this.port = String.valueOf(TucsonInfo.getDefaultPortNumber());
     }
 
     @Override
-    public void operationCompleted(final AbstractTupleCentreOperation op) {
-        /*
-         * not used atm
-         */
-    }
-
-    @Override
-    public void operationCompleted(final ITucsonOperation arg0) {
-        /*
-         * not used atm
-         */
+    protected RootACC retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) {
+        return null; //not used because, NegotiationACC does not extend RootACC
     }
 
     @Override
@@ -86,9 +80,9 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent {
         try {
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());
-            final SynchACC acc = negAcc.playDefaultRole();
+            final OrdinaryAndSpecificationSyncACC acc = negAcc.playDefaultRole();
 
-            final TucsonTupleCentreId table = new TucsonTupleCentreId("table",
+            final TucsonTupleCentreId table = new TucsonTupleCentreIdDefault("table",
                     this.ip, this.port);
             this.say("Injecting 'table' ReSpecT specification in tc < "
                     + table.toString() + " >...");
@@ -98,13 +92,13 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent {
              */
             acc.setS(
                     table,
-                    Utils.fileToString("alice/tucson/examples/diningPhilos/table.rsp"),
+                    Utils.fileToString("diningPhilos/table.rsp"),
                     null);
             for (int i = 0; i < DiningPhilosophersTest.N_PHILOSOPHERS; i++) {
                 /*
                  * Init chopsticks required to eat.
                  */
-                acc.out(table, LogicTuple.parse("chop(" + i + ")"), null);
+                acc.out(table, LogicTuples.parse("chop(" + i + ")"), null);
             }
             for (int i = 0; i < DiningPhilosophersTest.N_PHILOSOPHERS; i++) {
                 /*

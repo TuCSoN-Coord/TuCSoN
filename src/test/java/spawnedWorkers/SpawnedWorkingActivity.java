@@ -1,16 +1,15 @@
 package spawnedWorkers;
 
 import java.math.BigInteger;
-import alice.logictuple.LogicTuple;
-import alice.logictuple.TupleArgument;
-import alice.logictuple.exceptions.InvalidLogicTupleException;
-import alice.tucson.api.AbstractSpawnActivity;
-import alice.tucson.api.exceptions.TucsonInvalidLogicTupleException;
+
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.TupleArgument;
+import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
+import alice.tuplecentre.tucson.api.AbstractSpawnActivity;
 
 /**
- *
- *
  * @author ste (mailto: s.mariani@unibo.it)
  */
 public class SpawnedWorkingActivity extends AbstractSpawnActivity {
@@ -26,8 +25,7 @@ public class SpawnedWorkingActivity extends AbstractSpawnActivity {
             /*
              * Jobs collection phase.
              */
-            final LogicTuple templ = LogicTuple
-                    .parse("fact(master(M),num(N),reqID(R))");
+            final LogicTuple templ = LogicTuples.parse("fact(master(M),num(N),reqID(R))");
             this.log("Waiting for jobs...");
             /*
              * Watch out: it's a suspensive primitive! If no jobs are available
@@ -43,7 +41,7 @@ public class SpawnedWorkingActivity extends AbstractSpawnActivity {
             /*
              * Result submission phase.
              */
-            final LogicTuple res = LogicTuple.parse("res(" + "master("
+            final LogicTuple res = LogicTuples.parse("res(" + "master("
                     + job.getArg("master").getArg(0) + ")," + "fact("
                     + bigNum.toString() + ")," + "reqID("
                     + job.getArg("reqID").getArg(0) + ")" + ")");
