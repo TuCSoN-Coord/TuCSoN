@@ -10,6 +10,10 @@ import alice.tuplecentre.respect.api.place.IPlace;
 import alice.tuplecentre.respect.core.RespectOperationDefault;
 import alice.tuplecentre.respect.core.RespectTCContainer;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * This class represent the listener that listens for geolocation service
@@ -20,6 +24,8 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  */
 public class GeoLocationServiceListenerDefault implements GeoLocationServiceListener {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      * Listener identifier
@@ -87,7 +93,7 @@ public class GeoLocationServiceListenerDefault implements GeoLocationServiceList
                     context.getPosition());
             context.notifyInputEnvEvent(ev);
         } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 }

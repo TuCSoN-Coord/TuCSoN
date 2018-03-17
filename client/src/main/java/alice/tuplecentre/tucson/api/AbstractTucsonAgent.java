@@ -16,6 +16,10 @@ package alice.tuplecentre.tucson.api;
 import alice.tuplecentre.tucson.api.acc.RootACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.service.TucsonInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * Base class to extend to implement TuCSoN Agents. Once created, the method
@@ -29,6 +33,8 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public abstract class AbstractTucsonAgent<T extends RootACC> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private final TucsonAgentId aid;
     private final String nodeIp;
@@ -162,8 +168,7 @@ public abstract class AbstractTucsonAgent<T extends RootACC> {
      * @param msg The message to print
      */
     protected void say(final String msg) {
-        //TODO use logging
-        System.out.println("[" + this.aid.getLocalName() + "]: "
+        LOGGER.info("[" + this.aid.getLocalName() + "]: "
                 + msg);
     }
 

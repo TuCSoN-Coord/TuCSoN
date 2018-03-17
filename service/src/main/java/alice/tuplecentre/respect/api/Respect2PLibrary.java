@@ -12,6 +12,7 @@
  */
 package alice.tuplecentre.respect.api;
 
+import java.lang.invoke.MethodHandles;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -57,6 +58,8 @@ import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 import alice.tuprolog.Var;
 import alice.util.Tools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * TuProlog library defining the behaviour of ReSpecT primitives, used inside
@@ -68,6 +71,8 @@ import alice.util.Tools;
  * michele.bombardi@studio.unibo.it)
  */
 public class Respect2PLibrary extends alice.tuprolog.Library {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private static final long serialVersionUID = 7865604500315298959L;
 
@@ -118,7 +123,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             }
         } catch (final SocketException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return null;
         }
         return null;
@@ -136,7 +141,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     private static void log(final String s) {
-        System.out.println("......[Respect2PLibrary]: " + s);
+        LOGGER.info("......[Respect2PLibrary]: " + s);
     }
 
     private RespectVMContext vm;
@@ -1402,7 +1407,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         // .removeApices(((Struct) arg1.getTerm()).getArg(0)
         // .getTerm().toString()), new MyOpManager()));
         // } catch (final InvalidTupleCentreIdException e) {
-        // e.printStackTrace();
+        // LOGGER.error(e.getMessage(), e);
         // return false;
         // }
         // final InputEvent outEv =

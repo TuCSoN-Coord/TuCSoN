@@ -87,7 +87,7 @@ public class ServiceProvider extends AbstractTucsonAgent<RootACC> {
             new ServiceProvider("provider3", "default@localhost" + TucsonInfo.getDefaultPortNumber(), 1000)
             .go();
         } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -95,7 +95,7 @@ public class ServiceProvider extends AbstractTucsonAgent<RootACC> {
         try {
             Thread.sleep(time);
         } catch (final InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -192,7 +192,7 @@ public class ServiceProvider extends AbstractTucsonAgent<RootACC> {
                         }
                     }
                 } catch (final InterruptedException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             }
             this.say("Someone killed me, bye!");

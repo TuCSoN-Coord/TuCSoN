@@ -47,7 +47,7 @@ public class HelloWorldAgent extends AbstractTucsonAgent<RootACC> {
         try {
             new HelloWorldAgent(aid).go();
         } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -129,21 +129,21 @@ public class HelloWorldAgent extends AbstractTucsonAgent<RootACC> {
              * ACC release is automatically done by the TucsonAgent base class.
              */
         } catch (final TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InvalidLogicTupleException e) {
             /*
              * String to be parsed is not in a valid Prolog syntax.
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final OperationTimeOutException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonInvalidAgentIdException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 }

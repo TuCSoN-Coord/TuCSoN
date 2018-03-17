@@ -16,6 +16,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationTargetException;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -81,6 +82,8 @@ import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 import alice.tuprolog.Theory;
 import alice.tuprolog.Var;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class defines a ReSpecT Context as a specialization of a tuple centre VM
@@ -94,6 +97,8 @@ import alice.tuprolog.Var;
  * @see alice.tuplecentre.core.AbstractTupleCentreVMContext
  */
 public class RespectVMContext extends AbstractTupleCentreVMContext {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      * @author Stefano Mariani (mailto: s.mariani@unibo.it)
@@ -248,7 +253,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
 
             @Override
             public void onOutput(final alice.tuprolog.event.OutputEvent ev) {
-                System.out.print(ev.getMsg());
+                LOGGER.info(ev.getMsg());
             }
         };
         this.core.addOutputListener(l);
@@ -256,7 +261,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             ((alice.tuplecentre.respect.api.Respect2PLibrary) this.core.loadLibrary("alice.tuplecentre.respect.api.Respect2PLibrary"))
                     .init(this);
         } catch (final InvalidLibraryException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         try {
             this.trigCore = new Prolog();
@@ -264,7 +269,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             ((alice.tuplecentre.respect.api.Respect2PLibrary) this.trigCore.getLibrary("alice.tuplecentre.respect.api.Respect2PLibrary"))
                     .init(this);
         } catch (final InvalidLibraryException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.reactionSpec = new RespectSpecification("");
         this.reset();
@@ -377,7 +382,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
         this.pXML = new PersistencyXML(path, fileName);
         this.pXML.write(pData);
         /*
-         * } catch (final IOException e) { e.printStackTrace(); } finally { if (pw !=
+         * } catch (final IOException e) { LOGGER.error(e.getMessage(), e); } finally { if (pw !=
          * null) { pw.close(); } }
          */
     }
@@ -406,7 +411,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                             new TriggeredReaction(z.getEvent(), new LogicReaction(sol))));
                 } catch (NoSolutionException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
                 /* Dradi */
             }
@@ -1186,7 +1191,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             }
             link.doOperation(source, op);
         } catch (final OperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -1341,7 +1346,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             }
             this.enablePersistency(path, tcName);
         } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -1506,9 +1511,9 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             }
             this.noReactionTh = new Theory(new Struct(preds));
         } catch (final MalformedGoalException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InvalidTheoryException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             this.log("clause: " + e.clause + ", l: " + e.line + ", p: " + e.pos);
         }
         final boolean result = this.setReactionSpecHelper(spec);
@@ -1535,7 +1540,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             } catch (final alice.tuprolog.NoSolutionException e) {
                 this.log("No solution.");
             } catch (final MalformedGoalException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
         this.isExternalSetSpec = false;
@@ -1559,7 +1564,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                     final RespectOperationDefault op = RespectOperationDefault.makeRd(logicTuple, null);
                     this.vm.doOperation(null, op);
                 } catch (final InvalidLogicTupleException | OperationNotPossibleException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             } else if ("in".equals(opKind)) {
                 final String tupla = operation.substring(3, operation.length() - 1);
@@ -1569,7 +1574,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                     final RespectOperationDefault op = RespectOperationDefault.makeIn(logicTuple, null);
                     this.vm.doOperation(null, op);
                 } catch (final InvalidLogicTupleException | OperationNotPossibleException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             }
         }
@@ -1688,15 +1693,15 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                     return false;
             }
         } catch (final ClassNotFoundException | IOException | InvalidLibraryException | TucsonInvalidAgentIdException | TucsonInvalidTupleCentreIdException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return false;
         } catch (final InvalidTheoryException e) {
-            System.err.println(
+            LOGGER.error(
                     "[RespectVMContext]: InvalidTheoryException @ c: " + e.clause + ", l: " + e.line + ", p: " + e.pos);
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return false;
         } catch (InvocationTargetException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return false;
     }
@@ -1728,7 +1733,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
     }
 
     private void log(final String s) {
-        System.out.println("....[RespectVMContext (" + this.getId().getLocalName() + "@"
+        LOGGER.info("....[RespectVMContext (" + this.getId().getLocalName() + "@"
                 + this.getId().getNode() + ":"
                 + this.getId().getPort() + ")]: " + s);
     }
@@ -1751,7 +1756,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
          * update); break; case EMPTY_TUPLES: pw.println("\t(et)"); break; case
          * EMPTY_SPEC: pw.println("\t(es)"); break; case EMPTY_PRED:
          * pw.println("\t(ep)"); break; default: break; } pw.flush(); pw.close(); }
-         * catch (final IOException e) { e.printStackTrace(); } finally { if (pw !=
+         * catch (final IOException e) { LOGGER.error(e.getMessage(), e); } finally { if (pw !=
          * null) { pw.close(); } }
          */
     }

@@ -1,5 +1,6 @@
 package alice.tuplecentre.tucson.service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.*;
 
 import alice.tuple.Tuple;
@@ -33,11 +34,15 @@ import alice.tuplecentre.tucson.network.messages.events.InputEventMessage;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMessageDefault;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.lib.InvalidObjectIdException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 11/ago/2013
  */
 public class OperationHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      *
@@ -61,7 +66,7 @@ public class OperationHandler {
             try {
                 jlib.register(new alice.tuprolog.Struct("config"), this);
             } catch (final InvalidObjectIdException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
 
@@ -360,7 +365,7 @@ public class OperationHandler {
                 try {
                     tcid = new TucsonTupleCentreIdDefault((String) tid);
                 } catch (final TucsonInvalidTupleCentreIdException ex) {
-                    System.err.println("[ACCProxyAgentSide]: " + ex);
+                    LOGGER.error("[ACCProxyAgentSide]: " + ex);
                     return null;
                 }
                 break;
@@ -421,7 +426,7 @@ public class OperationHandler {
                 try {
                     tcid = new TucsonTupleCentreIdDefault((String) tid);
                 } catch (final TucsonInvalidTupleCentreIdException ex) {
-                    System.err.println("[ACCProxyAgentSide]: " + ex);
+                    LOGGER.error("[ACCProxyAgentSide]: " + ex);
                     return null;
                 }
                 break;
@@ -441,7 +446,7 @@ public class OperationHandler {
     }
 
     private void err(final String msg) {
-        System.err.println("....[OperationHandler ("
+        LOGGER.error("....[OperationHandler ("
                 + this.profile.getProperty("agent-identity") + ")]: " + msg);
     }
 
@@ -451,7 +456,7 @@ public class OperationHandler {
      * @param msg String to display on the standard output
      */
     private void log(final String msg) {
-        System.out.println("....[OperationHandler ("
+        LOGGER.info("....[OperationHandler ("
                 + this.profile.getProperty("agent-identity") + ")]: " + msg);
     }
 
@@ -556,7 +561,7 @@ public class OperationHandler {
                 session.sendMsgRequest(msg);
             } catch (final DialogSendException ex) {
                 exception = true;
-                System.err.println("[ACCProxyAgentSide]: " + ex);
+                LOGGER.error("[ACCProxyAgentSide]: " + ex);
             }
             if (!exception) {
                 return op;
@@ -631,7 +636,7 @@ public class OperationHandler {
                 isEnterReqAcpt = true;
             }
         } catch (final DialogException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         if (isEnterReqAcpt) {
             final Controller contr = new Controller(dialog);

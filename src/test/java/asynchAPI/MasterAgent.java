@@ -88,7 +88,7 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
                     this.info("Done " + nOps + " operations out of "
                             + MasterAgent.REQUESTS);
                 } catch (NumberFormatException | InvalidOperationException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             } else {
                 this.severe("Operation failed!");
@@ -144,7 +144,7 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
                 this.help.enqueue(out, null);
                 this.info("First loop done");
             } catch (final InvalidLogicTupleException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
 
@@ -179,7 +179,7 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
              */
             new MasterAgent("master", MasterAgent.LOOPS).go();
         } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -337,17 +337,17 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
             Thread.sleep(MasterAgent.SLEEP);
             super.say("I'm done");
         } catch (final TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final OperationTimeOutException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 }

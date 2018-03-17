@@ -1,5 +1,9 @@
 package alice.tuplecentre.tucson.network;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -7,6 +11,9 @@ import java.net.UnknownHostException;
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  */
 public final class NetworkUtils {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+
     /**
      * Gets the decimal representation of the netmask of the address specified
      * as input
@@ -33,7 +40,7 @@ public final class NetworkUtils {
             netAddr = InetAddress.getByAddress(bytes);
             return netAddr.getHostAddress();
         } catch (final UnknownHostException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return null;
         }
         // System.out.println("Mask=" + netAddr.getHostAddress());
@@ -82,7 +89,7 @@ public final class NetworkUtils {
                 }
             }
         } catch (final UnknownHostException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return true;
     }

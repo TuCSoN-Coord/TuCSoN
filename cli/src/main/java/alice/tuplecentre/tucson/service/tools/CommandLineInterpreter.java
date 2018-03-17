@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.tucson.service.tools;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Date;
 import java.util.Objects;
 
@@ -23,6 +24,8 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.service.TucsonInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Command Line Interpreter. Can be booted with a TuCSoN agent Identifier or using a
@@ -33,6 +36,8 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public final class CommandLineInterpreter {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private static final int DEF_PORT = 20504;
 
@@ -81,7 +86,7 @@ public final class CommandLineInterpreter {
                         node, port);
                 Objects.requireNonNull(context).enterACC();
             } catch (final TucsonInvalidAgentIdException | UnreachableNodeException | TucsonInvalidTupleCentreIdException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
                 System.exit(-1);
             }
             CommandLineInterpreter.log("Spawning CLI TuCSoN agent...");
@@ -92,7 +97,7 @@ public final class CommandLineInterpreter {
     }
 
     private static void log(final String s) {
-        System.out.println("[CommandLineInterpreter]: " + s);
+        LOGGER.info("[CommandLineInterpreter]: " + s);
     }
 
     private CommandLineInterpreter() {

@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.core;
 
+import java.lang.invoke.MethodHandles;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,6 +27,8 @@ import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.api.TupleCentreOperation;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonOpId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class represents an Operation on a tuple centre.
@@ -34,6 +37,8 @@ import alice.tuplecentre.tucson.api.TucsonOpId;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public abstract class AbstractTupleCentreOperation implements TupleCentreOperation {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      * Shared id counter
@@ -151,7 +156,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
                     .append(this.templateArgument).append(')');
             return LogicTuples.parse(pred.toString());
         } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return null;
         }
     }

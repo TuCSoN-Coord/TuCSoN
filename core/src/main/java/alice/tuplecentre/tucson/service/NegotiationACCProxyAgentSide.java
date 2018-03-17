@@ -1,5 +1,6 @@
 package alice.tuplecentre.tucson.service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,6 +26,8 @@ import alice.tuplecentre.tucson.rbac.Role;
 import alice.tuplecentre.tucson.rbac.TucsonPolicy;
 import alice.tuplecentre.tucson.rbac.TucsonRole;
 import alice.tuplecentre.tucson.service.tools.TucsonACCTool;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class implementing the negotiation ACC.
@@ -33,6 +36,8 @@ import alice.tuplecentre.tucson.service.tools.TucsonACCTool;
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
  */
 public class NegotiationACCProxyAgentSide implements NegotiationACC {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private static final String TC_AGENT = "negotAgent";
     private static final String TC_ORG = "'$ORG'";
@@ -110,7 +115,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
             /*
              * Cannot happen
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         final List<Role> roles = new ArrayList<>();
         if (op != null && op.isResultSuccess()) {
@@ -149,7 +154,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
             op = this.internalACC.inp(this.tid, loginTuple, (Long) null);
         } catch (final InvalidVarNameException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         if (op != null && op.isResultSuccess()) {
             final TupleArgument reply = op.getLogicTupleResult().getArg(1);
@@ -247,7 +252,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
         try {
             rbacInstalled = LogicTuples.newInstance("is_rbac_installed", TupleArguments.newVarArgument("Result"));
         } catch (final InvalidVarNameException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         final TucsonOperation op = this.internalACC.rd(tcid, rbacInstalled,
                 (Long) null);
@@ -274,12 +279,12 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
                 this.setAgentClass(baseClass);
             }
         } catch (final InvalidVarNameException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
 
     }
 
     protected void log(final String msg) {
-        System.out.println("[NegotiationACCProxy]: " + msg);
+        LOGGER.info("[NegotiationACCProxy]: " + msg);
     }
 }

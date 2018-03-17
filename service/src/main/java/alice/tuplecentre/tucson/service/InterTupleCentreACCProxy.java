@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.tucson.service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.*;
 
 import alice.tuple.Tuple;
@@ -41,11 +42,15 @@ import alice.tuplecentre.tucson.network.messages.events.InputEventMessageDefault
 import alice.tuplecentre.tucson.network.messages.events.OutputEventMessage;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.lib.InvalidObjectIdException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it)
  */
 public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationCompletionListener {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      *
@@ -70,7 +75,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
                 jlib.register(new alice.tuprolog.Struct("config"), this);
             } catch (final InvalidObjectIdException e) {
                 // Cannot happen, the object name it's specified here
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
 
@@ -266,7 +271,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
                     tcid = new TucsonTupleCentreIdDefault(id.getLocalName(), id.getNode(),
                             String.valueOf(id.getPort()));
                 } catch (final TucsonInvalidTupleCentreIdException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
                 break;
             case "alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault":
@@ -281,7 +286,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
                 break;
             default:
                 // DEBUG
-                System.err.println("Invalid Class: " + tid.getClass().getName());
+                LOGGER.debug("Invalid Class: " + tid.getClass().getName());
                 throw new TucsonOperationNotPossibleException();
         }
         int nTry = 0;
@@ -296,7 +301,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
             } catch (final UnreachableNodeException ex2) {
                 throw new UnreachableNodeException();
             } catch (DialogInitializationException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
             final OperationIdentifier tucsonOpId = new TucsonOpId(this.opId);
             this.operations.put(tucsonOpId, op);
@@ -331,7 +336,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
                 Objects.requireNonNull(session).sendMsgRequest(msg);
             } catch (final DialogException e) {
                 exception = true;
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
             if (!exception) {
                 return;
@@ -389,7 +394,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
     }
 
     private void err(final String msg) {
-        System.err.println("..[InterTupleCentreACCProxy ("
+        LOGGER.error("..[InterTupleCentreACCProxy ("
                 + this.profile.getProperty("tc-identity") + ")]: " + msg);
     }
 
@@ -444,7 +449,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
             dialog.sendEnterRequest(this.profile);
             dialog.receiveEnterRequestAnswer();
         } catch (final DialogException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         if (dialog.isEnterRequestAccepted()) {
             isEnterReqAcpt = true;
@@ -460,7 +465,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
     }
 
     private static void log(final String msg) {
-        System.out.println("[InterTupleCentreACCProxy]: " + msg);
+        LOGGER.info("[InterTupleCentreACCProxy]: " + msg);
     }
 
     private void postEvent(final TucsonOpCompletionEvent ev) {

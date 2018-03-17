@@ -14,6 +14,7 @@
 package alice.tuplecentre.tucson.api;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 import java.util.UUID;
 
 import alice.tuplecentre.api.AgentIdentifier;
@@ -21,6 +22,8 @@ import alice.tuplecentre.respect.api.AgentId;
 import alice.tuplecentre.respect.api.exceptions.InvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuprolog.Term;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Tucson agent identifier
@@ -29,6 +32,8 @@ import alice.tuprolog.Term;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public class TucsonAgentIdDefault implements TucsonAgentId, Serializable {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private static final long serialVersionUID = -5788843633820003843L;
 
@@ -81,7 +86,7 @@ public class TucsonAgentIdDefault implements TucsonAgentId, Serializable {
                         + TucsonAgentIdDefault.dropMinus(this.uuid));
             } catch (final InvalidAgentIdException e) {
                 // Cannot happen because it's specified here
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
     }

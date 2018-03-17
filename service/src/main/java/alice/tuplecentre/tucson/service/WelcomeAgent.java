@@ -23,6 +23,10 @@ import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuplecentre.tucson.network.exceptions.InvalidProtocolTypeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * @author Alessandro Ricci
@@ -31,8 +35,10 @@ import alice.tuplecentre.tucson.network.exceptions.InvalidProtocolTypeException;
  */
 public class WelcomeAgent extends Thread {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+
     private static void log(final String st) {
-        System.out.println("..[WelcomeAgent]: " + st);
+        LOGGER.info("..[WelcomeAgent]: " + st);
     }
 
     private final ACCProvider contextManager;
@@ -64,11 +70,11 @@ public class WelcomeAgent extends Thread {
         } catch (final DialogInitializationException e) {
             // TODO CICORA: what is the correct behavior when a port is already
             // used?
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             this.shut = true;
         } catch (final InvalidProtocolTypeException e) {
             // Cannot happen
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         TucsonProtocol dialog;
         try {
@@ -84,7 +90,7 @@ public class WelcomeAgent extends Thread {
                         WelcomeAgent
                                 .log("Shutdown request received, shutting down...");
                     } else {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                     }
                     this.shut = true;
                     break;
@@ -101,7 +107,7 @@ public class WelcomeAgent extends Thread {
                 }
             }
         } catch (final DialogReceiveException | TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException | DialogSendException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.node.removeNodeAgent(this);
     }
@@ -121,7 +127,7 @@ public class WelcomeAgent extends Thread {
             }
         } catch (final DialogCloseException e) {
             // TODO CICORA: what is the correct behavior?
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

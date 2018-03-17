@@ -5,11 +5,17 @@ import alice.tuprolog.Prolog;
 import alice.tuprolog.Term;
 import alice.tuprolog.event.OutputEvent;
 import alice.tuprolog.event.OutputListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it)
  */
 public class Spawn2PSolver extends Thread {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private final Term goal;
     private final Prolog solver;
@@ -30,12 +36,12 @@ public class Spawn2PSolver extends Thread {
 
             @Override
             public void onOutput(final OutputEvent arg0) {
-                System.out.println("[Spawn2PSolver]: " + arg0.getMsg());
+                LOGGER.info("[Spawn2PSolver]: " + arg0.getMsg());
             }
         });
         // System.out.println("[Spawn2PSolver]: theory = "
         // + this.solver.getTheory());
-        System.out.println("[Spawn2PSolver]: goal = " + this.goal);
+        LOGGER.info("[Spawn2PSolver]: goal = " + this.goal);
         try {
             this.solver.solve(this.goal);
             // System.out.println("[Spawn2PSolver]: solution = "
@@ -45,7 +51,7 @@ public class Spawn2PSolver extends Thread {
             }
             this.solver.solveEnd();
         } catch (final NoMoreSolutionException e) {
-            System.out.println("[Spawn2PSolver]: No more solutions.");
+            LOGGER.info("[Spawn2PSolver]: No more solutions.");
         }
     }
 }

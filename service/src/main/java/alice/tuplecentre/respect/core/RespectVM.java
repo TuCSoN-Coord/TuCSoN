@@ -12,6 +12,7 @@
  */
 package alice.tuplecentre.respect.core;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +30,8 @@ import alice.tuplecentre.respect.api.IRespectTC;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.introspection.WSetEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * RespecT Tuple Centre Virtual Machine.
@@ -45,6 +48,8 @@ import alice.tuplecentre.tucson.introspection.WSetEvent;
  * michele.bombardi@studio.unibo.it)
  */
 public class RespectVM implements Runnable {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private final RespectTCContainer container;
     private final RespectVMContext context;
@@ -457,12 +462,11 @@ public class RespectVM implements Runnable {
                     this.news.awaitEvent();
                 }
             } catch (final InterruptedException e) {
-                System.out
-                        .println("[RespectVM]: Shutdown interrupt received, shutting down...");
+                LOGGER.error("[RespectVM]: Shutdown interrupt received, shutting down...");
                 break;
             }
         }
-        System.out.println("[RespectVM]: Actually shutting down...");
+        LOGGER.info("[RespectVM]: Actually shutting down...");
     }
 
     /**

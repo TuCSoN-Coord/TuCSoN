@@ -19,6 +19,7 @@
  */
 package alice.tuplecentre.tucson.asynchSupport;
 
+import java.lang.invoke.MethodHandles;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
@@ -31,6 +32,8 @@ import alice.tuplecentre.tucson.api.actions.AbstractTucsonAction;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Helper TuCSoN agent to delegate asynchronous operation to.
@@ -40,13 +43,15 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
  */
 public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+
     /**
      * Tune very carefully, configurable should be
      */
     private static final int POLLING_TIME = 10;
 
     private static void log(final TucsonAgentId aid, final String msg) {
-        System.out.println("....[AsynchOpsHelper (" + aid + ")]: " + msg);
+        LOGGER.info("....[AsynchOpsHelper (" + aid + ")]: " + msg);
     }
 
     private final CompletedOpsQueue completedOpsQueue;
@@ -97,7 +102,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
         try {
             return this.pendingOpsQueue.add(op);
         } catch (final IllegalStateException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
     }
@@ -198,7 +203,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
                     op.execute();
                 }
             } catch (final InterruptedException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
         // Case shutdownNow: do not execute waitingQueue ops
@@ -217,7 +222,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
                             "no ops pending");
                 }
             } catch (final InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         } else {
             // case shutdownGraceful: execute all added operations
@@ -236,7 +241,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
                         op.execute();
                     }
                 } catch (final InterruptedException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             }
         }

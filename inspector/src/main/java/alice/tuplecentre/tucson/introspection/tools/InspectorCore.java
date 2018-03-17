@@ -15,6 +15,7 @@ package alice.tuplecentre.tucson.introspection.tools;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -28,12 +29,16 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.introspection.Inspector;
 import alice.tuplecentre.tucson.introspection.InspectorContextEvent;
 import alice.tuplecentre.tucson.introspection.WSetEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Unknown...
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public class InspectorCore extends Inspector {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /*
      * Used when logging tuples/operations/reactions.
@@ -103,7 +108,7 @@ public class InspectorCore extends Inspector {
             this.logReactionWriter = new FileWriter(this.logReactionFilename,
                     true);
         } catch (final IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -113,13 +118,13 @@ public class InspectorCore extends Inspector {
             try {
                 this.logQueryWriter.close();
             } catch (final IOException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
         try {
             this.logQueryWriter = new FileWriter(this.logQueryFilename, true);
         } catch (final IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -129,14 +134,14 @@ public class InspectorCore extends Inspector {
             try {
                 this.logReactionWriter.close();
             } catch (final IOException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
         try {
             this.logReactionWriter = new FileWriter(this.logReactionFilename,
                     true);
         } catch (final IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -146,13 +151,13 @@ public class InspectorCore extends Inspector {
             try {
                 this.logTupleWriter.close();
             } catch (final IOException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
         try {
             this.logTupleWriter = new FileWriter(this.logTupleFilename, true);
         } catch (final IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -214,7 +219,7 @@ public class InspectorCore extends Inspector {
                     this.logTupleWriter.write(st + "\n\t])\n).\n");
                     this.logTupleWriter.flush();
                 } catch (final IOException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             }
         }
@@ -329,7 +334,7 @@ public class InspectorCore extends Inspector {
                     this.logQueryWriter.write(st + "\n\t])\n).\n");
                     this.logQueryWriter.flush();
                 } catch (final IOException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             }
         }
@@ -361,7 +366,7 @@ public class InspectorCore extends Inspector {
                             + " ).\n");
                     this.logReactionWriter.flush();
                 } catch (final IOException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             }
         } else if (msg.getReactionFailed() != null) {
@@ -385,7 +390,7 @@ public class InspectorCore extends Inspector {
                             + "),\n\t\tfailed( " + tr.getReaction() + " ).\n");
                     this.logReactionWriter.flush();
                 } catch (final IOException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             }
         }

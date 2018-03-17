@@ -37,7 +37,7 @@ public class ReceiverAgent extends AbstractTucsonAgent<RootACC> {
         try {
             new ReceiverAgent("bob", "rob", "default@localhost:" + TucsonInfo.getDefaultPortNumber()).go();
         } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -158,12 +158,12 @@ public class ReceiverAgent extends AbstractTucsonAgent<RootACC> {
             this.say("	< " + reply.getArg("content").getArg(0).toString());
         } catch (final InvalidLogicTupleException e) {
             this.say("ERROR: Tuple is not an admissible Prolog term!");
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonOperationNotPossibleException e) {
             this.say("ERROR: Never seen this happen before *_*");
         } catch (final UnreachableNodeException e) {
             this.say("ERROR: Given TuCSoN Node is unreachable!");
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final OperationTimeOutException e) {
             this.say("ERROR: Endless timeout expired!");
         } catch (final TucsonInvalidAgentIdException e) {

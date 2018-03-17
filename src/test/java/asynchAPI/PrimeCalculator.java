@@ -110,11 +110,11 @@ public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
                                 this.ttcid, this.help));
                     }
                 } catch (final InvalidLogicTupleException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 } catch (final NumberFormatException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 } catch (final InvalidOperationException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             } else {
                 try {
@@ -127,9 +127,9 @@ public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
                                 this.ttcid, this.help));
                     }
                 } catch (final InterruptedException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 } catch (final InvalidLogicTupleException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             }
         }
@@ -219,19 +219,19 @@ public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
             helper.shutdownNow();
             super.say("I'm done");
         } catch (final TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final NumberFormatException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final OperationTimeOutException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

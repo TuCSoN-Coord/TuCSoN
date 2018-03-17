@@ -38,7 +38,7 @@ public class ServiceRequestor extends AbstractTucsonAgent<RootACC> {
             new ServiceRequestor("requestor2", "default@localhost" + TucsonInfo.getDefaultPortNumber()).go();
             new ServiceRequestor("requestor3", "default@localhost" + TucsonInfo.getDefaultPortNumber()).go();
         } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -127,7 +127,7 @@ public class ServiceRequestor extends AbstractTucsonAgent<RootACC> {
             this.say("ERROR: Given Identifier is not a valid TuCSoN agent Identifier!");
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

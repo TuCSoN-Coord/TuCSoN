@@ -13,12 +13,15 @@
  */
 package alice.tuplecentre.tucson.api;
 
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import alice.tuplecentre.tucson.api.acc.RootACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * FSA-like TuCSoN agent.
@@ -27,6 +30,8 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public abstract class AbstractAutomaton extends AbstractTucsonAgent<RootACC> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      *
@@ -107,8 +112,8 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent<RootACC> {
             AbstractAutomaton.argType = new Class[]{Class
                     .forName("java.lang.Object")};
         } catch (final ClassNotFoundException e) {
-            System.err.println("[Automaton]: " + e);
-            e.printStackTrace();
+            LOGGER.error("[Automaton]: " + e);
+            LOGGER.error(e.getMessage(), e);
             this.error();
         }
         while (true) {
@@ -121,7 +126,7 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent<RootACC> {
                         m.setAccessible(true);
                         m.invoke(this, (Object[]) null);
                     } catch (final SecurityException | InvocationTargetException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                         this.error();
                     }
                 } else {
@@ -132,7 +137,7 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent<RootACC> {
                         m.setAccessible(true);
                         m.invoke(this, this.arguments);
                     } catch (final SecurityException | InvocationTargetException | IllegalAccessException | IllegalArgumentException | NoSuchMethodException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                         this.error();
                     }
                 }

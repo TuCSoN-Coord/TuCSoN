@@ -76,19 +76,19 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
                     "...configuration done, now starting agent...");
             new DicePlayer("roller").go();
         } catch (TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (UnreachableNodeException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (OperationTimeOutException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (InvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (DialogInitializationException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -108,7 +108,7 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
         try {
             this.tcid = new TucsonTupleCentreIdDefault("dice", "localhost", String.valueOf(TucsonInfo.getDefaultPortNumber()));
         } catch (TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             System.exit(-1);
         }
         this.outcomes = new HashMap<>();
@@ -156,19 +156,19 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
             }
         } catch (TucsonOperationNotPossibleException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (UnreachableNodeException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (OperationTimeOutException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (TucsonInvalidAgentIdException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.say("Someone killed me, bye!");
         printFinalStats();

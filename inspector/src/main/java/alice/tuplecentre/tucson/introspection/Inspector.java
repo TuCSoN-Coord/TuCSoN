@@ -17,12 +17,18 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * @author Unknown...
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public class Inspector extends Thread implements InspectorContextListener {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      *
@@ -73,14 +79,14 @@ public class Inspector extends Thread implements InspectorContextListener {
         try {
             this.context.exit();
         } catch (final DialogSendException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.interrupt();
     }
 
     @Override
     public synchronized void run() {
-        System.out.println("[Inspector]: Started inspecting TuCSoN Node < "
+        LOGGER.info("[Inspector]: Started inspecting TuCSoN Node < "
                 + this.context.getTid().getLocalName() + "@"
                 + this.context.getTid().getNode() + ":"
                 + this.context.getTid().getPort() + " >");
@@ -88,7 +94,7 @@ public class Inspector extends Thread implements InspectorContextListener {
             try {
                 this.context.acceptVMEvent();
             } catch (final DialogException e) {
-                System.err.println("TuCSoN node "
+                LOGGER.error("TuCSoN node "
                         + this.context.getTid().getLocalName() + "@"
                         + this.context.getTid().getNode() + ":"
                         + this.context.getTid().getPort()
@@ -96,7 +102,7 @@ public class Inspector extends Thread implements InspectorContextListener {
                 this.q = true;
             }
         }
-        System.out.println("[Inspector]: Stopped inspecting TuCSoN Node < "
+        LOGGER.info("[Inspector]: Stopped inspecting TuCSoN Node < "
                 + this.context.getTid().getLocalName() + "@"
                 + this.context.getTid().getNode() + ":"
                 + this.context.getTid().getPort() + " >");

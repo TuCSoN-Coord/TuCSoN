@@ -1,5 +1,6 @@
 package alice.tuplecentre.tucson.service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +24,8 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.rbac.Permission;
 import alice.tuplecentre.tucson.rbac.Role;
 import alice.tuprolog.Parser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class implementing the RBAC ACC.
@@ -31,6 +34,8 @@ import alice.tuprolog.Parser;
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
  */
 public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private List<String> permissions;
     private Role role;
@@ -109,7 +114,7 @@ public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
             /*
              * Cannot happen
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return this.executor.doBlockingOperation(this.aid,
                 TupleCentreOpType.GET_S, tid, spec, timeout, this.getPosition());

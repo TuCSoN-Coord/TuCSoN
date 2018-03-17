@@ -1,5 +1,6 @@
 package alice.tuplecentre.tucson.introspection4gui;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,8 +18,12 @@ import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 import alice.tuplecentre.tucson.introspection.InspectorProtocolDefault;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.tuprolog.Struct;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Inspector4Gui extends Inspector {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /*
      * **************************************************
@@ -83,7 +88,7 @@ public class Inspector4Gui extends Inspector {
                     String tcPort = alice.util.Tools.removeApices(hostStruct.getTerm(1).toString());
                     if (arg.getArg(1) instanceof Struct) {
                         Struct termAsStruct = (Struct) arg.getArg(1);
-                        System.out.println(termAsStruct);
+                        LOGGER.info(termAsStruct.toString());
                         if (termAsStruct.getName().equals("out")) {
                             String tuple = termAsStruct.getArg(0).toString();
                             notifyTransfer(tcName, tcHost, tcPort, tuple, false);
@@ -96,7 +101,7 @@ public class Inspector4Gui extends Inspector {
                         TucsonTupleCentreId tcId = new TucsonTupleCentreIdDefault(tcName, tcHost, tcPort);
                         notifyNewTupleCenter(tcId);
                     } catch (TucsonInvalidTupleCentreIdException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                     }
                 }
                 //System.out.println(struct);
@@ -142,7 +147,7 @@ public class Inspector4Gui extends Inspector {
         try {
             getContext().setProtocol(protocol);
         } catch (DialogSendException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

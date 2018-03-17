@@ -66,13 +66,13 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                     LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
         } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final OperationTimeOutException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         if (op != null) {
             return op.isResultSuccess();
@@ -85,7 +85,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         try {
             Thread.sleep(DiningPhilosopher.EATING_TIME);
         } catch (final InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -96,13 +96,13 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                     LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
         } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final OperationTimeOutException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -111,7 +111,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         try {
             Thread.sleep(DiningPhilosopher.THINKING_TIME);
         } catch (final InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -127,13 +127,13 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                     .getNegotiationContext(this.getTucsonAgentId());
             this.acc = negAcc.playDefaultRole();
         } catch (final OperationTimeOutException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         // this.acc = this.getACC();
         // Ugly but effective, pardon me...

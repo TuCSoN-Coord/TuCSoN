@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.tucson.service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -42,6 +43,8 @@ import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMessage;
 import alice.tuplecentre.tucson.network.messages.events.OutputEventMessageDefault;
 import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Alessandro Ricci
@@ -50,6 +53,8 @@ import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMessage;
  * michele.bombardi@studio.unibo.it)
  */
 public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private TucsonAgentId agentId;
     private final String agentName;
@@ -144,7 +149,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
         try {
             this.dialog.sendMsgReply(reply);
         } catch (final DialogException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -177,14 +182,14 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     this.dialog.sendMsgReply(reply);
                     break;
                 } catch (final DialogException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                     break;
                 }
             }
             try {
                 tid = new TucsonTupleCentreIdDefault(evMsg.getReactingTC());
             } catch (final TucsonInvalidTupleCentreIdException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
                 break;
             }
             // Prolog p = null;
@@ -192,7 +197,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
             // p = ( (RespectTC)
             // RespectTCContainer.getRespectTCContainer().getRegistry().getTC(tid.getInternalTupleCentreId())).getProlog();
             // } catch (InstantiationNotPossibleException e) {
-            // e.printStackTrace();
+            // LOGGER.error(e.getMessage(), e);
             // }
 
             // Operation Make
@@ -234,7 +239,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                         // ev);
                         // }
                     } catch (final TucsonOperationNotPossibleException | TucsonInvalidSpecificationException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                         break;
                     }
                     reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
@@ -242,7 +247,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     try {
                         this.dialog.sendMsgReply(reply);
                     } catch (final DialogException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                         break;
                     }
                     break;
@@ -267,7 +272,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                         // ev);
                         // }
                     } catch (final TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                         break;
                     }
                     reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
@@ -275,7 +280,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     try {
                         this.dialog.sendMsgReply(reply);
                     } catch (final DialogException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                         break;
                     }
                     break;
@@ -297,7 +302,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                         // this.tcId, tid, null, ev);
                         // }
                     } catch (final TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                         break;
                     }
                     reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
@@ -305,7 +310,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     try {
                         this.dialog.sendMsgReply(reply);
                     } catch (final DialogException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                         break;
                     }
                     break;
@@ -330,7 +335,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                             resList = new LinkedList<>();
                         }
                     } catch (final TucsonOperationNotPossibleException | TucsonInvalidSpecificationException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                         break;
                     }
                     reply = new TucsonMessageReply(new OutputEventMessageDefault(evMsg.getOpId(),
@@ -338,7 +343,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                     try {
                         this.dialog.sendMsgReply(reply);
                     } catch (final DialogException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                         break;
                     }
                     break;
@@ -382,7 +387,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                             // this, ev);
                             // }
                         } catch (final TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException e) {
-                            e.printStackTrace();
+                            LOGGER.error(e.getMessage(), e);
                             break;
                         }
                         this.requests.put(evOp.getId(), msg);
@@ -421,7 +426,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                             // this, ev);
                             // }
                         } catch (final TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException e) {
-                            e.printStackTrace();
+                            LOGGER.error(e.getMessage(), e);
                             break;
                         }
                         this.requests.put(evOp.getId(), msg);
@@ -454,7 +459,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
         try {
             this.dialog.end();
         } catch (final DialogException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.log("Releasing ACC < " + this.ctxId + " > held by TuCSoN agent < "
                 + this.agentId.toString() + " >");
@@ -464,12 +469,12 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
     }
 
     private void err(final String st) {
-        System.err.println("..[ACCProxyNodeSide (" + this.node.getTCPPort()
+        LOGGER.error("..[ACCProxyNodeSide (" + this.node.getTCPPort()
                 + ", " + this.ctxId + ", " + this.agentName + ")]: " + st);
     }
 
     private void log(final String st) {
-        System.out.println("..[ACCProxyNodeSide (" + this.node.getTCPPort()
+        LOGGER.info("..[ACCProxyNodeSide (" + this.node.getTCPPort()
                 + ", " + this.ctxId + ", " + this.agentName + ")]: " + st);
     }
 
@@ -505,7 +510,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                 // listener
             }
         } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return op;
     }

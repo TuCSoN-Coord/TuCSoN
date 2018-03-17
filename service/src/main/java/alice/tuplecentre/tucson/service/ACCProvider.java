@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.tucson.service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -42,6 +43,8 @@ import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogReceiveException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import alice.util.Tools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Alessandro Ricci
@@ -49,10 +52,12 @@ import alice.util.Tools;
  */
 public class ACCProvider {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+
     private static final int WAITING_TIME = 10;
 
     private static void log(final String st) {
-        System.out.println("..[ACCProvider]: " + st);
+        LOGGER.info("..[ACCProvider]: " + st);
     }
 
     private TucsonAgentId aid;
@@ -70,7 +75,7 @@ public class ACCProvider {
             this.aid = new TucsonAgentIdDefault("context_manager");
         } catch (final TucsonInvalidAgentIdException e) {
             // Cannot happen because it's specified here
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.node = n;
         this.config = tid;
@@ -131,7 +136,7 @@ public class ACCProvider {
                 try {
                     dialog.sendEnterRequestRefused();
                 } catch (DialogSendException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
                 return;
             }
@@ -141,7 +146,7 @@ public class ACCProvider {
                 try {
                     dialog.sendEnterRequestRefused();
                 } catch (DialogSendException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
                 return;
             }
@@ -152,7 +157,7 @@ public class ACCProvider {
             try {
                 dialog.sendEnterRequestAccepted();
             } catch (DialogSendException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
             final String agentRole = profile.getProperty("agent-role");
             switch (agentRole) {
@@ -182,7 +187,7 @@ public class ACCProvider {
             }
         } catch (final LogicTupleException | TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException | TucsonGenericException e) {
             profile.setProperty("failure", "generic");
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -213,7 +218,7 @@ public class ACCProvider {
             req = LogicTuples.newInstance("context_shutdown", TupleArguments.newValueArgument(ctxId),
                     TupleArguments.newValueArgument(id.toString()), TupleArguments.newVarArgument("CtxId"));
         } catch (InvalidVarNameException e1) {
-            e1.printStackTrace();
+            LOGGER.error(e1.getMessage(), e1);
         }
         LogicTuple result;
         try {
@@ -229,13 +234,13 @@ public class ACCProvider {
             // TupleCentreOpType.INP, this.aid, this.config,
             // req);
         } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return;
         }
         // try {
         "ok".equals(Objects.requireNonNull(result).getArg(2).getName());
         // } catch (final InvalidLogicTupleOperationException e) {
-        // e.printStackTrace();
+        // LOGGER.error(e.getMessage(), e);
         // return false;
         // }
     }

@@ -1,5 +1,6 @@
 package alice.tuplecentre.respect.core;
 
+import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +8,8 @@ import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.respect.api.IRespectTC;
 import alice.tuplecentre.respect.api.ITCRegistry;
 import alice.tuplecentre.respect.api.exceptions.InstantiationNotPossibleException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Alessandro Ricci

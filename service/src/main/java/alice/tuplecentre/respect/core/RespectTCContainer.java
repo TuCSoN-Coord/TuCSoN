@@ -1,5 +1,6 @@
 package alice.tuplecentre.respect.core;
 
+import java.lang.invoke.MethodHandles;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -16,6 +17,8 @@ import alice.tuplecentre.respect.api.ISpecificationSynchInterface;
 import alice.tuplecentre.respect.api.ITCRegistry;
 import alice.tuplecentre.respect.api.exceptions.InstantiationNotPossibleException;
 import alice.tuplecentre.tucson.service.RemoteLinkProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A Container for ReSpecT tuple centres
@@ -24,6 +27,8 @@ import alice.tuplecentre.tucson.service.RemoteLinkProvider;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public final class RespectTCContainer {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private static RespectTCContainer container;
     private static int defaultport;
@@ -65,7 +70,7 @@ public final class RespectTCContainer {
             this.loopback = InetAddress.getLocalHost().getHostAddress();
             this.hostname = InetAddress.getLocalHost().getHostName();
         } catch (final UnknownHostException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             this.loopback = null;
             this.hostname = null;
         }

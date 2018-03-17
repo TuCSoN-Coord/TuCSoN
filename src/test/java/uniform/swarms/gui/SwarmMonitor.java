@@ -57,7 +57,7 @@ public class SwarmMonitor {
                 | TucsonOperationNotPossibleException
                 | UnreachableNodeException | OperationTimeOutException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -110,7 +110,7 @@ public class SwarmMonitor {
                 | TucsonOperationNotPossibleException
                 | UnreachableNodeException | OperationTimeOutException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return pheromones;
     }

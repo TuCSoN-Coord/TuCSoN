@@ -1,5 +1,6 @@
 package alice.tuplecentre.tucson.introspection4gui;
 
+import java.lang.invoke.MethodHandles;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -21,8 +22,12 @@ import alice.tuplecentre.tucson.service.ACCDescription;
 import alice.tuplecentre.tucson.service.ACCProvider;
 import alice.tuplecentre.tucson.service.TucsonNodeService;
 import alice.tuplecentre.tucson.service.TupleCentreContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Inspector4GuiContextSkel extends InspectorContextSkel {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private Set<LogicTuple> tuples;
     private Set<LogicTuple> currentNewTuples = new HashSet<>();
@@ -33,7 +38,7 @@ public class Inspector4GuiContextSkel extends InspectorContextSkel {
             TucsonInvalidTupleCentreIdException {
         super(man, d, node, p);
         this.tuples = new HashSet<>();
-        System.out.println("GDRADI SKEL");
+        LOGGER.info("GDRADI SKEL");
     }
 
     private void updateTuples(LogicTuple[] ltSet) {
@@ -101,7 +106,7 @@ public class Inspector4GuiContextSkel extends InspectorContextSkel {
             }
         } catch (final DialogSendException e) {
             this.log("Inspector quit");
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

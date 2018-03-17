@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.tucson.introspection.tools;
 
+import java.lang.invoke.MethodHandles;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,12 +28,16 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 //import alice.util.jedit.JEditTextArea;
 
 /**
  * @author Roberto D'Elia
  */
 public class SpecWorker extends Thread {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private static String format(final LogicTuple t) {
         final StringBuilder res = new StringBuilder(21);
@@ -42,7 +47,7 @@ public class SpecWorker extends Thread {
             res.append(t.getArg(1)).append(",\n\t");
             res.append(t.getArg(2)).append("\n).\n");
         } catch (final InvalidOperationException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return res.toString();
     }
@@ -57,7 +62,7 @@ public class SpecWorker extends Thread {
                 res.append(t.getArg(1)).append(".\n");
             }
         } catch (final InvalidOperationException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return res.toString();
     }
@@ -97,7 +102,7 @@ public class SpecWorker extends Thread {
                 }
                 this.form.getCompletion(spec);
             } catch (final TucsonOperationNotPossibleException | OperationTimeOutException | UnreachableNodeException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
                 // EditSpec.outputState.setText(e.toString());
             }
         }
@@ -111,7 +116,7 @@ public class SpecWorker extends Thread {
                     this.context.setS(this.tid, spec, (Long) null);
                 }
             } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
                 // EditSpec.outputState.setText(e.toString());
             }
             this.form.setCompletion();

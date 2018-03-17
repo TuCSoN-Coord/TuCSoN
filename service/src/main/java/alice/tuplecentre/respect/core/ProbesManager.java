@@ -3,6 +3,7 @@
  */
 package alice.tuplecentre.respect.core;
 
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -13,15 +14,20 @@ import alice.tuplecentre.respect.situatedness.AbstractProbeId;
 import alice.tuplecentre.respect.situatedness.ISimpleProbe;
 import alice.tuplecentre.respect.situatedness.ProbeIdentifier;
 import alice.tuplecentre.respect.situatedness.TransducerId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 04/nov/2013
  */
 public enum ProbesManager {
+
     /**
      * the singleton instance of this probes manager
      */
     INSTANCE;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      * Utility method used to communicate an output message to the console.
@@ -29,11 +35,11 @@ public enum ProbesManager {
      * @param msg message to print
      */
     private static void speak(final String msg) {
-        System.out.println("..[ResourceManager]: " + msg);
+        LOGGER.info("..[ResourceManager]: " + msg);
     }
 
     private static void speakErr(final String msg) {
-        System.err.println("..[ResourceManager]: " + msg);
+        LOGGER.error("..[ResourceManager]: " + msg);
     }
 
     /**

@@ -42,9 +42,9 @@ public final class PersistencyTester {
                     Thread.sleep(1000);
                 }
             } catch (final InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             } catch (final DialogInitializationException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
             final TucsonTupleCentreId ttcid = new TucsonTupleCentreIdDefault(
                     "def(1)@localhost:" + TucsonInfo.getDefaultPortNumber());
@@ -111,28 +111,28 @@ public final class PersistencyTester {
             tns.shutdown();
         } catch (final TucsonInvalidTupleCentreIdException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonInvalidAgentIdException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonOperationNotPossibleException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final UnreachableNodeException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final OperationTimeOutException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final IOException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InvalidLogicTupleException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InterruptedException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

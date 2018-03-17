@@ -17,6 +17,7 @@ import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.invoke.MethodHandles;
 import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
@@ -35,6 +36,8 @@ import alice.tuplecentre.tucson.network.messages.TucsonMessageReply;
 import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
 import alice.tuplecentre.tucson.network.messages.introspection.NewInspectorMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.NodeMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /*
  * TODO CICORA: e' necessario separare la classe usata server side e la classe
@@ -47,6 +50,8 @@ import alice.tuplecentre.tucson.network.messages.introspection.NodeMessage;
  * @author (contributor) Saverio Cicora
  */
 public class TucsonProtocolTCP extends AbstractTucsonProtocol {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      * serialVersionUID
@@ -152,10 +157,10 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
         } catch (final IOException e) {
             // FIXME What to do here?
             if (this.serverSocketClosed) {
-                System.out.println("[TuCSoN protocol]: Socket "
+                LOGGER.warn("[TuCSoN protocol]: Socket "
                         + this.mainSocket.getLocalPort() + " closed");
             } else {
-                System.err.println("Generic IO error: " + e);
+                LOGGER.error("Generic IO error: " + e);
             }
             throw new DialogAcceptException(e);
         } catch (final DialogInitializationException e) {
@@ -174,7 +179,7 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
             }
             this.serverSocketClosed = true;
         } catch (final IOException e) {
-            System.err.println("Generic IO error: " + e);
+            LOGGER.error("Generic IO error: " + e);
             throw new DialogCloseException(e);
         }
     }
@@ -348,7 +353,7 @@ public class TucsonProtocolTCP extends AbstractTucsonProtocol {
             this.mainSocket.close();
         } catch (final IOException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

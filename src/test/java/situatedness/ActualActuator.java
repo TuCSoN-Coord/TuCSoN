@@ -53,9 +53,9 @@ public class ActualActuator implements ISimpleProbe {
             this.tempTc = new TucsonTupleCentreIdDefault("tempTc",
                     ActualActuator.DEFAULT_HOST, String.valueOf(TucsonInfo.getDefaultPortNumber()));
         } catch (final TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -137,13 +137,13 @@ public class ActualActuator implements ISimpleProbe {
                 return true;
             }
         } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final OperationTimeOutException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return false;
     }

@@ -184,7 +184,7 @@ public final class AdminAgent extends AbstractTucsonAgent<AdminACC> {
             Logger.getLogger("AdminAgent").info("AdminACC released, bye!");
         } catch (TucsonOperationNotPossibleException | UnreachableNodeException
                 | OperationTimeOutException | OperationNotAllowedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } 
     }
 
@@ -200,7 +200,7 @@ public final class AdminAgent extends AbstractTucsonAgent<AdminACC> {
         try {
             new AdminAgent("admin", "localhost", portno).go();
         } catch (TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

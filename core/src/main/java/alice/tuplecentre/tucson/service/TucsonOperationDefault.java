@@ -1,5 +1,6 @@
 package alice.tuplecentre.tucson.service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.OperationCompletionListener;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.tucson.api.TucsonOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class implementing a Default TucsonOperation
@@ -22,6 +25,8 @@ import alice.tuplecentre.tucson.api.TucsonOperation;
  * @see TucsonOperation
  */
 public class TucsonOperationDefault extends AbstractTupleCentreOperation implements TucsonOperation {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private final OperationHandler context;
 
@@ -73,7 +78,7 @@ public class TucsonOperationDefault extends AbstractTupleCentreOperation impleme
             }
             return JTuplesEngine.toJavaTuple(lt);
         } catch (final InvalidTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return null;
         }
     }
@@ -91,7 +96,7 @@ public class TucsonOperationDefault extends AbstractTupleCentreOperation impleme
                 }
             }
         } catch (final InvalidTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return null;
         }
         return jts;
@@ -105,7 +110,7 @@ public class TucsonOperationDefault extends AbstractTupleCentreOperation impleme
                 try {
                     this.token.wait(ms);
                 } catch (final InterruptedException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             }
             if (!this.isOperationCompleted()) {

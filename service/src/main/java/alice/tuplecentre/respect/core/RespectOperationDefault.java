@@ -12,6 +12,7 @@
  */
 package alice.tuplecentre.respect.core;
 
+import java.lang.invoke.MethodHandles;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,6 +31,8 @@ import alice.tuplecentre.respect.api.RespectOperation;
 import alice.tuplecentre.respect.api.RespectSpecification;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static alice.tuplecentre.core.TupleCentreOpType.FROM;
 import static alice.tuplecentre.core.TupleCentreOpType.GET;
@@ -75,6 +78,7 @@ import static alice.tuplecentre.core.TupleCentreOpType.URDP;
  */
 public class RespectOperationDefault extends AbstractTupleCentreOperation implements RespectOperation {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      * Factory Method
@@ -97,7 +101,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                         "S")), listener);
             } catch (InvalidVarNameException e) {
                 // TODO Auto-generated catch block
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
 
@@ -117,7 +121,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 }
                 return RespectOperationDefault.makeSetS(tuple, listener);
             // } catch (final InvalidLogicTupleOperationException e) {
-            //  e.printStackTrace();
+            //  LOGGER.error(e.getMessage(), e);
             //  }
             case IN:
                 return RespectOperationDefault.makeIn(tuple, listener);
@@ -129,7 +133,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 }
                 return RespectOperationDefault.makeInAll(tuple, listener);
             //    } catch (final InvalidLogicTupleOperationException e) {
-            //      e.printStackTrace();
+            //      LOGGER.error(e.getMessage(), e);
             //  }
             case INP:
                 return RespectOperationDefault.makeInp(tuple, listener);
@@ -153,7 +157,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 }
                 return RespectOperationDefault.makeRdAll(tuple, listener);
             //  } catch (final InvalidLogicTupleOperationException e) {
-            //   e.printStackTrace();
+            //   LOGGER.error(e.getMessage(), e);
             // }
             case RDP:
                 return RespectOperationDefault.makeRdp(tuple, listener);
@@ -171,7 +175,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 }
                 return RespectOperationDefault.makeNoAll(tuple, listener);
             //  } catch (final InvalidLogicTupleOperationException e) {
-            //     e.printStackTrace();
+            //     LOGGER.error(e.getMessage(), e);
             //  }
             case NOP:
                 return RespectOperationDefault.makeNop(tuple, listener);
@@ -530,7 +534,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                     SET_S,
                     (Tuple) LogicTuples.parse(spec.toString()), l);
         } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return temp;
     }

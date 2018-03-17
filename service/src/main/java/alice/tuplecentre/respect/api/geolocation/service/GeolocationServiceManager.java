@@ -1,5 +1,6 @@
 package alice.tuplecentre.respect.api.geolocation.service;
 
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -9,6 +10,8 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
 import alice.util.Tools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class used for managing (creation and removal) geolocation services.
@@ -16,6 +19,9 @@ import alice.util.Tools;
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  */
 public final class GeolocationServiceManager {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+
     /**
      * The GeolocationServiceManager instance
      */
@@ -37,14 +43,14 @@ public final class GeolocationServiceManager {
      * @param s the message to log
      */
     private static void error(final String s) {
-        System.err.println("[GeolocationServiceManager] " + s);
+        LOGGER.error("[GeolocationServiceManager] " + s);
     }
 
     /**
      * @param s the message to log
      */
     private static void log(final String s) {
-        System.out.println("[GeolocationServiceManager] " + s);
+        LOGGER.error("[GeolocationServiceManager] " + s);
     }
 
     /**

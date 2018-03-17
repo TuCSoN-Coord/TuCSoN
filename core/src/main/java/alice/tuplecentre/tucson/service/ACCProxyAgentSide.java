@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.tucson.service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +56,8 @@ import alice.tuplecentre.tucson.network.messages.events.InputEventMessage;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMessageDefault;
 import alice.tuplecentre.tucson.service.tools.TucsonACCTool;
 import alice.tuprolog.Parser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Active part of the Default Agent Coordination Context.
@@ -88,6 +91,8 @@ import alice.tuprolog.Parser;
  * @see TucsonMetaACC TucsonMetaACC
  */
 public class ACCProxyAgentSide implements EnhancedACC {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      * The tuple centre Identifier where RBAC structure is managed
@@ -233,7 +238,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             try {
                 info.sendMsgRequest(exit);
             } catch (final DialogException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
     }
@@ -286,7 +291,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
             spec = LogicTuples.newInstance("spec", TupleArguments.newVarArgument("S"));
         } catch (final InvalidVarNameException e) {
             // Cannot happen, the var name it's specified here
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return this.executor.doBlockingOperation(this.aid,
                 TupleCentreOpType.GET_S, tid, spec, timeout, this.getPosition());
@@ -926,7 +931,7 @@ public class ACCProxyAgentSide implements EnhancedACC {
      * @param msg String to display on the standard output
      */
     protected void log(final String msg) {
-        System.out.println("[ACCProxyAgentSide]: " + msg);
+        LOGGER.info("[ACCProxyAgentSide]: " + msg);
     }
 
 }

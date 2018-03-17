@@ -1,10 +1,13 @@
 package alice.tuple.logic;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Collection;
 
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Term;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Factory Class for LogicTuples
@@ -12,6 +15,8 @@ import alice.tuprolog.Term;
  * @author Enrico Siboni
  */
 public final class LogicTuples {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private LogicTuples() {
     }
@@ -47,7 +52,7 @@ public final class LogicTuples {
         } catch (final InvalidLogicTupleException e) {
 
             /* Never here, because the argument is a LogicTuple */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
 
         /* Never here, because the argument is a LogicTuple */

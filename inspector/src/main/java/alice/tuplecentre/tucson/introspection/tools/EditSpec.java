@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -31,12 +32,16 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Unknown...
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public class EditSpec extends javax.swing.JFrame {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private static final long serialVersionUID = 2491540632593263750L;
     private javax.swing.JTextField caretPosition;
@@ -99,7 +104,7 @@ public class EditSpec extends javax.swing.JFrame {
             this.context = new ACCProxyAgentSide(new TucsonAgentIdDefault(
                     "'$Inspector-" + System.currentTimeMillis() + "'"));
         } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

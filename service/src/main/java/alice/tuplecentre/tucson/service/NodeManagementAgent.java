@@ -21,6 +21,10 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuprolog.InvalidTermException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * @author Alessandro Ricci
@@ -30,8 +34,10 @@ import alice.tuprolog.InvalidTermException;
  */
 public class NodeManagementAgent extends Thread {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+
     private static void log(final String s) {
-        System.out.println("[NodeManagementAgent]: " + s);
+        LOGGER.info("[NodeManagementAgent]: " + s);
     }
 
     private final TucsonTupleCentreId config;
@@ -50,7 +56,7 @@ public class NodeManagementAgent extends Thread {
             this.nodeManAid = new TucsonAgentIdDefault("node_management_agent");
         } catch (final TucsonInvalidAgentIdException e) {
             // Cannot happen, the agend id it's specified here
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.node = n;
         this.config = conf;
@@ -87,7 +93,7 @@ public class NodeManagementAgent extends Thread {
                 }
             }
         } catch (final InvalidTermException | InvalidVarNameException | InvalidLogicTupleException | TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             this.node.removeNodeAgent(this);
         } catch (final InterruptedException e) {
             NodeManagementAgent
@@ -119,7 +125,7 @@ public class NodeManagementAgent extends Thread {
                                 System.currentTimeMillis(), null);
                         TupleCentreContainer.doBlockingOperation(ev);
                     } catch (final InvalidLogicTupleException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                     }
                     // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                     // .outCode(), this.nodeManAid, this.config,
@@ -138,7 +144,7 @@ public class NodeManagementAgent extends Thread {
                                 System.currentTimeMillis(), null);
                         TupleCentreContainer.doBlockingOperation(ev);
                     } catch (final InvalidLogicTupleException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                     }
                     // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                     // .outCode(), this.nodeManAid, this.config,
@@ -161,7 +167,7 @@ public class NodeManagementAgent extends Thread {
                     TupleCentreContainer.doBlockingOperation(ev);
                     NodeManagementAgent.log("...persistency enabled.");
                 } catch (final InvalidLogicTupleException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
                 // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.OUT,
                 // this.nodeManAid, this.config, LogicTuples.newInstance("cmd_result",
@@ -183,7 +189,7 @@ public class NodeManagementAgent extends Thread {
                     TupleCentreContainer.doBlockingOperation(ev);
                     NodeManagementAgent.log("...persistency disabled.");
                 } catch (final InvalidLogicTupleException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
                 // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.OUT,
                 // this.nodeManAid, this.config, LogicTuples.newInstance("cmd_result",

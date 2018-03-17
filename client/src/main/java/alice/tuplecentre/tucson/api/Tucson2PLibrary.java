@@ -12,6 +12,7 @@
  */
 package alice.tuplecentre.tucson.api;
 
+import java.lang.invoke.MethodHandles;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -35,6 +36,8 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuprolog.Library;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * TuCSoN library for tuProlog agents. By loading this library tuProlog agents
@@ -46,6 +49,8 @@ import alice.tuprolog.Term;
  * @see alice.tuprolog.Agent Agent
  */
 public class Tucson2PLibrary extends Library {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private static final long serialVersionUID = 6716779172091533171L;
 
@@ -103,14 +108,14 @@ public class Tucson2PLibrary extends Library {
         try {
             port = Integer.parseInt(portString);
         } catch (NumberFormatException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
         this.context = TucsonMetaACC.getContext(agentId, netId, port);
         try {
             Objects.requireNonNull(this.context).enterACC();
         } catch (UnreachableNodeException | TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
 

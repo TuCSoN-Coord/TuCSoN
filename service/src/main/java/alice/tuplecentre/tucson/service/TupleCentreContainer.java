@@ -1,5 +1,6 @@
 package alice.tuplecentre.tucson.service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -41,6 +42,8 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidSpecificationException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static alice.tuplecentre.core.TupleCentreOpType.GET_ENV;
 import static alice.tuplecentre.core.TupleCentreOpType.GET_S;
@@ -54,6 +57,9 @@ import static alice.tuplecentre.core.TupleCentreOpType.SET_S;
  * michele.bombardi@studio.unibo.it)
  */
 public final class TupleCentreContainer {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+
     private static int defaultport;
 
     /**
@@ -329,7 +335,7 @@ public final class TupleCentreContainer {
                             .getArg(0).getName()));
                     return true;
                 } catch (final InvalidSpecificationException | InvalidOperationException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                     return false;
                 }
             case GET_S:
@@ -345,7 +351,7 @@ public final class TupleCentreContainer {
                     context.goCommand();
                     return true;
                 } catch (final OperationNotPossibleException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                     return false;
                 }
             case STOP_CMD:
@@ -353,7 +359,7 @@ public final class TupleCentreContainer {
                     context.stopCommand();
                     return true;
                 } catch (final OperationNotPossibleException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                     return false;
                 }
             case IS_STEP_MODE:
@@ -367,7 +373,7 @@ public final class TupleCentreContainer {
                     return true;
                 } catch (final OperationNotPossibleException e) {
                     // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                     return false;
                 }
             case ADD_OBS:

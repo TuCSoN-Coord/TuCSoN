@@ -112,36 +112,36 @@ public final class HelloWorldJTuples {
             /*
              * The chosen TuCSoN Agent Identifier is not admissible.
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             /*
              * The chosen target tuple centre is not admissible.
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonOperationNotPossibleException e) {
             /*
              * The requested TuCSoN operation cannot be performed.
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final UnreachableNodeException e) {
             /*
              * The chosen target tuple centre is not reachable.
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final OperationTimeOutException e) {
             /*
              * Operation timeout expired.
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InvalidTupleException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InvalidJValException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InvalidJVarException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

@@ -122,7 +122,7 @@ public final class AuthorisedAgentImpl extends AbstractTucsonAgent<RootACC> {
                 | OperationTimeOutException | TucsonInvalidAgentIdException
                 | AgentNotAllowedException
                 | TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -137,7 +137,7 @@ public final class AuthorisedAgentImpl extends AbstractTucsonAgent<RootACC> {
         try {
             new AuthorisedAgentImpl("authorised", "localhost", portno).go();
         } catch (TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

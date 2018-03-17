@@ -49,10 +49,10 @@ public class SpawnedWorkingActivity extends AbstractSpawnActivity {
             this.out(res);
         } catch (final InvalidLogicTupleException e) {
             this.log("ERROR: Tuple is not an admissible Prolog term!");
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InvalidOperationException e) {
             this.log("ERROR: No tuple arguments to retrieve!");
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

@@ -3,11 +3,17 @@ package alice.tuplecentre.tucson.parsing;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.TupleArgument;
 import alice.util.Tools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it)
  */
 public class RespectReactionParser {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private static boolean bigFatCondition(final TupleArgument arg) {
         return "request".equals(arg.getName())
@@ -38,7 +44,7 @@ public class RespectReactionParser {
     }
 
     private static void log(final String msg) {
-        System.out.println("[RespectReactionParser]: " + msg);
+        LOGGER.info("[RespectReactionParser]: " + msg);
     }
 
     private boolean flag;

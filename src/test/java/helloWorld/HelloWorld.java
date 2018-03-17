@@ -99,29 +99,29 @@ public final class HelloWorld {
             /*
              * The chosen TuCSoN Agent Identifier is not admissible.
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             /*
              * The chosen target tuple centre is not admissible.
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonOperationNotPossibleException e) {
             /*
              * The requested TuCSoN operation cannot be performed.
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final UnreachableNodeException e) {
             /*
              * The chosen target tuple centre is not reachable.
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final OperationTimeOutException e) {
             /*
              * Operation timeout expired.
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InvalidVarNameException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

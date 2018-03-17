@@ -22,6 +22,10 @@ import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
 import alice.tuplecentre.tucson.service.AdminACCProxyAgentSide;
 import alice.tuplecentre.tucson.service.NegotiationACCProxyAgentSide;
 import alice.tuplecentre.tucson.service.TucsonInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * TuCSoN Meta Agent Coordination Context. It is exploited by TuCSoN agents to
@@ -32,6 +36,8 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
  * @author (contributor) Emanuele Buccelli
  */
 public final class TucsonMetaACC {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     // TODO: Controllo password
 
@@ -55,13 +61,10 @@ public final class TucsonMetaACC {
             acc = new AdminACCProxyAgentSide(aid, netid, portno, username,
                     password);
         } catch (final TucsonInvalidAgentIdException e) {
-            System.out.println("[TucsonMetaACC]: Given agent Identifier is NOT valid!");
-            e.printStackTrace();
+            LOGGER.error("[TucsonMetaACC]: Given agent Identifier is NOT valid!");
             return null;
         } catch (final TucsonInvalidTupleCentreIdException e) {
-            System.err
-                    .println("[TucsonMetaACC]: Given tuple centre Identifier is NOT valid!");
-            e.printStackTrace();
+            LOGGER.error("[TucsonMetaACC]: Given tuple centre Identifier is NOT valid!");
             return null;
         }
         return acc;
@@ -76,7 +79,7 @@ public final class TucsonMetaACC {
      * NoSuchAlgorithmException | InvalidVarNameException |
      * TucsonInvalidTupleCentreIdException | TucsonOperationNotPossibleException
      * | UnreachableNodeException | OperationTimeOutException e) {
-     * System.err.println("[Tucson-NegotiationACC]: " + e); e.printStackTrace();
+     * System.err.println("[Tucson-NegotiationACC]: " + e); LOGGER.error(e.getMessage(), e);
      * return null; } return acc; }
      */
 
@@ -109,7 +112,7 @@ public final class TucsonMetaACC {
             aid.assignUUID();
         } catch (final TucsonInvalidAgentIdException e) {
             // Cannot happen, aid it's already a valid TucsonAgentId
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return null;
         }
         return acc;
@@ -144,13 +147,10 @@ public final class TucsonMetaACC {
             acc = new NegotiationACCProxyAgentSide(new TucsonAgentIdDefault(aid),
                     netid, portno);
         } catch (final TucsonInvalidAgentIdException e) {
-            System.out.println("[TucsonMetaACC]: Given agent Identifier is NOT valid!");
-            e.printStackTrace();
+            LOGGER.error("[TucsonMetaACC]: Given agent Identifier is NOT valid!");
             return null;
         } catch (final TucsonInvalidTupleCentreIdException e) {
-            System.err
-                    .println("[TucsonMetaACC]: Given tuple centre Identifier is NOT valid!");
-            e.printStackTrace();
+            LOGGER.error("[TucsonMetaACC]: Given tuple centre Identifier is NOT valid!");
             return null;
         }
         return acc;

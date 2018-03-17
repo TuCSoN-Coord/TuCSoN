@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.tucson.introspection;
 
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -61,6 +62,8 @@ import alice.tuplecentre.tucson.service.AbstractACCProxyNodeSide;
 import alice.tuplecentre.tucson.service.TucsonNodeService;
 import alice.tuplecentre.tucson.service.TucsonTCUsers;
 import alice.tuplecentre.tucson.service.TupleCentreContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Unknown...
@@ -70,6 +73,8 @@ import alice.tuplecentre.tucson.service.TupleCentreContainer;
  */
 public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         InspectableEventListener {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private final TucsonAgentId agentId;
     private final int ctxId;
@@ -158,7 +163,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         try {
             this.dialog.sendInspectorEvent(msg);
         } catch (final DialogSendException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -176,7 +181,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         try {
             this.dialog.sendInspectorEvent(msg);
         } catch (final DialogException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -277,10 +282,10 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
                 this.dialog.sendInspectorEvent(msg);
             }
         } catch (final InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final DialogSendException e) {
             this.log("Inspector quit");
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -313,7 +318,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
             TupleCentreContainer.doManagementOperation(
                     TupleCentreOpType.RMV_INSP, this.tcId, this);
         } catch (final NoSuchMethodException | DialogException | InvocationTargetException | IllegalArgumentException | IllegalAccessException | SecurityException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.manager.shutdownContext(this.ctxId, this.agentId);
     }
@@ -363,7 +368,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
             // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.SET,
             // this.agentId, this.tcId, m.getTupleSet());
         } catch (final TucsonInvalidLogicTupleException | InvalidLogicTupleException | TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -388,7 +393,7 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
             try {
                 skel.getDialog().sendInspectorEvent(msg);
             } catch (final DialogException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
     }
@@ -404,6 +409,6 @@ public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
      * @param st the String to log
      */
     protected void log(final String st) {
-        System.out.println("[InspectorContextSkel]: " + st);
+        LOGGER.info("[InspectorContextSkel]: " + st);
     }
 }

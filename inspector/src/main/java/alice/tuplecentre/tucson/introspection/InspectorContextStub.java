@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.tucson.introspection;
 
+import java.lang.invoke.MethodHandles;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -39,12 +40,16 @@ import alice.tuplecentre.tucson.network.messages.introspection.SetTupleSetMessag
 import alice.tuplecentre.tucson.network.messages.introspection.ShutdownMessage;
 import alice.tuplecentre.tucson.network.messages.introspection.StepModeMessage;
 import alice.tuplecentre.tucson.service.ACCDescription;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Unknown...
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public class InspectorContextStub implements InspectorContext {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      * listeners registrated for virtual machine output events
@@ -85,7 +90,7 @@ public class InspectorContextStub implements InspectorContext {
         try {
             this.getTupleCentreInfo(tc);
         } catch (final UnreachableNodeException | OperationNotAllowedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.exitFlag = false;
     }
@@ -136,7 +141,7 @@ public class InspectorContextStub implements InspectorContext {
         try {
             this.dialog.sendNodeMsg(new IsActiveStepModeMessage(this.id));
         } catch (final DialogException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -207,7 +212,7 @@ public class InspectorContextStub implements InspectorContext {
                 return;
             }
         } catch (final DialogException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         throw new OperationNotAllowedException();
     }
@@ -221,7 +226,7 @@ public class InspectorContextStub implements InspectorContext {
         try {
             this.getTupleCentreInfo(titcd);
         } catch (final UnreachableNodeException | OperationNotAllowedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 }

@@ -12,6 +12,10 @@
  */
 package alice.tuplecentre.respect.api;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -22,6 +26,8 @@ import java.lang.reflect.Method;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public abstract class AbstractRespectAgent {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     final class PlanExecutor extends Thread {
 
@@ -39,7 +45,7 @@ public abstract class AbstractRespectAgent {
             try {
                 this.activity.invoke(this.agent, AbstractRespectAgent.ARGS);
             } catch (final IllegalAccessException | InvocationTargetException | IllegalArgumentException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
     }
@@ -103,7 +109,7 @@ public abstract class AbstractRespectAgent {
             m = this.getClass().getDeclaredMethod(name,
                     AbstractRespectAgent.ARGS_CLASS);
         } catch (final NoSuchMethodException | SecurityException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         if (m != null) {
             m.setAccessible(true);

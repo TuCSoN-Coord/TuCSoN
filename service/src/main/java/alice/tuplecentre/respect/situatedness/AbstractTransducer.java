@@ -1,5 +1,6 @@
 package alice.tuplecentre.respect.situatedness;
 
+import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -21,6 +22,8 @@ import alice.tuplecentre.tucson.network.messages.events.InputEventMessage;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMessageDefault;
 import alice.tuplecentre.tucson.service.OperationHandler;
 import alice.tuplecentre.tucson.service.TucsonOperationDefault;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class implements some common behavior of transducers and defines some
@@ -35,6 +38,8 @@ import alice.tuplecentre.tucson.service.TucsonOperationDefault;
 // !!! Nel metodo "exit" l'inputEventMsg ha null come "position"
 public abstract class AbstractTransducer implements
         TransducerStandardInterface, TucsonOperationCompletionListener {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      * 'sensing' operation ('getEnv')
@@ -114,7 +119,7 @@ public abstract class AbstractTransducer implements
             try {
                 info.sendMsgRequest(exit);
             } catch (final DialogException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
     }
@@ -254,13 +259,13 @@ public abstract class AbstractTransducer implements
      * @param msg message to print.
      */
     protected void speak(final String msg) {
-        System.out.println("....[" + this.id + "]: " + msg);
+        LOGGER.info("....[" + this.id + "]: " + msg);
     }
 
     /**
      * @param msg the message to show on standard error
      */
     protected void speakErr(final String msg) {
-        System.err.println("....[" + this.id.toString() + "]: " + msg);
+        LOGGER.error("....[" + this.id.toString() + "]: " + msg);
     }
 }

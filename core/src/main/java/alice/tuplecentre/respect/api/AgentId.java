@@ -13,6 +13,7 @@
 package alice.tuplecentre.respect.api;
 
 import java.io.Serializable;
+import java.lang.invoke.MethodHandles;
 
 import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuplecentre.respect.api.exceptions.InvalidAgentIdException;
@@ -21,6 +22,8 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Agent identifier.
@@ -29,6 +32,8 @@ import alice.tuprolog.Term;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public class AgentId implements AgentIdentifier, Serializable {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private Term id;
 
@@ -54,7 +59,7 @@ public class AgentId implements AgentIdentifier, Serializable {
         try {
             this.id = Term.createTerm(newSid, AgentId.opManager);
         } catch (final InvalidTermException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             throw new InvalidAgentIdException("The identifier '" + newSid
                     + "' is not a valid term");
         }

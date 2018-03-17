@@ -54,7 +54,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         try {
             Thread.sleep(DiningPhilosopher.EATING_TIME);
         } catch (final InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -63,7 +63,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         try {
             Thread.sleep(DiningPhilosopher.THINKING_TIME);
         } catch (final InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -75,13 +75,13 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         try {
             acc = negAcc.playDefaultRole();
         } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final OperationTimeOutException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         // final OrdinaryAndSpecificationSyncACC acc = this.getACC();
         TucsonOperation op;
@@ -108,13 +108,13 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                     this.say("I'm starving!");
                 }
             } catch (final InvalidLogicTupleException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             } catch (final TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             } catch (final UnreachableNodeException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             } catch (final OperationTimeOutException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
     }

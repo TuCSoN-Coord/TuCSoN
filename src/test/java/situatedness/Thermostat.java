@@ -95,7 +95,7 @@ public final class Thermostat {
                         Utils.fileToString("situatedness/sensorSpec.rsp"),
                         null);
             } catch (final IOException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
             final LogicTuple sensorTuple = LogicTuples.newInstance(
                     "createTransducerSensor",
@@ -116,7 +116,7 @@ public final class Thermostat {
                         Utils.fileToString("situatedness/actuatorSpec.rsp"),
                         null);
             } catch (final IOException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
             final LogicTuple actuatorTuple = LogicTuples.newInstance(
                     "createTransducerActuator",
@@ -161,21 +161,21 @@ public final class Thermostat {
                 }
             }
         } catch (final TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final OperationTimeOutException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         } catch (final InvalidOperationException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 

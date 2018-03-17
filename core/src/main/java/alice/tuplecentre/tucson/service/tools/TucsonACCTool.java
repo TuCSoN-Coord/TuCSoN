@@ -1,5 +1,6 @@
 package alice.tuplecentre.tucson.service.tools;
 
+import java.lang.invoke.MethodHandles;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ import alice.tuplecentre.tucson.rbac.Policy;
 import alice.tuplecentre.tucson.rbac.Role;
 import alice.tuplecentre.tucson.rbac.TucsonPolicy;
 import alice.tuplecentre.tucson.rbac.TucsonRole;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Utility methods to manage RBAC-related facilities.
@@ -31,6 +34,8 @@ import alice.tuplecentre.tucson.rbac.TucsonRole;
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
  */
 public final class TucsonACCTool {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      * Activates a coordination context for a given agent.
@@ -65,7 +70,7 @@ public final class TucsonACCTool {
                 }
             }
         } catch (final InvalidVarNameException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return false;
     }
@@ -115,7 +120,7 @@ public final class TucsonACCTool {
                 }
             }
         } catch (final InvalidVarNameException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return newRole;
     }
@@ -164,7 +169,7 @@ public final class TucsonACCTool {
                 }
             }
         } catch (final InvalidVarNameException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return newRole;
     }
@@ -184,7 +189,7 @@ public final class TucsonACCTool {
             /*
              * Should not happen
              */
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         Objects.requireNonNull(md).update(password.getBytes());
         final byte[] byteData = md.digest();
@@ -229,7 +234,7 @@ public final class TucsonACCTool {
                 }
             }
         } catch (final InvalidVarNameException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return policies;
     }

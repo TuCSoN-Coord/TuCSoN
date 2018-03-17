@@ -1,5 +1,6 @@
 package alice.tuplecentre.tucson.service;
 
+import java.lang.invoke.MethodHandles;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -27,6 +28,8 @@ import alice.tuplecentre.tucson.rbac.Role;
 import alice.tuplecentre.tucson.rbac.TucsonAuthorisedAgent;
 import alice.tuplecentre.tucson.service.tools.TucsonACCTool;
 import alice.tuplecentre.tucson.utilities.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Class implementing the Administrator ACC.
@@ -35,6 +38,8 @@ import alice.tuplecentre.tucson.utilities.Utils;
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
  */
 public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminACC {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private final TupleCentreIdentifier tid;
     private boolean isAdminAuth;
@@ -126,7 +131,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
                 }
             }
         } catch (final InvalidVarNameException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
 
     }
@@ -295,7 +300,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
                 }
             }
         } catch (final InvalidVarNameException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
 
     }
@@ -323,7 +328,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
                 }
             }
         } catch (final InvalidVarNameException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -358,7 +363,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
             op = this.out(this.tid, policyTuple, l);
         } catch (final InvalidTupleArgumentException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         if (op != null && op.isResultSuccess()) {
             final LogicTuple res = op.getLogicTupleResult();
@@ -470,7 +475,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
                 }
             }
         } catch (final InvalidVarNameException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -480,7 +485,7 @@ public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminAC
      */
     @Override
     protected void log(final String msg) {
-        System.out.println("[AdminACCProxy]: " + msg);
+        LOGGER.info("[AdminACCProxy]: " + msg);
     }
 
 }

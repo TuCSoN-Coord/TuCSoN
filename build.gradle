@@ -35,6 +35,14 @@ dependencies {
 //    testImplementation project(":inspector")
 }
 
+subprojects{
+    dependencies {
+        // SLF4J
+        implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.9'
+        implementation group: 'org.slf4j', name: 'slf4j-jdk14', version: '1.7.25'
+    }
+}
+
 
 project(":service") {
     task runNode(type: JavaExec, dependsOn: classes) {

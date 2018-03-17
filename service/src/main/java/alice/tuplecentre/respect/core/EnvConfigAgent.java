@@ -1,5 +1,6 @@
 package alice.tuplecentre.respect.core;
 
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
@@ -23,6 +24,8 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Environment configuration agent.
@@ -32,6 +35,8 @@ import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
  * @author Steven Maraldi
  */
 public class EnvConfigAgent {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      * Add an actuator request's type
@@ -86,7 +91,7 @@ public class EnvConfigAgent {
                     String.valueOf(portno));
         } catch (final InvalidTupleCentreIdException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.go();
     }
@@ -103,7 +108,7 @@ public class EnvConfigAgent {
                     // TODO Temporary solution!!! ACCProxyAgentSide will be moved soon to "client" sub-project
                     acc = new ACCProxyAgentSide(agentId, nodeToConfigIpAddress, nodeToConfigPortNumber);
                 } catch (TucsonInvalidAgentIdException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
                 while (iteraction) {
                     try {
@@ -237,7 +242,7 @@ public class EnvConfigAgent {
                         }
                         acc.exit();
                     } catch (final InvalidLogicTupleException | InvocationTargetException | IllegalAccessException | InstantiationException | NoSuchMethodException | ClassNotFoundException | InvalidTupleCentreIdException | TucsonInvalidAgentIdException | InvalidOperationException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                     }
                 }
             }
@@ -252,6 +257,6 @@ public class EnvConfigAgent {
     }
 
     private void speak(final Object msg) {
-        System.out.println("..[$EnvAgent (" + this.idEnvTC + ")]: " + msg);
+        LOGGER.info("..[$EnvAgent (" + this.idEnvTC + ")]: " + msg);
     }
 }

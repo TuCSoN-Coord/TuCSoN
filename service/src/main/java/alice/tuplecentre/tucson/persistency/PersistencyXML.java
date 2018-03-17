@@ -1,5 +1,7 @@
 package alice.tuplecentre.tucson.persistency;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -8,6 +10,7 @@ import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.invoke.MethodHandles;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -30,6 +33,8 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
  */
 public class PersistencyXML {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private static final String ACTION_ATTRIBUTE = "action";
     private static final String ADD_OPERATION = "addition";
@@ -204,7 +209,7 @@ public class PersistencyXML {
             pData = new PersistencyData(tuples, specTuple, predicates, updates);
         } catch (final ParserConfigurationException | IOException | SAXException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return pData;
     }
@@ -226,11 +231,10 @@ public class PersistencyXML {
             for (final File file : Objects.requireNonNull(files)) {
                 if (file.getName().startsWith("tc_" + pXMLFileName)) {
                     if (file.delete()) {
-                        System.out.println("....old persistency file '"
+                        LOGGER.info("....old persistency file '"
                                 + file.getName() + "' has been deleted");
                     } else {
-                        System.err
-                                .println("....error while deleting old persistency file '"
+                        LOGGER.error("....error while deleting old persistency file '"
                                         + file.getName() + "' :/");
                     }
                 }
@@ -300,7 +304,7 @@ public class PersistencyXML {
             transformer.transform(source, result);
         } catch (final ParserConfigurationException | TransformerException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -407,7 +411,7 @@ public class PersistencyXML {
             transformer.transform(source, result);
         } catch (final IOException | SAXException | ParserConfigurationException | TransformerException e) {
             // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 }

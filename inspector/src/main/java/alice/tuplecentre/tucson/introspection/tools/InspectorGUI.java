@@ -18,6 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.lang.invoke.MethodHandles;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -36,6 +37,8 @@ import alice.tuplecentre.tucson.introspection.InspectorContext;
 import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 import alice.tuplecentre.tucson.introspection.InspectorProtocolDefault;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Unknown...
@@ -43,18 +46,19 @@ import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
  */
 public class InspectorGUI extends javax.swing.JFrame {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+
     private static final long serialVersionUID = -3765811664087552414L;
 
     /**
      * @param args the arguments to launch the inspector
      */
     public static void main(final String[] args) {
-        System.out.println("[Inspector]: Booting...");
+        LOGGER.info("[Inspector]: Booting...");
         if (alice.util.Tools.isOpt(args, "-?")
                 || alice.util.Tools.isOpt(args, "-help")) {
-            System.out.println("Argument Template: ");
-            System.out
-                    .println("{-tname tuple centre name} {-netid ip address} {-portno listening port number} {-aid agent identifier} {-?}");
+            LOGGER.info("Argument Template: ");
+            LOGGER.info("{-tname tuple centre name} {-netid ip address} {-portno listening port number} {-aid agent identifier} {-?}");
             System.exit(0);
         }
         String stAid;
@@ -80,15 +84,14 @@ public class InspectorGUI extends javax.swing.JFrame {
         try {
             aid = new TucsonAgentIdDefault(stAid);
             tid = new TucsonTupleCentreIdDefault(tcname, netid, port);
-            System.out.println("[Inspector]: Inspector Agent Identifier: "
+            LOGGER.info("[Inspector]: Inspector Agent Identifier: "
                     + stAid);
-            System.out.println("[Inspector]: Tuple Centre Identifier: " + tid);
+            LOGGER.info(("[Inspector]: Tuple Centre Identifier: " + tid));
         } catch (final TucsonInvalidAgentIdException e) {
-            System.err.println("[Inspector]: failure: " + e);
+            LOGGER.info("[Inspector]: failure: " + e);
             System.exit(-1);
         } catch (final TucsonInvalidTupleCentreIdException e) {
-            System.out
-                    .println("[Inspector]: Please input an admissible tuplecentre "
+            LOGGER.error("[Inspector]: Please input an admissible tuplecentre "
                             + "name from the GUI...");
         }
         InspectorGUI form;
@@ -101,10 +104,10 @@ public class InspectorGUI extends javax.swing.JFrame {
             try {
                 form.exit.wait();
             } catch (final InterruptedException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
-        System.out.println("[Inspector]: I quit, see you next time :)");
+        LOGGER.info("[Inspector]: I quit, see you next time :)");
         System.exit(0);
     }
 
@@ -190,7 +193,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.tupleForm.setVisible(true);
     }
@@ -223,7 +226,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -264,7 +267,7 @@ public class InspectorGUI extends javax.swing.JFrame {
                 this.stateBar.setText("Inspector Session Opened.");
             } catch (final TucsonInvalidTupleCentreIdException e) {
                 this.stateBar.setText("Operation Failed: " + e);
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
             if (this.afterQuit) {
                 this.deselectStepModeCB();
@@ -329,7 +332,7 @@ public class InspectorGUI extends javax.swing.JFrame {
             try {
                 this.context.exit();
             } catch (final DialogSendException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
         if (this.tupleForm != null) {
@@ -495,7 +498,7 @@ public class InspectorGUI extends javax.swing.JFrame {
                         InspectorGUI.this.context.vmStepMode();
                     }
                 } catch (final DialogSendException e1) {
-                    e1.printStackTrace();
+                    LOGGER.error(e1.getMessage(), e1);
                 }
             }
         });
@@ -706,7 +709,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.pendingQueryForm.setVisible(true);
     }
@@ -730,7 +733,7 @@ public class InspectorGUI extends javax.swing.JFrame {
             try {
                 this.agent.getContext().setProtocol(this.protocol);
             } catch (final DialogSendException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         } else {
             this.protocol
@@ -738,7 +741,7 @@ public class InspectorGUI extends javax.swing.JFrame {
             try {
                 this.agent.getContext().setProtocol(this.protocol);
             } catch (final DialogSendException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
     }
@@ -752,7 +755,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.reactionForm.setVisible(true);
     }
@@ -766,7 +769,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.tupleForm.setVisible(true);
     }
@@ -778,7 +781,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         try {
             this.context.nextStep();
         } catch (final DialogSendException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -802,7 +805,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -814,7 +817,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         try {
             this.context.setProtocol(this.protocol);
         } catch (final DialogSendException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 }

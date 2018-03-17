@@ -16,6 +16,7 @@ package alice.tuplecentre.tucson.service.tools;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.invoke.MethodHandles;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleOpManager;
@@ -31,6 +32,8 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.parsing.TucsonOpParser;
 import alice.tuplecentre.tucson.service.TucsonCmd;
 import alice.tuprolog.Parser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Command Line Interpreter TuCSoN agent. Waits for user input, properly parses
@@ -41,6 +44,8 @@ import alice.tuprolog.Parser;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public class CLIAgent extends alice.util.Automaton {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      *
@@ -111,7 +116,7 @@ public class CLIAgent extends alice.util.Automaton {
         try {
             parser.parse();
         } catch (final TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         final TucsonCmd cmd = parser.getCmd();
         final TucsonTupleCentreId tid = parser.getTid();
@@ -518,7 +523,7 @@ public class CLIAgent extends alice.util.Automaton {
                     CLIAgent.error(methodName);
                 }
             } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
         this.become("goalRequest");

@@ -13,6 +13,11 @@
  */
 package alice.tuplecentre.core;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+
 /**
  * Abstract base class for Tuple Centre VM states.
  *
@@ -20,6 +25,8 @@ package alice.tuplecentre.core;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public abstract class AbstractTupleCentreVMState {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      *
@@ -58,6 +65,6 @@ public abstract class AbstractTupleCentreVMState {
     public abstract void resolveLinks();
 
     protected void log() {
-        System.out.println("......=> " + this.getClass().getSimpleName());
+        LOGGER.info("......=> " + this.getClass().getSimpleName());
     }
 }

@@ -5,6 +5,10 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
 import alice.tuplecentre.tucson.network.exceptions.IllegalPortNumberException;
 import alice.tuplecentre.tucson.network.exceptions.InvalidProtocolTypeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * <p>
@@ -20,6 +24,8 @@ import alice.tuplecentre.tucson.network.exceptions.InvalidProtocolTypeException;
  */
 // To break dependency with service module, this class is no more used, assuming that the only used protocol will be TCP/IP
 public final class TPFactory {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     /**
      * Constant indentify implementated protocol type: one constant for each
@@ -82,7 +88,7 @@ public final class TPFactory {
             return TPFactory.getDialogAgentSide(
                     config.getDefaultProtocolType(), tid);
         } catch (final InvalidProtocolTypeException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return null;
     }

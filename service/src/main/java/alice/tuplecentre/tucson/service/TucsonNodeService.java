@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.lang.invoke.MethodHandles;
 import java.net.ConnectException;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
@@ -65,6 +66,8 @@ import alice.tuprolog.MalformedGoalException;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.Theory;
 import alice.tuprolog.lib.InvalidObjectIdException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Alessandro Ricci
@@ -72,6 +75,8 @@ import alice.tuprolog.lib.InvalidObjectIdException;
  * @author (contributor) Saverio Cicora
  */
 public class TucsonNodeService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private static final String TUCSON_NODE_SERVICE_RESOURCES_FOLDER = "tucson/service/config/";
 
@@ -89,15 +94,15 @@ public class TucsonNodeService {
     private static final String PERSISTENCY_PATH = "persistent/";
 
     public static synchronized TucsonNodeService getNode(final int port) {
-        return TucsonNodeService.NODES.get(port);
+        return NODES.get(port);
     }
 
     public static boolean isInstalled(final int timeout)
             throws DialogInitializationException {
         try {
-            return TucsonNodeService.isInstalled("localhost", TucsonInfo.getDefaultPortNumber(), timeout);
+            return isInstalled("localhost", TucsonInfo.getDefaultPortNumber(), timeout);
         } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
     }
@@ -105,9 +110,9 @@ public class TucsonNodeService {
     public static boolean isInstalled(final int port, final int timeout)
             throws DialogInitializationException {
         try {
-            return TucsonNodeService.isInstalled("localhost", port, timeout);
+            return isInstalled("localhost", port, timeout);
         } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
     }
@@ -153,8 +158,7 @@ public class TucsonNodeService {
     public static void main(final String[] args) {
         if (alice.util.Tools.isOpt(args, "-help")
                 || alice.util.Tools.isOpt(args, "-?")) {
-            TucsonNodeService
-                    .log("Arguments: -portno {portNumber} {-? | -help}");
+            LOGGER.info("Arguments: -portno {portNumber} {-? | -help}");
         } else {
             final String portInfo = alice.util.Tools.getOpt(args, "-portno");
             final String configInfo = alice.util.Tools.getOpt(args, "-config");
@@ -165,12 +169,12 @@ public class TucsonNodeService {
                 try {
                     portNumber = Integer.parseInt(portInfo);
                     if (portNumber < 0
-                            || portNumber > TucsonNodeService.MAX_UNBOUND_PORT) {
-                        System.err.println("Invalid port number");
+                            || portNumber > MAX_UNBOUND_PORT) {
+                        LOGGER.error("Invalid port number");
                         System.exit(-1);
                     }
                 } catch (final NumberFormatException e) {
-                    System.err.println("Invalid port number");
+                    LOGGER.error("Invalid port number");
                     System.exit(-1);
                 }
             }
@@ -180,7 +184,7 @@ public class TucsonNodeService {
                 try {
                     template = LogicTuples.parse(persistencyInfo);
                 } catch (final InvalidLogicTupleException e) {
-                    System.err.println("Invalid persistency template");
+                    LOGGER.error("Invalid persistency template");
                     System.exit(-1);
                 }
             }
@@ -271,7 +275,7 @@ public class TucsonNodeService {
                     String.valueOf(this.tcpPort));
         } catch (final TucsonInvalidAgentIdException | TucsonInvalidTupleCentreIdException e) {
             // Cannot happen
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.observed = false;
         this.agents = new ArrayList<>();
@@ -280,8 +284,8 @@ public class TucsonNodeService {
         this.tcs = new ArrayList<>();
         /*this.tpConfig = new TPConfig();
         this.tpConfig.setTcpPort(this.tcpPort);*/
-        synchronized (TucsonNodeService.NODES) {
-            TucsonNodeService.NODES.put(this.tcpPort, this);
+        synchronized (NODES) {
+            NODES.put(this.tcpPort, this);
         }
         // Set rbac properties
         this.baseAgentClass = "basicAgentClass";
@@ -371,14 +375,14 @@ public class TucsonNodeService {
         try {
             tid = new TucsonTupleCentreIdDefault(tcName.toString());
         } catch (final TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
         final String realName = tcName.toString();
         final TucsonTupleCentreId core = this.cores.get(realName)
                 .getTucsonTupleCentreId();
         if (core != null) {
-            TucsonNodeService.log("Destroying tuple centre < " + realName
+            LOGGER.info("Destroying tuple centre < " + realName
                     + " >...");
             if (this.observed) {
                 this.obsService.tcDestroyed(tid);
@@ -407,7 +411,7 @@ public class TucsonNodeService {
                 // .inpCode(), this.nodeAid, this.idConfigTC,
                 // LogicTuples.newInstance("is_persistent", TupleArguments.newValueArgument(realName)));
             } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | TucsonInvalidLogicTupleException | InvalidTupleArgumentException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
             this.cores.remove(realName);
             return true;
@@ -441,7 +445,7 @@ public class TucsonNodeService {
             // "is_persistent", TupleArguments.newValueArgument(tar
             // .getTucsonTupleCentreId().getName())));
         } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
     }
@@ -457,11 +461,10 @@ public class TucsonNodeService {
                     final TucsonTupleCentreId ttcid = tc
                             .getTucsonTupleCentreId();
                     final Tuple tid = LogicTuples.parse(ttcid.getLocalName());
-                    TucsonNodeService.log(">>> Found tid: " + tid);
+                    LOGGER.info(">>> Found tid: " + tid);
                     if (LogicMatchingEngine.match((LogicTuple) template,
                             (LogicTuple) tid)) {
-                        TucsonNodeService
-                                .log(">>> It matches: disabling persistency...");
+                        LOGGER.info(">>> It matches: disabling persistency...");
                         // Operation Make
                         final RespectOperationDefault opRequested = RespectOperationDefault
                                 .make(TupleCentreOpType.IN, LogicTuples.newInstance(
@@ -478,10 +481,10 @@ public class TucsonNodeService {
                         // .getTucsonTupleCentreId(),
                         // LogicTuples.newInstance("is_persistent", TupleArguments.newValueArgument(tc
                         // .getTucsonTupleCentreId().getName())));
-                        TucsonNodeService.log(">>> persistency disabled.");
+                        LOGGER.info(">>> persistency disabled.");
                     }
                 } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | TucsonInvalidLogicTupleException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             }
             if (LogicMatchingEngine.match(
@@ -518,7 +521,7 @@ public class TucsonNodeService {
             // .getTucsonTupleCentreId().getName())));
             return true;
         } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
     }
@@ -529,18 +532,17 @@ public class TucsonNodeService {
      */
     public synchronized void enablePersistency(final Tuple template) {
         this.persistencyTemplate = template;
-        TucsonNodeService.log(">>> Looking for " + this.persistencyTemplate);
+        LOGGER.info(">>> Looking for " + this.persistencyTemplate);
         for (TucsonTCUsers tc : this.cores.values()) {
             try {
                 final TucsonTupleCentreId ttcid = tc.getTucsonTupleCentreId();
                 final Tuple tid = LogicTuples.parse(ttcid.getLocalName());
-                TucsonNodeService.log(">>> Found tid: " + tid);
+                LOGGER.info(">>> Found tid: " + tid);
                 if (LogicMatchingEngine.match((LogicTuple) template,
                         (LogicTuple) tid)) {
-                    TucsonNodeService
-                            .log(">>> It matches: enabling persistency...");
+                    LOGGER.info(">>> It matches: enabling persistency...");
                     TupleCentreContainer.enablePersistency(ttcid,
-                            TucsonNodeService.PERSISTENCY_PATH);
+                            PERSISTENCY_PATH);
                     // Operation Make
                     final RespectOperationDefault opRequested = RespectOperationDefault.make(
                             TupleCentreOpType.OUT, LogicTuples.newInstance(
@@ -557,10 +559,10 @@ public class TucsonNodeService {
                     // .getTucsonTupleCentreId(), LogicTuples.newInstance(
                     // "is_persistent", TupleArguments.newValueArgument(tc
                     // .getTucsonTupleCentreId().getName())));
-                    TucsonNodeService.log(">>> persistency enabled.");
+                    LOGGER.info(">>> persistency enabled.");
                 }
             } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | TucsonInvalidLogicTupleException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
         }
     }
@@ -609,48 +611,43 @@ public class TucsonNodeService {
      *
      */
     public synchronized void install() {
-        TucsonNodeService
-                .log("--------------------------------------------------------------------------------");
+        log("--------------------------------------------------------------------------------");
         try {
             final StringTokenizer st = new StringTokenizer(
                     Utils.fileToString(TUCSON_NODE_SERVICE_RESOURCES_FOLDER + "tucsonCLIlogo3.txt"),
                     "\n");
             while (st.hasMoreTokens()) {
-                TucsonNodeService.log(st.nextToken());
+                log(st.nextToken());
             }
         } catch (final IOException e) {
             // should not happen
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
-        TucsonNodeService
-                .log("--------------------------------------------------------------------------------");
-        TucsonNodeService.log("Welcome to the TuCSoN infrastructure :)");
-        TucsonNodeService.log("  Version " + TucsonInfo.getVersion());
-        TucsonNodeService
-                .log("--------------------------------------------------------------------------------");
-        TucsonNodeService.log(new Date().toString());
-        TucsonNodeService.log("Beginning TuCSoN Node Service installation...");
+        log("--------------------------------------------------------------------------------");
+        LOGGER.info("Welcome to the TuCSoN infrastructure :)");
+        LOGGER.info("  Version " + TucsonInfo.getVersion());
+        log("--------------------------------------------------------------------------------");
+        LOGGER.info(new Date().toString());
+        LOGGER.info("Beginning TuCSoN Node Service installation...");
         this.configManager = new Prolog();
         this.cores = new HashMap<>();
-        TucsonNodeService.log("Configuring TuCSoN Node Service...");
+        LOGGER.info("Configuring TuCSoN Node Service...");
         try {
             this.setupConfiguration(this.configFile);
         } catch (final TucsonGenericException | InvalidConfigException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
-        TucsonNodeService.log("Setting up Observation Service...");
+        LOGGER.info("Setting up Observation Service...");
         this.setupObsTupleCentre();
-        TucsonNodeService.log("Setting up Management Service...");
+        LOGGER.info("Setting up Management Service...");
         this.setupConfigTupleCentre();
-        this.checkPersistentTupleCentres(TucsonNodeService.PERSISTENCY_PATH);
-        TucsonNodeService
-                .log("Setting up Environment Configuration Service...");
+        this.checkPersistentTupleCentres(PERSISTENCY_PATH);
+        LOGGER.info("Setting up Environment Configuration Service...");
         this.setupEnvConfigTupleCentre();
-        TucsonNodeService
-                .log("Setting up Geolocation Configuration Service...");
+        LOGGER.info("Setting up Geolocation Configuration Service...");
         this.setupGeolocationConfigTupleCentre();
         this.installationDate = new Date();
-        TucsonNodeService.log("Spawning management agents...");
+        LOGGER.info("Spawning management agents...");
         this.bootManagementAgents();
     }
 
@@ -705,18 +702,18 @@ public class TucsonNodeService {
         try {
             tid = new TucsonTupleCentreIdDefault(tcName.toString());
         } catch (final TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return null;
         }
         final String realName = tid.getLocalName();
         TucsonTCUsers core = this.cores.get(realName);
         if (core == null) {
-            TucsonNodeService.log("Booting new tuple centre < " + realName
+            LOGGER.info("Booting new tuple centre < " + realName
                     + " >...");
             try {
                 core = this.bootTupleCentre(realName);
             } catch (final TucsonInvalidTupleCentreIdException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
                 return null;
             }
         }
@@ -751,16 +748,15 @@ public class TucsonNodeService {
      *
      */
     public void shutdown() {
-        TucsonNodeService
-                .log("Node is shutting down management agents and proxies...");
+        LOGGER.info("Node is shutting down management agents and proxies...");
         for (final Thread t : this.nodeAgents) {
             if (t.isAlive()) {
-                TucsonNodeService.log("  ...shutting down <" + t.getName()
+                LOGGER.info("  ...shutting down <" + t.getName()
                         + ">");
                 t.interrupt();
                 // boolean b = t.interrupted();
             } else {
-                TucsonNodeService.log("  ...<" + t.getName()
+                LOGGER.info("  ...<" + t.getName()
                         + "> is already dead");
             }
         }
@@ -768,50 +764,46 @@ public class TucsonNodeService {
         try {
             this.ctxman.shutdown();
         } catch (final InterruptedException e) {
-            TucsonNodeService
-                    .log("ACCProvider may still have tasks executing...");
+            LOGGER.warn("ACCProvider may still have tasks executing...");
         }
         this.envAgent.stopIteraction();
-        TucsonNodeService.log("Node is shutting down ReSpecT VMs...");
+        LOGGER.info("Node is shutting down ReSpecT VMs...");
         for (final RespectTC tc : this.tcs) {
             final Thread t = tc.getVMThread();
             if (t.isAlive()) {
-                TucsonNodeService
-                        .log("  ...shutting down <" + tc.getId() + ">");
+                LOGGER.info("  ...shutting down <" + tc.getId() + ">");
                 t.interrupt();
             } else {
-                TucsonNodeService.log("  ...<" + tc.getId()
+                LOGGER.info("  ...<" + tc.getId()
                         + "> is already dead");
             }
         }
-        TucsonNodeService.log("TuCSoN Node shutdown completed, see you :)");
+        LOGGER.info("TuCSoN Node shutdown completed, see you :)");
     }
 
     /**
      *
      */
     private void bootManagementAgents() {
-        TucsonNodeService.log("Spawning Node Management Agent...");
+        LOGGER.info("Spawning Node Management Agent...");
         this.nodeAgents.add(new NodeManagementAgent(this.idConfigTC, this));
-        TucsonNodeService
-                .log("--------------------------------------------------------------------------------");
-        TucsonNodeService.log("Spawning Geolocation Config Agent...");
+        log("--------------------------------------------------------------------------------");
+        LOGGER.info("Spawning Geolocation Config Agent...");
         // GeolocationConfigAgent geolocationConfigAgent = new
         // GeolocationConfigAgent( "localhost", tcpPort );
         this.nodeAgents.add(new GeolocationConfigAgent(this.idGeolocationTC,
                 this));
-        TucsonNodeService
-                .log("--------------------------------------------------------------------------------");
-        TucsonNodeService.log("Spawning ACC Provider Agent...");
+        log("--------------------------------------------------------------------------------");
+        LOGGER.info("Spawning ACC Provider Agent...");
         this.ctxman = new ACCProvider(this, this.idConfigTC);
-        TucsonNodeService.log("Spawning Welcome Agent...");
+        LOGGER.info("Spawning Welcome Agent...");
         this.welcome = new WelcomeAgent(this, this.ctxman);
-        TucsonNodeService.log("Spawning Environmental Agent...");
+        LOGGER.info("Spawning Environmental Agent...");
         try {
             this.envAgent = new EnvConfigAgent("localhost", this.tcpPort);
         } catch (final TucsonInvalidAgentIdException e) {
             // Cannot happen
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -833,11 +825,10 @@ public class TucsonNodeService {
         final TucsonTupleCentreId id = new TucsonTupleCentreIdDefault(name.toString());
         try {
             final RespectTC rtc = TupleCentreContainer.createTC(id,
-                    TucsonNodeService.MAX_EVENT_QUEUE_SIZE, this.tcpPort);
+                    MAX_EVENT_QUEUE_SIZE, this.tcpPort);
             this.tcs.add(rtc);
         } catch (final InvalidTupleCentreIdException e) {
-            TucsonNodeService.log("TupleCentreContainer.createTC(...) error");
-            e.printStackTrace();
+            LOGGER.error("TupleCentreContainer.createTC(...) error");
         }
         if (this.observed) {
             TupleCentreContainer.doManagementOperation(
@@ -869,19 +860,19 @@ public class TucsonNodeService {
                         final String tcName = split[0];
                         final String fullTcName = split[0] + "@" + split[1]
                                 + ":" + split[2];
-                        TucsonNodeService.log(">>> Persistent tc found: "
+                        LOGGER.info(">>> Persistent tc found: "
                                 + fullTcName);
                         try {
                             this.bootTupleCentre(tcName);
                         } catch (final TucsonInvalidTupleCentreIdException e) {
-                            e.printStackTrace();
+                            LOGGER.error(e.getMessage(), e);
                         }
-                        TucsonNodeService.log(">>> Recovering persistent tc < "
+                        LOGGER.info(">>> Recovering persistent tc < "
                                 + fullTcName + " >...");
                         final TucsonTupleCentreId ttcid = this.cores
                                 .get(tcName).getTucsonTupleCentreId();
                         TupleCentreContainer.recoveryPersistent(ttcid,
-                                TucsonNodeService.PERSISTENCY_PATH, file);
+                                PERSISTENCY_PATH, file);
                         // TupleCentreContainer.enablePersistency(
                         // this.cores.get(tcName).getTucsonTupleCentreId(),
                         // TucsonNodeService.PERSISTENCY_PATH);
@@ -897,10 +888,10 @@ public class TucsonNodeService {
                                     .getTucsonTupleCentreId(),
                                     System.currentTimeMillis(), null);
                             TupleCentreContainer.doBlockingOperation(ev);
-                            TucsonNodeService.log(">>> ...persistent tc < "
+                            LOGGER.info(">>> ...persistent tc < "
                                     + fullTcName + " > recovered.");
                         } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | TucsonInvalidLogicTupleException e) {
-                            e.printStackTrace();
+                            LOGGER.error(e.getMessage(), e);
                         }
                     }
                 }
@@ -920,7 +911,7 @@ public class TucsonNodeService {
                     .currentThread()
                     .getContextClassLoader()
                     .getResourceAsStream(
-                            TucsonNodeService.DEFAULT_BOOT_SPEC_FILE);
+                            DEFAULT_BOOT_SPEC_FILE);
             final String spec = alice.util.Tools
                     .loadText(new BufferedInputStream(is));
             final LogicTuple specTuple = LogicTuples.newInstance("spec", TupleArguments.newValueArgument(spec));
@@ -1014,7 +1005,7 @@ public class TucsonNodeService {
 
             this.addAgent(this.nodeAid);
         } catch (final TucsonInvalidTupleCentreIdException | InvalidLogicTupleException | TucsonInvalidSpecificationException | TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException | IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -1035,13 +1026,13 @@ public class TucsonNodeService {
                     "Internal Failure: loading JavaLibrary in Prolog Configuration Engine failed.");
         }
         if (conf != null) {
-            TucsonNodeService.log("Configuration file not supported atm!");
+            LOGGER.info("Configuration file not supported atm!");
             try {
                 final InputStream is = Thread
                         .currentThread()
                         .getContextClassLoader()
                         .getResourceAsStream(
-                                TucsonNodeService.BOOT_SETUP_THEORY);
+                                BOOT_SETUP_THEORY);
                 final Theory setupTh = new Theory(new BufferedInputStream(is));
                 this.configManager.setTheory(setupTh);
             } catch (final alice.tuprolog.InvalidTheoryException ex) {
@@ -1085,7 +1076,7 @@ public class TucsonNodeService {
                     .currentThread()
                     .getContextClassLoader()
                     .getResourceAsStream(
-                            TucsonNodeService.DEFAULT_ENVCONFIG_SPEC_FILE);
+                            DEFAULT_ENVCONFIG_SPEC_FILE);
             final String spec = alice.util.Tools
                     .loadText(new BufferedInputStream(is));
             final LogicTuple specTuple = LogicTuples.newInstance("spec", TupleArguments.newValueArgument(spec));
@@ -1097,8 +1088,7 @@ public class TucsonNodeService {
                     this.idEnvTC, System.currentTimeMillis(), null);
             TupleCentreContainer.doBlockingSpecOperation(ev, specTuple);
         } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | TucsonInvalidTupleCentreIdException | IOException | TucsonInvalidSpecificationException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -1112,7 +1102,7 @@ public class TucsonNodeService {
                     .currentThread()
                     .getContextClassLoader()
                     .getResourceAsStream(
-                            TucsonNodeService.DEFAULT_GEOLOCATION_SPEC_FILE);
+                            DEFAULT_GEOLOCATION_SPEC_FILE);
             final String spec = alice.util.Tools
                     .loadText(new BufferedInputStream(is));
             final LogicTuple specTuple = LogicTuples.newInstance("spec", TupleArguments.newValueArgument(spec));
@@ -1129,7 +1119,7 @@ public class TucsonNodeService {
                     this.idGeolocationTC, System.currentTimeMillis(), null);
             TupleCentreContainer.doNonBlockingOperation(ev2);
         } catch (final TucsonInvalidTupleCentreIdException | InvalidLogicTupleException | IOException | TucsonInvalidSpecificationException | TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 
@@ -1143,7 +1133,7 @@ public class TucsonNodeService {
                     .currentThread()
                     .getContextClassLoader()
                     .getResourceAsStream(
-                            TucsonNodeService.DEFAULT_OBS_SPEC_FILE);
+                            DEFAULT_OBS_SPEC_FILE);
             final String spec = alice.util.Tools
                     .loadText(new BufferedInputStream(is));
             final LogicTuple specTuple = LogicTuples.newInstance("spec", TupleArguments.newValueArgument(spec));
@@ -1161,7 +1151,7 @@ public class TucsonNodeService {
             TupleCentreContainer.doNonBlockingOperation(ev2);
             this.obsService = new ObservationService(this.idObsTC);
         } catch (final TucsonInvalidTupleCentreIdException | InvalidLogicTupleException | TucsonInvalidSpecificationException | TucsonInvalidLogicTupleException | TucsonOperationNotPossibleException | IOException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
     }
 }

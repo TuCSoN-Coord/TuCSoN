@@ -22,6 +22,10 @@ package alice.tuplecentre.tucson.asynchSupport;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
 
 /**
  * Class wrapping a TuCSoN listener for a correct coordination with
@@ -32,6 +36,8 @@ import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public class TucsonListenerWrapper implements TucsonOperationCompletionListener {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private final AsynchOpsHelper helper;
     private final TucsonOperationCompletionListener listener;
@@ -82,7 +88,7 @@ public class TucsonListenerWrapper implements TucsonOperationCompletionListener 
         try {
             this.helper.getPendingOpsSemaphore().acquire();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         if (this.helper.isShutdownNow()
                 && this.helper.getPendingOpsSemaphore().availablePermits() == 0) {

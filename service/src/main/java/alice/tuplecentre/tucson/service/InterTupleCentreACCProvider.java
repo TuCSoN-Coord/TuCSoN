@@ -1,5 +1,6 @@
 package alice.tuplecentre.tucson.service;
 
+import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -12,12 +13,16 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
  */
 public class InterTupleCentreACCProvider implements ILinkContext {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     class Executor extends Thread {
 
@@ -46,7 +51,7 @@ public class InterTupleCentreACCProvider implements ILinkContext {
                         this.helper = new InterTupleCentreACCProxy(
                                 new TucsonTupleCentreIdDefault(this.fromId));
                     } catch (final TucsonInvalidTupleCentreIdException e) {
-                        e.printStackTrace();
+                        LOGGER.error(e.getMessage(), e);
                     }
                     this.helpers.put(this.fromId, this.helper);
                 }
@@ -55,7 +60,7 @@ public class InterTupleCentreACCProvider implements ILinkContext {
                 try {
                     this.helper.doOperation(this.toId, this.op);
                 } catch (final UnreachableNodeException | TucsonOperationNotPossibleException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             }
         }

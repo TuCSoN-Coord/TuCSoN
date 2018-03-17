@@ -13,6 +13,7 @@
  */
 package alice.tuplecentre.core;
 
+import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -35,6 +36,8 @@ import alice.tuplecentre.respect.api.geolocation.service.GeolocationServiceManag
 import alice.tuplecentre.respect.core.RespectVM;
 import alice.tuplecentre.respect.core.StepMonitor;
 import alice.tuprolog.Term;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Defines the build abstract behaviour of a tuple centre virtual machine.
@@ -54,6 +57,8 @@ import alice.tuprolog.Term;
  */
 public abstract class AbstractTupleCentreVMContext implements
         ITupleCentreManagement, ITupleCentre {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private long bootTime;
     private InputEvent currentEvent;
@@ -226,7 +231,7 @@ public abstract class AbstractTupleCentreVMContext implements
                 try {
                     this.step.awaitEvent();
                 } catch (final InterruptedException e) {
-                    e.printStackTrace();
+                    LOGGER.error(e.getMessage(), e);
                 }
             }
             /*
@@ -440,7 +445,7 @@ public abstract class AbstractTupleCentreVMContext implements
      *            the Exception to notify
      */
     public void notifyException(final Exception e) {
-        e.printStackTrace();
+        LOGGER.error(e.getMessage(), e);
     }
 
     /**
@@ -449,7 +454,7 @@ public abstract class AbstractTupleCentreVMContext implements
      *            the String representation of the Exception to notify
      */
     public void notifyException(final String ex) {
-        System.err.println(ex);
+        LOGGER.error(ex);
     }
 
     /**

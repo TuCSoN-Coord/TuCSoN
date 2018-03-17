@@ -3,6 +3,7 @@
  */
 package alice.tuplecentre.respect.core;
 
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
@@ -15,6 +16,8 @@ import alice.tuplecentre.respect.situatedness.ProbeIdentifier;
 import alice.tuplecentre.respect.situatedness.TransducerId;
 import alice.tuplecentre.respect.situatedness.TransducerStandardInterface;
 import alice.tuprolog.Term;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 04/nov/2013
@@ -25,17 +28,19 @@ public enum TransducersManager {
      */
     INSTANCE;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+
     /**
      * Utility methods used to communicate an output message to the console.
      *
      * @param msg message to print.
      */
     private static void speak(final String msg) {
-        System.out.println("..[TransducerManager]: " + msg);
+        LOGGER.info("..[TransducerManager]: " + msg);
     }
 
     private static void speakErr(final String msg) {
-        System.err.println("..[TransducerManager]: " + msg);
+        LOGGER.error("..[TransducerManager]: " + msg);
     }
 
     /**

@@ -1,5 +1,6 @@
 package alice.tuplecentre.respect.api.geolocation;
 
+import java.lang.invoke.MethodHandles;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
@@ -25,6 +26,8 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdExcepti
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.service.TucsonNodeService;
 import alice.tuplecentre.tucson.service.TupleCentreContainer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Geolocation configuration support agent. It checks for requests on
@@ -33,6 +36,9 @@ import alice.tuplecentre.tucson.service.TupleCentreContainer;
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  */
 public class GeolocationConfigAgent extends Thread {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+
     /**
      * Geolocation service request's type
      **/
@@ -40,7 +46,7 @@ public class GeolocationConfigAgent extends Thread {
     private static final String DESTROY_GEOLOCATION_SERVICE = "destroyGeolocationService";
 
     private static void log(final String s) {
-        System.out.println("[GeolocationConfigAgent]: " + s);
+        LOGGER.info("[GeolocationConfigAgent]: " + s);
     }
 
     private final TucsonTupleCentreId config;
@@ -61,7 +67,7 @@ public class GeolocationConfigAgent extends Thread {
         try {
             this.nodeManAid = new TucsonAgentIdDefault("geolocationConfigAgent");
         } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         this.node = n;
         this.config = conf;
@@ -88,7 +94,7 @@ public class GeolocationConfigAgent extends Thread {
                 }
             }
         } catch (final InvalidVarNameException | InvocationTargetException | IllegalAccessException | InstantiationException | NoSuchMethodException | ClassNotFoundException | TucsonInvalidTupleCentreIdException | IllegalArgumentException | SecurityException | InvalidLogicTupleException | TucsonOperationNotPossibleException | TucsonInvalidLogicTupleException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             this.node.removeNodeAgent(this);
         } catch (final InterruptedException e) {
             GeolocationConfigAgent
