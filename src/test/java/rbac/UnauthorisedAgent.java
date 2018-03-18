@@ -130,7 +130,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent<RootACC> {
                 | OperationTimeOutException | TucsonInvalidAgentIdException
                 | AgentNotAllowedException
                 | TucsonInvalidTupleCentreIdException | InvalidVarNameException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
@@ -146,7 +146,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent<RootACC> {
         try {
             new UnauthorisedAgent("unauthorised", "localhost", portno).go();
         } catch (TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 

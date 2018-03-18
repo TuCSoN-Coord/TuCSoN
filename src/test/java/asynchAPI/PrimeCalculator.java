@@ -110,7 +110,7 @@ public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
                                 this.ttcid, this.help));
                     }
                 } catch (final InvalidLogicTupleException | InvalidOperationException | NumberFormatException e) {
-                    LOGGER.error(e.getMessage(), e);
+                    e.printStackTrace();
                 }
             } else {
                 try {
@@ -123,7 +123,7 @@ public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
                                 this.ttcid, this.help));
                     }
                 } catch (final InterruptedException | InvalidLogicTupleException e) {
-                    LOGGER.error(e.getMessage(), e);
+                    e.printStackTrace();
                 }
             }
         }
@@ -213,7 +213,7 @@ public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
             helper.shutdownNow();
             super.say("I'm done");
         } catch (final TucsonInvalidTupleCentreIdException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | TucsonInvalidAgentIdException | NumberFormatException | InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 

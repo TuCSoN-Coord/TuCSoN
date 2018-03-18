@@ -50,7 +50,7 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
         try {
             new TDiningPhilosophersTest("boot").go();
         } catch (final TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
@@ -132,7 +132,7 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
                     TDiningPhilosophersTest.EATING_STEP).go();
             acc.exit();
         } catch (final TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException | InvalidLogicTupleException | IOException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 }

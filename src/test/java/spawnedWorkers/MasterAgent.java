@@ -50,7 +50,7 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
             new MasterAgent("lloyd", nodes, MasterAgent.ITERS,
                     MasterAgent.MAX_FACT).go();
         } catch (final TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
@@ -222,25 +222,25 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
             this.say("Someone killed me, bye!");
         } catch (final InvalidLogicTupleException e) {
             this.say("ERROR: Tuple is not an admissible Prolog term!");
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final TucsonOperationNotPossibleException e) {
             this.say("ERROR: Never seen this happen before *_*");
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final UnreachableNodeException e) {
             this.say("ERROR: Given TuCSoN Node is unreachable!");
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final OperationTimeOutException e) {
             this.say("ERROR: Endless timeout expired!");
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final InvalidOperationException e) {
             this.say("ERROR: No tuple arguments to retrieve!");
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final InterruptedException e) {
             this.say("ERROR: Sleep interrupted!");
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final TucsonInvalidAgentIdException e) {
             // TODO Auto-generated catch block
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 }

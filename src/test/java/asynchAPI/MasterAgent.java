@@ -88,7 +88,7 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
                     this.info("Done " + nOps + " operations out of "
                             + MasterAgent.REQUESTS);
                 } catch (NumberFormatException | InvalidOperationException e) {
-                    LOGGER.error(e.getMessage(), e);
+                    e.printStackTrace();
                 }
             } else {
                 this.severe("Operation failed!");
@@ -144,7 +144,7 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
                 this.help.enqueue(out, null);
                 this.info("First loop done");
             } catch (final InvalidLogicTupleException e) {
-                LOGGER.error(e.getMessage(), e);
+                e.printStackTrace();
             }
         }
 
@@ -179,7 +179,7 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
              */
             new MasterAgent("master", MasterAgent.LOOPS).go();
         } catch (final TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
@@ -337,7 +337,7 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
             Thread.sleep(MasterAgent.SLEEP);
             super.say("I'm done");
         } catch (final TucsonInvalidTupleCentreIdException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | InterruptedException | InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 }

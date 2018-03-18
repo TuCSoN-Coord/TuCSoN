@@ -23,7 +23,6 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.exceptions.OperationNotAllowedException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
-import alice.tuplecentre.tucson.introspection.tools.InspectorGUI;
 import alice.tuplecentre.tucson.network.TucsonProtocol;
 import alice.tuplecentre.tucson.network.TucsonProtocolTCP;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
@@ -43,9 +42,6 @@ import alice.tuplecentre.tucson.network.messages.introspection.StepModeMessage;
 import alice.tuplecentre.tucson.service.ACCDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import static alice.tuplecentre.tucson.introspection.tools.InspectorGUI.quitInspectionGUI;
-import static alice.tuplecentre.tucson.introspection.tools.InspectorGUI.showErrorMessageDialog;
 
 /**
  * @author Unknown...

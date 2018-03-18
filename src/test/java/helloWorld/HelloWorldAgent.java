@@ -47,7 +47,7 @@ public class HelloWorldAgent extends AbstractTucsonAgent<RootACC> {
         try {
             new HelloWorldAgent(aid).go();
         } catch (final TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
@@ -129,7 +129,7 @@ public class HelloWorldAgent extends AbstractTucsonAgent<RootACC> {
              * ACC release is automatically done by the TucsonAgent base class.
              */
         } catch (final TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 }

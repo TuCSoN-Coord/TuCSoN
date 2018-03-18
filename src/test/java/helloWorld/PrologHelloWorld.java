@@ -65,7 +65,7 @@ public final class PrologHelloWorld {
         } catch (final IOException e) {
             Logger.getLogger(PrologHelloWorld.ME).log(Level.SEVERE,
                     "IOException");
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
             System.exit(-1);
         }
         /*

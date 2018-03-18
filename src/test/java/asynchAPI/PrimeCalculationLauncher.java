@@ -56,7 +56,7 @@ public final class PrimeCalculationLauncher {
                 new PrimeCalculator("worker" + i).go();
             }
         } catch (final TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
 
     }

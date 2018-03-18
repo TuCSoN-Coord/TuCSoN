@@ -77,7 +77,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                     LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
         } catch (final InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
         return op != null && op.isResultSuccess();
     }
@@ -97,7 +97,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                 }
             }
         } catch (final InterruptedException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
         return op != null && op.isResultSuccess() && op.isResultSuccess();
     }
@@ -109,7 +109,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                     LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
         } catch (final InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
@@ -118,7 +118,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         try {
             Thread.sleep(DiningPhilosopher.THINK_TIME);
         } catch (final InterruptedException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
@@ -129,7 +129,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         try {
             this.acc = negAcc.playDefaultRole();
         } catch (final TucsonOperationNotPossibleException | TucsonInvalidAgentIdException | OperationTimeOutException | UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
         // Ugly but effective, pardon me...
         while (true) {

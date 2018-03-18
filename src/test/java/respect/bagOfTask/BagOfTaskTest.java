@@ -20,7 +20,7 @@ public class BagOfTaskTest {
             new Worker("worker1").go();
             new Worker("worker2").go();
         } catch (final TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 

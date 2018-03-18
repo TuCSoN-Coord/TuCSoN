@@ -115,7 +115,7 @@ public class Worker extends AbstractTucsonAgent<RootACC> {
         } catch (final OperationTimeOutException e) {
             this.say("Timeout exceeded, I quit");
         } catch (final TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException | UnreachableNodeException | TucsonOperationNotPossibleException | InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } finally {
             if (acc != null) {
                 acc.exit();

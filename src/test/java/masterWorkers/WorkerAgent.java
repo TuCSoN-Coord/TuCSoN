@@ -41,7 +41,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
             new WorkerAgent("peter", "default@localhost:20505").go();
             new WorkerAgent("carl", "default@localhost:20505").go();
         } catch (final TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
@@ -146,12 +146,12 @@ public class WorkerAgent extends AbstractTucsonAgent {
             this.say("Someone killed me, bye!");
         } catch (final InvalidLogicTupleException e) {
             this.say("ERROR: Tuple is not an admissible Prolog term!");
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final TucsonOperationNotPossibleException e) {
             this.say("ERROR: Never seen this happen before *_*");
         } catch (final UnreachableNodeException e) {
             this.say("ERROR: Given TuCSoN Node is unreachable!");
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final OperationTimeOutException e) {
             this.say("ERROR: Endless timeout expired!");
         } catch (final InterruptedException e) {

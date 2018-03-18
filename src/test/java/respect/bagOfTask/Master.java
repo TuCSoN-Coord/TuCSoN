@@ -125,7 +125,7 @@ public class Master extends AbstractTucsonAgent<RootACC> {
                     / res.getArg(1).floatValue());
             acc.exit();
         } catch (final InvalidLogicTupleException | TucsonInvalidAgentIdException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | TucsonInvalidTupleCentreIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 

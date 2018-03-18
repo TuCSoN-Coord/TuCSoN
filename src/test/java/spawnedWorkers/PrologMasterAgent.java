@@ -64,7 +64,7 @@ public final class PrologMasterAgent {
         } catch (final IOException e) {
             Logger.getLogger(PrologMasterAgent.ME).log(Level.SEVERE,
                     "IOException");
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
             System.exit(-1);
         }
         /*

@@ -76,7 +76,7 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
                     "...configuration done, now starting agent...");
             new DicePlayer("roller").go();
         } catch (TucsonOperationNotPossibleException | DialogInitializationException | TucsonInvalidTupleCentreIdException | InvalidLogicTupleException | TucsonInvalidAgentIdException | OperationTimeOutException | UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
@@ -96,7 +96,7 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
         try {
             this.tcid = new TucsonTupleCentreIdDefault("dice", "localhost", String.valueOf(TucsonInfo.getDefaultPortNumber()));
         } catch (TucsonInvalidTupleCentreIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
             System.exit(-1);
         }
         this.outcomes = new HashMap<>();
@@ -144,7 +144,7 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
             }
         } catch (TucsonOperationNotPossibleException | InterruptedException | TucsonInvalidAgentIdException | OperationTimeOutException | UnreachableNodeException e) {
             // TODO Auto-generated catch block
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
         this.say("Someone killed me, bye!");
         printFinalStats();

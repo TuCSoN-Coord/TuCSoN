@@ -20,7 +20,6 @@ import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
 import java.lang.invoke.MethodHandles;
 
 import static alice.tuplecentre.tucson.introspection.tools.InspectorGUI.quitInspectionGUI;

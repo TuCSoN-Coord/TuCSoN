@@ -27,7 +27,7 @@ public final class Swarm {
             }
         } catch (final TucsonInvalidAgentIdException e) {
             // TODO Auto-generated catch block
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 

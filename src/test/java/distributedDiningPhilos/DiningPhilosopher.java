@@ -56,7 +56,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         try {
             Thread.sleep(DiningPhilosopher.EATING_TIME);
         } catch (final InterruptedException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
@@ -65,7 +65,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         try {
             Thread.sleep(DiningPhilosopher.THINKING_TIME);
         } catch (final InterruptedException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
@@ -77,7 +77,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         try {
             acc = negAcc.playDefaultRole();
         } catch (final TucsonOperationNotPossibleException | TucsonInvalidAgentIdException | OperationTimeOutException | UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
         // final OrdinaryAndSpecificationSyncACC acc = this.getACC();
         TucsonOperation op;
@@ -104,7 +104,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                     this.say("I'm starving!");
                 }
             } catch (final InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
-                LOGGER.error(e.getMessage(), e);
+                e.printStackTrace();
             }
         }
     }

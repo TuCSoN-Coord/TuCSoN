@@ -94,7 +94,7 @@ public final class RBACLauncher {
                 Thread.sleep(500);
             }
         } catch (DialogInitializationException | InterruptedException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
         Logger.getLogger("RBACLauncher").info(
                 "TuCSoN Node installed on TCP port " + tns.getTCPPort());
@@ -103,39 +103,39 @@ public final class RBACLauncher {
         try {
             new AdminAgent("admin", "localhost", portno).go();
         } catch (TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
         Logger.getLogger("RBACLauncher").info("Administrator agent launched");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
         Logger.getLogger("RBACLauncher").info(
                 "Launching an authorised agent...");
         try {
             new AuthorisedAgentImpl("authorised", "localhost", portno).go();
         } catch (TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
         Logger.getLogger("RBACLauncher").info("Authorised agent launched");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } 
         Logger.getLogger("RBACLauncher").info(
                 "Launching an unauthorised agent...");
         try {
             new UnauthorisedAgent("unauthorised", "localhost", portno).go();
         } catch (TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
         Logger.getLogger("RBACLauncher").info("Unauthorised agent launched");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 }

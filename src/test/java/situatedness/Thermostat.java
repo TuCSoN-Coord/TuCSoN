@@ -95,7 +95,7 @@ public final class Thermostat {
                         Utils.fileToString("situatedness/sensorSpec.rsp"),
                         null);
             } catch (final IOException e) {
-                LOGGER.error(e.getMessage(), e);
+                e.printStackTrace();
             }
             final LogicTuple sensorTuple = LogicTuples.newInstance(
                     "createTransducerSensor",
@@ -116,7 +116,7 @@ public final class Thermostat {
                         Utils.fileToString("situatedness/actuatorSpec.rsp"),
                         null);
             } catch (final IOException e) {
-                LOGGER.error(e.getMessage(), e);
+                e.printStackTrace();
             }
             final LogicTuple actuatorTuple = LogicTuples.newInstance(
                     "createTransducerActuator",
@@ -134,7 +134,7 @@ public final class Thermostat {
             LogicTuple template;
             TucsonOperation op;
             int temp;
-            LogicTuple action = null;
+            LogicTuple action;
             for (int i = 0; i < Thermostat.ITERS; i++) {
                 Thread.sleep(3000);
                 /* Perception */
@@ -161,21 +161,21 @@ public final class Thermostat {
                 }
             }
         } catch (final TucsonInvalidTupleCentreIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final OperationTimeOutException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final InterruptedException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         } catch (final InvalidOperationException e) {
-            LOGGER.error(e.getMessage(), e);
+            e.printStackTrace();
         }
     }
 
