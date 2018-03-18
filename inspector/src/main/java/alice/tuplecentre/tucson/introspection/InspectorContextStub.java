@@ -44,6 +44,7 @@ import alice.tuplecentre.tucson.service.ACCDescription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import static alice.tuplecentre.tucson.introspection.tools.InspectorGUI.quitInspectionGUI;
 import static alice.tuplecentre.tucson.introspection.tools.InspectorGUI.showErrorMessageDialog;
 
 /**
@@ -93,7 +94,8 @@ public class InspectorContextStub implements InspectorContext {
         try {
             this.getTupleCentreInfo(tc);
         } catch (final UnreachableNodeException | OperationNotAllowedException e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage());
+            this.exitFlag = true;
         }
         this.exitFlag = false;
     }
@@ -111,9 +113,8 @@ public class InspectorContextStub implements InspectorContext {
             for (InspectorContextListener contextListener : this.contextListeners) {
                 contextListener.onContextEvent(msg);
             }
-        } catch (final DialogException e) {
+        } catch (final DialogException | NullPointerException e) {
             if (!this.exitFlag) {
-                showErrorMessageDialog("Node disconnected", e.getMessage());
                 throw new DialogException("node-disconnected");
             }
         }
@@ -144,9 +145,8 @@ public class InspectorContextStub implements InspectorContext {
     public void isStepMode() {
         try {
             this.dialog.sendNodeMsg(new IsActiveStepModeMessage(this.id));
-        } catch (final Exception e) {
-            LOGGER.error(e.getMessage());
-            showErrorMessageDialog("", e.getMessage());
+        } catch (final DialogSendException | NullPointerException e) {
+            LOGGER.error("Node has been disconnected");
         }
     }
 
@@ -216,9 +216,8 @@ public class InspectorContextStub implements InspectorContext {
                 this.dialog.sendInspectorMsg(msg);
                 return;
             }
-        } catch (final Exception e) {
-            LOGGER.error(e.getMessage(), e);
-            showErrorMessageDialog("", e.getMessage());
+        } catch (final DialogException e) {
+            LOGGER.error(e.getMessage());
         }
         throw new OperationNotAllowedException();
     }
@@ -233,7 +232,6 @@ public class InspectorContextStub implements InspectorContext {
             this.getTupleCentreInfo(titcd);
         } catch (final UnreachableNodeException | OperationNotAllowedException e) {
             LOGGER.error(e.getMessage(), e);
-            showErrorMessageDialog("", e.getMessage());
         }
     }
 }

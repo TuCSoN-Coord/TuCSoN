@@ -28,6 +28,7 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
+import alice.tuplecentre.tucson.introspection.Inspector;
 import alice.tuplecentre.tucson.introspection.InspectorContext;
 import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 import alice.tuplecentre.tucson.introspection.InspectorProtocolDefault;
@@ -44,6 +45,8 @@ public class InspectorGUI extends javax.swing.JFrame {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
 
     private static final long serialVersionUID = -3765811664087552414L;
+
+    private static InspectorGUI form;
 
     /**
      * @param args the arguments to launch the inspector
@@ -89,7 +92,7 @@ public class InspectorGUI extends javax.swing.JFrame {
             LOGGER.info("[Inspector]: Please input an admissible tuplecentre "
                             + "name from the GUI...");
         }
-        InspectorGUI form;
+        //InspectorGUI form;
         if (tid != null) {
             form = new InspectorGUI(aid, tid, true);
         } else {
@@ -177,6 +180,14 @@ public class InspectorGUI extends javax.swing.JFrame {
         this.inputPort.setText(alice.util.Tools.removeApices(String
                 .valueOf(this.tid.getPort())));
         this.buttonInspectActionPerformed();
+    }
+
+    public TucsonAgentId getAid() {
+        return aid;
+    }
+
+    public TucsonTupleCentreId getTid() {
+        return tid;
     }
 
     /**
@@ -276,17 +287,21 @@ public class InspectorGUI extends javax.swing.JFrame {
         } else {
             // if you don't do this, after a quit you can't immediately see the
             // tuples on the same tuple centre
-            this.tupleSpaceStepMode.doClick();
-            this.specForm.exit();
-            this.agent.quit();
-            this.buttonInspect.setText("Inspect!");
-            this.disableControlPanel();
-            this.inputName.setEditable(true);
-            this.inputNode.setEditable(true);
-            this.inputPort.setEditable(true);
-            this.isSessionOpen = false;
-            this.stateBar.setText("Inspector Session Closed.");
+            resetGUIOnQuit();
         }
+    }
+
+    private void resetGUIOnQuit() {
+        this.tupleSpaceStepMode.doClick();
+        this.specForm.exit();
+        this.agent.quit();
+        this.buttonInspect.setText("Inspect!");
+        this.disableControlPanel();
+        this.inputName.setEditable(true);
+        this.inputNode.setEditable(true);
+        this.inputPort.setEditable(true);
+        this.isSessionOpen = false;
+        this.stateBar.setText("Inspector Session Closed.");
     }
 
     /**
@@ -379,6 +394,7 @@ public class InspectorGUI extends javax.swing.JFrame {
             @Override
             public void windowClosing(final java.awt.event.WindowEvent evt) {
                 InspectorGUI.this.exitForm();
+                System.exit(0);
             }
         });
         this.controlPanel.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
@@ -818,7 +834,18 @@ public class InspectorGUI extends javax.swing.JFrame {
     }
 
     public static void showErrorMessageDialog(String title, String errorMessage){
-        JOptionPane.showMessageDialog(new JFrame(), errorMessage, title,
+        JOptionPane.showMessageDialog(form, errorMessage, title,
                 JOptionPane.ERROR_MESSAGE);
+    }
+
+    public static void quitInspectionGUI(String errorMessage){
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                showErrorMessageDialog("Connection timed out", errorMessage);
+                form.dispose();
+                form = new InspectorGUI(form.getAid(), true);
+            }
+        });
     }
 }
