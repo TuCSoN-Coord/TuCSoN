@@ -76,19 +76,10 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                     this.myTable,
                     LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
-        } catch (final InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final OperationTimeOutException e) {
+        } catch (final InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             LOGGER.error(e.getMessage(), e);
         }
-        if (op != null) {
-            return op.isResultSuccess();
-        }
-        return false;
+        return op != null && op.isResultSuccess();
     }
 
     private boolean eat() {
@@ -105,21 +96,10 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                     break;
                 }
             }
-        } catch (final InterruptedException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final OperationTimeOutException e) {
+        } catch (final InterruptedException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | InvalidLogicTupleException e) {
             LOGGER.error(e.getMessage(), e);
         }
-        if (op != null && op.isResultSuccess()) {
-            return op.isResultSuccess();
-        }
-        return false;
+        return op != null && op.isResultSuccess() && op.isResultSuccess();
     }
 
     private void releaseChops() {
@@ -128,13 +108,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                     this.myTable,
                     LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
-        } catch (final InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final OperationTimeOutException e) {
+        } catch (final InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             LOGGER.error(e.getMessage(), e);
         }
     }
@@ -154,13 +128,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                 .getTucsonAgentId());
         try {
             this.acc = negAcc.playDefaultRole();
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final OperationTimeOutException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonInvalidAgentIdException e) {
+        } catch (final TucsonOperationNotPossibleException | TucsonInvalidAgentIdException | OperationTimeOutException | UnreachableNodeException e) {
             LOGGER.error(e.getMessage(), e);
         }
         // Ugly but effective, pardon me...

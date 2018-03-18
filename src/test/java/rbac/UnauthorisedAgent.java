@@ -89,7 +89,7 @@ public final class UnauthorisedAgent extends AbstractTucsonAgent<RootACC> {
         NegotiationACC negACC = TucsonMetaACC
                 .getNegotiationContext("unauthorised");
         Logger.getLogger("UnauthorisedAgent").info("NegotiationACC acquired");
-        List<String> permissions = new ArrayList<String>();
+        List<String> permissions = new ArrayList<>();
         permissions.add("rd");
         try {
             Logger.getLogger("UnauthorisedAgent").info(

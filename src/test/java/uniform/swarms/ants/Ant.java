@@ -3,6 +3,7 @@
  */
 package uniform.swarms.ants;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -72,8 +73,8 @@ public class Ant extends AbstractTucsonAgent<EnhancedSyncACC> {
 
         Logger.getAnonymousLogger().log(Level.INFO, this.getTucsonAgentId().getLocalName() + ") Hello!");
 
-        boolean isFood = false;
-        LogicTuple direction = null;
+        boolean isFood;
+        LogicTuple direction;
 
         while (!this.stopped) {
             if (!this.carryingFood) {
@@ -139,7 +140,7 @@ public class Ant extends AbstractTucsonAgent<EnhancedSyncACC> {
             this.err("Error while smelling food: "
                     + e.getClass().getSimpleName());
         }
-        return op.isResultSuccess();
+        return Objects.requireNonNull(op).isResultSuccess();
     }
 
     private void pickFood() {
@@ -153,7 +154,7 @@ public class Ant extends AbstractTucsonAgent<EnhancedSyncACC> {
             this.err("Error while picking food: "
                     + e.getClass().getSimpleName());
         }
-        this.carryingFood = op.isResultSuccess();
+        this.carryingFood = Objects.requireNonNull(op).isResultSuccess();
         Logger.getAnonymousLogger().log(Level.INFO,
                 this.getTucsonAgentId().getLocalName() + ") Food found :)");
     }
@@ -169,7 +170,7 @@ public class Ant extends AbstractTucsonAgent<EnhancedSyncACC> {
             this.err("Error while smelling pheromone: "
                     + e.getClass().getSimpleName());
         }
-        if (op.isResultSuccess()) {
+        if (Objects.requireNonNull(op).isResultSuccess()) {
             return op.getLogicTupleResult();
         }
         this.err("Error while smelling pheromone: no nbrs found!");
@@ -191,7 +192,7 @@ public class Ant extends AbstractTucsonAgent<EnhancedSyncACC> {
             this.err("Error while moving (1): " + e.getClass().getSimpleName());
         }
 
-        if (op.isResultSuccess()) {
+        if (Objects.requireNonNull(op).isResultSuccess()) {
 
             TucsonTupleCentreId oldTcid = null;
 
@@ -248,7 +249,7 @@ public class Ant extends AbstractTucsonAgent<EnhancedSyncACC> {
             this.err("Error while dropping food: "
                     + e.getClass().getSimpleName());
         }
-        this.carryingFood = !op.isResultSuccess();
+        this.carryingFood = !Objects.requireNonNull(op).isResultSuccess();
         Logger.getAnonymousLogger().log(Level.INFO,
                 this.getTucsonAgentId().getLocalName() + ") Job done!");
     }
@@ -264,7 +265,7 @@ public class Ant extends AbstractTucsonAgent<EnhancedSyncACC> {
             this.err("Error while smelling anthill: "
                     + e.getClass().getSimpleName());
         }
-        if (op.isResultSuccess()) {
+        if (Objects.requireNonNull(op).isResultSuccess()) {
             return op.getLogicTupleResult();
         }
         this.err("Error while smelling anthill: no anthill found!");

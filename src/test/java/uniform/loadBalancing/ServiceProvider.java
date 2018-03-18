@@ -135,7 +135,7 @@ public class ServiceProvider extends AbstractTucsonAgent<RootACC> {
             this.say("Invalid service given, killing myself...");
             this.die = true;
         }
-        this.inputQueue = new LinkedBlockingQueue<LogicTuple>(10);
+        this.inputQueue = new LinkedBlockingQueue<>(10);
         this.serviceTime = cpuTime;
     }
 

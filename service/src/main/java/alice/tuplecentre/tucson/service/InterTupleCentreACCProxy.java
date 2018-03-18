@@ -315,14 +315,14 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
                     || type == TupleCentreOpType.SPAWN) {
                 msg = new TucsonMessageRequest(new InputEventMessageDefault(
                         this.aid.toString(), tucsonOpId, type,
-                        (LogicTuple) op.getTupleArgument(), tcid.toString(),
+                        (LogicTuple) op.getTupleArgument(), Objects.requireNonNull(tcid).toString(),
                         System.currentTimeMillis(), this.getPosition()));
                 // new TucsonMessageRequest(this.opId, type, tcid.toString(),
                 // (LogicTuple) op.getTupleArgument());
             } else {
                 msg = new TucsonMessageRequest(new InputEventMessageDefault(
                         this.aid.toString(), tucsonOpId, type,
-                        (LogicTuple) op.getTemplateArgument(), tcid.toString(),
+                        (LogicTuple) op.getTemplateArgument(), Objects.requireNonNull(tcid).toString(),
                         System.currentTimeMillis(), this.getPosition()));
                 // new TucsonMessageRequest(this.opId, type, tcid.toString(),
                 // (LogicTuple) op.getTemplateArgument());

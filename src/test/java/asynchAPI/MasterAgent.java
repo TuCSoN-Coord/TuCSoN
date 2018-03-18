@@ -235,7 +235,7 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
         try {
             super.say("Started");
             Out out;
-            LogicTuple tuple = null;
+            LogicTuple tuple;
             final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
                     "localhost", "20504");
             int number = MasterAgent.SEED;
@@ -300,7 +300,7 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
                 final CompletionHandler ch = new CompletionHandler();
                 this.helper.enqueue(in, ch);
             }
-            int nInSucceeded = 0;
+            int nInSucceeded;
             boolean stop = false;
             while (!stop) {
                 Thread.sleep(MasterAgent.SLEEP);
@@ -336,17 +336,7 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
             this.helper.shutdownGracefully();
             Thread.sleep(MasterAgent.SLEEP);
             super.say("I'm done");
-        } catch (final TucsonInvalidTupleCentreIdException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final InterruptedException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final OperationTimeOutException e) {
+        } catch (final TucsonInvalidTupleCentreIdException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | InterruptedException | InvalidLogicTupleException e) {
             LOGGER.error(e.getMessage(), e);
         }
     }

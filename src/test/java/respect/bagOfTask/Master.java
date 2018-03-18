@@ -65,7 +65,7 @@ public class Master extends AbstractTucsonAgent<RootACC> {
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());
             final OrdinaryAndSpecificationSyncACC acc = negAcc.playDefaultRole();
-            LogicTuple task = null;
+            LogicTuple task;
 
             /*
              * Our work has to be done in a custom-defined tuplecentre.
@@ -124,17 +124,7 @@ public class Master extends AbstractTucsonAgent<RootACC> {
             this.say("Average is: " + res.getArg(0).floatValue()
                     / res.getArg(1).floatValue());
             acc.exit();
-        } catch (final InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonInvalidTupleCentreIdException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final OperationTimeOutException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonInvalidAgentIdException e) {
+        } catch (final InvalidLogicTupleException | TucsonInvalidAgentIdException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | TucsonInvalidTupleCentreIdException e) {
             LOGGER.error(e.getMessage(), e);
         }
     }
