@@ -401,4 +401,5 @@ public class InspectorCore extends Inspector {
             this.form.changeStepModeCB();
         }
     }
+
 }

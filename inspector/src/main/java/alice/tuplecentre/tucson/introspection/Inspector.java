@@ -15,6 +15,7 @@ package alice.tuplecentre.tucson.introspection;
 
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.tucson.introspection.tools.InspectorGUI;
 import alice.tuplecentre.tucson.network.exceptions.DialogException;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
 import org.slf4j.Logger;
@@ -79,7 +80,7 @@ public class Inspector extends Thread implements InspectorContextListener {
         try {
             this.context.exit();
         } catch (final DialogSendException e) {
-            LOGGER.error(e.getMessage(), e);
+            LOGGER.error(e.getMessage());
         }
         this.interrupt();
     }
@@ -94,12 +95,14 @@ public class Inspector extends Thread implements InspectorContextListener {
             try {
                 this.context.acceptVMEvent();
             } catch (final DialogException e) {
-                LOGGER.error("TuCSoN node "
+                String errorMessage = "TuCSoN node "
                         + this.context.getTid().getLocalName() + "@"
                         + this.context.getTid().getNode() + ":"
                         + this.context.getTid().getPort()
-                        + " disconnected unexpectedly :/");
+                        + " disconnected unexpectedly :/";
+                LOGGER.error(errorMessage);
                 this.q = true;
+                InspectorGUI.showErrorMessageDialog("Connection timed out", errorMessage);
             }
         }
         LOGGER.info("[Inspector]: Stopped inspecting TuCSoN Node < "

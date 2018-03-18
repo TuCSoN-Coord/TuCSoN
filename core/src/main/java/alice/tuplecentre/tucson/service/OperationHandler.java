@@ -95,6 +95,7 @@ public class OperationHandler {
                             .err("TuCSoN Node disconnected unexpectedly :/");
                     // OperationHandler.this.err(e.getCause().toString());
                     this.setStop();
+                    System.exit(-1);
                     break;
                 }
                 final boolean ok = msg.getEventMsg().isAllowed();

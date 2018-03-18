@@ -20,12 +20,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.lang.invoke.MethodHandles;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+import javax.swing.*;
 
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
@@ -268,6 +263,7 @@ public class InspectorGUI extends javax.swing.JFrame {
             } catch (final TucsonInvalidTupleCentreIdException e) {
                 this.stateBar.setText("Operation Failed: " + e);
                 LOGGER.error(e.getMessage(), e);
+                showErrorMessageDialog("Operation Failed", e.getMessage());
             }
             if (this.afterQuit) {
                 this.deselectStepModeCB();
@@ -819,5 +815,10 @@ public class InspectorGUI extends javax.swing.JFrame {
         } catch (final DialogSendException e) {
             LOGGER.error(e.getMessage(), e);
         }
+    }
+
+    public static void showErrorMessageDialog(String title, String errorMessage){
+        JOptionPane.showMessageDialog(new JFrame(), errorMessage, title,
+                JOptionPane.ERROR_MESSAGE);
     }
 }
