@@ -15,6 +15,8 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
+import java.util.Objects;
+
 /**
  *
  * @author ste (mailto: s.mariani@unibo.it)
@@ -74,13 +76,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         OrdinaryAndSpecificationSyncACC acc = null;
         try {
             acc = negAcc.playDefaultRole();
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final OperationTimeOutException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonInvalidAgentIdException e) {
+        } catch (final TucsonOperationNotPossibleException | TucsonInvalidAgentIdException | OperationTimeOutException | UnreachableNodeException e) {
             LOGGER.error(e.getMessage(), e);
         }
         // final OrdinaryAndSpecificationSyncACC acc = this.getACC();
@@ -88,7 +84,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         // Ugly but effective, pardon me...
         while (true) {
             try {
-                op = acc.rd(this.mySeat,
+                op = Objects.requireNonNull(acc).rd(this.mySeat,
                         LogicTuples.parse("philosopher(thinking)"), null);
                 if (op.isResultSuccess()) {
                     this.say("Now thinking...");
@@ -107,13 +103,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                 } else {
                     this.say("I'm starving!");
                 }
-            } catch (final InvalidLogicTupleException e) {
-                LOGGER.error(e.getMessage(), e);
-            } catch (final TucsonOperationNotPossibleException e) {
-                LOGGER.error(e.getMessage(), e);
-            } catch (final UnreachableNodeException e) {
-                LOGGER.error(e.getMessage(), e);
-            } catch (final OperationTimeOutException e) {
+            } catch (final InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
                 LOGGER.error(e.getMessage(), e);
             }
         }

@@ -131,19 +131,7 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
                     TDiningPhilosophersTest.EATING_TIME * 2,
                     TDiningPhilosophersTest.EATING_STEP).go();
             acc.exit();
-        } catch (final TucsonInvalidTupleCentreIdException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final OperationTimeOutException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final IOException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonInvalidAgentIdException e) {
+        } catch (final TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException | InvalidLogicTupleException | IOException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             LOGGER.error(e.getMessage(), e);
         }
     }

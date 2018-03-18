@@ -75,19 +75,7 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
             Logger.getAnonymousLogger().log(Level.INFO,
                     "...configuration done, now starting agent...");
             new DicePlayer("roller").go();
-        } catch (TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (OperationTimeOutException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (TucsonInvalidTupleCentreIdException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (DialogInitializationException e) {
+        } catch (TucsonOperationNotPossibleException | DialogInitializationException | TucsonInvalidTupleCentreIdException | InvalidLogicTupleException | TucsonInvalidAgentIdException | OperationTimeOutException | UnreachableNodeException e) {
             LOGGER.error(e.getMessage(), e);
         }
     }
@@ -129,7 +117,7 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
             final LogicTuple dieTuple = LogicTuples.newInstance("stahp", TupleArguments.newValueArgument(
                     this.getTucsonAgentId().getLocalName()));
             int face;
-            Integer nTimes = 1;
+            Integer nTimes;
             while (!this.stop) {
                 this.say("Checking termination...");
                 op = acc.inp(this.tcid, dieTuple, null);
@@ -154,19 +142,7 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
                 printStats();
                 Thread.sleep(500);
             }
-        } catch (TucsonOperationNotPossibleException e) {
-            // TODO Auto-generated catch block
-            LOGGER.error(e.getMessage(), e);
-        } catch (UnreachableNodeException e) {
-            // TODO Auto-generated catch block
-            LOGGER.error(e.getMessage(), e);
-        } catch (OperationTimeOutException e) {
-            // TODO Auto-generated catch block
-            LOGGER.error(e.getMessage(), e);
-        } catch (TucsonInvalidAgentIdException e) {
-            // TODO Auto-generated catch block
-            LOGGER.error(e.getMessage(), e);
-        } catch (InterruptedException e) {
+        } catch (TucsonOperationNotPossibleException | InterruptedException | TucsonInvalidAgentIdException | OperationTimeOutException | UnreachableNodeException e) {
             // TODO Auto-generated catch block
             LOGGER.error(e.getMessage(), e);
         }

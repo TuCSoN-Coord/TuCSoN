@@ -607,7 +607,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final TransducersManager tm = TransducersManager.INSTANCE;
         // Getting the transducer from the transducer manager
         final TransducerId tId = tm.getTransducerId(envId);
-        if (Objects.requireNonNull(tm.getTransducer(tId.getLocalName())).notifyOutput(internalEv)) {
+        if (Objects.requireNonNull(tm.getTransducer(Objects.requireNonNull(tId).getLocalName())).notifyOutput(internalEv)) {
             this.vm.fetchTriggeredReactions(internalEv);
             return true;
         }
@@ -1176,7 +1176,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             final List<Tuple> tuples = this.vm
                     .readAllTuples(tuArg);
             if (tuples == null) {
-                final Term term = Respect2PLibrary.list2tuple(Objects.requireNonNull(tuples));
+                final Term term = Respect2PLibrary.list2tuple(null);
                 this.unify(arg1, term.copyGoal(v, 0));
                 return true;
             }
@@ -1857,7 +1857,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final TransducersManager tm = TransducersManager.INSTANCE;
         // Getting the transducer from the transducer manager
         final TransducerId tId = tm.getTransducerId(envId);
-        if (Objects.requireNonNull(tm.getTransducer(tId.getLocalName())).notifyOutput(internalEv)) {
+        if (Objects.requireNonNull(tm.getTransducer(Objects.requireNonNull(tId).getLocalName())).notifyOutput(internalEv)) {
             this.vm.fetchTriggeredReactions(internalEv);
             return true;
         }

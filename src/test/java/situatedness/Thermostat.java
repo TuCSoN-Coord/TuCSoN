@@ -152,7 +152,7 @@ public final class Thermostat {
                     } else if (temp < Thermostat.LOW) {
                         Thermostat.log(aid.toString(), "...heating up");
                         action = LogicTuples.parse("act(temp(" + ++temp + "))");
-                    } else if (temp > Thermostat.HIGH) {
+                    } else {
                         Thermostat.log(aid.toString(), "...cooling down");
                         action = LogicTuples.parse("act(temp(" + --temp + "))");
                     }

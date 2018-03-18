@@ -109,19 +109,7 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
                         % DiningPhilosophersTest.N_PHILOSOPHERS).go();
             }
             acc.exit();
-        } catch (final TucsonInvalidTupleCentreIdException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final OperationTimeOutException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final IOException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonInvalidAgentIdException e) {
+        } catch (final TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException | InvalidLogicTupleException | IOException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             LOGGER.error(e.getMessage(), e);
         }
     }

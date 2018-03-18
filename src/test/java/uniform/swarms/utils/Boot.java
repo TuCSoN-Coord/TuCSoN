@@ -37,7 +37,7 @@ public class Boot {
         Boot.log("Booting node on port " + port + "...");
 
         /* Boot TuCSoN node */
-        TucsonNodeService node = null;
+        TucsonNodeService node;
         node = new TucsonNodeService(port);
         new Installer(node).start();
         try {

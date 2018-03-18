@@ -43,7 +43,7 @@ public final class HelloWorldJTuples {
         /*
          * 1) Build a TuCSoN Agent identifier to contact the TuCSoN system.
          */
-        TucsonAgentId aid = null;
+        TucsonAgentId aid;
         try {
             if (args.length == 1) {
                 aid = new TucsonAgentIdDefault(args[0]);
@@ -75,7 +75,7 @@ public final class HelloWorldJTuples {
             /*
              * 6) Check requested operation success.
              */
-            Tuple res = null;
+            Tuple res;
             if (op.isResultSuccess()) {
                 System.out.println("[" + aid.getLocalName()
                         + "]: Operation succeeded.");

@@ -87,7 +87,7 @@ public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
         public void operationCompleted(final AbstractTupleCentreOperation op) {
             if (op.isResultSuccess()) {
                 try {
-                    LogicTuple res = null;
+                    LogicTuple res;
                     LogicTuple tupleRes;
                     res = (LogicTuple) op.getTupleResult();
                     final int upperBound = Integer.parseInt(res.getArg(0)
@@ -109,11 +109,7 @@ public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
                         this.help.enqueue(inp, new InpHandler(this.eaacc,
                                 this.ttcid, this.help));
                     }
-                } catch (final InvalidLogicTupleException e) {
-                    LOGGER.error(e.getMessage(), e);
-                } catch (final NumberFormatException e) {
-                    LOGGER.error(e.getMessage(), e);
-                } catch (final InvalidOperationException e) {
+                } catch (final InvalidLogicTupleException | InvalidOperationException | NumberFormatException e) {
                     LOGGER.error(e.getMessage(), e);
                 }
             } else {
@@ -126,9 +122,7 @@ public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
                         this.help.enqueue(inp, new InpHandler(this.eaacc,
                                 this.ttcid, this.help));
                     }
-                } catch (final InterruptedException e) {
-                    LOGGER.error(e.getMessage(), e);
-                } catch (final InvalidLogicTupleException e) {
+                } catch (final InterruptedException | InvalidLogicTupleException e) {
                     LOGGER.error(e.getMessage(), e);
                 }
             }
@@ -218,19 +212,7 @@ public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
             super.say("Stopping TuCSoN Asynch Helper now");
             helper.shutdownNow();
             super.say("I'm done");
-        } catch (final TucsonInvalidTupleCentreIdException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final NumberFormatException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final OperationTimeOutException e) {
+        } catch (final TucsonInvalidTupleCentreIdException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | TucsonInvalidAgentIdException | NumberFormatException | InvalidLogicTupleException e) {
             LOGGER.error(e.getMessage(), e);
         }
     }

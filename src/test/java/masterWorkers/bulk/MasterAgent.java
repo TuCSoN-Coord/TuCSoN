@@ -36,7 +36,7 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
      *            no args expected.
      */
     public static void main(final String[] args) {
-        final LinkedList<String> nodes = new LinkedList<String>();
+        final LinkedList<String> nodes = new LinkedList<>();
         nodes.add("default@localhost:20504");
         // nodes.add("default@localhost:20505");
         try {
@@ -86,7 +86,7 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
         this.ITERs = iters;
         this.MAX_FACT = maxFact;
         this.reqID = 0;
-        this.pendings = new HashMap<Integer, Integer>();
+        this.pendings = new HashMap<>();
     }
 
     @Override
@@ -113,10 +113,10 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
             int num;
             while (!this.die) {
                 this.say("Checking termination...");
-                for (int i = 0; i < this.tids.size(); i++) {
-                    op = this.acc.inp(this.tids.get(i),
+                for (TucsonTupleCentreId tid2 : this.tids) {
+                    op = this.acc.inp(tid2,
                             LogicTuples.parse("die(" + this.getTucsonAgentId().getLocalName() + ")"),
-                            (Long) null);
+                            null);
                     /*
                      * Only upon success the searched tuple was found. NB: we do
                      * not <break> cycle to consume all termination tuples if
@@ -132,11 +132,11 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
                 /*
                  * Jobs submission phase.
                  */
-                for (int i = 0; i < this.tids.size(); i++) {
+                for (TucsonTupleCentreId tid1 : this.tids) {
                     /*
                      * We iterate nodes in a round-robin fashion...
                      */
-                    next = this.tids.get(i);
+                    next = tid1;
                     this.say("Putting jobs in: " + next.toString());
                     for (int j = 0; j < this.ITERs; j++) {
                         /*
@@ -151,7 +151,7 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
                          * Only non-reachability of target tuplecentre may cause
                          * <out> to fail, which raises a Java Exception.
                          */
-                        this.acc.out(next, job, (Long) null);
+                        this.acc.out(next, job, null);
                         /*
                          * We keep track of pending computations.
                          */
@@ -162,11 +162,11 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
                 /*
                  * Result collection phase.
                  */
-                for (int i = 0; i < this.tids.size(); i++) {
+                for (TucsonTupleCentreId tid : this.tids) {
                     /*
                      * Again we iterate nodes in a round-robin fashion...
                      */
-                    next = this.tids.get(i);
+                    next = tid;
                     this.say("Collecting results from: " + next.toString());
                     for (int j = 0; j < this.ITERs; j++) {
                         Thread.sleep(3000);
@@ -180,7 +180,7 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
                          * No longer a suspensive primitive. We need to keep
                          * track of collected results.
                          */
-                        op = this.acc.inAll(next, templ, (Long) null);
+                        op = this.acc.inAll(next, templ, null);
                         /*
                          * Check needed due to suspensive semantics.
                          */

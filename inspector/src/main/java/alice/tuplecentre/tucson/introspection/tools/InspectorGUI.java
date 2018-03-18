@@ -86,7 +86,7 @@ public class InspectorGUI extends javax.swing.JFrame {
             LOGGER.info("[Inspector]: failure: " + e);
             System.exit(-1);
         } catch (final TucsonInvalidTupleCentreIdException e) {
-            LOGGER.error("[Inspector]: Please input an admissible tuplecentre "
+            LOGGER.info("[Inspector]: Please input an admissible tuplecentre "
                             + "name from the GUI...");
         }
         InspectorGUI form;

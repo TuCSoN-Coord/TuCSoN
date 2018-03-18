@@ -1,11 +1,8 @@
 package alice.tuplecentre.respect.core;
 
-import java.lang.invoke.MethodHandles;
 import java.util.TimerTask;
 
 import alice.tuplecentre.core.InputEvent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Matteo Casadei

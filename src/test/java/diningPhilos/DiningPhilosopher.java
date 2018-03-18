@@ -65,19 +65,10 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                     this.myTable,
                     LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
-        } catch (final InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final OperationTimeOutException e) {
+        } catch (final InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             LOGGER.error(e.getMessage(), e);
         }
-        if (op != null) {
-            return op.isResultSuccess();
-        }
-        return false;
+        return op != null && op.isResultSuccess();
     }
 
     private void eat() {
@@ -95,13 +86,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                     this.myTable,
                     LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
-        } catch (final InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final OperationTimeOutException e) {
+        } catch (final InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             LOGGER.error(e.getMessage(), e);
         }
     }
@@ -126,13 +111,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());
             this.acc = negAcc.playDefaultRole();
-        } catch (final OperationTimeOutException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonInvalidAgentIdException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
+        } catch (final OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | TucsonInvalidAgentIdException e) {
             LOGGER.error(e.getMessage(), e);
         }
         // this.acc = this.getACC();

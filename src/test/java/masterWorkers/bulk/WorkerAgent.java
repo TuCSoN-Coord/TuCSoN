@@ -101,7 +101,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
             TucsonOperation op;
             List<LogicTuple> job;
             LogicTuple templ;
-            final List<LogicTuple> res = new LinkedList<LogicTuple>();
+            final List<LogicTuple> res = new LinkedList<>();
             BigInteger bigNum;
             while (!this.die) {
                 this.say("Checking termination...");

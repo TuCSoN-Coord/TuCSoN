@@ -1,6 +1,7 @@
 package spawnedWorkers;
 
 import java.math.BigInteger;
+import java.util.Objects;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTuples;
@@ -32,7 +33,7 @@ public class SpawnedWorkingActivity extends AbstractSpawnActivity {
              * we are stuck!
              */
             final LogicTuple job = this.in(templ);
-            this.log("Found job: " + job.toString());
+            this.log("Found job: " + Objects.requireNonNull(job).toString());
             /*
              * Computation phase.
              */

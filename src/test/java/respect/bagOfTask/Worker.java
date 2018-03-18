@@ -114,15 +114,7 @@ public class Worker extends AbstractTucsonAgent<RootACC> {
             }
         } catch (final OperationTimeOutException e) {
             this.say("Timeout exceeded, I quit");
-        } catch (final TucsonInvalidTupleCentreIdException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final InvalidLogicTupleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonInvalidAgentIdException e) {
+        } catch (final TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException | UnreachableNodeException | TucsonOperationNotPossibleException | InvalidLogicTupleException e) {
             LOGGER.error(e.getMessage(), e);
         } finally {
             if (acc != null) {

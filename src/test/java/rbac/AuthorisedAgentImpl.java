@@ -86,7 +86,7 @@ public final class AuthorisedAgentImpl extends AbstractTucsonAgent<RootACC> {
         NegotiationACC negACC = TucsonMetaACC
                 .getNegotiationContext("authorised");
         Logger.getLogger("AuthorisedAgent").info("NegotiationACC acquired");
-        List<String> permissions = new ArrayList<String>();
+        List<String> permissions = new ArrayList<>();
         permissions.add("out");
         try {
             Logger.getLogger("AuthorisedAgent")

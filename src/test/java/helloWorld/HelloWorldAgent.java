@@ -34,7 +34,7 @@ public class HelloWorldAgent extends AbstractTucsonAgent<RootACC> {
      *            the name of the TuCSoN coordinable (optional).
      */
     public static void main(final String[] args) {
-        String aid = null;
+        String aid;
         if (args.length == 1) {
             aid = args[0];
         } else {
@@ -103,7 +103,7 @@ public class HelloWorldAgent extends AbstractTucsonAgent<RootACC> {
             /*
              * 8) Check requested operation success.
              */
-            LogicTuple res = null;
+            LogicTuple res;
             if (op.isResultSuccess()) {
                 this.say("Operation succeeded.");
                 /*
@@ -128,21 +128,7 @@ public class HelloWorldAgent extends AbstractTucsonAgent<RootACC> {
             /*
              * ACC release is automatically done by the TucsonAgent base class.
              */
-        } catch (final TucsonInvalidTupleCentreIdException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final InvalidLogicTupleException e) {
-            /*
-             * String to be parsed is not in a valid Prolog syntax.
-             */
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonOperationNotPossibleException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final UnreachableNodeException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final OperationTimeOutException e) {
-            LOGGER.error(e.getMessage(), e);
-        } catch (final TucsonInvalidAgentIdException e) {
-            // TODO Auto-generated catch block
+        } catch (final TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | InvalidLogicTupleException e) {
             LOGGER.error(e.getMessage(), e);
         }
     }
