@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
 
 public class Inspector4GuiContextSkel extends InspectorContextSkel {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private Set<LogicTuple> tuples;
     private Set<LogicTuple> currentNewTuples = new HashSet<>();

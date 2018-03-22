@@ -33,7 +33,7 @@ import java.lang.invoke.MethodHandles;
  */
 public class ObservationService implements NodeServiceListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private TucsonAgentId obsAid;
     private final TucsonTupleCentreId obsContext;

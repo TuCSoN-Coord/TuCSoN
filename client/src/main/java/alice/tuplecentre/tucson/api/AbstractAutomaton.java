@@ -31,7 +31,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractAutomaton extends AbstractTucsonAgent<RootACC> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      *

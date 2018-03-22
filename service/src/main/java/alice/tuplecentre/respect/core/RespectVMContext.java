@@ -98,7 +98,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RespectVMContext extends AbstractTupleCentreVMContext {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * @author Stefano Mariani (mailto: s.mariani@unibo.it)

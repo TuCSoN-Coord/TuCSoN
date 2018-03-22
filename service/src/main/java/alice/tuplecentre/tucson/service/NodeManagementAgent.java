@@ -34,7 +34,7 @@ import java.lang.invoke.MethodHandles;
  */
 public class NodeManagementAgent extends Thread {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static void log(final String s) {
         LOGGER.info("[NodeManagementAgent]: " + s);

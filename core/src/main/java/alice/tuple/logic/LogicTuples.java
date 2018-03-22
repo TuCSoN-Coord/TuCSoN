@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class LogicTuples {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private LogicTuples() {
     }

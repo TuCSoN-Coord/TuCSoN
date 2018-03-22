@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class GeolocationServiceManager {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * The GeolocationServiceManager instance

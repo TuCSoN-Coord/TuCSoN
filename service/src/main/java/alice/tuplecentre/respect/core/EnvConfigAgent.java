@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  */
 public class EnvConfigAgent {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * Add an actuator request's type

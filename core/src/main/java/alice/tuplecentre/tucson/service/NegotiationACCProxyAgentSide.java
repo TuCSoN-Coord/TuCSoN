@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  */
 public class NegotiationACCProxyAgentSide implements NegotiationACC {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final String TC_AGENT = "negotAgent";
     private static final String TC_ORG = "'$ORG'";

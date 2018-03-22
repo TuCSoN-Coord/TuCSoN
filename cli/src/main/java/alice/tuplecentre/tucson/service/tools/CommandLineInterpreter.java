@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class CommandLineInterpreter {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final int DEF_PORT = 20504;
 

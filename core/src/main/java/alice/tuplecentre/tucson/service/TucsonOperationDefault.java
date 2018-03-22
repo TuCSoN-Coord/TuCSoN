@@ -26,7 +26,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TucsonOperationDefault extends AbstractTupleCentreOperation implements TucsonOperation {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final OperationHandler context;
 

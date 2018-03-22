@@ -30,7 +30,7 @@ import static alice.tuplecentre.tucson.introspection.tools.InspectorGUI.quitInsp
  */
 public class Inspector extends Thread implements InspectorContextListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      *

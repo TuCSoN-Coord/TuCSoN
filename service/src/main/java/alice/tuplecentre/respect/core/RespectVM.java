@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RespectVM implements Runnable {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final RespectTCContainer container;
     private final RespectVMContext context;

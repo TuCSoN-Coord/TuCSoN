@@ -25,7 +25,7 @@ import java.lang.invoke.MethodHandles;
 // To break dependency with service module, this class is no more used, assuming that the only used protocol will be TCP/IP
 public final class TPFactory {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * Constant indentify implementated protocol type: one constant for each

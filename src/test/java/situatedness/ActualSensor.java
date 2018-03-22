@@ -52,9 +52,7 @@ public class ActualSensor implements ISimpleProbe {
                     TucsonInfo.getDefaultPortNumber());
             this.tempTc = new TucsonTupleCentreIdDefault("tempTc",
                     ActualSensor.DEFAULT_HOST, String.valueOf(TucsonInfo.getDefaultPortNumber()));
-        } catch (final TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
-        } catch (final TucsonInvalidAgentIdException e) {
+        } catch (final TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
     }
@@ -112,15 +110,7 @@ public class ActualSensor implements ISimpleProbe {
                         AbstractTransducer.GET_MODE);
             }
             return true;
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
-        } catch (final OperationTimeOutException e) {
-            e.printStackTrace();
-        } catch (final InvalidOperationException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
+        } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | InvalidOperationException | OperationTimeOutException | UnreachableNodeException e) {
             e.printStackTrace();
         }
         return false;

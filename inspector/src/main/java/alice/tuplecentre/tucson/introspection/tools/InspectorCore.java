@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
  */
 public class InspectorCore extends Inspector {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /*
      * Used when logging tuples/operations/reactions.

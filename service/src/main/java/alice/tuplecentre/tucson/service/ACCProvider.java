@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ACCProvider {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final int WAITING_TIME = 10;
 

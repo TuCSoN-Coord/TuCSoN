@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TucsonProtocolTCP extends AbstractTucsonProtocol {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * serialVersionUID

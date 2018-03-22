@@ -41,9 +41,7 @@ public final class PersistencyTester {
                 while (!TucsonNodeService.isInstalled(TucsonInfo.getDefaultPortNumber(), 5000)) {
                     Thread.sleep(1000);
                 }
-            } catch (final InterruptedException e) {
-                e.printStackTrace();
-            } catch (final DialogInitializationException e) {
+            } catch (final InterruptedException | DialogInitializationException e) {
                 e.printStackTrace();
             }
             final TucsonTupleCentreId ttcid = new TucsonTupleCentreIdDefault(
@@ -109,28 +107,7 @@ public final class PersistencyTester {
             // give node time to close persistency file
             Thread.sleep(3000);
             tns.shutdown();
-        } catch (final TucsonInvalidTupleCentreIdException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final TucsonInvalidAgentIdException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final UnreachableNodeException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final OperationTimeOutException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (final InterruptedException e) {
+        } catch (final TucsonInvalidTupleCentreIdException | InterruptedException | InvalidLogicTupleException | IOException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | TucsonInvalidAgentIdException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

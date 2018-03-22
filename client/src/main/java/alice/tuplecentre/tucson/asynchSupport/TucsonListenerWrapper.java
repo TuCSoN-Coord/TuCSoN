@@ -37,7 +37,7 @@ import java.lang.invoke.MethodHandles;
  */
 public class TucsonListenerWrapper implements TucsonOperationCompletionListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final AsynchOpsHelper helper;
     private final TucsonOperationCompletionListener listener;

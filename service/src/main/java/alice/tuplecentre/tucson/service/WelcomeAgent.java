@@ -35,7 +35,7 @@ import java.lang.invoke.MethodHandles;
  */
 public class WelcomeAgent extends Thread {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static void log(final String st) {
         LOGGER.info("..[WelcomeAgent]: " + st);

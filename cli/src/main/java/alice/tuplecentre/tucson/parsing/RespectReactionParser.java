@@ -13,7 +13,7 @@ import java.lang.invoke.MethodHandles;
  */
 public class RespectReactionParser {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static boolean bigFatCondition(final TupleArgument arg) {
         return "request".equals(arg.getName())

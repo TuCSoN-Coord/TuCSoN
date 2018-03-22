@@ -34,7 +34,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractSpawnActivity implements Serializable, Runnable {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final long serialVersionUID = -6354837455366449916L;
     private TucsonAgentId aid;

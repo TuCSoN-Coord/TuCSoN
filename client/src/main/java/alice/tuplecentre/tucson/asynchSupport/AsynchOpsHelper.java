@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * Tune very carefully, configurable should be

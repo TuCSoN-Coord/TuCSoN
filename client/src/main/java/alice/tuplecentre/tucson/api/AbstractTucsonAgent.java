@@ -34,7 +34,7 @@ import java.lang.invoke.MethodHandles;
  */
 public abstract class AbstractTucsonAgent<T extends RootACC> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final TucsonAgentId aid;
     private final String nodeIp;

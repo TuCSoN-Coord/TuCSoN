@@ -27,7 +27,7 @@ public enum ProbesManager {
      */
     INSTANCE;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * Utility method used to communicate an output message to the console.

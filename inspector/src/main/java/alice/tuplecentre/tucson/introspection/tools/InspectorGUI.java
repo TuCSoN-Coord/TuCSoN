@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
  */
 public class InspectorGUI extends javax.swing.JFrame {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final long serialVersionUID = -3765811664087552414L;
 

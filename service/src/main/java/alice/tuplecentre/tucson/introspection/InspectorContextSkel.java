@@ -74,7 +74,7 @@ import org.slf4j.LoggerFactory;
 public class InspectorContextSkel extends AbstractACCProxyNodeSide implements
         InspectableEventListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final TucsonAgentId agentId;
     private final int ctxId;

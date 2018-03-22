@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class RespectTCContainer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static RespectTCContainer container;
     private static int defaultport;

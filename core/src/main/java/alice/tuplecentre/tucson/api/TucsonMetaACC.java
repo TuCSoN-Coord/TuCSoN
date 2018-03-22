@@ -37,7 +37,7 @@ import java.lang.invoke.MethodHandles;
  */
 public final class TucsonMetaACC {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     // TODO: Controllo password
 

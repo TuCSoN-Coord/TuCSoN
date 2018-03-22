@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  */
 public final class TucsonACCTool {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * Activates a coordination context for a given agent.

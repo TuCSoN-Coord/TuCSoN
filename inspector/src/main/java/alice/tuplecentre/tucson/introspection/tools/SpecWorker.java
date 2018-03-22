@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SpecWorker extends Thread {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static String format(final LogicTuple t) {
         final StringBuilder res = new StringBuilder(21);

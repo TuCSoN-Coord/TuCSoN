@@ -27,7 +27,7 @@ import java.lang.reflect.Method;
  */
 public abstract class AbstractRespectAgent {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     final class PlanExecutor extends Thread {
 

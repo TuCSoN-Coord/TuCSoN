@@ -78,7 +78,7 @@ import static alice.tuplecentre.core.TupleCentreOpType.URDP;
  */
 public class RespectOperationDefault extends AbstractTupleCentreOperation implements RespectOperation {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * Factory Method

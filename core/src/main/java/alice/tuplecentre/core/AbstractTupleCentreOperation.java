@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class AbstractTupleCentreOperation implements TupleCentreOperation {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * Shared id counter

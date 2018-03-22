@@ -58,7 +58,7 @@ import static alice.tuplecentre.core.TupleCentreOpType.SET_S;
  */
 public final class TupleCentreContainer {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static int defaultport;
 

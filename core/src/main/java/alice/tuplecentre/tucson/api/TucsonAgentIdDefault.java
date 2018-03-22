@@ -33,7 +33,7 @@ import org.slf4j.LoggerFactory;
  */
 public class TucsonAgentIdDefault implements TucsonAgentId, Serializable {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final long serialVersionUID = -5788843633820003843L;
 

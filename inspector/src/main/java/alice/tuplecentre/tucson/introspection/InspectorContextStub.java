@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
  */
 public class InspectorContextStub implements InspectorContext {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * listeners registrated for virtual machine output events

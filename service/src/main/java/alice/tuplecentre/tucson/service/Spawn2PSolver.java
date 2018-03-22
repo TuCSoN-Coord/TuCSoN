@@ -15,7 +15,7 @@ import java.lang.invoke.MethodHandles;
  */
 public class Spawn2PSolver extends Thread {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final Term goal;
     private final Prolog solver;

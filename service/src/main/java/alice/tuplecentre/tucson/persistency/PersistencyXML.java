@@ -34,7 +34,7 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
  */
 public class PersistencyXML {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final String ACTION_ATTRIBUTE = "action";
     private static final String ADD_OPERATION = "addition";

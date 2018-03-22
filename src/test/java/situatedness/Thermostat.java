@@ -160,21 +160,7 @@ public final class Thermostat {
                     acc.out(actuatorTc, action, null);
                 }
             }
-        } catch (final TucsonInvalidTupleCentreIdException e) {
-            e.printStackTrace();
-        } catch (final TucsonInvalidAgentIdException e) {
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            e.printStackTrace();
-        } catch (final UnreachableNodeException e) {
-            e.printStackTrace();
-        } catch (final OperationTimeOutException e) {
-            e.printStackTrace();
-        } catch (final InvalidLogicTupleException e) {
-            e.printStackTrace();
-        } catch (final InterruptedException e) {
-            e.printStackTrace();
-        } catch (final InvalidOperationException e) {
+        } catch (final TucsonInvalidTupleCentreIdException | InvalidOperationException | InterruptedException | InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
     }

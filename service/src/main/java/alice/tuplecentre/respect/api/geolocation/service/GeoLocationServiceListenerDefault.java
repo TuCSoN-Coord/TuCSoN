@@ -25,7 +25,7 @@ import java.lang.invoke.MethodHandles;
  */
 public class GeoLocationServiceListenerDefault implements GeoLocationServiceListener {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * Listener identifier

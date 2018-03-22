@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
  */
 public class CLIAgent extends alice.util.Automaton {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      *

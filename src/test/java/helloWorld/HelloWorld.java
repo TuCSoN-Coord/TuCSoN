@@ -95,32 +95,10 @@ public final class HelloWorld {
              * Release any TuCSoN ACC held when done.
              */
             acc.exit();
-        } catch (final TucsonInvalidAgentIdException e) {
+        } catch (final TucsonInvalidAgentIdException | InvalidVarNameException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException | TucsonInvalidTupleCentreIdException e) {
             /*
              * The chosen TuCSoN Agent Identifier is not admissible.
              */
-            e.printStackTrace();
-        } catch (final TucsonInvalidTupleCentreIdException e) {
-            /*
-             * The chosen target tuple centre is not admissible.
-             */
-            e.printStackTrace();
-        } catch (final TucsonOperationNotPossibleException e) {
-            /*
-             * The requested TuCSoN operation cannot be performed.
-             */
-            e.printStackTrace();
-        } catch (final UnreachableNodeException e) {
-            /*
-             * The chosen target tuple centre is not reachable.
-             */
-            e.printStackTrace();
-        } catch (final OperationTimeOutException e) {
-            /*
-             * Operation timeout expired.
-             */
-            e.printStackTrace();
-        } catch (final InvalidVarNameException e) {
             e.printStackTrace();
         }
     }

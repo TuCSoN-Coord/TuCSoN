@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private TucsonAgentId agentId;
     private final String agentName;

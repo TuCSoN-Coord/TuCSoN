@@ -12,7 +12,7 @@ import java.net.UnknownHostException;
  */
 public final class NetworkUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * Gets the decimal representation of the netmask of the address specified

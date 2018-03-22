@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
  */
 public class InterTupleCentreACCProvider implements ILinkContext {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     class Executor extends Thread {
 

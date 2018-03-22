@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 
 public class Inspector4Gui extends Inspector {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /*
      * **************************************************

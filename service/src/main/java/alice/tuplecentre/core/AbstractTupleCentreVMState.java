@@ -26,7 +26,7 @@ import java.lang.invoke.MethodHandles;
  */
 public abstract class AbstractTupleCentreVMState {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      *

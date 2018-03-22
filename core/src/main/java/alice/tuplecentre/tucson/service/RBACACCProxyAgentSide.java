@@ -35,7 +35,7 @@ import org.slf4j.LoggerFactory;
  */
 public class RBACACCProxyAgentSide extends ACCProxyAgentSide {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private List<String> permissions;
     private Role role;

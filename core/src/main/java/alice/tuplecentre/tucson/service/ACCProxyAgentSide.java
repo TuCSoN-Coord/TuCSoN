@@ -92,7 +92,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ACCProxyAgentSide implements EnhancedACC {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
      * The tuple centre Identifier where RBAC structure is managed

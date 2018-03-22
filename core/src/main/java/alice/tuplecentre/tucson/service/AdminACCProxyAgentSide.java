@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  */
 public class AdminACCProxyAgentSide extends ACCProxyAgentSide implements AdminACC {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private final TupleCentreIdentifier tid;
     private boolean isAdminAuth;

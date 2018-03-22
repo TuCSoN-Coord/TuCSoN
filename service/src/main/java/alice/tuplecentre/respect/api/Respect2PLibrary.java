@@ -72,7 +72,7 @@ import org.slf4j.LoggerFactory;
  */
 public class Respect2PLibrary extends alice.tuprolog.Library {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().getClass());
+    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     private static final long serialVersionUID = 7865604500315298959L;
 
