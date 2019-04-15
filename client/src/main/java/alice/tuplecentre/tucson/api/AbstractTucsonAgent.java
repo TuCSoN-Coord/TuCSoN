@@ -37,8 +37,6 @@ import java.lang.invoke.MethodHandles;
  */
 public abstract class AbstractTucsonAgent<T extends RootACC> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
-
     private final TucsonAgentId aid;
     private final String nodeIp;
     private final int portNumber;
@@ -133,7 +131,7 @@ public abstract class AbstractTucsonAgent<T extends RootACC> {
      * {@link alice.tuplecentre.tucson.api.AbstractTucsonAgent#main main}
      */
     public final void go() {
-        new AgentThread(this).start();
+        new AgentThread().start();
     }
 
     /**
@@ -158,21 +156,23 @@ public abstract class AbstractTucsonAgent<T extends RootACC> {
      * @param portNumber     the portNumber relative to that address that should be used
      * @return the ACC retrieved by the Node specified at construction time
      */
-    protected abstract T retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) throws UnreachableNodeException, TucsonOperationNotPossibleException, OperationTimeOutException, TucsonInvalidAgentIdException;
+    protected abstract T retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) throws Exception;
 
     /**
      * Main execution cycle, user-defined.
      */
-    protected abstract void main() throws TucsonOperationNotPossibleException, UnreachableNodeException, OperationTimeOutException, TucsonInvalidAgentIdException, InterruptedException;
+    protected abstract void main() throws Exception;
 
     /**
      * Utility method to print on standard output the user agent activity.
      *
      * @param msg The message to print
      */
-    protected void say(final String msg) {
-        LOGGER.info("[" + this.aid.getLocalName() + "]: " + msg);
+    protected void say(final String msg, Object... args) {
+        System.out.println("[" + this.aid.getLocalName() + "]: " + String.format(msg, args));
     }
+
+    protected void onTermination() { }
 
 
     /**
@@ -183,24 +183,18 @@ public abstract class AbstractTucsonAgent<T extends RootACC> {
      */
     private final class AgentThread extends Thread {
 
-        private final AbstractTucsonAgent agent;
-
-        AgentThread(final AbstractTucsonAgent a) {
-            super();
-            this.agent = a;
-        }
-
         @Override
         public void run() {
             try {
-                this.agent.context = retrieveACC(agent.aid, agent.nodeIp, agent.portNumber);
-                this.agent.main();
-            } catch (UnreachableNodeException | TucsonOperationNotPossibleException | OperationTimeOutException | TucsonInvalidAgentIdException | InterruptedException e) {
+                context = retrieveACC(aid, nodeIp, portNumber);
+                main();
+            } catch (Exception e) {
                 e.printStackTrace();
             } finally {
-                if (this.agent.getACC() != null) {
-                    this.agent.getACC().exit();
+                if (getACC() != null) {
+                    getACC().exit();
                 }
+                onTermination();
             }
         }
     }
