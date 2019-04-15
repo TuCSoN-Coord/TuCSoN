@@ -20,7 +20,6 @@ import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -58,9 +57,9 @@ public final class HelloWorldJTuples {
             final OrdinaryAndSpecificationSyncACC acc = negAcc.playDefaultRole();
 
             /*
-             * 3) Define the tuplecentre target of your coordination operations.
+             * 3) Define the tuplecentre target copyOf your coordination operations.
              */
-            final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
+            final TucsonTupleCentreId tid = TucsonTupleCentreId.of("default",
                     "localhost", String.valueOf(TucsonInfo.getDefaultPortNumber()));
             /*
              * 4) Build the tuple using the communication language.

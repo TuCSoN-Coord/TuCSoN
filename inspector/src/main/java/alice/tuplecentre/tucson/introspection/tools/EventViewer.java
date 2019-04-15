@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -22,7 +22,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.tucson.introspection.InspectorProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogSendException;
@@ -65,7 +64,7 @@ public class EventViewer extends javax.swing.JFrame {
         this.pack();
         this.mainForm = mf;
         this.context = this.mainForm.agent.getContext();
-        this.setTitle("Pending TuCSoN operations set of tuplecentre < "
+        this.setTitle("Pending TuCSoN operations set copyOf tuplecentre < "
                 + this.mainForm.tid.getLocalName() + "@"
                 + this.mainForm.tid.getNode() + ":"
                 + this.mainForm.tid.getPort() + " >");
@@ -87,7 +86,7 @@ public class EventViewer extends javax.swing.JFrame {
     }
 
     /**
-     * @param l the number of items inspected
+     * @param l the number copyOf items inspected
      */
     public void setNItems(final long l) {
         this.outputNoItems.setText(String.valueOf(l));
@@ -111,7 +110,7 @@ public class EventViewer extends javax.swing.JFrame {
         final String st = this.inputFilterLog.getText();
         LogicTuple t = null;
         try {
-            t = LogicTuples.parse(st);
+            t = LogicTuple.parse(st);
         } catch (final InvalidLogicTupleException e) {
             this.outputState
                     .setText("Please input an admissible tuple template...");
@@ -128,7 +127,7 @@ public class EventViewer extends javax.swing.JFrame {
     private void buttonAcceptPatternActionPerformed() {
         try {
             final String st = this.inputFilterView.getText();
-            final LogicTuple t = LogicTuples.parse(st);
+            final LogicTuple t = LogicTuple.parse(st);
             this.mainForm.protocol.setWsetFilter(t);
             this.context.setProtocol(this.mainForm.protocol);
             this.buttonGetActionPerformed();

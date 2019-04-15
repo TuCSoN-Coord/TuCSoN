@@ -14,17 +14,17 @@ import alice.tuplecentre.tucson.network.messages.Message;
 public interface EventMessage extends Message {
 
     /**
-     * @return the id of the operation which caused the event
+     * @return the id copyOf the operation which caused the event
      */
     OperationIdentifier getOpId();
 
     /**
-     * @return the type code of the operation which caused the event
+     * @return the type code copyOf the operation which caused the event
      */
     TupleCentreOpType getOpType();
 
     /**
-     * @return the logic tuple argument of the operation which caused this event
+     * @return the logic tuple argument copyOf the operation which caused this event
      */
     LogicTuple getTuple();
 }

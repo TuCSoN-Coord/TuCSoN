@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Interface representing a RBAC (Role-Based Access Control) policy.
- * In TuCSoN, policies are a set of permissions.
+ * In TuCSoN, policies are a set copyOf permissions.
  *
  * @author Emanuele Buccelli
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
@@ -22,21 +22,21 @@ public interface Policy extends Serializable {
     /**
      * Gets the permissions associated to this policy
      *
-     * @return the permissions of this policy
+     * @return the permissions copyOf this policy
      */
     List<Permission> getPermissions();
 
     /**
-     * Gets the name of this policy
+     * Gets the name copyOf this policy
      *
-     * @return the name of this policy
+     * @return the name copyOf this policy
      */
     String getPolicyName();
 
     /**
      * Checks whether this policy has ALL the given permissions
      *
-     * @param permissions the set of permissions to check
+     * @param permissions the set copyOf permissions to check
      * @return {@code true} or {@code false} depending on wether ALL the
      * permissions were found
      */
@@ -52,14 +52,14 @@ public interface Policy extends Serializable {
     /**
      * Replaces the permissions associated to this policy
      *
-     * @param permissions the new set of permissions
+     * @param permissions the new set copyOf permissions
      */
     void setPermissions(final List<Permission> permissions);
 
     /**
-     * Replaces the name of this policy
+     * Replaces the name copyOf this policy
      *
-     * @param policyName the new name of this policy
+     * @param policyName the new name copyOf this policy
      */
     void setPolicyName(final String policyName);
 }

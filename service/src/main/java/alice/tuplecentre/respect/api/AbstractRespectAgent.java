@@ -1,12 +1,12 @@
 /*
  * ReSpceT Copyright (C) aliCE team at deis.unibo.it This library is free
- * software; you can redistribute it and/or modify it under the terms of the GNU
+ * software; you can redistribute it and/or modify it under the terms copyOf the GNU
  * Lesser General Public License as published by the Free Software Foundation;
- * either version 2.1 of the License, or (at your option) any later version.
+ * either version 2.1 copyOf the License, or (at your option) any later version.
  * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * ANY WARRANTY; without even the implied warranty copyOf MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details. You should have received a copy of the GNU Lesser General Public
+ * details. You should have received a copy copyOf the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -57,14 +57,14 @@ public abstract class AbstractRespectAgent {
     private IRespectTC tc;
 
     /**
-     * @param aid the identifier of this agent
+     * @param aid the identifier copyOf this agent
      */
     protected AbstractRespectAgent(final AgentId aid) {
         this.id = aid;
     }
 
     /**
-     * @param aid the identifier of this agent
+     * @param aid the identifier copyOf this agent
      * @param rtc the ReSpecT tuple centre this agent wants to operate on
      */
     protected AbstractRespectAgent(final AgentId aid, final IRespectTC rtc) {
@@ -73,7 +73,7 @@ public abstract class AbstractRespectAgent {
     }
 
     /**
-     * @return the identifier of this agent
+     * @return the identifier copyOf this agent
      */
     public AgentId getId() {
         return this.id;
@@ -101,7 +101,7 @@ public abstract class AbstractRespectAgent {
     }
 
     /**
-     * @param name the full name of the Java class to execute as the agent plan
+     * @param name the full name copyOf the Java class to execute as the agent plan
      */
     protected final void execPlan(final String name) {
         Method m = null;
@@ -118,7 +118,7 @@ public abstract class AbstractRespectAgent {
     }
 
     /**
-     * Body of the agent
+     * Body copyOf the agent
      */
     protected abstract void mainPlan();
 }

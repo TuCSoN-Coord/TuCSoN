@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -89,7 +89,7 @@ public interface UniformSyncACC extends SyncACC {
             UnreachableNodeException, OperationTimeOutException;
 
     /**
-     * <code>uno</code> TuCSoN primitive, checks absence of the specified tuple
+     * <code>uno</code> TuCSoN primitive, checks absence copyOf the specified tuple
      * in the given target tuplecentre. If more than one tuple matches the
      * template, Linda's non-deterministic selection is replaced by
      * PROBABILISTIC, UNIFORMLY DISTRIBUTED selection: the more a tuple is
@@ -122,7 +122,7 @@ public interface UniformSyncACC extends SyncACC {
             UnreachableNodeException, OperationTimeOutException;
 
     /**
-     * <code>unop</code> TuCSoN primitive, checks absence of the specified tuple
+     * <code>unop</code> TuCSoN primitive, checks absence copyOf the specified tuple
      * in the given target tuplecentre. If more than one tuple matches the
      * template, Linda's non-deterministic selection is replaced by
      * PROBABILISTIC, UNIFORMLY DISTRIBUTED selection: the more a tuple is

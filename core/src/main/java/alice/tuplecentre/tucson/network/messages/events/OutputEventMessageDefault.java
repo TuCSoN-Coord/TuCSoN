@@ -38,9 +38,9 @@ public class OutputEventMessageDefault extends AbstractEventMessage implements O
      * @param allowed   wether the operation is allowed
      * @param completed wether the operation completed
      * @param succeeded wether the operation succeeded
-     * @param req       the tuple argument of the operation
-     * @param res       the object result of the operation (can be a tuple or a list
-     *                  of tuples)
+     * @param req       the tuple argument copyOf the operation
+     * @param res       the object result copyOf the operation (can be a tuple or a list
+     *                  copyOf tuples)
      */
     public OutputEventMessageDefault(final OperationIdentifier opId, final TupleCentreOpType opType, final boolean allowed,
                                      final boolean completed, final boolean succeeded, final LogicTuple req,

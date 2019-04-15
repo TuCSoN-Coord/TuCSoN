@@ -44,9 +44,9 @@ public interface RBACStructure extends Serializable {
     void allowInspection(final boolean auth);
 
     /**
-     * Gets the set of authorised agents
+     * Gets the set copyOf authorised agents
      *
-     * @return the set of authorised agents
+     * @return the set copyOf authorised agents
      */
     List<AuthorisedAgent> getAuthorisedAgents();
 
@@ -58,23 +58,23 @@ public interface RBACStructure extends Serializable {
     String getBasicAgentClass();
 
     /**
-     * Gets the name of the organisation associated to this RBAC configuration
+     * Gets the name copyOf the organisation associated to this RBAC configuration
      *
-     * @return the name of the RBAC organisation
+     * @return the name copyOf the RBAC organisation
      */
     String getOrgName();
 
     /**
-     * Gets the set of policies configured for this RBAC structure
+     * Gets the set copyOf policies configured for this RBAC structure
      *
-     * @return the set of configured policies
+     * @return the set copyOf configured policies
      */
     List<Policy> getPolicies();
 
     /**
-     * Gets the set of roles configured for this RBAC structure
+     * Gets the set copyOf roles configured for this RBAC structure
      *
-     * @return the set of configured roles
+     * @return the set copyOf configured roles
      */
     List<Role> getRoles();
 
@@ -115,7 +115,7 @@ public interface RBACStructure extends Serializable {
     /**
      * Removes a policy from this RBAC structure
      *
-     * @param policyName the name of the policy to remove
+     * @param policyName the name copyOf the policy to remove
      */
     void removePolicy(final String policyName);
 
@@ -129,7 +129,7 @@ public interface RBACStructure extends Serializable {
     /**
      * Removes a role from this RBAC structure
      *
-     * @param roleName the name of the role to remove
+     * @param roleName the name copyOf the role to remove
      */
     void removeRole(final String roleName);
 

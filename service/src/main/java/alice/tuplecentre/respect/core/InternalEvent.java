@@ -1,12 +1,12 @@
 /*
  * ReSpecT - Copyright (C) aliCE team at deis.unibo.it This library is free
- * software; you can redistribute it and/or modify it under the terms of the GNU
+ * software; you can redistribute it and/or modify it under the terms copyOf the GNU
  * Lesser General Public License as published by the Free Software Foundation;
- * either version 2.1 of the License, or (at your option) any later version.
+ * either version 2.1 copyOf the License, or (at your option) any later version.
  * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * ANY WARRANTY; without even the implied warranty copyOf MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details. You should have received a copy of the GNU Lesser General Public
+ * details. You should have received a copy copyOf the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -15,7 +15,7 @@ package alice.tuplecentre.respect.core;
 import alice.tuplecentre.core.InputEvent;
 
 /**
- * Represents an internal events of the ReSpecT VM (stores the "connected"
+ * Represents an internal events copyOf the ReSpecT VM (stores the "connected"
  * InputEvent)
  *
  * @author Alessandro Ricci
@@ -30,7 +30,7 @@ public class InternalEvent extends alice.tuplecentre.core.AbstractEvent {
     private final InternalOperation internalOperation;
 
     /**
-     * @param ev the input events direct cause of this internal events
+     * @param ev the input events direct cause copyOf this internal events
      * @param op the ReSpecT operation generating this internal events
      */
     public InternalEvent(final InputEvent ev, final InternalOperation op) {
@@ -41,7 +41,7 @@ public class InternalEvent extends alice.tuplecentre.core.AbstractEvent {
     }
 
     /**
-     * @return the input events direct cause of this internal events
+     * @return the input events direct cause copyOf this internal events
      */
     public InputEvent getInputEvent() {
         return this.inputEvent;

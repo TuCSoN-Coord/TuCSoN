@@ -1,12 +1,12 @@
 /*
  * ReSpecT - Copyright (C) aliCE team at deis.unibo.it This library is free
- * software; you can redistribute it and/or modify it under the terms of the GNU
+ * software; you can redistribute it and/or modify it under the terms copyOf the GNU
  * Lesser General Public License as published by the Free Software Foundation;
- * either version 2.1 of the License, or (at your option) any later version.
+ * either version 2.1 copyOf the License, or (at your option) any later version.
  * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * ANY WARRANTY; without even the implied warranty copyOf MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details. You should have received a copy of the GNU Lesser General Public
+ * details. You should have received a copy copyOf the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
 /**
  * RespecT Tuple Centre Virtual Machine.
  * <p>
- * Defines the core behaviour of a tuple centre virtual machine.
+ * Defines the core behaviour copyOf a tuple centre virtual machine.
  * <p>
  * The behaviour reflects the operational semantic expressed in related tuple
  * centre articles.
@@ -65,7 +65,7 @@ public class RespectVM implements Runnable {
     protected final List<ObservableEventListener> observers;
 
     /**
-     * @param tid       the identifier of the tuple centre this VM should manage
+     * @param tid       the identifier copyOf the tuple centre this VM should manage
      * @param c         the ReSpecT tuple centres manager this VM should interact with
      * @param qSize     the maximum InQ size
      * @param respectTC the reference to the ReSpecT tuple centre this VM should
@@ -82,7 +82,7 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     * @param opId the progressive, unique per tuple centre identifier of an
+     * @param opId the progressive, unique per tuple centre identifier copyOf an
      *             operation
      * @return wether the operation has been succefully aborted
      */
@@ -95,14 +95,14 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     * @param l the listener of inspectable events to add
+     * @param l the listener copyOf inspectable events to add
      */
     public void addInspector(final InspectableEventListener l) {
         this.inspectors.add(l);
     }
 
     /**
-     * @param l the listener of observable events to add
+     * @param l the listener copyOf observable events to add
      */
     public void addObserver(final ObservableEventListener l) {
         this.observers.add(l);
@@ -110,7 +110,7 @@ public class RespectVM implements Runnable {
 
     /**
      * @param path     the path where persistency information is stored
-     * @param fileName the name of the file where persistency information is stored
+     * @param fileName the name copyOf the file where persistency information is stored
      */
     public void disablePersistency(final String path,
                                    final TucsonTupleCentreId fileName) {
@@ -118,7 +118,7 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     * @param id the identifier of who is issuing the operation
+     * @param id the identifier copyOf who is issuing the operation
      * @param op the operation requested
      * @throws OperationNotPossibleException if the requested operation cannot be carried out
      */
@@ -148,7 +148,7 @@ public class RespectVM implements Runnable {
 
     /**
      * @param path     the path where to store persistency information
-     * @param fileName the name of the file to create for storing persistency
+     * @param fileName the name copyOf the file to create for storing persistency
      *                 information
      */
     public void enablePersistency(final String path,
@@ -164,21 +164,21 @@ public class RespectVM implements Runnable {
     }
 
     /**
-     * @return the identifier of the tuple centre this VM is managing
+     * @return the identifier copyOf the tuple centre this VM is managing
      */
     public TupleCentreIdentifier getId() {
         return this.context.getId();
     }
 
     /**
-     * @return the list of inspector
+     * @return the list copyOf inspector
      */
     public ArrayList<InspectableEventListener> getInspectors() {
         return (ArrayList<InspectableEventListener>) this.inspectors;
     }
 
     /**
-     * @return the list of observable events listeners
+     * @return the list copyOf observable events listeners
      */
     public List<ObservableEventListener> getObservers() {
         return this.observers;
@@ -209,7 +209,7 @@ public class RespectVM implements Runnable {
 
     /**
      * @param filter the tuple template to be used in filtering tuples
-     * @return the list of tuples currently stored
+     * @return the list copyOf tuples currently stored
      */
     public LogicTuple[] getTSet(final LogicTuple filter) {
         return this.context.getTSet(filter);
@@ -217,7 +217,7 @@ public class RespectVM implements Runnable {
 
     /**
      * @param filter the tuple template to be used in filtering InQ events
-     * @return the list of InQ events currently stored
+     * @return the list copyOf InQ events currently stored
      */
     public WSetEvent[] getWSet(final LogicTuple filter) {
         return this.context.getWSet(filter);
@@ -414,8 +414,8 @@ public class RespectVM implements Runnable {
 
     /**
      * @param path   the path where persistency information is stored
-     * @param file   the name of the file where persistency information is stored
-     * @param tcName the name of the tuple centre to be recovered
+     * @param file   the name copyOf the file where persistency information is stored
+     * @param tcName the name copyOf the tuple centre to be recovered
      */
     public void recoveryPersistent(final String path, final String file,
                                    final TucsonTupleCentreId tcName) {

@@ -15,13 +15,13 @@ public interface JTuple extends Tuple {
     void addArg(final JVal arg) throws InvalidTupleException;
 
     /**
-     * @param i the index of the JVal to retrieve (starting from 0)
+     * @param i the index copyOf the JVal to retrieve (starting from 0)
      * @return the JVal retrieved
      */
     JVal getArg(final int i);
 
     /**
-     * @return the number of JVal in this JTuple
+     * @return the number copyOf JVal in this JTuple
      */
     int getNArgs();
 }

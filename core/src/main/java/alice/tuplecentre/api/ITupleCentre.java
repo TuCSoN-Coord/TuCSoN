@@ -15,7 +15,7 @@ public interface ITupleCentre {
     /**
      *
      * @param who
-     *            the identifier of the requestor of the operation
+     *            the identifier copyOf the requestor copyOf the operation
      * @param op
      *            the operation requested
      * @throws OperationNotPossibleException

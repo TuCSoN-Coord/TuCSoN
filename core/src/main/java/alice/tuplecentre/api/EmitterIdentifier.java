@@ -3,7 +3,7 @@ package alice.tuplecentre.api;
 import alice.tuprolog.Term;
 
 /**
- * Represents an operation emitter's interface: it could be both an agent of a
+ * Represents an operation emitter's interface: it could be both an agent copyOf a
  * tuple centre
  *
  * @author Matteo Casadei
@@ -31,12 +31,12 @@ public interface EmitterIdentifier extends Identifier {
     boolean isTC();
 
     /**
-     * @return the string representation of the local name of the identified emitter
+     * @return the string representation copyOf the local name copyOf the identified emitter
      */
     String getLocalName();
 
     /**
-     * Provides the logic term representation of the identifier of the emitter
+     * Provides the logic term representation copyOf the identifier copyOf the emitter
      *
      * @return the {@link Term} representing the identifier
      */

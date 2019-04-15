@@ -1,19 +1,19 @@
 /*
  * Copyright 1999-2014 Alma Mater Studiorum - Universita' di Bologna
  *
- * This file is part of TuCSoN <http://tucson.unibo.it>.
+ * This file is part copyOf TuCSoN <http://tucson.unibo.it>.
  *
  *    TuCSoN is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Lesser General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
+ *    it under the terms copyOf the GNU Lesser General Public License as published by
+ *    the Free Software Foundation, either version 3 copyOf the License, or
  *    (at your option) any later version.
  *
  *    TuCSoN is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *    GNU Lesser General Public License for more details.
  *
- *    You should have received a copy of the GNU Lesser General Public License
+ *    You should have received a copy copyOf the GNU Lesser General Public License
  *    along with TuCSoN.  If not, see <https://www.gnu.org/licenses/lgpl.html>.
  *
  */
@@ -29,7 +29,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
- * Root of the hierarchy of TuCSoN actions (aka coordination operations).
+ * Root copyOf the hierarchy copyOf TuCSoN actions (aka coordination operations).
  *
  * @author Luca Sangiorgi (mailto: luca.sangiorgi6@studio.unibo.it)
  * @author (contributor) Stefano Mariani (mailto: s.mariani@unibo.it)
@@ -37,30 +37,30 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 public abstract class AbstractTucsonAction {
 
     /**
-     * The Identifier of the TuCSoN tuple centre target of the operation
+     * The Identifier copyOf the TuCSoN tuple centre target copyOf the operation
      */
     protected final TucsonTupleCentreId tcid;
     /**
-     * The name of the TuCSoN tuple centre target of the operation
+     * The name copyOf the TuCSoN tuple centre target copyOf the operation
      */
     protected String tupleCentreName;
 
     /**
      * Builds a TuCSoN action whose target is the given tuple centre
      *
-     * @param tc the Identifier of the TuCSoN tuple centre target of the operation
+     * @param tc the Identifier copyOf the TuCSoN tuple centre target copyOf the operation
      */
     public AbstractTucsonAction(final TucsonTupleCentreId tc) {
         this.tcid = tc;
     }
 
     /**
-     * Requests execution of this TuCSoN action in ASYNCHRONOUS mode, that is,
-     * without blocking the caller until operation completion, regardless of the
+     * Requests execution copyOf this TuCSoN action in ASYNCHRONOUS mode, that is,
+     * without blocking the caller until operation completion, regardless copyOf the
      * operation suspensive/predicative semantics (e.g., a {@code in} without
      * matching tuples does not cause blocking the caller agent)
      *
-     * @param acc      the TuCSoN ACC in charge of action execution
+     * @param acc      the TuCSoN ACC in charge copyOf action execution
      * @param listener the TuCSoN listener responsible for handling completion
      *                 notifications
      * @return the TuCSoN operation requested
@@ -73,13 +73,13 @@ public abstract class AbstractTucsonAction {
             UnreachableNodeException;
 
     /**
-     * Requests execution of this TuCSoN action in SYNCHRONOUS mode, that is,
+     * Requests execution copyOf this TuCSoN action in SYNCHRONOUS mode, that is,
      * blocking the caller until operation completion (e.g., a {@code in}
      * without matching tuples does cause blocking the caller agent). This
      * method is mainly conceived for usage within TuCSoN4JADE bridge component:
      * see more at http://bitbucket.org/smariani/tucson4jade
      *
-     * @param acc     the TuCSoN ACC in charge of action execution
+     * @param acc     the TuCSoN ACC in charge copyOf action execution
      * @param timeout the maximum timeout the caller is willing to wait
      * @return the TuCSoN operation requested
      * @throws TucsonOperationNotPossibleException if the coordination operation request cannot be carried out

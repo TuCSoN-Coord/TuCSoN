@@ -2,7 +2,7 @@ package alice.tuplecentre.tucson.network.exceptions;
 
 /**
  * DialogReceiveException. Thrown if TuCSoN Node service can't handle reception
- * of a message.
+ * copyOf a message.
  *
  * @author Alessia Papini (mailto: alessia.papini@studio.unibo.it)
  * @author Mattia Balducci (mailto: mattia.balducci@studio.unibo.it)

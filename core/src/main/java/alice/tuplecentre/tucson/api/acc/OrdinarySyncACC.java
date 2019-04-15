@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -115,7 +115,7 @@ public interface OrdinarySyncACC extends SyncACC {
             UnreachableNodeException, OperationTimeOutException;
 
     /**
-     * <code>no</code> TuCSoN primitive, checks absence of the specified tuple
+     * <code>no</code> TuCSoN primitive, checks absence copyOf the specified tuple
      * in the given target tuplecentre.
      * <p>
      * Notice that the primitive semantics is SUSPENSIVE: until any tuple is
@@ -145,7 +145,7 @@ public interface OrdinarySyncACC extends SyncACC {
             UnreachableNodeException, OperationTimeOutException;
 
     /**
-     * <code>nop</code> TuCSoN primitive, checks absence of the specified tuple
+     * <code>nop</code> TuCSoN primitive, checks absence copyOf the specified tuple
      * in the given target tuplecentre.
      * <p>
      * This time the primitive semantics is NOT SUSPENSIVE: if any tuple is
@@ -177,7 +177,7 @@ public interface OrdinarySyncACC extends SyncACC {
      * <code>out</code> Linda primitive, inserts the specified tuple in the
      * given target tuplecentre.
      * <p>
-     * Notice that TuCSoN out primitive assumes the ORDERED version of this
+     * Notice that TuCSoN out primitive assumes the ORDERED version copyOf this
      * primitive, hence the tuple is SUDDENLY injected in the target space (if
      * the primitive successfully completes)
      *
@@ -264,7 +264,7 @@ public interface OrdinarySyncACC extends SyncACC {
      *
      * @param tid     the target TuCSoN tuplecentre id
      *                {@link TupleCentreIdentifier tid}
-     * @param tuple   the Prolog list of all the tuples to be injected (overwriting
+     * @param tuple   the Prolog list copyOf all the tuples to be injected (overwriting
      *                space)
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout
@@ -289,7 +289,7 @@ public interface OrdinarySyncACC extends SyncACC {
      * <p>
      * Notice that semantics is still NOT SUSPENSIVE: as soon as the parallel
      * activity has been started by the node, the completion is returned to the
-     * TuCSoN Agent exploiting this ACC. This is due to very nature of the spawn
+     * TuCSoN Agent exploiting this ACC. This is due to very nature copyOf the spawn
      * primitive, which is exactly meant to ASYNCHRONOUSLY start a PARALLEL
      * computational activity (despite this ACC being synchronous).
      *
@@ -298,10 +298,10 @@ public interface OrdinarySyncACC extends SyncACC {
      * @param toSpawn the tuple storing the activity to spawn as a parallel
      *                computation. Must be a Prolog term with functor name
      *                <code>exec/solve</code>, storing either a Java qualified class
-     *                name (dotted-list of packages and <code>.class</code>
+     *                name (dotted-list copyOf packages and <code>.class</code>
      *                extension too) or the filepath to a valid Prolog theory and a
      *                valid Prolog goal to be checked. E.g.:
-     *                <code>exec('list.of.packages.YourClass.class')</code> OR
+     *                <code>exec('list.copyOf.packages.YourClass.class')</code> OR
      *                <code>solve('path/to/Prolog/Theory.pl', yourGoal)</code>
      * @param timeout the maximum waiting time for completion tolerated by the
      *                TuCSoN agent behind this ACC. Notice that reaching the timeout

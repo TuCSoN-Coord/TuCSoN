@@ -15,9 +15,7 @@ import alice.tuple.java.exceptions.InvalidJValException;
 import alice.tuple.java.exceptions.InvalidJVarException;
 import alice.tuple.logic.LogicMatchingEngine;
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArguments;
 import alice.tuplecentre.api.exceptions.InvalidTupleException;
 
 /**
@@ -246,19 +244,19 @@ public final class JTuplesEngine {
         int i = 0;
         for (final JVal val : jt) {
             if (val.isDouble()) {
-                tas[i] = TupleArguments.newValueArgument("double", TupleArguments.newValueArgument(val.toDouble()));
+                tas[i] = TupleArgument.of("double", TupleArgument.of(val.toDouble()));
             } else if (val.isFloat()) {
-                tas[i] = TupleArguments.newValueArgument("float", TupleArguments.newValueArgument(val.toFloat()));
+                tas[i] = TupleArgument.of("float", TupleArgument.of(val.toFloat()));
             } else if (val.isInt()) {
-                tas[i] = TupleArguments.newValueArgument("int", TupleArguments.newValueArgument(val.toInt()));
+                tas[i] = TupleArgument.of("int", TupleArgument.of(val.toInt()));
             } else if (val.isLiteral()) {
-                tas[i] = TupleArguments.newValueArgument("literal", TupleArguments.newValueArgument(val.toLiteral()));
+                tas[i] = TupleArgument.of("literal", TupleArgument.of(val.toLiteral()));
             } else if (val.isLong()) {
-                tas[i] = TupleArguments.newValueArgument("long", TupleArguments.newValueArgument(val.toLong()));
+                tas[i] = TupleArgument.of("long", TupleArgument.of(val.toLong()));
             }
             i++;
         }
-        return LogicTuples.newInstance("javat", tas);
+        return LogicTuple.of("javat", tas);
     }
 
     /**
@@ -273,15 +271,15 @@ public final class JTuplesEngine {
             if (arg.isVal()) {
                 final JVal val = (JVal) arg;
                 if (val.isDouble()) {
-                    tas[i] = TupleArguments.newValueArgument("double", TupleArguments.newValueArgument(val.toDouble()));
+                    tas[i] = TupleArgument.of("double", TupleArgument.of(val.toDouble()));
                 } else if (val.isFloat()) {
-                    tas[i] = TupleArguments.newValueArgument("float", TupleArguments.newValueArgument(val.toFloat()));
+                    tas[i] = TupleArgument.of("float", TupleArgument.of(val.toFloat()));
                 } else if (val.isInt()) {
-                    tas[i] = TupleArguments.newValueArgument("int", TupleArguments.newValueArgument(val.toInt()));
+                    tas[i] = TupleArgument.of("int", TupleArgument.of(val.toInt()));
                 } else if (val.isLiteral()) {
-                    tas[i] = TupleArguments.newValueArgument("literal", TupleArguments.newValueArgument(val.toLiteral()));
+                    tas[i] = TupleArgument.of("literal", TupleArgument.of(val.toLiteral()));
                 } else if (val.isLong()) {
-                    tas[i] = TupleArguments.newValueArgument("long", TupleArguments.newValueArgument(val.toLong()));
+                    tas[i] = TupleArgument.of("long", TupleArgument.of(val.toLong()));
                 } else {
                     Logger.getLogger("JTuplesEngine").log(Level.FINEST,
                             "Error: Invalid JVal type");
@@ -290,22 +288,22 @@ public final class JTuplesEngine {
                 final JVar var = (JVar) arg;
                 switch (var.getType()) {
                     case ANY:
-                        tas[i] = TupleArguments.newVarArgument();
+                        tas[i] = TupleArgument.var();
                         break;
                     case DOUBLE:
-                        tas[i] = TupleArguments.newValueArgument("double", TupleArguments.newVarArgument());
+                        tas[i] = TupleArgument.of("double", TupleArgument.var());
                         break;
                     case FLOAT:
-                        tas[i] = TupleArguments.newValueArgument("float", TupleArguments.newVarArgument());
+                        tas[i] = TupleArgument.of("float", TupleArgument.var());
                         break;
                     case INT:
-                        tas[i] = TupleArguments.newValueArgument("int", TupleArguments.newVarArgument());
+                        tas[i] = TupleArgument.of("int", TupleArgument.var());
                         break;
                     case LITERAL:
-                        tas[i] = TupleArguments.newValueArgument("literal", TupleArguments.newVarArgument());
+                        tas[i] = TupleArgument.of("literal", TupleArgument.var());
                         break;
                     case LONG:
-                        tas[i] = TupleArguments.newValueArgument("long", TupleArguments.newVarArgument());
+                        tas[i] = TupleArgument.of("long", TupleArgument.var());
                         break;
                     default:
                         // cannot happen
@@ -316,7 +314,7 @@ public final class JTuplesEngine {
             }
             i++;
         }
-        return LogicTuples.newInstance("javat", tas);
+        return LogicTuple.of("javat", tas);
     }
 
     private JTuplesEngine() {

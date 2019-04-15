@@ -1,7 +1,6 @@
 package alice.tuplecentre.respect.api.geolocation.service;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.TupleCentreOpType;
@@ -32,7 +31,7 @@ public class GeoLocationServiceListenerDefault implements GeoLocationServiceList
      */
     private final GeoLocationService service;
     /**
-     * Identifier of the associated tuple centre
+     * Identifier copyOf the associated tuple centre
      */
     private final TucsonTupleCentreId tcId;
 
@@ -80,11 +79,11 @@ public class GeoLocationServiceListenerDefault implements GeoLocationServiceList
             LogicTuple tuple;
             RespectOperationDefault op = null;
             if (type == TupleCentreOpType.FROM) {
-                tuple = LogicTuples.parse("from(" + space + "," + place.toTerm()
+                tuple = LogicTuple.parse("from(" + space + "," + place.toTerm()
                         + ")");
                 op = RespectOperationDefault.makeFrom(tuple, null);
             } else if (type == TupleCentreOpType.TO) {
-                tuple = LogicTuples.parse("to(" + space + "," + place.toTerm()
+                tuple = LogicTuple.parse("to(" + space + "," + place.toTerm()
                         + ")");
                 op = RespectOperationDefault.makeTo(tuple, null);
             }

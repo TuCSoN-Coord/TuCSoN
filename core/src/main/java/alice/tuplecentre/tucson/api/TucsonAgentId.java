@@ -1,6 +1,7 @@
 package alice.tuplecentre.tucson.api;
 
 import alice.tuplecentre.api.AgentIdentifier;
+import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 
 /**
  * Interface for Tucson agent identifier
@@ -16,7 +17,7 @@ public interface TucsonAgentId extends AgentIdentifier {
     void assignUUID();
 
     /**
-     * @return the local agent identifier part of the full TuCSoN agent
+     * @return the local agent identifier part copyOf the full TuCSoN agent
      * identifier
      */
     AgentIdentifier getAgentId();
@@ -26,4 +27,12 @@ public interface TucsonAgentId extends AgentIdentifier {
      * univocally identify agents
      */
     String getAgentUUID();
+
+    static TucsonAgentId of(String string) throws TucsonInvalidAgentIdException {
+        return new TucsonAgentIdDefault(string);
+    }
+
+    static TucsonAgentId of(String string, final TucsonTupleCentreId tcId) {
+        return new TucsonAgentIdDefault(string, tcId);
+    }
 }

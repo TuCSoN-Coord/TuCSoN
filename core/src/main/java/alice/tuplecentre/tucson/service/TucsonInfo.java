@@ -22,9 +22,9 @@ public final class TucsonInfo {
     }
 
     /**
-     * Gets the actual version of TuCSoN Coordination Infrastructure
+     * Gets the actual version copyOf TuCSoN Coordination Infrastructure
      *
-     * @return a string containing the version of TuCSoN Coordination Infrastructure
+     * @return a string containing the version copyOf TuCSoN Coordination Infrastructure
      */
     public static String getVersion() {
         return VERSION;

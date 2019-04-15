@@ -15,11 +15,11 @@ public final class NetworkUtils {
     private static final Logger LOGGER = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
     /**
-     * Gets the decimal representation of the netmask of the address specified
+     * Gets the decimal representation copyOf the netmask copyOf the address specified
      * as input
      *
      * @param addr the complete address, specified in the form IP/Netmask
-     * @return the decimal representation of the netmask of the address
+     * @return the decimal representation copyOf the netmask copyOf the address
      * specified as input
      */
     public static String getDecimalNetmask(final String addr) {
@@ -47,10 +47,10 @@ public final class NetworkUtils {
     }
 
     /**
-     * Gets the IP address part of the address specified as input
+     * Gets the IP address part copyOf the address specified as input
      *
      * @param addr the complete address, specified in the form IP/Netmask
-     * @return the IP address part of the address specified as input
+     * @return the IP address part copyOf the address specified as input
      */
     public static String getIp(final String addr) {
         final String[] parts = addr.split("/");
@@ -58,10 +58,10 @@ public final class NetworkUtils {
     }
 
     /**
-     * Gets the Netmask address part of the address specified as input
+     * Gets the Netmask address part copyOf the address specified as input
      *
      * @param addr the complete address, specified in the form IP/Netmask
-     * @return the Netmask address part of the address specified as input
+     * @return the Netmask address part copyOf the address specified as input
      */
     public static int getNetmask(final String addr) {
         final String[] parts = addr.split("/");

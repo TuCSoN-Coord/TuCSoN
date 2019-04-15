@@ -18,7 +18,7 @@ public abstract class AbstractPhysicalPlace implements IPlace, Serializable {
     protected final Term place;
 
     /**
-     * @param p the String representation of the place
+     * @param p the String representation copyOf the place
      */
     public AbstractPhysicalPlace(final String p) {
         this.place = Term.createTerm(p);

@@ -12,10 +12,10 @@ public final class GeoUtils {
      * Calculates the distance in meters between who points expressed in
      * latitude and longitude coordinates.
      *
-     * @param lat1 the latitude coordinate of the start point
-     * @param lng1 the longitude coordinate of the start point
-     * @param lat2 the latitude coordinate of the end point
-     * @param lng2 the longitude coordinate of the end point
+     * @param lat1 the latitude coordinate copyOf the start point
+     * @param lng1 the longitude coordinate copyOf the start point
+     * @param lat2 the latitude coordinate copyOf the end point
+     * @param lng2 the longitude coordinate copyOf the end point
      * @return the distance between two points in meters
      */
     public static float distanceBetween(final float lat1, final float lng1,

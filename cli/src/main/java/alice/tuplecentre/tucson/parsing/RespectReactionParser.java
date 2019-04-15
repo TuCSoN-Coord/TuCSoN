@@ -54,7 +54,7 @@ public class RespectReactionParser {
     private final LogicTuple t;
 
     /**
-     * @param lt the logic tuple representation of the ReSpecT reaction
+     * @param lt the logic tuple representation copyOf the ReSpecT reaction
      */
     public RespectReactionParser(final LogicTuple lt) {
         this.t = lt;
@@ -65,7 +65,7 @@ public class RespectReactionParser {
     }
 
     /**
-     * @return the String representation of the ReSpecT reaction given to the
+     * @return the String representation copyOf the ReSpecT reaction given to the
      * parser
      */
     public String parse() {

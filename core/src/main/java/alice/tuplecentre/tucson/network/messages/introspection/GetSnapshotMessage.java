@@ -18,7 +18,7 @@ public interface GetSnapshotMessage extends NodeMessage {
     void setWhat(final SetType setType);
 
     /**
-     * Set types of wich to get a snapshot
+     * Set types copyOf wich to get a snapshot
      *
      * @author Enrico Siboni
      */

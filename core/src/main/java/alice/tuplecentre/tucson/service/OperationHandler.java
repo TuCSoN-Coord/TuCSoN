@@ -19,7 +19,6 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
@@ -266,7 +265,7 @@ public class OperationHandler {
 
     private static final int TRIES = 3;
     /**
-     * UUID of the agent using this OperationHandler
+     * UUID copyOf the agent using this OperationHandler
      */
     public final UUID agentUUID;
     /**
@@ -292,7 +291,7 @@ public class OperationHandler {
     protected final ACCDescription profile;
 
     /**
-     * @param uuid the Java UUID of the agent this handler serves.
+     * @param uuid the Java UUID copyOf the agent this handler serves.
      */
     public OperationHandler(final UUID uuid) {
         this.agentUUID = uuid;
@@ -314,14 +313,14 @@ public class OperationHandler {
      * Method to track expired operations, that is operations whose completion
      * has not been received before specified timeout expiration
      *
-     * @param id Unique Identifier of the expired operation
+     * @param id Unique Identifier copyOf the expired operation
      */
     public void addOperationExpired(final OperationIdentifier id) {
         this.operationExpiredIds.add(id);
     }
 
     /**
-     * Private method that takes in charge execution of all the Synchronous
+     * Private method that takes in charge execution copyOf all the Synchronous
      * primitives listed above. It simply forwards real execution to another
      * private method {@link alice.tuplecentre.tucson.api doOperation doOp} (notice that in
      * truth there is no real execution at this point: we are just packing
@@ -336,17 +335,17 @@ public class OperationHandler {
      * @param aid      the agent identifier
      * @param type     TuCSoN operation type (internal integer code)
      * @param tid      Target TuCSoN tuplecentre id
-     *                 {@link TucsonTupleCentreIdDefault tid}
+     *                 {@link TucsonTupleCentreId tid}
      * @param t        The Logic Tuple involved in the requested operation
      * @param ms       Maximum waiting time tolerated by the callee TuCSoN Agent
-     * @param position the {@link Position} of the agent invoking the operation
+     * @param position the {@link Position} copyOf the agent invoking the operation
      * @return An object representing the primitive invocation on the TuCSoN
      * infrastructure which will store its result
      * @throws TucsonOperationNotPossibleException if the operation requested cannot be performed
      * @throws UnreachableNodeException            if the target tuple centre cannot be reached over the network
      * @throws OperationTimeOutException           if the timeout associated to the operation requested expires
      *                                             prior to operation completion
-     * @see TucsonTupleCentreIdDefault TucsonTupleCentreId
+     * @see TucsonTupleCentreId TucsonTupleCentreId
      */
     public TucsonOperation doBlockingOperation(final TucsonAgentId aid,
                                                final TupleCentreOpType type, final Object tid, final Tuple t, final Long ms,
@@ -360,11 +359,11 @@ public class OperationHandler {
                 tcid = (TucsonTupleCentreId) tid;
                 break;
             case "alice.tuplecentre.respect.api.TupleCentreId":
-                tcid = new TucsonTupleCentreIdDefault((TupleCentreIdentifier) tid);
+                tcid = TucsonTupleCentreId.of((TupleCentreIdentifier) tid);
                 break;
             case "java.lang.String":
                 try {
-                    tcid = new TucsonTupleCentreIdDefault((String) tid);
+                    tcid = TucsonTupleCentreId.of((String) tid);
                 } catch (final TucsonInvalidTupleCentreIdException ex) {
                     LOGGER.error("[ACCProxyAgentSide]: " + ex);
                     return null;
@@ -384,7 +383,7 @@ public class OperationHandler {
     }
 
     /**
-     * Private method that takes in charge execution of all the Asynchronous
+     * Private method that takes in charge execution copyOf all the Asynchronous
      * primitives listed above. It simply forwards real execution to another
      * private method {@link alice.tuplecentre.tucson.api doOperation doOp} (notice that in
      * truth there is no real execution at this point: we are just packing
@@ -394,15 +393,15 @@ public class OperationHandler {
      * @param aid      the agent identifier
      * @param type     TuCSoN operation type (internal integer code)
      * @param tid      Target TuCSoN tuplecentre id
-     *                 {@link TucsonTupleCentreIdDefault tid}
+     *                 {@link TucsonTupleCentreId tid}
      * @param t        The Logic Tuple involved in the requested operation
      * @param l        The listener who should be notified upon operation completion
-     * @param position the {@link Position} of the agent invoking the operation
+     * @param position the {@link Position} copyOf the agent invoking the operation
      * @return An object representing the primitive invocation on the TuCSoN
      * infrastructure which will store its result
      * @throws TucsonOperationNotPossibleException if the operation requested cannot be performed
      * @throws UnreachableNodeException            if the target tuple centre cannot be reached over the network
-     * @see TucsonTupleCentreIdDefault TucsonTupleCentreId
+     * @see TucsonTupleCentreId TucsonTupleCentreId
      * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
@@ -420,12 +419,12 @@ public class OperationHandler {
                 tcid = (TucsonTupleCentreId) tid;
                 break;
             case "alice.tuplecentre.respect.api.TupleCentreId":
-                tcid = new TucsonTupleCentreIdDefault((TupleCentreIdentifier) tid);
+                tcid = TucsonTupleCentreId.of((TupleCentreIdentifier) tid);
                 // log("tcid = " + tcid);
                 break;
             case "java.lang.String":
                 try {
-                    tcid = new TucsonTupleCentreIdDefault((String) tid);
+                    tcid = TucsonTupleCentreId.of((String) tid);
                 } catch (final TucsonInvalidTupleCentreIdException ex) {
                     LOGGER.error("[ACCProxyAgentSide]: " + ex);
                     return null;
@@ -438,7 +437,7 @@ public class OperationHandler {
     }
 
     /**
-     * @return the Map associations between the String representation of a
+     * @return the Map associations between the String representation copyOf a
      * TuCSoN node network address and the TuCSoN protocol session
      * currently active toward those nodes
      */
@@ -462,7 +461,7 @@ public class OperationHandler {
     }
 
     /**
-     * This method is the real responsible of TuCSoN operations execution.
+     * This method is the real responsible copyOf TuCSoN operations execution.
      * <p>
      * First, it takes the target tuplecentre and checks wether this proxy has
      * ever established a connection toward it: if it did, the already opened
@@ -478,7 +477,7 @@ public class OperationHandler {
      * <p>
      * Notice that a listener is needed, who is the proxy itself, wichever was
      * the requested operation (inp, in, etc.) and despite its (a-)synchronous
-     * behavior. This is because of the distributed very nature of TuCSoN: we
+     * behavior. This is because copyOf the distributed very nature copyOf TuCSoN: we
      * couldn't expect to block on a socket waiting for a reply. Instead,
      * requested operations should be dispatched toward the TuCSoN Node Service,
      * which in turn will take them in charge and notify the requestor upon
@@ -486,15 +485,15 @@ public class OperationHandler {
      *
      * @param aid      the agent identifier
      * @param tcid     Target TuCSoN tuplecentre id
-     *                 {@link TucsonTupleCentreIdDefault tid}
+     *                 {@link TucsonTupleCentreId tid}
      * @param type     TuCSoN operation type (internal integer code)
      * @param t        The Logic Tuple involved in the requested operation
      * @param l        The listener who should be notified upon operation completion
-     * @param position the {@link Position} of the agent invoking the operation
+     * @param position the {@link Position} copyOf the agent invoking the operation
      * @return An object representing the primitive invocation on the TuCSoN
      * infrastructure which will store its result
      * @throws UnreachableNodeException if the target tuple centre cannot be reached over the network
-     * @see TucsonTupleCentreIdDefault TucsonTupleCentreId
+     * @see TucsonTupleCentreId TucsonTupleCentreId
      * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
      * TucsonOperationCompletionListener
      * @see TucsonOperation TucsonOperation
@@ -580,7 +579,7 @@ public class OperationHandler {
      * retrieved and used. If not, the new connection is setup then stored for
      * later use.
      * <p>
-     * It is worth noting a couple of things. Why don't we setup connections
+     * It is worth noting a couple copyOf things. Why don't we setup connections
      * once and for all as soon as the TuCSoN Agent is booted? The reason is
      * that new tuplecentres can be created at run-time as TuCSoN Agents please,
      * thus for every TuCSoN Operation request we should check wether a new
@@ -589,7 +588,7 @@ public class OperationHandler {
      * booted
      *
      * @param tid Target TuCSoN tuplecentre id
-     *            {@link TucsonTupleCentreIdDefault tid}
+     *            {@link TucsonTupleCentreId tid}
      * @param aid the agent identifier
      * @return The open session toward the given target tuplecentre
      * @throws UnreachableNodeException if the target tuple centre cannot be reached over the network
@@ -652,7 +651,7 @@ public class OperationHandler {
     /**
      * Method to add a TuCSoN Operation Completion Event
      * {@link alice.tuplecentre.tucson.service.TucsonOpCompletionEvent events} to the
-     * internal queue of pending completion events to process
+     * internal queue copyOf pending completion events to process
      *
      * @param ev Completion Event to be added to pending queue
      * @see alice.tuplecentre.tucson.service.TucsonOpCompletionEvent TucsonOpCompletionEvent

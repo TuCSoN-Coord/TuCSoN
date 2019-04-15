@@ -1,7 +1,7 @@
 /**
  * This work by Danilo Pianini is licensed under a Creative Commons
  * Attribution-NonCommercial-ShareAlike 3.0 Italy License. Permissions beyond
- * the scope of this license may be available at www.danilopianini.org.
+ * the scope copyOf this license may be available at www.danilopianini.org.
  */
 package alice.tuplecentre.tucson.utilities;
 
@@ -22,7 +22,7 @@ public final class Utils {
 
     /**
      * @param path the filepath toward the file to be read
-     * @return the String representation of the content of the read file
+     * @return the String representation copyOf the content copyOf the read file
      * @throws IOException if the file cannot be found or access permissions do not
      *                     allow reading
      */

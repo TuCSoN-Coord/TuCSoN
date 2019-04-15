@@ -10,7 +10,7 @@ public class TucsonPrimitiveParser {
     private final String input;
 
     /**
-     * @param in the String representation of the TuCSoN primitive to be parsed
+     * @param in the String representation copyOf the TuCSoN primitive to be parsed
      */
     public TucsonPrimitiveParser(final String in) {
         this.input = in;

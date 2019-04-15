@@ -31,27 +31,27 @@ public interface JVal extends JArg {
     boolean isLong();
 
     /**
-     * @return the double value of the JVal
+     * @return the double value copyOf the JVal
      */
     double toDouble();
 
     /**
-     * @return the float value of the JVal
+     * @return the float value copyOf the JVal
      */
     float toFloat();
 
     /**
-     * @return the int value of the JVal
+     * @return the int value copyOf the JVal
      */
     int toInt();
 
     /**
-     * @return the literal (Java String) value of the JVal
+     * @return the literal (Java String) value copyOf the JVal
      */
     String toLiteral();
 
     /**
-     * @return the long value of the JVal
+     * @return the long value copyOf the JVal
      */
     long toLong();
 }

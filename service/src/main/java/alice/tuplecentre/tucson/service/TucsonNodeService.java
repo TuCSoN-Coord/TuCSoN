@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -32,9 +32,7 @@ import java.util.*;
 import alice.tuple.Tuple;
 import alice.tuple.logic.LogicMatchingEngine;
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
 import alice.tuplecentre.core.InputEvent;
@@ -47,7 +45,6 @@ import alice.tuplecentre.respect.core.RespectTC;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.InvalidConfigException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonGenericException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -182,7 +179,7 @@ public class TucsonNodeService {
             Tuple template = null;
             if (persistencyInfo != null) {
                 try {
-                    template = LogicTuples.parse(persistencyInfo);
+                    template = LogicTuple.parse(persistencyInfo);
                 } catch (final InvalidLogicTupleException e) {
                     LOGGER.error("Invalid persistency template");
                     System.exit(-1);
@@ -245,7 +242,7 @@ public class TucsonNodeService {
     }
 
     /**
-     * @param portno the default listening port of this TuCSoN node
+     * @param portno the default listening port copyOf this TuCSoN node
      */
     public TucsonNodeService(final int portno) {
         this(null, portno, null);
@@ -253,7 +250,7 @@ public class TucsonNodeService {
 
     /**
      * @param conf         the configuration file to load
-     * @param portNumber   the default listening port of this TuCSoN node
+     * @param portNumber   the default listening port copyOf this TuCSoN node
      * @param persistTempl the persistency template to be used to permanently store
      *                     tuples
      */
@@ -264,13 +261,13 @@ public class TucsonNodeService {
         this.persistencyTemplate = persistTempl;
         try {
             this.nodeAid = new TucsonAgentIdDefault("'$TucsonNodeService-Agent'");
-            this.idConfigTC = new TucsonTupleCentreIdDefault("'$ORG'", "localhost",
+            this.idConfigTC = TucsonTupleCentreId.of("'$ORG'", "localhost",
                     String.valueOf(this.tcpPort));
-            this.idObsTC = new TucsonTupleCentreIdDefault("'$OBS'", "localhost",
+            this.idObsTC = TucsonTupleCentreId.of("'$OBS'", "localhost",
                     String.valueOf(this.tcpPort));
-            this.idEnvTC = new TucsonTupleCentreIdDefault("'$ENV'", "localhost",
+            this.idEnvTC = TucsonTupleCentreId.of("'$ENV'", "localhost",
                     String.valueOf(this.tcpPort));
-            this.idGeolocationTC = new TucsonTupleCentreIdDefault(
+            this.idGeolocationTC = TucsonTupleCentreId.of(
                     "geolocationConfigTC", "localhost",
                     String.valueOf(this.tcpPort));
         } catch (final TucsonInvalidAgentIdException | TucsonInvalidTupleCentreIdException e) {
@@ -306,7 +303,7 @@ public class TucsonNodeService {
     }
 
     /**
-     * @param aid the identifier of the agent to add to this TuCSoN node
+     * @param aid the identifier copyOf the agent to add to this TuCSoN node
      */
     public synchronized void addAgent(final TucsonAgentId aid) {
         boolean present = false;
@@ -328,7 +325,7 @@ public class TucsonNodeService {
     }
 
     /**
-     * @param t the identifier of the internal management agent to add to this
+     * @param t the identifier copyOf the internal management agent to add to this
      *          TuCSoN node
      */
     public synchronized void addNodeAgent(final Thread t) {
@@ -336,9 +333,9 @@ public class TucsonNodeService {
     }
 
     /**
-     * @param agentId the identifier of the tuple centre agent to add to this TuCSoN
+     * @param agentId the identifier copyOf the tuple centre agent to add to this TuCSoN
      *                node
-     * @param tid     the identifier of the tuple centre whose agent has to be added
+     * @param tid     the identifier copyOf the tuple centre whose agent has to be added
      */
     // why another slightly different method to add an agent? is this for
     // inter-tc agents?
@@ -373,7 +370,7 @@ public class TucsonNodeService {
         }
         TucsonTupleCentreId tid;
         try {
-            tid = new TucsonTupleCentreIdDefault(tcName.toString());
+            tid = TucsonTupleCentreId.of(tcName.toString());
         } catch (final TucsonInvalidTupleCentreIdException e) {
             LOGGER.error(e.getMessage(), e);
             return false;
@@ -388,10 +385,10 @@ public class TucsonNodeService {
                 this.obsService.tcDestroyed(tid);
             }
             try {
-                final TupleArgument tcArg = TupleArguments.parse(realName);
+                final TupleArgument tcArg = TupleArgument.parse(realName);
                 // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                        TupleCentreOpType.INP, LogicTuples.newInstance(
+                        TupleCentreOpType.INP, LogicTuple.of(
                                 "tuple_centre", tcArg), null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.nodeAid, opRequested,
@@ -399,17 +396,17 @@ public class TucsonNodeService {
                 TupleCentreContainer.doBlockingOperation(ev);
                 // TupleCentreContainer.doBlockingOperation(
                 // TupleCentreOpType.INP, this.nodeAid,
-                // this.idConfigTC, LogicTuples.newInstance("tuple_centre", tcArg));
+                // this.idConfigTC, LogicTuples.fromTerm("tuple_centre", tcArg));
                 final RespectOperationDefault opRequested2 = RespectOperationDefault.make(
-                        TupleCentreOpType.INP, LogicTuples.newInstance(
-                                "is_persistent", TupleArguments.newValueArgument(realName)), null);
+                        TupleCentreOpType.INP, LogicTuple.of(
+                                "is_persistent", TupleArgument.of(realName)), null);
                 final InputEvent ev2 = new InputEvent(this.nodeAid,
                         opRequested2, this.idConfigTC,
                         System.currentTimeMillis(), null);
                 TupleCentreContainer.doBlockingOperation(ev2);
                 // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                 // .inpCode(), this.nodeAid, this.idConfigTC,
-                // LogicTuples.newInstance("is_persistent", TupleArguments.newValueArgument(realName)));
+                // LogicTuples.fromTerm("is_persistent", TupleArguments.copyOf(realName)));
             } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | TucsonInvalidLogicTupleException | InvalidTupleArgumentException e) {
                 LOGGER.error(e.getMessage(), e);
             }
@@ -420,7 +417,7 @@ public class TucsonNodeService {
     }
 
     /**
-     * @param tc the identifier of the tuple centre whose persistency service
+     * @param tc the identifier copyOf the tuple centre whose persistency service
      *           should be disabled
      * @return wether persistency has been succesfully disabled
      */
@@ -429,8 +426,8 @@ public class TucsonNodeService {
         try {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                    TupleCentreOpType.IN, LogicTuples.newInstance("is_persistent",
-                            TupleArguments.newValueArgument(tar.getTucsonTupleCentreId().getLocalName())),
+                    TupleCentreOpType.IN, LogicTuple.of("is_persistent",
+                            TupleArgument.of(tar.getTucsonTupleCentreId().getLocalName())),
                     null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.nodeAid, opRequested,
@@ -441,8 +438,8 @@ public class TucsonNodeService {
             return true;
 
             // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.IN,
-            // this.nodeAid, tar.getTucsonTupleCentreId(), LogicTuples.newInstance(
-            // "is_persistent", TupleArguments.newValueArgument(tar
+            // this.nodeAid, tar.getTucsonTupleCentreId(), LogicTuples.fromTerm(
+            // "is_persistent", TupleArguments.copyOf(tar
             // .getTucsonTupleCentreId().getName())));
         } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | TucsonInvalidLogicTupleException e) {
             LOGGER.error(e.getMessage(), e);
@@ -460,15 +457,15 @@ public class TucsonNodeService {
                 try {
                     final TucsonTupleCentreId ttcid = tc
                             .getTucsonTupleCentreId();
-                    final Tuple tid = LogicTuples.parse(ttcid.getLocalName());
+                    final Tuple tid = LogicTuple.parse(ttcid.getLocalName());
                     LOGGER.info(">>> Found tid: " + tid);
                     if (LogicMatchingEngine.match((LogicTuple) template,
                             (LogicTuple) tid)) {
                         LOGGER.info(">>> It matches: disabling persistency...");
                         // Operation Make
                         final RespectOperationDefault opRequested = RespectOperationDefault
-                                .make(TupleCentreOpType.IN, LogicTuples.newInstance(
-                                        "is_persistent", TupleArguments.newValueArgument(tc
+                                .make(TupleCentreOpType.IN, LogicTuple.of(
+                                        "is_persistent", TupleArgument.of(tc
                                                 .getTucsonTupleCentreId()
                                                 .getLocalName())), null);
                         // InputEvent Creation
@@ -479,7 +476,7 @@ public class TucsonNodeService {
                         // TupleCentreContainer.doBlockingOperation(
                         // TupleCentreOpType.IN, this.nodeAid, tc
                         // .getTucsonTupleCentreId(),
-                        // LogicTuples.newInstance("is_persistent", TupleArguments.newValueArgument(tc
+                        // LogicTuples.fromTerm("is_persistent", TupleArguments.copyOf(tc
                         // .getTucsonTupleCentreId().getName())));
                         LOGGER.info(">>> persistency disabled.");
                     }
@@ -498,7 +495,7 @@ public class TucsonNodeService {
     /**
      * UNUSED ATM
      *
-     * @param tc the identifier of the tuple centre whose persistency service
+     * @param tc the identifier copyOf the tuple centre whose persistency service
      *           should be enabled
      * @return wether persistency has been succesfully enabled
      */
@@ -507,8 +504,8 @@ public class TucsonNodeService {
         try {
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                    TupleCentreOpType.OUT, LogicTuples.newInstance("is_persistent",
-                            TupleArguments.newValueArgument(tar.getTucsonTupleCentreId().getLocalName())),
+                    TupleCentreOpType.OUT, LogicTuple.of("is_persistent",
+                            TupleArgument.of(tar.getTucsonTupleCentreId().getLocalName())),
                     null);
             // InputEvent Creation
             final InputEvent ev = new InputEvent(this.nodeAid, opRequested,
@@ -516,8 +513,8 @@ public class TucsonNodeService {
                     null);
             TupleCentreContainer.doBlockingOperation(ev);
             // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.OUT,
-            // this.nodeAid, tar.getTucsonTupleCentreId(), LogicTuples.newInstance(
-            // "is_persistent", TupleArguments.newValueArgument(tar
+            // this.nodeAid, tar.getTucsonTupleCentreId(), LogicTuples.fromTerm(
+            // "is_persistent", TupleArguments.copyOf(tar
             // .getTucsonTupleCentreId().getName())));
             return true;
         } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | TucsonInvalidLogicTupleException e) {
@@ -536,7 +533,7 @@ public class TucsonNodeService {
         for (TucsonTCUsers tc : this.cores.values()) {
             try {
                 final TucsonTupleCentreId ttcid = tc.getTucsonTupleCentreId();
-                final Tuple tid = LogicTuples.parse(ttcid.getLocalName());
+                final Tuple tid = LogicTuple.parse(ttcid.getLocalName());
                 LOGGER.info(">>> Found tid: " + tid);
                 if (LogicMatchingEngine.match((LogicTuple) template,
                         (LogicTuple) tid)) {
@@ -545,9 +542,9 @@ public class TucsonNodeService {
                             PERSISTENCY_PATH);
                     // Operation Make
                     final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                            TupleCentreOpType.OUT, LogicTuples.newInstance(
+                            TupleCentreOpType.OUT, LogicTuple.of(
                                     "is_persistent",
-                                    TupleArguments.newValueArgument(tc.getTucsonTupleCentreId()
+                                    TupleArgument.of(tc.getTucsonTupleCentreId()
                                             .getLocalName())), null);
                     // InputEvent Creation
                     final InputEvent ev = new InputEvent(this.nodeAid,
@@ -556,8 +553,8 @@ public class TucsonNodeService {
                     TupleCentreContainer.doBlockingOperation(ev);
                     // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                     // .outCode(), this.nodeAid, tc
-                    // .getTucsonTupleCentreId(), LogicTuples.newInstance(
-                    // "is_persistent", TupleArguments.newValueArgument(tc
+                    // .getTucsonTupleCentreId(), LogicTuples.fromTerm(
+                    // "is_persistent", TupleArguments.copyOf(tc
                     // .getTucsonTupleCentreId().getName())));
                     LOGGER.info(">>> persistency enabled.");
                 }
@@ -568,8 +565,8 @@ public class TucsonNodeService {
     }
 
     /**
-     * @return a Map storing associations between String representations of
-     * tuple centres along with the list of their users
+     * @return a Map storing associations between String representations copyOf
+     * tuple centres along with the list copyOf their users
      */
     public Map<String, TucsonTCUsers> getCores() {
         return this.cores;
@@ -590,7 +587,7 @@ public class TucsonNodeService {
     }
 
     /**
-     * @return the observer of the TuCSoN node, if any
+     * @return the observer copyOf the TuCSoN node, if any
      */
     public NodeServiceListener getListener() {
         return this.obsService;
@@ -652,7 +649,7 @@ public class TucsonNodeService {
     }
 
     /**
-     * @param aid the identifier of the TuCSoN agent to be removed from users
+     * @param aid the identifier copyOf the TuCSoN agent to be removed from users
      */
     public synchronized void removeAgent(final TucsonAgentId aid) {
         boolean present = true;
@@ -685,7 +682,7 @@ public class TucsonNodeService {
     }
 
     /**
-     * @param tcn the String representation of the tuple centre whose usage
+     * @param tcn the String representation copyOf the tuple centre whose usage
      *            associations should be retrieved
      * @return the Object representing associations between agents and tuple
      * centre they're using
@@ -700,7 +697,7 @@ public class TucsonNodeService {
         }
         TucsonTupleCentreId tid;
         try {
-            tid = new TucsonTupleCentreIdDefault(tcName.toString());
+            tid = TucsonTupleCentreId.of(tcName.toString());
         } catch (final TucsonInvalidTupleCentreIdException e) {
             LOGGER.error(e.getMessage(), e);
             return null;
@@ -822,7 +819,7 @@ public class TucsonNodeService {
         if (n.indexOf(':') < 0) {
             name.append(':').append("'").append(this.tcpPort).append("'");
         }
-        final TucsonTupleCentreId id = new TucsonTupleCentreIdDefault(name.toString());
+        final TucsonTupleCentreId id = TucsonTupleCentreId.of(name.toString());
         try {
             final RespectTC rtc = TupleCentreContainer.createTC(id,
                     MAX_EVENT_QUEUE_SIZE, this.tcpPort);
@@ -880,8 +877,8 @@ public class TucsonNodeService {
                             // Operation Make
                             final RespectOperationDefault opRequested = RespectOperationDefault
                                     .make(TupleCentreOpType.OUT,
-                                            LogicTuples.newInstance("is_persistent",
-                                                    TupleArguments.newValueArgument(tcName)), null);
+                                            LogicTuple.of("is_persistent",
+                                                    TupleArgument.of(tcName)), null);
                             // InputEvent Creation
                             final InputEvent ev = new InputEvent(this.nodeAid,
                                     opRequested, this.cores.get(tcName)
@@ -914,7 +911,7 @@ public class TucsonNodeService {
                             DEFAULT_BOOT_SPEC_FILE);
             final String spec = alice.util.Tools
                     .loadText(new BufferedInputStream(is));
-            final LogicTuple specTuple = LogicTuples.newInstance("spec", TupleArguments.newValueArgument(spec));
+            final LogicTuple specTuple = LogicTuple.of("spec", TupleArgument.of(spec));
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.SET_S, specTuple, null);
 
@@ -923,7 +920,7 @@ public class TucsonNodeService {
                     this.idConfigTC, System.currentTimeMillis(), null);
             TupleCentreContainer.doBlockingSpecOperation(ev, specTuple);
             final RespectOperationDefault opRequested2 = RespectOperationDefault.make(
-                    TupleCentreOpType.OUT, LogicTuples.newInstance("boot"), null);
+                    TupleCentreOpType.OUT, LogicTuple.of("boot"), null);
             final InputEvent ev2 = new InputEvent(this.nodeAid, opRequested2,
                     this.idConfigTC, System.currentTimeMillis(), null);
             TupleCentreContainer.doNonBlockingOperation(ev2);
@@ -931,7 +928,7 @@ public class TucsonNodeService {
             // Set default agent class
             final RespectOperationDefault opRequested3 = RespectOperationDefault.make(
                     TupleCentreOpType.OUT,
-                    LogicTuples.newInstance("basic_agent_class", TupleArguments.newValueArgument(
+                    LogicTuple.of("basic_agent_class", TupleArgument.of(
                             this.baseAgentClass)), null);
             final InputEvent ev3 = new InputEvent(this.nodeAid, opRequested3,
                     this.idConfigTC, System.currentTimeMillis(), null);
@@ -939,24 +936,24 @@ public class TucsonNodeService {
 
             // Set login required
             final RespectOperationDefault opRequested4 = RespectOperationDefault.make(
-                    TupleCentreOpType.OUT, LogicTuples.newInstance(
-                            "is_login_required", TupleArguments.newValueArgument(
+                    TupleCentreOpType.OUT, LogicTuple.of(
+                            "is_login_required", TupleArgument.of(
                                     this.loginRequired ? "yes" : "no")), null);
             final InputEvent ev4 = new InputEvent(this.nodeAid, opRequested4,
                     this.idConfigTC, System.currentTimeMillis(), null);
             TupleCentreContainer.doBlockingOperation(ev4);
 
-            // Allow or not list of all roles
+            // Allow or not list copyOf all roles
             final RespectOperationDefault opRequested5 = RespectOperationDefault.make(
-                    TupleCentreOpType.OUT, LogicTuples.newInstance("list_all_roles",
-                            TupleArguments.newValueArgument(this.listAllRoles ? "yes" : "no")), null);
+                    TupleCentreOpType.OUT, LogicTuple.of("list_all_roles",
+                            TupleArgument.of(this.listAllRoles ? "yes" : "no")), null);
             final InputEvent ev5 = new InputEvent(this.nodeAid, opRequested5,
                     this.idConfigTC, System.currentTimeMillis(), null);
             TupleCentreContainer.doBlockingOperation(ev5);
 
             final RespectOperationDefault opRequested6 = RespectOperationDefault.make(
-                    TupleCentreOpType.OUT, LogicTuples.newInstance(
-                            "allow_inspection", TupleArguments.newValueArgument(
+                    TupleCentreOpType.OUT, LogicTuple.of(
+                            "allow_inspection", TupleArgument.of(
                                     this.inspectorsAuthorised ? "yes" : "no")),
                     null);
             final InputEvent ev6 = new InputEvent(this.nodeAid, opRequested6,
@@ -964,24 +961,24 @@ public class TucsonNodeService {
             TupleCentreContainer.doBlockingOperation(ev6);
 
             // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.OUT,
-            // this.nodeAid, this.idConfigTC, LogicTuples.newInstance("role", new
-            // Value("admin_role"), TupleArguments.newValueArgument("admin role"), TupleArguments.newValueArgument("0")));
+            // this.nodeAid, this.idConfigTC, LogicTuples.fromTerm("role", new
+            // Value("admin_role"), TupleArguments.copyOf("admin role"), TupleArguments.copyOf("0")));
             /*
              * if(!authForAdmin){
              * TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
              * .outCode(), this.nodeAid, this.idConfigTC, new
-             * LogicTuple("role_credentials", TupleArguments.newValueArgument("admin_role"), new
+             * LogicTuple("role_credentials", TupleArguments.copyOf("admin_role"), new
              * Value("_"))); } else if(adminUsername!=null &&
              * !adminUsername.equalsIgnoreCase("") && adminPassword!=null &&
              * !adminPassword.equalsIgnoreCase("")) {
              * TupleCentreContainer.doBlockingOperation
              * (TupleCentreOpType.OUT, nodeAid, idConfigTC, new
-             * LogicTuple("role_credentials", TupleArguments.newValueArgument("admin_role"), new
+             * LogicTuple("role_credentials", TupleArguments.copyOf("admin_role"), new
              * Value(adminUsername+":"+TucsonACCTool.encrypt(adminPassword))));
              * } else {
              * TupleCentreContainer.doBlockingOperation(TucsonOperationDefault.
              * outCode(), this.nodeAid, this.idConfigTC, new
-             * LogicTuple("role_credentials", TupleArguments.newValueArgument("admin_role"), new
+             * LogicTuple("role_credentials", TupleArguments.copyOf("admin_role"), new
              * Value("_"))); }
              */
             if (this.adminUsername != null
@@ -991,7 +988,7 @@ public class TucsonNodeService {
 
                 final RespectOperationDefault opRequested7 = RespectOperationDefault.make(
                         TupleCentreOpType.OUT,
-                        LogicTuples.newInstance("admin_credentials", TupleArguments.newValueArgument(
+                        LogicTuple.of("admin_credentials", TupleArgument.of(
                                 this.adminUsername
                                         + ":"
                                         + TucsonACCTool
@@ -1079,7 +1076,7 @@ public class TucsonNodeService {
                             DEFAULT_ENVCONFIG_SPEC_FILE);
             final String spec = alice.util.Tools
                     .loadText(new BufferedInputStream(is));
-            final LogicTuple specTuple = LogicTuples.newInstance("spec", TupleArguments.newValueArgument(spec));
+            final LogicTuple specTuple = LogicTuple.of("spec", TupleArgument.of(spec));
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.SET_S, specTuple, null);
@@ -1105,7 +1102,7 @@ public class TucsonNodeService {
                             DEFAULT_GEOLOCATION_SPEC_FILE);
             final String spec = alice.util.Tools
                     .loadText(new BufferedInputStream(is));
-            final LogicTuple specTuple = LogicTuples.newInstance("spec", TupleArguments.newValueArgument(spec));
+            final LogicTuple specTuple = LogicTuple.of("spec", TupleArgument.of(spec));
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.SET_S, specTuple, null);
@@ -1114,7 +1111,7 @@ public class TucsonNodeService {
                     this.idGeolocationTC, System.currentTimeMillis(), null);
             TupleCentreContainer.doBlockingSpecOperation(ev, specTuple);
             final RespectOperationDefault opRequested2 = RespectOperationDefault.make(
-                    TupleCentreOpType.OUT, LogicTuples.newInstance("boot"), null);
+                    TupleCentreOpType.OUT, LogicTuple.of("boot"), null);
             final InputEvent ev2 = new InputEvent(this.nodeAid, opRequested2,
                     this.idGeolocationTC, System.currentTimeMillis(), null);
             TupleCentreContainer.doNonBlockingOperation(ev2);
@@ -1136,7 +1133,7 @@ public class TucsonNodeService {
                             DEFAULT_OBS_SPEC_FILE);
             final String spec = alice.util.Tools
                     .loadText(new BufferedInputStream(is));
-            final LogicTuple specTuple = LogicTuples.newInstance("spec", TupleArguments.newValueArgument(spec));
+            final LogicTuple specTuple = LogicTuple.of("spec", TupleArgument.of(spec));
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
                     TupleCentreOpType.SET_S, specTuple, null);
@@ -1145,7 +1142,7 @@ public class TucsonNodeService {
                     this.idObsTC, System.currentTimeMillis(), null);
             TupleCentreContainer.doBlockingSpecOperation(ev, specTuple);
             final RespectOperationDefault opRequested2 = RespectOperationDefault.make(
-                    TupleCentreOpType.OUT, LogicTuples.newInstance("boot"), null);
+                    TupleCentreOpType.OUT, LogicTuple.of("boot"), null);
             final InputEvent ev2 = new InputEvent(this.nodeAid, opRequested2,
                     this.idObsTC, System.currentTimeMillis(), null);
             TupleCentreContainer.doNonBlockingOperation(ev2);

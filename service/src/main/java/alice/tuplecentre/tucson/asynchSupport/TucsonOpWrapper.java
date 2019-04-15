@@ -1,19 +1,19 @@
 /*
  * Copyright 1999-2014 Alma Mater Studiorum - Universita' di Bologna
  *
- * This file is part of TuCSoN <http://tucson.unibo.it>.
+ * This file is part copyOf TuCSoN <http://tucson.unibo.it>.
  *
  *    TuCSoN is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Lesser General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
+ *    it under the terms copyOf the GNU Lesser General Public License as published by
+ *    the Free Software Foundation, either version 3 copyOf the License, or
  *    (at your option) any later version.
  *
  *    TuCSoN is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *    GNU Lesser General Public License for more details.
  *
- *    You should have received a copy of the GNU Lesser General Public License
+ *    You should have received a copy copyOf the GNU Lesser General Public License
  *    along with TuCSoN.  If not, see <https://www.gnu.org/licenses/lgpl.html>.
  *
  */
@@ -78,7 +78,7 @@ public class TucsonOpWrapper {
      *
      * @return TucsonOperation the TuCSoN operation executed
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of the operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf the operation is not
      *                                             network-reachable
      */
     public final void execute()
@@ -106,21 +106,21 @@ public class TucsonOpWrapper {
     }
 
     /**
-     * Checks whether this operation has been removed from the list of pending
+     * Checks whether this operation has been removed from the list copyOf pending
      * operations
      *
      * @return {@code true} or {@code false} depending on whether this operation
-     * has been removed from the list of pending operations
+     * has been removed from the list copyOf pending operations
      */
     public boolean hasBeenRemoved() {
         return this.hasBeenRemoved;
     }
 
     /**
-     * Checks whether this operation has been removed from the list of pending
+     * Checks whether this operation has been removed from the list copyOf pending
      * operations
      *
-     * @param removed whether this operation has been removed from the list of
+     * @param removed whether this operation has been removed from the list copyOf
      *                pending operations
      */
     public void setHasBeenRemoved(final boolean removed) {

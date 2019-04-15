@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
@@ -74,9 +73,9 @@ public class EnvConfigAgent {
     private final int nodeToConfigPortNumber;
 
     /**
-     * @param ipAddress the netid of the TuCSoN Node this environment configuration
+     * @param ipAddress the netid copyOf the TuCSoN Node this environment configuration
      *                  agent works with
-     * @param portno    the listening port of the TuCSoN Node this environment
+     * @param portno    the listening port copyOf the TuCSoN Node this environment
      *                  configuration agent works with
      * @throws TucsonInvalidAgentIdException this cannot actually happen, since this agent identifier is
      *                                       given, then well-formed
@@ -113,12 +112,12 @@ public class EnvConfigAgent {
                 while (iteraction) {
                     try {
                         // Gets the command from the tuple space
-                        LogicTuple t = LogicTuples.parse("cmd(Type)");
+                        LogicTuple t = LogicTuple.parse("cmd(Type)");
                         t = Objects.requireNonNull(acc).in(idEnvTC, t, null).getLogicTupleResult();
                         switch (t.getArg(0)
                                 .toString()) {
                             case EnvConfigAgent.CREATE_TRANSDUCER_SENSOR: {
-                                t = LogicTuples
+                                t = LogicTuple
                                         .parse("createTransducerSensor(Tcid,Tclass,Tid,Pclass,Pid)");
                                 t = acc.in(idEnvTC, t, null).getLogicTupleResult();
                                 // Obtaining transducer
@@ -149,7 +148,7 @@ public class EnvConfigAgent {
                                 break;
                             }
                             case EnvConfigAgent.CREATE_TRANSDUCER_ACTUATOR: {
-                                t = LogicTuples
+                                t = LogicTuple
                                         .parse("createTransducerActuator(Tcid,Tclass,Tid,Pclass,Pid)");
                                 t = acc.in(idEnvTC, t, null).getLogicTupleResult();
                                 // Obtaining transducer
@@ -181,7 +180,7 @@ public class EnvConfigAgent {
                                 break;
                             }
                             case EnvConfigAgent.ADD_SENSOR: {
-                                t = LogicTuples.parse("addSensor(Class,Pid,Tid)");
+                                t = LogicTuple.parse("addSensor(Class,Pid,Tid)");
                                 t = acc.in(idEnvTC, t, null).getLogicTupleResult();
                                 // Creating resource
                                 final ProbeIdentifier pId = new SensorId(t.getArg(1)
@@ -198,7 +197,7 @@ public class EnvConfigAgent {
                                 break;
                             }
                             case EnvConfigAgent.ADD_ACTUATOR: {
-                                t = LogicTuples.parse("addActuator(Class,Pid,Tid)");
+                                t = LogicTuple.parse("addActuator(Class,Pid,Tid)");
                                 t = acc.in(idEnvTC, t, null).getLogicTupleResult();
                                 // Creating resource
                                 final ProbeIdentifier pId = new ActuatorId(t.getArg(1)
@@ -217,7 +216,7 @@ public class EnvConfigAgent {
                             case EnvConfigAgent.REMOVE_RESOURCE: {
                                 speak("Serving 'removeResource' request < ProbeId="
                                         + t.getArg(0).getName() + " >...");
-                                t = LogicTuples.parse("removeResource(Pid)");
+                                t = LogicTuple.parse("removeResource(Pid)");
                                 t = acc.in(idEnvTC, t, null).getLogicTupleResult();
                                 final ProbesManager rm = ProbesManager.INSTANCE;
                                 final ISimpleProbe probe = rm.getProbeByName(t.getArg(0)
@@ -226,7 +225,7 @@ public class EnvConfigAgent {
                                 break;
                             }
                             case EnvConfigAgent.CHANGE_TRANSDUCER: {
-                                t = LogicTuples.parse("changeTransducer(Pid,Tid)");
+                                t = LogicTuple.parse("changeTransducer(Pid,Tid)");
                                 t = acc.in(idEnvTC, t, null).getLogicTupleResult();
                                 final ProbesManager rm = ProbesManager.INSTANCE;
                                 final ProbeIdentifier pId = Objects.requireNonNull(rm.getProbeByName(

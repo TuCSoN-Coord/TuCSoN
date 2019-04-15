@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  */
 public enum TransducersManager {
     /**
-     * The singleton istance of this enum type
+     * The singleton istance copyOf this enum type
      */
     INSTANCE;
 
@@ -44,15 +44,15 @@ public enum TransducersManager {
     }
 
     /**
-     * List of the associations transducer/probes
+     * List copyOf the associations transducer/probes
      **/
     private final Map<TransducerId, List<ProbeIdentifier>> probesToTransducersMap;
     /**
-     * List of all the transducers on a single node
+     * List copyOf all the transducers on a single node
      **/
     private final Map<TransducerId, AbstractTransducer> transducersList;
     /**
-     * List of the associations tuple centre/transducers
+     * List copyOf the associations tuple centre/transducers
      **/
     private final Map<TupleCentreIdentifier, List<TransducerId>> transducersToTupleCentresMap;
 
@@ -92,7 +92,7 @@ public enum TransducersManager {
     /**
      * Creates a new transducer
      *
-     * @param className name of the concrete implementative class of transducer
+     * @param className name copyOf the concrete implementative class copyOf transducer
      * @param id        the transducer's identifier
      * @param tcId      the tuple center with which the transducer will interact
      * @param probeId   resource's identifier associated to the transducer
@@ -204,11 +204,11 @@ public enum TransducersManager {
     }
 
     /**
-     * Gets the list of transducer ids associated to the tuple centre identified
+     * Gets the list copyOf transducer ids associated to the tuple centre identified
      * by tcId
      *
      * @param tcId the tuple centre's identifier
-     * @return list of transducer id associated to tcId
+     * @return list copyOf transducer id associated to tcId
      */
     // FIXME Check correctness (synchronization needed?)
     public TransducerId[] getTransducerIds(final TupleCentreIdentifier tcId) {
@@ -232,7 +232,7 @@ public enum TransducersManager {
     }
 
     /**
-     * Returns the identifier of the tuple centre associated to the transducer
+     * Returns the identifier copyOf the tuple centre associated to the transducer
      * identified by tId
      *
      * @param tId the transducer's identifier

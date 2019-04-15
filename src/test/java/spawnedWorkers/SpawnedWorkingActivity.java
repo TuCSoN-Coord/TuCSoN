@@ -4,7 +4,6 @@ import java.math.BigInteger;
 import java.util.Objects;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
@@ -26,7 +25,7 @@ public class SpawnedWorkingActivity extends AbstractSpawnActivity {
             /*
              * Jobs collection phase.
              */
-            final LogicTuple templ = LogicTuples.parse("fact(master(M),num(N),reqID(R))");
+            final LogicTuple templ = LogicTuple.parse("fact(master(M),num(N),reqID(R))");
             this.log("Waiting for jobs...");
             /*
              * Watch out: it's a suspensive primitive! If no jobs are available
@@ -42,7 +41,7 @@ public class SpawnedWorkingActivity extends AbstractSpawnActivity {
             /*
              * Result submission phase.
              */
-            final LogicTuple res = LogicTuples.parse("res(" + "master("
+            final LogicTuple res = LogicTuple.parse("res(" + "master("
                     + job.getArg("master").getArg(0) + ")," + "fact("
                     + bigNum.toString() + ")," + "reqID("
                     + job.getArg("reqID").getArg(0) + ")" + ")");

@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -25,7 +25,6 @@ import javax.swing.*;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.introspection.InspectorContext;
@@ -80,7 +79,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         TucsonTupleCentreId tid = null;
         try {
             aid = new TucsonAgentIdDefault(stAid);
-            tid = new TucsonTupleCentreIdDefault(tcname, netid, port);
+            tid = TucsonTupleCentreId.of(tcname, netid, port);
             LOGGER.info("[Inspector]: Inspector Agent Identifier: "
                     + stAid);
             LOGGER.info(("[Inspector]: Tuple Centre Identifier: " + tid));
@@ -151,7 +150,7 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Called when no default tuplecentre to monitor is given.
      *
-     * @param id        the name of the Inspector agent.
+     * @param id        the name copyOf the Inspector agent.
      * @param isVisible whether the Inspector should immediatley display the GUI
      */
     public InspectorGUI(final TucsonAgentId id, final boolean isVisible) {
@@ -166,8 +165,8 @@ public class InspectorGUI extends javax.swing.JFrame {
     /**
      * Called when a default tuplecentre to inspect is given.
      *
-     * @param id        the name of the Inspector agent.
-     * @param tc        the fullname of the tuplecentre to inspect.
+     * @param id        the name copyOf the Inspector agent.
+     * @param tc        the fullname copyOf the tuplecentre to inspect.
      * @param isVisible whether the Inspector should immediatley display the GUI
      */
     public InspectorGUI(final TucsonAgentId id, final TucsonTupleCentreId tc,
@@ -250,7 +249,7 @@ public class InspectorGUI extends javax.swing.JFrame {
                 final String name = this.inputName.getText();
                 final String address = this.inputNode.getText();
                 final String port = this.inputPort.getText();
-                this.tid = new TucsonTupleCentreIdDefault(name, address, port);
+                this.tid = TucsonTupleCentreId.of(name, address, port);
                 this.agent = new InspectorCore(this, this.aid, this.tid);
                 this.context = this.agent.getContext();
                 this.agent.start();
@@ -642,7 +641,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         this.chooseTC.add(this.inputName, gridBagConstraints);
         this.inputNode.setText("localhost");
-        this.inputNode.setToolTipText("IP address of the TuCSoN Node");
+        this.inputNode.setToolTipText("IP address copyOf the TuCSoN Node");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -651,7 +650,7 @@ public class InspectorGUI extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(5, 0, 0, 0);
         this.chooseTC.add(this.inputNode, gridBagConstraints);
         this.inputPort.setText("20504");
-        this.inputPort.setToolTipText("listening port of the TuCSoN Node");
+        this.inputPort.setToolTipText("listening port copyOf the TuCSoN Node");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;

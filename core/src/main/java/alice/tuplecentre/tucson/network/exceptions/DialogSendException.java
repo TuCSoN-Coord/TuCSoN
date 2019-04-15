@@ -1,7 +1,7 @@
 package alice.tuplecentre.tucson.network.exceptions;
 
 /**
- * DialogSendException. Thrown if TuCSoN Node service can't handle sending of a
+ * DialogSendException. Thrown if TuCSoN Node service can't handle sending copyOf a
  * message.
  *
  * @author Alessia Papini (mailto: alessia.papini@studio.unibo.it)

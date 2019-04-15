@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -34,7 +34,7 @@ import alice.tuplecentre.tucson.service.TucsonOpCompletionEvent;
  */
 public interface OrdinaryAsyncACC extends AsyncACC {
     /**
-     * @return the List of the events regarding TuCSoN operations completion
+     * @return the List copyOf the events regarding TuCSoN operations completion
      */
     List<TucsonOpCompletionEvent> getCompletionEventsList();
 
@@ -67,7 +67,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * is found to match the given template, no success completion answer is
      * forwarded to the TuCSoN Agent exploiting this ACC, but thanks to
      * asynchronous behaviour the TuCSoN Agent could do something else instead
-     * of getting stuck.
+     * copyOf getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
      *              {@link TupleCentreIdentifier tid}
@@ -106,13 +106,13 @@ public interface OrdinaryAsyncACC extends AsyncACC {
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
-     * <code>no</code> TuCSoN primitive, checks absence of the specified tuple
+     * <code>no</code> TuCSoN primitive, checks absence copyOf the specified tuple
      * in the given target tuplecentre.
      * <p>
      * Notice that the primitive semantics is still SUSPENSIVE: until any tuple
      * is found to match the given template, no success completion answer is
      * forwarded to the TuCSoN Agent exploiting this ACC, but thanks to
-     * asynchronous behaviour TuCSoN Agent could do something else instead of
+     * asynchronous behaviour TuCSoN Agent could do something else instead copyOf
      * getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
@@ -131,7 +131,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
             throws TucsonOperationNotPossibleException, UnreachableNodeException;
 
     /**
-     * <code>nop</code> TuCSoN primitive, checks absence of the specified tuple
+     * <code>nop</code> TuCSoN primitive, checks absence copyOf the specified tuple
      * in the given target tuplecentre.
      * <p>
      * This time the primitive semantics is NOT SUSPENSIVE: if a tuple is found
@@ -157,7 +157,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * <code>out</code> Linda primitive, inserts the specified tuple in the
      * given target tuplecentre.
      * <p>
-     * Notice that TuCSoN out primitive assumes the ORDERED version of this
+     * Notice that TuCSoN out primitive assumes the ORDERED version copyOf this
      * primitive, hence the tuple is SUDDENLY injected in the target space (if
      * the primitive successfully completes)
      *
@@ -183,7 +183,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * is found to match the given template, no success completion answer is
      * forwarded to the TuCSoN Agent exploiting this ACC, but thanks to
      * asynchronous behaviour the TuCSoN Agent could do something else instead
-     * of getting stuck.
+     * copyOf getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
      *              {@link TupleCentreIdentifier tid}
@@ -227,7 +227,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      *
      * @param tid   the target TuCSoN tuplecentre id
      *              {@link TupleCentreIdentifier tid}
-     * @param tuple the Prolog list of all the tuples to be injected (overwriting
+     * @param tuple the Prolog list copyOf all the tuples to be injected (overwriting
      *              space)
      * @param l     the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.
@@ -253,10 +253,10 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * @param toSpawn the tuple storing the activity to spawn as a parallel
      *                computation. Must be a Prolog term with functor name
      *                <code>exec/solve</code>, storing either a Java qualified class
-     *                name (dotted-list of packages and <code>.class</code>
+     *                name (dotted-list copyOf packages and <code>.class</code>
      *                extension too) or the filepath to a valid Prolog theory and a
      *                valid Prolog goal to be checked. E.g.:
-     *                <code>exec('list.of.packages.YourClass.class')</code> OR
+     *                <code>exec('list.copyOf.packages.YourClass.class')</code> OR
      *                <code>solve('path/to/Prolog/Theory.pl', yourGoal)</code>
      * @param l       the listener who should be notified upon operation completion
      * @return the interface to access the data about TuCSoN operations outcome.

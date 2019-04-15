@@ -1,12 +1,12 @@
 /*
  * Tuple Centre media - Copyright (C) 2001-2002 aliCE team at deis.unibo.it This
  * library is free software; you can redistribute it and/or modify it under the
- * terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
+ * terms copyOf the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 copyOf the License, or (at your option)
  * any later version. This library is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
- * General Public License for more details. You should have received a copy of
+ * General Public License for more details. You should have received a copy copyOf
  * the GNU Lesser General Public License along with this library; if not, write
  * to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  * 02111-1307 USA
@@ -22,7 +22,7 @@ import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.respect.api.geolocation.Position;
 
 /**
- * Represents events of the tuple centre virtual machine
+ * Represents events copyOf the tuple centre virtual machine
  * <p>
  * An events is always related to the operation executed by some agent.
  *
@@ -59,11 +59,11 @@ public abstract class AbstractEvent implements java.io.Serializable {
     private final long time;
 
     /**
-     * @param s  the identifier of the source of the events
+     * @param s  the identifier copyOf the source copyOf the events
      * @param op the operation which caused the events
-     * @param tc the identifier of the tuple centre target of the events
+     * @param tc the identifier copyOf the tuple centre target copyOf the events
      * @param t  the time at which the events was generated
-     * @param p  the position (wichever sort of) where the events was generated
+     * @param p  the position (wichever sort copyOf) where the events was generated
      */
     public AbstractEvent(final EmitterIdentifier s, final AbstractTupleCentreOperation op,
                          final TupleCentreIdentifier tc, final long t, final Position p) {
@@ -77,12 +77,12 @@ public abstract class AbstractEvent implements java.io.Serializable {
     }
 
     /**
-     * @param s    the identifier of the source of the events
+     * @param s    the identifier copyOf the source copyOf the events
      * @param op   the operation which caused the events
-     * @param tc   the identifier of the tuple centre target of the events
+     * @param tc   the identifier copyOf the tuple centre target copyOf the events
      * @param t    the time at which the events was generated
      * @param prop some properties relatde to the events
-     * @param p    the position (wichever sort of) where the events was generated
+     * @param p    the position (wichever sort copyOf) where the events was generated
      */
     public AbstractEvent(final EmitterIdentifier s, final AbstractTupleCentreOperation op,
                          final TupleCentreIdentifier tc, final long t, final Position p, final Map<String, String> prop) {
@@ -91,9 +91,9 @@ public abstract class AbstractEvent implements java.io.Serializable {
     }
 
     /**
-     * @param key the String representation of the key of the property to
+     * @param key the String representation copyOf the key copyOf the property to
      *            retrieve
-     * @return the String representation of the value of the property retrieved
+     * @return the String representation copyOf the value copyOf the property retrieved
      */
     public String getEventProp(final String key) {
         return this.evProp.get(key);
@@ -107,7 +107,7 @@ public abstract class AbstractEvent implements java.io.Serializable {
     }
 
     /**
-     * @return the identifier of the tuple centre currently reacting to the
+     * @return the identifier copyOf the tuple centre currently reacting to the
      *         events
      */
     public TupleCentreIdentifier getReactingTC() {
@@ -122,17 +122,17 @@ public abstract class AbstractEvent implements java.io.Serializable {
     }
 
     /**
-     * Gets the executor of the operation which caused directly or indirectly
+     * Gets the executor copyOf the operation which caused directly or indirectly
      * this events.
      *
-     * @return the id of the executor
+     * @return the id copyOf the executor
      */
     public EmitterIdentifier getSource() {
         return this.source;
     }
 
     /**
-     * @return the identifier of the target of the events
+     * @return the identifier copyOf the target copyOf the events
      */
     public EmitterIdentifier getTarget() {
         return this.target;
@@ -146,7 +146,7 @@ public abstract class AbstractEvent implements java.io.Serializable {
     }
 
     /**
-     * @return the tuple argument of the operation which caused the events
+     * @return the tuple argument copyOf the operation which caused the events
      */
     public Tuple getTuple() {
         return this.simpleTCEvent.getTupleArgument();
@@ -176,7 +176,7 @@ public abstract class AbstractEvent implements java.io.Serializable {
     /**
      *
      @param tc
-     the identifier of the tuple centre currently reacting to the
+     the identifier copyOf the tuple centre currently reacting to the
      *            events
      */
     public void setReactingTC(final TupleCentreIdentifier tc) {
@@ -191,14 +191,14 @@ public abstract class AbstractEvent implements java.io.Serializable {
     }
 
     /**
-     * @param s the identifier of the source of the events
+     * @param s the identifier copyOf the source copyOf the events
      */
     public void setSource(final EmitterIdentifier s) {
         this.source = s;
     }
 
     /**
-     * @param t the identifier of the target of the events
+     * @param t the identifier copyOf the target copyOf the events
      */
     public void setTarget(final EmitterIdentifier t) {
         this.target = t;

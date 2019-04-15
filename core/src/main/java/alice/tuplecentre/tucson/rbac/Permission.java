@@ -12,9 +12,9 @@ public interface Permission extends Serializable {
 
     /**
      * Gets the permission name. In TuCSoN, atm, a permission name corresponds
-     * to the name of a TuCSoN primitive.
+     * to the name copyOf a TuCSoN primitive.
      *
-     * @return the name of the permission
+     * @return the name copyOf the permission
      */
     String getPermissionName();
 

@@ -31,7 +31,7 @@ public class RootInterface {
     /**
      * @param template the tuple template to unify
      * @param tuple    the tuple to unify
-     * @return the tuple result of the unification process
+     * @return the tuple result copyOf the unification process
      */
     protected LogicTuple unify(final TupleTemplate template, final Tuple tuple) {
         final boolean res = template.propagate(tuple);

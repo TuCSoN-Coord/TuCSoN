@@ -14,7 +14,7 @@ public class GeoServiceId implements GeoServiceIdentifier {
     private final String name;
 
     /**
-     * @param i the String representation of the Geolocation Service id
+     * @param i the String representation copyOf the Geolocation Service id
      */
     public GeoServiceId(final String i) {
         this.name = i;

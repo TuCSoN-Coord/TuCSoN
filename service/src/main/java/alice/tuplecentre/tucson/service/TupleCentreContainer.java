@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Objects;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.InspectableEventListener;
 import alice.tuplecentre.api.ObservableEventListener;
@@ -63,8 +62,8 @@ public final class TupleCentreContainer {
     private static int defaultport;
 
     /**
-     * @param id      the identifier of the tuple centre this wrapper refers to
-     * @param q       the size of the input queue
+     * @param id      the identifier copyOf the tuple centre this wrapper refers to
+     * @param q       the size copyOf the input queue
      * @param defPort the default listening port
      * @return the Object representing the ReSpecT tuple centre
      * @throws InvalidTupleCentreIdException if the given tuple centre identifier is not a valid TuCSoN
@@ -205,15 +204,15 @@ public final class TupleCentreContainer {
     }
 
     /**
-     * @param opType the type code of the ReSpecT operation to be executed
-     * @param aid    the identifier of the TuCSoN agent requesting the operation
-     * @param tid    the identifier of the tuple centre target of the operation
-     * @param t      the tuple argument of the operation
+     * @param opType the type code copyOf the ReSpecT operation to be executed
+     * @param aid    the identifier copyOf the TuCSoN agent requesting the operation
+     * @param tid    the identifier copyOf the tuple centre target copyOf the operation
+     * @param t      the tuple argument copyOf the operation
      * @param l      the listener for operation completion
      * @return the Java object representing the tuple centre operation
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
      *                                             reason
-     * @throws UnreachableNodeException            if the TuCSoN tuple centre target of the notification cannot
+     * @throws UnreachableNodeException            if the TuCSoN tuple centre target copyOf the notification cannot
      *                                             be reached over the network
      * @throws OperationTimeOutException           if the notification operation expires timeout
      */
@@ -248,13 +247,13 @@ public final class TupleCentreContainer {
             event.setTarget(tid.getInternalTupleCentreId());
             context.notifyInputEnvEvent(event);
         } else {
-            // It's an agent request of environment properties
+            // It's an agent request copyOf environment properties
             event = new InputEvent(aid, op, tid.getInternalTupleCentreId(),
                     context.getCurrentTime(), null, eventMap);
             final InternalEvent internalEv = new InternalEvent(event,
                     InternalOperation.makeGetEnv(null));
             internalEv.setSource(tid.getInternalTupleCentreId()); // Set
-            // the source of the events
+            // the source copyOf the events
             final TransducerId[] tIds = tm.getTransducerIds(tid
                     .getInternalTupleCentreId());
             for (final TransducerId tId2 : tIds) {
@@ -268,14 +267,14 @@ public final class TupleCentreContainer {
 
     /**
      * @param type the type codeof the ReSpecT operation to be executed
-     * @param aid  the identifier of the tuple centre requesting the operation
-     * @param tid  the identifier of the tuple centre target of the operation
-     * @param t    the tuple argument of the operation
+     * @param aid  the identifier copyOf the tuple centre requesting the operation
+     * @param tid  the identifier copyOf the tuple centre target copyOf the operation
+     * @param t    the tuple argument copyOf the operation
      * @param l    the listener for operation completion
      * @return the Java object representing the tuple centre operation
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
      *                                             reason
-     * @throws UnreachableNodeException            if the TuCSoN tuple centre target of the notification cannot
+     * @throws UnreachableNodeException            if the TuCSoN tuple centre target copyOf the notification cannot
      *                                             be reached over the network
      * @throws OperationTimeOutException           if the notification operation expires timeout
      */
@@ -303,7 +302,7 @@ public final class TupleCentreContainer {
                 InternalOperation.makeGetEnv(t));
         internalEv.setSource(tid.getInternalTupleCentreId()); // Set
         final TransducersManager tm = TransducersManager.INSTANCE;
-        // the source of the events
+        // the source copyOf the events
         final TransducerId[] tIds = tm.getTransducerIds(tid
                 .getInternalTupleCentreId());
         for (final TransducerId tId2 : tIds) {
@@ -316,10 +315,10 @@ public final class TupleCentreContainer {
 
 
     /**
-     * @param type the type code of the operation requested
-     * @param tid  the identifier of the tuple centre target of the operation
-     * @param obj  the argument of the management operation
-     * @return the result of the operation
+     * @param type the type code copyOf the operation requested
+     * @param tid  the identifier copyOf the tuple centre target copyOf the operation
+     * @param obj  the argument copyOf the management operation
+     * @return the result copyOf the operation
      */
     public static Object doManagementOperation(final TupleCentreOpType type,
                                                final TucsonTupleCentreId tid, final Object obj) {
@@ -339,7 +338,7 @@ public final class TupleCentreContainer {
                     return false;
                 }
             case GET_S:
-                return LogicTuples.newInstance(context.getSpec().toString());
+                return LogicTuple.of(context.getSpec().toString());
             case GET_TRSET:
                 return context.getTRSet((LogicTuple) obj);
             case GET_TSET:
@@ -504,7 +503,7 @@ public final class TupleCentreContainer {
     }
 
     /**
-     * @param ttcid           the id of the tuple centre to make persistent
+     * @param ttcid           the id copyOf the tuple centre to make persistent
      * @param persistencyPath the path where to store persistency information
      */
     public static synchronized void enablePersistency(
@@ -516,9 +515,9 @@ public final class TupleCentreContainer {
     }
 
     /**
-     * @param ttcid           the id of the tuple centre to make persistent
+     * @param ttcid           the id copyOf the tuple centre to make persistent
      * @param persistencyPath the path where to store persistency information
-     * @param file            the name of the file to recover
+     * @param file            the name copyOf the file to recover
      */
     public static void recoveryPersistent(final TucsonTupleCentreId ttcid,
                                           final String persistencyPath, final String file) {

@@ -1,12 +1,12 @@
 /*
  * ReSpecT - Copyright (C) aliCE team at deis.unibo.it This library is free
- * software; you can redistribute it and/or modify it under the terms of the GNU
+ * software; you can redistribute it and/or modify it under the terms copyOf the GNU
  * Lesser General Public License as published by the Free Software Foundation;
- * either version 2.1 of the License, or (at your option) any later version.
+ * either version 2.1 copyOf the License, or (at your option) any later version.
  * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * ANY WARRANTY; without even the implied warranty copyOf MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details. You should have received a copy of the GNU Lesser General Public
+ * details. You should have received a copy copyOf the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -23,9 +23,7 @@ import alice.tuple.Tuple;
 import alice.tuple.logic.LogicMatchingEngine;
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.LogicTupleOpManager;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
 import alice.tuplecentre.api.EmitterIdentifier;
@@ -49,7 +47,6 @@ import alice.tuplecentre.respect.core.RespectVMContext;
 import alice.tuplecentre.respect.core.TransducersManager;
 import alice.tuplecentre.respect.situatedness.TransducerId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.network.NetworkUtils;
@@ -62,7 +59,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * TuProlog library defining the behaviour of ReSpecT primitives, used inside
+ * TuProlog library defining the behaviour copyOf ReSpecT primitives, used inside
  * ReSpecT VM.
  *
  * @author Alessandro Ricci
@@ -87,7 +84,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 return true;
             }
         }
-        if (source instanceof TucsonTupleCentreIdDefault) {
+        if (source instanceof TucsonTupleCentreId) {
             final TucsonTupleCentreId ttcid = (TucsonTupleCentreId) source;
             return Tools.removeApices(ttcid.getNode()).equals(
                     Respect2PLibrary.getFirstActiveIP());
@@ -156,7 +153,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param space    type of node position. It can be specified as either its
+     * @param space    type copyOf node position. It can be specified as either its
      *                 absolute physical position (S=ph), its IP number (S=ip), its
      *                 domain name (S=dns), its geographical location (S=map), or its
      *                 organisational position (S=org).
@@ -205,13 +202,13 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param space    type of node position. It can be specified as either its
+     * @param space    type copyOf node position. It can be specified as either its
      *                 absolute physical position (S=ph), its IP number (S=ip), its
      *                 domain name (S=dns), its geographical location (S=map), or its
      *                 organisational position (S=org).
      * @param position the expected position.
      * @return <code>true</code> if the given position, specified according to
-     * the given space term, unifies with the position of the node which
+     * the given space term, unifies with the position copyOf the node which
      * the tuple centre belongs to.
      */
     public boolean current_place_2(final Term space, final Term position) {
@@ -222,7 +219,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             return this
                     .near_3(space, position, this.vm.getDistanceTollerance()); // necessary
             // because
-            // of
+            // copyOf
             // latitude/longitude
             // high
             // variability
@@ -246,9 +243,9 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param source the expected tuplecentre which is responsible for the
-     *               generation of the currently processing ReSpecT reaction.
+     *               generation copyOf the currently processing ReSpecT reaction.
      * @return true if the actual tuplecentre is the expected tuplecentre which
-     * is responsible for the generation of the currently processing
+     * is responsible for the generation copyOf the currently processing
      * ReSpecT reaction.
      */
     public boolean current_source_1(final Term source) {
@@ -259,7 +256,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param target the expected target of the current operation
+     * @param target the expected target copyOf the current operation
      * @return <code>true</code> if the given term unifies with the current
      * target
      */
@@ -301,7 +298,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param key   the term representing the environmental property to be tested
-     * @param value the term representing the value of the environmental property
+     * @param value the term representing the value copyOf the environmental property
      * @return <code>true</code> if the environmental property given has the
      * given value
      */
@@ -315,13 +312,13 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param space    type of node position. It can be specified as either its
+     * @param space    type copyOf node position. It can be specified as either its
      *                 absolute physical position (S=ph), its IP number (S=ip), its
      *                 domain name (S=dns), its geographical location (S=map), or its
      *                 organisational position (S=org).
      * @param position the expected position.
      * @return <code>true</code> if the given position, specified according to
-     * the given space term, unifies with the position of the node where
+     * the given space term, unifies with the position copyOf the node where
      * the triggering events was originated.
      */
     public boolean event_place_2(final Term space, final Term position) {
@@ -342,7 +339,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param predicate the predicate direct cause of current ReSpecT events
+     * @param predicate the predicate direct cause copyOf current ReSpecT events
      * @return <code>true</code> if the current ReSpecT events has the given
      * direct cause
      */
@@ -352,7 +349,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param source the identifier of the direct cause source of the events
+     * @param source the identifier copyOf the direct cause source copyOf the events
      * @return <code>true</code> if current ReSpecT events direct cause has the
      * given source
      */
@@ -374,7 +371,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param target the identifier of the direct cause target
+     * @param target the identifier copyOf the direct cause target
      * @return <code>true</code> if current ReSpecT events direct cause has the
      * given target
      */
@@ -408,7 +405,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param tuple the tuple argument of the direct cause predicate
+     * @param tuple the tuple argument copyOf the direct cause predicate
      * @return <code>true</code> if the direct cause tuple argument has the
      * given tuple
      */
@@ -418,7 +415,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @return true if the initial requestor of the ReSpecT operation IS NOT the
+     * @return true if the initial requestor copyOf the ReSpecT operation IS NOT the
      * currently reacting tuplecentre.
      */
     public boolean exo_0() {
@@ -441,7 +438,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @return true if the initial requestor of the ReSpecT operation is an
+     * @return true if the initial requestor copyOf the ReSpecT operation is an
      * agent (either Java or tuProlog or whatever).
      */
     public boolean from_agent_0() {
@@ -462,7 +459,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @return true if the initial requestor of the ReSpecT operation is a
+     * @return true if the initial requestor copyOf the ReSpecT operation is a
      * ReSpecT tuplecentre.
      */
     public boolean from_tc_0() {
@@ -473,7 +470,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -491,17 +488,17 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             final TupleArgument[] array = new TupleArgument[list.size()];
             int i = 0;
             while (!list.isEmpty()) {
-                array[i++] = TupleArguments.newInstance(
+                array[i++] = TupleArgument.fromTerm(
                         ((LogicTuple) list.remove(0)).toTerm());
             }
-            final Tuple tuple = LogicTuples.newInstance("get",
+            final Tuple tuple = LogicTuple.of("get",
                     array);
             if (((LogicTuple) tuple).getArg(0) != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeGetR(LogicTuples.newInstance(arg0
+                        InternalOperation.makeGetR(LogicTuple.fromTerm(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -513,7 +510,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote get triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeGet(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeGet(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -523,7 +520,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -545,17 +542,17 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             final TupleArgument[] array = new TupleArgument[list.size()];
             int i = 0;
             while (!list.isEmpty()) {
-                array[i++] = TupleArguments.newInstance(
+                array[i++] = TupleArgument.fromTerm(
                         ((LogicTuple) list.remove(0)).toTerm());
             }
-            final Tuple tuple = LogicTuples.newInstance("get_s",
+            final Tuple tuple = LogicTuple.of("get_s",
                     array);
             if (((LogicTuple) tuple).getArg(0) != null) {
                 final Term term = ((LogicTuple) tuple).toTerm();
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeGetSR(LogicTuples.newInstance(arg0
+                        InternalOperation.makeGetSR(LogicTuple.fromTerm(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -567,7 +564,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote get_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeGetS(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeGetS(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -576,22 +573,22 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param env the identifier of the target environmental resource
+     * @param env the identifier copyOf the target environmental resource
      * @param key the environmental property to sense
      * @param val the value sensed
      * @return <code>true</code> if the operation is successfull
      * @throws OperationTimeOutException           if the notification operation expires timeout
-     * @throws UnreachableNodeException            if the TuCSoN tuple centre target of the notification cannot
+     * @throws UnreachableNodeException            if the TuCSoN tuple centre target copyOf the notification cannot
      *                                             be reached over the network
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
      *                                             reason
      */
     public boolean getEnv_3(final Term env, final Term key, final Term val) {
-        // Get engine's copy of key and val
+        // Get engine's copy copyOf key and val
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         final AbstractMap<Var, Var> v1 = new LinkedHashMap<>();
-        final LogicTuple lt = LogicTuples.newInstance("getEnv", TupleArguments.newInstance(
-                key.copyGoal(v, 0)), TupleArguments.newInstance(val.copyGoal(v1, 0)));
+        final LogicTuple lt = LogicTuple.of("getEnv", TupleArgument.fromTerm(
+                key.copyGoal(v, 0)), TupleArgument.fromTerm(val.copyGoal(v1, 0)));
         // Building internal events
         final InputEvent ev = this.vm.getCurrentEvent();
         // log("### DEBUG >>> ev = " + ev);
@@ -603,7 +600,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final EnvironmentIdentifier envId = new EnvironmentId(normEnv);
         internalEv.setTarget(envId); // Set target resource
         // log("### DEBUG >>> target = " + envId);
-        internalEv.setSource(this.vm.getId()); // Set the source of the events
+        internalEv.setSource(this.vm.getId()); // Set the source copyOf the events
         final TransducersManager tm = TransducersManager.INSTANCE;
         // Getting the transducer from the transducer manager
         final TransducerId tId = tm.getTransducerId(envId);
@@ -617,7 +614,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     /**
      * ReSpecT theory to interface with Prolog.
      *
-     * @return the String representation of the Prolog theory usable by tuProlog
+     * @return the String representation copyOf the Prolog theory usable by tuProlog
      * agents
      */
     @Override
@@ -695,7 +692,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -706,7 +703,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local in triggered...");
@@ -717,7 +714,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeInR(LogicTuples.newInstance(arg0.copyGoal(
+                        InternalOperation.makeInR(LogicTuple.fromTerm(arg0.copyGoal(
                                 v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -729,7 +726,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote in triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeIn(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeIn(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -740,7 +737,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     /**
      * @param arg0 the tuple template to be used
      * @param arg1 the Prolog variable to unify the result with
-     * @param arg2 the identifier of the target tuple centre
+     * @param arg2 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg2 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -752,7 +749,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg2);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local in_all triggered...");
@@ -769,7 +766,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final InputEvent ce = this.vm.getCurrentEvent();
         final String tuple = arg0.getTerm().toString() + "," + arg1;
         LogicTuple resultArg;
-        resultArg = LogicTuples.parse(tuple);
+        resultArg = LogicTuple.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeInAll(resultArg, null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
@@ -780,10 +777,10 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param ev the triggering events of a ReSpecT specification
-     * @param g  the guard of a ReSpecT specification
-     * @param r  the body of a ReSpecT specification
-     * @param tc the identifier of the target tuple centre
+     * @param ev the triggering events copyOf a ReSpecT specification
+     * @param g  the guard copyOf a ReSpecT specification
+     * @param r  the body copyOf a ReSpecT specification
+     * @param tc the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -812,7 +809,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local in_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final LogicTuple tuArg = LogicTuple.fromTerm(newArg);
             final Tuple tuple = this.vm
                     .removeMatchingSpecTuple(tuArg);
             if (tuple != null) {
@@ -820,7 +817,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 this.unify(goal, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent iev = new InternalEvent(ce,
-                        InternalOperation.makeInSR(LogicTuples.newInstance(goal
+                        InternalOperation.makeInSR(LogicTuple.fromTerm(goal
                                 .copyGoal(v, 0))));
                 iev.setSource(ce.getReactingTC());
                 iev.setTarget(ce.getReactingTC());
@@ -832,7 +829,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote in_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeInS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeInS(LogicTuple.fromTerm(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -852,7 +849,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -863,7 +860,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local inp triggered...");
@@ -874,7 +871,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeInR(LogicTuples.newInstance(arg0.copyGoal(
+                        InternalOperation.makeInR(LogicTuple.fromTerm(arg0.copyGoal(
                                 v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -886,7 +883,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote inp triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeInp(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeInp(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -895,10 +892,10 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param ev the triggering events of a ReSpecT specification
-     * @param g  the guard of a ReSpecT specification
-     * @param r  the body of a ReSpecT specification
-     * @param tc the identifier of the target tuple centre
+     * @param ev the triggering events copyOf a ReSpecT specification
+     * @param g  the guard copyOf a ReSpecT specification
+     * @param r  the body copyOf a ReSpecT specification
+     * @param tc the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -926,7 +923,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local inp_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final LogicTuple tuArg = LogicTuple.fromTerm(newArg);
             final Tuple tuple = this.vm
                     .removeMatchingSpecTuple(tuArg);
             if (tuple != null) {
@@ -934,7 +931,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 this.unify(goal, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent iev = new InternalEvent(ce,
-                        InternalOperation.makeInSR(LogicTuples.newInstance(goal
+                        InternalOperation.makeInSR(LogicTuple.fromTerm(goal
                                 .copyGoal(v, 0))));
                 iev.setSource(ce.getReactingTC());
                 iev.setTarget(ce.getReactingTC());
@@ -946,7 +943,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote inp_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeInpS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeInpS(LogicTuple.fromTerm(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -972,7 +969,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @return true if the final target of the ReSpecT operation is the
+     * @return true if the final target copyOf the ReSpecT operation is the
      * currently reacting tuplecentre.
      */
     public boolean intra_0() {
@@ -1020,12 +1017,12 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param space  type of node position. It can be specified as either its
+     * @param space  type copyOf node position. It can be specified as either its
      *               absolute physical position (S=ph), its IP number (S=ip), its
      *               domain name (S=dns), its geographical location (S=map), or its
      *               organisational position (S=org).
-     * @param center the center point of the spatial region.
-     * @param radius the radius of the spatial ragion (in meters).
+     * @param center the center point copyOf the spatial region.
+     * @param radius the radius copyOf the spatial ragion (in meters).
      * @return <code>true</code> if the tuple centre is currently executing at
      * the position included in the spatial region with the given center
      * and radius, specified according to the given space term.
@@ -1114,7 +1111,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1125,7 +1122,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local no triggered...");
@@ -1134,7 +1131,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             if (tuple == null) {
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeNoR(LogicTuples.newInstance(arg0.copyGoal(
+                        InternalOperation.makeNoR(LogicTuple.fromTerm(arg0.copyGoal(
                                 v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -1146,7 +1143,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote no triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeNo(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeNo(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1157,7 +1154,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     /**
      * @param arg0 the tuple template to be used
      * @param arg1 the Prolog variable to unify the result with
-     * @param arg2 the identifier of the target tuple centre
+     * @param arg2 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg2 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1169,7 +1166,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg2);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local no_all triggered...");
@@ -1186,7 +1183,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final InputEvent ce = this.vm.getCurrentEvent();
         final String tuple = arg0.getTerm().toString() + "," + arg1;
         LogicTuple resultArg;
-        resultArg = LogicTuples.parse(tuple);
+        resultArg = LogicTuple.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeNoAll(resultArg, null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
@@ -1197,10 +1194,10 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param ev the triggering events of a ReSpecT specification
-     * @param g  the guard of a ReSpecT specification
-     * @param r  the body of a ReSpecT specification
-     * @param tc the identifier of the target tuple centre
+     * @param ev the triggering events copyOf a ReSpecT specification
+     * @param g  the guard copyOf a ReSpecT specification
+     * @param r  the body copyOf a ReSpecT specification
+     * @param tc the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1229,13 +1226,13 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local no_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final LogicTuple tuArg = LogicTuple.fromTerm(newArg);
             final Tuple tuple = this.vm
                     .readMatchingSpecTuple(tuArg);
             if (tuple == null) {
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent iev = new InternalEvent(ce,
-                        InternalOperation.makeNoSR(LogicTuples.newInstance(goal
+                        InternalOperation.makeNoSR(LogicTuple.fromTerm(goal
                                 .copyGoal(v, 0))));
                 iev.setSource(ce.getReactingTC());
                 iev.setTarget(ce.getReactingTC());
@@ -1247,7 +1244,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote no_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeNoS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeNoS(LogicTuple.fromTerm(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1257,7 +1254,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1268,7 +1265,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local nop triggered...");
@@ -1277,7 +1274,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
             if (tuple == null) {
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeNoR(LogicTuples.newInstance(arg0.copyGoal(
+                        InternalOperation.makeNoR(LogicTuple.fromTerm(arg0.copyGoal(
                                 v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -1289,7 +1286,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote nop triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeNop(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeNop(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1298,10 +1295,10 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param ev the triggering events of a ReSpecT specification
-     * @param g  the guard of a ReSpecT specification
-     * @param r  the body of a ReSpecT specification
-     * @param tc the identifier of the target tuple centre
+     * @param ev the triggering events copyOf a ReSpecT specification
+     * @param g  the guard copyOf a ReSpecT specification
+     * @param r  the body copyOf a ReSpecT specification
+     * @param tc the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1330,13 +1327,13 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local nop_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final LogicTuple tuArg = LogicTuple.fromTerm(newArg);
             final Tuple tuple = this.vm
                     .readMatchingSpecTuple(tuArg);
             if (tuple == null) {
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent iev = new InternalEvent(ce,
-                        InternalOperation.makeNoSR(LogicTuples.newInstance(goal
+                        InternalOperation.makeNoSR(LogicTuple.fromTerm(goal
                                 .copyGoal(v, 0))));
                 iev.setSource(ce.getReactingTC());
                 iev.setTarget(ce.getReactingTC());
@@ -1348,7 +1345,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote nop_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeNopS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeNopS(LogicTuple.fromTerm(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1372,7 +1369,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      ********************************************************************/
     /**
      * @param arg0 the tuple to inject in the tuple centre
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1387,11 +1384,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local out triggered...");
             final Term newArg = arg0.copyGoal(v, 0);
-            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final LogicTuple tuArg = LogicTuple.fromTerm(newArg);
             this.vm.addTuple(tuArg, true);
             final InputEvent ce = this.vm.getCurrentEvent();
             final InternalEvent ev = new InternalEvent(ce,
-                    InternalOperation.makeOutR(LogicTuples.newInstance(arg0.copyGoal(v,
+                    InternalOperation.makeOutR(LogicTuple.fromTerm(arg0.copyGoal(v,
                             0))));
             ev.setSource(ce.getReactingTC());
             ev.setTarget(ce.getReactingTC());
@@ -1412,7 +1409,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         // }
         // final InputEvent outEv =
         // new InputEvent(ce.getReactingTC(), RespectOperationDefault.makeOut(
-        // this.getProlog(), LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+        // this.getProlog(), LogicTuples.fromTerm(arg0.copyGoal(v, 0)),
         // null), newTid, this.vm.getCurrentTime());
         // outEv.setIsLinking(true);
         // outEv.setTarget(newTid);
@@ -1420,7 +1417,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         // return true;
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeOut(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeOut(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1429,8 +1426,8 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param arg0 the list of tuples to injectin the tuple centre
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg0 the list copyOf tuples to injectin the tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1445,11 +1442,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local out_all triggered...");
             final Term newArg = arg0.copyGoal(v, 0);
-            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final LogicTuple tuArg = LogicTuple.fromTerm(newArg);
             this.vm.addListTuple(tuArg);
             final InputEvent ce = this.vm.getCurrentEvent();
             final InternalEvent ev = new InternalEvent(ce,
-                    InternalOperation.makeOutAllR(LogicTuples.newInstance(arg0.copyGoal(
+                    InternalOperation.makeOutAllR(LogicTuple.fromTerm(arg0.copyGoal(
                             v, 0))));
             ev.setSource(ce.getReactingTC());
             ev.setTarget(ce.getReactingTC());
@@ -1460,7 +1457,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeOutAll(
-                        LogicTuples.newInstance(arg0.copyGoal(v, 0)), null), tid,
+                        LogicTuple.fromTerm(arg0.copyGoal(v, 0)), null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1469,10 +1466,10 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param ev the triggering events of a ReSpecT specification
-     * @param g  the guard of a ReSpecT specification
-     * @param r  the body of a ReSpecT specification
-     * @param tc the identifier of the target tuple centre
+     * @param ev the triggering events copyOf a ReSpecT specification
+     * @param g  the guard copyOf a ReSpecT specification
+     * @param r  the body copyOf a ReSpecT specification
+     * @param tc the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1501,11 +1498,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local out_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final LogicTuple tuArg = LogicTuple.fromTerm(newArg);
             this.vm.addSpecTuple(tuArg);
             final InputEvent ce = this.vm.getCurrentEvent();
             final InternalEvent iev = new InternalEvent(ce,
-                    InternalOperation.makeOutSR(LogicTuples.newInstance(goal.copyGoal(v,
+                    InternalOperation.makeOutSR(LogicTuple.fromTerm(goal.copyGoal(v,
                             0))));
             iev.setSource(ce.getReactingTC());
             iev.setTarget(ce.getReactingTC());
@@ -1515,7 +1512,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote out_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeOutS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeOutS(LogicTuple.fromTerm(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1539,7 +1536,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1550,7 +1547,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rd triggered...");
@@ -1561,7 +1558,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeRdR(LogicTuples.newInstance(arg0.copyGoal(
+                        InternalOperation.makeRdR(LogicTuple.fromTerm(arg0.copyGoal(
                                 v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -1573,7 +1570,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote rd triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeRd(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeRd(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1584,7 +1581,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     /**
      * @param arg0 the tuple template to be used
      * @param arg1 the Prolog variable to unify the result with
-     * @param arg2 the identifier of the target tuple centre
+     * @param arg2 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg2 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1596,7 +1593,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg2);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rd_all triggered...");
@@ -1613,7 +1610,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final InputEvent ce = this.vm.getCurrentEvent();
         final String tuple = arg0.getTerm().toString() + "," + arg1;
         LogicTuple resultArg;
-        resultArg = LogicTuples.parse(tuple);
+        resultArg = LogicTuple.parse(tuple);
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
                 RespectOperationDefault.makeRdAll(resultArg, null), tid,
                 this.vm.getCurrentTime(), ce.getPosition());
@@ -1624,10 +1621,10 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param ev the triggering events of a ReSpecT specification
-     * @param g  the guard of a ReSpecT specification
-     * @param r  the body of a ReSpecT specification
-     * @param tc the identifier of the target tuple centre
+     * @param ev the triggering events copyOf a ReSpecT specification
+     * @param g  the guard copyOf a ReSpecT specification
+     * @param r  the body copyOf a ReSpecT specification
+     * @param tc the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1656,7 +1653,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rd_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final LogicTuple tuArg = LogicTuple.fromTerm(newArg);
             final Tuple tuple = this.vm
                     .readMatchingSpecTuple(tuArg);
             if (tuple != null) {
@@ -1664,7 +1661,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 this.unify(goal, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent iev = new InternalEvent(ce,
-                        InternalOperation.makeRdSR(LogicTuples.newInstance(goal
+                        InternalOperation.makeRdSR(LogicTuple.fromTerm(goal
                                 .copyGoal(v, 0))));
                 iev.setSource(ce.getReactingTC());
                 iev.setTarget(ce.getReactingTC());
@@ -1676,7 +1673,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote rd_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeRdS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeRdS(LogicTuple.fromTerm(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1686,7 +1683,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1697,7 +1694,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rdp triggered...");
@@ -1708,7 +1705,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeRdR(LogicTuples.newInstance(arg0.copyGoal(
+                        InternalOperation.makeRdR(LogicTuple.fromTerm(arg0.copyGoal(
                                 v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -1720,7 +1717,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote rdp triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeRdp(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeRdp(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1732,10 +1729,10 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      * ReSpecT reaction observation predicates.
      ********************************************************************/
     /**
-     * @param ev the triggering events of a ReSpecT specification
-     * @param g  the guard of a ReSpecT specification
-     * @param r  the body of a ReSpecT specification
-     * @param tc the identifier of the target tuple centre
+     * @param ev the triggering events copyOf a ReSpecT specification
+     * @param g  the guard copyOf a ReSpecT specification
+     * @param r  the body copyOf a ReSpecT specification
+     * @param tc the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if tc (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1764,7 +1761,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local rdp_s triggered...");
             final Term newArg = goal.copyGoal(v, 0);
-            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final LogicTuple tuArg = LogicTuple.fromTerm(newArg);
             final Tuple tuple = this.vm
                     .readMatchingSpecTuple(tuArg);
             if (tuple != null) {
@@ -1772,7 +1769,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 this.unify(goal, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent iev = new InternalEvent(ce,
-                        InternalOperation.makeRdSR(LogicTuples.newInstance(goal
+                        InternalOperation.makeRdSR(LogicTuple.fromTerm(goal
                                 .copyGoal(v, 0))));
                 iev.setSource(ce.getReactingTC());
                 iev.setTarget(ce.getReactingTC());
@@ -1784,7 +1781,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote rdp_s triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeRdpS(LogicTuples.newInstance(goal.copyGoal(v, 0)),
+                RespectOperationDefault.makeRdpS(LogicTuple.fromTerm(goal.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1826,22 +1823,22 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param env the identifier of the target environmental resource
+     * @param env the identifier copyOf the target environmental resource
      * @param key the environmental property to modify
      * @param val the value modified
      * @return <code>true</code> if the operation is successfull
      * @throws OperationTimeOutException           if the notification operation expires timeout
-     * @throws UnreachableNodeException            if the TuCSoN tuple centre target of the notification cannot
+     * @throws UnreachableNodeException            if the TuCSoN tuple centre target copyOf the notification cannot
      *                                             be reached over the network
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
      *                                             reason
      */
     public boolean setEnv_3(final Term env, final Term key, final Term val) {
-        // Get engine's copy of key and val
+        // Get engine's copy copyOf key and val
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         final AbstractMap<Var, Var> v1 = new LinkedHashMap<>();
-        final LogicTuple lt = LogicTuples.newInstance("setEnv", TupleArguments.newInstance(
-                key.copyGoal(v, 0)), TupleArguments.newInstance(val.copyGoal(v1, 0)));
+        final LogicTuple lt = LogicTuple.of("setEnv", TupleArgument.fromTerm(
+                key.copyGoal(v, 0)), TupleArgument.fromTerm(val.copyGoal(v1, 0)));
         // Building internal events
         final InputEvent ev = this.vm.getCurrentEvent();
         // log("### DEBUG >>> ev = " + ev);
@@ -1866,7 +1863,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Java class full name or tuProlog theory file path to spawn
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -1881,11 +1878,11 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local spawn triggered...");
             final Term newArg = arg0.copyGoal(v, 0);
-            final LogicTuple tuArg = LogicTuples.newInstance(newArg);
+            final LogicTuple tuArg = LogicTuple.fromTerm(newArg);
             final InputEvent ce = this.vm.getCurrentEvent();
             this.vm.spawnActivity(tuArg, ce.getReactingTC(), ce.getReactingTC());
             final InternalEvent ev = new InternalEvent(ce,
-                    InternalOperation.makeSpawnR(LogicTuples.newInstance(arg0.copyGoal(
+                    InternalOperation.makeSpawnR(LogicTuple.fromTerm(arg0.copyGoal(
                             v, 0))));
             ev.setSource(ce.getReactingTC());
             ev.setTarget(ce.getReactingTC());
@@ -1895,7 +1892,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote spawn triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeSpawn(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeSpawn(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -1904,13 +1901,13 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param space type of node position. It can be specified as either its
+     * @param space type copyOf node position. It can be specified as either its
      *              absolute physical position (S=ph), its IP number (S=ip), its
      *              domain name (S=dns), its geographical location (S=map), or its
      *              organisational position (S=org).
      * @param place the expected position.
      * @return <code>true</code> if the given position, specified according to
-     * the given space term, unifies with the position of the node where
+     * the given space term, unifies with the position copyOf the node where
      * the events chain that led to the triggering events was originated.
      */
     public boolean start_place_2(final Term space, final Term place) {
@@ -1941,7 +1938,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param predicate the predicate prime cause of current ReSpecT events
+     * @param predicate the predicate prime cause copyOf current ReSpecT events
      * @return <code>true</code> if the current ReSpecT events has the given
      * prime cause
      */
@@ -1949,13 +1946,13 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         final AbstractEvent e = this.vm.getCurrentReactionEvent();
         if (e.isInternal()) {
             final InternalEvent ie = (InternalEvent) e;
-            return LogicMatchingEngine.propagate(LogicTuples.newInstance(predicate),
+            return LogicMatchingEngine.propagate(LogicTuple.fromTerm(predicate),
                     (LogicTuple) ie.getInputEvent().getSimpleTCEvent()
                             .getPredicate());
         }
         if (e.isOutput()) {
             final OutputEvent oe = (OutputEvent) e;
-            return LogicMatchingEngine.propagate(LogicTuples.newInstance(predicate),
+            return LogicMatchingEngine.propagate(LogicTuple.fromTerm(predicate),
                     (LogicTuple) oe.getInputEvent().getSimpleTCEvent()
                             .getPredicate());
         }
@@ -1964,7 +1961,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param source the identifier of the prime cause source of the events
+     * @param source the identifier copyOf the prime cause source copyOf the events
      * @return <code>true</code> if current ReSpecT events prime cause has the
      * given source
      */
@@ -2021,7 +2018,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param target the identifier of the prime cause target
+     * @param target the identifier copyOf the prime cause target
      * @return <code>true</code> if current ReSpecT events prime cause has the
      * given target
      */
@@ -2100,7 +2097,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @param tuple the tuple argument of the direct cause predicate
+     * @param tuple the tuple argument copyOf the direct cause predicate
      * @return <code>true</code> if the direct cause tuple argument has the
      * given tuple
      */
@@ -2130,7 +2127,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @return true if the final target of the ReSpecT operation is an agent
+     * @return true if the final target copyOf the ReSpecT operation is an agent
      * (either Java or tuProlog or whatever).
      */
     public boolean to_agent_0() {
@@ -2148,7 +2145,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
     }
 
     /**
-     * @return true if the final target of the ReSpecT operation is a ReSpecT
+     * @return true if the final target copyOf the ReSpecT operation is a ReSpecT
      * tuplecentre.
      */
     public boolean to_tc_0() {
@@ -2159,7 +2156,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -2170,7 +2167,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local uin triggered...");
@@ -2181,7 +2178,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeUinR(LogicTuples.newInstance(arg0
+                        InternalOperation.makeUinR(LogicTuple.fromTerm(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -2193,7 +2190,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote uin triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeUin(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUin(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2203,7 +2200,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -2214,7 +2211,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local uinp triggered...");
@@ -2225,7 +2222,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeUinR(LogicTuples.newInstance(arg0
+                        InternalOperation.makeUinR(LogicTuple.fromTerm(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -2237,7 +2234,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote uinp triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeUinp(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUinp(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2247,7 +2244,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -2258,7 +2255,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local uno triggered...");
@@ -2268,7 +2265,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 Respect2PLibrary.log("uno success");
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeUnoR(LogicTuples.newInstance(arg0
+                        InternalOperation.makeUnoR(LogicTuple.fromTerm(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -2281,7 +2278,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote uno triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeUno(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUno(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2291,7 +2288,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -2302,7 +2299,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local unop triggered...");
@@ -2312,7 +2309,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 Respect2PLibrary.log("unop success");
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeUnoR(LogicTuples.newInstance(arg0
+                        InternalOperation.makeUnoR(LogicTuple.fromTerm(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -2325,7 +2322,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote unop triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeUnop(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUnop(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2335,7 +2332,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -2346,7 +2343,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local urd triggered...");
@@ -2357,7 +2354,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeUrdR(LogicTuples.newInstance(arg0
+                        InternalOperation.makeUrdR(LogicTuple.fromTerm(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -2369,7 +2366,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote urd triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeUrd(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUrd(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);
@@ -2379,7 +2376,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     /**
      * @param arg0 the Prolog variable to unify the result with
-     * @param arg1 the identifier of the target tuple centre
+     * @param arg1 the identifier copyOf the target tuple centre
      * @return <code>true</code> if the operation is successfull
      * @throws InvalidTupleCentreIdException if arg1 (tuple centre's id) is not a well-formed ground logic
      *                                       term
@@ -2390,7 +2387,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         TupleCentreIdentifier tid;
         tid = new TupleCentreId(arg1);
         tcName = tid.getLocalName();
-        final LogicTuple tuArg = LogicTuples.newInstance(arg0);
+        final LogicTuple tuArg = LogicTuple.fromTerm(arg0);
         final AbstractMap<Var, Var> v = new LinkedHashMap<>();
         if ("this".equals(tcName)) {
             Respect2PLibrary.log("Local urdp triggered...");
@@ -2401,7 +2398,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
                 this.unify(arg0, term.copyGoal(v, 0));
                 final InputEvent ce = this.vm.getCurrentEvent();
                 final InternalEvent ev = new InternalEvent(ce,
-                        InternalOperation.makeUrdR(LogicTuples.newInstance(arg0
+                        InternalOperation.makeUrdR(LogicTuple.fromTerm(arg0
                                 .copyGoal(v, 0))));
                 ev.setSource(ce.getReactingTC());
                 ev.setTarget(ce.getReactingTC());
@@ -2413,7 +2410,7 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         Respect2PLibrary.log("Remote urdp triggered...");
         final InputEvent ce = this.vm.getCurrentEvent();
         final InputEvent outEv = new InputEvent(ce.getReactingTC(),
-                RespectOperationDefault.makeUrdp(LogicTuples.newInstance(arg0.copyGoal(v, 0)),
+                RespectOperationDefault.makeUrdp(LogicTuple.fromTerm(arg0.copyGoal(v, 0)),
                         null), tid, this.vm.getCurrentTime(), ce.getPosition());
         outEv.setIsLinking(true);
         outEv.setTarget(tid);

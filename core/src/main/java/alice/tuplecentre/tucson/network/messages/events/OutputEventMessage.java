@@ -10,7 +10,7 @@ package alice.tuplecentre.tucson.network.messages.events;
 public interface OutputEventMessage extends EventMessage {
 
     /**
-     * @return the effect of the event
+     * @return the effect copyOf the event
      */
     Object getTupleResult();
 

@@ -1,19 +1,19 @@
 /*
  * Copyright 1999-2014 Alma Mater Studiorum - Universita' di Bologna
  *
- * This file is part of TuCSoN <http://tucson.unibo.it>.
+ * This file is part copyOf TuCSoN <http://tucson.unibo.it>.
  *
  *    TuCSoN is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Lesser General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
+ *    it under the terms copyOf the GNU Lesser General Public License as published by
+ *    the Free Software Foundation, either version 3 copyOf the License, or
  *    (at your option) any later version.
  *
  *    TuCSoN is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *    GNU Lesser General Public License for more details.
  *
- *    You should have received a copy of the GNU Lesser General Public License
+ *    You should have received a copy copyOf the GNU Lesser General Public License
  *    along with TuCSoN.  If not, see <https://www.gnu.org/licenses/lgpl.html>.
  *
  */
@@ -64,7 +64,7 @@ public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
     /**
      * Builds an helper given the delegating agent Identifier
      *
-     * @param id the Identifier of the agent delegating asynchronous invocation to this
+     * @param id the Identifier copyOf the agent delegating asynchronous invocation to this
      *           helper
      * @throws TucsonInvalidAgentIdException if the given String does not represent a valid TuCSoN agent
      *                                       identifier
@@ -80,11 +80,11 @@ public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
     }
 
     /**
-     * Adds an operation to the queue of pending operations, only if the
+     * Adds an operation to the queue copyOf pending operations, only if the
      * shutdown operation hasn't been called yet.
      *
      * @param action   the TuCSoN operation to execute.
-     * @param listener the TuCSoN listener in charge of handling operation completion
+     * @param listener the TuCSoN listener in charge copyOf handling operation completion
      *                 asynchronously
      * @return {@code true} or {@code false} depending on whether the enqueue
      * operation was successful or not
@@ -108,18 +108,18 @@ public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
     }
 
     /**
-     * Gets the queue of completed operations
+     * Gets the queue copyOf completed operations
      *
-     * @return the queue of completed operations
+     * @return the queue copyOf completed operations
      */
     public final CompletedOpsQueue getCompletedOps() {
         return this.completedOpsQueue;
     }
 
     /**
-     * Gets the queue of pending operations
+     * Gets the queue copyOf pending operations
      *
-     * @return the queue of pending operations
+     * @return the queue copyOf pending operations
      */
     public final SearchableOpsQueue getPendingOps() {
         return this.pendingOpsQueue;
@@ -166,15 +166,15 @@ public class AsynchOpsHelper extends AbstractTucsonAgent<EnhancedAsyncACC> {
     }
 
     /**
-     * Requests soft shutdown of the helper, that is, shutdown happens only when
-     * the queue of pending operations has been emptied
+     * Requests soft shutdown copyOf the helper, that is, shutdown happens only when
+     * the queue copyOf pending operations has been emptied
      */
     public final void shutdownGracefully() {
         this.isSoftStopped = true;
     }
 
     /**
-     * Requests hard shutdown of the helper, that is, shutdown happens as soon
+     * Requests hard shutdown copyOf the helper, that is, shutdown happens as soon
      * as the current operation in execution completes: pending operations are
      * discarded instead
      */

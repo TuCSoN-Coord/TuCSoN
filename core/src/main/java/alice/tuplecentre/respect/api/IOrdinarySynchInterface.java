@@ -19,14 +19,14 @@ import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 public interface IOrdinarySynchInterface {
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
     List<LogicTuple> get(final InputEvent ev) throws OperationNotPossibleException;
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -35,7 +35,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -44,7 +44,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -53,7 +53,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -62,7 +62,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -71,7 +71,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -88,7 +88,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -97,7 +97,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -106,7 +106,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -115,7 +115,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -124,7 +124,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -132,7 +132,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -141,7 +141,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -150,7 +150,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -159,7 +159,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -168,7 +168,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -177,7 +177,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -186,7 +186,7 @@ public interface IOrdinarySynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */

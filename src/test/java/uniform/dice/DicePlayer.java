@@ -1,19 +1,19 @@
 /*
  * Copyright 1999-2019 Alma Mater Studiorum - Universita' di Bologna
  *
- * This file is part of MoK <http://mok.apice.unibo.it>.
+ * This file is part copyOf MoK <http://mok.apice.unibo.it>.
  *
  *    MoK is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Lesser General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
+ *    it under the terms copyOf the GNU Lesser General Public License as published by
+ *    the Free Software Foundation, either version 3 copyOf the License, or
  *    (at your option) any later version.
  *
  *    MoK is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *    GNU Lesser General Public License for more details.
  *
- *    You should have received a copy of the GNU Lesser General Public License
+ *    You should have received a copy copyOf the GNU Lesser General Public License
  *    along with MoK.  If not, see <https://www.gnu.org/licenses/lgpl.html>.
  *
  */
@@ -25,8 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -35,7 +34,6 @@ import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.RootACC;
@@ -69,8 +67,8 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
                     .getNegotiationContext(new TucsonAgentIdDefault("god"));
             final EnhancedSyncACC acc = negAcc.playDefaultRole();
             acc.outAll(
-                    new TucsonTupleCentreIdDefault("dice", "localhost", String.valueOf(TucsonInfo.getDefaultPortNumber())),
-                    LogicTuples.parse("[face(1),face(2),face(3),face(4),face(5),face(6)]"),
+                    TucsonTupleCentreId.of("dice", "localhost", String.valueOf(TucsonInfo.getDefaultPortNumber())),
+                    LogicTuple.parse("[face(1),face(2),face(3),face(4),face(5),face(6)]"),
                     Long.MAX_VALUE);
             Logger.getAnonymousLogger().log(Level.INFO,
                     "...configuration done, now starting agent...");
@@ -94,7 +92,7 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
         super(aid);
         this.stop = false;
         try {
-            this.tcid = new TucsonTupleCentreIdDefault("dice", "localhost", String.valueOf(TucsonInfo.getDefaultPortNumber()));
+            this.tcid = TucsonTupleCentreId.of("dice", "localhost", String.valueOf(TucsonInfo.getDefaultPortNumber()));
         } catch (TucsonInvalidTupleCentreIdException e) {
             e.printStackTrace();
             System.exit(-1);
@@ -114,7 +112,7 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
             final EnhancedSyncACC acc = negAcc.playDefaultRole();
             TucsonOperation op;
             LogicTuple template;
-            final LogicTuple dieTuple = LogicTuples.newInstance("stahp", TupleArguments.newValueArgument(
+            final LogicTuple dieTuple = LogicTuple.of("stahp", TupleArgument.of(
                     this.getTucsonAgentId().getLocalName()));
             int face;
             Integer nTimes;
@@ -126,7 +124,7 @@ public final class DicePlayer extends AbstractTucsonAgent<RootACC> {
                     continue;
                 }
                 this.say("Rolling dice...");
-                template = LogicTuples.newInstance("face", TupleArguments.newVarArgument());
+                template = LogicTuple.of("face", TupleArgument.var());
                 // op = acc.rd(this.tcid, template, Long.MAX_VALUE);
                 op = acc.urd(this.tcid, template, Long.MAX_VALUE);
                 if (op.isResultSuccess()) {

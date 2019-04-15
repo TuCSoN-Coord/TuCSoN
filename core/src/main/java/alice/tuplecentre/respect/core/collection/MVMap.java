@@ -10,8 +10,8 @@ import java.util.Map;
  * in a {@link List} associated whit the {@code key}. You can have duplicate
  * values associated with the same key.
  *
- * @param <K> the type of the key
- * @param <V> the type of the value
+ * @param <K> the type copyOf the key
+ * @param <V> the type copyOf the value
  * @author Saverio Cicora
  */
 public interface MVMap<K, V> extends Iterable<V> {
@@ -58,9 +58,9 @@ public interface MVMap<K, V> extends Iterable<V> {
     List<V> get(K key);
 
     /**
-     * Return a number of keys collected into MVMap
+     * Return a number copyOf keys collected into MVMap
      *
-     * @return the number of keys
+     * @return the number copyOf keys
      */
     int getKeysNumber();
 
@@ -84,24 +84,24 @@ public interface MVMap<K, V> extends Iterable<V> {
      * @param key   - the key
      * @param value - the value
      * @return {@code true} if the {@code value} are correctly added at the
-     * MVMap. This depend of the specific implementation of List that is
+     * MVMap. This depend copyOf the specific implementation copyOf List that is
      * used.
      */
     boolean put(K key, V value);
 
     /**
-     * Is the same of the {@link #put(Object key, Object value)} but the
+     * Is the same copyOf the {@link #put(Object key, Object value)} but the
      * key-value pair is provided by a {@link java.util.Map.Entry} object.
      *
      * @param e the key-value pair
      * @return {@code true} if the {@code value} are correctly added at the
-     * BucketMap. This depend of the specific implementation of List
+     * BucketMap. This depend copyOf the specific implementation copyOf List
      * that is used.
      */
     boolean put(Map.Entry<K, V> e);
 
     /**
-     * Removes the first occurrence of the specified element from this MVMap.
+     * Removes the first occurrence copyOf the specified element from this MVMap.
      *
      * @param key   the key
      * @param value the value
@@ -110,26 +110,26 @@ public interface MVMap<K, V> extends Iterable<V> {
     boolean remove(K key, V value);
 
     /**
-     * Removes the first occurrence of the specified element from this MVMap.
+     * Removes the first occurrence copyOf the specified element from this MVMap.
      *
-     * @param e the entry of the map
+     * @param e the entry copyOf the map
      * @return <tt>true</tt> if this list contained the specified element
      */
     boolean remove(Map.Entry<K, V> e);
 
     /**
-     * Returns the number of value contains in this Multi-Value Map.
+     * Returns the number copyOf value contains in this Multi-Value Map.
      * <p>
-     * The max number of key permitted is {@code Integer.MAX_VALUE} and each key
+     * The max number copyOf key permitted is {@code Integer.MAX_VALUE} and each key
      * can contain {@code Integer.MAX_VALUE} value.
      *
-     * @return the number of values contained in this map
+     * @return the number copyOf values contained in this map
      */
     int size();
 
     /**
      * @param v the array type to be used for array construction
-     * @return the array representation of this map
+     * @return the array representation copyOf this map
      */
     V[] toArray(V[] v);
 
@@ -138,12 +138,12 @@ public interface MVMap<K, V> extends Iterable<V> {
 
     /**
      * <p>
-     * Return a list of all values contained into MVMap
+     * Return a list copyOf all values contained into MVMap
      * </p>
      * WARNING: the returned list should be used in read-only mode because it is
-     * not synchronized with the rest of the map
+     * not synchronized with the rest copyOf the map
      *
-     * @return the list of values
+     * @return the list copyOf values
      */
     List<V> values();
 }

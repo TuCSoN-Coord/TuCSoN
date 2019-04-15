@@ -5,15 +5,14 @@ package persistency;
 
 import java.io.IOException;
 
-import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -44,9 +43,9 @@ public final class PersistencyTester {
             } catch (final InterruptedException | DialogInitializationException e) {
                 e.printStackTrace();
             }
-            final TucsonTupleCentreId ttcid = new TucsonTupleCentreIdDefault(
+            final TucsonTupleCentreId ttcid = TucsonTupleCentreId.of(
                     "def(1)@localhost:" + TucsonInfo.getDefaultPortNumber());
-            final TucsonTupleCentreId ttcidOrg = new TucsonTupleCentreIdDefault(
+            final TucsonTupleCentreId ttcidOrg = TucsonTupleCentreId.of(
                     "'$ORG'@localhost:" + TucsonInfo.getDefaultPortNumber());
             final TucsonAgentId aid = new TucsonAgentIdDefault("'PersistencyTester'");
             final NegotiationACC negAcc = TucsonMetaACC
@@ -59,12 +58,12 @@ public final class PersistencyTester {
             // tuples addition
             int i = 0;
             for (; i < 1000; i++) {
-                acc.out(ttcid, LogicTuples.newInstance("t", TupleArguments.newValueArgument(i)),
+                acc.out(ttcid, LogicTuple.of("t", TupleArgument.of(i)),
                         Long.MAX_VALUE);
             }
             // snapshot test
-            acc.out(ttcidOrg, LogicTuples.newInstance("cmd", TupleArguments.newValueArgument(
-                    "enable_persistency", TupleArguments.newValueArgument("def", TupleArguments.newValueArgument(1)))),
+            acc.out(ttcidOrg, LogicTuple.of("cmd", TupleArgument.of(
+                    "enable_persistency", TupleArgument.of("def", TupleArgument.of(1)))),
                     Long.MAX_VALUE);
             // spec addition
             spec = Utils
@@ -72,35 +71,35 @@ public final class PersistencyTester {
             acc.setS(ttcid, spec, Long.MAX_VALUE);
             // tuples addition
             for (; i < 2000; i++) {
-                acc.out(ttcid, LogicTuples.newInstance("t", TupleArguments.newValueArgument(i)),
+                acc.out(ttcid, LogicTuple.of("t", TupleArgument.of(i)),
                         Long.MAX_VALUE);
             }
             // tuples deletion
             for (i--; i > 1500; i--) {
-                acc.in(ttcid, LogicTuples.newInstance("t", TupleArguments.newValueArgument(i)), Long.MAX_VALUE);
+                acc.in(ttcid, LogicTuple.of("t", TupleArgument.of(i)), Long.MAX_VALUE);
             }
             acc.inS(ttcid,
-                    LogicTuples.newInstance("out", TupleArguments.newValueArgument("repulse",
-                            TupleArguments.newValueArgument("INFO"))),
-                    LogicTuples.newInstance("completion"),
-                    LogicTuples.parse("(rd_all(neighbour(_), NBRS),multiread(NBRS, repulse(INFO)))"),
+                    LogicTuple.of("out", TupleArgument.of("repulse",
+                            TupleArgument.of("INFO"))),
+                    LogicTuple.of("completion"),
+                    LogicTuple.parse("(rd_all(neighbour(_), NBRS),multiread(NBRS, repulse(INFO)))"),
                     Long.MAX_VALUE);
             // disable persistency test
-            acc.out(ttcidOrg, LogicTuples.newInstance("cmd", TupleArguments.newValueArgument(
-                    "disable_persistency", TupleArguments.newValueArgument("def", TupleArguments.newValueArgument(1)))),
+            acc.out(ttcidOrg, LogicTuple.of("cmd", TupleArgument.of(
+                    "disable_persistency", TupleArgument.of("def", TupleArgument.of(1)))),
                     Long.MAX_VALUE);
             // tuples addition
             for (; i < 2000; i++) {
-                acc.out(ttcid, LogicTuples.newInstance("ttt", TupleArguments.newValueArgument(i)),
+                acc.out(ttcid, LogicTuple.of("ttt", TupleArgument.of(i)),
                         Long.MAX_VALUE);
             }
             // snapshot test n. 2
-            acc.out(ttcidOrg, LogicTuples.newInstance("cmd", TupleArguments.newValueArgument(
-                    "enable_persistency", TupleArguments.newValueArgument("def", TupleArguments.newVarArgument()))),
+            acc.out(ttcidOrg, LogicTuple.of("cmd", TupleArgument.of(
+                    "enable_persistency", TupleArgument.of("def", TupleArgument.var()))),
                     Long.MAX_VALUE);
             // tuples addition
             for (; i < 3000; i++) {
-                acc.out(ttcid, LogicTuples.newInstance("ttt", TupleArguments.newValueArgument(i)),
+                acc.out(ttcid, LogicTuple.of("ttt", TupleArgument.of(i)),
                         Long.MAX_VALUE);
             }
             acc.exit();

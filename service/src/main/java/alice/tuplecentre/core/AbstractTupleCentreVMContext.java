@@ -1,12 +1,12 @@
 /*
  * Tuple Centre media - Copyright (C) 2001-2002 aliCE team at deis.unibo.it This
  * library is free software; you can redistribute it and/or modify it under the
- * terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
+ * terms copyOf the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 copyOf the License, or (at your option)
  * any later version. This library is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
- * General Public License for more details. You should have received a copy of
+ * General Public License for more details. You should have received a copy copyOf
  * the GNU Lesser General Public License along with this library; if not, write
  * to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  * 02111-1307 USA
@@ -40,14 +40,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Defines the build abstract behaviour of a tuple centre virtual machine.
+ * Defines the build abstract behaviour copyOf a tuple centre virtual machine.
  *
- * The class is abstract because the specific implementation of the reacting
- * behaviour and of the set management is left to the derived classes.
+ * The class is abstract because the specific implementation copyOf the reacting
+ * behaviour and copyOf the set management is left to the derived classes.
  *
- * This class implements - by means of the state pattern - the behaviour
+ * This class implements - by means copyOf the state pattern - the behaviour
  * described formally in the article "From Tuple Space to Tuple Centre"
- * (Omicini, Denti) - Science of Computer Programming 2001,
+ * (Omicini, Denti) - Science copyOf Computer Programming 2001,
  *
  *
  * @author Alessandro Ricci
@@ -84,7 +84,7 @@ public abstract class AbstractTupleCentreVMContext implements
      * @param id
      *            is the tuple centre identifier
      * @param ieSize
-     *            is the size of the input events queue
+     *            is the size copyOf the input events queue
      * @param rtc
      *            the ReSpecT tuple centre this VM refers to
      */
@@ -147,13 +147,13 @@ public abstract class AbstractTupleCentreVMContext implements
     /**
      *
      * @param t
-     *            the tuple representing the list of tuples to add
-     * @return the list of tuples just added
+     *            the tuple representing the list copyOf tuples to add
+     * @return the list copyOf tuples just added
      */
     public abstract List<Tuple> addListTuple(Tuple t);
 
     /**
-     * Adds a query to the pending query set (W) of the tuple centre
+     * Adds a query to the pending query set (W) copyOf the tuple centre
      *
      * @param w
      *            the pending query to be added
@@ -208,7 +208,7 @@ public abstract class AbstractTupleCentreVMContext implements
     public abstract void emptyTupleSet();
 
     /**
-     * Evaluates a triggered reaction, changing the state of the VM accordingly.
+     * Evaluates a triggered reaction, changing the state copyOf the VM accordingly.
      *
      * @param z
      *            the triggered reaction to be evaluated
@@ -256,7 +256,7 @@ public abstract class AbstractTupleCentreVMContext implements
      * Fetches a new pending input events.
      *
      * The first pending input events is fetched from the queue as current events
-     * subject of VM process.
+     * subject copyOf VM process.
      *
      */
     public void fetchPendingEvent() {
@@ -282,17 +282,17 @@ public abstract class AbstractTupleCentreVMContext implements
     public abstract void fetchTriggeredReactions(AbstractEvent ev);
 
     /**
-     * Gets all the tuples of the tuple centre
+     * Gets all the tuples copyOf the tuple centre
      *
      * @return the whole tuple set
      */
     public abstract List<Tuple> getAllTuples();
 
     /**
-     * Gets the boot time of the Tuple Centre VM
+     * Gets the boot time copyOf the Tuple Centre VM
      *
      * The time is expressed in millisecond, according to the standard Java
-     * measurement of time.
+     * measurement copyOf time.
      *
      * @return the time at which the tuple centre VM has been booted
      */
@@ -311,7 +311,7 @@ public abstract class AbstractTupleCentreVMContext implements
 
     /**
      *
-     * @return the String representation of the state the tuple centre VM is
+     * @return the String representation copyOf the state the tuple centre VM is
      *         currently in
      */
     public String getCurrentState() {
@@ -319,10 +319,10 @@ public abstract class AbstractTupleCentreVMContext implements
     }
 
     /**
-     * Gets current time of the Tuple Centre VM
+     * Gets current time copyOf the Tuple Centre VM
      *
      * The time is expressed in millisecond, according to the standard Java
-     * measurement of time.
+     * measurement copyOf time.
      *
      * @return the time at which the tuple centre VM is now
      */
@@ -340,9 +340,9 @@ public abstract class AbstractTupleCentreVMContext implements
     }
 
     /**
-     * Gets the identifier of this tuple centre
+     * Gets the identifier copyOf this tuple centre
      *
-     * @return the identifier of the tuple centre managed by this tuple centre
+     * @return the identifier copyOf the tuple centre managed by this tuple centre
      *         VM
      */
     public TupleCentreIdentifier getId() {
@@ -358,7 +358,7 @@ public abstract class AbstractTupleCentreVMContext implements
     
     /**
      * 
-     * @return the position of the device hosting the tuple centre VM
+     * @return the position copyOf the device hosting the tuple centre VM
      */
     public Position getPosition() {
         return this.place;
@@ -379,10 +379,10 @@ public abstract class AbstractTupleCentreVMContext implements
     public abstract Iterator<? extends Tuple> getSpecTupleSetIterator();
 
     /**
-     * Gets a state of tuple centre virtual machine.
+     * Gets a state copyOf tuple centre virtual machine.
      *
      * @param stateName
-     *            name of the state
+     *            name copyOf the state
      * @return the state
      */
     public AbstractTupleCentreVMState getState(final String stateName) {
@@ -390,7 +390,7 @@ public abstract class AbstractTupleCentreVMContext implements
     }
 
     /**
-     * Gets an iterator over the set of triggered reactions
+     * Gets an iterator over the set copyOf triggered reactions
      *
      * @return the iterator
      */
@@ -411,11 +411,11 @@ public abstract class AbstractTupleCentreVMContext implements
     }
 
     /**
-     * Gets all the tuples of the tuple centre matching the TupleTemplate t
+     * Gets all the tuples copyOf the tuple centre matching the TupleTemplate t
      *
      * @param t
      *            the tuple template to be used
-     * @return the list of matching tuples
+     * @return the list copyOf matching tuples
      */
     public abstract List<Tuple> inAllTuples(TupleTemplate t);
 
@@ -451,7 +451,7 @@ public abstract class AbstractTupleCentreVMContext implements
     /**
      *
      * @param ex
-     *            the String representation of the Exception to notify
+     *            the String representation copyOf the Exception to notify
      */
     public void notifyException(final String ex) {
         LOGGER.error(ex);
@@ -483,12 +483,12 @@ public abstract class AbstractTupleCentreVMContext implements
     }
 
     /**
-     * Gets all the tuples of the tuple centre matching the TupleTemplate t
+     * Gets all the tuples copyOf the tuple centre matching the TupleTemplate t
      * without removing them
      *
      * @param t
      *            the tuple template to be used
-     * @return the list of tuples result of the operation
+     * @return the list copyOf tuples result copyOf the operation
      */
     public abstract List<Tuple> readAllTuples(TupleTemplate t);
 
@@ -496,7 +496,7 @@ public abstract class AbstractTupleCentreVMContext implements
      *
      * @param templateArgument
      *            the tuple template to be used
-     * @return the tuple representation of the ReSpecT specification
+     * @return the tuple representation copyOf the ReSpecT specification
      */
     public abstract Tuple readMatchingSpecTuple(TupleTemplate templateArgument);
 
@@ -515,7 +515,7 @@ public abstract class AbstractTupleCentreVMContext implements
      *
      * @param t
      *            the tuple template to be used
-     * @return the tuple result of the operation
+     * @return the tuple result copyOf the operation
      */
     public abstract Tuple readUniformTuple(TupleTemplate t);
 
@@ -523,7 +523,7 @@ public abstract class AbstractTupleCentreVMContext implements
      *
      * @param templateArgument
      *            the tuple template to be used
-     * @return the tuple representation of the ReSpecT specification
+     * @return the tuple representation copyOf the ReSpecT specification
      */
     public abstract Tuple removeMatchingSpecTuple(TupleTemplate templateArgument);
 
@@ -566,7 +566,7 @@ public abstract class AbstractTupleCentreVMContext implements
      *
      * @param t
      *            the tuple template to be used
-     * @return the tuple result of the operation
+     * @return the tuple result copyOf the operation
      */
     public abstract Tuple removeUniformTuple(TupleTemplate t);
 
@@ -578,16 +578,16 @@ public abstract class AbstractTupleCentreVMContext implements
     /**
      *
      * @param tupleList
-     *            the list of tuples representing ReSpecT specification argument
-     *            of the operation
+     *            the list copyOf tuples representing ReSpecT specification argument
+     *            copyOf the operation
      */
     public abstract void setAllSpecTuples(List<Tuple> tupleList);
 
     /**
-     * Gets all the tuples of the tuple centre
+     * Gets all the tuples copyOf the tuple centre
      *
      * @param tupleList
-     *            the list of tuples argument of the operation
+     *            the list copyOf tuples argument copyOf the operation
      */
     public abstract void setAllTuples(List<Tuple> tupleList);
 
@@ -601,9 +601,9 @@ public abstract class AbstractTupleCentreVMContext implements
      * @param t
      *            the tuple representing the computational activity to launch
      * @param owner
-     *            the identifier of the owner of the operation
+     *            the identifier copyOf the owner copyOf the operation
      * @param targetTC
-     *            the identifier of the tuple centre target of the operation
+     *            the identifier copyOf the tuple centre target copyOf the operation
      * @return wether the operation succeeded
      */
     public abstract boolean spawnActivity(Tuple t, EmitterIdentifier owner, EmitterIdentifier targetTC);

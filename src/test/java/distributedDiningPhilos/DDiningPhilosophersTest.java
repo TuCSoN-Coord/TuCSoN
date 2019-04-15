@@ -2,14 +2,13 @@ package distributedDiningPhilos;
 
 import java.io.IOException;
 
-import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.acc.RootACC;
@@ -48,7 +47,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
     /**
      *
      * @param aid
-     *            the String representation of a valid TuCSoN agent identifier
+     *            the String representation copyOf a valid TuCSoN agent identifier
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent
      *             identifier
@@ -73,7 +72,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
             final OrdinaryAndSpecificationSyncACC acc = negAcc.playDefaultRole();
             final TucsonTupleCentreId[] seats = new TucsonTupleCentreId[DDiningPhilosophersTest.N_PHILOSOPHERS];
             for (int i = 0; i < DDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
-                seats[i] = new TucsonTupleCentreIdDefault("seat(" + i + "," + (i + 1)
+                seats[i] = TucsonTupleCentreId.of("seat(" + i + "," + (i + 1)
                         % DDiningPhilosophersTest.N_PHILOSOPHERS + ")",
                         this.ip, String.valueOf(this.port));
                 this.say("Injecting 'seat' ReSpecT specification in tc < "
@@ -82,11 +81,11 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
                         seats[i],
                         Utils.fileToString("distributedDiningPhilos/seat.rsp"),
                         null);
-                acc.out(seats[i], LogicTuples.parse("philosopher(thinking)"),
+                acc.out(seats[i], LogicTuple.parse("philosopher(thinking)"),
                         null);
             }
             /* MOD: begin */
-            final TucsonTupleCentreId table = new TucsonTupleCentreIdDefault("table",
+            final TucsonTupleCentreId table = TucsonTupleCentreId.of("table",
                     this.ip, String.valueOf(this.port + 1));
             /* MOD: end */
             this.say("Injecting 'table' ReSpecT specification in tc < "
@@ -96,7 +95,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
                     Utils.fileToString("distributedDiningPhilos/table.rsp"),
                     null);
             for (int i = 0; i < DDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
-                acc.out(table, LogicTuples.parse("chop(" + i + ")"), null);
+                acc.out(table, LogicTuple.parse("chop(" + i + ")"), null);
             }
             for (int i = 0; i < DDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
                 new DiningPhilosopher("'philo-" + i + "'", seats[i]).go();

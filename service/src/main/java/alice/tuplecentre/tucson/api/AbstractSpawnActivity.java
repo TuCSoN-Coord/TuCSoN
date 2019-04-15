@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
  * The "parallel computation" to be started with a <code>spawn</code> primitive.
  * The spawned activity should be a PURELY COMPUTATIONAL (algorithmic) process,
  * with the purpose to delegate computations to the coordination medium. For
- * this reason, a set of "constrained" Linda primitives are provided: they
+ * this reason, a set copyOf "constrained" Linda primitives are provided: they
  * CANNOT access a remote space. Furthermore, the programmer is strongly
  * encouraged not to put communications, locks or other potentially
  * "extra-algorithmic" features in its SpawnActivity.
@@ -74,7 +74,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     /**
      * Gets the tuplecentre identifier hosting the spawned activity.
      *
-     * @return the identifier of the tuplecentre hosting the spawned activity.
+     * @return the identifier copyOf the tuplecentre hosting the spawned activity.
      */
     public final TucsonTupleCentreId getTargetTC() {
         return this.target;
@@ -91,10 +91,10 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * Linda operations used in the spawned activity are performed ON BEHALF of
+     * Linda operations used in the spawned activity are performed ON BEHALF copyOf
      * the agent who issued the <code>spawn</code> (its "owner").
      *
-     * @param id the identifier of the agent "owner" of the spawned activity.
+     * @param id the identifier copyOf the agent "owner" copyOf the spawned activity.
      */
     public final void setSpawnerId(final TucsonAgentId id) {
         this.aid = id;
@@ -102,10 +102,10 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * Linda operations used in the spawned activity are performed ON BEHALF of
+     * Linda operations used in the spawned activity are performed ON BEHALF copyOf
      * the tuplecentre who issued the <code>spawn</code> (its "owner").
      *
-     * @param id the identifier of the tuplecentre "owner" of the spawned
+     * @param id the identifier copyOf the tuplecentre "owner" copyOf the spawned
      *           activity.
      */
     public final void setSpawnerId(final TucsonTupleCentreId id) {
@@ -117,7 +117,7 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
      * The tuplecentre target, which will "host" the spawned computation. It is
      * automagically set by the ReSpecT engine.
      *
-     * @param id the identifier of the tuplecentre target of the spawned
+     * @param id the identifier copyOf the tuplecentre target copyOf the spawned
      *           activity.
      */
     public final void setTargetTC(final TucsonTupleCentreId id) {
@@ -125,8 +125,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the tuple result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the tuple result copyOf the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple in(final LogicTuple tuple) {
@@ -166,8 +166,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the list of tuples result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the list copyOf tuples result copyOf the operation
      * @see BulkSyncACC BulkSyncACC
      */
     protected final List<LogicTuple> inAll(final LogicTuple tuple) {
@@ -208,8 +208,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the tuple result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the tuple result copyOf the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple inp(final LogicTuple tuple) {
@@ -264,8 +264,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the tuple result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the tuple result copyOf the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple no(final LogicTuple tuple) {
@@ -305,8 +305,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the list of tuples result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the list copyOf tuples result copyOf the operation
      * @see BulkSyncACC BulkSyncACC
      */
     protected final List<LogicTuple> noAll(final LogicTuple tuple) {
@@ -347,8 +347,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the tuple result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the tuple result copyOf the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple nop(final LogicTuple tuple) {
@@ -389,8 +389,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the tuple result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the tuple result copyOf the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple out(final LogicTuple tuple) {
@@ -431,8 +431,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the list of tuples result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the list copyOf tuples result copyOf the operation
      * @see BulkSyncACC BulkSyncACC
      */
     protected final List<LogicTuple> outAll(final LogicTuple tuple) {
@@ -473,8 +473,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the tuple result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the tuple result copyOf the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple rd(final LogicTuple tuple) {
@@ -514,8 +514,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the list of tuples result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the list copyOf tuples result copyOf the operation
      * @see BulkSyncACC BulkSyncACC
      */
     protected final List<LogicTuple> rdAll(final LogicTuple tuple) {
@@ -556,8 +556,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the tuple result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the tuple result copyOf the operation
      * @see OrdinarySyncACC OrdinarySyncACC
      */
     protected final LogicTuple rdp(final LogicTuple tuple) {
@@ -598,8 +598,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the tuple result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the tuple result copyOf the operation
      * @see UniformSyncACC UniformSyncACC
      */
     protected final LogicTuple uin(final LogicTuple tuple) {
@@ -640,8 +640,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the tuple result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the tuple result copyOf the operation
      * @see UniformSyncACC UniformSyncACC
      */
     protected final LogicTuple uinp(final LogicTuple tuple) {
@@ -682,8 +682,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the tuple result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the tuple result copyOf the operation
      * @see UniformSyncACC UniformSyncACC
      */
     protected final LogicTuple uno(final LogicTuple tuple) {
@@ -724,8 +724,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the tuple result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the tuple result copyOf the operation
      * @see UniformSyncACC UniformSyncACC
      */
     protected final LogicTuple unop(final LogicTuple tuple) {
@@ -766,8 +766,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the tuple result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the tuple result copyOf the operation
      * @see UniformSyncACC UniformSyncACC
      */
     protected final LogicTuple urd(final LogicTuple tuple) {
@@ -808,8 +808,8 @@ public abstract class AbstractSpawnActivity implements Serializable, Runnable {
     }
 
     /**
-     * @param tuple the tuple argument of the operation
-     * @return the tuple result of the operation
+     * @param tuple the tuple argument copyOf the operation
+     * @return the tuple result copyOf the operation
      * @see UniformSyncACC UniformSyncACC
      */
     protected final LogicTuple urdp(final LogicTuple tuple) {

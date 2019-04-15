@@ -10,7 +10,6 @@ import alice.tuplecentre.core.Reaction;
 import alice.tuplecentre.respect.core.LogicReaction;
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.introspection.Inspector;
 import alice.tuplecentre.tucson.introspection.InspectorContextEvent;
@@ -98,7 +97,7 @@ public class Inspector4Gui extends Inspector {
                         }
                     }
                     try {
-                        TucsonTupleCentreId tcId = new TucsonTupleCentreIdDefault(tcName, tcHost, tcPort);
+                        TucsonTupleCentreId tcId = TucsonTupleCentreId.of(tcName, tcHost, tcPort);
                         notifyNewTupleCenter(tcId);
                     } catch (TucsonInvalidTupleCentreIdException e) {
                         LOGGER.error(e.getMessage(), e);

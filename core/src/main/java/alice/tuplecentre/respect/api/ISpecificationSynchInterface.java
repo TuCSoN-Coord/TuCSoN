@@ -20,7 +20,7 @@ import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 public interface ISpecificationSynchInterface {
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
     List<LogicTuple> getS(final InputEvent ev)
@@ -28,7 +28,7 @@ public interface ISpecificationSynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -37,7 +37,7 @@ public interface ISpecificationSynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -46,7 +46,7 @@ public interface ISpecificationSynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -55,7 +55,7 @@ public interface ISpecificationSynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -72,7 +72,7 @@ public interface ISpecificationSynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -81,7 +81,7 @@ public interface ISpecificationSynchInterface {
 
     /**
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
@@ -91,16 +91,16 @@ public interface ISpecificationSynchInterface {
     /**
      * @param t  the logic tuple representing the ReSpecT specification to set
      * @param ev the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
     List<LogicTuple> setS(final LogicTuple t, final InputEvent ev)
             throws OperationNotPossibleException;
 
     /**
-     * @param spec the String representation of the ReSpecT specification to set
+     * @param spec the String representation copyOf the ReSpecT specification to set
      * @param ev   the events to handle
-     * @return the result of the operation
+     * @return the result copyOf the operation
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      * @throws InvalidSpecificationException if the given ReSpecT specification is not valid
      */

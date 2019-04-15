@@ -9,8 +9,8 @@ public class TucsonCmd {
     private final String primitive;
 
     /**
-     * @param p the String representation of the TuCSoN primitive
-     * @param a the String representation of the argument of the operation
+     * @param p the String representation copyOf the TuCSoN primitive
+     * @param a the String representation copyOf the argument copyOf the operation
      */
     public TucsonCmd(final String p, final String a) {
         this.primitive = p;
@@ -18,14 +18,14 @@ public class TucsonCmd {
     }
 
     /**
-     * @return the String representation of the argument of the operation
+     * @return the String representation copyOf the argument copyOf the operation
      */
     public String getArg() {
         return this.arg;
     }
 
     /**
-     * @return the String representation of the TuCSoN primitive
+     * @return the String representation copyOf the TuCSoN primitive
      */
     public String getPrimitive() {
         return this.primitive;

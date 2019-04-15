@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -12,7 +11,6 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.acc.RootACC;
@@ -22,7 +20,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
- * Master thread of a master-worker architecture. Given a list of TuCSoN Nodes
+ * Master thread copyOf a master-worker architecture. Given a list copyOf TuCSoN Nodes
  * (hopefully up and listening), it submits jobs regarding factorial computation,
  * then collects expected results.
  *
@@ -59,9 +57,9 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
      * @param aid
      *            agent name
      * @param nodes
-     *            list of nodes where to submit jobs
+     *            list copyOf nodes where to submit jobs
      * @param iters
-     *            max number of jobs per node
+     *            max number copyOf jobs per node
      * @param maxFact
      *            max number for which to calculate factorial
      *
@@ -76,7 +74,7 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
         this.tids = new LinkedList<>();
         try {
             for (final String node : nodes) {
-                this.tids.add(new TucsonTupleCentreIdDefault(node));
+                this.tids.add(TucsonTupleCentreId.of(node));
             }
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
@@ -114,7 +112,7 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
                 this.say("Checking termination...");
                 for (TucsonTupleCentreId tid2 : this.tids) {
                     op = this.acc.inp(tid2,
-                            LogicTuples.parse("die(" + this.getTucsonAgentId().getLocalName() + ")"),
+                            LogicTuple.parse("die(" + this.getTucsonAgentId().getLocalName() + ")"),
                             null);
                     /*
                      * Only upon success the searched tuple was found. NB: we do
@@ -142,17 +140,17 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
                          * ...to put in each <ITERs> jobs.
                          */
                         num = this.drawRandomInt();
-                        job = LogicTuples.parse("fact(" + "master("
+                        job = LogicTuple.parse("fact(" + "master("
                                 + this.getTucsonAgentId().getLocalName() + ")," + "num(" + num + "),"
                                 + "reqID(" + this.reqID + ")" + ")");
                         this.say("Putting job: " + job.toString());
                         /*
-                         * Only non-reachability of target tuplecentre may cause
+                         * Only non-reachability copyOf target tuplecentre may cause
                          * <out> to fail, which raises a Java Exception.
                          */
                         this.acc.out(next, job, null);
                         /*
-                         * We keep track of pending computations.
+                         * We keep track copyOf pending computations.
                          */
                         this.pendings.put(this.reqID, num);
                         this.reqID++;
@@ -171,7 +169,7 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
                         /*
                          * ...this time to retrieve factorial results.
                          */
-                        templ = LogicTuples.parse("res(" + "master("
+                        templ = LogicTuple.parse("res(" + "master("
                                 + this.getTucsonAgentId().getLocalName() + ")," + "fact(F),"
                                 + "reqID(N)" + ")");
                         /*
@@ -192,7 +190,7 @@ public class MasterAgent extends AbstractTucsonAgent<RootACC> {
                              */
                             num = this.pendings.remove(res.getArg("reqID")
                                     .getArg(0).intValue());
-                            this.say("Factorial of " + num + " is "
+                            this.say("Factorial copyOf " + num + " is "
                                     + res.getArg("fact").getArg(0));
                         }
                     }

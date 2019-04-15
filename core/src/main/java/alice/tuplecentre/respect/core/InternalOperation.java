@@ -1,25 +1,24 @@
 /*
  * ReSpecT - Copyright (C) aliCE team at deis.unibo.it This library is free
- * software; you can redistribute it and/or modify it under the terms of the GNU
+ * software; you can redistribute it and/or modify it under the terms copyOf the GNU
  * Lesser General Public License as published by the Free Software Foundation;
- * either version 2.1 of the License, or (at your option) any later version.
+ * either version 2.1 copyOf the License, or (at your option) any later version.
  * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * ANY WARRANTY; without even the implied warranty copyOf MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details. You should have received a copy of the GNU Lesser General Public
+ * details. You should have received a copy copyOf the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 package alice.tuplecentre.respect.core;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.TupleArgument;
 
 /**
- * Represents an internal operation of a ReSpecT virtual machine.
+ * Represents an internal operation copyOf a ReSpecT virtual machine.
  * <p>
- * The possible argument of the operation is represented by a logic tuple
+ * The possible argument copyOf the operation is represented by a logic tuple
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
@@ -50,7 +49,7 @@ public final class InternalOperation {
     private static final int OPTYPE_URDR = 8;
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeGetEnv(final LogicTuple t) {
@@ -58,7 +57,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeGetR(final LogicTuple t) {
@@ -66,7 +65,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeGetSR(final LogicTuple t) {
@@ -74,7 +73,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeInAllR(final LogicTuple t) {
@@ -82,7 +81,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeInR(final LogicTuple t) {
@@ -90,7 +89,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeInSR(final LogicTuple t) {
@@ -98,7 +97,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeNoAllR(final LogicTuple t) {
@@ -106,7 +105,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeNoR(final LogicTuple t) {
@@ -114,7 +113,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeNoSR(final LogicTuple t) {
@@ -122,7 +121,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeOutAllR(final LogicTuple t) {
@@ -130,7 +129,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeOutR(final LogicTuple t) {
@@ -138,7 +137,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeOutSR(final LogicTuple t) {
@@ -146,7 +145,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeRdAllR(final LogicTuple t) {
@@ -154,7 +153,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeRdR(final LogicTuple t) {
@@ -162,7 +161,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeRdSR(final LogicTuple t) {
@@ -170,7 +169,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeSetEnv(final LogicTuple t) {
@@ -178,7 +177,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeSetR(final LogicTuple t) {
@@ -186,7 +185,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeSetSR(final LogicTuple t) {
@@ -194,7 +193,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeSpawnR(final LogicTuple t) {
@@ -202,7 +201,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeUinR(final LogicTuple t) {
@@ -210,7 +209,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeUnoR(final LogicTuple t) {
@@ -218,7 +217,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple argument of this internal operation
+     * @param t the tuple argument copyOf this internal operation
      * @return the internal operation built
      */
     public static InternalOperation makeUrdR(final LogicTuple t) {
@@ -235,14 +234,14 @@ public final class InternalOperation {
     }
 
     /**
-     * @return the tuple argument of this internal operation
+     * @return the tuple argument copyOf this internal operation
      */
     public LogicTuple getArgument() {
         return this.arg;
     }
 
     /**
-     * @return the tuple result of this internal operation
+     * @return the tuple result copyOf this internal operation
      */
     public LogicTuple getResult() {
         return this.result;
@@ -403,7 +402,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @param t the tuple result of this internal operation
+     * @param t the tuple result copyOf this internal operation
      */
     public void setResult(final LogicTuple t) {
         this.result = t;
@@ -415,7 +414,7 @@ public final class InternalOperation {
     }
 
     /**
-     * @return the tuple representation of this internal operation
+     * @return the tuple representation copyOf this internal operation
      */
     public LogicTuple toTuple() {
         LogicTuple t;
@@ -472,6 +471,6 @@ public final class InternalOperation {
         } else {
             opName = "unknownOp";
         }
-        return LogicTuples.newInstance(opName, TupleArguments.newInstance(t.toTerm()));
+        return LogicTuple.of(opName, TupleArgument.fromTerm(t.toTerm()));
     }
 }

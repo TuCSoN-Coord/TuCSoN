@@ -1,7 +1,6 @@
 package respect.bagOfTask;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -10,7 +9,6 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.acc.RootACC;
@@ -21,7 +19,7 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
- * Worker thread of a bag-of-task architecture. Given a TuCSoN Node (optional)
+ * Worker thread copyOf a bag-copyOf-task architecture. Given a TuCSoN Node (optional)
  * 1) it waits for jobs exploiting TuCSoN primitives timeout to proper terminate
  * (or to react to failures...) 2) it performs the correct computation
  * (summation/subtraction solely, not the average!) 3) then puts back in the
@@ -75,7 +73,7 @@ public class Worker extends AbstractTucsonAgent<RootACC> {
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());
             acc = negAcc.playDefaultRole();
-            final TucsonTupleCentreId ttcid = new TucsonTupleCentreIdDefault(
+            final TucsonTupleCentreId ttcid = TucsonTupleCentreId.of(
                     "bagoftask", this.ip, String.valueOf(this.port));
             LogicTuple taskTempl;
             TucsonOperation taskOp;
@@ -83,10 +81,10 @@ public class Worker extends AbstractTucsonAgent<RootACC> {
             int s;
             LogicTuple res;
             while (true) {
-                taskTempl = LogicTuples.parse("task(OP)");
+                taskTempl = LogicTuple.parse("task(OP)");
                 this.say("Waiting for task...");
                 /*
-                 * Usage of timeouts: be careful that timeout extinction DOES
+                 * Usage copyOf timeouts: be careful that timeout extinction DOES
                  * NOT IMPLY operation removal from TuCSoN Node!
                  */
                 taskOp = acc.in(ttcid, taskTempl, 10000L);
@@ -107,7 +105,7 @@ public class Worker extends AbstractTucsonAgent<RootACC> {
                 /*
                  * Put back result.
                  */
-                res = LogicTuples.parse("res(" + s + ")");
+                res = LogicTuple.parse("res(" + s + ")");
                 this.say("Injecting result: " + res + "...");
                 acc.out(ttcid, res, null);
                 // Thread.sleep(1000);

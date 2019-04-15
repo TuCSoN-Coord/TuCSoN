@@ -1,19 +1,19 @@
 /*
  * Copyright 1999-2014 Alma Mater Studiorum - Universita' di Bologna
  *
- * This file is part of TuCSoN <http://tucson.unibo.it>.
+ * This file is part copyOf TuCSoN <http://tucson.unibo.it>.
  *
  *    TuCSoN is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Lesser General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
+ *    it under the terms copyOf the GNU Lesser General Public License as published by
+ *    the Free Software Foundation, either version 3 copyOf the License, or
  *    (at your option) any later version.
  *
  *    TuCSoN is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *    GNU Lesser General Public License for more details.
  *
- *    You should have received a copy of the GNU Lesser General Public License
+ *    You should have received a copy copyOf the GNU Lesser General Public License
  *    along with TuCSoN.  If not, see <https://www.gnu.org/licenses/lgpl.html>.
  *
  */
@@ -44,9 +44,9 @@ public class OutAll extends AbstractTucsonOrdinaryAction {
      * Builds the TuCSoN {@code out_all} action given its target tuple centre
      * and its tuple argument
      *
-     * @param tc the Identifier of the TuCSoN tuple centre target of this coordination
+     * @param tc the Identifier copyOf the TuCSoN tuple centre target copyOf this coordination
      *           operation
-     * @param t  the logic tuple argument of this coordination operation
+     * @param t  the logic tuple argument copyOf this coordination operation
      */
     public OutAll(final TucsonTupleCentreId tc, final LogicTuple t) {
         super(tc, t);

@@ -8,7 +8,7 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
  * TPConfig
  * </p>
  * <p>
- * A singleton class to manage configuration of TucsonProtocol
+ * A singleton class to manage configuration copyOf TucsonProtocol
  * </p>
  *
  * @author Saverio Cicora
@@ -63,7 +63,7 @@ public final class TPConfig {
     public synchronized void setTcpPort(final int portNumber) {
         if (portNumber < 1 || portNumber > TPConfig.MAX_UNBOUND_PORT) {
             throw new IllegalPortNumberException(
-                    "Port number out of bounds. Port number: " + portNumber);
+                    "Port number out copyOf bounds. Port number: " + portNumber);
         }
         this.tcpPort = portNumber;
     }

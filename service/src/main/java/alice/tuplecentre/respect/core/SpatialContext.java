@@ -7,7 +7,7 @@ import alice.tuplecentre.respect.api.place.IPlace;
 
 /**
  * A Spatial Context wraps the access to a tuple centre virtual machine for a
- * specific thread of control, providing a spatial interface.
+ * specific thread copyOf control, providing a spatial interface.
  *
  * @author Michele Bombardi (mailto: michele.bombardi@studio.unibo.it)
  */

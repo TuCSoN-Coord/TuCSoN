@@ -10,7 +10,7 @@ public class PhPlace extends AbstractPhysicalPlace {
     private static final long serialVersionUID = 2033533804064753016L;
 
     /**
-     * @param p The String representation of a PH place
+     * @param p The String representation copyOf a PH place
      */
     public PhPlace(final String p) {
         super(p);

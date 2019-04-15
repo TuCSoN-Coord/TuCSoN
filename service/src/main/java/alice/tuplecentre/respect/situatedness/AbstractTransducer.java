@@ -7,8 +7,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.TupleArgument;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.core.InternalEvent;
@@ -26,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class implements some common behavior of transducers and defines some
+ * This class implements some common behavior copyOf transducers and defines some
  * methods to offer the essential interface to users. To make a specific
  * transducer you'll need to extend this class and to define the behavior needed
  * for your specific application logic.
@@ -58,11 +57,11 @@ public abstract class AbstractTransducer implements
      **/
     protected final TransducerId id;
     /**
-     * List of probes associated to the transducer
+     * List copyOf probes associated to the transducer
      **/
     protected final Map<ProbeIdentifier, Object> probes;
     /**
-     * Identifier of the tuple centre associated
+     * Identifier copyOf the tuple centre associated
      **/
     protected final TupleCentreIdentifier tcId;
 
@@ -94,7 +93,7 @@ public abstract class AbstractTransducer implements
     }
 
     /**
-     * Exit procedure, called to end a session of communication
+     * Exit procedure, called to end a session copyOf communication
      */
     public synchronized void exit() {
         final Iterator<OperationHandler.ControllerSession> it = this.executor
@@ -125,7 +124,7 @@ public abstract class AbstractTransducer implements
     }
 
     /**
-     * The behavior of the transducer when a getEnv operation is required
+     * The behavior copyOf the transducer when a getEnv operation is required
      *
      * @param key the environmental property key whose associated value should
      *            be percevied
@@ -134,7 +133,7 @@ public abstract class AbstractTransducer implements
     public abstract boolean getEnv(String key);
 
     /**
-     * Returns the identifier of the transducer.
+     * Returns the identifier copyOf the transducer.
      *
      * @return the transducer's identifier
      */
@@ -144,9 +143,9 @@ public abstract class AbstractTransducer implements
     }
 
     /**
-     * Returns the list of all the probes associated to the transducer
+     * Returns the list copyOf all the probes associated to the transducer
      *
-     * @return array of the probes associated to the transducer
+     * @return array copyOf the probes associated to the transducer
      */
     @Override
     public ProbeIdentifier[] getProbes() {
@@ -171,7 +170,7 @@ public abstract class AbstractTransducer implements
     /**
      * Notifies an events from a probe to the tuple centre.
      *
-     * @param key   the name of the value
+     * @param key   the name copyOf the value
      * @param value the value to communicate.
      * @param mod   wether the environmental events is about an action operation or
      *              a sensing operation
@@ -183,13 +182,13 @@ public abstract class AbstractTransducer implements
             throws TucsonOperationNotPossibleException,
             UnreachableNodeException {
         if (mod == AbstractTransducer.GET_MODE) {
-            final LogicTuple tupla = LogicTuples.newInstance("getEnv", TupleArguments.newValueArgument(key),
-                    TupleArguments.newValueArgument(value));
+            final LogicTuple tupla = LogicTuple.of("getEnv", TupleArgument.of(key),
+                    TupleArgument.of(value));
             this.executor.doNonBlockingOperation(this.id,
                     TupleCentreOpType.GET_ENV, this.tcId, tupla, this, null);
         } else if (mod == AbstractTransducer.SET_MODE) {
-            final LogicTuple tupla = LogicTuples.newInstance("setEnv", TupleArguments.newValueArgument(key),
-                    TupleArguments.newValueArgument(value));
+            final LogicTuple tupla = LogicTuple.of("setEnv", TupleArgument.of(key),
+                    TupleArgument.of(value));
             this.executor.doNonBlockingOperation(this.id,
                     TupleCentreOpType.SET_ENV, this.tcId, tupla, this, null);
         }
@@ -199,7 +198,7 @@ public abstract class AbstractTransducer implements
      * Notifies an events from the tuple centre.
      * <p>
      * Events to the transducer should be only getEnv or setEnv ones. The
-     * response to each events is specified in getEnv and setEnv methods of the
+     * response to each events is specified in getEnv and setEnv methods copyOf the
      * transducer.
      *
      * @param ev internal events from the tuple centre
@@ -238,10 +237,10 @@ public abstract class AbstractTransducer implements
     }
 
     /**
-     * The behavior of the transducer when a setEnv operation is required
+     * The behavior copyOf the transducer when a setEnv operation is required
      *
-     * @param key   name of the parameter to set
-     * @param value value of the parameter to set
+     * @param key   name copyOf the parameter to set
+     * @param value value copyOf the parameter to set
      * @return true if the operation has been successfully executed
      */
     public abstract boolean setEnv(String key, int value);

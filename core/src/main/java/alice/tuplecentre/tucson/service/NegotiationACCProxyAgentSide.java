@@ -6,14 +6,12 @@ import java.util.List;
 import java.util.UUID;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonOperation;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.exceptions.AgentNotAllowedException;
@@ -79,12 +77,12 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
 
     /**
      * Builds a Negotiation ACC given the associated agent Identifier or name, the IP
-     * address of the TuCSoN node the agent is willing to interact with, and the
+     * address copyOf the TuCSoN node the agent is willing to interact with, and the
      * TCP port also.
      *
      * @param aid the associated agent Identifier or name (String)
-     * @param n   the IP address of the target TuCSoN node
-     * @param p   the TCP port of the target TuCSoN node
+     * @param n   the IP address copyOf the target TuCSoN node
+     * @param p   the TCP port copyOf the target TuCSoN node
      * @throws TucsonInvalidAgentIdException       if the given agent Identifier is NOT valid
      * @throws TucsonInvalidTupleCentreIdException if the given tuple centre Identifier is NOT valid
      */
@@ -96,7 +94,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
         this.node = n;
         this.port = p;
         this.agentAid = aid;
-        this.tid = new TucsonTupleCentreIdDefault(NegotiationACCProxyAgentSide.TC_ORG,
+        this.tid =  TucsonTupleCentreId.of(NegotiationACCProxyAgentSide.TC_ORG,
                 "'" + n + "'", "" + p);
         this.setBasicAgentClass();
     }
@@ -108,8 +106,8 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
             UnreachableNodeException, OperationTimeOutException {
         TucsonOperation op = null;
         try {
-            op = this.internalACC.inp(this.tid, LogicTuples.newInstance(
-                    "roles_list_request", TupleArguments.newValueArgument(this.agentClass), TupleArguments.newVarArgument(
+            op = this.internalACC.inp(this.tid, LogicTuple.of(
+                    "roles_list_request", TupleArgument.of(this.agentClass), TupleArgument.var(
                             "Result")), (Long) null);
         } catch (final InvalidVarNameException e) {
             /*
@@ -149,8 +147,8 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
         LogicTuple loginTuple;
         TucsonOperation op = null;
         try {
-            loginTuple = LogicTuples.newInstance("login_request", TupleArguments.newValueArgument(username
-                    + ":" + TucsonACCTool.encrypt(password)), TupleArguments.newVarArgument("Result"));
+            loginTuple = LogicTuple.of("login_request", TupleArgument.of(username
+                    + ":" + TucsonACCTool.encrypt(password)), TupleArgument.var("Result"));
             op = this.internalACC.inp(this.tid, loginTuple, (Long) null);
         } catch (final InvalidVarNameException e) {
             // TODO Auto-generated catch block
@@ -250,7 +248,7 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
             UnreachableNodeException, OperationTimeOutException {
         LogicTuple rbacInstalled = null;
         try {
-            rbacInstalled = LogicTuples.newInstance("is_rbac_installed", TupleArguments.newVarArgument("Result"));
+            rbacInstalled = LogicTuple.of("is_rbac_installed", TupleArgument.var("Result"));
         } catch (final InvalidVarNameException e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -269,8 +267,8 @@ public class NegotiationACCProxyAgentSide implements NegotiationACC {
 
     private void setBasicAgentClass() {
         try {
-            final LogicTuple baseClassTuple = LogicTuples.newInstance(
-                    "get_basic_agent_class", TupleArguments.newVarArgument("Response"));
+            final LogicTuple baseClassTuple = LogicTuple.of(
+                    "get_basic_agent_class", TupleArgument.var("Response"));
             final TucsonOperation op = this.internalACC.inp(this.tid,
                     baseClassTuple, (Long) null);
             if (op.isResultSuccess()) {

@@ -10,7 +10,7 @@ public class MapPlace extends AbstractPhysicalPlace {
     private static final long serialVersionUID = -8393583389847401746L;
 
     /**
-     * @param p The String representation of a MAP place
+     * @param p The String representation copyOf a MAP place
      */
     public MapPlace(final String p) {
         super("'" + p + "'");

@@ -1,6 +1,6 @@
 package distributedDiningPhilos;
 
-import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -31,10 +31,10 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
     /**
      *
      * @param aid
-     *            the String representation of this philosopher's TuCSoN agent
+     *            the String representation copyOf this philosopher's TuCSoN agent
      *            identifier
      * @param seat
-     *            the identifier of the TuCSoN tuple centre representing the
+     *            the identifier copyOf the TuCSoN tuple centre representing the
      *            philosopher's seat
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent
@@ -85,7 +85,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         while (true) {
             try {
                 op = Objects.requireNonNull(acc).rd(this.mySeat,
-                        LogicTuples.parse("philosopher(thinking)"), null);
+                        LogicTuple.parse("philosopher(thinking)"), null);
                 if (op.isResultSuccess()) {
                     this.say("Now thinking...");
                     this.think();
@@ -93,13 +93,13 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                     this.say("I'm exploding!");
                 }
                 this.say("I'm hungry, let's try to eat something...");
-                acc.out(this.mySeat, LogicTuples.parse("wanna_eat"), null);
+                acc.out(this.mySeat, LogicTuple.parse("wanna_eat"), null);
                 op = acc.rd(this.mySeat,
-                        LogicTuples.parse("philosopher(eating)"), null);
+                        LogicTuple.parse("philosopher(eating)"), null);
                 if (op.isResultSuccess()) {
                     this.eating();
                     this.say("I'm done, wonderful meal :)");
-                    acc.out(this.mySeat, LogicTuples.parse("wanna_think"), null);
+                    acc.out(this.mySeat, LogicTuple.parse("wanna_think"), null);
                 } else {
                     this.say("I'm starving!");
                 }

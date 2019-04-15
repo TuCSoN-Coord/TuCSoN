@@ -14,7 +14,7 @@ public class JValDefault implements JVal {
     private final JArgType type;
 
     /**
-     * @param v the double value of this JVal
+     * @param v the double value copyOf this JVal
      */
     public JValDefault(final double v) {
         this.type = JArgType.DOUBLE;
@@ -22,7 +22,7 @@ public class JValDefault implements JVal {
     }
 
     /**
-     * @param v the float value of this JVal
+     * @param v the float value copyOf this JVal
      */
     public JValDefault(final float v) {
         this.type = JArgType.FLOAT;
@@ -30,7 +30,7 @@ public class JValDefault implements JVal {
     }
 
     /**
-     * @param v the int value of this JVal
+     * @param v the int value copyOf this JVal
      */
     public JValDefault(final int v) {
         this.type = JArgType.INT;
@@ -38,7 +38,7 @@ public class JValDefault implements JVal {
     }
 
     /**
-     * @param v the long value of this JVal
+     * @param v the long value copyOf this JVal
      */
     public JValDefault(final long v) {
         this.type = JArgType.LONG;
@@ -46,7 +46,7 @@ public class JValDefault implements JVal {
     }
 
     /**
-     * @param v the literal (Java String) value of this JVal
+     * @param v the literal (Java String) value copyOf this JVal
      * @throws InvalidJValException if the given literal (Java String) is invalid (e.g. null)
      */
     public JValDefault(final String v) throws InvalidJValException {

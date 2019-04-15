@@ -9,7 +9,7 @@ import java.util.concurrent.Executors;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.respect.api.ILinkContext;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
@@ -49,7 +49,7 @@ public class InterTupleCentreACCProvider implements ILinkContext {
                 if (this.helper == null) {
                     try {
                         this.helper = new InterTupleCentreACCProxy(
-                                new TucsonTupleCentreIdDefault(this.fromId));
+                                TucsonTupleCentreId.of(this.fromId));
                     } catch (final TucsonInvalidTupleCentreIdException e) {
                         LOGGER.error(e.getMessage(), e);
                     }
@@ -72,7 +72,7 @@ public class InterTupleCentreACCProvider implements ILinkContext {
     private final TupleCentreIdentifier idTo;
 
     /**
-     * @param id the identifier of the tuple centre target of the linking
+     * @param id the identifier copyOf the tuple centre target copyOf the linking
      *           invocation
      */
     public InterTupleCentreACCProvider(

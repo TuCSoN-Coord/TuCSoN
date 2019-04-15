@@ -1,13 +1,13 @@
 /*
  * Logic Tuple Communication Language - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -70,11 +70,11 @@ class ValueArgument extends TupleArgumentDefault {
     }
 
     /**
-     * Constructs a structured (compound) argument, made of a string as a name
-     * (functor) and list of arguments
+     * Constructs a structured (compound) argument, made copyOf a string as a name
+     * (functor) and list copyOf arguments
      *
-     * @param f       the name of the structure
-     * @param argList the list of the arguments (or nothing for a simple String argument)
+     * @param f       the name copyOf the structure
+     * @param argList the list copyOf the arguments (or nothing for a simple String argument)
      */
     ValueArgument(final String f, final TupleArgument[] argList) {
         super();
@@ -88,7 +88,7 @@ class ValueArgument extends TupleArgumentDefault {
     /**
      * Constructs a structured (compound) argument as a logic list
      *
-     * @param argList the list of the arguments
+     * @param argList the list copyOf the arguments
      */
     ValueArgument(final TupleArgument[] argList) {
         super();

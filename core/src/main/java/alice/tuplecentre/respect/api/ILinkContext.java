@@ -10,7 +10,7 @@ import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
 public interface ILinkContext {
 
     /**
-     * @param id the tuple centre target of the operation
+     * @param id the tuple centre target copyOf the operation
      * @param op the invoked operation
      * @throws OperationNotPossibleException if the operation cannot be carried out
      */

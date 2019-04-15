@@ -1,0 +1,29 @@
+reaction(out(boot),true,(
+    out(agent_list([])),
+    out(tc_list([])),
+    in(boot))).
+
+reaction(out(node_event(N,new_tc(Tid))),true,(
+    in(tc_list(L)),
+    out(tc_list([Tid|L])) )).
+
+reaction(out(node_event(N,new_agent(Id))),true,(
+    in(agent_list(L)),
+    out(agent_list([Id|L])) )).
+
+reaction(out(node_event(N,exit_agent(Id))),true,(
+    in(agent_list(L)),
+    out(agent_to_remove(Id,L,[])) )).
+
+reaction(out(agent_to_remove(X,Y,Z)),true,(
+    in(agent_to_remove(X,Y,Z)) )).
+
+reaction(out(agent_to_remove(Id,[Id|L],L1)),true,(
+    out(agent_to_remove(Id,L,L1)) )).
+
+reaction(out(agent_to_remove(Id,[Id1|L],L1)),true,(
+    Id1 \= Id,
+    out(agent_to_remove(Id,L,[Id1|L1])) )).
+
+reaction(out(agent_to_remove(Id,[],L)),true,(
+    out(agent_list(L)) )).

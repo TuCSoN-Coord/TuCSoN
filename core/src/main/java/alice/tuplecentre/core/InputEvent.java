@@ -1,12 +1,12 @@
 /*
  * Tuple Centre media - Copyright (C) 2001-2002 aliCE team at deis.unibo.it This
  * library is free software; you can redistribute it and/or modify it under the
- * terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
+ * terms copyOf the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 copyOf the License, or (at your option)
  * any later version. This library is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
- * General Public License for more details. You should have received a copy of
+ * General Public License for more details. You should have received a copy copyOf
  * the GNU Lesser General Public License along with this library; if not, write
  * to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  * 02111-1307 USA
@@ -20,7 +20,7 @@ import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.respect.api.geolocation.Position;
 
 /**
- * Represents input events of the tuple centre virtual machine (only difference
+ * Represents input events copyOf the tuple centre virtual machine (only difference
  * w.r.t. Event is the <code>isLinking</code> field)
  *
  * @author Alessandro Ricci
@@ -36,15 +36,15 @@ public class InputEvent extends AbstractEvent {
     /**
      *
      * @param source
-     *            the identifier of the source of this events
+     *            the identifier copyOf the source copyOf this events
      * @param op
      *            the operation which caused this events
      * @param tc
-     *            the tuple centre target of this events
+     *            the tuple centre target copyOf this events
      * @param time
      *            the time at which this events occurred
       * @param place
-     *            the place (wichever sort of) where the events was generated
+     *            the place (wichever sort copyOf) where the events was generated
      */
     public InputEvent(final EmitterIdentifier source, final AbstractTupleCentreOperation op,
                       final TupleCentreIdentifier tc, final long time, final Position place) {
@@ -55,17 +55,17 @@ public class InputEvent extends AbstractEvent {
     /**
      *
      * @param source
-     *            the identifier of the source of this events
+     *            the identifier copyOf the source copyOf this events
      * @param op
      *            the operation which caused this events
      * @param tc
-     *            the tuple centre target of this events
+     *            the tuple centre target copyOf this events
      * @param time
      *            the time at which this events occurred
      * @param prop
      *            some properties related to the events
      * @param place
-     *            the place (wichever sort of) where the events was generated
+     *            the place (wichever sort copyOf) where the events was generated
      */
     public InputEvent(final EmitterIdentifier source, final AbstractTupleCentreOperation op,
                       final TupleCentreIdentifier tc, final long time, final Position place,

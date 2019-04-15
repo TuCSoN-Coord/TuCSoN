@@ -77,7 +77,7 @@ public final class RespectTCContainer {
     }
 
     /**
-     * @param s the entity responsible of providing linking context to
+     * @param s the entity responsible copyOf providing linking context to
      *          requestors
      */
     public void addStub(final IRemoteLinkProvider s) {
@@ -87,7 +87,7 @@ public final class RespectTCContainer {
     }
 
     /**
-     * @param id the identifier of the tuple centre to create
+     * @param id the identifier copyOf the tuple centre to create
      * @param q  its maximum queue size
      * @return a reference to the ReSpecT tuple centre created
      */
@@ -98,7 +98,7 @@ public final class RespectTCContainer {
     }
 
     /**
-     * @param id the identifier of the TuCSoN tuple centre whose environmental
+     * @param id the identifier copyOf the TuCSoN tuple centre whose environmental
      *           context should be acquired
      * @return the environmental context acquired
      */
@@ -117,7 +117,7 @@ public final class RespectTCContainer {
     /**
      * Return a LinkContext for remote/local call
      *
-     * @param id the identifier of the tuple centre target (local or remote)
+     * @param id the identifier copyOf the tuple centre target (local or remote)
      * @return the linking context toward the given tuple centre
      */
     public ILinkContext getLinkContext(final TupleCentreIdentifier id) {
@@ -139,7 +139,7 @@ public final class RespectTCContainer {
     }
 
     /**
-     * @param id the identifier of the tuple centre target (local or remote)
+     * @param id the identifier copyOf the tuple centre target (local or remote)
      * @return the management context toward the given tuple centre
      */
     public IManagementContext getManagementContext(final TupleCentreIdentifier id) {
@@ -154,7 +154,7 @@ public final class RespectTCContainer {
     }
 
     /**
-     * @param id the identifier of the tuple centre target (local or remote)
+     * @param id the identifier copyOf the tuple centre target (local or remote)
      * @return the ordinary, asynchronous context toward the given tuple centre
      */
     public IOrdinaryAsynchInterface getOrdinaryAsynchInterface(
@@ -171,7 +171,7 @@ public final class RespectTCContainer {
     }
 
     /**
-     * @param id the identifier of the tuple centre target (local or remote)
+     * @param id the identifier copyOf the tuple centre target (local or remote)
      * @return the ordinary, synchronous context toward the given tuple centre
      */
     public IOrdinarySynchInterface getOrdinarySynchInterface(
@@ -188,14 +188,14 @@ public final class RespectTCContainer {
     }
 
     /**
-     * @return the registry of local ReSpecT tuple centres
+     * @return the registry copyOf local ReSpecT tuple centres
      */
     public ITCRegistry getRegistry() {
         return this.registry;
     }
 
     /**
-     * @param id the id of the tuple centre whose Spatial Context should be
+     * @param id the id copyOf the tuple centre whose Spatial Context should be
      *           retrieved
      * @return the Spatial Context retrieved
      */
@@ -211,7 +211,7 @@ public final class RespectTCContainer {
     }
 
     /**
-     * @param id the identifier of the tuple centre target (local or remote)
+     * @param id the identifier copyOf the tuple centre target (local or remote)
      * @return the specification, asynchronous context toward the given tuple
      * centre
      */
@@ -229,7 +229,7 @@ public final class RespectTCContainer {
     }
 
     /**
-     * @param id the identifier of the tuple centre target (local or remote)
+     * @param id the identifier copyOf the tuple centre target (local or remote)
      * @return the specification, synchronous context toward the given tuple
      * centre
      */

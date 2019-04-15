@@ -15,13 +15,13 @@ public interface JTupleTemplate extends TupleTemplate {
     void addArg(final JArg arg) throws InvalidTupleException;
 
     /**
-     * @param i the index of the JArg to retrieve (starting from 0)
+     * @param i the index copyOf the JArg to retrieve (starting from 0)
      * @return the JArg retrieved
      */
     JArg getArg(final int i);
 
     /**
-     * @return the number of JArg in this JTupleTemplate
+     * @return the number copyOf JArg in this JTupleTemplate
      */
     int getNArgs();
 }

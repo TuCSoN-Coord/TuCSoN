@@ -1,12 +1,12 @@
 /*
  * Tuple Centre media - Copyright (C) 2001-2002 aliCE team at deis.unibo.it This
  * library is free software; you can redistribute it and/or modify it under the
- * terms of the GNU Lesser General Public License as published by the Free
- * Software Foundation; either version 2.1 of the License, or (at your option)
+ * terms copyOf the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 copyOf the License, or (at your option)
  * any later version. This library is distributed in the hope that it will be
- * useful, but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * useful, but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
- * General Public License for more details. You should have received a copy of
+ * General Public License for more details. You should have received a copy copyOf
  * the GNU Lesser General Public License along with this library; if not, write
  * to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
  * 02111-1307 USA
@@ -20,7 +20,6 @@ import java.util.List;
 import alice.tuple.Tuple;
 import alice.tuple.TupleTemplate;
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.ITCCycleResult;
 import alice.tuplecentre.api.OperationIdentifier;
@@ -46,7 +45,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     private static long idCounter = 0;
 
     /**
-     * internal identifier of the operation
+     * internal identifier copyOf the operation
      */
     private final OperationIdentifier id;
 
@@ -75,8 +74,8 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     }
 
     /**
-     * @param opType    the type code of the operation
-     * @param tupleList the list of tuples argument of the operation
+     * @param opType    the type code copyOf the operation
+     * @param tupleList the list copyOf tuples argument copyOf the operation
      */
     protected AbstractTupleCentreOperation(final TupleCentreOpType opType,
                                            final List<Tuple> tupleList) {
@@ -86,8 +85,8 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     }
 
     /**
-     * @param opType    the type code of the operation
-     * @param tupleList the list of tuples argument of the operation
+     * @param opType    the type code copyOf the operation
+     * @param tupleList the list copyOf tuples argument copyOf the operation
      * @param l         the listener for operation completion
      */
     protected AbstractTupleCentreOperation(final TupleCentreOpType opType,
@@ -97,8 +96,8 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     }
 
     /**
-     * @param opType the type code of the operation
-     * @param t      the tuple argument of the operation
+     * @param opType the type code copyOf the operation
+     * @param t      the tuple argument copyOf the operation
      */
     protected AbstractTupleCentreOperation(final TupleCentreOpType opType, final Tuple t) {
         this(opType);
@@ -107,8 +106,8 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     }
 
     /**
-     * @param opType the type code of the operation
-     * @param t      the tuple argument of the operation
+     * @param opType the type code copyOf the operation
+     * @param t      the tuple argument copyOf the operation
      * @param l      the listener for operation completion
      */
     protected AbstractTupleCentreOperation(final TupleCentreOpType opType, final Tuple t,
@@ -118,8 +117,8 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     }
 
     /**
-     * @param opType the type code of the operation
-     * @param t      the tuple template argument of the operation
+     * @param opType the type code copyOf the operation
+     * @param t      the tuple template argument copyOf the operation
      */
     protected AbstractTupleCentreOperation(final TupleCentreOpType opType, final TupleTemplate t) {
         this(opType);
@@ -128,8 +127,8 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
     }
 
     /**
-     * @param opType the type code of the operation
-     * @param t      the tuple template argument of the operation
+     * @param opType the type code copyOf the operation
+     * @param t      the tuple template argument copyOf the operation
      * @param l      the listener for operation completion
      */
     protected AbstractTupleCentreOperation(final TupleCentreOpType opType, final TupleTemplate t,
@@ -150,11 +149,11 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
             if (TupleCentreOpType.getProducerPrimitives().contains(this.type)) {
                 pred.append(this.getPrimitive().toString()).append('(')
                         .append(this.tupleArgument).append(')');
-                return LogicTuples.parse(pred.toString());
+                return LogicTuple.parse(pred.toString());
             }
             pred.append(this.getPrimitive().toString()).append('(')
                     .append(this.templateArgument).append(')');
-            return LogicTuples.parse(pred.toString());
+            return LogicTuple.parse(pred.toString());
         } catch (final InvalidLogicTupleException e) {
             LOGGER.error(e.getMessage(), e);
             return null;
@@ -167,7 +166,7 @@ public abstract class AbstractTupleCentreOperation implements TupleCentreOperati
         if (TupleCentreOpType.getStandardOperationTypes().contains(this.type)) {
 
 
-            return LogicTuples.newInstance(this.type.name().toLowerCase());
+            return LogicTuple.of(this.type.name().toLowerCase());
         } else {
             return null;
         }

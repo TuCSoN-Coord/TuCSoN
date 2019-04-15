@@ -1,12 +1,12 @@
 /*
  * ReSpecT - Copyright (C) aliCE team at deis.unibo.it This library is free
- * software; you can redistribute it and/or modify it under the terms of the GNU
+ * software; you can redistribute it and/or modify it under the terms copyOf the GNU
  * Lesser General Public License as published by the Free Software Foundation;
- * either version 2.1 of the License, or (at your option) any later version.
+ * either version 2.1 copyOf the License, or (at your option) any later version.
  * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * ANY WARRANTY; without even the implied warranty copyOf MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details. You should have received a copy of the GNU Lesser General Public
+ * details. You should have received a copy copyOf the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -15,9 +15,7 @@ package alice.tuplecentre.respect.core;
 import java.util.List;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.core.InputEvent;
@@ -29,7 +27,7 @@ import alice.tuplecentre.respect.api.exceptions.OperationTimeOutException;
 
 /**
  * A Timed Context wraps the access to a tuple centre virtual machine for a
- * specific thread of control, providing a timed interface.
+ * specific thread copyOf control, providing a timed interface.
  *
  * @author Alessandro Ricci
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
@@ -93,8 +91,8 @@ public class TimedContext extends RootInterface implements ITimedContext {
         }
         if (",".equals(t.getName()) && t.getArity() == 2) {
             arg = t.getArg(1);
-            return this.unify(LogicTuples.newInstance(
-                    TupleArguments.newInstance(arg.toTerm())), op
+            return this.unify(LogicTuple.of(
+                    TupleArgument.fromTerm(arg.toTerm())), op
                     .getLogicTupleResult());
         }
         return op.getLogicTupleResult();
@@ -155,8 +153,8 @@ public class TimedContext extends RootInterface implements ITimedContext {
         }
         if (",".equals(t.getName()) && t.getArity() == 2) {
             arg = t.getArg(1);
-            return this.unify(LogicTuples.newInstance(
-                    TupleArguments.newInstance(arg.toTerm())), op
+            return this.unify(LogicTuple.of(
+                    TupleArgument.fromTerm(arg.toTerm())), op
                     .getLogicTupleResult());
         }
         return op.getLogicTupleResult();
@@ -251,8 +249,8 @@ public class TimedContext extends RootInterface implements ITimedContext {
         }
         if (",".equals(t.getName()) && t.getArity() == 2) {
             arg = t.getArg(1);
-            return this.unify(LogicTuples.newInstance(
-                    TupleArguments.newInstance(arg.toTerm())), op
+            return this.unify(LogicTuple.of(
+                    TupleArgument.fromTerm(arg.toTerm())), op
                     .getLogicTupleResult());
         }
         return op.getLogicTupleResult();

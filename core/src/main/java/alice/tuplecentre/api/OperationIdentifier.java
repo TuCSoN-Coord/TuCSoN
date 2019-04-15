@@ -11,7 +11,7 @@ import java.io.Serializable;
 public interface OperationIdentifier extends Identifier, Serializable {
 
     /**
-     * @return the progressive, unique identifier of operations
+     * @return the progressive, unique identifier copyOf operations
      */
     long getId();
 }

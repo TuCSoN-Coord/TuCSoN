@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -14,7 +13,6 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.RootACC;
@@ -24,7 +22,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 /**
- * Worker thread of a master-worker architecture. Given a TuCSoN Node (hopefully
+ * Worker thread copyOf a master-worker architecture. Given a TuCSoN Node (hopefully
  * up and listening), it waits for submitted jobs regarding factorial computation,
  * then outputs computed results.
  *
@@ -66,7 +64,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
         super(aid);
         this.die = false;
         try {
-            this.tid = new TucsonTupleCentreIdDefault(node);
+            this.tid = TucsonTupleCentreId.of(node);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
             this.die = true;
@@ -106,7 +104,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
             while (!this.die) {
                 this.say("Checking termination...");
                 op = this.acc.inp(this.tid,
-                        LogicTuples.parse("die(" + this.getTucsonAgentId().getLocalName() + ")"), null);
+                        LogicTuple.parse("die(" + this.getTucsonAgentId().getLocalName() + ")"), null);
                 /*
                  * Only upon success the searched tuple was found.
                  */
@@ -117,7 +115,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
                 /*
                  * Jobs collection phase.
                  */
-                templ = LogicTuples.parse("fact(master(M),num(N),reqID(R))");
+                templ = LogicTuple.parse("fact(master(M),num(N),reqID(R))");
                 this.say("Waiting for jobs...");
                 /*
                  * No longer a suspensive primitive: in case no jobs have been
@@ -133,7 +131,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
                     for (final LogicTuple lt : job) {
                         bigNum = this.computeFactorial(lt.getArg("num").getArg(
                                 0));
-                        res.add(LogicTuples.parse("res(" + "master("
+                        res.add(LogicTuple.parse("res(" + "master("
                                 + lt.getArg("master").getArg(0) + "),"
                                 + "fact(" + bigNum.toString() + ")," + "reqID("
                                 + lt.getArg("reqID").getArg(0) + ")" + ")"));
@@ -142,7 +140,7 @@ public class WorkerAgent extends AbstractTucsonAgent {
                      * Result submission phase.
                      */
                     this.say("Putting results: " + res.toString());
-                    this.acc.outAll(this.tid, LogicTuples.parse(res.toString()),
+                    this.acc.outAll(this.tid, LogicTuple.parse(res.toString()),
                             null);
                     /*
                      * Empty data stores for next iteration.

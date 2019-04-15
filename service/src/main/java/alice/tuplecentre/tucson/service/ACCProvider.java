@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -20,9 +20,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuple.logic.exceptions.LogicTupleException;
@@ -67,7 +65,7 @@ public class ACCProvider {
 
     /**
      * @param n   the TuCSoN node whose ACC should reference
-     * @param tid the identifier of the tuple centre used for internal
+     * @param tid the identifier copyOf the tuple centre used for internal
      *            configuration purpose
      */
     public ACCProvider(final TucsonNodeService n, final TucsonTupleCentreId tid) {
@@ -112,12 +110,12 @@ public class ACCProvider {
             if (agentClass == null) {
                 agentClass = "basic";
             }
-            final LogicTuple req = LogicTuples.newInstance("context_request", TupleArguments.newValueArgument(
-                    Tools.removeApices(agentName)), TupleArguments.newVarArgument("CtxId"),
-                    TupleArguments.newValueArgument(agentClass), TupleArguments.newValueArgument(agentUUID));
+            final LogicTuple req = LogicTuple.of("context_request", TupleArgument.of(
+                    Tools.removeApices(agentName)), TupleArgument.var("CtxId"),
+                    TupleArgument.of(agentClass), TupleArgument.of(agentUUID));
             /*
-             * final LogicTuple req = LogicTuples.newInstance("context_request", new
-             * Value( agentName), TupleArguments.newVarArgument("CtxId"));
+             * final LogicTuple req = LogicTuples.fromTerm("context_request", new
+             * Value( agentName), TupleArguments.var("CtxId"));
              */
             // Operation Make
             final RespectOperationDefault opRequested = RespectOperationDefault.make(
@@ -206,8 +204,8 @@ public class ACCProvider {
     }
 
     /**
-     * @param ctxId the numeric, progressive identifier of the ACC given
-     * @param id    the identifier of the agent requiring shutdown
+     * @param ctxId the numeric, progressive identifier copyOf the ACC given
+     * @param id    the identifier copyOf the agent requiring shutdown
      * @return wether shutdown can be carried out or not
      */
     // exception handling is a mess, need to review it...
@@ -215,8 +213,8 @@ public class ACCProvider {
                                              final TucsonAgentId id) {
         LogicTuple req = null;
         try {
-            req = LogicTuples.newInstance("context_shutdown", TupleArguments.newValueArgument(ctxId),
-                    TupleArguments.newValueArgument(id.toString()), TupleArguments.newVarArgument("CtxId"));
+            req = LogicTuple.of("context_shutdown", TupleArgument.of(ctxId),
+                    TupleArgument.of(id.toString()), TupleArgument.var("CtxId"));
         } catch (InvalidVarNameException e1) {
             LOGGER.error(e1.getMessage(), e1);
         }

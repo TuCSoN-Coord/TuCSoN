@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
 import alice.util.Tools;
 import org.slf4j.Logger;
@@ -28,7 +27,7 @@ public final class GeolocationServiceManager {
     private static GeolocationServiceManager gm;
 
     /**
-     * Gets the static instance of the geolocation service manager
+     * Gets the static instance copyOf the geolocation service manager
      *
      * @return the service manager
      */
@@ -54,7 +53,7 @@ public final class GeolocationServiceManager {
     }
 
     /**
-     * List of all geolocation services on a single node
+     * List copyOf all geolocation services on a single node
      */
     private final Map<GeoServiceIdentifier, GeoLocationService> servicesList;
 
@@ -80,10 +79,10 @@ public final class GeolocationServiceManager {
     /**
      * @param platform  The platform code indicating the platform the host device is
      *                  running
-     * @param sId       the id of the Geolocation Service to create
-     * @param className the name of the class implementing the Geolocation Service to
+     * @param sId       the id copyOf the Geolocation Service to create
+     * @param className the name copyOf the class implementing the Geolocation Service to
      *                  instantiate
-     * @param tcId      the id of the tuple centre responsible for handling the
+     * @param tcId      the id copyOf the tuple centre responsible for handling the
      *                  Geolocation Service events
      * @param acc       the ACC behind which the agent interested in Geolocation
      *                  Services is
@@ -116,7 +115,7 @@ public final class GeolocationServiceManager {
             final String normClassName = Tools.removeApices(className);
             final Class<?> c = Class.forName(normClassName);
             final Constructor<?> ctor = c.getConstructor(Integer.class, GeoServiceId.class,
-                    TucsonTupleCentreIdDefault.class);
+                    TucsonTupleCentreId.class);
             s = (GeoLocationService) ctor.newInstance(new Object[]{
                     platform, sId, tcId});
             s.addListener(new AgentGeoLocationServiceListener(acc, s, tcId));
@@ -132,8 +131,8 @@ public final class GeolocationServiceManager {
      *
      * @param platform  the current execution platform
      * @param sId       service identifier
-     * @param className name of the concrete geolocation service class
-     * @param tcId      identifier of the tuple centre with which the service will
+     * @param className name copyOf the concrete geolocation service class
+     * @param tcId      identifier copyOf the tuple centre with which the service will
      *                  interact
      * @throws ClassNotFoundException    if the class to load is not found
      * @throws NoSuchMethodException     if the method to call is not found
@@ -161,7 +160,7 @@ public final class GeolocationServiceManager {
         // Instantiating the concrete class
         final String normClassName = Tools.removeApices(className);
         final Class<?> c = Class.forName(normClassName);
-        final Constructor<?> ctor = c.getConstructor(Integer.class, GeoServiceId.class, TucsonTupleCentreIdDefault.class);
+        final Constructor<?> ctor = c.getConstructor(Integer.class, GeoServiceId.class, TucsonTupleCentreId.class);
         final GeoLocationService s = (GeoLocationService) ctor
                 .newInstance(new Object[]{platform, sId, tcId});
         s.addListener(new GeoLocationServiceListenerDefault(s, tcId));
@@ -184,7 +183,7 @@ public final class GeolocationServiceManager {
     }
 
     /**
-     * @param sId the identifier of the Geolocation Service to destroy
+     * @param sId the identifier copyOf the Geolocation Service to destroy
      */
     public void destroyService(final GeoServiceIdentifier sId) {
         if (!this.servicesList.containsKey(sId)) {
@@ -217,7 +216,7 @@ public final class GeolocationServiceManager {
     }
 
     /**
-     * @param name the name of the Geolocation Service to retrieve.
+     * @param name the name copyOf the Geolocation Service to retrieve.
      * @return the Geolocation Service whose name was given
      */
     public GeoLocationService getServiceByName(final String name) {

@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -25,7 +25,6 @@ import alice.tuplecentre.core.TriggeredReaction;
 import alice.tuplecentre.respect.api.TupleCentreId;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.introspection.Inspector;
 import alice.tuplecentre.tucson.introspection.InspectorContextEvent;
 import alice.tuplecentre.tucson.introspection.WSetEvent;
@@ -93,7 +92,7 @@ public class InspectorCore extends Inspector {
     /**
      * @param f   the GUI this inpector refers to
      * @param id  the agent identifier used by this inspector
-     * @param tid the identifier of the tuple centre to inspect
+     * @param tid the identifier copyOf the tuple centre to inspect
      */
     public InspectorCore(final InspectorGUI f, final TucsonAgentId id,
                          final TucsonTupleCentreId tid) {
@@ -238,7 +237,7 @@ public class InspectorCore extends Inspector {
                             .append(">\n");
                 } else if (ev.getSource().isTC()) {
                     // Ugly
-                    if (ev.getSource() instanceof TucsonTupleCentreIdDefault) {
+                    if (ev.getSource() instanceof TucsonTupleCentreId) {
                         st.append(ev.getOp())
                                 .append(" from <")
                                 .append(ev.getSource()

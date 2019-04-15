@@ -1,14 +1,12 @@
 /*
  * User.java Copyright 2000-2001-2002 aliCE team at deis.unibo.it This software
- * is the proprietary information of deis.unibo.it Use is subject to license
+ * is the proprietary information copyOf deis.unibo.it Use is subject to license
  * terms.
  */
 package alice.tuplecentre.tucson.service;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.core.InputEvent;
@@ -45,7 +43,7 @@ public class NodeManagementAgent extends Thread {
     private TucsonAgentId nodeManAid;
 
     /**
-     * @param conf the identifier of the tuple centre to be used for
+     * @param conf the identifier copyOf the tuple centre to be used for
      *             configuration
      * @param n    the TuCSoN node this management agent belongs to
      */
@@ -74,8 +72,8 @@ public class NodeManagementAgent extends Thread {
                 LogicTuple cmd;
                 // Operation Make
                 final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                        TupleCentreOpType.IN, LogicTuples.newInstance("cmd",
-                                TupleArguments.newVarArgument("X")), null);
+                        TupleCentreOpType.IN, LogicTuple.of("cmd",
+                                TupleArgument.var("X")), null);
                 // InputEvent Creation
                 final InputEvent ev = new InputEvent(this.nodeManAid,
                         opRequested, this.config, System.currentTimeMillis(),
@@ -85,7 +83,7 @@ public class NodeManagementAgent extends Thread {
                 // (LogicTuple) TupleCentreContainer.doBlockingOperation(
                 // TupleCentreOpType.IN, this.nodeManAid,
                 // this.config,
-                // LogicTuples.newInstance("cmd", TupleArguments.newVarArgument("X")));
+                // LogicTuples.fromTerm("cmd", TupleArguments.var("X")));
                 if (cmd != null) {
                     this.execCmd(cmd.getArg(0));
                 } else {
@@ -116,9 +114,9 @@ public class NodeManagementAgent extends Thread {
                     try {
                         // Operation Make
                         final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                                TupleCentreOpType.OUT, LogicTuples.newInstance(
-                                        "cmd_result", TupleArguments.newValueArgument("destroy"),
-                                        TupleArguments.newValueArgument("ok")), null);
+                                TupleCentreOpType.OUT, LogicTuple.of(
+                                        "cmd_result", TupleArgument.of("destroy"),
+                                        TupleArgument.of("ok")), null);
                         // InputEvent Creation
                         final InputEvent ev = new InputEvent(this.nodeManAid,
                                 opRequested, this.config,
@@ -129,15 +127,15 @@ public class NodeManagementAgent extends Thread {
                     }
                     // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                     // .outCode(), this.nodeManAid, this.config,
-                    // LogicTuples.newInstance("cmd_result", TupleArguments.newValueArgument("destroy"),
-                    // TupleArguments.newValueArgument("ok")));
+                    // LogicTuples.fromTerm("cmd_result", TupleArguments.copyOf("destroy"),
+                    // TupleArguments.copyOf("ok")));
                 } else {
                     try {
                         // Operation Make
                         final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                                TupleCentreOpType.OUT, LogicTuples.newInstance(
-                                        "cmd_result", TupleArguments.newValueArgument("destroy"),
-                                        TupleArguments.newValueArgument("failed")), null);
+                                TupleCentreOpType.OUT, LogicTuple.of(
+                                        "cmd_result", TupleArgument.of("destroy"),
+                                        TupleArgument.of("failed")), null);
                         // InputEvent Creation
                         final InputEvent ev = new InputEvent(this.nodeManAid,
                                 opRequested, this.config,
@@ -148,18 +146,18 @@ public class NodeManagementAgent extends Thread {
                     }
                     // TupleCentreContainer.doBlockingOperation(TucsonOperationDefault
                     // .outCode(), this.nodeManAid, this.config,
-                    // LogicTuples.newInstance("cmd_result", TupleArguments.newValueArgument("destroy"),
-                    // TupleArguments.newValueArgument("failed")));
+                    // LogicTuples.fromTerm("cmd_result", TupleArguments.copyOf("destroy"),
+                    // TupleArguments.copyOf("failed")));
                 }
                 break;
             case "enable_persistency":
                 try {
                     NodeManagementAgent.log("Enabling persistency...");
-                    this.node.enablePersistency(LogicTuples.newInstance(cmd.getArg(0)));
+                    this.node.enablePersistency(LogicTuple.of(cmd.getArg(0)));
                     // Operation Make
                     final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                            TupleCentreOpType.OUT, LogicTuples.newInstance(
-                                    "cmd_result", cmd, TupleArguments.newValueArgument("ok")), null);
+                            TupleCentreOpType.OUT, LogicTuple.of(
+                                    "cmd_result", cmd, TupleArgument.of("ok")), null);
                     // InputEvent Creation
                     final InputEvent ev = new InputEvent(this.nodeManAid,
                             opRequested, this.config, System.currentTimeMillis(),
@@ -170,18 +168,18 @@ public class NodeManagementAgent extends Thread {
                     LOGGER.error(e.getMessage(), e);
                 }
                 // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.OUT,
-                // this.nodeManAid, this.config, LogicTuples.newInstance("cmd_result",
-                // cmd, TupleArguments.newValueArgument("ok")));
+                // this.nodeManAid, this.config, LogicTuples.fromTerm("cmd_result",
+                // cmd, TupleArguments.copyOf("ok")));
                 break;
             case "disable_persistency":
                 try {
                     NodeManagementAgent.log("Disabling persistency...");
-                    this.node.disablePersistency(LogicTuples.newInstance(cmd.getArg(0)));
+                    this.node.disablePersistency(LogicTuple.of(cmd.getArg(0)));
                     // Operation Make
                     final RespectOperationDefault opRequested = RespectOperationDefault.make(
-                            TupleCentreOpType.OUT, LogicTuples.newInstance(
-                                    "cmd_result", TupleArguments.newValueArgument("disable_persistency"),
-                                    TupleArguments.newValueArgument("ok")), null);
+                            TupleCentreOpType.OUT, LogicTuple.of(
+                                    "cmd_result", TupleArgument.of("disable_persistency"),
+                                    TupleArgument.of("ok")), null);
                     // InputEvent Creation
                     final InputEvent ev = new InputEvent(this.nodeManAid,
                             opRequested, this.config, System.currentTimeMillis(),
@@ -192,8 +190,8 @@ public class NodeManagementAgent extends Thread {
                     LOGGER.error(e.getMessage(), e);
                 }
                 // TupleCentreContainer.doBlockingOperation(TupleCentreOpType.OUT,
-                // this.nodeManAid, this.config, LogicTuples.newInstance("cmd_result",
-                // TupleArguments.newValueArgument("disable_persistency"), TupleArguments.newValueArgument("ok")));
+                // this.nodeManAid, this.config, LogicTuples.fromTerm("cmd_result",
+                // TupleArguments.copyOf("disable_persistency"), TupleArguments.copyOf("ok")));
                 break;
             case "enable_observability":
                 this.node.activateObservability();

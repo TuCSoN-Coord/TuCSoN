@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -54,12 +54,12 @@ public class EditSpec extends javax.swing.JFrame {
     /**
      * Creates new form GUIEditTheory
      *
-     * @param t the identifier of the tuple centre under inspection
+     * @param t the identifier copyOf the tuple centre under inspection
      */
     public EditSpec(final TucsonTupleCentreId t) {
         super();
         this.initComponents();
-        this.setTitle("ReSpecT specification tuples of tuplecentre < "
+        this.setTitle("ReSpecT specification tuples copyOf tuplecentre < "
                 + t.getLocalName() + "@" + t.getNode() + ":" + t.getPort() + " >");
         this.inputSpec = new JTextArea("% Write your respect reactions below\n");
         this.inputSpec.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 12));
@@ -280,7 +280,7 @@ public class EditSpec extends javax.swing.JFrame {
         jPanel3.setLayout(new java.awt.GridBagLayout());
         bOk.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         bOk.setText("< set_s >");
-        bOk.setToolTipText("Sets the specification space of the tuplecentre");
+        bOk.setToolTipText("Sets the specification space copyOf the tuplecentre");
         bOk.setFocusPainted(false);
         bOk.setPreferredSize(new java.awt.Dimension(70, 30));
         bOk.addActionListener(new java.awt.event.ActionListener() {
@@ -296,7 +296,7 @@ public class EditSpec extends javax.swing.JFrame {
         jPanel3.add(bOk, gridBagConstraints);
         bGet.setFont(new java.awt.Font("Arial", Font.PLAIN, 11));
         bGet.setText("< get_s >");
-        bGet.setToolTipText("Gets the specification space of the tuplecentre");
+        bGet.setToolTipText("Gets the specification space copyOf the tuplecentre");
         bGet.setActionCommand("bRefresh");
         bGet.setPreferredSize(new java.awt.Dimension(70, 30));
         bGet.addActionListener(new java.awt.event.ActionListener() {
@@ -338,7 +338,7 @@ public class EditSpec extends javax.swing.JFrame {
     }
 
     /**
-     * reports the result of get operation in SpecWorker
+     * reports the result copyOf get operation in SpecWorker
      *
      * @param spec the ReSpecT specification read
      */
@@ -355,7 +355,7 @@ public class EditSpec extends javax.swing.JFrame {
     }
 
     /**
-     * reports the result of set operation in SpecWorker
+     * reports the result copyOf set operation in SpecWorker
      */
     protected void setCompletion() {
         SwingUtilities.invokeLater(new Runnable() {

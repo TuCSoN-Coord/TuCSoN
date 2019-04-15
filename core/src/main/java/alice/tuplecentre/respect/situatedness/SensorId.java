@@ -10,7 +10,7 @@ public class SensorId extends AbstractProbeId {
     private static final long serialVersionUID = -2977090935649268889L;
 
     /**
-     * @param i the String representation of this sensor identifier
+     * @param i the String representation copyOf this sensor identifier
      */
     public SensorId(final String i) {
         super(i);

@@ -13,8 +13,11 @@
  */
 package alice.tuplecentre.tucson.api;
 
+import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.acc.RootACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
+import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.service.TucsonInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -155,12 +158,12 @@ public abstract class AbstractTucsonAgent<T extends RootACC> {
      * @param portNumber     the portNumber relative to that address that should be used
      * @return the ACC retrieved by the Node specified at construction time
      */
-    protected abstract T retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber);
+    protected abstract T retrieveACC(final TucsonAgentId aid, final String networkAddress, final int portNumber) throws UnreachableNodeException, TucsonOperationNotPossibleException, OperationTimeOutException, TucsonInvalidAgentIdException;
 
     /**
      * Main execution cycle, user-defined.
      */
-    protected abstract void main();
+    protected abstract void main() throws TucsonOperationNotPossibleException, UnreachableNodeException, OperationTimeOutException, TucsonInvalidAgentIdException, InterruptedException;
 
     /**
      * Utility method to print on standard output the user agent activity.
@@ -168,8 +171,7 @@ public abstract class AbstractTucsonAgent<T extends RootACC> {
      * @param msg The message to print
      */
     protected void say(final String msg) {
-        LOGGER.info("[" + this.aid.getLocalName() + "]: "
-                + msg);
+        LOGGER.info("[" + this.aid.getLocalName() + "]: " + msg);
     }
 
 
@@ -190,10 +192,15 @@ public abstract class AbstractTucsonAgent<T extends RootACC> {
 
         @Override
         public void run() {
-            this.agent.context = retrieveACC(agent.aid, agent.nodeIp, agent.portNumber);
-            this.agent.main();
-            if (this.agent.getACC() != null) {
-                this.agent.getACC().exit();
+            try {
+                this.agent.context = retrieveACC(agent.aid, agent.nodeIp, agent.portNumber);
+                this.agent.main();
+            } catch (UnreachableNodeException | TucsonOperationNotPossibleException | OperationTimeOutException | TucsonInvalidAgentIdException | InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                if (this.agent.getACC() != null) {
+                    this.agent.getACC().exit();
+                }
             }
         }
     }

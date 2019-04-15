@@ -10,7 +10,7 @@ public class OrgPlace extends AbstractPhysicalPlace {
     private static final long serialVersionUID = 2184976079074938533L;
 
     /**
-     * @param p The String representation of an ORG place
+     * @param p The String representation copyOf an ORG place
      */
     public OrgPlace(final String p) {
         super("'" + p + "'");

@@ -31,8 +31,8 @@ public class TucsonOperationDefault extends AbstractTupleCentreOperation impleme
     private final OperationHandler context;
 
     /**
-     * @param type the type code of the operation
-     * @param t    the tuple argument of the operation
+     * @param type the type code copyOf the operation
+     * @param t    the tuple argument copyOf the operation
      * @param l    the listener for operation completion
      * @param ctx  the ACC requesting the operation
      */
@@ -43,8 +43,8 @@ public class TucsonOperationDefault extends AbstractTupleCentreOperation impleme
     }
 
     /**
-     * @param type the type code of the operation
-     * @param t    the tuple template argument of the operation
+     * @param type the type code copyOf the operation
+     * @param t    the tuple template argument copyOf the operation
      * @param l    the listener for operation completion
      * @param ctx  the ACC requesting the operation
      */

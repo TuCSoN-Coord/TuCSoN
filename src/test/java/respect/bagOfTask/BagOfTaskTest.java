@@ -4,7 +4,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 
 /**
  * NOT configured to run multiple masters. How to do so? Does it run
- * INDEPENDENTLY of master/workers launch ORDER?
+ * INDEPENDENTLY copyOf master/workers launch ORDER?
  *
  * @author s.mariani@unibo.it
  */

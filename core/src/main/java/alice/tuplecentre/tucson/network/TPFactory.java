@@ -15,7 +15,7 @@ import java.lang.invoke.MethodHandles;
  * Title: TPFactory (Tucson Protocol Factory)
  * </p>
  * <p>
- * Description: the factory class to build a specific implementation of
+ * Description: the factory class to build a specific implementation copyOf
  * TucsonProtocol
  * </p>
  *
@@ -35,8 +35,8 @@ public final class TPFactory {
     private static final int MAX_UNBOUND_PORT = 64000;
 
     /**
-     * @param tucsonProtocolType the type code of the TuCSoN protocol to be used
-     * @param tid                the identifier of the tuple centre to connect to
+     * @param tucsonProtocolType the type code copyOf the TuCSoN protocol to be used
+     * @param tid                the identifier copyOf the tuple centre to connect to
      * @return the connection protocol hosting communications
      * @throws DialogInitializationException if something goes wrong in the underlying network
      * @throws UnreachableNodeException      if the target tuple centre is unreachable
@@ -53,7 +53,7 @@ public final class TPFactory {
         // fatto nel resto del codice
         if (port < 1 || port > TPFactory.MAX_UNBOUND_PORT) {
             throw new IllegalPortNumberException(
-                    "Port number out of bounds. Port number: " + port);
+                    "Port number out copyOf bounds. Port number: " + port);
         }
         TucsonProtocol tp;
         if (tucsonProtocolType == TPFactory.DIALOG_TYPE_TCP) {
@@ -65,7 +65,7 @@ public final class TPFactory {
     }
 
     /**
-     * @param tid the identifier of the tuple centre to connect to
+     * @param tid the identifier copyOf the tuple centre to connect to
      * @return the connection protocol hosting communications
      * @throws DialogInitializationException if something goes wrong in the underlying network
      * @throws UnreachableNodeException      if the target tuple centre is unreachable
@@ -96,7 +96,7 @@ public final class TPFactory {
     /**
      * Instantiate a new TucsonProtocol based on type specified by parameter.
      *
-     * @param tucsonProtocolType the type code of the TuCSoN protocol to be used
+     * @param tucsonProtocolType the type code copyOf the TuCSoN protocol to be used
      * @param portno             the port where the TuCSoN node to contact is listening to
      * @return the TucsonProtocol class
      * @throws DialogInitializationException if something goes wrong in the underlying network
@@ -113,7 +113,7 @@ public final class TPFactory {
             final int port = config.getNodeTcpPort();
             if (port < 1 || port > TPFactory.MAX_UNBOUND_PORT) {
                 throw new IllegalPortNumberException(
-                        "Port number out of bounds. Port number: " + port);
+                        "Port number out copyOf bounds. Port number: " + port);
             }
             tp = new TucsonProtocolTCP(port);
         } else {

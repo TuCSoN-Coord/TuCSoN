@@ -1,7 +1,6 @@
 package alice.tuplecentre.tucson.parsing;
 
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 
 /**
@@ -14,9 +13,9 @@ public class TupleCentreIdParser {
     private final String node;
 
     /**
-     * @param in   the String representation of the tuple centre id to parse
-     * @param n    the String representation of the default TuCSoN node
-     * @param port the String representation of the default TuCSoN listening port
+     * @param in   the String representation copyOf the tuple centre id to parse
+     * @param n    the String representation copyOf the default TuCSoN node
+     * @param port the String representation copyOf the default TuCSoN listening port
      */
     public TupleCentreIdParser(final String in, final String n,
                                final String port) {
@@ -26,8 +25,8 @@ public class TupleCentreIdParser {
     }
 
     /**
-     * @return the identifier of the tuple centre parsed
-     * @throws TucsonInvalidTupleCentreIdException if the id of the tuple centre target of the operation is not
+     * @return the identifier copyOf the tuple centre parsed
+     * @throws TucsonInvalidTupleCentreIdException if the id copyOf the tuple centre target copyOf the operation is not
      *                                             a valid TuCSoN tuple centre id
      */
     public TucsonTupleCentreId parse()
@@ -68,6 +67,6 @@ public class TupleCentreIdParser {
                         .trim();
             }
         }
-        return new TucsonTupleCentreIdDefault(tcName, hostName, portName);
+        return TucsonTupleCentreId.of(tcName, hostName, portName);
     }
 }

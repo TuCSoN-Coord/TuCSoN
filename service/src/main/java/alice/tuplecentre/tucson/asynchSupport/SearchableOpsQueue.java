@@ -1,19 +1,19 @@
 /*
  * Copyright 1999-2014 Alma Mater Studiorum - Universita' di Bologna
  *
- * This file is part of TuCSoN <http://tucson.unibo.it>.
+ * This file is part copyOf TuCSoN <http://tucson.unibo.it>.
  *
  *    TuCSoN is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Lesser General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
+ *    it under the terms copyOf the GNU Lesser General Public License as published by
+ *    the Free Software Foundation, either version 3 copyOf the License, or
  *    (at your option) any later version.
  *
  *    TuCSoN is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *    GNU Lesser General Public License for more details.
  *
- *    You should have received a copy of the GNU Lesser General Public License
+ *    You should have received a copy copyOf the GNU Lesser General Public License
  *    along with TuCSoN.  If not, see <https://www.gnu.org/licenses/lgpl.html>.
  *
  */
@@ -38,7 +38,7 @@ public class SearchableOpsQueue extends LinkedBlockingQueue<TucsonOpWrapper> {
      * Gets all the operations whose type matches the given type
      *
      * @param optype the operation type to look for
-     * @return the queue of operations of the same input type
+     * @return the queue copyOf operations copyOf the same input type
      */
     public SearchableOpsQueue getMatchingOps(
             final Class<? extends AbstractTucsonAction> optype) {
@@ -85,7 +85,7 @@ public class SearchableOpsQueue extends LinkedBlockingQueue<TucsonOpWrapper> {
     /**
      * Removes the operation identified by the given Identifier
      *
-     * @param id the Identifier of the operation to remove
+     * @param id the Identifier copyOf the operation to remove
      * @return {@code true} or {@code false} depending on whether removal was
      * successful or not
      */

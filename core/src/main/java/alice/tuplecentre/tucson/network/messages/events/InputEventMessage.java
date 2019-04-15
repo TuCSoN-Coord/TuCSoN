@@ -17,18 +17,18 @@ public interface InputEventMessage extends EventMessage {
     Position getPlace();
 
     /**
-     * @return the String representation of the tuple centre currently handling
+     * @return the String representation copyOf the tuple centre currently handling
      * this event
      */
     String getReactingTC();
 
     /**
-     * @return the String representation of the source of this event
+     * @return the String representation copyOf the source copyOf this event
      */
     String getSource();
 
     /**
-     * @return the String representation of the target of this event
+     * @return the String representation copyOf the target copyOf this event
      */
     String getTarget();
 

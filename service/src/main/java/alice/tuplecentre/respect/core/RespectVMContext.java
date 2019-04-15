@@ -1,12 +1,12 @@
 /*
  * ReSpecT - Copyright (C) aliCE team at deis.unibo.it This library is free
- * software; you can redistribute it and/or modify it under the terms of the GNU
+ * software; you can redistribute it and/or modify it under the terms copyOf the GNU
  * Lesser General Public License as published by the Free Software Foundation;
- * either version 2.1 of the License, or (at your option) any later version.
+ * either version 2.1 copyOf the License, or (at your option) any later version.
  * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * ANY WARRANTY; without even the implied warranty copyOf MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details. You should have received a copy of the GNU Lesser General Public
+ * details. You should have received a copy copyOf the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -29,10 +29,7 @@ import java.util.Timer;
 
 import alice.tuple.Tuple;
 import alice.tuple.TupleTemplate;
-import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTupleOpManager;
-import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.*;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuplecentre.api.EmitterIdentifier;
@@ -62,7 +59,6 @@ import alice.tuplecentre.tucson.api.AbstractSpawnActivity;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.introspection.WSetEvent;
@@ -86,7 +82,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * This class defines a ReSpecT Context as a specialization of a tuple centre VM
+ * This class defines a ReSpecT Context as a specialization copyOf a tuple centre VM
  * context (defining VM specific structures)
  *
  * @author Alessandro Ricci
@@ -119,7 +115,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
         public void operationCompleted(final AbstractTupleCentreOperation arg0) {
             arg0.removeCompletionListener();
             // oe.getTarget() == oeTarget by construction (loc 1201)!
-            // 3rd arg is the target of the event,
+            // 3rd arg is the target copyOf the event,
             RespectVMContext.this.log("Completion op = " + arg0 + ", from = " + this.oe.getSource() + ", to = "
                     + this.oe.getTarget() + ", arg = " + arg0.getTupleResult() + " / " + arg0.getTupleListResult());
             final InputEvent res = new InputEvent(this.oe.getSource(), arg0, (TupleCentreIdentifier) this.oe.getTarget(),
@@ -137,7 +133,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
      * Static services that checks if a source text contains a valid ReSpecT
      * specification
      *
-     * @param spec the String representation of the ReSpecT specification to check
+     * @param spec the String representation copyOf the ReSpecT specification to check
      *             for syntactic correctness
      * @return a logic tuple that provides information about the check: valid is the
      * specification is OK, or invalid(L) if there are errors (at line L).
@@ -153,11 +149,11 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 final alice.tuprolog.Theory thspec = new alice.tuprolog.Theory(co);
                 core.setTheory(thspec);
             } else {
-                return LogicTuples.newInstance("invalid", TupleArguments.newVarArgument());
+                return LogicTuple.of("invalid", TupleArgument.var());
             }
-            return LogicTuples.newInstance("valid");
+            return LogicTuple.of("valid");
         } catch (final alice.tuprolog.InvalidTheoryException ex) {
-            return LogicTuples.newInstance("invalid", TupleArguments.newValueArgument(ex.line));
+            return LogicTuple.of("invalid", TupleArgument.of(ex.line));
         }
     }
 
@@ -182,11 +178,11 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
     private boolean isPersistent;
     private final Prolog matcher = new Prolog();
     /**
-     * Used to keep trace of theory other than reactions
+     * Used to keep trace copyOf theory other than reactions
      */
     private Theory noReactionTh;
     /**
-     * multiset of Prolog predicates
+     * multiset copyOf Prolog predicates
      */
     private TupleSet prologPredicates;
     /**
@@ -196,43 +192,43 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
     private RespectSpecification reactionSpec;
     private final Object semaphore;
     /**
-     * list of temporary output event caused by linkability operation: they are
+     * list copyOf temporary output event caused by linkability operation: they are
      * added to the output queue (outputEventList only when the related reaction is
      * successfully executed
      */
     private final List<AbstractEvent> temporaryOutputEventList;
     /**
-     * List of timers scheduled for execution
+     * List copyOf timers scheduled for execution
      */
     private final List<Timer> timers;
     /**
-     * multiset of triggered timed reactions
+     * multiset copyOf triggered timed reactions
      */
     private final TRSet timeSet;
     private boolean transaction;
     private Prolog trigCore;
     /**
-     * multiset of tuples T
+     * multiset copyOf tuples T
      */
     private final ITupleSet tSet;
     /**
-     * multiset of specification tuple Sigma
+     * multiset copyOf specification tuple Sigma
      */
     private final ITupleSet tSpecSet;
     private final RespectVM vm;
     /**
-     * multiset of pending query set
+     * multiset copyOf pending query set
      */
     private final PendingQuerySet wSet;
     /**
-     * multiset of triggered reactions Z
+     * multiset copyOf triggered reactions Z
      */
     private final TRSet zSet;
 
     /**
      * @param rvm       the ReSpecT VM this storage context is managed by
-     * @param tid       the identifier of the tuple centre managed
-     * @param queueSize the maximum InQ size of the tuple centre
+     * @param tid       the identifier copyOf the tuple centre managed
+     * @param queueSize the maximum InQ size copyOf the tuple centre
      * @param respectTC the ReSpecT tuple centres manager
      */
     public RespectVMContext(final RespectVM rvm, final TupleCentreIdentifier tid, final int queueSize,
@@ -283,13 +279,13 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
         LogicTuple tuple = (LogicTuple) t;
         LogicTuple toAdd;
         while (!"[]".equals(tuple.toString())) {
-            toAdd = LogicTuples.newInstance(tuple.getArg(0));
+            toAdd = LogicTuple.of(tuple.getArg(0));
             this.tSet.add(toAdd);
             if (this.isPersistent) {
                 this.writePersistencyUpdate(toAdd, ModType.ADD_TUPLE);
             }
-            list.add(LogicTuples.newInstance(tuple.getArg(0)));
-            tuple = LogicTuples.newInstance(tuple.getArg(1));
+            list.add(LogicTuple.of(tuple.getArg(0)));
+            tuple = LogicTuple.of(tuple.getArg(1));
         }
         return list;
     }
@@ -303,7 +299,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
     public void addSpecTuple(final Tuple t) {
         Tuple tuple;
         if (",".equals(((LogicTuple) t).getName())) {
-            tuple = LogicTuples.newInstance("reaction", ((LogicTuple) t).getArg(0), ((LogicTuple) t).getArg(1).getArg(0),
+            tuple = LogicTuple.of("reaction", ((LogicTuple) t).getArg(0), ((LogicTuple) t).getArg(1).getArg(0),
                     ((LogicTuple) t).getArg(1).getArg(1));
         } else {
             tuple = t;
@@ -335,7 +331,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
 
     /**
      * @param path     the path where persistency information is stored
-     * @param fileName the name of the file where persistency information is stored
+     * @param fileName the name copyOf the file where persistency information is stored
      */
     public void disablePersistency(final String path, final TucsonTupleCentreId fileName) {
         this.isPersistent = false;
@@ -351,7 +347,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
 
     /**
      * @param path     the path where to store persistency information
-     * @param fileName the name of the file to create for storing persistency information
+     * @param fileName the name copyOf the file to create for storing persistency information
      */
     public void enablePersistency(final String path, final TucsonTupleCentreId fileName) {
         this.isPersistent = true;
@@ -950,7 +946,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
     }
 
     /**
-     * @return a Java iterator through the list of spatial from reactions possibly
+     * @return a Java iterator through the list copyOf spatial from reactions possibly
      * found
      */
     public Iterator<Term> findFromReactions() {
@@ -976,7 +972,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
     }
 
     /**
-     * @return a Java iterator through the list of timed reactions possibly found
+     * @return a Java iterator through the list copyOf timed reactions possibly found
      */
     public Iterator<Term> findTimeReactions() {
         final List<Term> foundReactions = new ArrayList<>();
@@ -1001,7 +997,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
     }
 
     /**
-     * @return a Java iterator through the list of spatial to reactions possibly
+     * @return a Java iterator through the list copyOf spatial to reactions possibly
      * found
      */
     public Iterator<Term> findToReactions() {
@@ -1094,21 +1090,21 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
     }
 
     /**
-     * @return the list of tuples representing triggered reactions
+     * @return the list copyOf tuples representing triggered reactions
      */
     public LogicTuple[] getTRSet() {
         final TriggeredReaction[] trig = this.zSet.toArray();
         final LogicTuple[] tuples = new LogicTuple[trig.length];
         for (int i = 0; i < tuples.length; i++) {
             final Term term = ((LogicReaction) trig[i].getReaction()).getStructReaction().getTerm();
-            tuples[i] = LogicTuples.newInstance(term);
+            tuples[i] = LogicTuple.fromTerm(term);
         }
         return tuples;
     }
 
     /**
      * @param filter the tuple template to be used in filtering stored tuples
-     * @return the list of tuples currently stored
+     * @return the list copyOf tuples currently stored
      */
     public LogicTuple[] getTSet(final LogicTuple filter) {
         final LogicTuple[] ltSet = this.tSet.toArray();
@@ -1131,7 +1127,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
 
     /**
      * @param filter the tuple template to be used in filtering InQ events
-     * @return the list of tuples representing InQ events currently stored
+     * @return the list copyOf tuples representing InQ events currently stored
      */
     public WSetEvent[] getWSet(final LogicTuple filter) {
         final AbstractEvent[] ev = this.wSet.toArray();
@@ -1184,7 +1180,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             final ILinkContext link = RespectTCContainer.getRespectTCContainer().getLinkContext(target);
             // link.doOperation((TupleCentreIdentifier) oe.getSource(), op);
             TupleCentreIdentifier source;
-            if (oe.getSource() instanceof TucsonTupleCentreIdDefault) {
+            if (oe.getSource() instanceof TucsonTupleCentreId) {
                 source = ((TucsonTupleCentreId) oe.getSource()).getInternalTupleCentreId();
             } else {
                 source = (TupleCentreIdentifier) oe.getSource();
@@ -1257,8 +1253,8 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
 
     /**
      * @param path   the path where persistency information is stored
-     * @param file   the name of the file where persistency information is stored
-     * @param tcName the name of the tuple centre to be recovered
+     * @param file   the name copyOf the file where persistency information is stored
+     * @param tcName the name copyOf the tuple centre to be recovered
      */
     public void recoveryPersistent(final String path, final String file, final TucsonTupleCentreId tcName) {
         try {
@@ -1278,7 +1274,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 this.log(">>> Recovering tuples...");
                 for (final String t : tuples) {
                     if (!t.startsWith("is_persistent")) {
-                        this.addTuple(LogicTuples.parse(t), true);
+                        this.addTuple(LogicTuple.parse(t), true);
                     }
                 }
                 this.log(">>> ...tuples recovered!");
@@ -1287,7 +1283,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             if (specs != null && !specs.isEmpty()) {
                 this.log(">>> Recovering specs...");
                 for (final String s : specs) {
-                    this.addSpecTuple(LogicTuples.parse(s));
+                    this.addSpecTuple(LogicTuple.parse(s));
                 }
                 this.log(">>> ...specs recovered!");
             }
@@ -1295,7 +1291,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             if (predicates != null && !predicates.isEmpty()) {
                 this.log(">>> Recovering predicates...");
                 for (final String p : predicates) {
-                    this.prologPredicates.add(LogicTuples.parse(p));
+                    this.prologPredicates.add(LogicTuple.parse(p));
                 }
                 this.log(">>> ...predicates recovered!");
             }
@@ -1308,25 +1304,25 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                     switch (split[0]) {
                         case "(+t)":
                             if (!split[1].startsWith("is_persistent")) {
-                                this.addTuple(LogicTuples.parse(split[1]), true);
+                                this.addTuple(LogicTuple.parse(split[1]), true);
                             }
                             break;
                         case "(-t)":
                             if (!split[1].startsWith("is_persistent")) {
-                                this.removeMatchingTuple(LogicTuples.parse(split[1]), true);
+                                this.removeMatchingTuple(LogicTuple.parse(split[1]), true);
                             }
                             break;
                         case "(+s)":
-                            this.addSpecTuple(LogicTuples.parse(split[1]));
+                            this.addSpecTuple(LogicTuple.parse(split[1]));
                             break;
                         case "(-s)":
-                            this.removeMatchingSpecTuple(LogicTuples.parse(split[1]));
+                            this.removeMatchingSpecTuple(LogicTuple.parse(split[1]));
                             break;
                         case "(+p)":
-                            this.prologPredicates.add(LogicTuples.parse(split[1]));
+                            this.prologPredicates.add(LogicTuple.parse(split[1]));
                             break;
                         case "(-p)":
-                            this.prologPredicates.getMatchingTuple(LogicTuples.parse(split[1]));
+                            this.prologPredicates.getMatchingTuple(LogicTuple.parse(split[1]));
                             break;
                         case "(et)":
                             this.emptyTupleSet();
@@ -1374,7 +1370,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
     /**
      * Removes the event related to a specific executed operation
      *
-     * @param operationId identifier of the operation
+     * @param operationId identifier copyOf the operation
      * @return wether the event has been successfully removed or not
      */
     public boolean removePendingQueryEvent(final OperationIdentifier operationId) {
@@ -1382,9 +1378,9 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
     }
 
     /**
-     * Removes all events of specified agent
+     * Removes all events copyOf specified agent
      *
-     * @param id the identifier of the agent whose events must be removed
+     * @param id the identifier copyOf the agent whose events must be removed
      */
     @Override
     public void removePendingQueryEventsOf(final AgentIdentifier id) {
@@ -1494,7 +1490,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             while (term != null) {
                 engine.solve("assert(" + term + ").");
                 if (!term.match(Term.createTerm("reaction(E,G,R)"))) {
-                    pp = LogicTuples.newInstance(term);
+                    pp = LogicTuple.fromTerm(term);
                     this.prologPredicates.add(pp);
                     if (this.isPersistent) {
                         this.writePersistencyUpdate(pp, ModType.ADD_PRED);
@@ -1528,7 +1524,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 //noinspection InfiniteLoopStatement
                 while (true) {
                     final alice.tuprolog.Term solution = info.getSolution();
-                    st = LogicTuples.newInstance(solution);
+                    st = LogicTuple.fromTerm(solution);
                     this.tSpecSet.add(st);
                     if (this.isPersistent) {
                         this.writePersistencyUpdate(st, ModType.ADD_SPEC);
@@ -1548,7 +1544,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
     }
 
     /**
-     * @param set the list of tuple representing InQ events to overwrite this InQ
+     * @param set the list copyOf tuple representing InQ events to overwrite this InQ
      *            with
      */
     public void setWSet(final List<LogicTuple> set) {
@@ -1560,7 +1556,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 final String tupla = operation.substring(3, operation.length() - 1);
                 LogicTuple logicTuple;
                 try {
-                    logicTuple = LogicTuples.parse(tupla);
+                    logicTuple = LogicTuple.parse(tupla);
                     final RespectOperationDefault op = RespectOperationDefault.makeRd(logicTuple, null);
                     this.vm.doOperation(null, op);
                 } catch (final InvalidLogicTupleException | OperationNotPossibleException e) {
@@ -1570,7 +1566,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 final String tupla = operation.substring(3, operation.length() - 1);
                 LogicTuple logicTuple;
                 try {
-                    logicTuple = LogicTuples.parse(tupla);
+                    logicTuple = LogicTuple.parse(tupla);
                     final RespectOperationDefault op = RespectOperationDefault.makeIn(logicTuple, null);
                     this.vm.doOperation(null, op);
                 } catch (final InvalidLogicTupleException | OperationNotPossibleException e) {
@@ -1611,16 +1607,16 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                             this.log("spawnActivity.aid = " + aid);
                             s2pLib.setSpawnerId(aid);
                         } else {
-                            final TucsonTupleCentreId tcid = new TucsonTupleCentreIdDefault(owner.getLocalName(),
+                            final TucsonTupleCentreId tcid = TucsonTupleCentreId.of(owner.getLocalName(),
                                     ((TupleCentreIdentifier) owner).getNode(), String.valueOf(((TupleCentreIdentifier) owner).getPort()));
                             this.log("spawnActivity.tcid = " + tcid);
                             s2pLib.setSpawnerId(tcid);
                         }
                         TucsonTupleCentreId target;
-                        if (targetTC instanceof TucsonTupleCentreIdDefault) {
+                        if (targetTC instanceof TucsonTupleCentreId) {
                             target = (TucsonTupleCentreId) targetTC;
                         } else {
-                            target = new TucsonTupleCentreIdDefault(targetTC.getLocalName(),
+                            target = TucsonTupleCentreId.of(targetTC.getLocalName(),
                                     ((TupleCentreIdentifier) targetTC).getNode(),
                                     String.valueOf(((TupleCentreIdentifier) targetTC).getPort()));
                         }
@@ -1658,17 +1654,17 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                                 this.log("spawnActivity.aid = " + aid);
                                 instance.setSpawnerId(aid);
                             } else {
-                                final TucsonTupleCentreId tcid = new TucsonTupleCentreIdDefault(owner.getLocalName(),
+                                final TucsonTupleCentreId tcid = TucsonTupleCentreId.of(owner.getLocalName(),
                                         ((TupleCentreIdentifier) owner).getNode(),
                                         String.valueOf(((TupleCentreIdentifier) owner).getPort()));
                                 this.log("spawnActivity.tcid = " + tcid);
                                 instance.setSpawnerId(tcid);
                             }
                             TucsonTupleCentreId target;
-                            if (targetTC instanceof TucsonTupleCentreIdDefault) {
+                            if (targetTC instanceof TucsonTupleCentreId) {
                                 target = (TucsonTupleCentreId) targetTC;
                             } else {
-                                target = new TucsonTupleCentreIdDefault(targetTC.getLocalName(),
+                                target = TucsonTupleCentreId.of(targetTC.getLocalName(),
                                         ((TupleCentreIdentifier) targetTC).getNode(),
                                         String.valueOf(((TupleCentreIdentifier) targetTC).getPort()));
                             }
@@ -1721,7 +1717,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
         final LogicReaction lr = (LogicReaction) tr.getReaction();
         final Struct rStruct = lr.getStructReaction();
         final Struct rg = new Struct(rStruct.getName(), rStruct.getArg(0), new Var(), rStruct.getArg(1));
-        this.removeMatchingSpecTuple(LogicTuples.newInstance(rg));
+        this.removeMatchingSpecTuple(LogicTuple.fromTerm(rg));
     }
 
     private boolean evalGuard(final Term g) {
@@ -1801,7 +1797,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 }
                 currTimer.schedule(
                         new RespectTimerTask(this,
-                                RespectOperationDefault.makeTime(LogicTuples.newInstance("time", TupleArguments.newInstance(current)), null)),
+                                RespectOperationDefault.makeTime(LogicTuple.of("time", TupleArgument.fromTerm(current)), null)),
                         delay);
             }
             /** SPATIAL EXTENSION - Interfacing with geolocation service **/
@@ -1899,7 +1895,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 }
                 currTimer.schedule(
                         new RespectTimerTask(this,
-                                RespectOperationDefault.makeTime(LogicTuples.newInstance("time", TupleArguments.newInstance(current)), null)),
+                                RespectOperationDefault.makeTime(LogicTuple.of("time", TupleArgument.fromTerm(current)), null)),
                         delay);
             }
             /** SPATIAL EXTENSION - Interfacing with geolocation service **/

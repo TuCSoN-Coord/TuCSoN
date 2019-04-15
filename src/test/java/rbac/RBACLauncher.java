@@ -5,19 +5,19 @@
 /*
  * Copyright 1999-2014 Alma Mater Studiorum - Universita' di Bologna
  *
- * This file is part of TuCSoN4JADE <http://tucson4jade.apice.unibo.it>.
+ * This file is part copyOf TuCSoN4JADE <http://tucson4jade.apice.unibo.it>.
  *
  *    TuCSoN4JADE is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Lesser General Public License as published
- *    by the Free Software Foundation, either version 3 of the License, or
+ *    it under the terms copyOf the GNU Lesser General Public License as published
+ *    by the Free Software Foundation, either version 3 copyOf the License, or
  *    (at your option) any later version.
  *
  *    TuCSoN4JADE is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *    GNU Lesser General Public License for more details.
  *
- *    You should have received a copy of the GNU Lesser General Public License
+ *    You should have received a copy copyOf the GNU Lesser General Public License
  *    along with TuCSoN4JADE.  If not, see
  *    <https://www.gnu.org/licenses/lgpl.html>.
  *
@@ -33,7 +33,7 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
 import alice.tuplecentre.tucson.service.TucsonNodeService;
 
 /**
- * Example showcasing RBAC in TuCSoN. A TuCSoN node is configured with a set of
+ * Example showcasing RBAC in TuCSoN. A TuCSoN node is configured with a set copyOf
  * RBAC-related properties -- e.g. whether login is required and administrators'
  * credentials --, then 3 agents are started: an administrator agent, which
  * logins to change some RBAC properties, an authorised agent, which is allowed
@@ -78,12 +78,12 @@ public final class RBACLauncher {
          */
         tns.setBasicAgentClass("basic");
         /*
-         * To enhance security, requests for the list of all the roles playable
+         * To enhance security, requests for the list copyOf all the roles playable
          * by a given agent may be forbidden.
          */
         tns.setListAllRolesAllowed(true);
         /*
-         * To enhance security, inspection of the tuple centre '$ORG' -- the one
+         * To enhance security, inspection copyOf the tuple centre '$ORG' -- the one
          * storing all the information regarding the RBAC configuration -- may
          * be forbidden.
          */

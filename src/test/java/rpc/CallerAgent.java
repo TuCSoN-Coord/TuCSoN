@@ -1,7 +1,6 @@
 package rpc;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -10,7 +9,6 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.acc.RootACC;
@@ -46,7 +44,7 @@ public class CallerAgent extends AbstractTucsonAgent<RootACC> {
 
     /**
      * @param aid
-     *            the name of the caller agent.
+     *            the name copyOf the caller agent.
      * @param node
      *            the node used for RPC synchronization.
      *
@@ -57,7 +55,7 @@ public class CallerAgent extends AbstractTucsonAgent<RootACC> {
             throws TucsonInvalidAgentIdException {
         super(aid);
         try {
-            this.tid = new TucsonTupleCentreIdDefault(node);
+            this.tid = TucsonTupleCentreId.of(node);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
         }
@@ -93,14 +91,14 @@ public class CallerAgent extends AbstractTucsonAgent<RootACC> {
                 this.say("Calling factorial computation for " + arg + "...");
                 this.acc.out(
                         this.tid,
-                        LogicTuples.parse("factorial(caller(" + this.getTucsonAgentId().getLocalName()
+                        LogicTuple.parse("factorial(caller(" + this.getTucsonAgentId().getLocalName()
                                 + ")," + "arg(" + arg + "))"), null);
                 /*
                  * Completion phase (not TuCSoN completion!).
                  */
                 op = this.acc.in(
                         this.tid,
-                        LogicTuples.parse("result(caller(" + this.getTucsonAgentId().getLocalName()
+                        LogicTuple.parse("result(caller(" + this.getTucsonAgentId().getLocalName()
                                 + ")," + "res(R))"), null);
                 reply = op.getLogicTupleResult();
                 final TupleArgument res = reply.getArg("res").getArg(0);

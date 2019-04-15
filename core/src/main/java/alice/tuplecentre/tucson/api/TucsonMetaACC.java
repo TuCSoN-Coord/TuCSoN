@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -45,11 +45,11 @@ public final class TucsonMetaACC {
      * Acquires an Administrative ACC from the TuCSoN node. Valid username and
      * password are required.
      *
-     * @param aid      the Identifier of the agent willing to obtain adminstrative access
-     * @param netid    the IP address of the TuCSoN node to contact
-     * @param portno   the TCP port number of the TuCSoN node to contact
-     * @param username the username of the administrative agent
-     * @param password the (encrypted) password of the administrative agent
+     * @param aid      the Identifier copyOf the agent willing to obtain adminstrative access
+     * @param netid    the IP address copyOf the TuCSoN node to contact
+     * @param portno   the TCP port number copyOf the TuCSoN node to contact
+     * @param username the username copyOf the administrative agent
+     * @param password the (encrypted) password copyOf the administrative agent
      * @return the Administrative ACC if given credentials are valid,
      * {@code null} otherwise
      */
@@ -100,8 +100,8 @@ public final class TucsonMetaACC {
      * active on the specified pair node:port where node is the ip address.
      *
      * @param aid    Who demand for the ACC
-     * @param netid  The ip address of the target TuCSoN Node Service
-     * @param portno The listening port of the target TuCSoN Node Service
+     * @param netid  The ip address copyOf the target TuCSoN Node Service
+     * @param portno The listening port copyOf the target TuCSoN Node Service
      * @return The DefaultACC (which is the most powerful at the moment)
      */
     public static EnhancedACC getContext(final TucsonAgentId aid,
@@ -135,9 +135,9 @@ public final class TucsonMetaACC {
      * to RBAC policies. If no RBAC policies are installed, method
      * {@link NegotiationACC#playDefaultRole()} is available.
      *
-     * @param aid    the Identifier of the agent demanding for the ACC
-     * @param netid  the IP address of the TuCSoN node to contact
-     * @param portno the TCP port number of the TuCSoN node to contact
+     * @param aid    the Identifier copyOf the agent demanding for the ACC
+     * @param netid  the IP address copyOf the TuCSoN node to contact
+     * @param portno the TCP port number copyOf the TuCSoN node to contact
      * @return the Negotiation ACC requested
      */
     public static NegotiationACC getNegotiationContext(final String aid,
@@ -159,7 +159,7 @@ public final class TucsonMetaACC {
     /**
      * Acquires the Negotiation ACC from the default TuCSoN node.
      *
-     * @param aid the Identifier of the agent demanding for the ACC
+     * @param aid the Identifier copyOf the agent demanding for the ACC
      * @return the Negotiation ACC requested
      */
     public static NegotiationACC getNegotiationContext(final TucsonAgentId aid) {
@@ -170,9 +170,9 @@ public final class TucsonMetaACC {
      * Acquires the Negotiation ACC from the TuCSoN node installed on the given
      * {@code netid:portno} IP:TCP address.
      *
-     * @param aid    the Identifier of the agent demanding for the ACC
-     * @param netid  the IP address of the TuCSoN node to contact
-     * @param portno the TCP port number of the TuCSoN node to contact
+     * @param aid    the Identifier copyOf the agent demanding for the ACC
+     * @param netid  the IP address copyOf the TuCSoN node to contact
+     * @param portno the TCP port number copyOf the TuCSoN node to contact
      * @return the Negotiation ACC requested
      */
     public static NegotiationACC getNegotiationContext(final TucsonAgentId aid,

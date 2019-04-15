@@ -5,19 +5,19 @@
 /*
  * Copyright 1999-2014 Alma Mater Studiorum - Universita' di Bologna
  *
- * This file is part of TuCSoN4JADE <http://tucson4jade.apice.unibo.it>.
+ * This file is part copyOf TuCSoN4JADE <http://tucson4jade.apice.unibo.it>.
  *
  *    TuCSoN4JADE is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Lesser General Public License as published
- *    by the Free Software Foundation, either version 3 of the License, or
+ *    it under the terms copyOf the GNU Lesser General Public License as published
+ *    by the Free Software Foundation, either version 3 copyOf the License, or
  *    (at your option) any later version.
  *
  *    TuCSoN4JADE is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *    GNU Lesser General Public License for more details.
  *
- *    You should have received a copy of the GNU Lesser General Public License
+ *    You should have received a copy copyOf the GNU Lesser General Public License
  *    along with TuCSoN4JADE.  If not, see
  *    <https://www.gnu.org/licenses/lgpl.html>.
  *
@@ -29,14 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.TupleArgument;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
-import alice.tuplecentre.tucson.api.TucsonAgentId;
-import alice.tuplecentre.tucson.api.TucsonMetaACC;
-import alice.tuplecentre.tucson.api.TucsonOperation;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
+import alice.tuplecentre.tucson.api.*;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.RootACC;
@@ -56,10 +52,10 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
 public final class AuthorisedAgentImpl extends AbstractTucsonAgent<RootACC> {
 
     /**
-     * @param id    the Identifier of this TuCSoN agent
-     * @param netid the IP address of the TuCSoN node it is willing to interact
+     * @param id    the Identifier copyOf this TuCSoN agent
+     * @param netid the IP address copyOf the TuCSoN node it is willing to interact
      *              with
-     * @param p     the TCP port number of the TuCSoN node it is willing to
+     * @param p     the TCP port number copyOf the TuCSoN node it is willing to
      *              interact with
      * @throws TucsonInvalidAgentIdException if the given String does not represent a valid TuCSoN agent
      *                                       Identifier
@@ -104,9 +100,9 @@ public final class AuthorisedAgentImpl extends AbstractTucsonAgent<RootACC> {
             EnhancedACC acc = negACC.playRoleWithPermissions(permissions);
             Logger.getLogger("AuthorisedAgent").info("Attempt successful");
             Logger.getLogger("AuthorisedAgent").info("Trying 'out' operation");
-            TucsonOperation op = acc.out(new TucsonTupleCentreIdDefault("default",
+            TucsonOperation op = acc.out(TucsonTupleCentreId.of("default",
                             this.myNode(), String.valueOf(this.myPort())),
-                    LogicTuples.newInstance("test", TupleArguments.newValueArgument("hello")), (Long) null);
+                    LogicTuple.of("test", TupleArgument.of("hello")), (Long) null);
             if (op.isResultSuccess()) {
                 Logger.getLogger("AuthorisedAgent").info(
                         "'out' operation successful");

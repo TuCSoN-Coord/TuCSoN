@@ -1,6 +1,6 @@
 /*
  * TupleSetImpl.java Copyright 2000-2001-2002 aliCE team at deis.unibo.it This
- * software is the proprietary information of deis.unibo.it Use is subject to
+ * software is the proprietary information copyOf deis.unibo.it Use is subject to
  * license terms.
  */
 package alice.tuplecentre.respect.core;
@@ -89,7 +89,7 @@ public class PendingQuerySet {
     }
 
     /**
-     * @return the tuple centre events head of the InQ
+     * @return the tuple centre events head copyOf the InQ
      */
     public alice.tuplecentre.core.AbstractEvent get() {
         final alice.tuplecentre.core.AbstractEvent ev = this.events.remove(0);
@@ -141,7 +141,7 @@ public class PendingQuerySet {
     }
 
     /**
-     * @param id the identifier of the tuple centre agent whose events have to
+     * @param id the identifier copyOf the tuple centre agent whose events have to
      *           be removed
      */
     public void removeEventsOf(final AgentIdentifier id) {
@@ -155,14 +155,14 @@ public class PendingQuerySet {
     }
 
     /**
-     * @return the length of the InQ
+     * @return the length copyOf the InQ
      */
     public int size() {
         return this.events.size();
     }
 
     /**
-     * @return the array representation of the InQ
+     * @return the array representation copyOf the InQ
      */
     public alice.tuplecentre.core.AbstractEvent[] toArray() {
         final int size = this.events.size();

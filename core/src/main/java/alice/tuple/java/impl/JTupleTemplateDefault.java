@@ -59,7 +59,7 @@ public class JTupleTemplateDefault implements Iterable<JArg>, JTupleTemplate {
             return this.args.get(i);
         }
         throw new InvalidOperationException(
-                "Index out of bounds. Value of the index i: " + i);
+                "Index out copyOf bounds. Value copyOf the index i: " + i);
     }
 
     /*

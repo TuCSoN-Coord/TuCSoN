@@ -13,28 +13,28 @@ public interface Role extends Serializable {
     /**
      * Gets the agent class this role is associated to
      *
-     * @return the agent class of this role
+     * @return the agent class copyOf this role
      */
     String getAgentClass();
 
     /**
-     * Gets the description of this role
+     * Gets the description copyOf this role
      *
-     * @return the description of this role
+     * @return the description copyOf this role
      */
     String getDescription();
 
     /**
      * Gets the policy associated to this role
      *
-     * @return the policy of this role
+     * @return the policy copyOf this role
      */
     Policy getPolicy();
 
     /**
-     * Gets the name of this role
+     * Gets the name copyOf this role
      *
-     * @return the name of this role
+     * @return the name copyOf this role
      */
     String getRoleName();
 
@@ -46,9 +46,9 @@ public interface Role extends Serializable {
     void setAgentClass(final String agentClass);
 
     /**
-     * Replaces the description of this role
+     * Replaces the description copyOf this role
      *
-     * @param roleDescription the new description of this role
+     * @param roleDescription the new description copyOf this role
      */
     void setDescription(final String roleDescription);
 
@@ -60,9 +60,9 @@ public interface Role extends Serializable {
     void setPolicy(final Policy policy);
 
     /**
-     * Replaces the name of this role
+     * Replaces the name copyOf this role
      *
-     * @param roleName the new name of this role
+     * @param roleName the new name copyOf this role
      */
     void setRoleName(final String roleName);
 }

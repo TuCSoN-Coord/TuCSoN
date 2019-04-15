@@ -18,7 +18,7 @@ public class JVarDefault implements JVar {
     // private JVal val;
 
     /**
-     * @param t the JArgType of this JVar
+     * @param t the JArgType copyOf this JVar
      * @throws InvalidJVarException if the given type or name are invalid (e.g. null)
      */
     public JVarDefault(final JArgType t) throws InvalidJVarException {

@@ -4,7 +4,6 @@
 package situatedness;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.respect.core.TransducersManager;
@@ -18,7 +17,6 @@ import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -50,7 +48,7 @@ public class ActualActuator implements ISimpleProbe {
             this.acc = TucsonMetaACC.getContext(aid,
                     ActualActuator.DEFAULT_HOST,
                     TucsonInfo.getDefaultPortNumber());
-            this.tempTc = new TucsonTupleCentreIdDefault("tempTc",
+            this.tempTc = TucsonTupleCentreId.of("tempTc",
                     ActualActuator.DEFAULT_HOST, String.valueOf(TucsonInfo.getDefaultPortNumber()));
         } catch (final TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException e) {
             e.printStackTrace();
@@ -122,11 +120,11 @@ public class ActualActuator implements ISimpleProbe {
             }
         }
         try {
-            final LogicTuple template = LogicTuples.parse("temp(_)");
+            final LogicTuple template = LogicTuple.parse("temp(_)");
             final TucsonOperation op = this.acc.inAll(this.tempTc, template,
                     null);
             if (op.isResultSuccess()) {
-                final LogicTuple tempTuple = LogicTuples.parse("temp(" + value
+                final LogicTuple tempTuple = LogicTuple.parse("temp(" + value
                         + ")");
                 this.acc.out(this.tempTc, tempTuple, null);
                 System.out.println("[" + this.pid + "]: temp set to " + value);

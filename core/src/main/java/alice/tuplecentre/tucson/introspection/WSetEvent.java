@@ -23,8 +23,8 @@ public class WSetEvent implements Serializable {
 
     /**
      * @param lt the tuple representing the events
-     * @param s  the identifier of the events source
-     * @param t  the identifier of the events target
+     * @param s  the identifier copyOf the events source
+     * @param t  the identifier copyOf the events target
      */
     public WSetEvent(final LogicTuple lt, final EmitterIdentifier s, final EmitterIdentifier t) {
         this.op = lt;

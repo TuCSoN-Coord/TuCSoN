@@ -17,7 +17,7 @@ public interface IPlace {
     boolean isVirtual();
 
     /**
-     * @return the term representation of this place
+     * @return the term representation copyOf this place
      */
     Term toTerm();
 }

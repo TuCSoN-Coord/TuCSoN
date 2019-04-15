@@ -3,7 +3,7 @@ package alice.tuplecentre.respect.situatedness;
 import alice.tuplecentre.respect.api.EnvironmentId;
 
 /**
- * A "probe" (aka environmental resource) identifier. Being part of the MAS
+ * A "probe" (aka environmental resource) identifier. Being part copyOf the MAS
  * environment, a probe can be either a sensor or an actuator.
  *
  * @author Steven Maraldi

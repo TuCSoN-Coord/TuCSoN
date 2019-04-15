@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -29,7 +29,7 @@ import alice.tuplecentre.tucson.service.TucsonOpCompletionEvent;
 public interface UniformAsyncACC extends AsyncACC {
 
     /**
-     * @return the List of the events regarding TuCSoN operations completion
+     * @return the List copyOf the events regarding TuCSoN operations completion
      */
     List<TucsonOpCompletionEvent> getCompletionEventsList();
 
@@ -44,7 +44,7 @@ public interface UniformAsyncACC extends AsyncACC {
      * is found to match the given template, no success completion answer is
      * forwarded to the TuCSoN Agent exploiting this ACC, but thanks to
      * asynchronous behaviour the TuCSoN Agent could do something else instead
-     * of getting stuck.
+     * copyOf getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
      *              {@link TupleCentreIdentifier tid}
@@ -92,7 +92,7 @@ public interface UniformAsyncACC extends AsyncACC {
             UnreachableNodeException;
 
     /**
-     * <code>uno</code> TuCSoN primitive, checks absence of the specified tuple
+     * <code>uno</code> TuCSoN primitive, checks absence copyOf the specified tuple
      * in the given target tuplecentre. If more than one tuple matches the
      * template, Linda's non-deterministic selection is replaced by
      * PROBABILISTIC, UNIFORMLY DISTRIBUTED selection: the more a tuple is
@@ -101,7 +101,7 @@ public interface UniformAsyncACC extends AsyncACC {
      * Notice that the primitive semantics is still SUSPENSIVE: until any tuple
      * is found to match the given template, no success completion answer is
      * forwarded to the TuCSoN Agent exploiting this ACC, but thanks to
-     * asynchronous behaviour TuCSoN Agent could do something else instead of
+     * asynchronous behaviour TuCSoN Agent could do something else instead copyOf
      * getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
@@ -123,7 +123,7 @@ public interface UniformAsyncACC extends AsyncACC {
             UnreachableNodeException;
 
     /**
-     * <code>unop</code> TuCSoN primitive, checks absence of the specified tuple
+     * <code>unop</code> TuCSoN primitive, checks absence copyOf the specified tuple
      * in the given target tuplecentre. If more than one tuple matches the
      * template, Linda's non-deterministic selection is replaced by
      * PROBABILISTIC, UNIFORMLY DISTRIBUTED selection: the more a tuple is
@@ -162,7 +162,7 @@ public interface UniformAsyncACC extends AsyncACC {
      * is found to match the given template, no success completion answer is
      * forwarded to the TuCSoN Agent exploiting this ACC, but thanks to
      * asynchronous behaviour the TuCSoN Agent could do something else instead
-     * of getting stuck.
+     * copyOf getting stuck.
      *
      * @param tid   the target TuCSoN tuplecentre id
      *              {@link TupleCentreIdentifier tid}

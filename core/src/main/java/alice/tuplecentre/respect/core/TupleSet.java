@@ -1,12 +1,12 @@
 /*
  * ReSpecT - Copyright (C) aliCE team at deis.unibo.it This library is free
- * software; you can redistribute it and/or modify it under the terms of the GNU
+ * software; you can redistribute it and/or modify it under the terms copyOf the GNU
  * Lesser General Public License as published by the Free Software Foundation;
- * either version 2.1 of the License, or (at your option) any later version.
+ * either version 2.1 copyOf the License, or (at your option) any later version.
  * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * ANY WARRANTY; without even the implied warranty copyOf MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details. You should have received a copy of the GNU Lesser General Public
+ * details. You should have received a copy copyOf the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -20,7 +20,6 @@ import java.util.List;
 import java.util.ListIterator;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuprolog.Var;
 
 /**
@@ -109,7 +108,7 @@ public class TupleSet {
     /**
      * @param templ the tuple template to be used to retrieve matching tuples from
      *              this set
-     * @return the tuple non deterministically selected as a result of the
+     * @return the tuple non deterministically selected as a result copyOf the
      * matching process (which is consumed)
      */
     public void getMatchingTuple(final LogicTuple templ) {
@@ -125,7 +124,7 @@ public class TupleSet {
                     this.tRemoved.add(tu);
                 }
                 final AbstractMap<Var, Var> v = new LinkedHashMap<>();
-                LogicTuples.newInstance(tu.toTerm().copyGoal(v, 0));
+                LogicTuple.fromTerm(tu.toTerm().copyGoal(v, 0));
                 return;
             }
         }
@@ -152,7 +151,7 @@ public class TupleSet {
     /**
      * @param templ the tuple template to be used to retrieve matching tuples from
      *              this set
-     * @return the tuple non deterministically selected as a result of the
+     * @return the tuple non deterministically selected as a result copyOf the
      * matching process (which is NOT consumed)
      */
     public LogicTuple readMatchingTuple(final LogicTuple templ) {
@@ -162,31 +161,31 @@ public class TupleSet {
         for (LogicTuple tu : this.tuples) {
             if (templ.match(tu)) {
                 final AbstractMap<Var, Var> v = new LinkedHashMap<>();
-                return LogicTuples.newInstance(tu.toTerm().copyGoal(v, 0));
+                return LogicTuple.fromTerm(tu.toTerm().copyGoal(v, 0));
             }
         }
         return null;
     }
 
     /**
-     * @return the length of this tuple set
+     * @return the length copyOf this tuple set
      */
     public int size() {
         return this.tuples.size();
     }
 
     /**
-     * @return the Java array representation of this tuple set
+     * @return the Java array representation copyOf this tuple set
      */
     public LogicTuple[] toArray() {
         return this.tuples.toArray(new LogicTuple[this.tuples.size()]);
     }
 
     /**
-     * Provides a representation of the tuple multi-set in the form of a String
+     * Provides a representation copyOf the tuple multi-set in the form copyOf a String
      * containing a prolog theory.
      *
-     * @return a textual representation in the form of a prolog theory.
+     * @return a textual representation in the form copyOf a prolog theory.
      */
     @Override
     public String toString() {

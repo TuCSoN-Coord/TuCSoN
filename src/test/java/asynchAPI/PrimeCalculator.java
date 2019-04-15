@@ -1,26 +1,25 @@
 /*
  * Copyright 1999-2014 Alma Mater Studiorum - Universita' di Bologna
  *
- * This file is part of TuCSoN <http://tucson.unibo.it>.
+ * This file is part copyOf TuCSoN <http://tucson.unibo.it>.
  *
  *    TuCSoN is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Lesser General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
+ *    it under the terms copyOf the GNU Lesser General Public License as published by
+ *    the Free Software Foundation, either version 3 copyOf the License, or
  *    (at your option) any later version.
  *
  *    TuCSoN is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *    GNU Lesser General Public License for more details.
  *
- *    You should have received a copy of the GNU Lesser General Public License
+ *    You should have received a copy copyOf the GNU Lesser General Public License
  *    along with TuCSoN.  If not, see <https://www.gnu.org/licenses/lgpl.html>.
  *
  */
 package asynchAPI;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -31,7 +30,6 @@ import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonOperationCompletionListener;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedACC;
 import alice.tuplecentre.tucson.api.acc.EnhancedAsyncACC;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
@@ -98,12 +96,12 @@ public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
                             .getPrimeNumbers(upperBound);
                     this.info("Prime numbers up to " + upperBound + " are "
                             + primeNumbers);
-                    tupleRes = LogicTuples.parse("prime(" + upperBound + ","
+                    tupleRes = LogicTuple.parse("prime(" + upperBound + ","
                             + primeNumbers + ")");
                     final Out out = new Out(this.ttcid, tupleRes);
                     this.help.enqueue(out, null);
                     if (!PrimeCalculator.this.stop) {
-                        final LogicTuple tuple = LogicTuples
+                        final LogicTuple tuple = LogicTuple
                                 .parse("calcprime(X)");
                         final Inp inp = new Inp(this.ttcid, tuple);
                         this.help.enqueue(inp, new InpHandler(this.eaacc,
@@ -116,7 +114,7 @@ public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
                 try {
                     Thread.sleep(PrimeCalculator.SLEEP);
                     if (!PrimeCalculator.this.stop) {
-                        final LogicTuple tuple = LogicTuples
+                        final LogicTuple tuple = LogicTuple
                                 .parse("calcprime(X)");
                         final Inp inp = new Inp(this.ttcid, tuple);
                         this.help.enqueue(inp, new InpHandler(this.eaacc,
@@ -197,15 +195,15 @@ public class PrimeCalculator extends AbstractTucsonAgent<EnhancedACC> {
         try {
             super.say("Started");
             final EnhancedAsyncACC acc = this.getACC();
-            final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
+            final TucsonTupleCentreId tid = TucsonTupleCentreId.of("default",
                     "localhost", "20504");
             final AsynchOpsHelper helper = new AsynchOpsHelper("'helper4"
                     + this.getTucsonAgentId() + "'");
-            final LogicTuple tuple = LogicTuples.parse("calcprime(X)");
+            final LogicTuple tuple = LogicTuple.parse("calcprime(X)");
             final Inp inp = new Inp(tid, tuple);
             helper.enqueue(inp, new InpHandler(acc, tid, helper));
             final EnhancedSyncACC accSynch = this.getACC();
-            final LogicTuple stopTuple = LogicTuples.parse("stop(primecalc)");
+            final LogicTuple stopTuple = LogicTuple.parse("stop(primecalc)");
             final In inStop = new In(tid, stopTuple);
             inStop.executeSynch(accSynch, null);
             this.stop = true;

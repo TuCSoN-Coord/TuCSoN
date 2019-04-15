@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -28,7 +28,6 @@ import alice.tuplecentre.core.TupleCentreOpType;
 import alice.tuplecentre.respect.api.geolocation.Position;
 import alice.tuplecentre.tucson.api.TucsonOpId;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
@@ -234,7 +233,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
 
     /**
      * @param id tuplecentre source
-     * @throws TucsonInvalidTupleCentreIdException if the given Object is not a valid identifier of a tuple
+     * @throws TucsonInvalidTupleCentreIdException if the given Object is not a valid identifier copyOf a tuple
      *                                             centre
      */
     public InterTupleCentreACCProxy(final Object id)
@@ -245,7 +244,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
                 this.aid = (TucsonTupleCentreId) id;
                 break;
             case "java.lang.String":
-                this.aid = new TucsonTupleCentreIdDefault((String) id);
+                this.aid = TucsonTupleCentreId.of((String) id);
                 break;
             default:
                 throw new TucsonInvalidTupleCentreIdException();
@@ -268,7 +267,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
             case "alice.tuplecentre.respect.api.TupleCentreId":
                 final TupleCentreIdentifier id = (TupleCentreIdentifier) tid;
                 try {
-                    tcid = new TucsonTupleCentreIdDefault(id.getLocalName(), id.getNode(),
+                    tcid = TucsonTupleCentreId.of(id.getLocalName(), id.getNode(),
                             String.valueOf(id.getPort()));
                 } catch (final TucsonInvalidTupleCentreIdException e) {
                     LOGGER.error(e.getMessage(), e);
@@ -279,7 +278,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
                 break;
             case "java.lang.String":
                 try {
-                    tcid = new TucsonTupleCentreIdDefault((String) tid);
+                    tcid = TucsonTupleCentreId.of((String) tid);
                 } catch (final TucsonInvalidTupleCentreIdException e) {
                     throw new TucsonOperationNotPossibleException();
                 }
@@ -346,7 +345,7 @@ public class InterTupleCentreACCProxy implements InterTupleCentreACC, OperationC
     }
 
     /**
-     * @return the Position of the tuple centre behind this proxy
+     * @return the Position copyOf the tuple centre behind this proxy
      */
     public Position getPosition() {
         return this.place;

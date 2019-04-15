@@ -6,7 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuplecentre.respect.core.collection.DoubleKeyMVMap;
 import alice.tuplecentre.respect.core.collection.MVMap;
 import alice.tuprolog.Var;
@@ -32,14 +31,14 @@ public abstract class AbstractTupleSet implements ITupleSet {
         }
 
         /**
-         * @return the String representation of the first key (K)
+         * @return the String representation copyOf the first key (K)
          */
         public String getKey1() {
             return this.key1;
         }
 
         /**
-         * @return the String representation of the second key (Q)
+         * @return the String representation copyOf the second key (Q)
          */
         public String getKey2() {
             return this.key2;
@@ -146,7 +145,7 @@ public abstract class AbstractTupleSet implements ITupleSet {
                     this.tRemoved.add(this.createEntry(tu));
                 }
                 final AbstractMap<Var, Var> v = new LinkedHashMap<>();
-                return LogicTuples.newInstance(tu.toTerm().copyGoal(v, 0));
+                return LogicTuple.fromTerm(tu.toTerm().copyGoal(v, 0));
             }
         }
         return null;
@@ -184,7 +183,7 @@ public abstract class AbstractTupleSet implements ITupleSet {
             final LogicTuple tu = l.next();
             if (templ.match(tu)) {
                 final AbstractMap<Var, Var> v = new LinkedHashMap<>();
-                return LogicTuples.newInstance(tu.toTerm().copyGoal(v, 0));
+                return LogicTuple.fromTerm(tu.toTerm().copyGoal(v, 0));
             }
         }
         return null;
@@ -221,13 +220,13 @@ public abstract class AbstractTupleSet implements ITupleSet {
 
     /**
      * @param t the LogicTuple whose first key should be retrieved
-     * @return the String representation of the retrieved key
+     * @return the String representation copyOf the retrieved key
      */
     protected abstract String getTupleKey1(LogicTuple t);
 
     /**
      * @param t the LogicTuple whose second key should be retrieved
-     * @return the String representation of the retrieved key
+     * @return the String representation copyOf the retrieved key
      */
     protected abstract String getTupleKey2(LogicTuple t);
 }

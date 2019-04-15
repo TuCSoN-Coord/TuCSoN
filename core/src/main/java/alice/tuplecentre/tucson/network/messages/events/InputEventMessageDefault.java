@@ -19,11 +19,11 @@ public class InputEventMessageDefault extends AbstractEventMessage implements In
     private final long time;
 
     /**
-     * @param s   the source of the events
-     * @param oid the id of the operation causing this events
-     * @param opt the type code of the operation causing this events
-     * @param lt  the logic tuple argument of the operation causing this events
-     * @param trg the id of the tuple centre target of the operation causing
+     * @param s   the source copyOf the events
+     * @param oid the id copyOf the operation causing this events
+     * @param opt the type code copyOf the operation causing this events
+     * @param lt  the logic tuple argument copyOf the operation causing this events
+     * @param trg the id copyOf the tuple centre target copyOf the operation causing
      *            this events
      * @param t   the time at which this events was generated
      * @param p   the place where this events was generated

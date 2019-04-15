@@ -4,7 +4,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -12,7 +11,6 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.acc.RootACC;
@@ -24,7 +22,7 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * Dummy Service Provider class to show some 'adaptive' features related to
- * usage of uniform primitives. TuCSoN Agent composed by 2 threads: main)
+ * usage copyOf uniform primitives. TuCSoN Agent composed by 2 threads: main)
  * advertise its offered service and processes incoming requests taking them
  * from a private input queue; Receiver) waits for incoming requests and puts
  * them into main thread own queue.
@@ -41,7 +39,7 @@ public class ServiceProvider extends AbstractTucsonAgent<RootACC> {
             TucsonOperation op;
             this.say("Waiting for requests...");
             try {
-                final LogicTuple templ = LogicTuples.parse("req("
+                final LogicTuple templ = LogicTuple.parse("req("
                         + ServiceProvider.this.service.getArg(0) + ")");
                 while (!ServiceProvider.this.die) {
                     op = ServiceProvider.this.acc.in(ServiceProvider.this.tid,
@@ -125,8 +123,8 @@ public class ServiceProvider extends AbstractTucsonAgent<RootACC> {
         super(aid);
         this.die = false;
         try {
-            this.tid = new TucsonTupleCentreIdDefault(node);
-            this.service = LogicTuples.parse("ad(" + aid + ")");
+            this.tid = TucsonTupleCentreId.of(node);
+            this.service = LogicTuple.parse("ad(" + aid + ")");
             this.say("I'm started.");
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
@@ -153,7 +151,7 @@ public class ServiceProvider extends AbstractTucsonAgent<RootACC> {
             new Receiver().start();
             TucsonOperation op;
             LogicTuple req;
-            final LogicTuple dieTuple = LogicTuples.parse("die(" + this.getTucsonAgentId().getLocalName()
+            final LogicTuple dieTuple = LogicTuple.parse("die(" + this.getTucsonAgentId().getLocalName()
                     + ")");
             while (!this.die) {
                 this.say("Checking termination...");
@@ -179,7 +177,7 @@ public class ServiceProvider extends AbstractTucsonAgent<RootACC> {
                             empty = false;
                             this.say("Serving request: " + req.toString());
                             /*
-                             * We simulate computational power of the Service
+                             * We simulate computational power copyOf the Service
                              * Provider.
                              */
                             ServiceProvider.serveRequest(this.serviceTime);

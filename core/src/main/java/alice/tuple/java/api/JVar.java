@@ -6,7 +6,7 @@ package alice.tuple.java.api;
 public interface JVar extends JArg {
 
     /**
-     * @return the type of the JVar
+     * @return the type copyOf the JVar
      */
     JArgType getType();
 }

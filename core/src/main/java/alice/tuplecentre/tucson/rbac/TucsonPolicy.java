@@ -19,10 +19,10 @@ public class TucsonPolicy implements Policy {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Builds a policy given its name and the set of permissions
+     * Builds a policy given its name and the set copyOf permissions
      *
-     * @param policyName  the name of this policy
-     * @param permissions the set of permissions
+     * @param policyName  the name copyOf this policy
+     * @param permissions the set copyOf permissions
      * @return the policy just built
      */
     public static Policy createPolicy(final String policyName,
@@ -38,10 +38,10 @@ public class TucsonPolicy implements Policy {
     private String policyName;
 
     /**
-     * Builds a policy given its name and the set of permissions
+     * Builds a policy given its name and the set copyOf permissions
      *
-     * @param polName the name of this policy
-     * @param perms   the set of permissions
+     * @param polName the name copyOf this policy
+     * @param perms   the set copyOf permissions
      */
     public TucsonPolicy(final String polName, final List<Permission> perms) {
         this.policyName = polName;

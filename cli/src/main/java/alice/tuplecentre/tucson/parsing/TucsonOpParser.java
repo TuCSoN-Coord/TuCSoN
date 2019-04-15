@@ -28,11 +28,11 @@ public class TucsonOpParser {
     private TupleCentreIdParser tidParser;
 
     /**
-     * @param in   the String representation of the TuCSoN operation to parse
-     * @param n    the String representation of the default TuCSoN node of
+     * @param in   the String representation copyOf the TuCSoN operation to parse
+     * @param n    the String representation copyOf the default TuCSoN node copyOf
      *             reference
-     * @param port the String representation of the default TuCSoN listening port
-     *             of reference
+     * @param port the String representation copyOf the default TuCSoN listening port
+     *             copyOf reference
      */
     public TucsonOpParser(final String in, final String n, final int port) {
         this.input = in;
@@ -45,21 +45,21 @@ public class TucsonOpParser {
     }
 
     /**
-     * @return the TuCSoN command part of the TuCSoN operation
+     * @return the TuCSoN command part copyOf the TuCSoN operation
      */
     public TucsonCmd getCmd() {
         return this.tcmd;
     }
 
     /**
-     * @return the id of the tuple centre involved in the operation
+     * @return the id copyOf the tuple centre involved in the operation
      */
     public TucsonTupleCentreId getTid() {
         return this.tid;
     }
 
     /**
-     * @throws TucsonInvalidTupleCentreIdException if the id of the tuple centre target of the operation is not
+     * @throws TucsonInvalidTupleCentreIdException if the id copyOf the tuple centre target copyOf the operation is not
      *                                             a valid TuCSoN tuple centre id
      */
     public void parse() throws TucsonInvalidTupleCentreIdException {

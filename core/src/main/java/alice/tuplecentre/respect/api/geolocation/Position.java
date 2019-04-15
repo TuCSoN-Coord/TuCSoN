@@ -119,43 +119,43 @@ public class Position implements Serializable {
     }
 
     /**
-     * @param dns the String representation of the DNS place to set
+     * @param dns the String representation copyOf the DNS place to set
      */
     public void setDnsPlace(final String dns) {
         this.dnsPlace = new DnsPlace(dns);
     }
 
     /**
-     * @param ip the String representation of the IP place to set
+     * @param ip the String representation copyOf the IP place to set
      */
     public void setIpPlace(final String ip) {
         this.ipPlace = new IpPlace(ip);
     }
 
     /**
-     * @param map the String representation of the MAP place to set
+     * @param map the String representation copyOf the MAP place to set
      */
     public void setMapPlace(final String map) {
         this.mapPlace = new MapPlace(map);
     }
 
     /**
-     * @param org the String representation of the ORG place to set
+     * @param org the String representation copyOf the ORG place to set
      */
     public void setOrgPlace(final String org) {
         this.orgPlace = new OrgPlace(org);
     }
 
     /**
-     * @param lat the latitude of the PH place to set
-     * @param lng the longitude of the PH place to set
+     * @param lat the latitude copyOf the PH place to set
+     * @param lng the longitude copyOf the PH place to set
      */
     public void setPhPlace(final double lat, final double lng) {
         this.phPlace = new PhPlace("coords(" + lat + "," + lng + ")");
     }
 
     /**
-     * @param latLng the String representation of the PH place to set
+     * @param latLng the String representation copyOf the PH place to set
      */
     public void setPhPlace(final String latLng) {
         this.phPlace = new PhPlace(latLng);
@@ -185,8 +185,8 @@ public class Position implements Serializable {
     }
 
     /**
-     * @param space the String representation of the sort of space to consider
-     * @param place the String representation of the place to set
+     * @param space the String representation copyOf the sort copyOf space to consider
+     * @param place the String representation copyOf the place to set
      */
     public void setPlace(final String space, final String place) {
         switch (space) {

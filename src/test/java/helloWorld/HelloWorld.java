@@ -1,8 +1,7 @@
 package helloWorld;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
-import alice.tuple.logic.TupleArguments;
+import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
@@ -10,7 +9,6 @@ import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -28,7 +26,7 @@ public final class HelloWorld {
 
     /**
      * @param args
-     *            the name of the TuCSoN coordinable (optional).
+     *            the name copyOf the TuCSoN coordinable (optional).
      */
     public static void main(final String[] args) {
         /*
@@ -48,14 +46,14 @@ public final class HelloWorld {
                     .getNegotiationContext(aid);
             final OrdinaryAndSpecificationSyncACC acc = negAcc.playDefaultRole();
             /*
-             * 3) Define the tuplecentre target of your coordination operations.
+             * 3) Define the tuplecentre target copyOf your coordination operations.
              */
-            final TucsonTupleCentreId tid = new TucsonTupleCentreIdDefault("default",
+            final TucsonTupleCentreId tid = TucsonTupleCentreId.of("default",
                     "localhost", String.valueOf(TucsonInfo.getDefaultPortNumber()));
             /*
              * 4) Build the tuple using the communication language.
              */
-            final LogicTuple tuple = LogicTuples.newInstance("hello", TupleArguments.newValueArgument("world"));
+            final LogicTuple tuple = LogicTuple.of("hello", TupleArgument.of("world"));
             /*
              * 5) Perform the coordination operation using the preferred
              * coordination primitive.
@@ -81,7 +79,7 @@ public final class HelloWorld {
             /*
              * Another success test to be sure.
              */
-            final LogicTuple template = LogicTuples.newInstance("hello", TupleArguments.newVarArgument("Who"));
+            final LogicTuple template = LogicTuple.of("hello", TupleArgument.var("Who"));
             op = acc.rdp(tid, template, null);
             if (op.isResultSuccess()) {
                 res = op.getLogicTupleResult();

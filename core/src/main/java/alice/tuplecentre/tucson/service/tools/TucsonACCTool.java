@@ -9,9 +9,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
@@ -40,9 +38,9 @@ public final class TucsonACCTool {
     /**
      * Activates a coordination context for a given agent.
      *
-     * @param agentAid   the Identifier of the agent
+     * @param agentAid   the Identifier copyOf the agent
      * @param agentUUID  the UUID assigned to the agent
-     * @param agentClass the RBAC agent class of the agent
+     * @param agentClass the RBAC agent class copyOf the agent
      * @param tid        the tuple centre bookeeping activations
      * @param acc        the ACC used to perform the activation
      * @return {@code true} or {@code false} depending on whether activation is
@@ -53,9 +51,9 @@ public final class TucsonACCTool {
                                           final UUID agentUUID, final String agentClass,
                                           final TupleCentreIdentifier tid, final EnhancedACC acc) {
         try {
-            final LogicTuple template = LogicTuples.newInstance("context_request",
-                    TupleArguments.newValueArgument(agentAid), TupleArguments.newVarArgument("Result"), TupleArguments.newValueArgument(
-                            agentClass), TupleArguments.newValueArgument(agentUUID.toString()));
+            final LogicTuple template = LogicTuple.of("context_request",
+                    TupleArgument.of(agentAid), TupleArgument.var("Result"), TupleArgument.of(
+                            agentClass), TupleArgument.of(agentUUID.toString()));
             final TucsonOperation op = acc.inp(tid, template, (Long) null);
             if (op.isResultSuccess()) {
                 final LogicTuple res = op.getLogicTupleResult();
@@ -78,10 +76,10 @@ public final class TucsonACCTool {
     /**
      * Activates a given role for the given agent.
      *
-     * @param agentAid   the Identifier of the agent
+     * @param agentAid   the Identifier copyOf the agent
      * @param accUUID    the UUID assigned to the agent
-     * @param agentClass the RBAC agent class of the agent
-     * @param roleName   the name of the role to activate
+     * @param agentClass the RBAC agent class copyOf the agent
+     * @param roleName   the name copyOf the role to activate
      * @param tid        the tuple centre bookeeping activations
      * @param acc        the ACC used to perform the activation
      * @return the RBAC role activated
@@ -97,10 +95,10 @@ public final class TucsonACCTool {
         }
         Role newRole = null;
         try {
-            final LogicTuple template = LogicTuples.newInstance(
-                    "role_activation_request", TupleArguments.newValueArgument(agentAid),
-                    TupleArguments.newValueArgument(accUUID.toString()), TupleArguments.newValueArgument(roleName),
-                    TupleArguments.newVarArgument("Result"));
+            final LogicTuple template = LogicTuple.of(
+                    "role_activation_request", TupleArgument.of(agentAid),
+                    TupleArgument.of(accUUID.toString()), TupleArgument.of(roleName),
+                    TupleArgument.var("Result"));
             final TucsonOperation op = acc.inp(tid, template, (Long) null);
             if (op.isResultSuccess()) {
                 final LogicTuple res = op.getLogicTupleResult();
@@ -128,9 +126,9 @@ public final class TucsonACCTool {
     /**
      * Activates a RBAC role given its policy for a given agent.
      *
-     * @param agentAid   the Identifier of the agent
+     * @param agentAid   the Identifier copyOf the agent
      * @param accUUID    the UUID assigned to the agent
-     * @param agentClass the RBAC agent class of the agent
+     * @param agentClass the RBAC agent class copyOf the agent
      * @param policy     the policy whose role should be activated
      * @param tid        the tuple centre bookeeping activations
      * @param acc        the ACC used to perform the activation
@@ -145,18 +143,18 @@ public final class TucsonACCTool {
         }
         Role newRole = null;
         try {
-            final LogicTuple rolePolicyTemplate = LogicTuples.newInstance(
-                    "policy_role_request", TupleArguments.newValueArgument(policy.getPolicyName()),
-                    TupleArguments.newVarArgument("Result"));
+            final LogicTuple rolePolicyTemplate = LogicTuple.of(
+                    "policy_role_request", TupleArgument.of(policy.getPolicyName()),
+                    TupleArgument.var("Result"));
             TucsonOperation op = acc.inp(tid, rolePolicyTemplate, (Long) null);
             if (op.isResultSuccess()) {
                 LogicTuple res = op.getLogicTupleResult();
                 final String roleName = res.getArg(1).toString();
-                final LogicTuple template = LogicTuples.newInstance(
-                        "role_activation_request", TupleArguments.newValueArgument(
-                                agentAid), TupleArguments.newValueArgument(
-                                accUUID.toString()), TupleArguments.newValueArgument(roleName),
-                        TupleArguments.newVarArgument("Result"));
+                final LogicTuple template = LogicTuple.of(
+                        "role_activation_request", TupleArgument.of(
+                                agentAid), TupleArgument.of(
+                                accUUID.toString()), TupleArgument.of(roleName),
+                        TupleArgument.var("Result"));
                 op = acc.inp(tid, template, (Long) null);
                 if (op.isResultSuccess()) {
                     res = op.getLogicTupleResult();
@@ -202,20 +200,20 @@ public final class TucsonACCTool {
     }
 
     /**
-     * Gets the list of policies available for the given RBAC agent class.
+     * Gets the list copyOf policies available for the given RBAC agent class.
      *
      * @param agentClass the RBAC agent class whose associated policies should be
      *                   retrieved
      * @param tid        the tuple centre bookeeping associations
      * @param acc        the ACC used to perform the query
-     * @return the list of policies available for the given RBAC agent class
+     * @return the list copyOf policies available for the given RBAC agent class
      */
     public static List<Policy> getPoliciesList(final String agentClass,
                                                final TupleCentreIdentifier tid, final EnhancedACC acc) {
         final List<Policy> policies = new ArrayList<>();
         try {
-            final LogicTuple policyListTuple = LogicTuples.newInstance(
-                    "policies_list_request", TupleArguments.newValueArgument(agentClass), TupleArguments.newVarArgument(
+            final LogicTuple policyListTuple = LogicTuple.of(
+                    "policies_list_request", TupleArgument.of(agentClass), TupleArgument.var(
                             "Result"));
             final TucsonOperation op = acc.inp(tid, policyListTuple,
                     (Long) null);

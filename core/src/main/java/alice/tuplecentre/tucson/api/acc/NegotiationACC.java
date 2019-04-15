@@ -21,13 +21,13 @@ import alice.tuplecentre.tucson.rbac.Role;
 public interface NegotiationACC {
 
     /**
-     * Request the list of the roles playable by the requesting agent, according
+     * Request the list copyOf the roles playable by the requesting agent, according
      * to RBAC configuration (as installed in the TuCSoN node who released this
      * ACC) and to the requesting agent class.
      *
-     * @return the set of playable roles
+     * @return the set copyOf playable roles
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -40,11 +40,11 @@ public interface NegotiationACC {
      * according to RBAC configuration (as installed in the TuCSoN node who
      * released this ACC).
      *
-     * @param username the username of the agent
-     * @param password the password of the agent
+     * @param username the username copyOf the agent
+     * @param password the password copyOf the agent
      * @return {@code true} or {@code false} depending on login success/failure
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -60,7 +60,7 @@ public interface NegotiationACC {
      *
      * @return the ACC configured so as to enable and constrain the default role
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -75,11 +75,11 @@ public interface NegotiationACC {
      * installed in the TuCSoN node who released this ACC) and to the requesting
      * agent class.
      *
-     * @param roleName the name of the role to play
+     * @param roleName the name copyOf the role to play
      * @return the ACC configured so as to enable and constrain the requested
      * role, or nothing if the agent is not allowed to play such role
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -98,13 +98,13 @@ public interface NegotiationACC {
      * agent class, waiting {@code timeout} milliseconds at most for operation
      * completion.
      *
-     * @param roleName the name of the role to play
+     * @param roleName the name copyOf the role to play
      * @param timeout  the maximum waiting time in milliseconds
      * @return the ACC configured so as to enable and constrain the requested
      * role, or nothing if the agent is not allowed to play such role or
      * if the timeout expires
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -118,16 +118,16 @@ public interface NegotiationACC {
             TucsonInvalidAgentIdException, AgentNotAllowedException;
 
     /**
-     * Requests to play a role given a set of desired permissions, according to
+     * Requests to play a role given a set copyOf desired permissions, according to
      * RBAC configuration (as installed in the TuCSoN node who released this
      * ACC) and to the requesting agent class.
      *
-     * @param permNames the set of desired permission names
+     * @param permNames the set copyOf desired permission names
      * @return the ACC configured so as to enable and constrain AT LEAST what
      * requested, or nothing if no role exists satisfying agent's
      * request
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -141,18 +141,18 @@ public interface NegotiationACC {
             TucsonInvalidAgentIdException, AgentNotAllowedException;
 
     /**
-     * Requests to play a role given a set of desired permissions, according to
+     * Requests to play a role given a set copyOf desired permissions, according to
      * RBAC configuration (as installed in the TuCSoN node who released this
      * ACC) and to the requesting agent class, waiting {@code timeout}
      * milliseconds at most for operation completion.
      *
-     * @param permNames the set of desired permission names
+     * @param permNames the set copyOf desired permission names
      * @param timeout   the maximum waiting time in milliseconds
      * @return the ACC configured so as to enable and constrain AT LEAST what
      * requested, or nothing if no role exists satisfying agent's
      * request or if the timeout expires
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion

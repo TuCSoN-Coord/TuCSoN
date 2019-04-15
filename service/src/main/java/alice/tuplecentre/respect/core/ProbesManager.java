@@ -23,7 +23,7 @@ import org.slf4j.LoggerFactory;
 public enum ProbesManager {
 
     /**
-     * the singleton instance of this probes manager
+     * the singleton instance copyOf this probes manager
      */
     INSTANCE;
 
@@ -43,7 +43,7 @@ public enum ProbesManager {
     }
 
     /**
-     * List of all probes on a single node
+     * List copyOf all probes on a single node
      **/
     private final Map<ProbeIdentifier, ISimpleProbe> probesList;
 
@@ -54,8 +54,8 @@ public enum ProbesManager {
     /**
      * Creates a resource
      *
-     * @param className the concrete implementative class of the resource
-     * @param id        the identifier of the resource
+     * @param className the concrete implementative class copyOf the resource
+     * @param id        the identifier copyOf the resource
      * @return wether the Resource has been succesfully created.
      * @throws ClassNotFoundException    if the given Java full class name cannot be found within
      *                                   known paths
@@ -124,7 +124,7 @@ public enum ProbesManager {
     /**
      * Removes a resource from the list
      *
-     * @param id the identifier of the resource to remove
+     * @param id the identifier copyOf the resource to remove
      * @return wether the resource has been successfully removed
      */
     public synchronized void removeProbe(final ProbeIdentifier id) {

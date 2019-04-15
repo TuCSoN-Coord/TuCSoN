@@ -25,12 +25,12 @@ public interface TupleCentreOperation {
     OperationIdentifier getId();
 
     /**
-     * @return the type code of the operation
+     * @return the type code copyOf the operation
      */
     TupleCentreOpType getType();
 
     /**
-     * @return the tuple template argument of this operation
+     * @return the tuple template argument copyOf this operation
      */
     TupleTemplate getTemplateArgument();
 
@@ -42,7 +42,7 @@ public interface TupleCentreOperation {
     Tuple getTupleArgument();
 
     /**
-     * @return the list of tuples argument of this operation
+     * @return the list copyOf tuples argument copyOf this operation
      */
     List<Tuple> getTupleListArgument();
 
@@ -59,36 +59,36 @@ public interface TupleCentreOperation {
     /**
      * Sets the tuple list as result for this operation
      *
-     * @param t the list of tuples, result of the operation
+     * @param t the list copyOf tuples, result copyOf the operation
      */
     void setTupleListResult(final List<? extends Tuple> t);
 
     /**
-     * Gets the list of tuples returned as the result of the requested
+     * Gets the list copyOf tuples returned as the result copyOf the requested
      * operation.
      *
-     * @return the list of tuples result of the requested operation.
+     * @return the list copyOf tuples result copyOf the requested operation.
      */
     List<Tuple> getTupleListResult();
 
     /**
      * Sets the tuple as result for this operation
      *
-     * @param t the tuple result of the operation
+     * @param t the tuple result copyOf the operation
      */
     void setTupleResult(final Tuple t);
 
     /**
-     * Gets the tuple returned as the result of the requested operation.
+     * Gets the tuple returned as the result copyOf the requested operation.
      *
-     * @return the tuple result of the requested operation.
+     * @return the tuple result copyOf the requested operation.
      */
     Tuple getTupleResult();
 
     /**
      * Sets the operation result {@link ITCCycleResult.Outcome}
      *
-     * @param o the outcome of the operation
+     * @param o the outcome copyOf the operation
      */
     void setOpResult(final ITCCycleResult.Outcome o);
 
@@ -102,17 +102,17 @@ public interface TupleCentreOperation {
     // TODO here and in implementing methods, would be better to set return type to such interface
 
     /**
-     * Gets the list of tuples returned as the result of the requested
+     * Gets the list copyOf tuples returned as the result copyOf the requested
      * operation.
      *
-     * @return the list of tuples result of the requested operation.
+     * @return the list copyOf tuples result copyOf the requested operation.
      */
     List<LogicTuple> getLogicTupleListResult();
 
     /**
-     * Gets the tuple returned as the result of the requested operation.
+     * Gets the tuple returned as the result copyOf the requested operation.
      *
-     * @return the tuple result of the requested operation.
+     * @return the tuple result copyOf the requested operation.
      */
     LogicTuple getLogicTupleResult();
 
@@ -129,7 +129,7 @@ public interface TupleCentreOperation {
     boolean isResultFailure();
 
     /**
-     * Checks success of operation execution.
+     * Checks success copyOf operation execution.
      *
      * @return <code>true</code> if the operation succeeded, <code>false</code>
      * otherwise (failure or undefined)
@@ -181,7 +181,7 @@ public interface TupleCentreOperation {
     void waitForOperationCompletion(final long ms) throws OperationTimeOutException;
 
     /**
-     * Changes the state of the operation to complete, and notifies the attached listener if present.
+     * Changes the state copyOf the operation to complete, and notifies the attached listener if present.
      */
     void notifyCompletion();
 }

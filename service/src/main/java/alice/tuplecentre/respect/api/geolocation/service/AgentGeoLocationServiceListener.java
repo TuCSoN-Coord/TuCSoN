@@ -15,7 +15,7 @@ import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
  */
 public class AgentGeoLocationServiceListener implements GeoLocationServiceListener {
     /**
-     * The acc context of the agent associated with this listener
+     * The acc context copyOf the agent associated with this listener
      */
     private final ACCProxyAgentSide acc;
     /**
@@ -23,14 +23,14 @@ public class AgentGeoLocationServiceListener implements GeoLocationServiceListen
      */
     private final GeoLocationService service;
     /**
-     * Identifier of the associated tuple centre
+     * Identifier copyOf the associated tuple centre
      */
     private final TucsonTupleCentreId tcId;
 
     /**
      * Constructs a listener
      *
-     * @param accProxyAgentSide the acc context of the agent associated with this listener
+     * @param accProxyAgentSide the acc context copyOf the agent associated with this listener
      * @param s                 the service associated
      * @param ttci              the associated tuple centre identifier
      */

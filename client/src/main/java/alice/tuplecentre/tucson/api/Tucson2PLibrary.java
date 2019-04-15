@@ -1,12 +1,12 @@
 /*
  * tuProlog - Copyright (C) 2001-2002 aliCE team at deis.unibo.it This library
- * is free software; you can redistribute it and/or modify it under the terms of
+ * is free software; you can redistribute it and/or modify it under the terms copyOf
  * the GNU Lesser General Public License as published by the Free Software
- * Foundation; either version 2.1 of the License, or (at your option) any later
+ * Foundation; either version 2.1 copyOf the License, or (at your option) any later
  * version. This library is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * WITHOUT ANY WARRANTY; without even the implied warranty copyOf MERCHANTABILITY or
  * FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License
- * for more details. You should have received a copy of the GNU Lesser General
+ * for more details. You should have received a copy copyOf the GNU Lesser General
  * Public License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Objects;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.acc.BulkAsyncACC;
 import alice.tuplecentre.tucson.api.acc.BulkSyncACC;
@@ -55,10 +54,10 @@ public class Tucson2PLibrary extends Library {
     private static final long serialVersionUID = 6716779172091533171L;
 
     /**
-     * Utility to convert a list of tuple into a tuple list of tuples
+     * Utility to convert a list copyOf tuple into a tuple list copyOf tuples
      *
-     * @param list the list of tuples to convert
-     * @return the tuple list of tuples result of the conversion
+     * @param list the list copyOf tuples to convert
+     * @return the tuple list copyOf tuples result copyOf the conversion
      */
     private static Term list2tuple(final List<LogicTuple> list) {
         final Term[] termArray = new Term[list.size()];
@@ -80,7 +79,7 @@ public class Tucson2PLibrary extends Library {
      * To be enabled to interact with any TuCSoN system, an ACC must be acquired
      * first.
      *
-     * @param id the TucsonAgentId of the tuProlog agent willing to interact
+     * @param id the TucsonAgentId copyOf the tuProlog agent willing to interact
      *           with TuCSoN
      * @return <code>true</code> if the operation succeed, <code>false</code>
      * otherwise
@@ -198,11 +197,11 @@ public class Tucson2PLibrary extends Library {
 
     /**
      * Gets the Prolog theory defining all operators and predicates available.
-     * If only a tuple is specified as argument of a TuCSoN primitive, the
+     * If only a tuple is specified as argument copyOf a TuCSoN primitive, the
      * default tuplecentre is targeted, otherwise the tuProlog agent must
-     * specify the full name of the target tuplecentre.
+     * specify the full name copyOf the target tuplecentre.
      *
-     * @return the String representation of the tuProlog theory usable by
+     * @return the String representation copyOf the tuProlog theory usable by
      * tuProlog agents
      * @see alice.tuprolog.Theory Theory
      * @see TucsonTupleCentreId TucsonTupleCentreId
@@ -300,7 +299,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
-        op = this.context.in(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+        op = this.context.in(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
         }
@@ -334,7 +333,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg2.getTerm().toString());
         TucsonOperation op;
-        op = this.context.inAll(tid, LogicTuples.newInstance(arg0.getTerm()),
+        op = this.context.inAll(tid, LogicTuple.fromTerm(arg0.getTerm()),
                 (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg1,
@@ -348,7 +347,7 @@ public class Tucson2PLibrary extends Library {
      *
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
-     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     satisfaction so to actually trigger the body copyOf the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
@@ -375,9 +374,9 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
-        op = this.context.inS(tid, LogicTuples.newInstance(event.getTerm()),
-                LogicTuples.newInstance(guards.getTerm()),
-                LogicTuples.newInstance(reactionBody.getTerm()), (Long) null);
+        op = this.context.inS(tid, LogicTuple.fromTerm(event.getTerm()),
+                LogicTuple.fromTerm(guards.getTerm()),
+                LogicTuple.fromTerm(reactionBody.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(event, op.getLogicTupleResult().toTerm());
         }
@@ -410,7 +409,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
-        op = this.context.inp(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+        op = this.context.inp(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
         }
@@ -422,7 +421,7 @@ public class Tucson2PLibrary extends Library {
      *
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
-     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     satisfaction so to actually trigger the body copyOf the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
@@ -449,9 +448,9 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
-        op = this.context.inpS(tid, LogicTuples.newInstance(event.getTerm()),
-                LogicTuples.newInstance(guards.getTerm()),
-                LogicTuples.newInstance(reactionBody.getTerm()), (Long) null);
+        op = this.context.inpS(tid, LogicTuple.fromTerm(event.getTerm()),
+                LogicTuple.fromTerm(guards.getTerm()),
+                LogicTuple.fromTerm(reactionBody.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(event, op.getLogicTupleResult().toTerm());
         }
@@ -484,7 +483,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
-        op = this.context.no(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+        op = this.context.no(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         if (!op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
         }
@@ -518,7 +517,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg2.getTerm().toString());
         TucsonOperation op;
-        op = this.context.noAll(tid, LogicTuples.newInstance(arg0.getTerm()),
+        op = this.context.noAll(tid, LogicTuple.fromTerm(arg0.getTerm()),
                 (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg1,
@@ -532,7 +531,7 @@ public class Tucson2PLibrary extends Library {
      *
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
-     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     satisfaction so to actually trigger the body copyOf the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
@@ -559,9 +558,9 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
-        op = this.context.noS(tid, LogicTuples.newInstance(event.getTerm()),
-                LogicTuples.newInstance(guards.getTerm()),
-                LogicTuples.newInstance(reactionBody.getTerm()), (Long) null);
+        op = this.context.noS(tid, LogicTuple.fromTerm(event.getTerm()),
+                LogicTuple.fromTerm(guards.getTerm()),
+                LogicTuple.fromTerm(reactionBody.getTerm()), (Long) null);
         if (!op.isResultSuccess()) {
             this.unify(event, op.getLogicTupleResult().toTerm());
         }
@@ -594,7 +593,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
-        op = this.context.nop(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+        op = this.context.nop(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         if (!op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
         }
@@ -606,7 +605,7 @@ public class Tucson2PLibrary extends Library {
      *
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
-     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     satisfaction so to actually trigger the body copyOf the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
@@ -633,9 +632,9 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
-        op = this.context.nopS(tid, LogicTuples.newInstance(event.getTerm()),
-                LogicTuples.newInstance(guards.getTerm()),
-                LogicTuples.newInstance(reactionBody.getTerm()), (Long) null);
+        op = this.context.nopS(tid, LogicTuple.fromTerm(event.getTerm()),
+                LogicTuple.fromTerm(guards.getTerm()),
+                LogicTuple.fromTerm(reactionBody.getTerm()), (Long) null);
         if (!op.isResultSuccess()) {
             this.unify(event, op.getLogicTupleResult().toTerm());
         }
@@ -668,14 +667,14 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
-        op = this.context.out(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+        op = this.context.out(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         return op.isResultSuccess();
     }
 
     /**
      * <code>out_all</code> TuCSoN primitive.
      *
-     * @param arg0 the tuple list of tuples to insert
+     * @param arg0 the tuple list copyOf tuples to insert
      * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
      * otherwise
@@ -698,7 +697,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
-        op = this.context.outAll(tid, LogicTuples.newInstance(arg0.getTerm()),
+        op = this.context.outAll(tid, LogicTuple.fromTerm(arg0.getTerm()),
                 (Long) null);
         return op.isResultSuccess();
     }
@@ -708,7 +707,7 @@ public class Tucson2PLibrary extends Library {
      *
      * @param event        the TuCSoN primitive to react to
      * @param guards       the guard predicates to be checked for satisfaction so to
-     *                     actually trigger the body of the ReSpecT reaction
+     *                     actually trigger the body copyOf the ReSpecT reaction
      * @param reactionBody the computation to be done in response to the
      *                     <code>events</code>
      * @param arg3         the tuplecentre target
@@ -734,9 +733,9 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
-        op = this.context.outS(tid, LogicTuples.newInstance(event.getTerm()),
-                LogicTuples.newInstance(guards.getTerm()),
-                LogicTuples.newInstance(reactionBody.getTerm()), (Long) null);
+        op = this.context.outS(tid, LogicTuple.fromTerm(event.getTerm()),
+                LogicTuple.fromTerm(guards.getTerm()),
+                LogicTuple.fromTerm(reactionBody.getTerm()), (Long) null);
         return op.isResultSuccess();
     }
 
@@ -766,7 +765,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
-        op = this.context.rd(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+        op = this.context.rd(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
         }
@@ -800,7 +799,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg2.getTerm().toString());
         TucsonOperation op;
-        op = this.context.rdAll(tid, LogicTuples.newInstance(arg0.getTerm()),
+        op = this.context.rdAll(tid, LogicTuple.fromTerm(arg0.getTerm()),
                 (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg1,
@@ -814,7 +813,7 @@ public class Tucson2PLibrary extends Library {
      *
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
-     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     satisfaction so to actually trigger the body copyOf the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
@@ -841,9 +840,9 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
-        op = this.context.rdS(tid, LogicTuples.newInstance(event.getTerm()),
-                LogicTuples.newInstance(guards.getTerm()),
-                LogicTuples.newInstance(reactionBody.getTerm()), (Long) null);
+        op = this.context.rdS(tid, LogicTuple.fromTerm(event.getTerm()),
+                LogicTuple.fromTerm(guards.getTerm()),
+                LogicTuple.fromTerm(reactionBody.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(event, op.getLogicTupleResult().toTerm());
         }
@@ -876,7 +875,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
-        op = this.context.rdp(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+        op = this.context.rdp(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
         }
@@ -888,7 +887,7 @@ public class Tucson2PLibrary extends Library {
      *
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
-     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     satisfaction so to actually trigger the body copyOf the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
@@ -915,9 +914,9 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg3.getTerm().toString());
         TucsonOperation op;
-        op = this.context.rdpS(tid, LogicTuples.newInstance(event.getTerm()),
-                LogicTuples.newInstance(guards.getTerm()),
-                LogicTuples.newInstance(reactionBody.getTerm()), (Long) null);
+        op = this.context.rdpS(tid, LogicTuple.fromTerm(event.getTerm()),
+                LogicTuple.fromTerm(guards.getTerm()),
+                LogicTuple.fromTerm(reactionBody.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(event, op.getLogicTupleResult().toTerm());
         }
@@ -968,7 +967,7 @@ public class Tucson2PLibrary extends Library {
     /**
      * <code>set</code> TuCSoN primitive.
      *
-     * @param arg0 the tuple list of tuples to overwrite the space
+     * @param arg0 the tuple list copyOf tuples to overwrite the space
      * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
      * otherwise
@@ -991,14 +990,14 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
-        op = this.context.set(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+        op = this.context.set(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         return op.isResultSuccess();
     }
 
     /**
      * <code>set_s</code> TuCSoN primitive.
      *
-     * @param arg0 the tuple list of ReSpecT specification tuples to overwrite
+     * @param arg0 the tuple list copyOf ReSpecT specification tuples to overwrite
      *             the specification space
      * @param arg1 the tuplecentre target
      * @return <code>true</code> if the operation succeed, <code>false</code>
@@ -1023,7 +1022,7 @@ public class Tucson2PLibrary extends Library {
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context
-                .setS(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+                .setS(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         return op.isResultSuccess();
     }
 
@@ -1053,7 +1052,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
-        op = this.context.spawn(tid, LogicTuples.newInstance(arg0.getTerm()),
+        op = this.context.spawn(tid, LogicTuple.fromTerm(arg0.getTerm()),
                 (Long) null);
         return op.isResultSuccess();
     }
@@ -1084,7 +1083,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
-        op = this.context.uin(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+        op = this.context.uin(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
         }
@@ -1118,7 +1117,7 @@ public class Tucson2PLibrary extends Library {
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context
-                .uinp(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+                .uinp(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
         }
@@ -1151,7 +1150,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
-        op = this.context.uno(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+        op = this.context.uno(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         if (!op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
         }
@@ -1185,7 +1184,7 @@ public class Tucson2PLibrary extends Library {
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context
-                .unop(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+                .unop(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         if (!op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
         }
@@ -1218,7 +1217,7 @@ public class Tucson2PLibrary extends Library {
         TucsonTupleCentreId tid;
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
-        op = this.context.urd(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+        op = this.context.urd(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
         }
@@ -1252,7 +1251,7 @@ public class Tucson2PLibrary extends Library {
         tid = new TucsonTupleCentreIdDefault(arg1.getTerm().toString());
         TucsonOperation op;
         op = this.context
-                .urdp(tid, LogicTuples.newInstance(arg0.getTerm()), (Long) null);
+                .urdp(tid, LogicTuple.fromTerm(arg0.getTerm()), (Long) null);
         if (op.isResultSuccess()) {
             this.unify(arg0.getTerm(), op.getLogicTupleResult().toTerm());
         }

@@ -14,9 +14,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 /**
- * @param <K> the first key of the map
- * @param <Q> the second key of the map
- * @param <V> the value of the map
+ * @param <K> the first key copyOf the map
+ * @param <Q> the second key copyOf the map
+ * @param <V> the value copyOf the map
  * @author Saverio Cicora
  */
 public class DoubleKeyMVMap<K, Q, V> {
@@ -74,7 +74,7 @@ public class DoubleKeyMVMap<K, Q, V> {
         /**
          * Removes from the underlying collection the last element returned by
          * this iterator (optional operation). This method can be called only
-         * once per call to {@link #next}. The behavior of an iterator is
+         * once per call to {@link #next}. The behavior copyOf an iterator is
          * unspecified if the underlying collection is modified while the
          * iteration is in progress in any way other than by calling this
          * method.
@@ -90,7 +90,7 @@ public class DoubleKeyMVMap<K, Q, V> {
 
         /**
          * Select the next key in the map (if has any) and update the iterator
-         * of list associated with the key.
+         * copyOf list associated with the key.
          */
         private void advanceEntryIterator() {
             final Map.Entry<K, MVMap<Q, V>> entry = this.entryIterator.next();
@@ -155,7 +155,7 @@ public class DoubleKeyMVMap<K, Q, V> {
             /**
              * Removes from the underlying collection the last element returned
              * by this iterator (optional operation). This method can be called
-             * only once per call to {@link #next}. The behavior of an iterator
+             * only once per call to {@link #next}. The behavior copyOf an iterator
              * is unspecified if the underlying collection is modified while the
              * iteration is in progress in any way other than by calling this
              * method.
@@ -179,7 +179,7 @@ public class DoubleKeyMVMap<K, Q, V> {
 
             /**
              * Select the next key in the map (if has any) and update the
-             * iterator of list associated with the key.
+             * iterator copyOf list associated with the key.
              */
             private void advanceEntryIterator() {
                 final Map.Entry<Q, List<V>> entry = this.entryIterator.next();
@@ -627,7 +627,7 @@ public class DoubleKeyMVMap<K, Q, V> {
 
         @Override
         public V[] toArray(final V[] v) {
-            // Estimate size of array; be prepared to see more or fewer elements
+            // Estimate size copyOf array; be prepared to see more or fewer elements
             final int size = this.innerMapSize;
             final V[] ret = v.length >= size ? v
                     : (V[]) java.lang.reflect.Array.newInstance(v.getClass()
@@ -664,11 +664,11 @@ public class DoubleKeyMVMap<K, Q, V> {
 
         /**
          * <p>
-         * Return a list of all values contained into MVMap. The list are
+         * Return a list copyOf all values contained into MVMap. The list are
          * wrapped whit a {@link Collections#unmodifiableList(List)}
          * </p>
          * WARNING: the returned list should be used in read-only mode because
-         * it is not synchronized with the rest of the map
+         * it is not synchronized with the rest copyOf the map
          */
         @Override
         public List<V> values() {
@@ -722,7 +722,7 @@ public class DoubleKeyMVMap<K, Q, V> {
     /**
      * @param k1 the first key
      * @param k2 the second key
-     * @return the list of values associated to the given keys pair
+     * @return the list copyOf values associated to the given keys pair
      */
     public List<V> get(final K k1, final Q k2) {
         return this.get(k1).get(k2);
@@ -764,7 +764,7 @@ public class DoubleKeyMVMap<K, Q, V> {
     }
 
     /**
-     * Removes the first occurrence of the specified element from this MVMap.
+     * Removes the first occurrence copyOf the specified element from this MVMap.
      *
      * @param k1 the first key
      * @param k2 the second key
@@ -783,7 +783,7 @@ public class DoubleKeyMVMap<K, Q, V> {
     }
 
     /**
-     * @return the size of this map
+     * @return the size copyOf this map
      */
     public int size() {
         return this.totalValuesSize;
@@ -791,10 +791,10 @@ public class DoubleKeyMVMap<K, Q, V> {
 
     /**
      * @param v the array type to be used for array construction
-     * @return the array representation of this map
+     * @return the array representation copyOf this map
      */
     public V[] toArray(final V[] v) {
-        // Estimate size of array; be prepared to see more or fewer elements
+        // Estimate size copyOf array; be prepared to see more or fewer elements
         final int size = this.totalValuesSize;
         final V[] ret = v.length >= size ? v : (V[]) java.lang.reflect.Array
                 .newInstance(v.getClass().getComponentType(), size);

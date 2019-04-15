@@ -85,7 +85,7 @@ public interface InspectorProtocol extends Serializable {
     void setWsetFilter(final LogicTuple filter);
 
     /**
-     * Enumeration containing types of Observation
+     * Enumeration containing types copyOf Observation
      *
      * @author Enrico Siboni
      */

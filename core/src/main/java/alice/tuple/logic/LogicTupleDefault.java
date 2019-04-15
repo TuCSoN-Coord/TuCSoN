@@ -1,13 +1,13 @@
 /*
  * Logic Tuple Communication Language - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -37,18 +37,18 @@ class LogicTupleDefault implements LogicTuple, Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * the information content of logic tuple
+     * the information content copyOf logic tuple
      */
     private final TupleArgument info;
 
     /**
      * Constructs a logic tuple providing the tuple name and argument list
      *
-     * @param name the name of the tuple (the functor)
-     * @param list the list of tuple argument
+     * @param name the name copyOf the tuple (the functor)
+     * @param list the list copyOf tuple argument
      */
     LogicTupleDefault(final String name, final TupleArgument[] list) {
-        this.info = TupleArguments.newValueArgument(name, list);
+        this.info = TupleArgument.of(name, list);
     }
 
     /**
@@ -57,11 +57,11 @@ class LogicTupleDefault implements LogicTuple, Serializable {
      * @param term the tuprolog term
      */
     LogicTupleDefault(final Term term) {
-        this.info = TupleArguments.newInstance(term);
+        this.info = TupleArgument.fromTerm(term);
     }
 
     /**
-     * Constructs the logic tuple from a tuple argument (free form of
+     * Constructs the logic tuple from a tuple argument (free form copyOf
      * construction)
      *
      * @param t the tuple argument
@@ -113,7 +113,7 @@ class LogicTupleDefault implements LogicTuple, Serializable {
     }
 
     /**
-     * Gets the string representation of the logic tuple
+     * Gets the string representation copyOf the logic tuple
      *
      * @return the string representing the logic tuple
      */

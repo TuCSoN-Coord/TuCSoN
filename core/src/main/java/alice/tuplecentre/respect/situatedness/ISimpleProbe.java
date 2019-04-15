@@ -41,7 +41,7 @@ public interface ISimpleProbe {
     void setTransducer(TransducerId tId);
 
     /**
-     * Set the specific value of a parameter of the probe
+     * Set the specific value copyOf a parameter copyOf the probe
      *
      * @param key   the parameter to set
      * @param value value to be set.

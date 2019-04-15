@@ -2,14 +2,13 @@ package timedDiningPhilos;
 
 import java.io.IOException;
 
-import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
 import alice.tuplecentre.tucson.api.acc.RootACC;
@@ -22,7 +21,7 @@ import alice.tuplecentre.tucson.utilities.Utils;
 
 /**
  * Classic Dining Philosophers coordination problem tackled by adopting a clear
- * separation of concerns between coordinables (philosophers) and coordination
+ * separation copyOf concerns between coordinables (philosophers) and coordination
  * medium (table) thanks to TuCSoN ReSpecT tuple centres programmability.
  *
  * @author ste (mailto: s.mariani@unibo.it)
@@ -36,7 +35,7 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
     private static final int EATING_TIME = 5000;
     private static final int MAX_EATING_TIME = 7000;
     /*
-     * Max number of simultaneously eating philosophers should be
+     * Max number copyOf simultaneously eating philosophers should be
      * N_PHILOSOPHERS-2.
      */
     private static final int N_PHILOSOPHERS = 5;
@@ -60,7 +59,7 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
     /**
      *
      * @param aid
-     *            the String representation of a valid TuCSoN agent identifier
+     *            the String representation copyOf a valid TuCSoN agent identifier
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent
      *             identifier
@@ -87,13 +86,13 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
             final NegotiationACC negAcc = TucsonMetaACC
                     .getNegotiationContext(this.getTucsonAgentId());
             final OrdinaryAndSpecificationSyncACC acc = negAcc.playDefaultRole();
-            final TucsonTupleCentreId table = new TucsonTupleCentreIdDefault("table",
+            final TucsonTupleCentreId table = TucsonTupleCentreId.of("table",
                     this.ip, this.port);
             this.say("Injecting 'table' ReSpecT specification in tc < "
                     + table.toString() + " >...");
             /*
              * Program the tuple centre by setting a ReSpecT specification (a
-             * set of ReSpecT specification tuples) in its specification space.
+             * set copyOf ReSpecT specification tuples) in its specification space.
              */
             acc.setS(
                     table,
@@ -103,14 +102,14 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
              * Init max eating time.
              */
             acc.out(table,
-                    LogicTuples.parse("max_eating_time("
+                    LogicTuple.parse("max_eating_time("
                             + TDiningPhilosophersTest.MAX_EATING_TIME + ")"),
                             null);
             for (int i = 0; i < TDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
                 /*
                  * Init chopsticks required to eat.
                  */
-                acc.out(table, LogicTuples.parse("chop(" + i + ")"), null);
+                acc.out(table, LogicTuple.parse("chop(" + i + ")"), null);
             }
             for (int i = 0; i < TDiningPhilosophersTest.N_PHILOSOPHERS - 1; i++) {
                 /*

@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -70,7 +70,7 @@ public interface SpecificationSyncACC extends SyncACC {
      *                     {@link TupleCentreIdentifier tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
-     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     satisfaction so to actually trigger the body copyOf the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
@@ -105,7 +105,7 @@ public interface SpecificationSyncACC extends SyncACC {
      *                     {@link TupleCentreIdentifier tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
-     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     satisfaction so to actually trigger the body copyOf the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
@@ -128,7 +128,7 @@ public interface SpecificationSyncACC extends SyncACC {
             UnreachableNodeException, OperationTimeOutException;
 
     /**
-     * <code>nop_s</code> specification primitive, checks absence of the a
+     * <code>nop_s</code> specification primitive, checks absence copyOf the a
      * ReSpecT Reaction in the given target tuplecentre specification space.
      * <p>
      * This time the primitive semantics is NOT SUSPENSIVE: if any ReSpecT
@@ -139,7 +139,7 @@ public interface SpecificationSyncACC extends SyncACC {
      *                     {@link TupleCentreIdentifier tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
-     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     satisfaction so to actually trigger the body copyOf the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
@@ -162,7 +162,7 @@ public interface SpecificationSyncACC extends SyncACC {
             UnreachableNodeException, OperationTimeOutException;
 
     /**
-     * <code>no_s</code> specification primitive, checks absence of the a
+     * <code>no_s</code> specification primitive, checks absence copyOf the a
      * ReSpecT Reaction in the given target tuplecentre specification space.
      * <p>
      * Notice that the primitive semantics is SUSPENSIVE: until any ReSpecT
@@ -174,7 +174,7 @@ public interface SpecificationSyncACC extends SyncACC {
      *                     {@link TupleCentreIdentifier tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
-     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     satisfaction so to actually trigger the body copyOf the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
@@ -208,7 +208,7 @@ public interface SpecificationSyncACC extends SyncACC {
      *                     {@link TupleCentreIdentifier tid}
      * @param event        the TuCSoN primitive to react to
      * @param guards       the guard predicates to be checked for satisfaction so to
-     *                     actually trigger the body of the ReSpecT reaction
+     *                     actually trigger the body copyOf the ReSpecT reaction
      * @param reactionBody the computation to be done in response to the
      *                     <code>events</code>
      * @param timeout      the maximum waiting time for completion tolerated by the
@@ -242,7 +242,7 @@ public interface SpecificationSyncACC extends SyncACC {
      *                     {@link TupleCentreIdentifier tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
-     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     satisfaction so to actually trigger the body copyOf the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
@@ -278,7 +278,7 @@ public interface SpecificationSyncACC extends SyncACC {
      *                     {@link TupleCentreIdentifier tid}
      * @param event        the template for the TuCSoN primitive to react to
      * @param guards       the template for the guard predicates to be checked for
-     *                     satisfaction so to actually trigger the body of the ReSpecT
+     *                     satisfaction so to actually trigger the body copyOf the ReSpecT
      *                     reaction
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
@@ -304,7 +304,7 @@ public interface SpecificationSyncACC extends SyncACC {
      * <code>set_s</code> specification primitive, to replace all the ReSpecT
      * specification tuples in the given target tuplecentre specification space
      * with that specified in the given tuple. The ReSpecT specification tuple
-     * should be formatted as a Prolog list of the kind [(E1,G1,R1), ...,
+     * should be formatted as a Prolog list copyOf the kind [(E1,G1,R1), ...,
      * (En,Gn,Rn)] where <code>E = events</code>, <code>G = guards</code>,
      * <code>R = reactionBody</code>.
      *

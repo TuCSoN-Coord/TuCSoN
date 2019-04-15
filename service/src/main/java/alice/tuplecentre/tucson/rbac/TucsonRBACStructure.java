@@ -28,7 +28,7 @@ public class TucsonRBACStructure implements RBACStructure {
     /**
      * Builds a empty RBAC structure.
      *
-     * @param org the name of the organisation represented by this RBAC
+     * @param org the name copyOf the organisation represented by this RBAC
      *            structure
      */
     public TucsonRBACStructure(final String org) {

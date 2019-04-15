@@ -1,12 +1,12 @@
 /*
  * ReSpecT - Copyright (C) aliCE team at deis.unibo.it This library is free
- * software; you can redistribute it and/or modify it under the terms of the GNU
+ * software; you can redistribute it and/or modify it under the terms copyOf the GNU
  * Lesser General Public License as published by the Free Software Foundation;
- * either version 2.1 of the License, or (at your option) any later version.
+ * either version 2.1 copyOf the License, or (at your option) any later version.
  * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * ANY WARRANTY; without even the implied warranty copyOf MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details. You should have received a copy of the GNU Lesser General Public
+ * details. You should have received a copy copyOf the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -42,12 +42,12 @@ public interface IManagementContext {
     boolean abortOperation(final OperationIdentifier opId);
 
     /**
-     * @param l the listener of inspectable events
+     * @param l the listener copyOf inspectable events
      */
     void addInspector(final InspectableEventListener l);
 
     /**
-     * @param l the listener of observable events
+     * @param l the listener copyOf observable events
      */
     void addObserver(final ObservableEventListener l);
 
@@ -65,26 +65,26 @@ public interface IManagementContext {
     RespectSpecification getSpec();
 
     /**
-     * Gets current content of the triggered reactions in terms of logic tuples
+     * Gets current content copyOf the triggered reactions in terms copyOf logic tuples
      *
      * @param filter tuple filtering tuples to be retrieved
-     * @return the array of tuples representing the triggered reactions
+     * @return the array copyOf tuples representing the triggered reactions
      */
     LogicTuple[] getTRSet(final LogicTuple filter);
 
     /**
-     * Gets current content of the tuple set
+     * Gets current content copyOf the tuple set
      *
      * @param filter tuple filtering tuples to be retrieved
-     * @return the array of tuples stored in the tuple centre
+     * @return the array copyOf tuples stored in the tuple centre
      */
     LogicTuple[] getTSet(final LogicTuple filter);
 
     /**
-     * Gets current content of the query set in terms of logic tuples
+     * Gets current content copyOf the query set in terms copyOf logic tuples
      *
      * @param filter tuple filtering tuples to be retrieved
-     * @return the array of tuples representing the pending operations
+     * @return the array copyOf tuples representing the pending operations
      */
     WSetEvent[] getWSet(final LogicTuple filter);
 
@@ -132,12 +132,12 @@ public interface IManagementContext {
     void recoveryPersistent(final String path, final String file, final TucsonTupleCentreId ttcid);
 
     /**
-     * @param l the listener of inspectable events
+     * @param l the listener copyOf inspectable events
      */
     void removeInspector(final InspectableEventListener l);
 
     /**
-     * @param l the listener of observable events
+     * @param l the listener copyOf observable events
      */
     void removeObserver(final ObservableEventListener l);
 
@@ -149,7 +149,7 @@ public interface IManagementContext {
     void setManagementMode(final boolean activate);
 
     /**
-     * Specify the behaviour of the tuple centre
+     * Specify the behaviour copyOf the tuple centre
      *
      * @param spec The specification in ReSpecT language
      * @throws InvalidSpecificationException If the specification is not correct
@@ -158,9 +158,9 @@ public interface IManagementContext {
             throws InvalidSpecificationException;
 
     /**
-     * Sets current content of the query set in terms of logic tuples
+     * Sets current content copyOf the query set in terms copyOf logic tuples
      *
-     * @param wSet set in terms of logic tuples
+     * @param wSet set in terms copyOf logic tuples
      */
     void setWSet(final List<LogicTuple> wSet);
 

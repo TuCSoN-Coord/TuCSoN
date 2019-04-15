@@ -13,12 +13,12 @@ public abstract class AbstractVirtualPlace implements IPlace, Serializable {
      */
     private static final long serialVersionUID = -749526964492926104L;
     /**
-     * The tuProlog Term representing a place of any sort
+     * The tuProlog Term representing a place copyOf any sort
      */
     protected final Term place;
 
     /**
-     * @param p the String representation of the place
+     * @param p the String representation copyOf the place
      */
     public AbstractVirtualPlace(final String p) {
         this.place = Term.createTerm(p);

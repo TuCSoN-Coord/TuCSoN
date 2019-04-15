@@ -33,7 +33,7 @@ public interface GeoLocationService {
      * in latitude and longitude coordinates
      *
      * @param address the textual address to translate
-     * @return a string representing coordinates of the address (coords(Lat,
+     * @return a string representing coordinates copyOf the address (coords(Lat,
      * Lng))
      */
     Term geoCode(final String address);
@@ -60,7 +60,7 @@ public interface GeoLocationService {
     TucsonTupleCentreId getTcId();
 
     /**
-     * Return the running status of the service
+     * Return the running status copyOf the service
      *
      * @return <code>true</code> if the service is running
      */
@@ -92,7 +92,7 @@ public interface GeoLocationService {
     /**
      * Notifies to listeners that the movement is started (from events)
      *
-     * @param space type of node position. It can be specified as either its
+     * @param space type copyOf node position. It can be specified as either its
      *              absolute physical position (S=ph), its IP number (S=ip), its
      *              domain name (S=dns), its geographical location (S=map), or its
      *              organisational position (S=org).
@@ -111,7 +111,7 @@ public interface GeoLocationService {
     /**
      * Notifies to listeners that the movement is terminated (to events)
      *
-     * @param space type of node position. It can be specified as either its
+     * @param space type copyOf node position. It can be specified as either its
      *              absolute physical position (S=ph), its IP number (S=ip), its
      *              domain name (S=dns), its geographical location (S=map), or its
      *              organisational position (S=org).

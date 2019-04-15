@@ -1,12 +1,12 @@
 /*
  * ReSpecT - Copyright (C) aliCE team at deis.unibo.it This library is free
- * software; you can redistribute it and/or modify it under the terms of the GNU
+ * software; you can redistribute it and/or modify it under the terms copyOf the GNU
  * Lesser General Public License as published by the Free Software Foundation;
- * either version 2.1 of the License, or (at your option) any later version.
+ * either version 2.1 copyOf the License, or (at your option) any later version.
  * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * ANY WARRANTY; without even the implied warranty copyOf MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details. You should have received a copy of the GNU Lesser General Public
+ * details. You should have received a copy copyOf the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -46,7 +46,7 @@ public class AgentId implements AgentIdentifier, Serializable {
      * <p>
      * The Agent identifier must be a ground valid logic term
      *
-     * @param sid is the string representation of the identifier
+     * @param sid is the string representation copyOf the identifier
      * @throws InvalidAgentIdException if it is not a valid identifier
      */
     public AgentId(final String sid) throws InvalidAgentIdException {
@@ -70,7 +70,7 @@ public class AgentId implements AgentIdentifier, Serializable {
     }
 
     /**
-     * @param name the string representation of this identifier
+     * @param name the string representation copyOf this identifier
      * @param tcId the tuple centre identifier this agent operates on
      */
     public AgentId(final String name, final TucsonTupleCentreId tcId) {

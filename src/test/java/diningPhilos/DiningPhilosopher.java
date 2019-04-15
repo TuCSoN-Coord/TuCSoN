@@ -1,6 +1,6 @@
 package diningPhilos;
 
-import alice.tuple.logic.LogicTuples;
+import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -31,10 +31,10 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
     /**
      *
      * @param aid
-     *            the String representation of this philosopher's TuCSoN agent
+     *            the String representation copyOf this philosopher's TuCSoN agent
      *            identifier
      * @param table
-     *            the identifier of the TuCSoN tuple centre representing the
+     *            the identifier copyOf the TuCSoN tuple centre representing the
      *            table
      * @param left
      *            an integer representing the left fork
@@ -63,7 +63,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
              */
             op = this.acc.in(
                     this.myTable,
-                    LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
+                    LogicTuple.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
         } catch (final InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();
@@ -84,7 +84,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         try {
             this.acc.out(
                     this.myTable,
-                    LogicTuples.parse("chops(" + this.chop1 + "," + this.chop2
+                    LogicTuple.parse("chops(" + this.chop1 + "," + this.chop2
                             + ")"), null);
         } catch (final InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();

@@ -81,22 +81,22 @@ public interface ITupleSet {
     void remove(LogicTuple t);
 
     /**
-     * Returns the number of elements in this tuple set.
+     * Returns the number copyOf elements in this tuple set.
      *
-     * @return the number of elements in this tuple set
+     * @return the number copyOf elements in this tuple set
      */
     int size();
 
     /**
-     * @return the Array representation of this tuple Set
+     * @return the Array representation copyOf this tuple Set
      */
     LogicTuple[] toArray();
 
     /**
-     * Provides a representation of the tuple multi-set in the form of a String
+     * Provides a representation copyOf the tuple multi-set in the form copyOf a String
      * containing a prolog theory.
      *
-     * @return a textual representation in the form of a prolog theory.
+     * @return a textual representation in the form copyOf a prolog theory.
      */
     @Override
     String toString();

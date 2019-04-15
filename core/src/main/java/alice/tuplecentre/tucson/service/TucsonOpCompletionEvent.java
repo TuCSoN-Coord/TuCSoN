@@ -6,7 +6,7 @@ import alice.tuple.logic.LogicTuple;
 import alice.tuplecentre.api.OperationIdentifier;
 
 /**
- * Completion of a TuCSoN operation: such events stores the corresponding
+ * Completion copyOf a TuCSoN operation: such events stores the corresponding
  * operation Identifier, its success state, its result and other useful info.
  *
  * @author Alessandro Ricci
@@ -23,7 +23,7 @@ public class TucsonOpCompletionEvent {
     private List<LogicTuple> tupleList;
 
     /**
-     * @param id    the identifier of the TuCSoN operation
+     * @param id    the identifier copyOf the TuCSoN operation
      * @param a     wether the operation is allowed
      * @param s     wether the operation succeded
      * @param resOk wether the result operation succeded
@@ -37,11 +37,11 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     * @param id    the identifier of the TuCSoN operation
+     * @param id    the identifier copyOf the TuCSoN operation
      * @param a     wether the operation is allowed
      * @param s     wether the operation succeded
      * @param resOk wether the result operation succeded
-     * @param tl    the list of tuples result of the oepration
+     * @param tl    the list copyOf tuples result copyOf the oepration
      */
     public TucsonOpCompletionEvent(final OperationIdentifier id, final boolean a,
                                    final boolean s, final boolean resOk, final List<LogicTuple> tl) {
@@ -53,10 +53,10 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     * @param id    the identifier of the TuCSoN operation
+     * @param id    the identifier copyOf the TuCSoN operation
      * @param a     wether the operation is allowed
      * @param s     wether the operation succeded
-     * @param t     the tuple result of the operation
+     * @param t     the tuple result copyOf the operation
      * @param resOk whether the operations already has its result available
      */
     public TucsonOpCompletionEvent(final OperationIdentifier id, final boolean a,
@@ -69,11 +69,11 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     * @param id    the identifier of the TuCSoN operation
+     * @param id    the identifier copyOf the TuCSoN operation
      * @param a     wether the operation is allowed
      * @param s     wether the operation succeded
      * @param resOk wether the result operation succeded
-     * @param sp    the String representation of the ReSpecT specification used
+     * @param sp    the String representation copyOf the ReSpecT specification used
      */
     public TucsonOpCompletionEvent(final OperationIdentifier id, final boolean a,
                                    final boolean s, final boolean resOk, final String sp) {
@@ -85,7 +85,7 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     * @return the identifier of the TuCSoN operation
+     * @return the identifier copyOf the TuCSoN operation
      */
     public OperationIdentifier getOpId() {
         return this.opId;
@@ -99,14 +99,14 @@ public class TucsonOpCompletionEvent {
     }
 
     /**
-     * @return the tuple result of the operation
+     * @return the tuple result copyOf the operation
      */
     public LogicTuple getTuple() {
         return this.tuple;
     }
 
     /**
-     * @return the list of tuples result of the operation
+     * @return the list copyOf tuples result copyOf the operation
      */
     public List<LogicTuple> getTupleList() {
         return this.tupleList;

@@ -12,7 +12,7 @@ import alice.tuplecentre.api.TupleCentreOperation;
 public interface RespectOperation extends TupleCentreOperation {
 
     /**
-     * @return the logic tuple representation of this operation
+     * @return the logic tuple representation copyOf this operation
      */
     LogicTuple toTuple();
 }

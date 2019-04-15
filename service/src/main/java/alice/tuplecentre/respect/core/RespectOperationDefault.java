@@ -1,12 +1,12 @@
 /*
  * ReSpecT - Copyright (C) aliCE team at deis.unibo.it This library is free
- * software; you can redistribute it and/or modify it under the terms of the GNU
+ * software; you can redistribute it and/or modify it under the terms copyOf the GNU
  * Lesser General Public License as published by the Free Software Foundation;
- * either version 2.1 of the License, or (at your option) any later version.
+ * either version 2.1 copyOf the License, or (at your option) any later version.
  * This library is distributed in the hope that it will be useful, but WITHOUT
- * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * ANY WARRANTY; without even the implied warranty copyOf MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
- * details. You should have received a copy of the GNU Lesser General Public
+ * details. You should have received a copy copyOf the GNU Lesser General Public
  * License along with this library; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -19,9 +19,7 @@ import java.util.List;
 import alice.tuple.Tuple;
 import alice.tuple.TupleTemplate;
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.TupleArgument;
-import alice.tuple.logic.TupleArguments;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
@@ -83,8 +81,8 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     /**
      * Factory Method
      *
-     * @param opType   the type of the operation
-     * @param tuple    the tuple argument of the operation, except for <code>get</code>, <code>get_s</code> it <b>should be not null</b>
+     * @param opType   the type copyOf the operation
+     * @param tuple    the tuple argument copyOf the operation, except for <code>get</code>, <code>get_s</code> it <b>should be not null</b>
      * @param listener the listener to notify upon operation completion
      * @return the ReSpecT operation built
      * @throws InvalidLogicTupleException if the given logic tuple is not a valid logic tuple
@@ -93,11 +91,11 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                                                final LogicTuple tuple, final OperationCompletionListener listener)
             throws InvalidLogicTupleException {
         if (opType == GET) {
-            return RespectOperationDefault.makeGet(LogicTuples.newInstance("get"), listener);
+            return RespectOperationDefault.makeGet(LogicTuple.of("get"), listener);
         }
         if (opType == GET_S) {
             try {
-                return RespectOperationDefault.makeGetS(LogicTuples.newInstance("spec", TupleArguments.newVarArgument(
+                return RespectOperationDefault.makeGetS(LogicTuple.of("spec", TupleArgument.var(
                         "S")), listener);
             } catch (InvalidVarNameException e) {
                 // TODO Auto-generated catch block
@@ -105,7 +103,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
             }
         }
 
-        // TODO because of public specific makeXXX methods, this control is easily avoided using them
+        // TODO because copyOf public specific makeXXX methods, this control is easily avoided using them
         // TODO could be a good idea to delete them, using this "make" (maybe replacing this checked exception with an IllegalArgument)
         if (tuple == null) {
             throw new InvalidLogicTupleException();
@@ -129,7 +127,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 //  try {
                 if (",".equals(tuple.getName()) && tuple.getArity() == 2) {
                     return RespectOperationDefault.makeInAll(
-                            LogicTuples.newInstance(tuple.getArg(0)), listener);
+                            LogicTuple.of(tuple.getArg(0)), listener);
                 }
                 return RespectOperationDefault.makeInAll(tuple, listener);
             //    } catch (final InvalidLogicTupleOperationException e) {
@@ -153,7 +151,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 //  try {
                 if (",".equals(tuple.getName()) && tuple.getArity() == 2) {
                     return RespectOperationDefault.makeRdAll(
-                            LogicTuples.newInstance(tuple.getArg(0)), listener);
+                            LogicTuple.of(tuple.getArg(0)), listener);
                 }
                 return RespectOperationDefault.makeRdAll(tuple, listener);
             //  } catch (final InvalidLogicTupleOperationException e) {
@@ -171,7 +169,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 //  try {
                 if (",".equals(tuple.getName()) && tuple.getArity() == 2) {
                     return RespectOperationDefault.makeNoAll(
-                            LogicTuples.newInstance(tuple.getArg(0)), listener);
+                            LogicTuple.of(tuple.getArg(0)), listener);
                 }
                 return RespectOperationDefault.makeNoAll(tuple, listener);
             //  } catch (final InvalidLogicTupleOperationException e) {
@@ -206,7 +204,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -218,7 +216,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -228,7 +226,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -240,7 +238,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -250,7 +248,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -260,7 +258,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -270,7 +268,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -280,7 +278,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -290,7 +288,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -300,7 +298,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -310,7 +308,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -320,7 +318,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -330,7 +328,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -340,7 +338,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -350,7 +348,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -360,7 +358,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -370,7 +368,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -380,7 +378,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -390,7 +388,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -400,7 +398,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -410,7 +408,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -420,7 +418,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -430,7 +428,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -443,16 +441,16 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         }
         final List<Tuple> list = new LinkedList<>();
         LogicTuple cpy;
-        cpy = LogicTuples.newInstance(t);
+        cpy = LogicTuple.copyOf(t);
         TupleArgument arg;
         arg = cpy.getArg(0);
         while (arg != null) {
             if (arg.isNotList()) {
-                final LogicTuple t1 = LogicTuples.newInstance(arg);
+                final LogicTuple t1 = LogicTuple.of(arg);
                 list.add(t1);
                 arg = cpy.getArg(1);
             } else {
-                cpy = LogicTuples.newInstance(arg);
+                cpy = LogicTuple.of(arg);
                 if (!"[]".equals(cpy.toString())) {
                     arg = cpy.getArg(0);
                 } else {
@@ -465,7 +463,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -477,7 +475,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -490,16 +488,16 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         }
         final List<Tuple> list = new LinkedList<>();
         LogicTuple cpy;
-        cpy = LogicTuples.newInstance(t);
+        cpy = LogicTuple.copyOf(t);
         TupleArgument arg;
         arg = cpy.getArg(0);
         while (arg != null) {
             if (arg.isNotList()) {
-                final LogicTuple t1 = LogicTuples.newInstance(arg);
+                final LogicTuple t1 = LogicTuple.of(arg);
                 list.add(t1);
                 arg = cpy.getArg(1);
             } else {
-                cpy = LogicTuples.newInstance(arg);
+                cpy = LogicTuple.of(arg);
                 if (!"[]".equals(cpy.toString())) {
                     arg = cpy.getArg(0);
                 } else {
@@ -516,13 +514,13 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
      * @return the ReSpecT operation built
      */
     public static RespectOperationDefault makeSetS(final OperationCompletionListener l) {
-        return new RespectOperationDefault(SET_S, LogicTuples.newInstance("spec"), l);
-        // TODO: 08/03/2018 there was a creation of a LogicTuple with no argument... with refactor this was no more possible...
-        // replaced with creation of a "spec" tuple
+        return new RespectOperationDefault(SET_S, LogicTuple.of("spec"), l);
+        // TODO: 08/03/2018 there was a creation copyOf a LogicTuple with no argument... with refactor this was no more possible...
+        // replaced with creation copyOf a "spec" tuple
     }
 
     /**
-     * @param spec the ReSpecT specification argument of the operation
+     * @param spec the ReSpecT specification argument copyOf the operation
      * @param l    the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -532,7 +530,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
         try {
             temp = new RespectOperationDefault(
                     SET_S,
-                    (Tuple) LogicTuples.parse(spec.toString()), l);
+                    (Tuple) LogicTuple.parse(spec.toString()), l);
         } catch (final InvalidLogicTupleException e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -540,7 +538,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -550,7 +548,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -560,7 +558,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -572,7 +570,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -582,7 +580,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -592,7 +590,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -602,7 +600,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -612,7 +610,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -622,7 +620,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param t the tuple argument of the operation
+     * @param t the tuple argument copyOf the operation
      * @param l the listener for operation completion
      * @return the ReSpecT operation built
      */
@@ -632,8 +630,8 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param type      the type-code of the oepration
-     * @param tupleList the list of tuples argument of the operation
+     * @param type      the type-code copyOf the oepration
+     * @param tupleList the list copyOf tuples argument copyOf the operation
      * @param l         the listener for operation completion
      */
     protected RespectOperationDefault(final TupleCentreOpType type, final List<Tuple> tupleList,
@@ -642,8 +640,8 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param type the type-code of the oepration
-     * @param t    the tuple argument of the operation
+     * @param type the type-code copyOf the oepration
+     * @param t    the tuple argument copyOf the operation
      * @param l    the listener for operation completion
      */
     protected RespectOperationDefault(final TupleCentreOpType type, final Tuple t,
@@ -652,8 +650,8 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
     }
 
     /**
-     * @param type the type-code of the oepration
-     * @param t    the tuple template argument of the operation
+     * @param type the type-code copyOf the oepration
+     * @param t    the tuple template argument copyOf the operation
      * @param l    the listener for operation completion
      */
     protected RespectOperationDefault(final TupleCentreOpType type, final TupleTemplate t,
@@ -710,9 +708,9 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                     tl[i] = tupleL[i].toTerm();
                 }
                 LogicTuple lt;
-                lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
+                lt = LogicTuple.of(opName, TupleArgument.fromTerm(this
                                 .getLogicTupleArgument().toTerm()),
-                        TupleArguments.newInstance(new Struct(tl)));
+                        TupleArgument.fromTerm(new Struct(tl)));
                 return lt;
             }
             case IN_ALL: {
@@ -723,9 +721,9 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                     tl[i] = tupleL[i].toTerm();
                 }
                 LogicTuple lt;
-                lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
+                lt = LogicTuple.of(opName, TupleArgument.fromTerm(this
                                 .getLogicTupleArgument().toTerm()),
-                        TupleArguments.newInstance(new Struct(tl)));
+                        TupleArgument.fromTerm(new Struct(tl)));
                 return lt;
             }
             case RD_ALL: {
@@ -736,9 +734,9 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                     tl[i] = tupleL[i].toTerm();
                 }
                 LogicTuple lt;
-                lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
+                lt = LogicTuple.of(opName, TupleArgument.fromTerm(this
                                 .getLogicTupleArgument().toTerm()),
-                        TupleArguments.newInstance(new Struct(tl)));
+                        TupleArgument.fromTerm(new Struct(tl)));
                 return lt;
             }
             case NO_ALL: {
@@ -749,9 +747,9 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                     tl[i] = tupleL[i].toTerm();
                 }
                 LogicTuple lt;
-                lt = LogicTuples.newInstance(opName, TupleArguments.newInstance(this
+                lt = LogicTuple.of(opName, TupleArgument.fromTerm(this
                                 .getLogicTupleArgument().toTerm()),
-                        TupleArguments.newInstance(new Struct(tl)));
+                        TupleArgument.fromTerm(new Struct(tl)));
                 return lt;
             }
             case GET: {
@@ -797,7 +795,7 @@ public class RespectOperationDefault extends AbstractTupleCentreOperation implem
                 opName = "unknownOp";
                 break;
         }
-        return LogicTuples.newInstance(opName, TupleArguments.newInstance(
+        return LogicTuple.of(opName, TupleArgument.fromTerm(
                 tl != null ? new Struct(tl) : t.toTerm()));
     }
 }

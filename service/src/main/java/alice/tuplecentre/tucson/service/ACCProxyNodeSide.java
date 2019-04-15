@@ -1,13 +1,13 @@
 /*
  * TuCSoN coordination infrastructure - Copyright (C) 2001-2002 aliCE team at
  * deis.unibo.it This library is free software; you can redistribute it and/or
- * modify it under the terms of the GNU Lesser General Public License as
- * published by the Free Software Foundation; either version 2.1 of the License,
+ * modify it under the terms copyOf the GNU Lesser General Public License as
+ * published by the Free Software Foundation; either version 2.1 copyOf the License,
  * or (at your option) any later version. This library is distributed in the
  * hope that it will be useful, but WITHOUT ANY WARRANTY; without even the
- * implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
+ * implied warranty copyOf MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See
  * the GNU Lesser General Public License for more details. You should have
- * received a copy of the GNU Lesser General Public License along with this
+ * received a copy copyOf the GNU Lesser General Public License along with this
  * library; if not, write to the Free Software Foundation, Inc., 59 Temple
  * Place, Suite 330, Boston, MA 02111-1307 USA
  */
@@ -30,7 +30,6 @@ import alice.tuplecentre.respect.core.RespectOperationDefault;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidSpecificationException;
@@ -73,7 +72,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
      * @param d   the network protocol used by this ACC Proxy at TuCSoN node
      *            side
      * @param n   the TuCSoN node this ACC Proxy at TuCSoN node side belongs to
-     * @param p   the object describing the request of entering the TuCSoN
+     * @param p   the object describing the request copyOf entering the TuCSoN
      *            system
      * @throws TucsonInvalidTupleCentreIdException if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
      *                                             message, does not represent a valid TuCSoN identifier
@@ -89,7 +88,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
         String name = p.getProperty("agent-identity");
         if (name == null) {
             name = p.getProperty("tc-identity");
-            this.tcId = new TucsonTupleCentreIdDefault(name);
+            this.tcId = TucsonTupleCentreId.of(name);
             this.agentId = new TucsonAgentIdDefault("tcAgent", this.tcId);
         } else {
             this.agentId = new TucsonAgentIdDefault(name);
@@ -187,7 +186,7 @@ public class ACCProxyNodeSide extends AbstractACCProxyNodeSide {
                 }
             }
             try {
-                tid = new TucsonTupleCentreIdDefault(evMsg.getReactingTC());
+                tid = TucsonTupleCentreId.of(evMsg.getReactingTC());
             } catch (final TucsonInvalidTupleCentreIdException e) {
                 LOGGER.error(e.getMessage(), e);
                 break;

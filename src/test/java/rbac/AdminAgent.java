@@ -5,19 +5,19 @@
 /*
  * Copyright 1999-2014 Alma Mater Studiorum - Universita' di Bologna
  *
- * This file is part of TuCSoN4JADE <http://tucson4jade.apice.unibo.it>.
+ * This file is part copyOf TuCSoN4JADE <http://tucson4jade.apice.unibo.it>.
  *
  *    TuCSoN4JADE is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Lesser General Public License as published
- *    by the Free Software Foundation, either version 3 of the License, or
+ *    it under the terms copyOf the GNU Lesser General Public License as published
+ *    by the Free Software Foundation, either version 3 copyOf the License, or
  *    (at your option) any later version.
  *
  *    TuCSoN4JADE is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty copyOf
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *    GNU Lesser General Public License for more details.
  *
- *    You should have received a copy of the GNU Lesser General Public License
+ *    You should have received a copy copyOf the GNU Lesser General Public License
  *    along with TuCSoN4JADE.  If not, see
  *    <https://www.gnu.org/licenses/lgpl.html>.
  *
@@ -57,12 +57,12 @@ public final class AdminAgent extends AbstractTucsonAgent<AdminACC> {
 
     /**
      * @param id
-     *            the Identifier of this TuCSoN agent
+     *            the Identifier copyOf this TuCSoN agent
      * @param netid
-     *            the IP address of the TuCSoN node it is willing to interact
+     *            the IP address copyOf the TuCSoN node it is willing to interact
      *            with
      * @param p
-     *            the TCP port number of the TuCSoN node it is willing to
+     *            the TCP port number copyOf the TuCSoN node it is willing to
      *            interact with
      * @throws TucsonInvalidAgentIdException
      *             if the given String does not represent a valid TuCSoN agent
@@ -89,7 +89,7 @@ public final class AdminAgent extends AbstractTucsonAgent<AdminACC> {
         Logger.getLogger("AdminAgent").info("AdminACC acquired");
 
         /*
-         * Atm, TuCSoN RBAC permissions are simply the name of a TuCSoN
+         * Atm, TuCSoN RBAC permissions are simply the name copyOf a TuCSoN
          * primitive, indicating that an agent may invoke such operation.
          */
         Permission prd = new TucsonPermission("rd");
@@ -113,7 +113,7 @@ public final class AdminAgent extends AbstractTucsonAgent<AdminACC> {
         policyout.addPermission(pout);
         /*
          * TuCSoN RBAC roles associate policies to agent classes, indicating the
-         * set of permissions agents of that class, and willing to play that
+         * set copyOf permissions agents copyOf that class, and willing to play that
          * role, can be granted.
          */
         Role roleRead = new TucsonRole("roleRead");

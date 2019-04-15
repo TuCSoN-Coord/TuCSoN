@@ -15,7 +15,7 @@ import alice.tuplecentre.respect.api.exceptions.InstantiationNotPossibleExceptio
 public class RespectLocalRegistry implements ITCRegistry {
 
     /**
-     * internal representation of the registry, keys are tuple centre ids (as
+     * internal representation copyOf the registry, keys are tuple centre ids (as
      * Strings)
      */
     private final Map<String, IRespectTC> reg;
@@ -42,7 +42,7 @@ public class RespectLocalRegistry implements ITCRegistry {
     }
 
     /**
-     * @return the size of the ReSpecT local registry
+     * @return the size copyOf the ReSpecT local registry
      */
     public int getSize() {
         return this.reg.size();

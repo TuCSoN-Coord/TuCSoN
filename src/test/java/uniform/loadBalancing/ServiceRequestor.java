@@ -1,7 +1,6 @@
 package uniform.loadBalancing;
 
 import alice.tuple.logic.LogicTuple;
-import alice.tuple.logic.LogicTuples;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -9,7 +8,6 @@ import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreIdDefault;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.RootACC;
@@ -21,7 +19,7 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
 
 /**
  * Dummy Service Requestor class to show some 'adaptive' features related to
- * usage of uniform primitives. It probabilistically looks for available
+ * usage copyOf uniform primitives. It probabilistically looks for available
  * services then issue a request to the Service Provider found.
  *
  * @author s.mariani@unibo.it
@@ -62,7 +60,7 @@ public class ServiceRequestor extends AbstractTucsonAgent<RootACC> {
         this.die = false;
         try {
             this.say("I'm started.");
-            this.tid = new TucsonTupleCentreIdDefault(node);
+            this.tid = TucsonTupleCentreId.of(node);
         } catch (final TucsonInvalidTupleCentreIdException e) {
             this.say("Invalid tid given, killing myself...");
             this.die = true;
@@ -84,7 +82,7 @@ public class ServiceRequestor extends AbstractTucsonAgent<RootACC> {
             LogicTuple templ;
             LogicTuple service;
             LogicTuple req;
-            final LogicTuple dieTuple = LogicTuples.parse("die(" + this.getTucsonAgentId().getLocalName()
+            final LogicTuple dieTuple = LogicTuple.parse("die(" + this.getTucsonAgentId().getLocalName()
                     + ")");
             while (!this.die) {
                 this.say("Checking termination...");
@@ -96,7 +94,7 @@ public class ServiceRequestor extends AbstractTucsonAgent<RootACC> {
                 /*
                  * Service search phase.
                  */
-                templ = LogicTuples.parse("ad(S)");
+                templ = LogicTuple.parse("ad(S)");
                 this.say("Looking for services...");
                 /*
                  * Experiment alternative primitives and analyse different
@@ -110,7 +108,7 @@ public class ServiceRequestor extends AbstractTucsonAgent<RootACC> {
                  */
                 this.say("Submitting request for service: "
                         + service.toString());
-                req = LogicTuples.parse("req(" + service.getArg(0) + ")");
+                req = LogicTuple.parse("req(" + service.getArg(0) + ")");
                 this.acc.out(this.tid, req, null);
                 Thread.sleep(1000);
             }

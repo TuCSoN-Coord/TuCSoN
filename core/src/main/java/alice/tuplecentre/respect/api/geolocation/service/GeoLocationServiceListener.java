@@ -43,8 +43,8 @@ public interface GeoLocationServiceListener {
     /**
      * Called by the related service when the device starts or stops moving
      *
-     * @param type  the type of the events (from or to)
-     * @param space type of node position. It can be specified as either its
+     * @param type  the type copyOf the events (from or to)
+     * @param space type copyOf node position. It can be specified as either its
      *              absolute physical position (S=ph), its IP number (S=ip), its
      *              domain name (S=dns), its geographical location (S=map), or its
      *              organisational position (S=org).

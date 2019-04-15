@@ -20,13 +20,13 @@ import alice.tuplecentre.tucson.rbac.Role;
 public interface AdminACC extends EnhancedACC {
 
     /**
-     * Adds an agent to the set of authorised agents, that is, those already
+     * Adds an agent to the set copyOf authorised agents, that is, those already
      * recognised by TuCSoN according to RBAC (Role-Based Access Control), in the default TuCSoN node
      * (installed on {@code localhost:20504}).
      *
      * @param agent the authorised agent
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -40,9 +40,9 @@ public interface AdminACC extends EnhancedACC {
      * TuCSoN node (installed on {@code localhost:20504}).
      *
      * @param permission the permission to add
-     * @param policyName the name of the existing policy to extend
+     * @param policyName the name copyOf the existing policy to extend
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -52,12 +52,12 @@ public interface AdminACC extends EnhancedACC {
             UnreachableNodeException, OperationTimeOutException;
 
     /**
-     * Adds a policy, that is, a set of permissions, to the RBAC (Role-Based Access Control) structure
+     * Adds a policy, that is, a set copyOf permissions, to the RBAC (Role-Based Access Control) structure
      * installed in the default TuCSoN node.
      *
      * @param policy the policy to add
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -66,13 +66,13 @@ public interface AdminACC extends EnhancedACC {
             UnreachableNodeException, OperationTimeOutException;
 
     /**
-     * Adds an RBAC (Role-Based Access Control) structure, that is, the set of roles, policies, permissions,
+     * Adds an RBAC (Role-Based Access Control) structure, that is, the set copyOf roles, policies, permissions,
      * and their relationships, to the default TuCSoN node (installed on
      * {@code localhost:20504}).
      *
      * @param rbac the RBAC structure to add
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -85,7 +85,7 @@ public interface AdminACC extends EnhancedACC {
             OperationNotAllowedException;
 
     /**
-     * Adds an RBAC (Role-Based Access Control) structure, that is, the set of roles, policies, permissions,
+     * Adds an RBAC (Role-Based Access Control) structure, that is, the set copyOf roles, policies, permissions,
      * and their relationships, to the given TuCSoN node (only local nodes are
      * supported atm, that is, this installed on {@code localhost}).
      *
@@ -95,7 +95,7 @@ public interface AdminACC extends EnhancedACC {
      *                local nodes are supported atm, that is, on {@code localhost})
      * @param port    the TCP port where the target TuCSoN node is installed
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -114,7 +114,7 @@ public interface AdminACC extends EnhancedACC {
      *
      * @param role the role to add
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -123,10 +123,10 @@ public interface AdminACC extends EnhancedACC {
             UnreachableNodeException, OperationTimeOutException;
 
     /**
-     * Removes an agent from the list of authorised agents installed in default
+     * Removes an agent from the list copyOf authorised agents installed in default
      * TuCSoN node (installed on {@code localhost:20504}).
      *
-     * @param agentName the name of the agent to remove
+     * @param agentName the name copyOf the agent to remove
      */
     void remove(final String agentName); //TODO sarebbe meglio passare un oggetto che identifica un agente (visto che li abbiamo)???
 
@@ -134,9 +134,9 @@ public interface AdminACC extends EnhancedACC {
      * Removes a policy from the RBAC (Role-Based Access Control) structure installed in default TuCSoN node
      * (installed on {@code localhost:20504}).
      *
-     * @param policyName the name of the policy to remove
+     * @param policyName the name copyOf the policy to remove
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -150,7 +150,7 @@ public interface AdminACC extends EnhancedACC {
      * {@code localhost:20504}).
      *
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -172,7 +172,7 @@ public interface AdminACC extends EnhancedACC {
      * @throws OperationNotAllowedException        if the requested TuCSoN operation is not allowed to the
      *                                             requesting agent
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -186,9 +186,9 @@ public interface AdminACC extends EnhancedACC {
      * Removes a role from the RBAC (Role-Based Access Control) structure installed in default TuCSoN node
      * (installed on {@code localhost:20504}).
      *
-     * @param roleName the name of the role to remove
+     * @param roleName the name copyOf the role to remove
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -198,14 +198,14 @@ public interface AdminACC extends EnhancedACC {
             UnreachableNodeException, OperationTimeOutException;
 
     /**
-     * Sets the basic agent class, that is, the cohort of agents representing
+     * Sets the basic agent class, that is, the cohort copyOf agents representing
      * un-authenticated agents (if allowed by the RBAC (Role-Based Access Control) structure currently
      * installed) from the RBAC structure installed in default TuCSoN node
      * (installed on {@code localhost:20504}).
      *
      * @param newBasicAgentClass the new basic agent class
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -218,10 +218,10 @@ public interface AdminACC extends EnhancedACC {
      * Sets the agent class associated to a role in the RBAC (Role-Based Access Control) structure installed
      * in default TuCSoN node (installed on {@code localhost:20504}).
      *
-     * @param roleName   the name of the role whose class association should be set
+     * @param roleName   the name copyOf the role whose class association should be set
      * @param agentClass the agent class to associate to the given role
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion
@@ -234,10 +234,10 @@ public interface AdminACC extends EnhancedACC {
      * Sets the association between a role and a policy in the RBAC structure
      * installed in default TuCSoN node (installed on {@code localhost:20504}).
      *
-     * @param roleName   the name of the role
-     * @param policyName the name of the policy
+     * @param roleName   the name copyOf the role
+     * @param policyName the name copyOf the policy
      * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws UnreachableNodeException            if the TuCSoN node target of this operation is not
+     * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
      * @throws OperationTimeOutException           if the operation timeout expired prior to operation
      *                                             completion

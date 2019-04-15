@@ -10,7 +10,7 @@ public class ActuatorId extends AbstractProbeId {
     private static final long serialVersionUID = 4412594143980641593L;
 
     /**
-     * @param i the String representation of the actuator identifier
+     * @param i the String representation copyOf the actuator identifier
      */
     public ActuatorId(final String i) {
         super(i);

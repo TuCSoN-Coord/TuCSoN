@@ -19,7 +19,7 @@ public class TucsonRole implements Role {
     /**
      * Builds a RBAC role given its name
      *
-     * @param rn the name of this role
+     * @param rn the name copyOf this role
      */
     public TucsonRole(final String rn) {
         this(rn, "substitute");
@@ -28,7 +28,7 @@ public class TucsonRole implements Role {
     /**
      * Builds a RBAC role given its name and associated agent class
      *
-     * @param rn the name of this role
+     * @param rn the name copyOf this role
      * @param ac the agent class
      */
     public TucsonRole(final String rn, final String ac) {

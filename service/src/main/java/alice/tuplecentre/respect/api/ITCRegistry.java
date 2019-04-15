@@ -17,12 +17,12 @@ public interface ITCRegistry {
     void addTC(IRespectTC tc);
 
     /**
-     * @return the register of the ReSpecT tuple centres
+     * @return the register copyOf the ReSpecT tuple centres
      */
     Map<String, ? extends IRespectTC> getMap();
 
     /**
-     * @param id the identifier of the tuple centre to retrieve
+     * @param id the identifier copyOf the tuple centre to retrieve
      * @return the tuple centre container
      * @throws InstantiationNotPossibleException if the tuple centre cannot be instantiated
      */

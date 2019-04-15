@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 /**
- * Enumeration of all operation types that can be executed on tuple centres
+ * Enumeration copyOf all operation types that can be executed on tuple centres
  *
  * @author Enrico Siboni
  */
@@ -25,75 +25,75 @@ public enum TupleCentreOpType {
 
     // Special Operations
     /**
-     * type of the operation to retrieve the tuples set
+     * type copyOf the operation to retrieve the tuples set
      */
     GET_TSET,
     /**
-     * type of <code>add_inspector</code> operation
+     * type copyOf <code>add_inspector</code> operation
      */
     ADD_INSP,
     /**
-     * type of the operation that retrieves inspectors' code
+     * type copyOf the operation that retrieves inspectors' code
      */
     GET_INSPS,
     /**
-     * type of <code>has_inspectors</code> operation
+     * type copyOf <code>has_inspectors</code> operation
      */
     HAS_INSP,
     /**
-     * type of <code>rmv_inspector</code> operation
+     * type copyOf <code>rmv_inspector</code> operation
      */
     RMV_INSP,
     /**
-     * type of <code>add_observer</code> operation
+     * type copyOf <code>add_observer</code> operation
      */
     ADD_OBS,
     /**
-     * type of <code>has_observers</code> operation
+     * type copyOf <code>has_observers</code> operation
      */
     HAS_OBS,
     /**
-     * type of <code>rmv_observer</code> operation
+     * type copyOf <code>rmv_observer</code> operation
      */
     RMV_OBS,
     /**
-     * type of <code>set_spy</code> operation
+     * type copyOf <code>set_spy</code> operation
      */
     SET_SPY,
     /**
-     * type of <code>go_cmd</code> operation
+     * type copyOf <code>go_cmd</code> operation
      */
     GO_CMD,
     /**
-     * type of <code>stop_cmd</code> operation
+     * type copyOf <code>stop_cmd</code> operation
      */
     STOP_CMD,
     /**
-     * type of <code>step_mode</code> operation
+     * type copyOf <code>step_mode</code> operation
      */
     STEP_MODE,
     /**
-     * type of operation that checks if step_mode is on
+     * type copyOf operation that checks if step_mode is on
      */
     IS_STEP_MODE,
     /**
-     * type of <code>next_step</code> operation
+     * type copyOf <code>next_step</code> operation
      */
     NEXT_STEP,
     /**
-     * type of <code>time</code> operation
+     * type copyOf <code>time</code> operation
      */
     TIME,
     /**
-     * type of <code>reset</code> operation
+     * type copyOf <code>reset</code> operation
      */
     RESET,
     /**
-     * type of <code>abort_operation</code> operation
+     * type copyOf <code>abort_operation</code> operation
      */
     ABORT,
     /**
-     * type of <code>exit</code> operation
+     * type copyOf <code>exit</code> operation
      */
     EXIT,
 
@@ -103,31 +103,31 @@ public enum TupleCentreOpType {
      */
     ENV,
     /**
-     * type of <code>get_env</code> environmental getter operation
+     * type copyOf <code>get_env</code> environmental getter operation
      */
     GET_ENV,
     /**
-     * type of the <code>set_env</code> environmental setter operation
+     * type copyOf the <code>set_env</code> environmental setter operation
      */
     SET_ENV,
     /**
-     * type of the operation to retrieve the triggered reactions set
+     * type copyOf the operation to retrieve the triggered reactions set
      */
     GET_TRSET,
     /**
-     * type of the operation to retrieve the input events set
+     * type copyOf the operation to retrieve the input events set
      */
     GET_WSET,
     /**
-     * type of the operation to set the input events set
+     * type copyOf the operation to set the input events set
      */
     SET_WSET,
     /**
-     * type of <code>from</code> operation (specific Respect operation for movement(Geolocation))
+     * type copyOf <code>from</code> operation (specific Respect operation for movement(Geolocation))
      */
     FROM,
     /**
-     * type of <code>to</code> operation (specific Respect operation for movement (Geolocation))
+     * type copyOf <code>to</code> operation (specific Respect operation for movement (Geolocation))
      */
     TO;
 
@@ -136,7 +136,7 @@ public enum TupleCentreOpType {
      * <p>
      * GET, IN, INP, NO, NOP, OUT, RD, RDP, SET, SPAWN, UIN, UINP, UNO, UNOP, URD, URDP, IN_ALL, NO_ALL, OUT_ALL, RD_ALL, GET_S, INP_S, IN_S, NOP_S, NO_S, OUT_S, RDP_S, RD_S, SET_S
      *
-     * @return a collection of all Standard Operation Types
+     * @return a collection copyOf all Standard Operation Types
      */
     public static Collection<TupleCentreOpType> getStandardOperationTypes() {
         return Arrays.asList(GET, IN, INP, NO, NOP, OUT, RD, RDP, SET, SPAWN,
@@ -150,7 +150,7 @@ public enum TupleCentreOpType {
      * <p>
      * GET, IN, INP, NO, NOP, OUT, RD, RDP, SET, SPAWN
      *
-     * @return a collection of all Ordinary Primitives
+     * @return a collection copyOf all Ordinary Primitives
      */
     public static Collection<TupleCentreOpType> getOrdinaryPrimitives() {
         return Arrays.asList(GET, IN, INP, NO, NOP, OUT, RD, RDP, SET, SPAWN);
@@ -161,7 +161,7 @@ public enum TupleCentreOpType {
      * <p>
      * UIN, UINP, UNO, UNOP, URD, URDP
      *
-     * @return a collection of all Uniform Primitives
+     * @return a collection copyOf all Uniform Primitives
      */
     public static Collection<TupleCentreOpType> getUniformPrimitives() {
         return Arrays.asList(UIN, UINP, UNO, UNOP, URD, URDP);
@@ -172,7 +172,7 @@ public enum TupleCentreOpType {
      * <p>
      * IN_ALL, NO_ALL, OUT_ALL, RD_ALL
      *
-     * @return a collection of all Bulk Primitives
+     * @return a collection copyOf all Bulk Primitives
      */
     public static Collection<TupleCentreOpType> getBulkPrimitives() {
         return Arrays.asList(IN_ALL, NO_ALL, OUT_ALL, RD_ALL);
@@ -183,7 +183,7 @@ public enum TupleCentreOpType {
      * <p>
      * GET_S, INP_S, IN_S, NOP_S, NO_S, OUT_S, RDP_S, RD_S, SET_S
      *
-     * @return a collection of all Specification primitives
+     * @return a collection copyOf all Specification primitives
      */
     public static Collection<TupleCentreOpType> getSpecificationPrimitives() {
         return Arrays.asList(GET_S, INP_S, IN_S, NOP_S, NO_S, OUT_S, RDP_S, RD_S, SET_S);
@@ -194,7 +194,7 @@ public enum TupleCentreOpType {
      * <p>
      * OUT, SET, SPAWN, OUT_ALL, OUT_S, SET_S
      *
-     * @return a collection of primiteves that "write" something
+     * @return a collection copyOf primiteves that "write" something
      */
     public static Collection<TupleCentreOpType> getProducerPrimitives() {
         return Arrays.asList(OUT, SET, SPAWN,
@@ -207,7 +207,7 @@ public enum TupleCentreOpType {
      * <p>
      * GET, IN, INP, NO, NOP, RD, RDP, UIN, UINP, UNO, UNOP, URD, URDP, IN_ALL, NO_ALL, RD_ALL, GET_S, INP_S, IN_S, NOP_S, NO_S, RDP_S, RD_S
      *
-     * @return a collection of primitives that "read" something
+     * @return a collection copyOf primitives that "read" something
      */
     public static Collection<TupleCentreOpType> getAccessorPrimitives() {
         return Arrays.asList(GET, IN, INP, NO, NOP, RD, RDP,
