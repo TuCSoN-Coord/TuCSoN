@@ -107,15 +107,11 @@ public final class TPFactory {
             throws InvalidProtocolTypeException, DialogInitializationException {
         TucsonProtocol tp;
         if (tucsonProtocolType == TPFactory.DIALOG_TYPE_TCP) {
-            /*final TPConfig config = TucsonNodeService.getNode(portno)
-                    .getTPConfig();*/
-            final TPConfig config = new TPConfig();
-            final int port = config.getNodeTcpPort();
-            if (port < 1 || port > TPFactory.MAX_UNBOUND_PORT) {
+            if (portno < 1 || portno > TPFactory.MAX_UNBOUND_PORT) {
                 throw new IllegalPortNumberException(
-                        "Port number out copyOf bounds. Port number: " + port);
+                        "Port number out copyOf bounds. Port number: " + portno);
             }
-            tp = new TucsonProtocolTCP(port);
+            tp = new TucsonProtocolTCP(portno);
         } else {
             throw new InvalidProtocolTypeException("Unsupported protocol type");
         }

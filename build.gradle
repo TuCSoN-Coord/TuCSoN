@@ -54,6 +54,10 @@ project(":service") {
 
         classpath = sourceSets.main.runtimeClasspath
         main = "alice.tuplecentre.tucson.service.TucsonNodeService"
+        
+        if ("port" in rootProject.properties) {
+            args = ["-portno", rootProject.properties["port"].toString()]
+        }
     }
 }
 
@@ -65,7 +69,13 @@ project(":cli") {
         standardInput = System.in
         classpath = sourceSets.main.runtimeClasspath
         main = "alice.tuplecentre.tucson.service.tools.CommandLineInterpreter"
+
+        if ("port" in rootProject.properties) {
+            args = ["-portno", rootProject.properties["port"].toString()]
+        }
     }
+
+
 }
 
 project(":inspector") {
@@ -75,5 +85,9 @@ project(":inspector") {
 
         classpath = sourceSets.main.runtimeClasspath
         main = "alice.tuplecentre.tucson.introspection.tools.InspectorGUI"
+
+        if ("port" in rootProject.properties) {
+            args = ["-portno", rootProject.properties["port"].toString()]
+        }
     }
 }

@@ -821,15 +821,13 @@ public class TucsonNodeService {
         }
         final TucsonTupleCentreId id = TucsonTupleCentreId.of(name.toString());
         try {
-            final RespectTC rtc = TupleCentreContainer.createTC(id,
-                    MAX_EVENT_QUEUE_SIZE, this.tcpPort);
+            final RespectTC rtc = TupleCentreContainer.createTC(id, MAX_EVENT_QUEUE_SIZE, this.tcpPort);
             this.tcs.add(rtc);
         } catch (final InvalidTupleCentreIdException e) {
             LOGGER.error("TupleCentreContainer.createTC(...) error");
         }
         if (this.observed) {
-            TupleCentreContainer.doManagementOperation(
-                    TupleCentreOpType.ADD_OBS, id, this.obsService);
+            TupleCentreContainer.doManagementOperation(TupleCentreOpType.ADD_OBS, id, this.obsService);
             this.obsService.tcCreated(id);
         }
         final TucsonTCUsers tcUsers = new TucsonTCUsers(id);
