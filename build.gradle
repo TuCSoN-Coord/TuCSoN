@@ -20,6 +20,7 @@ allprojects {
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+
 }
 
 // Plug-ins for main project
@@ -32,6 +33,7 @@ dependencies {
     testImplementation project(":service")
     testImplementation project(":client")
 
+
 // Those below aren't necessary for actual examples
 
 //    testImplementation project(":cli")
@@ -43,6 +45,13 @@ subprojects{
         // SLF4J
         implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.9'
         implementation group: 'org.slf4j', name: 'slf4j-jdk14', version: '1.7.25'
+
+    }
+    jar {
+
+        from {
+            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+        }
     }
 }
 
