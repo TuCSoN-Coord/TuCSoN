@@ -15,10 +15,13 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * A Dining Philosopher: thinks and eats in an endless loop.
  *
  * @author ste (mailto: s.mariani@unibo.it)
+ * @author (contributor) Stefano Bernagozzi (stefano.bernagozzi@studio.unibo.it)
  */
 public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
 
@@ -27,6 +30,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
     private OrdinaryAndSpecificationSyncACC acc;
     private final int chop1, chop2;
     private final TucsonTupleCentreId myTable;
+    private final CountDownLatch latch;
 
     /**
      *
@@ -45,12 +49,13 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
      *             identifier
      */
     public DiningPhilosopher(final String aid, final TucsonTupleCentreId table,
-            final int left, final int right)
+                             final int left, final int right, final CountDownLatch latch)
             throws TucsonInvalidAgentIdException {
         super(aid);
         this.myTable = table;
         this.chop1 = left;
         this.chop2 = right;
+        this.latch = latch;
     }
 
     private boolean acquireChops() {
@@ -116,7 +121,9 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         }
         // this.acc = this.getACC();
         // Ugly but effective, pardon me...
-        while (true) {
+        int numberMealEaten = 0;
+        int maxMealToEat = 5;
+        while(true){
             this.say("Now thinking...");
             this.think();
             this.say("I'm hungry, let's try to eat something...");
@@ -129,13 +136,19 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                  */
                 this.eat();
                 this.say("I'm done, wonderful meal :)");
+                numberMealEaten ++;
                 /*
                  * Then release chops.
                  */
                 this.releaseChops();
+                if(numberMealEaten == maxMealToEat) {
+                    break;
+                }
             } else {
                 this.say("I'm starving!");
             }
         }
+        this.say("I've eaten all");
+        latch.countDown();
     }
 }

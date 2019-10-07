@@ -16,10 +16,12 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
 import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
 
 /**
  *
  * @author ste (mailto: s.mariani@unibo.it)
+ * @author (contributor) Stefano Bernagozzi (stefano.bernagozzi@studio.unibo.it)
  *
  */
 public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
@@ -27,6 +29,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
     private static final int EATING_TIME = 5000;
     private static final int THINKING_TIME = 5000;
     private final TucsonTupleCentreId mySeat;
+    private final CountDownLatch latch;
 
     /**
      *
@@ -40,9 +43,10 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
      *             if the given String does not represent a valid TuCSoN agent
      *             identifier
      */
-    public DiningPhilosopher(final String aid, final TucsonTupleCentreId seat)
+    public DiningPhilosopher(final String aid, final TucsonTupleCentreId seat, CountDownLatch latch)
             throws TucsonInvalidAgentIdException {
         super(aid);
+        this.latch = latch;
         this.mySeat = seat;
     }
 
@@ -82,6 +86,8 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
         // final OrdinaryAndSpecificationSyncACC acc = this.getACC();
         TucsonOperation op;
         // Ugly but effective, pardon me...
+        int numberMealEaten = 0;
+        int maxMealToEat = 5;
         while (true) {
             try {
                 op = Objects.requireNonNull(acc).rd(this.mySeat,
@@ -99,13 +105,20 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                 if (op.isResultSuccess()) {
                     this.eating();
                     this.say("I'm done, wonderful meal :)");
+                    numberMealEaten ++;
+
                     acc.out(this.mySeat, LogicTuple.parse("wanna_think"), null);
+                    if(numberMealEaten == maxMealToEat) {
+                        break;
+                    }
                 } else {
                     this.say("I'm starving!");
                 }
             } catch (final InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
             }
+            this.say("I've eaten all");
+            latch.countDown();
         }
     }
 }

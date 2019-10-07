@@ -4,7 +4,9 @@ allprojects {
     // Plug-ins for all projects
     apply plugin: 'java'
     apply plugin: 'java-library'
-
+    test {
+        useJUnitPlatform()
+    }
     // In this section you declare where to find the dependencies of all projects
     repositories {
         jcenter()
@@ -15,7 +17,10 @@ allprojects {
     dependencies {
 
         // Use JUnit test framework
-        testImplementation 'junit:junit:4.12'
+        testRuntime 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
+        testImplementation('junit:junit:4.12',
+                'org.junit.jupiter:junit-jupiter-api:5.4.2')
+
     }
 
     sourceCompatibility = JavaVersion.VERSION_1_8
@@ -46,12 +51,6 @@ subprojects{
         implementation group: 'org.slf4j', name: 'slf4j-api', version: '1.7.9'
         implementation group: 'org.slf4j', name: 'slf4j-jdk14', version: '1.7.25'
 
-    }
-    jar {
-
-        from {
-            configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
-        }
     }
 }
 

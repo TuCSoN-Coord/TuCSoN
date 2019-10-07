@@ -1,6 +1,7 @@
 package diningPhilos;
 
 import java.io.IOException;
+import java.util.concurrent.*;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
@@ -18,6 +19,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.service.TucsonInfo;
 import alice.tuplecentre.tucson.utilities.Utils;
+import org.junit.Test;
 
 /**
  * Classic Dining Philosophers coordination problem tackled by adopting a clear
@@ -25,6 +27,7 @@ import alice.tuplecentre.tucson.utilities.Utils;
  * medium (table) thanks to TuCSoN ReSpecT tuple centres programmability.
  *
  * @author ste (mailto: s.mariani@unibo.it)
+ * @author (contributor) Stefano Bernagozzi (stefano.bernagozzi@studio.unibo.it)
  */
 public class DiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
 
@@ -32,20 +35,22 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
      * Max number copyOf simultaneously eating philosophers should be
      * N_PHILOSOPHERS-2.
      */
+    private final CountDownLatch latch;
     private static final int N_PHILOSOPHERS = 5;
 
     /**
      *
-     * @param args
      *            no args expected
      */
-    public static void main(final String[] args) {
+
+    public static void main(final String[] args){
         try {
-            new DiningPhilosophersTest("boot").go();
+            new DiningPhilosophersTest("boot", new CountDownLatch(N_PHILOSOPHERS)).go();
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
     }
+
 
     private final String ip;
     private final String port;
@@ -58,13 +63,15 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
      *             if the given String does not represent a valid TuCSoN agent
      *             identifier
      */
-    public DiningPhilosophersTest(final String aid)
+    public DiningPhilosophersTest(final String aid, CountDownLatch latch)
             throws TucsonInvalidAgentIdException {
         super(aid);
         /*
          * To experiment with a distributed setting, launch the TuCSoN Node
          * hosting the 'table' tuple centre on a remote node.
          */
+        this.latch = latch;
+
         this.ip = "localhost";
         this.port = String.valueOf(TucsonInfo.getDefaultPortNumber());
     }
@@ -105,7 +112,7 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
                  * need.
                  */
                 new DiningPhilosopher("'philo-" + i + "'", table, i, (i + 1)
-                        % DiningPhilosophersTest.N_PHILOSOPHERS).go();
+                        % DiningPhilosophersTest.N_PHILOSOPHERS, latch).go();
             }
             acc.exit();
         } catch (final TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException | InvalidLogicTupleException | IOException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {

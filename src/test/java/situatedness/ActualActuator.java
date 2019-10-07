@@ -120,6 +120,8 @@ public class ActualActuator implements ISimpleProbe {
             }
         }
         try {
+            //TODO remove
+            System.out.println("setting temperature");
             final LogicTuple template = LogicTuple.parse("temp(_)");
             final TucsonOperation op = this.acc.inAll(this.tempTc, template,
                     null);
@@ -134,6 +136,7 @@ public class ActualActuator implements ISimpleProbe {
             }
         } catch (final TucsonOperationNotPossibleException | InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException e) {
             e.printStackTrace();
+
         }
         return false;
     }

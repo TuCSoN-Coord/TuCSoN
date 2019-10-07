@@ -15,6 +15,8 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * A Dining Philosopher: thinks and eats in an endless loop.
  *
@@ -27,6 +29,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
     private final int chop1, chop2;
     private final TucsonTupleCentreId myTable;
     private final int time, step;
+    private final CountDownLatch latch;
 
     /**
      *
@@ -50,13 +53,14 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
      */
     public DiningPhilosopher(final String aid, final TucsonTupleCentreId table,
             final int left, final int right, final int eatingTime,
-            final int eatingStep) throws TucsonInvalidAgentIdException {
+            final int eatingStep, CountDownLatch latch) throws TucsonInvalidAgentIdException {
         super(aid);
         this.myTable = table;
         this.chop1 = left;
         this.chop2 = right;
         this.time = eatingTime;
         this.step = eatingStep;
+        this.latch = latch;
     }
 
     @Override
@@ -132,6 +136,8 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
             e.printStackTrace();
         }
         // Ugly but effective, pardon me...
+        int numberMealEaten = 0;
+        int maxMealToEat = 5;
         while (true) {
             this.say("Now thinking...");
             this.think();
@@ -145,16 +151,22 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
                  */
                 if (this.eat()) {
                     this.say("I'm done, wonderful meal :)");
+                    numberMealEaten ++;
                     /*
                      * Then release chops.
                      */
                     this.releaseChops();
+                    if(numberMealEaten == maxMealToEat) {
+                        break;
+                    }
+
                 } else {
                     this.say("OMG my chopsticks disappeared!");
                 }
             } else {
                 this.say("I'm starving!");
             }
+            latch.countDown();
         }
     }
 }

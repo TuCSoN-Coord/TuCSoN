@@ -1,6 +1,7 @@
 package distributedDiningPhilos;
 
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
@@ -23,10 +24,12 @@ import alice.tuplecentre.tucson.utilities.Utils;
  * TODO add documentation
  *
  * @author ste (mailto: s.mariani@unibo.it)
+ * @author (contributor) Stefano Bernagozzi (stefano.bernagozzi@studio.unibo.it)
  */
 public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
 
     private static final int N_PHILOSOPHERS = 10;
+    private final CountDownLatch latch;
 
     /**
      *
@@ -35,7 +38,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
      */
     public static void main(final String[] args) {
         try {
-            new DDiningPhilosophersTest("boot").go();
+            new DDiningPhilosophersTest("boot", new CountDownLatch(N_PHILOSOPHERS)).go();
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
@@ -52,9 +55,10 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
      *             if the given String does not represent a valid TuCSoN agent
      *             identifier
      */
-    public DDiningPhilosophersTest(final String aid)
+    public DDiningPhilosophersTest(final String aid, CountDownLatch latch)
             throws TucsonInvalidAgentIdException {
         super(aid);
+        this.latch = latch;
         this.ip = "localhost";
         this.port = TucsonInfo.getDefaultPortNumber();
     }
@@ -98,7 +102,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
                 acc.out(table, LogicTuple.parse("chop(" + i + ")"), null);
             }
             for (int i = 0; i < DDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
-                new DiningPhilosopher("'philo-" + i + "'", seats[i]).go();
+                new DiningPhilosopher("'philo-" + i + "'", seats[i], latch).go();
             }
             acc.exit();
         } catch (final TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException | InvalidLogicTupleException | IOException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {

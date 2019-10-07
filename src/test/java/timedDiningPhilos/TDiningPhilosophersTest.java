@@ -1,6 +1,7 @@
 package timedDiningPhilos;
 
 import java.io.IOException;
+import java.util.concurrent.CountDownLatch;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
@@ -34,6 +35,8 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
      */
     private static final int EATING_TIME = 5000;
     private static final int MAX_EATING_TIME = 7000;
+    private final CountDownLatch latch;
+
     /*
      * Max number copyOf simultaneously eating philosophers should be
      * N_PHILOSOPHERS-2.
@@ -47,7 +50,7 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
      */
     public static void main(final String[] args) {
         try {
-            new TDiningPhilosophersTest("boot").go();
+            new TDiningPhilosophersTest("boot", new CountDownLatch(N_PHILOSOPHERS)).go();
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
@@ -64,7 +67,7 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
      *             if the given String does not represent a valid TuCSoN agent
      *             identifier
      */
-    public TDiningPhilosophersTest(final String aid)
+    public TDiningPhilosophersTest(final String aid, CountDownLatch latch)
             throws TucsonInvalidAgentIdException {
         super(aid);
         /*
@@ -73,6 +76,7 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
          */
         this.ip = "localhost";
         this.port = String.valueOf(TucsonInfo.getDefaultPortNumber());
+        this.latch = latch;
     }
 
     @Override
@@ -119,7 +123,7 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
                 new DiningPhilosopher("'philo-" + i + "'", table, i, (i + 1)
                         % TDiningPhilosophersTest.N_PHILOSOPHERS,
                         TDiningPhilosophersTest.EATING_TIME,
-                        TDiningPhilosophersTest.EATING_STEP).go();
+                        TDiningPhilosophersTest.EATING_STEP, latch).go();
             }
             /*
              * Sloth philosopher.
@@ -128,7 +132,7 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
                     + (TDiningPhilosophersTest.N_PHILOSOPHERS - 1) + "'",
                     table, TDiningPhilosophersTest.N_PHILOSOPHERS - 1, 0,
                     TDiningPhilosophersTest.EATING_TIME * 2,
-                    TDiningPhilosophersTest.EATING_STEP).go();
+                    TDiningPhilosophersTest.EATING_STEP, latch).go();
             acc.exit();
         } catch (final TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException | InvalidLogicTupleException | IOException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
             e.printStackTrace();

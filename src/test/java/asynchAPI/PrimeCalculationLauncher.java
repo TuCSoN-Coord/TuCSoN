@@ -19,9 +19,14 @@
  */
 package asynchAPI;
 
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * An example copyOf usage copyOf TuCSoN asynchSupport API. A master agent (MasterAgent)
@@ -34,6 +39,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
  * requests inp and calculate primes up to N.
  *
  * @author Consalici-Drudi
+ * @author (contributor) Stefano Bernagozzi (stefano.bernagozzi@studio.unibo.it)
  *
  */
 public final class PrimeCalculationLauncher {
@@ -45,20 +51,32 @@ public final class PrimeCalculationLauncher {
     }
 
     public static void main(final String[] args) {
+        boolean ended = false;
         try {
             final int nOfWorkers = 3;
+            //this due to master calculate up to 50000 with 1000 step
+            CountDownLatch primeIntervalsCalculated = new CountDownLatch(50);
             Logger.getLogger("PrimeCalculationLauncher").info(
                     "Starting Master Agent");
-            new MasterAgent("master", nOfWorkers).go();
+            new MasterAgent("master", nOfWorkers, primeIntervalsCalculated).go();
             for (int i = 0; i < nOfWorkers; i++) {
                 Logger.getLogger("PrimeCalculationLauncher").info(
                         "Starting Prime Calculator n. " + i);
                 new PrimeCalculator("worker" + i).go();
             }
+            try {
+                if (primeIntervalsCalculated.await(60, TimeUnit.SECONDS))
+                {
+                    ended = true;
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
-
+        assertTrue(ended);
     }
 
 }

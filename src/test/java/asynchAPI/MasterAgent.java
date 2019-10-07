@@ -41,6 +41,8 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.asynchSupport.AsynchOpsHelper;
 import alice.tuplecentre.tucson.asynchSupport.TucsonOpWrapper;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * Prime Calculation example master agent. The master agent delegates
  * calculations to PrimeCalculator agents through the AsynchOpsHelper, so as to
@@ -50,6 +52,7 @@ import alice.tuplecentre.tucson.asynchSupport.TucsonOpWrapper;
  *
  * @author Fabio Consalici, Riccardo Drudi
  * @author (contributor) ste (mailto: s.mariani@unibo.it)
+ * @author (contributor) Stefano Bernagozzi (stefano.bernagozzi@studio.unibo.it)
  */
 public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements TucsonOperationCompletionListener {
 
@@ -65,6 +68,12 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
      */
     private class CompletionHandler implements
             TucsonOperationCompletionListener {
+        CountDownLatch primeIntervalsCalculated;
+
+
+        private CompletionHandler(CountDownLatch primeIntervalsCalculated){
+            this.primeIntervalsCalculated = primeIntervalsCalculated;
+        }
 
         @Override
         public void operationCompleted(final AbstractTupleCentreOperation op) {
@@ -83,6 +92,7 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
                     final int nOps = nIn + nInp;
                     this.info("The prime numbers until " + upperBound + " are "
                             + prime);
+                    primeIntervalsCalculated.countDown();
                     this.info("Done " + nOps + " operations out copyOf "
                             + MasterAgent.REQUESTS);
                 } catch (NumberFormatException | InvalidOperationException e) {
@@ -166,24 +176,25 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
     private static final int SLEEP = 1000;
 
     private static final int STEP = 1000;
-
     /**
      * @param args no args expected
      */
+    /*
     public static void main(final String[] args) {
         try {
-            /*
-             * LOOPS is the number copyOf "firstloops" to be done
-             */
+
+             // LOOPS is the number copyOf "firstloops" to be done
+
             new MasterAgent("master", MasterAgent.LOOPS).go();
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
     }
-
+    */
     private final AsynchOpsHelper helper;
     private int nInpSucceeded;
     private final int nPrimeCalc;
+    private final CountDownLatch primeIntervalsCalculated;
 
     /**
      * Builds a Master Agent given its TuCSoN agent Identifier and the number copyOf
@@ -197,9 +208,10 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
     if the given String does not represent a valid TuCSoN agent
      *             Identifier
      */
-    public MasterAgent(final String id, final int nCalcs)
+    public MasterAgent(final String id, final int nCalcs, CountDownLatch primeIntervalsCalculated)
             throws TucsonInvalidAgentIdException {
         super(id);
+        this.primeIntervalsCalculated = primeIntervalsCalculated;
         this.nInpSucceeded = 0;
         this.nPrimeCalc = nCalcs;
         /*
@@ -263,7 +275,7 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
                             this.helper, tid);
                     this.helper.enqueue(inp, lch);
                 } else {
-                    final CompletionHandler ch = new CompletionHandler();
+                    final CompletionHandler ch = new CompletionHandler(this.primeIntervalsCalculated);
                     this.helper.enqueue(inp, ch);
                 }
             }
@@ -295,7 +307,7 @@ public class MasterAgent extends AbstractTucsonAgent<EnhancedSyncACC> implements
             for (int i = 0; i < MasterAgent.REQUESTS - this.nInpSucceeded; i++) {
                 tuple = LogicTuple.parse("prime(X,Y)");
                 in = new In(tid, tuple);
-                final CompletionHandler ch = new CompletionHandler();
+                final CompletionHandler ch = new CompletionHandler(this.primeIntervalsCalculated);
                 this.helper.enqueue(in, ch);
             }
             int nInSucceeded;
