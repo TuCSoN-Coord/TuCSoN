@@ -120,7 +120,7 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
                  * Start philosophers by telling them which chopsticks pair they
                  * need.
                  */
-                new DiningPhilosopher("'philo-" + i + "'", table, i, (i + 1)
+                new TDiningPhilosopher("'philo-" + i + "'", table, i, (i + 1)
                         % TDiningPhilosophersTest.N_PHILOSOPHERS,
                         TDiningPhilosophersTest.EATING_TIME,
                         TDiningPhilosophersTest.EATING_STEP, latch).go();
@@ -128,7 +128,7 @@ public class TDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
             /*
              * Sloth philosopher.
              */
-            new DiningPhilosopher("'philo-"
+            new TDiningPhilosopher("'philo-"
                     + (TDiningPhilosophersTest.N_PHILOSOPHERS - 1) + "'",
                     table, TDiningPhilosophersTest.N_PHILOSOPHERS - 1, 0,
                     TDiningPhilosophersTest.EATING_TIME * 2,

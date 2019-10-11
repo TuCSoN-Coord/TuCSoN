@@ -24,9 +24,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
-import org.junit.jupiter.api.Test;
+import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
+import alice.tuplecentre.tucson.service.TucsonNodeService;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
  * An example copyOf usage copyOf TuCSoN asynchSupport API. A master agent (MasterAgent)
@@ -43,6 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  *
  */
 public final class PrimeCalculationLauncher {
+    TucsonNodeService tns;
 
     private PrimeCalculationLauncher() {
         /*
@@ -76,7 +78,7 @@ public final class PrimeCalculationLauncher {
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
-        assertTrue(ended);
+        System.out.println("ended result: " + ended);
     }
 
 }

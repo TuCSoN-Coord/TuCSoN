@@ -102,7 +102,7 @@ public class DDiningPhilosophersTest extends AbstractTucsonAgent<RootACC> {
                 acc.out(table, LogicTuple.parse("chop(" + i + ")"), null);
             }
             for (int i = 0; i < DDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
-                new DiningPhilosopher("'philo-" + i + "'", seats[i], latch).go();
+                new DDiningPhilosopher("'philo-" + i + "'", seats[i], latch).go();
             }
             acc.exit();
         } catch (final TucsonInvalidTupleCentreIdException | TucsonInvalidAgentIdException | InvalidLogicTupleException | IOException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {

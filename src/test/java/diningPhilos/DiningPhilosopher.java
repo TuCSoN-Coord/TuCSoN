@@ -25,8 +25,8 @@ import java.util.concurrent.CountDownLatch;
  */
 public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
 
-    private static final int EATING_TIME = 5000;
-    private static final int THINKING_TIME = 5000;
+    private static final int EATING_TIME = 1;//5000;
+    private static final int THINKING_TIME = 1;//5000;
     private OrdinaryAndSpecificationSyncACC acc;
     private final int chop1, chop2;
     private final TucsonTupleCentreId myTable;

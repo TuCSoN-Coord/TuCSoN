@@ -24,10 +24,10 @@ import java.util.concurrent.CountDownLatch;
  * @author (contributor) Stefano Bernagozzi (stefano.bernagozzi@studio.unibo.it)
  *
  */
-public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
+public class DDiningPhilosopher extends AbstractTucsonAgent<RootACC> {
 
-    private static final int EATING_TIME = 5000;
-    private static final int THINKING_TIME = 5000;
+    private static final int EATING_TIME = 1;//5000;
+    private static final int THINKING_TIME = 1;//5000;
     private final TucsonTupleCentreId mySeat;
     private final CountDownLatch latch;
 
@@ -43,7 +43,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
      *             if the given String does not represent a valid TuCSoN agent
      *             identifier
      */
-    public DiningPhilosopher(final String aid, final TucsonTupleCentreId seat, CountDownLatch latch)
+    public DDiningPhilosopher(final String aid, final TucsonTupleCentreId seat, CountDownLatch latch)
             throws TucsonInvalidAgentIdException {
         super(aid);
         this.latch = latch;
@@ -58,7 +58,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
     private void eating() {
         this.say("...gnam gnam...chomp chomp...munch munch...");
         try {
-            Thread.sleep(DiningPhilosopher.EATING_TIME);
+            Thread.sleep(DDiningPhilosopher.EATING_TIME);
         } catch (final InterruptedException e) {
             e.printStackTrace();
         }
@@ -67,7 +67,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
     private void think() {
         this.say("...mumble mumble...rat rat...mumble mumble...");
         try {
-            Thread.sleep(DiningPhilosopher.THINKING_TIME);
+            Thread.sleep(DDiningPhilosopher.THINKING_TIME);
         } catch (final InterruptedException e) {
             e.printStackTrace();
         }
@@ -117,8 +117,8 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
             } catch (final InvalidLogicTupleException | OperationTimeOutException | UnreachableNodeException | TucsonOperationNotPossibleException e) {
                 e.printStackTrace();
             }
-            this.say("I've eaten all");
-            latch.countDown();
         }
+        this.say("I've eaten all");
+        latch.countDown();
     }
 }

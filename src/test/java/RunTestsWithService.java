@@ -1,11 +1,12 @@
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
+import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
+import alice.tuplecentre.tucson.service.TucsonInfo;
+import alice.tuplecentre.tucson.service.TucsonNodeService;
 import asynchAPI.MasterAgent;
 import asynchAPI.PrimeCalculator;
 import diningPhilos.DiningPhilosophersTest;
 import distributedDiningPhilos.DDiningPhilosophersTest;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
+import org.junit.jupiter.api.*;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
@@ -22,10 +23,59 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
  * @author (contributor) Stefano Bernagozzi (stefano.bernagozzi@studio.unibo.it)
  */
 @TestMethodOrder(MethodOrderer.Random.class)
-public class RunTests {
+public class RunTestsWithService {
+
+    TucsonNodeService tns;
+
+    @BeforeEach
+    public void initialSetup() {
+        System.out.println("[[[initializing]]]");
+        this.tns = new TucsonNodeService(TucsonInfo.getDefaultPortNumber());
+        tns.install();
+        try {
+            while (!TucsonNodeService.isInstalled(TucsonInfo.getDefaultPortNumber(), 5000)) {
+                Thread.sleep(1000);
+            }
+        } catch (final InterruptedException | DialogInitializationException e) {
+            System.out.println("[[[[error]]]]]");
+            e.printStackTrace();
+        }
+    }
+
+
+
+    @AfterEach
+    public void termination() {
+        tns.shutdown();
+
+        try{
+            Thread.sleep(40000);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+
+
+
 
     @Test
     public void testDDinigPhilo(){
+
+        System.out.println("[[[initializing]]]");
+        TucsonNodeService tns2 = new TucsonNodeService(TucsonInfo.getDefaultPortNumber() + 1);
+        tns2.install();
+        try {
+            while (!TucsonNodeService.isInstalled(TucsonInfo.getDefaultPortNumber() + 1, 5000)) {
+                Thread.sleep(1000);
+            }
+        } catch (final InterruptedException | DialogInitializationException e) {
+            System.out.println("[[[[error]]]]]");
+            e.printStackTrace();
+        }
 
         System.out.println("[[[initializing testDDinigPhilo]]]");
 
@@ -34,7 +84,7 @@ public class RunTests {
             CountDownLatch latch = new CountDownLatch(5);
             new DDiningPhilosophersTest("boot", latch).go();
             try {
-                if (latch.await(400, TimeUnit.SECONDS)) {
+                if (latch.await(300, TimeUnit.SECONDS)) {
                     ended = true;
                     System.out.println("done");
                 }
@@ -45,6 +95,7 @@ public class RunTests {
         } catch (final TucsonInvalidAgentIdException e) {
             e.printStackTrace();
         }
+        tns2.shutdown();
         assertTrue(ended);
     }
 
@@ -65,7 +116,7 @@ public class RunTests {
                 new PrimeCalculator("worker" + i).go();
             }
             try {
-                if (primeIntervalsCalculated.await(300, TimeUnit.SECONDS)) {
+                if (primeIntervalsCalculated.await(100, TimeUnit.SECONDS)) {
                     ended = true;
                 }
             } catch (InterruptedException e) {
@@ -85,7 +136,7 @@ public class RunTests {
             CountDownLatch latch = new CountDownLatch(5);
             new DiningPhilosophersTest("boot", latch).go();
             try {
-                if (latch.await(200, TimeUnit.SECONDS)) {
+                if (latch.await(120, TimeUnit.SECONDS)) {
                     ended = true;
                 }
             } catch (InterruptedException e) {

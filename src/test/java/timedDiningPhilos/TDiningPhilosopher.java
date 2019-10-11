@@ -22,9 +22,9 @@ import java.util.concurrent.CountDownLatch;
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
+public class TDiningPhilosopher extends AbstractTucsonAgent<RootACC> {
 
-    private static final int THINK_TIME = 5000;
+    private static final int THINK_TIME = 1;//5000;
     private OrdinaryAndSpecificationSyncACC acc;
     private final int chop1, chop2;
     private final TucsonTupleCentreId myTable;
@@ -51,9 +51,9 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
      *             if the given String does not represent a valid TuCSoN agent
      *             identifier
      */
-    public DiningPhilosopher(final String aid, final TucsonTupleCentreId table,
-            final int left, final int right, final int eatingTime,
-            final int eatingStep, CountDownLatch latch) throws TucsonInvalidAgentIdException {
+    public TDiningPhilosopher(final String aid, final TucsonTupleCentreId table,
+                              final int left, final int right, final int eatingTime,
+                              final int eatingStep, CountDownLatch latch) throws TucsonInvalidAgentIdException {
         super(aid);
         this.myTable = table;
         this.chop1 = left;
@@ -120,7 +120,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
     private void think() {
         this.say("...mumble mumble...rat rat...mumble mumble...");
         try {
-            Thread.sleep(DiningPhilosopher.THINK_TIME);
+            Thread.sleep(TDiningPhilosopher.THINK_TIME);
         } catch (final InterruptedException e) {
             e.printStackTrace();
         }
@@ -166,7 +166,8 @@ public class DiningPhilosopher extends AbstractTucsonAgent<RootACC> {
             } else {
                 this.say("I'm starving!");
             }
-            latch.countDown();
         }
+        this.say("I've eaten all");
+        latch.countDown();
     }
 }

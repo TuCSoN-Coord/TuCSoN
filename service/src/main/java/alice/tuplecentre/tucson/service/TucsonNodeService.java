@@ -328,8 +328,11 @@ public class TucsonNodeService {
      * @param t the identifier copyOf the internal management agent to add to this
      *          TuCSoN node
      */
+    //TODO double synchronized, remove
     public synchronized void addNodeAgent(final Thread t) {
-        this.nodeAgents.add(t);
+        synchronized (this.nodeAgents) {
+            this.nodeAgents.add(t);
+        }
     }
 
     /**
@@ -677,8 +680,11 @@ public class TucsonNodeService {
      * @param t the Thread object executing the internal management agent to
      *          be removed
      */
+    //TODO double synchronized, remove
     public synchronized void removeNodeAgent(final Thread t) {
-        this.nodeAgents.remove(t);
+        synchronized (this.nodeAgents) {
+            this.nodeAgents.remove(t);
+        }
     }
 
     /**
@@ -746,15 +752,18 @@ public class TucsonNodeService {
      */
     public void shutdown() {
         LOGGER.info("Node is shutting down management agents and proxies...");
-        for (final Thread t : this.nodeAgents) {
-            if (t.isAlive()) {
-                LOGGER.info("  ...shutting down <" + t.getName()
-                        + ">");
-                t.interrupt();
-                // boolean b = t.interrupted();
-            } else {
-                LOGGER.info("  ...<" + t.getName()
-                        + "> is already dead");
+        System.out.println(this.nodeAgents);
+        synchronized (this.nodeAgents) {
+            for (final Thread t : this.nodeAgents) {
+                if (t.isAlive()) {
+                    LOGGER.info("  ...shutting down <" + t.getName()
+                            + ">");
+                    t.interrupt();
+                    // boolean b = t.interrupted();
+                } else {
+                    LOGGER.info("  ...<" + t.getName()
+                            + "> is already dead");
+                }
             }
         }
         this.welcome.shutdown();
@@ -783,13 +792,17 @@ public class TucsonNodeService {
      */
     private void bootManagementAgents() {
         LOGGER.info("Spawning Node Management Agent...");
-        this.nodeAgents.add(new NodeManagementAgent(this.idConfigTC, this));
+        synchronized (this.nodeAgents) {
+            this.nodeAgents.add(new NodeManagementAgent(this.idConfigTC, this));
+        }
         log("--------------------------------------------------------------------------------");
         LOGGER.info("Spawning Geolocation Config Agent...");
         // GeolocationConfigAgent geolocationConfigAgent = new
         // GeolocationConfigAgent( "localhost", tcpPort );
-        this.nodeAgents.add(new GeolocationConfigAgent(this.idGeolocationTC,
-                this));
+        synchronized (this.nodeAgents) {
+            this.nodeAgents.add(new GeolocationConfigAgent(this.idGeolocationTC,
+                    this));
+        }
         log("--------------------------------------------------------------------------------");
         LOGGER.info("Spawning ACC Provider Agent...");
         this.ctxman = new ACCProvider(this, this.idConfigTC);
