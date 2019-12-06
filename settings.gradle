@@ -22,3 +22,5 @@ include 'client'
 include 'cli'
 
 rootProject.name = 'tucson-refactored'
+include 'tucson-refactored-examples'
+
