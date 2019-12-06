@@ -1,0 +1,23 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:5.1.0"
+    }
+
+}
+
+version 'unspecified'
+
+dependencies {
+    compile project(":client")
+    compile project(":core")
+}
+
+apply plugin: "com.github.johnrengelman.shadow"
+
+task customFatJar(type: Jar) {
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
