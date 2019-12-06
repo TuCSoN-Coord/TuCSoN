@@ -1,4 +1,4 @@
-package diningPhilos;
+package timedDiningPhilos;
 
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
@@ -19,29 +19,33 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
  */
 public class DiningPhilosopher extends AbstractTucsonAgent {
 
-    private static final int EATING_TIME = 5000;
-    private static final int THINKING_TIME = 5000;
+    private static final int THINK_TIME = 5000;
     private OrdinarySyncACC acc;
     private final int chop1, chop2;
     private final TupleCentreId myTable;
+    private final int time, step;
 
     /**
-     * @param aid   the String representation of this philosopher's TuCSoN agent
-     *              identifier
-     * @param table the identifier of the TuCSoN tuple centre representing the
-     *              table
-     * @param left  an integer representing the left fork
-     * @param right an integer representing the right fork
+     * @param aid        the String representation of this philosopher's TuCSoN agent
+     *                   identifier
+     * @param table      the identifier of the TuCSoN tuple centre representing the
+     *                   table
+     * @param left       an integer representing the left fork
+     * @param right      an integer representing the right fork
+     * @param eatingTime the philosopher's eating time
+     * @param eatingStep the philosopher's eating step
      * @throws TucsonInvalidAgentIdException if the given String does not represent a valid TuCSoN agent
      *                                       identifier
      */
     public DiningPhilosopher(final String aid, final TupleCentreId table,
-                             final int left, final int right)
-            throws TucsonInvalidAgentIdException {
+                             final int left, final int right, final int eatingTime,
+                             final int eatingStep) throws TucsonInvalidAgentIdException {
         super(aid);
         this.myTable = table;
         this.chop1 = left;
         this.chop2 = right;
+        this.time = eatingTime;
+        this.step = eatingStep;
     }
 
     private boolean acquireChops() throws InvalidLogicTupleException, UnreachableNodeException, OperationTimeOutException, TucsonOperationNotPossibleException {
@@ -61,9 +65,23 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
         return false;
     }
 
-    private void eat() throws InterruptedException {
+    private boolean eat() throws InterruptedException, InvalidLogicTupleException, UnreachableNodeException, OperationTimeOutException, TucsonOperationNotPossibleException {
         this.say("...gnam gnam...chomp chomp...munch munch...");
-        Thread.sleep(DiningPhilosopher.EATING_TIME);
+        TucsonOperation op = null;
+        for (int i = 0; i < this.time / this.step; i++) {
+            Thread.sleep(this.step);
+            op = this.acc.rdp(
+                    this.myTable,
+                    LogicTuple.parse("used(" + this.chop1 + ","
+                            + this.chop2 + ",_)"), null);
+            if (!op.isResultSuccess()) {
+                break;
+            }
+        }
+        if (op != null && op.isResultSuccess()) {
+            return op.isResultSuccess();
+        }
+        return false;
     }
 
     private void releaseChops() throws InvalidLogicTupleException, UnreachableNodeException, OperationTimeOutException, TucsonOperationNotPossibleException {
@@ -75,7 +93,7 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
 
     private void think() throws InterruptedException {
         this.say("...mumble mumble...rat rat...mumble mumble...");
-        Thread.sleep(DiningPhilosopher.THINKING_TIME);
+        Thread.sleep(DiningPhilosopher.THINK_TIME);
     }
 
     @Override
@@ -85,8 +103,8 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
 
     @Override
     protected void main() throws OperationTimeOutException, TucsonInvalidAgentIdException, UnreachableNodeException, TucsonOperationNotPossibleException, InterruptedException, InvalidLogicTupleException {
-        final NegotiationACC negAcc = TucsonMetaACC
-                .getNegotiationContext(this.getTucsonAgentId());
+        final NegotiationACC negAcc = TucsonMetaACC.getNegotiationContext(this
+                .getTucsonAgentId());
         this.acc = negAcc.playDefaultRole();
         // Ugly but effective, pardon me...
         while (true) {
@@ -100,12 +118,15 @@ public class DiningPhilosopher extends AbstractTucsonAgent {
                 /*
                  * If successful eat.
                  */
-                this.eat();
-                this.say("I'm done, wonderful meal :)");
-                /*
-                 * Then release chops.
-                 */
-                this.releaseChops();
+                if (this.eat()) {
+                    this.say("I'm done, wonderful meal :)");
+                    /*
+                     * Then release chops.
+                     */
+                    this.releaseChops();
+                } else {
+                    this.say("OMG my chopsticks disappeared!");
+                }
             } else {
                 this.say("I'm starving!");
             }

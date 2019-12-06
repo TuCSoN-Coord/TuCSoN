@@ -1,4 +1,4 @@
-package diningPhilos;
+package timedDiningPhilos;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import alice.tuplecentre.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonMetaACC;
-import alice.tuplecentre.tucson.api.acc.EnhancedACC;
+import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.acc.NegotiationACC;
 import alice.tuplecentre.tucson.api.acc.RootACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
@@ -25,8 +25,14 @@ import alice.tuplecentre.tucson.utilities.Utils;
  *
  * @author ste (mailto: s.mariani@unibo.it)
  */
-public class DiningPhilosophersTest extends AbstractTucsonAgent {
+public class TDiningPhilosophersTest extends AbstractTucsonAgent {
 
+    private static final int EATING_STEP = 1000;
+    /*
+     * Should be exactly divisible.
+     */
+    private static final int EATING_TIME = 5000;
+    private static final int MAX_EATING_TIME = 7000;
     /*
      * Max number of simultaneously eating philosophers should be
      * N_PHILOSOPHERS-2.
@@ -37,7 +43,7 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent {
      * @param args no args expected
      */
     public static void main(final String[] args) throws TucsonInvalidAgentIdException {
-        new DiningPhilosophersTest("boot").go();
+        new TDiningPhilosophersTest("boot").go();
     }
 
     private final String ip;
@@ -48,7 +54,7 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent {
      * @throws TucsonInvalidAgentIdException if the given String does not represent a valid TuCSoN agent
      *                                       identifier
      */
-    public DiningPhilosophersTest(final String aid)
+    public TDiningPhilosophersTest(final String aid)
             throws TucsonInvalidAgentIdException {
         super(aid);
         /*
@@ -68,9 +74,8 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent {
     protected void main() throws OperationTimeOutException, TucsonInvalidAgentIdException, UnreachableNodeException, TucsonOperationNotPossibleException, InvalidTupleCentreIdException, IOException, InvalidLogicTupleException {
         final NegotiationACC negAcc = TucsonMetaACC
                 .getNegotiationContext(this.getTucsonAgentId());
-        final EnhancedACC acc = negAcc.playDefaultRole();
-
-        final TupleCentreId table = new TupleCentreId("timed_table",
+        final EnhancedSyncACC acc = negAcc.playDefaultRole();
+        final TupleCentreId table = new TupleCentreId("table",
                 this.ip, this.port);
         this.say("Injecting 'table' ReSpecT specification in tc < "
                 + table.toString() + " >...");
@@ -80,22 +85,39 @@ public class DiningPhilosophersTest extends AbstractTucsonAgent {
          */
         acc.setS(
                 table,
-                Utils.fileToString("table.rsp"),
-                3000l);
-        for (int i = 0; i < DiningPhilosophersTest.N_PHILOSOPHERS; i++) {
+                Utils.fileToString("timed_table.rsp"),
+                null);
+        /*
+         * Init max eating time.
+         */
+        acc.out(table,
+                LogicTuple.parse("max_eating_time("
+                        + TDiningPhilosophersTest.MAX_EATING_TIME + ")"),
+                null);
+        for (int i = 0; i < TDiningPhilosophersTest.N_PHILOSOPHERS; i++) {
             /*
              * Init chopsticks required to eat.
              */
-            acc.out(table, LogicTuple.parse("chop(" + i + ")"), 3000l);
+            acc.out(table, LogicTuple.parse("chop(" + i + ")"), null);
         }
-        for (int i = 0; i < DiningPhilosophersTest.N_PHILOSOPHERS; i++) {
+        for (int i = 0; i < TDiningPhilosophersTest.N_PHILOSOPHERS - 1; i++) {
             /*
              * Start philosophers by telling them which chopsticks pair they
              * need.
              */
             new DiningPhilosopher("'philo-" + i + "'", table, i, (i + 1)
-                    % DiningPhilosophersTest.N_PHILOSOPHERS).go();
+                    % TDiningPhilosophersTest.N_PHILOSOPHERS,
+                    TDiningPhilosophersTest.EATING_TIME,
+                    TDiningPhilosophersTest.EATING_STEP).go();
         }
+        /*
+         * Sloth philosopher.
+         */
+        new DiningPhilosopher("'philo-"
+                + (TDiningPhilosophersTest.N_PHILOSOPHERS - 1) + "'",
+                table, TDiningPhilosophersTest.N_PHILOSOPHERS - 1, 0,
+                TDiningPhilosophersTest.EATING_TIME * 2,
+                TDiningPhilosophersTest.EATING_STEP).go();
         acc.exit();
     }
 }
