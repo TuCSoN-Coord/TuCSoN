@@ -21,4 +21,4 @@ include 'inspector'
 include 'client'
 include 'cli'
 
-rootProject.name = 'sd-project-siboni-piscaglia-1718'
+rootProject.name = 'tucson-refactored'
