@@ -21,3 +21,33 @@ task customFatJar(type: Jar) {
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
     with jar
 }
+
+task runMaster(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'masterWorkers.MasterAgent'
+}
+
+task runWorker(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'masterWorkers.WorkerAgent'
+}
+
+task runPhilos(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'diningPhilos.DiningPhilosophersTest'
+}
+
+task runTimedPhilos(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'timedDiningPhilos.TDiningPhilosophersTest'
+}
+
+task runProvider(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'loadBalancing.ServiceProvider'
+}
+
+task runRequestor(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'loadBalancing.ServiceRequestor'
+}
