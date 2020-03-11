@@ -1,3 +1,5 @@
+import com.github.breadmoirai.githubreleaseplugin.GithubReleaseExtension
+
 buildscript {
     repositories {
         mavenCentral()
@@ -12,7 +14,7 @@ plugins {
     id("org.danilopianini.git-sensitive-semantic-versioning") version Versions.org_danilopianini_git_sensitive_semantic_versioning_gradle_plugin
     id("com.github.johnrengelman.shadow") version Versions.com_github_johnrengelman_shadow_gradle_plugin apply false
     id("de.fayard.buildSrcVersions") version Versions.de_fayard_buildsrcversions_gradle_plugin
-    id("com.github.breadmoirai.github-release") version Versions.com_github_breadmoirai_github_release_gradle_plugin
+    id("com.github.breadmoirai.github-release") version Versions.com_github_breadmoirai_github_release_gradle_plugin apply false
 }
 
 group = "it.unibo.tucson"
@@ -27,15 +29,12 @@ gitSemVer {
 
 println("TuCSoN, version: $version")
 
-val gitHubToken: String? by optionalProperties
-
-println(gitHubToken)
-
 allprojects {
 
     apply(plugin="java")
     apply(plugin="java-library")
     apply(plugin="com.github.johnrengelman.shadow")
+    apply(plugin="com.github.breadmoirai.github-release")
 
     group = rootProject.group
     version = rootProject.version
@@ -78,3 +77,15 @@ subprojects {
 //        implementation("ch.qos.logback:logback-parent:1.2.3")
     }
 }
+
+val gitHubToken: String? by optionalProperties
+
+//if (gitHubToken != null) {
+subprojects("service", "inspector", "cli") {
+    configure<GithubReleaseExtension> {
+        token(gitHubToken)
+        owner("tucson")
+
+    }
+}
+//}
