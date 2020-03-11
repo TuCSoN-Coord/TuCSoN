@@ -19,6 +19,16 @@ object Libs {
     const val junit_jupiter_engine: String = "org.junit.jupiter:junit-jupiter-engine:" +
             Versions.org_junit_jupiter
 
+    /**
+     * http://www.slf4j.org
+     */
+    const val slf4j_api: String = "org.slf4j:slf4j-api:" + Versions.org_slf4j
+
+    /**
+     * http://www.slf4j.org
+     */
+    const val slf4j_jdk14: String = "org.slf4j:slf4j-jdk14:" + Versions.org_slf4j
+
     const val org_danilopianini_git_sensitive_semantic_versioning_gradle_plugin: String =
             "org.danilopianini.git-sensitive-semantic-versioning:org.danilopianini.git-sensitive-semantic-versioning.gradle.plugin:" +
             Versions.org_danilopianini_git_sensitive_semantic_versioning_gradle_plugin
@@ -30,16 +40,6 @@ object Libs {
     const val de_fayard_buildsrcversions_gradle_plugin: String =
             "de.fayard.buildSrcVersions:de.fayard.buildSrcVersions.gradle.plugin:" +
             Versions.de_fayard_buildsrcversions_gradle_plugin
-
-    /**
-     * http://www.slf4j.org
-     */
-    const val slf4j_jdk14: String = "org.slf4j:slf4j-jdk14:" + Versions.slf4j_jdk14
-
-    /**
-     * http://www.slf4j.org
-     */
-    const val slf4j_api: String = "org.slf4j:slf4j-api:" + Versions.slf4j_api
 
     /**
      * http://tuprolog.unibo.it

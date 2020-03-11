@@ -14,15 +14,13 @@ import org.gradle.plugin.use.PluginDependencySpec
 object Versions {
     const val org_junit_jupiter: String = "5.6.0"
 
+    const val org_slf4j: String = "1.7.30"
+
     const val org_danilopianini_git_sensitive_semantic_versioning_gradle_plugin: String = "0.2.2"
 
     const val com_github_johnrengelman_shadow_gradle_plugin: String = "5.2.0"
 
     const val de_fayard_buildsrcversions_gradle_plugin: String = "0.7.0"
-
-    const val slf4j_jdk14: String = "1.7.30"
-
-    const val slf4j_api: String = "1.7.30"
 
     const val tuprolog: String = "3.3.0"
 

@@ -26,7 +26,6 @@ gitSemVer {
 
 println("TuCSoN, version: $version")
 
-// Apply to All Projects
 allprojects {
 
     apply(plugin="java")
@@ -36,20 +35,15 @@ allprojects {
     group = rootProject.group
     version = rootProject.version
 
-    // In this section you declare where to find the dependencies of all projects
     repositories {
         jcenter()
         mavenCentral()
     }
 
-    // Common Dependencies to all Projects
     dependencies {
-
-        // Use JUnit test framework
-        testImplementation("junit", "junit", Versions.junit)
-        testImplementation("org.junit.jupiter", "junit-jupiter-api", Versions.org_junit_jupiter)
-        testImplementation("org.junit.jupiter", "junit-jupiter-engine", Versions.org_junit_jupiter)
-
+        testImplementation(Libs.junit)
+        testImplementation(Libs.junit_jupiter_api)
+        testImplementation(Libs.junit_jupiter_engine)
     }
 
     configure<JavaPluginConvention> {
@@ -74,9 +68,8 @@ dependencies {
 
 subprojects {
     dependencies {
-        // SLF4J
-        api("org.slf4j", "slf4j-api", Versions.slf4j_api)
-        implementation("org.slf4j", "slf4j-jdk14", Versions.slf4j_jdk14)
+        api(Libs.slf4j_api)
+        implementation(Libs.slf4j_jdk14)
 //        implementation("ch.qos.logback:logback-parent:1.2.3")
     }
 }
