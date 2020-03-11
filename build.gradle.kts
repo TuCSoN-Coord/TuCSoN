@@ -15,7 +15,7 @@ plugins {
     id("org.danilopianini.git-sensitive-semantic-versioning") version Versions.org_danilopianini_git_sensitive_semantic_versioning_gradle_plugin
     id("com.github.johnrengelman.shadow") version Versions.com_github_johnrengelman_shadow_gradle_plugin apply false
     id("de.fayard.buildSrcVersions") version Versions.de_fayard_buildsrcversions_gradle_plugin
-    id("com.github.breadmoirai.github-release") version Versions.com_github_breadmoirai_github_release_gradle_plugin apply false
+    id("com.github.breadmoirai.github-release") version Versions.com_github_breadmoirai_github_release_gradle_plugin
 }
 
 group = "it.unibo.tucson"
@@ -35,6 +35,7 @@ allprojects {
     apply(plugin = "java")
     apply(plugin = "java-library")
     apply(plugin = "com.github.johnrengelman.shadow")
+//    apply(plugin = "com.github.breadmoirai.github-release")
 
     group = rootProject.group
     version = rootProject.version
@@ -82,29 +83,28 @@ val gitHubToken: String? by optionalProperties
 
 if (gitHubToken != null) {
 
-    val gitlabReleaseAll by tasks.creating
+    val projectsToBePublished = subprojects("service", "inspector", "cli")
+    val jarTasks: List<Jar> = projectsToBePublished
+            .map { it.tasks.getByName<Jar>("shadowJar") }
+            .toList()
 
-    subprojects("service", "inspector", "cli") {
-
-        apply(plugin = "com.github.breadmoirai.github-release")
-
-        val shadowJar by tasks.getting(Jar::class)
-
-        configure<GithubReleaseExtension> {
-            token(gitHubToken)
-            owner("TuCSoN-Coord")
-            repo("TuCSoN")
-            tagName { version.toString() }
-            releaseName { version.toString() }
-            overwrite { true }
-            allowUploadToExisting { true }
-            releaseAssets(shadowJar.archiveFile)
-            body("""|
+    configure<GithubReleaseExtension> {
+        token(gitHubToken)
+        owner("TuCSoN-Coord")
+        repo("TuCSoN")
+        tagName { version.toString() }
+        releaseName { version.toString() }
+        overwrite { true }
+        allowUploadToExisting { true }
+        prerelease { !isFullVersion }
+        releaseAssets(*jarTasks.map { it.archiveFile }.toTypedArray())
+        body("""|
                 |## CHANGELOG
                 |${changelog().call()}
                 """.trimMargin())
-        }
+    }
 
-        gitlabReleaseAll.dependsOn(*tasks.withType(GithubReleaseTask::class).toTypedArray())
+    tasks.withType(GithubReleaseTask::class) {
+        dependsOn(*jarTasks.toTypedArray())
     }
 }
