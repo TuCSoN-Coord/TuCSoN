@@ -1,4 +1,5 @@
 import com.github.breadmoirai.githubreleaseplugin.GithubReleaseExtension
+import com.github.breadmoirai.githubreleaseplugin.GithubReleaseTask
 
 buildscript {
     repositories {
@@ -31,10 +32,9 @@ println("TuCSoN, version: $version")
 
 allprojects {
 
-    apply(plugin="java")
-    apply(plugin="java-library")
-    apply(plugin="com.github.johnrengelman.shadow")
-    apply(plugin="com.github.breadmoirai.github-release")
+    apply(plugin = "java")
+    apply(plugin = "java-library")
+    apply(plugin = "com.github.johnrengelman.shadow")
 
     group = rootProject.group
     version = rootProject.version
@@ -80,12 +80,31 @@ subprojects {
 
 val gitHubToken: String? by optionalProperties
 
-//if (gitHubToken != null) {
-subprojects("service", "inspector", "cli") {
-    configure<GithubReleaseExtension> {
-        token(gitHubToken)
-        owner("tucson")
+if (gitHubToken != null) {
 
+    val gitlabReleaseAll by tasks.creating
+
+    subprojects("service", "inspector", "cli") {
+
+        apply(plugin = "com.github.breadmoirai.github-release")
+
+        val shadowJar by tasks.getting(Jar::class)
+
+        configure<GithubReleaseExtension> {
+            token(gitHubToken)
+            owner("TuCSoN-Coord")
+            repo("TuCSoN")
+            tagName { version.toString() }
+            releaseName { version.toString() }
+            overwrite { true }
+            allowUploadToExisting { true }
+            releaseAssets(shadowJar.archiveFile)
+            body("""|
+                |## CHANGELOG
+                |${changelog().call()}
+                """.trimMargin())
+        }
+
+        gitlabReleaseAll.dependsOn(*tasks.withType(GithubReleaseTask::class).toTypedArray())
     }
 }
-//}
