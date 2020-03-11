@@ -23,6 +23,7 @@ gitSemVer {
     version = computeGitSemVer() // THIS IS MANDATORY, AND MUST BE LAST IN THIS BLOCK!
 }
 
+println("TuCSoN, version: $version")
 
 // Apply to All Projects
 allprojects {
