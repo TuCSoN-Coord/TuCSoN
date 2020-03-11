@@ -9,8 +9,9 @@ buildscript {
 plugins {
     java
     `java-library`
-    id("org.danilopianini.git-sensitive-semantic-versioning") version "0.2.2"
-    id("com.github.johnrengelman.shadow") version "5.2.0" apply false
+    id("org.danilopianini.git-sensitive-semantic-versioning") version Versions.org_danilopianini_git_sensitive_semantic_versioning_gradle_plugin
+    id("com.github.johnrengelman.shadow") version Versions.com_github_johnrengelman_shadow_gradle_plugin apply false
+    id("de.fayard.buildSrcVersions") version Versions.de_fayard_buildsrcversions_gradle_plugin
 }
 
 group = "it.unibo.tucson"
@@ -45,9 +46,9 @@ allprojects {
     dependencies {
 
         // Use JUnit test framework
-        testImplementation("junit:junit:4.12")
-        testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
-        testImplementation("org.junit.jupiter:junit-jupiter-engine:5.4.2")
+        testImplementation("junit", "junit", Versions.junit)
+        testImplementation("org.junit.jupiter", "junit-jupiter-api", Versions.org_junit_jupiter)
+        testImplementation("org.junit.jupiter", "junit-jupiter-engine", Versions.org_junit_jupiter)
 
     }
 
@@ -74,8 +75,8 @@ dependencies {
 subprojects {
     dependencies {
         // SLF4J
-        api(group = "org.slf4j", name = "slf4j-api", version = "1.7.9")
-        implementation(group = "org.slf4j", name = "slf4j-jdk14", version = "1.7.25")
+        api("org.slf4j", "slf4j-api", Versions.slf4j_api)
+        implementation("org.slf4j", "slf4j-jdk14", Versions.slf4j_jdk14)
 //        implementation("ch.qos.logback:logback-parent:1.2.3")
     }
 }

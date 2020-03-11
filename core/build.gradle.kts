@@ -1,3 +1,3 @@
 dependencies {
-    api("it.unibo.alice.tuprolog", "tuprolog", "3.3.+")
+    api("it.unibo.alice.tuprolog", "tuprolog", Versions.tuprolog)
 }
