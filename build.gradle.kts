@@ -75,5 +75,6 @@ subprojects {
         // SLF4J
         api(group = "org.slf4j", name = "slf4j-api", version = "1.7.9")
         implementation(group = "org.slf4j", name = "slf4j-jdk14", version = "1.7.25")
+//        implementation("ch.qos.logback:logback-parent:1.2.3")
     }
 }
