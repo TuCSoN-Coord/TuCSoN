@@ -33,6 +33,10 @@ object Libs {
             "org.danilopianini.git-sensitive-semantic-versioning:org.danilopianini.git-sensitive-semantic-versioning.gradle.plugin:" +
             Versions.org_danilopianini_git_sensitive_semantic_versioning_gradle_plugin
 
+    const val com_github_breadmoirai_github_release_gradle_plugin: String =
+            "com.github.breadmoirai.github-release:com.github.breadmoirai.github-release.gradle.plugin:" +
+            Versions.com_github_breadmoirai_github_release_gradle_plugin
+
     const val com_github_johnrengelman_shadow_gradle_plugin: String =
             "com.github.johnrengelman.shadow:com.github.johnrengelman.shadow.gradle.plugin:" +
             Versions.com_github_johnrengelman_shadow_gradle_plugin
