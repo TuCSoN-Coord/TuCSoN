@@ -27,6 +27,10 @@ gitSemVer {
 
 println("TuCSoN, version: $version")
 
+val gitHubToken: String? by optionalProperties
+
+println(gitHubToken)
+
 allprojects {
 
     apply(plugin="java")
