@@ -20,7 +20,7 @@ include 'service'
 include 'inspector'
 include 'client'
 include 'cli'
-
-rootProject.name = 'tucson-refactored'
 include 'tucson-refactored-examples'
+
+rootProject.name = 'tucson'
 
