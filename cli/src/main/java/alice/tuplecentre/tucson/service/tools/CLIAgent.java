@@ -30,7 +30,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleExcepti
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.parsing.TucsonOpParser;
 import alice.tuplecentre.tucson.service.TucsonCmd;
-import alice.tuprolog.Parser;
+import alice.tuprolog.Term;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -351,7 +351,7 @@ public class CLIAgent extends alice.util.Automaton {
                         CLIAgent.prompt("failure: " + op.getLogicTupleResult());
                     }
                 } else if ("out_s".equals(methodName)) {
-                    final LogicTuple t = LogicTuple.fromTerm(Parser.parseSingleTerm(
+                    final LogicTuple t = LogicTuple.fromTerm(Term.createTerm(
                             "reaction(" + tuple + ")",
                             new LogicTupleOpManager()));
                     CLIAgent.busy();
@@ -366,7 +366,7 @@ public class CLIAgent extends alice.util.Automaton {
                     }
                 } else if ("in_s".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.fromTerm(
-                            Parser.parseSingleTerm("reaction(" + tuple + ")",
+                            Term.createTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.inS(tid,
@@ -380,7 +380,7 @@ public class CLIAgent extends alice.util.Automaton {
                     }
                 } else if ("rd_s".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.fromTerm(
-                            Parser.parseSingleTerm("reaction(" + tuple + ")",
+                            Term.createTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.rdS(tid,
@@ -394,7 +394,7 @@ public class CLIAgent extends alice.util.Automaton {
                     }
                 } else if ("inp_s".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.fromTerm(
-                            Parser.parseSingleTerm("reaction(" + tuple + ")",
+                            Term.createTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.inpS(tid,
@@ -408,7 +408,7 @@ public class CLIAgent extends alice.util.Automaton {
                     }
                 } else if ("rdp_s".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.fromTerm(
-                            Parser.parseSingleTerm("reaction(" + tuple + ")",
+                            Term.createTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.rdpS(tid,
@@ -422,7 +422,7 @@ public class CLIAgent extends alice.util.Automaton {
                     }
                 } else if ("no_s".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.fromTerm(
-                            Parser.parseSingleTerm("reaction(" + tuple + ")",
+                            Term.createTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.noS(tid,
@@ -436,7 +436,7 @@ public class CLIAgent extends alice.util.Automaton {
                     }
                 } else if ("nop_s".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.fromTerm(
-                            Parser.parseSingleTerm("reaction(" + tuple + ")",
+                            Term.createTerm("reaction(" + tuple + ")",
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.nopS(tid,
@@ -450,7 +450,7 @@ public class CLIAgent extends alice.util.Automaton {
                     }
                 } else if ("set_s".equals(methodName)) {
                     final LogicTuple templ = LogicTuple.fromTerm(
-                            Parser.parseSingleTerm(tuple,
+                            Term.createTerm(tuple,
                                     new LogicTupleOpManager()));
                     CLIAgent.busy();
                     final TucsonOperation op = this.context.setS(tid, templ,

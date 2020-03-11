@@ -10,16 +10,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import alice.tuplecentre.tucson.service.TucsonInfo;
-import alice.tuprolog.InvalidLibraryException;
-import alice.tuprolog.InvalidTheoryException;
-import alice.tuprolog.MalformedGoalException;
-import alice.tuprolog.NoMoreSolutionException;
-import alice.tuprolog.NoSolutionException;
+import alice.tuprolog.exceptions.InvalidLibraryException;
+import alice.tuprolog.exceptions.InvalidTheoryException;
+import alice.tuprolog.exceptions.MalformedGoalException;
+import alice.tuprolog.exceptions.NoMoreSolutionException;
+import alice.tuprolog.exceptions.NoSolutionException;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.SolveInfo;
 import alice.tuprolog.Theory;
 import alice.tuprolog.event.OutputEvent;
-import alice.tuprolog.event.OutputListener;
+import alice.tuprolog.interfaces.event.OutputListener;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it)
@@ -94,13 +94,7 @@ public final class PrologHelloWorld {
         /*
          * 4) [OPTIONAL] Capture tuProlog output and redirect it to Java Logger.
          */
-        engine.addOutputListener(new OutputListener() {
-
-            @Override
-            public void onOutput(final OutputEvent arg0) {
-                System.out.println(arg0.getMsg());
-            }
-        });
+        engine.addOutputListener(arg0 -> System.out.println(arg0.getMsg()));
         /*
          * 5) Solve a given goal using the engine on the theory.
          */

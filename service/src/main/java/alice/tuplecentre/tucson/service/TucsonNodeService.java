@@ -58,11 +58,11 @@ import alice.tuplecentre.tucson.network.AbstractTucsonProtocol;
 import alice.tuplecentre.tucson.network.exceptions.DialogInitializationException;
 import alice.tuplecentre.tucson.service.tools.TucsonACCTool;
 import alice.tuplecentre.tucson.utilities.Utils;
-import alice.tuprolog.InvalidTheoryException;
-import alice.tuprolog.MalformedGoalException;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.Theory;
-import alice.tuprolog.lib.InvalidObjectIdException;
+import alice.tuprolog.exceptions.InvalidObjectIdException;
+import alice.tuprolog.exceptions.InvalidTheoryException;
+import alice.tuprolog.exceptions.MalformedGoalException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -1043,7 +1043,7 @@ public class TucsonNodeService {
                                 BOOT_SETUP_THEORY);
                 final Theory setupTh = new Theory(new BufferedInputStream(is));
                 this.configManager.setTheory(setupTh);
-            } catch (final alice.tuprolog.InvalidTheoryException ex) {
+            } catch (final InvalidTheoryException ex) {
                 throw new TucsonGenericException(
                         "Internal Failure: invalid Prolog Setup Engine theory.");
             } catch (final IOException ex) {

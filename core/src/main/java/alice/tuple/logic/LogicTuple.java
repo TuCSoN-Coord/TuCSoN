@@ -2,8 +2,8 @@ package alice.tuple.logic;
 
 import alice.tuple.TupleTemplate;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
-import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Term;
+import alice.tuprolog.exceptions.InvalidTermException;
 
 import java.util.Collection;
 

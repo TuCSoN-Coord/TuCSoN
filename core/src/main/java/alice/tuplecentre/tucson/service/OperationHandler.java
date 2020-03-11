@@ -32,7 +32,7 @@ import alice.tuplecentre.tucson.network.messages.TucsonMessageRequest;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMessage;
 import alice.tuplecentre.tucson.network.messages.events.InputEventMessageDefault;
 import alice.tuprolog.Prolog;
-import alice.tuprolog.lib.InvalidObjectIdException;
+import alice.tuprolog.exceptions.InvalidObjectIdException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

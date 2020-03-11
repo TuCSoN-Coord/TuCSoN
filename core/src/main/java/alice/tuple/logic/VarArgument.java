@@ -14,6 +14,7 @@
 package alice.tuple.logic;
 
 import alice.tuple.logic.exceptions.InvalidVarNameException;
+import alice.tuprolog.exceptions.InvalidTermException;
 
 /**
  * Class representing tuple argument variables.
@@ -44,7 +45,7 @@ class VarArgument extends TupleArgumentDefault {
         super();
         try {
             this.value = new alice.tuprolog.Var(name);
-        } catch (final alice.tuprolog.InvalidTermException ex) {
+        } catch (final InvalidTermException ex) {
             throw new InvalidVarNameException("Invalid Var name: \"" + name + "\"", ex);
         }
     }
