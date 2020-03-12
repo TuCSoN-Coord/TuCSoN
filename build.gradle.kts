@@ -1,3 +1,6 @@
+import com.github.breadmoirai.githubreleaseplugin.GithubReleaseExtension
+import com.github.breadmoirai.githubreleaseplugin.GithubReleaseTask
+
 buildscript {
     repositories {
         mavenCentral()
@@ -9,8 +12,10 @@ buildscript {
 plugins {
     java
     `java-library`
-    id("org.danilopianini.git-sensitive-semantic-versioning") version "0.2.2"
-    id("com.github.johnrengelman.shadow") version "5.2.0" apply false
+    id("org.danilopianini.git-sensitive-semantic-versioning") version Versions.org_danilopianini_git_sensitive_semantic_versioning_gradle_plugin
+    id("com.github.johnrengelman.shadow") version Versions.com_github_johnrengelman_shadow_gradle_plugin apply false
+    id("de.fayard.buildSrcVersions") version Versions.de_fayard_buildsrcversions_gradle_plugin
+    id("com.github.breadmoirai.github-release") version Versions.com_github_breadmoirai_github_release_gradle_plugin
 }
 
 group = "it.unibo.tucson"
@@ -25,30 +30,25 @@ gitSemVer {
 
 println("TuCSoN, version: $version")
 
-// Apply to All Projects
 allprojects {
 
-    apply(plugin="java")
-    apply(plugin="java-library")
-    apply(plugin="com.github.johnrengelman.shadow")
+    apply(plugin = "java")
+    apply(plugin = "java-library")
+    apply(plugin = "com.github.johnrengelman.shadow")
+//    apply(plugin = "com.github.breadmoirai.github-release")
 
     group = rootProject.group
     version = rootProject.version
 
-    // In this section you declare where to find the dependencies of all projects
     repositories {
         jcenter()
         mavenCentral()
     }
 
-    // Common Dependencies to all Projects
     dependencies {
-
-        // Use JUnit test framework
-        testImplementation("junit:junit:4.12")
-        testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")
-        testImplementation("org.junit.jupiter:junit-jupiter-engine:5.4.2")
-
+        testImplementation(Libs.junit)
+        testImplementation(Libs.junit_jupiter_api)
+        testImplementation(Libs.junit_jupiter_engine)
     }
 
     configure<JavaPluginConvention> {
@@ -73,9 +73,38 @@ dependencies {
 
 subprojects {
     dependencies {
-        // SLF4J
-        api(group = "org.slf4j", name = "slf4j-api", version = "1.7.9")
-        implementation(group = "org.slf4j", name = "slf4j-jdk14", version = "1.7.25")
+        api(Libs.slf4j_api)
+        implementation(Libs.slf4j_jdk14)
 //        implementation("ch.qos.logback:logback-parent:1.2.3")
+    }
+}
+
+val gitHubToken: String? by optionalProperties
+
+if (gitHubToken != null) {
+
+    val projectsToBePublished = subprojects("service", "inspector", "cli")
+    val jarTasks: List<Jar> = projectsToBePublished
+            .map { it.tasks.getByName<Jar>("shadowJar") }
+            .toList()
+
+    configure<GithubReleaseExtension> {
+        token(gitHubToken)
+        owner("TuCSoN-Coord")
+        repo("TuCSoN")
+        tagName { version.toString() }
+        releaseName { version.toString() }
+        overwrite { true }
+        allowUploadToExisting { true }
+        prerelease { !isFullVersion }
+        releaseAssets(*jarTasks.map { it.archiveFile }.toTypedArray())
+        body("""|
+                |## CHANGELOG
+                |${changelog().call()}
+                """.trimMargin())
+    }
+
+    tasks.withType(GithubReleaseTask::class) {
+        dependsOn(*jarTasks.toTypedArray())
     }
 }
