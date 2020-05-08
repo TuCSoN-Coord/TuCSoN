@@ -1,12 +1,8 @@
 package loadBalancing;
 
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.TimeUnit;
-
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.respect.api.TupleCentreId;
 import alice.tuplecentre.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.tuplecentre.tucson.api.AbstractTucsonAgent;
@@ -19,6 +15,9 @@ import alice.tuplecentre.tucson.api.acc.RootACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
 import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
+
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Dummy Service Provider class to show some 'adaptive' features related to
@@ -40,8 +39,7 @@ public class ServiceProvider extends AbstractTucsonAgent {
             this.say("Waiting for requests...");
             final LogicTuple templ;
             try {
-                templ = LogicTuple.parse("req("
-                        + ServiceProvider.this.service.getArg(0) + ")");
+                templ = LogicTuple.parse("req(" + ServiceProvider.this.service.getArg(0) + ")");
                 while (!ServiceProvider.this.die) {
                     op = ServiceProvider.this.acc.in(ServiceProvider.this.tid,
                             templ, null);
@@ -58,13 +56,8 @@ public class ServiceProvider extends AbstractTucsonAgent {
                         }
                     }
                 }
-            } catch (InvalidLogicTupleException e) {
-                e.printStackTrace();
-            } catch (UnreachableNodeException e) {
-                e.printStackTrace();
-            } catch (TucsonOperationNotPossibleException e) {
-                e.printStackTrace();
-            } catch (OperationTimeOutException e) {
+            } catch (InvalidLogicTupleException | UnreachableNodeException | TucsonOperationNotPossibleException
+                    | OperationTimeOutException e) {
                 e.printStackTrace();
             }
 

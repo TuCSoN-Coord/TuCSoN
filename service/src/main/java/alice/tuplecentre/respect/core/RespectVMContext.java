@@ -12,39 +12,17 @@
  */
 package alice.tuplecentre.respect.core;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.InvocationTargetException;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-import java.util.Timer;
-
 import alice.tuple.Tuple;
 import alice.tuple.TupleTemplate;
-import alice.tuple.logic.*;
+import alice.tuple.logic.LogicTuple;
+import alice.tuple.logic.LogicTupleOpManager;
+import alice.tuple.logic.TupleArgument;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuplecentre.api.EmitterIdentifier;
 import alice.tuplecentre.api.OperationIdentifier;
 import alice.tuplecentre.api.TupleCentreIdentifier;
-import alice.tuplecentre.core.AbstractBehaviourSpecification;
-import alice.tuplecentre.core.AbstractEvent;
-import alice.tuplecentre.core.AbstractTupleCentreOperation;
-import alice.tuplecentre.core.AbstractTupleCentreVMContext;
-import alice.tuplecentre.core.InputEvent;
-import alice.tuplecentre.core.ObservableEventReactionFail;
-import alice.tuplecentre.core.ObservableEventReactionOK;
-import alice.tuplecentre.core.OperationCompletionListener;
-import alice.tuplecentre.core.OutputEvent;
-import alice.tuplecentre.core.TriggeredReaction;
+import alice.tuplecentre.core.*;
 import alice.tuplecentre.respect.api.ILinkContext;
 import alice.tuplecentre.respect.api.IRespectTC;
 import alice.tuplecentre.respect.api.RespectSpecification;
@@ -66,20 +44,19 @@ import alice.tuplecentre.tucson.persistency.PersistencyData;
 import alice.tuplecentre.tucson.persistency.PersistencyXML;
 import alice.tuplecentre.tucson.service.Spawn2PLibrary;
 import alice.tuplecentre.tucson.service.Spawn2PSolver;
-import alice.tuprolog.exceptions.InvalidLibraryException;
-import alice.tuprolog.exceptions.InvalidTheoryException;
-import alice.tuprolog.exceptions.MalformedGoalException;
-import alice.tuprolog.exceptions.NoMoreSolutionException;
-import alice.tuprolog.exceptions.NoSolutionException;
-import alice.tuprolog.Prolog;
-import alice.tuprolog.SolveInfo;
-import alice.tuprolog.Struct;
-import alice.tuprolog.Term;
-import alice.tuprolog.Theory;
-import alice.tuprolog.Var;
+import alice.tuprolog.*;
+import alice.tuprolog.exceptions.*;
 import alice.tuprolog.interfaces.event.OutputListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
 
 /**
  * This class defines a ReSpecT Context as a specialization copyOf a tuple centre VM
@@ -1480,7 +1457,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
             engine.solveEnd();
             final Theory specTheory = Theory.parseWithOperators(spec.toString(), new LogicTupleOpManager());
             for (Term term : specTheory.getClauses()) {
-                engine.solve("assert(" + term + ").");
+                engine.solve(Struct.of("assert", term));
                 if (!term.match(Term.createTerm("reaction(E,G,R)"))) {
                     final LogicTuple pp = LogicTuple.fromTerm(term);
                     this.prologPredicates.add(pp);
