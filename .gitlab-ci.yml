@@ -1,0 +1,52 @@
+image: pikalab/ci:ubuntu-jdk14-git-gradle-graphviz
+
+variables:
+  GOPTS: "--no-daemon --console=plain"
+  CI: "true"
+  BEFORE_TASK: ""
+  AFTER_TASK: ""
+  GCMD: "gradle"
+  BUILD_TASK: "classes testClasses"
+  TEST_TASK: "test"
+  BINTRAY_TASK: "publishAllToBintray"
+  GITHUB_PUBLISH_TASK: "githubRelease"
+  PAGES_TASK: "orchidBuild"
+  ORG_GRADLE_PROJECT_orchidBaseUrl: "https://pika-lab.gitlab.io/tuples/tucson/"
+
+before_script:
+  - chmod +x gradlew
+  - source $HOME/.sdkman/bin/sdkman-init.sh
+
+cache:
+  paths:
+    - $HOME/.gradle/
+    - gradle/
+    - .gradle/
+    - build/
+
+Compile:
+  stage: build
+  script: $GCMD $BEFORE_TASK $BUILD_TASK $AFTER_TASK $GOPTS
+
+Test:
+  stage: test
+  script: $GCMD $BEFORE_TASK $TEST_TASK $AFTER_TASK $GOPTS
+
+Deploy to Bintray:
+  stage: deploy
+  script: $GCMD $BEFORE_TASK $BINTRAY_TASK $AFTER_TASK $GOPTS
+  environment:
+    name: Bintray
+    url: "https://bintray.com/pika-lab/tucson"
+  only:
+    - /^(master)|(release)|(develop)$/
+
+Deploy to GitHub:
+  stage: deploy
+  script:
+    - $GCMD $BEFORE_TASK $GITHUB_PUBLISH_TASK $AFTER_TASK $GOPTS
+  environment:
+    name: GitHub
+    url: "https://github.com/TuCSoN-Coord/TuCSoN/releases"
+  only:
+    - /^(master)|(release)$/
