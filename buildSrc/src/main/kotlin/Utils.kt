@@ -20,3 +20,11 @@ fun Project.subprojects(vararg names: String): List<Project> =
 
 val Project.isFullVersion: Boolean
     get() = version.toString().matches(FULL_VERSION_REGEX)
+
+fun warn(message: String) {
+    System.err.println("WARNING: $message")
+}
+
+fun log(message: String) {
+    System.out.println("LOG: $message")
+}

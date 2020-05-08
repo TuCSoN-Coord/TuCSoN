@@ -24,16 +24,18 @@ object Versions {
 
     const val com_github_johnrengelman_shadow_gradle_plugin: String = "5.2.0"
 
+    const val com_jfrog_bintray_gradle_plugin: String = "1.8.5"
+
     const val de_fayard_buildsrcversions_gradle_plugin: String = "0.7.0"
 
     const val junit: String = "4.13"
 
     /**
-     * Current version: "6.2.2"
+     * Current version: "6.3"
      * See issue 19: How to update Gradle itself?
      * https://github.com/jmfayard/buildSrcVersions/issues/19
      */
-    const val gradleLatestVersion: String = "6.2.2"
+    const val gradleLatestVersion: String = "6.3"
 }
 
 /**
