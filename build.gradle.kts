@@ -88,8 +88,8 @@ allprojects {
         archiveClassifier.set("redist")
     }
 
-    configureSigning()
     createMavenPublications("main", "java")
+    configureSigning()
     configureUploadToBintray()
 }
 
