@@ -21,8 +21,7 @@ public class LogicTupleOpManager extends OperatorManager {
      */
     public LogicTupleOpManager() {
         super();
-        for (final Operator op : new Prolog().getOperatorManager()
-                .getOperators()) {
+        for (final Operator op : OperatorManager.standardOperators().getOperators()) {
             this.opNew(op.name, op.type, op.prio);
         }
         this.opNew("?", "xfx", 551);

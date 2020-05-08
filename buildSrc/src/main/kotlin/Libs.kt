@@ -8,6 +8,24 @@ import kotlin.String
  */
 object Libs {
     /**
+     * http://tuprolog.unibo.it
+     */
+    const val `2p_core`: String = "it.unibo.alice.tuprolog:2p-core:" +
+            Versions.it_unibo_alice_tuprolog
+
+    /**
+     * http://tuprolog.unibo.it
+     */
+    const val `2p_parser`: String = "it.unibo.alice.tuprolog:2p-parser:" +
+            Versions.it_unibo_alice_tuprolog
+
+    /**
+     * http://tuprolog.unibo.it
+     */
+    const val `2p_presentation`: String = "it.unibo.alice.tuprolog:2p-presentation:" +
+            Versions.it_unibo_alice_tuprolog
+
+    /**
      * https://junit.org/junit5/
      */
     const val junit_jupiter_api: String = "org.junit.jupiter:junit-jupiter-api:" +
@@ -44,11 +62,6 @@ object Libs {
     const val de_fayard_buildsrcversions_gradle_plugin: String =
             "de.fayard.buildSrcVersions:de.fayard.buildSrcVersions.gradle.plugin:" +
             Versions.de_fayard_buildsrcversions_gradle_plugin
-
-    /**
-     * http://tuprolog.unibo.it
-     */
-    const val tuprolog: String = "it.unibo.alice.tuprolog:tuprolog:" + Versions.tuprolog
 
     /**
      * http://junit.org

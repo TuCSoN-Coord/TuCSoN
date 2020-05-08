@@ -17,6 +17,7 @@ tasks.register<JavaExec>("runCli") {
 
     classpath = sourceSets.getByName("main").runtimeClasspath
     main = mainClass
+    standardInput = System.`in`
 
     if ("port" in rootProject.properties) {
         args("-portno", rootProject.properties["port"].toString())

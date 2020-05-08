@@ -66,18 +66,18 @@ import alice.tuplecentre.tucson.persistency.PersistencyData;
 import alice.tuplecentre.tucson.persistency.PersistencyXML;
 import alice.tuplecentre.tucson.service.Spawn2PLibrary;
 import alice.tuplecentre.tucson.service.Spawn2PSolver;
-import alice.tuprolog.InvalidLibraryException;
-import alice.tuprolog.InvalidTheoryException;
-import alice.tuprolog.MalformedGoalException;
-import alice.tuprolog.NoMoreSolutionException;
-import alice.tuprolog.NoSolutionException;
-import alice.tuprolog.Parser;
+import alice.tuprolog.exceptions.InvalidLibraryException;
+import alice.tuprolog.exceptions.InvalidTheoryException;
+import alice.tuprolog.exceptions.MalformedGoalException;
+import alice.tuprolog.exceptions.NoMoreSolutionException;
+import alice.tuprolog.exceptions.NoSolutionException;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.SolveInfo;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
 import alice.tuprolog.Theory;
 import alice.tuprolog.Var;
+import alice.tuprolog.interfaces.event.OutputListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -152,7 +152,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 return LogicTuple.of("invalid", TupleArgument.var());
             }
             return LogicTuple.of("valid");
-        } catch (final alice.tuprolog.InvalidTheoryException ex) {
+        } catch (final InvalidTheoryException ex) {
             return LogicTuple.of("invalid", TupleArgument.of(ex.line));
         }
     }
@@ -245,13 +245,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
         this.vm = rvm;
         this.temporaryOutputEventList = new ArrayList<>();
         this.core = new Prolog();
-        final alice.tuprolog.event.OutputListener l = new alice.tuprolog.event.OutputListener() {
-
-            @Override
-            public void onOutput(final alice.tuprolog.event.OutputEvent ev) {
-                LOGGER.info(ev.getMsg());
-            }
-        };
+        final OutputListener l = ev -> LOGGER.info(ev.getMsg());
         this.core.addOutputListener(l);
         try {
             ((alice.tuplecentre.respect.api.Respect2PLibrary) this.core.loadLibrary("alice.tuplecentre.respect.api.Respect2PLibrary"))
@@ -1484,19 +1478,16 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
         try {
             engine.solve("retractall(reaction(X,Y,Z)).");
             engine.solveEnd();
-            final Parser parser = new Parser(new LogicTupleOpManager(), spec.toString());
-            Term term = parser.nextTerm(true);
-            LogicTuple pp;
-            while (term != null) {
+            final Theory specTheory = Theory.parseWithOperators(spec.toString(), new LogicTupleOpManager());
+            for (Term term : specTheory.getClauses()) {
                 engine.solve("assert(" + term + ").");
                 if (!term.match(Term.createTerm("reaction(E,G,R)"))) {
-                    pp = LogicTuple.fromTerm(term);
+                    final LogicTuple pp = LogicTuple.fromTerm(term);
                     this.prologPredicates.add(pp);
                     if (this.isPersistent) {
                         this.writePersistencyUpdate(pp, ModType.ADD_PRED);
                     }
                 }
-                term = parser.nextTerm(true);
             }
             engine.solveEnd();
             final Term[] preds = new Term[this.prologPredicates.size()];
@@ -1531,9 +1522,9 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                     }
                     info = this.core.solveNext();
                 }
-            } catch (final alice.tuprolog.NoMoreSolutionException e) {
+            } catch (final NoMoreSolutionException e) {
                 this.log("No more solutions.");
-            } catch (final alice.tuprolog.NoSolutionException e) {
+            } catch (final NoSolutionException e) {
                 this.log("No solution.");
             } catch (final MalformedGoalException e) {
                 LOGGER.error(e.getMessage(), e);
@@ -1826,7 +1817,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 }
             }
             return true;
-        } catch (final alice.tuprolog.InvalidTheoryException ex) {
+        } catch (final InvalidTheoryException ex) {
             this.notifyException("Invalid reaction spec. " + ex.line + " " + ex.pos);
             this.notifyException(spec.toString());
             return false;
@@ -1924,7 +1915,7 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 }
             }
             return true;
-        } catch (final alice.tuprolog.InvalidTheoryException ex) {
+        } catch (final InvalidTheoryException ex) {
             // FIXME Check correctness
             this.notifyException("<!> Invalid reaction spec: " + ex.line + " " + ex.pos + "<!>");
             return false;

@@ -6,9 +6,9 @@ import java.util.List;
 
 import alice.tuple.logic.exceptions.InvalidTupleArgumentException;
 import alice.tuple.logic.exceptions.InvalidVarNameException;
-import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.Term;
+import alice.tuprolog.exceptions.InvalidTermException;
 
 /**
  * Interface for Tuple Argument

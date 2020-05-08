@@ -12,6 +12,8 @@ import org.gradle.plugin.use.PluginDependencySpec
  * YOU are responsible for updating manually the dependency version.
  */
 object Versions {
+    const val it_unibo_alice_tuprolog: String = "4.1.1"
+
     const val org_junit_jupiter: String = "5.6.0"
 
     const val org_slf4j: String = "1.7.30"
@@ -23,8 +25,6 @@ object Versions {
     const val com_github_johnrengelman_shadow_gradle_plugin: String = "5.2.0"
 
     const val de_fayard_buildsrcversions_gradle_plugin: String = "0.7.0"
-
-    const val tuprolog: String = "3.3.0"
 
     const val junit: String = "4.13"
 

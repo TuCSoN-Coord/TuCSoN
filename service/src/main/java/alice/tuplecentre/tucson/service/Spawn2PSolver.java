@@ -1,10 +1,11 @@
 package alice.tuplecentre.tucson.service;
 
-import alice.tuprolog.NoMoreSolutionException;
 import alice.tuprolog.Prolog;
 import alice.tuprolog.Term;
 import alice.tuprolog.event.OutputEvent;
-import alice.tuprolog.event.OutputListener;
+
+import alice.tuprolog.exceptions.NoMoreSolutionException;
+import alice.tuprolog.interfaces.event.OutputListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,13 +33,7 @@ public class Spawn2PSolver extends Thread {
 
     @Override
     public void run() {
-        this.solver.addOutputListener(new OutputListener() {
-
-            @Override
-            public void onOutput(final OutputEvent arg0) {
-                LOGGER.info("[Spawn2PSolver]: " + arg0.getMsg());
-            }
-        });
+        this.solver.addOutputListener(arg0 -> LOGGER.info("[Spawn2PSolver]: " + arg0.getMsg()));
         // System.out.println("[Spawn2PSolver]: theory = "
         // + this.solver.getTheory());
         LOGGER.info("[Spawn2PSolver]: goal = " + this.goal);

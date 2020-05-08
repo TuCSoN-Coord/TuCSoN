@@ -18,7 +18,7 @@ import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidLogicTupleException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonOperationNotPossibleException;
-import alice.tuprolog.InvalidTermException;
+import alice.tuprolog.exceptions.InvalidTermException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -19,9 +19,9 @@ import alice.tuplecentre.api.AgentIdentifier;
 import alice.tuplecentre.respect.api.exceptions.InvalidAgentIdException;
 import alice.tuplecentre.respect.core.AgentIdOperatorManager;
 import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
-import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
+import alice.tuprolog.exceptions.InvalidTermException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -18,9 +18,9 @@ import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.tuplecentre.respect.core.TupleCentreIdOperatorManager;
 import alice.tuplecentre.tucson.service.TucsonInfo;
-import alice.tuprolog.InvalidTermException;
 import alice.tuprolog.Struct;
 import alice.tuprolog.Term;
+import alice.tuprolog.exceptions.InvalidTermException;
 
 /**
  * Tuple centre identifier for ReSpecT tuple centres
