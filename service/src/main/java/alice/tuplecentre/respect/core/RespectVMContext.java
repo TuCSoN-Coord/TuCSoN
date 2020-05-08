@@ -1813,9 +1813,9 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
         }
         try {
             this.timers.clear();
-            final Struct co = new Struct(spec.toString());
-            if (co.isAtom()) {
-                final alice.tuprolog.Theory thspec = new alice.tuprolog.Theory(co.getName());
+//            final Struct co = new Struct(spec.toString());
+//            if (co.isAtom()) {
+                final Theory thspec = Theory.parseWithOperators(spec.toString(), new LogicTupleOpManager());
                 // int i = 0;
                 // for (Iterator<? extends Term> iterator =
                 // thspec.iterator(this.trigCore); iterator.hasNext();) {
@@ -1833,15 +1833,15 @@ public class RespectVMContext extends AbstractTupleCentreVMContext {
                 // log("term " + i++ + " = " + term);
                 // }
                 // log("ATOM 2 > " + this.trigCore.getTheory());
-            } else if (co.isList()) {
-                final alice.tuprolog.Theory thspec = new alice.tuprolog.Theory(co);
-                // log("LIST > " + thspec);
-                this.core.setTheory(thspec);
-                this.trigCore.setTheory(thspec);
-            } else {
-                this.notifyException("Invalid reaction spec:\n" + co);
-                return false;
-            }
+//            } else if (co.isList()) {
+//                final alice.tuprolog.Theory thspec = new alice.tuprolog.Theory(co);
+//                // log("LIST > " + thspec);
+//                this.core.setTheory(thspec);
+//                this.trigCore.setTheory(thspec);
+//            } else {
+//                this.notifyException("Invalid reaction spec:\n" + co);
+//                return false;
+//            }
             if (this.noReactionTh != null && !this.isExternalSetSpec) {
                 // log("noReactionTh = " + this.noReactionTh);
                 this.core.addTheory(this.noReactionTh);

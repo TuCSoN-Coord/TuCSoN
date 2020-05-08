@@ -19,4 +19,23 @@ package alice.tuplecentre.tucson.api.exceptions;
 public class TucsonOperationNotPossibleException extends Exception {
 
     private static final long serialVersionUID = 4453940618890077229L;
+
+    public TucsonOperationNotPossibleException() {
+    }
+
+    public TucsonOperationNotPossibleException(String message) {
+        super(message);
+    }
+
+    public TucsonOperationNotPossibleException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public TucsonOperationNotPossibleException(Throwable cause) {
+        super(cause);
+    }
+
+    public TucsonOperationNotPossibleException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
 }

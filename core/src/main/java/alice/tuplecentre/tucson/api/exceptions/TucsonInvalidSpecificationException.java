@@ -19,4 +19,23 @@ package alice.tuplecentre.tucson.api.exceptions;
 public class TucsonInvalidSpecificationException extends Exception {
 
     private static final long serialVersionUID = 5164569551404840562L;
+
+    public TucsonInvalidSpecificationException() {
+    }
+
+    public TucsonInvalidSpecificationException(String message) {
+        super(message);
+    }
+
+    public TucsonInvalidSpecificationException(String message, Throwable cause) {
+        super(message, cause);
+    }
+
+    public TucsonInvalidSpecificationException(Throwable cause) {
+        super(cause);
+    }
+
+    public TucsonInvalidSpecificationException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
+    }
 }

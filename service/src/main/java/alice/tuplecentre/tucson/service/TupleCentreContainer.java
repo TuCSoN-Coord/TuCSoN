@@ -1,38 +1,18 @@
 package alice.tuplecentre.tucson.service;
 
-import java.lang.invoke.MethodHandles;
-import java.util.HashMap;
-import java.util.Objects;
-
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
-import alice.tuplecentre.api.InspectableEventListener;
-import alice.tuplecentre.api.ObservableEventListener;
-import alice.tuplecentre.api.OperationIdentifier;
-import alice.tuplecentre.api.TupleCentreIdentifier;
-import alice.tuplecentre.api.TupleCentreOperation;
+import alice.tuplecentre.api.*;
 import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.core.InputEvent;
 import alice.tuplecentre.core.OperationCompletionListener;
 import alice.tuplecentre.core.TupleCentreOpType;
-import alice.tuplecentre.respect.api.IEnvironmentContext;
-import alice.tuplecentre.respect.api.IManagementContext;
-import alice.tuplecentre.respect.api.IOrdinaryAsynchInterface;
-import alice.tuplecentre.respect.api.IOrdinarySynchInterface;
-import alice.tuplecentre.respect.api.ISpecificationAsynchInterface;
-import alice.tuplecentre.respect.api.ISpecificationSynchInterface;
-import alice.tuplecentre.respect.api.RespectSpecification;
-import alice.tuplecentre.respect.api.TupleCentreId;
+import alice.tuplecentre.respect.api.*;
 import alice.tuplecentre.respect.api.exceptions.InvalidSpecificationException;
 import alice.tuplecentre.respect.api.exceptions.InvalidTupleCentreIdException;
 import alice.tuplecentre.respect.api.exceptions.OperationNotPossibleException;
-import alice.tuplecentre.respect.core.InternalEvent;
-import alice.tuplecentre.respect.core.InternalOperation;
-import alice.tuplecentre.respect.core.RespectOperationDefault;
-import alice.tuplecentre.respect.core.RespectTC;
-import alice.tuplecentre.respect.core.RespectTCContainer;
-import alice.tuplecentre.respect.core.TransducersManager;
+import alice.tuplecentre.respect.core.*;
 import alice.tuplecentre.respect.situatedness.TransducerId;
 import alice.tuplecentre.respect.situatedness.TransducerStandardInterface;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
@@ -44,10 +24,11 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import static alice.tuplecentre.core.TupleCentreOpType.GET_ENV;
-import static alice.tuplecentre.core.TupleCentreOpType.GET_S;
-import static alice.tuplecentre.core.TupleCentreOpType.SET_ENV;
-import static alice.tuplecentre.core.TupleCentreOpType.SET_S;
+import java.lang.invoke.MethodHandles;
+import java.util.HashMap;
+import java.util.Objects;
+
+import static alice.tuplecentre.core.TupleCentreOpType.*;
 
 /**
  * @author Alessandro Ricci
@@ -196,9 +177,9 @@ public final class TupleCentreContainer {
                 return context.getS(ev);
             }
         } catch (final OperationNotPossibleException e) {
-            throw new TucsonOperationNotPossibleException();
+            throw new TucsonOperationNotPossibleException(e);
         } catch (final InvalidSpecificationException e) {
-            throw new TucsonInvalidSpecificationException();
+            throw new TucsonInvalidSpecificationException(e);
         }
         return res;
     }
