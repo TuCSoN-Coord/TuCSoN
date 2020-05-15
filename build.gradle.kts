@@ -1,5 +1,4 @@
 import com.github.breadmoirai.githubreleaseplugin.GithubReleaseExtension
-import com.github.breadmoirai.githubreleaseplugin.GithubReleaseTask
 import com.jfrog.bintray.gradle.tasks.BintrayUploadTask
 
 buildscript {
@@ -107,9 +106,9 @@ subprojects {
     }
 }
 
-if (githubToken != null) {
+println(subprojects().map { it.tasks.getByName<Jar>("shadowJar") })
 
-    val jarTasks: List<Jar> = subprojects().map { it.tasks.getByName<Jar>("shadowJar") }
+if (githubToken != null) {
 
     configure<GithubReleaseExtension> {
         if (githubToken != null) {
@@ -132,10 +131,6 @@ if (githubToken != null) {
                 e.message?.let { warn(it) }
             }
         }
-    }
-
-    tasks.withType(GithubReleaseTask::class) {
-        dependsOn(*jarTasks.toTypedArray())
     }
 }
 
