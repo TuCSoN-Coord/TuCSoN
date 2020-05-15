@@ -1,5 +1,6 @@
 dependencies {
     api(project(":core"))
+//    implementation(Libs.slf4j_jdk14)
 }
 
 val mainClass = "alice.tuplecentre.tucson.service.TucsonNodeService"

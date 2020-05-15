@@ -103,16 +103,13 @@ dependencies {
 subprojects {
     dependencies {
         api(Libs.slf4j_api)
-        implementation(Libs.slf4j_jdk14)
+        runtimeOnly(Libs.slf4j_jdk14)
     }
 }
 
 if (githubToken != null) {
 
-    val projectsToBePublished = subprojects("service", "inspector", "cli")
-    val jarTasks: List<Jar> = projectsToBePublished
-            .map { it.tasks.getByName<Jar>("shadowJar") }
-            .toList()
+    val jarTasks: List<Jar> = subprojects().map { it.tasks.getByName<Jar>("shadowJar") }
 
     configure<GithubReleaseExtension> {
         if (githubToken != null) {
