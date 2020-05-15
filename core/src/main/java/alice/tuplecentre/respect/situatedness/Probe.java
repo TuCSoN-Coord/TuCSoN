@@ -8,7 +8,7 @@ package alice.tuplecentre.respect.situatedness;
  *
  * @author Steven Maraldi
  */
-public interface ISimpleProbe {
+public interface Probe {
 
     /**
      * Get the probe's identifier

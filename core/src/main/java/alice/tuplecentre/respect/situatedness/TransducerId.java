@@ -10,7 +10,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
  *
  * @author Steven Maraldi
  */
-public class TransducerId extends EnvAgentId {
+public class TransducerId extends EnvironmentalAgentId {
 
     /**
      * serialVersionUID

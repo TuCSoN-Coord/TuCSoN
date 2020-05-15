@@ -6,7 +6,7 @@ package situatedness;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.respect.situatedness.AbstractTransducer;
-import alice.tuplecentre.respect.situatedness.ISimpleProbe;
+import alice.tuplecentre.respect.situatedness.Probe;
 import alice.tuplecentre.respect.situatedness.TransducerId;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 
@@ -45,7 +45,7 @@ public class SensorTransducer extends AbstractTransducer {
          * environment
          */
         for (final Object element : keySet) {
-            if (!((ISimpleProbe) this.probes.get(element)).readValue(key)) {
+            if (!((Probe) this.probes.get(element)).readValue(key)) {
                 this.speakErr("[" + this.id + "]: Read failure!");
                 success = false;
                 break;

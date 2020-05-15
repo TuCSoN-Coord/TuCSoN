@@ -12,7 +12,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
  *
  * @author Steven Maraldi
  */
-public class EnvAgentId extends TucsonAgentIdDefault {
+public class EnvironmentalAgentId extends TucsonAgentIdDefault {
 
     /**
      * serialVersionUID
@@ -25,7 +25,7 @@ public class EnvAgentId extends TucsonAgentIdDefault {
      * @throws TucsonInvalidAgentIdException if the given String does not represent a valid TuCSoN agent
      *                                       identifier
      */
-    public EnvAgentId(final String aid) throws TucsonInvalidAgentIdException {
+    public EnvironmentalAgentId(final String aid) throws TucsonInvalidAgentIdException {
         super(aid);
     }
 

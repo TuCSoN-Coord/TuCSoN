@@ -7,16 +7,8 @@ import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.respect.core.TransducersManager;
-import alice.tuplecentre.respect.situatedness.AbstractTransducer;
-import alice.tuplecentre.respect.situatedness.ISimpleProbe;
-import alice.tuplecentre.respect.situatedness.ProbeIdentifier;
-import alice.tuplecentre.respect.situatedness.TransducerId;
-import alice.tuplecentre.respect.situatedness.TransducerStandardInterface;
-import alice.tuplecentre.tucson.api.TucsonAgentId;
-import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
-import alice.tuplecentre.tucson.api.TucsonMetaACC;
-import alice.tuplecentre.tucson.api.TucsonOperation;
-import alice.tuplecentre.tucson.api.TucsonTupleCentreId;
+import alice.tuplecentre.respect.situatedness.*;
+import alice.tuplecentre.tucson.api.*;
 import alice.tuplecentre.tucson.api.acc.EnhancedSyncACC;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidTupleCentreIdException;
@@ -30,9 +22,8 @@ import alice.tuplecentre.tucson.service.TucsonInfo;
  * interface with a real-world probe.
  *
  * @author ste (mailto: s.mariani@unibo.it) on 06/nov/2013
- *
  */
-public class ActualActuator implements ISimpleProbe {
+public class ActualActuator implements Probe {
 
     private static final String DEFAULT_HOST = "localhost";
     private EnhancedSyncACC acc;

@@ -3,19 +3,18 @@
  */
 package alice.tuplecentre.respect.core;
 
+import alice.tuplecentre.respect.situatedness.Probe;
+import alice.tuplecentre.respect.situatedness.ProbeIdentifier;
+import alice.tuplecentre.respect.situatedness.TransducerId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
-import alice.tuplecentre.respect.situatedness.AbstractProbeId;
-import alice.tuplecentre.respect.situatedness.ISimpleProbe;
-import alice.tuplecentre.respect.situatedness.ProbeIdentifier;
-import alice.tuplecentre.respect.situatedness.TransducerId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 04/nov/2013
@@ -45,7 +44,7 @@ public enum ProbesManager {
     /**
      * List copyOf all probes on a single node
      **/
-    private final Map<ProbeIdentifier, ISimpleProbe> probesList;
+    private final Map<ProbeIdentifier, Probe> probesList;
 
     ProbesManager() {
         this.probesList = new HashMap<>();
@@ -78,8 +77,8 @@ public enum ProbesManager {
                 className.length() - 1);
         final Class<?> c = Class.forName(normClassName);
         final Constructor<?> ctor = c
-                .getConstructor(AbstractProbeId.class);
-        final ISimpleProbe probe = (ISimpleProbe) ctor
+                .getConstructor(ProbeIdentifier.class);
+        final Probe probe = (Probe) ctor
                 .newInstance(new Object[]{id});
         this.probesList.put(id, probe);
         ProbesManager.speak("Resource '" + id.getLocalName()
@@ -93,7 +92,7 @@ public enum ProbesManager {
      * @return an interface toward the resource whose identifier has been given
      */
     // FIXME Check correctness (synchronization needed?)
-    public ISimpleProbe getProbe(final ProbeIdentifier id) {
+    public Probe getProbe(final ProbeIdentifier id) {
         if (this.probesList.containsKey(id)) {
             return this.probesList.get(id);
         }
@@ -110,7 +109,7 @@ public enum ProbesManager {
      * given
      */
     // FIXME Check correctness (synchronization needed?)
-    public ISimpleProbe getProbeByName(final String name) {
+    public Probe getProbeByName(final String name) {
         final Object[] keySet = this.probesList.keySet().toArray();
         for (final Object element : keySet) {
             if (((ProbeIdentifier) element).getLocalName().equals(name)) {

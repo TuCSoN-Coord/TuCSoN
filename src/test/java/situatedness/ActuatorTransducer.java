@@ -6,7 +6,7 @@ package situatedness;
 import alice.tuplecentre.api.TupleCentreIdentifier;
 import alice.tuplecentre.core.AbstractTupleCentreOperation;
 import alice.tuplecentre.respect.situatedness.AbstractTransducer;
-import alice.tuplecentre.respect.situatedness.ISimpleProbe;
+import alice.tuplecentre.respect.situatedness.Probe;
 import alice.tuplecentre.respect.situatedness.TransducerId;
 import alice.tuplecentre.tucson.api.TucsonOperation;
 
@@ -80,7 +80,7 @@ public class ActuatorTransducer extends AbstractTransducer {
          * environment
          */
         for (final Object element : keySet) {
-            if (!((ISimpleProbe) this.probes.get(element)).writeValue(key,
+            if (!((Probe) this.probes.get(element)).writeValue(key,
                     value)) {
                 this.speakErr("[" + this.id + "]: Write failure!");
                 success = false;

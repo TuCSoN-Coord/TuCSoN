@@ -1,9 +1,5 @@
 package alice.tuplecentre.respect.core;
 
-import java.lang.invoke.MethodHandles;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Objects;
-
 import alice.tuple.logic.LogicTuple;
 import alice.tuple.logic.exceptions.InvalidLogicTupleException;
 import alice.tuplecentre.api.TupleCentreIdentifier;
@@ -11,11 +7,7 @@ import alice.tuplecentre.api.exceptions.InvalidOperationException;
 import alice.tuplecentre.api.exceptions.OperationTimeOutException;
 import alice.tuplecentre.respect.api.TupleCentreId;
 import alice.tuplecentre.respect.api.exceptions.InvalidTupleCentreIdException;
-import alice.tuplecentre.respect.situatedness.ActuatorId;
-import alice.tuplecentre.respect.situatedness.ISimpleProbe;
-import alice.tuplecentre.respect.situatedness.ProbeIdentifier;
-import alice.tuplecentre.respect.situatedness.SensorId;
-import alice.tuplecentre.respect.situatedness.TransducerId;
+import alice.tuplecentre.respect.situatedness.*;
 import alice.tuplecentre.tucson.api.TucsonAgentId;
 import alice.tuplecentre.tucson.api.TucsonAgentIdDefault;
 import alice.tuplecentre.tucson.api.acc.OrdinaryAndSpecificationSyncACC;
@@ -25,6 +17,10 @@ import alice.tuplecentre.tucson.api.exceptions.UnreachableNodeException;
 import alice.tuplecentre.tucson.service.ACCProxyAgentSide;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Objects;
 
 /**
  * Environment configuration agent.
@@ -187,7 +183,7 @@ public class EnvConfigAgent {
                                         .getName());
                                 final ProbesManager rm = ProbesManager.INSTANCE;
                                 rm.createProbe(t.getArg(0).toString(), pId);
-                                final ISimpleProbe probe = rm.getProbe(pId);
+                                final Probe probe = rm.getProbe(pId);
                                 final TransducersManager tm = TransducersManager.INSTANCE;
                                 final TransducerId tId = Objects.requireNonNull(tm.getTransducer(
                                         t.getArg(2).getName())).getIdentifier();
@@ -204,7 +200,7 @@ public class EnvConfigAgent {
                                         .getName());
                                 final ProbesManager rm = ProbesManager.INSTANCE;
                                 rm.createProbe(t.getArg(0).toString(), pId);
-                                final ISimpleProbe probe = rm.getProbe(pId);
+                                final Probe probe = rm.getProbe(pId);
                                 final TransducersManager tm = TransducersManager.INSTANCE;
                                 final TransducerId tId = Objects.requireNonNull(tm.getTransducer(
                                         t.getArg(2).getName())).getIdentifier();
@@ -219,7 +215,7 @@ public class EnvConfigAgent {
                                 t = LogicTuple.parse("removeResource(Pid)");
                                 t = acc.in(idEnvTC, t, null).getLogicTupleResult();
                                 final ProbesManager rm = ProbesManager.INSTANCE;
-                                final ISimpleProbe probe = rm.getProbeByName(t.getArg(0)
+                                final Probe probe = rm.getProbeByName(t.getArg(0)
                                         .getName());
                                 rm.removeProbe(Objects.requireNonNull(probe).getIdentifier());
                                 break;

@@ -3,21 +3,17 @@
  */
 package alice.tuplecentre.respect.core;
 
+import alice.tuplecentre.api.TupleCentreIdentifier;
+import alice.tuplecentre.respect.api.EnvironmentIdentifier;
+import alice.tuplecentre.respect.situatedness.*;
+import alice.tuprolog.Term;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
-
-import alice.tuplecentre.api.TupleCentreIdentifier;
-import alice.tuplecentre.respect.api.EnvironmentIdentifier;
-import alice.tuplecentre.respect.situatedness.AbstractTransducer;
-import alice.tuplecentre.respect.situatedness.ISimpleProbe;
-import alice.tuplecentre.respect.situatedness.ProbeIdentifier;
-import alice.tuplecentre.respect.situatedness.TransducerId;
-import alice.tuplecentre.respect.situatedness.TransducerStandardInterface;
-import alice.tuprolog.Term;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author ste (mailto: s.mariani@unibo.it) on 04/nov/2013
@@ -71,7 +67,7 @@ public enum TransducersManager {
      * @return wether the resource has been successfully added
      */
     public synchronized void addProbe(final ProbeIdentifier id,
-                                      final TransducerId tId, final ISimpleProbe probe) {
+                                      final TransducerId tId, final Probe probe) {
         TransducersManager.speak("Adding resource '" + id.getLocalName()
                 + "' to transducer '" + tId.getLocalName() + "'...");
         if (!this.probesToTransducersMap.containsKey(tId)) {
