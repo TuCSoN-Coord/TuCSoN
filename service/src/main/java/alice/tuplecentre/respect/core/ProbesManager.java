@@ -55,7 +55,6 @@ public enum ProbesManager {
      *
      * @param className the concrete implementative class copyOf the resource
      * @param id        the identifier copyOf the resource
-     * @return wether the Resource has been succesfully created.
      * @throws ClassNotFoundException    if the given Java full class name cannot be found within
      *                                   known paths
      * @throws NoSuchMethodException     if the Java method name cannot be found

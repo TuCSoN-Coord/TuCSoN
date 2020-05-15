@@ -110,23 +110,17 @@ public class EnvConfigAgent {
                         // Gets the command from the tuple space
                         LogicTuple t = LogicTuple.parse("cmd(Type)");
                         t = Objects.requireNonNull(acc).in(idEnvTC, t, null).getLogicTupleResult();
-                        switch (t.getArg(0)
-                                .toString()) {
+                        switch (t.getArg(0).toString()) {
                             case EnvConfigAgent.CREATE_TRANSDUCER_SENSOR: {
-                                t = LogicTuple
-                                        .parse("createTransducerSensor(Tcid,Tclass,Tid,Pclass,Pid)");
+                                t = LogicTuple.parse("createTransducerSensor(Tcid,Tclass,Tid,Pclass,Pid)");
                                 t = acc.in(idEnvTC, t, null).getLogicTupleResult();
                                 // Obtaining transducer
-                                final TransducerId tId = new TransducerId(t.getArg(2)
-                                        .getName());
+                                final TransducerId tId = new TransducerId(t.getArg(2).getName());
                                 // Obtaining tuple centre and its properties
                                 final String[] sTcId = t.getArg(0).toString().split(":"); // '@'(name,':'(node,port))
 
-                                final String tcName = sTcId[0].substring(
-                                        sTcId[0].indexOf('(') + 1, sTcId[0].indexOf(','));
-                                final String[] tcNodeAndPort = sTcId[1].substring(
-                                        sTcId[1].indexOf('(') + 1, sTcId[1].indexOf(')'))
-                                        .split(",");
+                                final String tcName = sTcId[0].substring(sTcId[0].indexOf('(') + 1, sTcId[0].indexOf(','));
+                                final String[] tcNodeAndPort = sTcId[1].substring(sTcId[1].indexOf('(') + 1, sTcId[1].indexOf(')')).split(",");
                                 final TupleCentreIdentifier tcId = new TupleCentreId(tcName,
                                         tcNodeAndPort[0], tcNodeAndPort[1]);
                                 speak("Serving 'createTransducer' request < TransducerId="
@@ -135,41 +129,32 @@ public class EnvConfigAgent {
                                         + t.getArg(0).toString()
                                         + " >...");
                                 // Obtaining resource
-                                final ProbeIdentifier pId = new SensorId(t.getArg(4)
-                                        .getName());
-                                ProbesManager.INSTANCE.createProbe(t.getArg(3).toString(),
-                                        pId);
+                                final ProbeIdentifier pId = new SensorId(t.getArg(4).getName());
+                                ProbesManager.INSTANCE.createProbe(t.getArg(3).toString(), pId);
                                 final TransducersManager tm = TransducersManager.INSTANCE;
                                 tm.createTransducer(t.getArg(1).toString(), tId, tcId, pId);
                                 break;
                             }
                             case EnvConfigAgent.CREATE_TRANSDUCER_ACTUATOR: {
-                                t = LogicTuple
-                                        .parse("createTransducerActuator(Tcid,Tclass,Tid,Pclass,Pid)");
+                                t = LogicTuple.parse("createTransducerActuator(Tcid,Tclass,Tid,Pclass,Pid)");
                                 t = acc.in(idEnvTC, t, null).getLogicTupleResult();
                                 // Obtaining transducer
-                                final TransducerId tId = new TransducerId(t.getArg(2)
-                                        .getName());
+                                final TransducerId tId = new TransducerId(t.getArg(2).getName());
                                 // Obtaining tuple centre and its properties
                                 final String[] sTcId = t.getArg(0).toString().split(":"); // '@'(name,':'(node,port))
 
-                                final String tcName = sTcId[0].substring(
-                                        sTcId[0].indexOf('(') + 1, sTcId[0].indexOf(','));
-                                final String[] tcNodeAndPort = sTcId[1].substring(
-                                        sTcId[1].indexOf('(') + 1, sTcId[1].indexOf(')'))
+                                final String tcName = sTcId[0].substring(sTcId[0].indexOf('(') + 1, sTcId[0].indexOf(','));
+                                final String[] tcNodeAndPort = sTcId[1].substring(sTcId[1].indexOf('(') + 1, sTcId[1].indexOf(')'))
                                         .split(",");
-                                final TupleCentreIdentifier tcId = new TupleCentreId(tcName,
-                                        tcNodeAndPort[0], tcNodeAndPort[1]);
+                                final TupleCentreIdentifier tcId = new TupleCentreId(tcName, tcNodeAndPort[0], tcNodeAndPort[1]);
                                 speak("Serving 'createTransducer' request < TransducerId="
                                         + tId
                                         + ", associated TC="
                                         + t.getArg(0).toString()
                                         + " >...");
                                 // Obtaining resource
-                                final ProbeIdentifier pId = new ActuatorId(t.getArg(4)
-                                        .getName());
-                                ProbesManager.INSTANCE.createProbe(t.getArg(3).toString(),
-                                        pId);
+                                final ProbeIdentifier pId = new ActuatorId(t.getArg(4).getName());
+                                ProbesManager.INSTANCE.createProbe(t.getArg(3).toString(), pId);
                                 final TransducersManager tm = TransducersManager.INSTANCE;
                                 // Building transducer
                                 tm.createTransducer(t.getArg(1).toString(), tId, tcId, pId);
@@ -179,16 +164,13 @@ public class EnvConfigAgent {
                                 t = LogicTuple.parse("addSensor(Class,Pid,Tid)");
                                 t = acc.in(idEnvTC, t, null).getLogicTupleResult();
                                 // Creating resource
-                                final ProbeIdentifier pId = new SensorId(t.getArg(1)
-                                        .getName());
+                                final ProbeIdentifier pId = new SensorId(t.getArg(1).getName());
                                 final ProbesManager rm = ProbesManager.INSTANCE;
                                 rm.createProbe(t.getArg(0).toString(), pId);
                                 final Probe probe = rm.getProbe(pId);
                                 final TransducersManager tm = TransducersManager.INSTANCE;
-                                final TransducerId tId = Objects.requireNonNull(tm.getTransducer(
-                                        t.getArg(2).getName())).getIdentifier();
-                                speak("Serving 'addSensor' request < ProbeId=" + pId
-                                        + ", associated transducer=" + tId + " >...");
+                                final TransducerId tId = Objects.requireNonNull(tm.getTransducer(t.getArg(2).getName())).getIdentifier();
+                                speak("Serving 'addSensor' request < ProbeId=" + pId + ", associated transducer=" + tId + " >...");
                                 tm.addProbe(Objects.requireNonNull(probe).getIdentifier(), tId, probe);
                                 break;
                             }
@@ -196,27 +178,23 @@ public class EnvConfigAgent {
                                 t = LogicTuple.parse("addActuator(Class,Pid,Tid)");
                                 t = acc.in(idEnvTC, t, null).getLogicTupleResult();
                                 // Creating resource
-                                final ProbeIdentifier pId = new ActuatorId(t.getArg(1)
-                                        .getName());
+                                final ProbeIdentifier pId = new ActuatorId(t.getArg(1).getName());
                                 final ProbesManager rm = ProbesManager.INSTANCE;
                                 rm.createProbe(t.getArg(0).toString(), pId);
                                 final Probe probe = rm.getProbe(pId);
                                 final TransducersManager tm = TransducersManager.INSTANCE;
                                 final TransducerId tId = Objects.requireNonNull(tm.getTransducer(
                                         t.getArg(2).getName())).getIdentifier();
-                                speak("Serving 'addActuator' request < ProbeId=" + pId
-                                        + ", associated transducer=" + tId + " >...");
+                                speak("Serving 'addActuator' request < ProbeId=" + pId + ", associated transducer=" + tId + " >...");
                                 tm.addProbe(Objects.requireNonNull(probe).getIdentifier(), tId, probe);
                                 break;
                             }
                             case EnvConfigAgent.REMOVE_RESOURCE: {
-                                speak("Serving 'removeResource' request < ProbeId="
-                                        + t.getArg(0).getName() + " >...");
+                                speak("Serving 'removeResource' request < ProbeId=" + t.getArg(0).getName() + " >...");
                                 t = LogicTuple.parse("removeResource(Pid)");
                                 t = acc.in(idEnvTC, t, null).getLogicTupleResult();
                                 final ProbesManager rm = ProbesManager.INSTANCE;
-                                final Probe probe = rm.getProbeByName(t.getArg(0)
-                                        .getName());
+                                final Probe probe = rm.getProbeByName(t.getArg(0).getName());
                                 rm.removeProbe(Objects.requireNonNull(probe).getIdentifier());
                                 break;
                             }
@@ -229,8 +207,7 @@ public class EnvConfigAgent {
                                 final TransducersManager tm = TransducersManager.INSTANCE;
                                 final TransducerId tId = Objects.requireNonNull(tm.getTransducer(
                                         t.getArg(1).getName())).getIdentifier();
-                                speak("Serving 'changeTransducer' request < ProbeId="
-                                        + pId + ", new transducer=" + tId + " >...");
+                                speak("Serving 'changeTransducer' request < ProbeId=" + pId + ", new transducer=" + tId + " >...");
                                 rm.setTransducer(pId, tId);
                                 break;
                             }
