@@ -1,0 +1,29 @@
+name: check
+on:
+  push:
+    branches:
+      - '*'
+env:
+  project-name: Cordaas
+  workflow: check
+  gradle-options: "--no-daemon --console=plain --stacktrace"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # all history
+
+      - name: Get All Tags
+        run: git fetch --tags -f
+
+      - name: Setup Gradle
+        run: gradle ${{ env.gradle-options }}
+
+      - name: Compile
+        run: gradle ${{ env.gradle-options }} classes testClasses javadoc --parallel
+
+#      - name: Test
+#        run: gradle ${{ env.gradle-options }} test --parallel
