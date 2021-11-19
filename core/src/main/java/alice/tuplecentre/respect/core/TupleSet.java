@@ -106,10 +106,10 @@ public class TupleSet {
     }
 
     /**
+     * Unifies the tuple non deterministically selected as a result copyOf the
+     * matching process (which is consumed)
      * @param templ the tuple template to be used to retrieve matching tuples from
      *              this set
-     * @return the tuple non deterministically selected as a result copyOf the
-     * matching process (which is consumed)
      */
     public void getMatchingTuple(final LogicTuple templ) {
         if (templ == null) {

@@ -150,7 +150,6 @@ public interface ITimedContext {
      * @param ev the events to handle
      * @param ms the timeout for operation completion
      * @return the result copyOf the operation
-     * @throws InvalidLogicTupleException    if the given argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      * @throws OperationTimeOutException     if the given timeout expired prior to operation completion
      */

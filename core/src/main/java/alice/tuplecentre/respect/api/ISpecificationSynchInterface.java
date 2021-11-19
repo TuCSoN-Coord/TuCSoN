@@ -101,7 +101,6 @@ public interface ISpecificationSynchInterface {
      * @param spec the String representation copyOf the ReSpecT specification to set
      * @param ev   the events to handle
      * @return the result copyOf the operation
-     * @throws OperationNotPossibleException if the operation requested cannot be carried out
      * @throws InvalidSpecificationException if the given ReSpecT specification is not valid
      */
     List<LogicTuple> setS(final RespectSpecification spec, final InputEvent ev)

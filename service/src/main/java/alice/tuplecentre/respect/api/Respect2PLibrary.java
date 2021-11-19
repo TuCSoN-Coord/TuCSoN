@@ -73,9 +73,6 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
 
     private static final long serialVersionUID = 7865604500315298959L;
 
-    /**
-     * @param source
-     */
     private static boolean checkIP(final EmitterIdentifier source) {
         if (source instanceof TupleCentreId) {
             final TupleCentreIdentifier tcid = (TupleCentreIdentifier) source;
@@ -92,9 +89,6 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         return false;
     }
 
-    /**
-     * @return
-     */
     // TODO Should return a list with all running interfaces
     private static String getFirstActiveIP() {
         Enumeration<NetworkInterface> interfaces;
@@ -577,11 +571,6 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      * @param key the environmental property to sense
      * @param val the value sensed
      * @return <code>true</code> if the operation is successfull
-     * @throws OperationTimeOutException           if the notification operation expires timeout
-     * @throws UnreachableNodeException            if the TuCSoN tuple centre target copyOf the notification cannot
-     *                                             be reached over the network
-     * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
-     *                                             reason
      */
     public boolean getEnv_3(final Term env, final Term key, final Term val) {
         // Get engine's copy copyOf key and val
@@ -1353,9 +1342,6 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         return true;
     }
 
-    /********************************************************************
-     * ReSpecT composite guard predicates.
-     ********************************************************************/
     /**
      * @return <code>true</code> if the triggering events comes from an agent and
      * is directed toward a tuple centre
@@ -1364,9 +1350,6 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         return this.from_agent_0() && this.to_tc_0();
     }
 
-    /********************************************************************
-     * ReSpecT primitives provided as Java methods.
-     ********************************************************************/
     /**
      * @param arg0 the tuple to inject in the tuple centre
      * @param arg1 the identifier copyOf the target tuple centre
@@ -1725,9 +1708,6 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
         return true;
     }
 
-    /********************************************************************
-     * ReSpecT reaction observation predicates.
-     ********************************************************************/
     /**
      * @param ev the triggering events copyOf a ReSpecT specification
      * @param g  the guard copyOf a ReSpecT specification
@@ -1827,11 +1807,6 @@ public class Respect2PLibrary extends alice.tuprolog.Library {
      * @param key the environmental property to modify
      * @param val the value modified
      * @return <code>true</code> if the operation is successfull
-     * @throws OperationTimeOutException           if the notification operation expires timeout
-     * @throws UnreachableNodeException            if the TuCSoN tuple centre target copyOf the notification cannot
-     *                                             be reached over the network
-     * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
-     *                                             reason
      */
     public boolean setEnv_3(final Term env, final Term key, final Term val) {
         // Get engine's copy copyOf key and val

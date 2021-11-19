@@ -51,7 +51,6 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * @param tid the target TuCSoN tuplecentre id
      *            {@link TupleCentreIdentifier tid}
      * @param l   the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -79,7 +78,6 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -111,7 +109,6 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -141,7 +138,6 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -173,7 +169,6 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -202,7 +197,6 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * @param reactionBody the computation to be done in response to the
      *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -233,7 +227,6 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -266,7 +259,6 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * @param reactionBody the template for the computation to be done in response to the
      *                     <code>events</code>
      * @param l            the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -292,7 +284,6 @@ public interface SpecificationAsyncACC extends AsyncACC {
      * @param spec the new ReSpecT specification to replace the current
      *             specification space
      * @param l    the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier

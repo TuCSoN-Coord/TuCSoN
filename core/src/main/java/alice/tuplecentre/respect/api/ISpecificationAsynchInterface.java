@@ -17,7 +17,6 @@ public interface ISpecificationAsynchInterface {
     /**
      * @param ev the events to handle
      * @return the operation requested
-     * @throws InvalidLogicTupleException    if the tuple given as argument is not a valid Prolog tuple
      * @throws OperationNotPossibleException if the operation requested cannot be carried out
      */
     RespectOperation getS(InputEvent ev) throws

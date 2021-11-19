@@ -191,7 +191,6 @@ public interface IRespectTC {
      * @param ev the events to handle
      * @return the operation requested
      * @throws OperationNotPossibleException if the requested operation cannot be carried out
-     * @throws InvalidLogicTupleException    if the given argument is not a valid Prolog tuple
      */
     RespectOperation set(InputEvent ev) throws OperationNotPossibleException;
 
@@ -218,7 +217,6 @@ public interface IRespectTC {
      * @param ev   the events to handle
      * @param spec the ReSpecT specification to set
      * @return the operation requested
-     * @throws OperationNotPossibleException if the requested operation cannot be carried out
      * @throws InvalidSpecificationException if the given ReSpecT specification has syntactical errors
      */
     RespectOperation setSsynch(final InputEvent ev,

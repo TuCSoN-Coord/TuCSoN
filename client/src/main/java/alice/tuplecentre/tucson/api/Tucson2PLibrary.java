@@ -45,7 +45,6 @@ import org.slf4j.LoggerFactory;
  * made available to tuProlog agents too.
  *
  * @author ste (mailto: s.mariani@unibo.it)
- * @see alice.tuprolog.Agent Agent
  */
 public class Tucson2PLibrary extends Library {
 
@@ -929,7 +928,6 @@ public class Tucson2PLibrary extends Library {
      *
      * @return <code>true</code> if the operation succeed, <code>false</code>
      * otherwise
-     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      */
     public boolean release_acc_0() {
         this.context.exit();

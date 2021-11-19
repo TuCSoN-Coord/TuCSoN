@@ -50,7 +50,6 @@ public interface UniformAsyncACC extends AsyncACC {
      *              {@link TupleCentreIdentifier tid}
      * @param tuple the tuple to be retrieved from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -78,7 +77,6 @@ public interface UniformAsyncACC extends AsyncACC {
      *              {@link TupleCentreIdentifier tid}
      * @param tuple the tuple to be retrieved from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -109,7 +107,6 @@ public interface UniformAsyncACC extends AsyncACC {
      * @param tuple the tuple to be checked for absence from the target
      *              tuplecentre
      * @param l     the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -138,7 +135,6 @@ public interface UniformAsyncACC extends AsyncACC {
      * @param tuple the tuple to be checked for absence from the target
      *              tuplecentre
      * @param l     the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -168,7 +164,6 @@ public interface UniformAsyncACC extends AsyncACC {
      *              {@link TupleCentreIdentifier tid}
      * @param tuple the tuple to be read from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -196,7 +191,6 @@ public interface UniformAsyncACC extends AsyncACC {
      *              {@link TupleCentreIdentifier tid}
      * @param tuple the tuple to be read from the target tuplecentre
      * @param l     the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier

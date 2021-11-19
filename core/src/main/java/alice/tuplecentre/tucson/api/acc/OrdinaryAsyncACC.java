@@ -49,8 +49,7 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * @param tid the target TuCSoN tuplecentre id
      *            {@link TupleCentreIdentifier tid}
      * @param l   the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
-     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
+ù     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
      * @see alice.tuplecentre.tucson.api.TucsonOperationCompletionListener
@@ -120,7 +119,6 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * @param tuple the tuple to be checked for absence from the target
      *              tuplecentre
      * @param l     the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -143,7 +141,6 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * @param tuple the tuple to be checked for absence from the target
      *              tuplecentre
      * @param l     the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -230,7 +227,6 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      * @param tuple the Prolog list copyOf all the tuples to be injected (overwriting
      *              space)
      * @param l     the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -259,7 +255,6 @@ public interface OrdinaryAsyncACC extends AsyncACC {
      *                <code>exec('list.copyOf.packages.YourClass.class')</code> OR
      *                <code>solve('path/to/Prolog/Theory.pl', yourGoal)</code>
      * @param l       the listener who should be notified upon operation completion
-     * @return the interface to access the data about TuCSoN operations outcome.
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier

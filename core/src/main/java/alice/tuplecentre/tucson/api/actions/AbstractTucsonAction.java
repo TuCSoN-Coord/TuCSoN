@@ -63,7 +63,6 @@ public abstract class AbstractTucsonAction {
      * @param acc      the TuCSoN ACC in charge copyOf action execution
      * @param listener the TuCSoN listener responsible for handling completion
      *                 notifications
-     * @return the TuCSoN operation requested
      * @throws TucsonOperationNotPossibleException if the coordination operation request cannot be carried out
      * @throws UnreachableNodeException            if the target TuCSoN node is not available on the network
      */

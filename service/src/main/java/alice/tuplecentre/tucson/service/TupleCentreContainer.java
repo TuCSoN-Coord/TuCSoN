@@ -191,11 +191,6 @@ public final class TupleCentreContainer {
      * @param t      the tuple argument copyOf the operation
      * @param l      the listener for operation completion
      * @return the Java object representing the tuple centre operation
-     * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
-     *                                             reason
-     * @throws UnreachableNodeException            if the TuCSoN tuple centre target copyOf the notification cannot
-     *                                             be reached over the network
-     * @throws OperationTimeOutException           if the notification operation expires timeout
      */
     public static TupleCentreOperation doEnvironmentalOperation(
             final TupleCentreOpType opType, final TucsonAgentId aid,
@@ -253,11 +248,6 @@ public final class TupleCentreContainer {
      * @param t    the tuple argument copyOf the operation
      * @param l    the listener for operation completion
      * @return the Java object representing the tuple centre operation
-     * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
-     *                                             reason
-     * @throws UnreachableNodeException            if the TuCSoN tuple centre target copyOf the notification cannot
-     *                                             be reached over the network
-     * @throws OperationTimeOutException           if the notification operation expires timeout
      */
     public static TupleCentreOperation doEnvironmentalOperation(
             final TupleCentreOpType type, final TucsonTupleCentreId aid,

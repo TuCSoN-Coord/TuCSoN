@@ -64,7 +64,6 @@ public enum TransducersManager {
      * @param id    new environment resource identifier
      * @param tId   transducer associated
      * @param probe the probe itself
-     * @return wether the resource has been successfully added
      */
     public synchronized void addProbe(final ProbeIdentifier id,
                                       final TransducerId tId, final Probe probe) {
@@ -92,7 +91,6 @@ public enum TransducersManager {
      * @param id        the transducer's identifier
      * @param tcId      the tuple center with which the transducer will interact
      * @param probeId   resource's identifier associated to the transducer
-     * @return wether the transducer has been successfully created
      * @throws ClassNotFoundException    if the given Java full class name cannot be found within
      *                                   known paths
      * @throws NoSuchMethodException     if the Java method name cannot be found
@@ -250,7 +248,6 @@ public enum TransducersManager {
      * Removes a probe from the resource list
      *
      * @param probe the resource's identifier to remove
-     * @return wether the resource has been succesfully removed
      */
     public synchronized void removeProbe(final ProbeIdentifier probe) {
         for (final TransducerId t : this.probesToTransducersMap.keySet()) {

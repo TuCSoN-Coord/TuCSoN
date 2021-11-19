@@ -30,11 +30,8 @@ public interface InterTupleCentreACC {
      * @param tid the identifier copyOf the tuple centre target copyOf the operation
      *            requested
      * @param op  the operation requested
-     * @return the identifier copyOf the operation requested
      * @throws TucsonOperationNotPossibleException if the operation requested cannot be performed
      * @throws UnreachableNodeException            if the target tuple centre cannot be reached over the network
-     * @throws TucsonInvalidTupleCentreIdException if the given Object is not a valid identifier copyOf a tuple
-     *                                             centre
      */
     void doOperation(final Object tid, final AbstractTupleCentreOperation op)
             throws TucsonOperationNotPossibleException,

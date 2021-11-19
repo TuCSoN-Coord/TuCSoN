@@ -41,13 +41,13 @@ public interface BulkAsyncACC extends AsyncACC {
      * one shot (a single transition step). The empty list may be returned in
      * case no tuples match. Matching tuples are removed from the space.
      *
-     * @param tid   the TupleCentreIdentifier copyOf the target tuple centre
-     * @param tuple the tuple template to be used to retrieve tuples
-     * @param l     who to notify upon operation completion
-     * @return the TucsonOperation object storing the outcome copyOf the execution.
      * Notice due to asynchronous semantics, there is no guarantee it
      * will store the result copyOf the operation at anytime but when
      * asynchronously notified.
+     *
+     * @param tid   the TupleCentreIdentifier copyOf the target tuple centre
+     * @param tuple the tuple template to be used to retrieve tuples
+     * @param l     who to notify upon operation completion
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -67,13 +67,13 @@ public interface BulkAsyncACC extends AsyncACC {
      * all the tuples matching the template are returned (with <code> no </code>
      * only one non-deterministically selected is returned).
      *
-     * @param tid   the TupleCentreIdentifier copyOf the target tuple centre
-     * @param tuple the tuple template to be used to check absence
-     * @param l     who to notify upon operation completion
-     * @return the TucsonOperation object storing the outcome copyOf the execution.
      * Notice due to asynchronous semantics, there is no guarantee it
      * will store the result copyOf the operation at anytime but when
      * asynchronously notified.
+     *
+     * @param tid   the TupleCentreIdentifier copyOf the target tuple centre
+     * @param tuple the tuple template to be used to check absence
+     * @param l     who to notify upon operation completion
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -90,13 +90,13 @@ public interface BulkAsyncACC extends AsyncACC {
      * Inject in the space a list copyOf tuples in one shot (a single transition
      * step).
      *
-     * @param tid   the TupleCentreIdentifier copyOf the target tuple centre
-     * @param tuple the list copyOf tuples to inject (must be a Prolog list)
-     * @param l     who to notify upon operation completion
-     * @return the TucsonOperation object storing the outcome copyOf the execution.
      * Notice due to asynchronous semantics, there is no guarantee it
      * will store the result copyOf the operation at anytime but when
      * asynchronously notified.
+     *
+     * @param tid   the TupleCentreIdentifier copyOf the target tuple centre
+     * @param tuple the list copyOf tuples to inject (must be a Prolog list)
+     * @param l     who to notify upon operation completion
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier
@@ -114,13 +114,13 @@ public interface BulkAsyncACC extends AsyncACC {
      * shot (a single transition step). The empty list may be returned in case
      * no tuples match. Matching tuples are NOT removed from the space.
      *
-     * @param tid   the TupleCentreIdentifier copyOf the target tuple centre
-     * @param tuple the tuple template to be used to observe tuples
-     * @param l     who to notify upon operation completion
-     * @return the TucsonOperation object storing the outcome copyOf the execution.
      * Notice due to asynchronous semantics, there is no guarantee it
      * will store the result copyOf the operation at anytime but when
      * asynchronously notified.
+     *
+     * @param tid   the TupleCentreIdentifier copyOf the target tuple centre
+     * @param tuple the tuple template to be used to observe tuples
+     * @param l     who to notify upon operation completion
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      * @throws UnreachableNodeException            if the target tuple centre is not reachable over the network
      * @see TupleCentreIdentifier TupleCentreIdentifier

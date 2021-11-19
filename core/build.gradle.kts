@@ -1,6 +1,5 @@
 dependencies {
-    api(Libs.`2p_core`)
-    api(Libs.`2p_parser`)
-//    api(Libs.`2p_presentation`)
-    implementation(Libs.slf4j_jdk14)
+    api("it.unibo.alice.tuprolog:2p-core:_")
+    api("it.unibo.alice.tuprolog:2p-parser:_")
+    api("org.slf4j:slf4j-api:_")
 }

@@ -6,40 +6,40 @@ tasks.register<JavaExec>("runMaster") {
     group = "example"
     dependsOn("classes")
     classpath = sourceSets.getByName("main").runtimeClasspath
-    main = "masterWorkers.MasterAgent"
+    mainClass.set("masterWorkers.MasterAgent")
 }
 
 tasks.register<JavaExec>("runWorker") {
     group = "example"
     dependsOn("classes")
     classpath = sourceSets.getByName("main").runtimeClasspath
-    main = "masterWorkers.WorkerAgent"
+    mainClass.set("masterWorkers.WorkerAgent")
 }
 
 tasks.register<JavaExec>("runPhilos") {
     group = "example"
     dependsOn("classes")
     classpath = sourceSets.getByName("main").runtimeClasspath
-    main = "diningPhilos.DiningPhilosophersTest"
+    mainClass.set("diningPhilos.DiningPhilosophersTest")
 }
 
 tasks.register<JavaExec>("runTimedPhilos") {
     group = "example"
     dependsOn("classes")
     classpath = sourceSets.getByName("main").runtimeClasspath
-    main = "timedDiningPhilos.TDiningPhilosophersTest"
+    mainClass.set("timedDiningPhilos.TDiningPhilosophersTest")
 }
 
 tasks.register<JavaExec>("runProvider") {
     group = "example"
     dependsOn("classes")
     classpath = sourceSets.getByName("main").runtimeClasspath
-    main = "loadBalancing.ServiceProvider"
+    mainClass.set("loadBalancing.ServiceProvider")
 }
 
 tasks.register<JavaExec>("runRequestor") {
     group = "example"
     dependsOn("classes")
     classpath = sourceSets.getByName("main").runtimeClasspath
-    main = "loadBalancing.ServiceRequestor"
+    mainClass.set("loadBalancing.ServiceRequestor")
 }

@@ -1,28 +1,21 @@
-import com.github.breadmoirai.githubreleaseplugin.GithubReleaseExtension
-import com.github.breadmoirai.githubreleaseplugin.GithubReleaseTask
+plugins {
+    id("com.github.johnrengelman.shadow")
+}
 
 dependencies {
     api(project(":client"))
+    implementation("org.slf4j:slf4j-nop:_")
 }
 
-val mainClass = "alice.tuplecentre.tucson.service.tools.CommandLineInterpreter"
-val githubToken by optionalProperties
+val mainKlass = "alice.tuplecentre.tucson.service.tools.CommandLineInterpreter"
 
 val shadowJar = tasks.getByName<Jar>("shadowJar") {
     manifest {
-        attributes("Main-Class" to mainClass)
+        attributes("Main-Class" to mainKlass)
     }
-}
-
-if (githubToken != null) {
-    rootProject.run {
-        configure<GithubReleaseExtension> {
-            releaseAssets(*(releaseAssets.toList() + shadowJar).toTypedArray())
-        }
-        tasks.withType(GithubReleaseTask::class) {
-            dependsOn(shadowJar)
-        }
-    }
+    archiveBaseName.set("${rootProject.name}-${project.name}")
+    archiveVersion.set(project.version.toString())
+    archiveClassifier.set("redist")
 }
 
 tasks.register<JavaExec>("runCli") {
@@ -31,7 +24,7 @@ tasks.register<JavaExec>("runCli") {
     description = "Starts a new Command Line Interface with defaults"
 
     classpath = sourceSets.getByName("main").runtimeClasspath
-    main = mainClass
+    mainClass.set(mainKlass)
     standardInput = System.`in`
 
     if ("port" in rootProject.properties) {

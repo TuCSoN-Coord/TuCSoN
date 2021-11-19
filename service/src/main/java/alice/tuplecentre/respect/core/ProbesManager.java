@@ -55,7 +55,6 @@ public enum ProbesManager {
      *
      * @param className the concrete implementative class copyOf the resource
      * @param id        the identifier copyOf the resource
-     * @return wether the Resource has been succesfully created.
      * @throws ClassNotFoundException    if the given Java full class name cannot be found within
      *                                   known paths
      * @throws NoSuchMethodException     if the Java method name cannot be found
@@ -124,7 +123,6 @@ public enum ProbesManager {
      * Removes a resource from the list
      *
      * @param id the identifier copyOf the resource to remove
-     * @return wether the resource has been successfully removed
      */
     public synchronized void removeProbe(final ProbeIdentifier id) {
         ProbesManager.speak("Removing probe '" + id.getLocalName() + "'...");

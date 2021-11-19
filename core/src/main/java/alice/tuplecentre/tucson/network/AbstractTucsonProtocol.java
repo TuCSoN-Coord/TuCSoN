@@ -191,7 +191,6 @@ public abstract class AbstractTucsonProtocol implements TucsonProtocol {
 
     /**
      * @return the Java string received
-     * @throws ClassNotFoundException if the received object's class cannot be found
      * @throws IOException            if some network problems arise
      */
     protected abstract String receiveString() throws

@@ -34,8 +34,7 @@ public interface RootACC {
      *
      * @throws UnreachableNodeException            if the TuCSoN node target copyOf this operation is not
      *                                             network-reachable
-     * @throws TucsonOperationNotPossibleException if the requested TuCSoN operation cannot be performed
-     * @throws TucsonInvalidTupleCentreIdException if the target tuple centre Identifier is not a valid TuCSoN tuple
+ù     * @throws TucsonInvalidTupleCentreIdException if the target tuple centre Identifier is not a valid TuCSoN tuple
      *                                             centre Identifier
      */
     void enterACC() throws UnreachableNodeException, // galassi
@@ -54,7 +53,6 @@ public interface RootACC {
      * agent releases and then re-acquires "the same" ACC, it is anyway a brand
      * new agent from TuCSoN perspective.
      *
-     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      */
     void exit();
 

@@ -31,9 +31,6 @@ public interface InspectorContext {
 
     /**
      * waits and processes TuCSoN virtual machine events
-     *
-     * @throws ClassNotFoundException if the Java Object class to be read cannot be found
-     * @throws IOException            if some I/O error occurs
      * @throws DialogException        if the inspected node disconnets unexpectedly
      */
     void acceptVMEvent() throws

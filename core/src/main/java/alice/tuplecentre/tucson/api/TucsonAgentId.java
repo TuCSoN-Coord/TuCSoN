@@ -11,8 +11,7 @@ import alice.tuplecentre.tucson.api.exceptions.TucsonInvalidAgentIdException;
 public interface TucsonAgentId extends AgentIdentifier {
 
     /**
-     * @return wether a UUID has been succesfully assigned to this agent
-     * identifier
+     * Assigns a UUID identifier to this agent
      */
     void assignUUID();
 

@@ -46,7 +46,6 @@ public interface TransducerStandardInterface {
      *                                             reason
      * @throws UnreachableNodeException            if the TuCSoN tuple centre target copyOf the notification cannot
      *                                             be reached over the network
-     * @throws OperationTimeOutException           if the notification operation expires timeout
      */
     void notifyEnvEvent(String key, int value, int mode)
             throws TucsonOperationNotPossibleException,
@@ -55,12 +54,6 @@ public interface TransducerStandardInterface {
     /**
      * @param ev the ReSpecT events to be notified
      * @return wether the events has been succesfully notified
-     * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed for some
-     *                                             reason
-     * @throws UnreachableNodeException            if the TuCSoN tuple centre target copyOf the notification cannot
-     *                                             be reached over the network
-     * @throws OperationTimeOutException           if the notification operation expires timeout
      */
-    boolean notifyOutput(InternalEvent ev)
-    ;
+    boolean notifyOutput(InternalEvent ev);
 }

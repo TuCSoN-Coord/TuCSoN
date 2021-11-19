@@ -85,8 +85,6 @@ public class ACCProvider {
      * @param profile the Object decribing a request for an ACC
      * @param dialog  the network protocol used to dialog with the (possibly) given
      *                ACC
-     * @return wether the request has been accepted (therefore the ACC given) or
-     * not
      * @throws DialogReceiveException              if there is something wrong in the reception stream
      * @throws TucsonInvalidTupleCentreIdException if the TupleCentreIdentifier, contained into AbstractTucsonProtocol's
      *                                             message, does not represent a valid TuCSoN identifier
@@ -206,7 +204,6 @@ public class ACCProvider {
     /**
      * @param ctxId the numeric, progressive identifier copyOf the ACC given
      * @param id    the identifier copyOf the agent requiring shutdown
-     * @return wether shutdown can be carried out or not
      */
     // exception handling is a mess, need to review it...
     public synchronized void shutdownContext(final int ctxId,

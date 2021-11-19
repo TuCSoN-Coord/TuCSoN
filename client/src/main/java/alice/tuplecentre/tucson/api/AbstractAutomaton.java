@@ -88,8 +88,6 @@ public abstract class AbstractAutomaton extends AbstractTucsonAgent<RootACC> {
 
     /**
      * End state.
-     *
-     * @throws TucsonOperationNotPossibleException if the requested operation cannot be carried out
      */
     protected void end() {
         this.getACC().exit();

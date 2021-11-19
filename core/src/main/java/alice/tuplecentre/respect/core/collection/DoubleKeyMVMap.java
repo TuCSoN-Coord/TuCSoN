@@ -748,7 +748,6 @@ public class DoubleKeyMVMap<K, Q, V> {
      * @param k1 the first key
      * @param k2 the second key
      * @param v  the value
-     * @return wether the operation was successfull
      */
     public void put(final K k1, final Q k2, final V v) {
         MVMap<Q, V> innerMap = this.outerMap.get(k1);
@@ -769,7 +768,7 @@ public class DoubleKeyMVMap<K, Q, V> {
      * @param k1 the first key
      * @param k2 the second key
      * @param v  the value
-     * @return <tt>true</tt> if this list contained the specified element
+     * @return <code>true</code> if this list contained the specified element
      */
     public boolean remove(final K k1, final Q k2, final V v) {
         final MVMap<Q, V> innerMap = this.outerMap.get(k1);

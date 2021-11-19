@@ -76,7 +76,6 @@ public class TucsonOpWrapper {
     /**
      * Executes the operation.
      *
-     * @return TucsonOperation the TuCSoN operation executed
      * @throws TucsonOperationNotPossibleException if the requested operation cannot be performed
      * @throws UnreachableNodeException            if the TuCSoN node target copyOf the operation is not
      *                                             network-reachable

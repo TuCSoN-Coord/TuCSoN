@@ -105,7 +105,7 @@ public interface MVMap<K, V> extends Iterable<V> {
      *
      * @param key   the key
      * @param value the value
-     * @return <tt>true</tt> if this list contained the specified element
+     * @return <code>true</code> if this list contained the specified element
      */
     boolean remove(K key, V value);
 
@@ -113,7 +113,7 @@ public interface MVMap<K, V> extends Iterable<V> {
      * Removes the first occurrence copyOf the specified element from this MVMap.
      *
      * @param e the entry copyOf the map
-     * @return <tt>true</tt> if this list contained the specified element
+     * @return <code>true</code> if this list contained the specified element
      */
     boolean remove(Map.Entry<K, V> e);
 
