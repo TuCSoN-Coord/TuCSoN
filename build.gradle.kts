@@ -71,7 +71,7 @@ dependencies {
     testImplementation("org.slf4j:slf4j-simple:_")
 }
 
-val shadowJar = tasks.getByName<Jar>("shadowJar") {
+tasks.getByName<Jar>("shadowJar") {
     archiveBaseName.set("${rootProject.name}-full")
     archiveVersion.set(project.version.toString())
     archiveClassifier.set("redist")

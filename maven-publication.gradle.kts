@@ -44,45 +44,45 @@ project.configure<PublishingExtension> {
         }
     }
 
-    publications.create<MavenPublication>("maven") {
-        groupId = project.group.toString()
-        version = project.version.toString()
+    project.afterEvaluate {
+        publications.create<MavenPublication>("maven") {
+            groupId = project.group.toString()
+            version = project.version.toString()
 
-        tasks.withType<Jar> {
-            artifact(this)
-        }
+            from(project.components.getByName("java"))
 
-        pom {
-            name.set("TuCSoN -- Module `${projectName.capitalize()}`")
-            description.set("Tuple Centres Spread over the Network")
-            url.set(projectHomepage)
-            licenses {
-                license {
-                    name.set(projectLicense)
-                    url.set(projectLicenseUrl)
+            pom {
+                name.set("$projectName -- Module `${project.name.capitalize()}`")
+                description.set("Tuple Centres Spread over the Network")
+                url.set(projectHomepage)
+                licenses {
+                    license {
+                        name.set(projectLicense)
+                        url.set(projectLicenseUrl)
+                    }
                 }
-            }
 
-            developers {
-                developer {
-                    name.set(gcName)
-                    email.set(gcEmail)
-                    url.set(gcUrl)
-                    organization.set("University of Bologna")
-                    organizationUrl.set("https://www.unibo.it/en")
+                developers {
+                    developer {
+                        name.set(gcName)
+                        email.set(gcEmail)
+                        url.set(gcUrl)
+                        organization.set("University of Bologna")
+                        organizationUrl.set("https://www.unibo.it/en")
+                    }
+                    developer {
+                        name.set("Stefano Mariani")
+                        email.set("s.mariani@unimore.it")
+                        url.set("https://personale.unimore.it/rubrica/dettaglio/s.mariani")
+                        organization.set("University of Modena and Reggio-Emilia")
+                        organizationUrl.set("https://www.unimore.it/")
+                    }
                 }
-                developer {
-                    name.set("Stefano Mariani")
-                    email.set("s.mariani@unimore.it")
-                    url.set("https://personale.unimore.it/rubrica/dettaglio/s.mariani")
-                    organization.set("University of Modena and Reggio-Emilia")
-                    organizationUrl.set("https://www.unimore.it/")
-                }
-            }
 
-            scm {
-                connection.set("scm:git:git:///github.com/TuCSoN-Coord/TuCSoN.git")
-                url.set("https://github.com/TuCSoN-Coord/TuCSoN")
+                scm {
+                    connection.set("scm:git:git:///github.com/TuCSoN-Coord/TuCSoN.git")
+                    url.set("https://github.com/TuCSoN-Coord/TuCSoN")
+                }
             }
         }
     }

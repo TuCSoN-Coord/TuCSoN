@@ -9,7 +9,7 @@ dependencies {
 
 val mainKlass = "alice.tuplecentre.tucson.service.tools.CommandLineInterpreter"
 
-val shadowJar = tasks.getByName<Jar>("shadowJar") {
+tasks.getByName<Jar>("shadowJar") {
     manifest {
         attributes("Main-Class" to mainKlass)
     }
